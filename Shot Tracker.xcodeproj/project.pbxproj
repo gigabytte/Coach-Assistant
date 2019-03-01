@@ -1,0 +1,871 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4F5A055A222065F90053679C /* Old_Stats_Game_Details_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5A0559222065F90053679C /* Old_Stats_Game_Details_Page.swift */; };
+		6A41063EAC8E5809883AFEAF /* Pods_Shot_TrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */; };
+		94591E74093479D23B50C5C9 /* Pods_Shot_TrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */; };
+		BE029C022213360200B935A7 /* Settings Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE029C012213360200B935A7 /* Settings Page.swift */; };
+		BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */; };
+		BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B752201576B0018E434 /* Team_Selection_View.swift */; };
+		BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */; };
+		BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */; };
+		BE7A1C632200EF4D00E4D74B /* Shot Marker File.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */; };
+		BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D697721E3D74300C1745C /* AppDelegate.swift */; };
+		BE7D697A21E3D74300C1745C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D697921E3D74300C1745C /* ViewController.swift */; };
+		BE7D697D21E3D74300C1745C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE7D697B21E3D74300C1745C /* Main.storyboard */; };
+		BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE7D697E21E3D74500C1745C /* Assets.xcassets */; };
+		BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */; };
+		BE7D698D21E3D74500C1745C /* Shot_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D698C21E3D74500C1745C /* Shot_TrackerTests.swift */; };
+		BE7D699821E3D74500C1745C /* Shot_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D699721E3D74500C1745C /* Shot_TrackerUITests.swift */; };
+		BE83903D21F64F1900D02C0B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE83903B21F64F1700D02C0B /* RealmSwift.framework */; };
+		BE83903E21F64F1900D02C0B /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE83903B21F64F1700D02C0B /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BE83903F21F64F1900D02C0B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE83903C21F64F1900D02C0B /* Realm.framework */; };
+		BE83904021F64F1900D02C0B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE83903C21F64F1900D02C0B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BE83904321F6515000D02C0B /* Realm.framework in Sources */ = {isa = PBXBuildFile; fileRef = BE83903C21F64F1900D02C0B /* Realm.framework */; };
+		BE83904421F6515000D02C0B /* RealmSwift.framework in Sources */ = {isa = PBXBuildFile; fileRef = BE83903B21F64F1700D02C0B /* RealmSwift.framework */; };
+		BE83904521F6515E00D02C0B /* Realm.framework in Resources */ = {isa = PBXBuildFile; fileRef = BE83903C21F64F1900D02C0B /* Realm.framework */; };
+		BE83904621F6515E00D02C0B /* RealmSwift.framework in Resources */ = {isa = PBXBuildFile; fileRef = BE83903B21F64F1700D02C0B /* RealmSwift.framework */; };
+		BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904721F660DB00D02C0B /* New Game Table.swift */; };
+		BE83904A21F663A600D02C0B /* Team Info Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904921F663A600D02C0B /* Team Info Table.swift */; };
+		BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904B21F663BA00D02C0B /* Player Info Table.swift */; };
+		BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904F21F6715400D02C0B /* Goal Marker Table.swift */; };
+		BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */; };
+		BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */; };
+		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
+		BEA6A85D220790DA00B871F4 /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA6A85B220790DA00B871F4 /* DLRadioButton.m */; };
+		BEB71900220A192B00DA6399 /* Current_Stats_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB718FF220A192B00DA6399 /* Current_Stats_Page.swift */; };
+		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
+		BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */; };
+		CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE7D698921E3D74500C1745C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE7D696C21E3D74300C1745C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE7D697321E3D74300C1745C;
+			remoteInfo = "Shot Tracker";
+		};
+		BE7D699421E3D74500C1745C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE7D696C21E3D74300C1745C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE7D697321E3D74300C1745C;
+			remoteInfo = "Shot Tracker";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BE83904121F64F1900D02C0B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BE83904021F64F1900D02C0B /* Realm.framework in Embed Frameworks */,
+				BE83903E21F64F1900D02C0B /* RealmSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		04CB533F1790B105A354C9FD /* Pods-Shot TrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerTests.release.xcconfig"; path = "Target Support Files/Pods-Shot TrackerTests/Pods-Shot TrackerTests.release.xcconfig"; sourceTree = "<group>"; };
+		1E7E60591E00F4DC7D342863 /* Pods-Shot TrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-Shot TrackerTests/Pods-Shot TrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4F5A0559222065F90053679C /* Old_Stats_Game_Details_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_Game_Details_Page.swift; sourceTree = "<group>"; };
+		6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shot_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C62CACC7EDB869EB39B9819 /* Pods-Shot TrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Shot TrackerUITests/Pods-Shot TrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		786A436AB6DFB0DEE5F53E82 /* Pods-Shot Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot Tracker.release.xcconfig"; path = "Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker.release.xcconfig"; sourceTree = "<group>"; };
+		8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shot_TrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shot_TrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B66ACACA2323B38B3C25CBEE /* Pods-Shot TrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerUITests.release.xcconfig"; path = "Target Support Files/Pods-Shot TrackerUITests/Pods-Shot TrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BE029C012213360200B935A7 /* Settings Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Page.swift"; sourceTree = "<group>"; };
+		BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_Team_Info_Page.swift; sourceTree = "<group>"; };
+		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
+		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
+		BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_Location_View.swift; sourceTree = "<group>"; };
+		BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shot Marker File.swift"; sourceTree = "<group>"; };
+		BE7D697421E3D74300C1745C /* Shot Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shot Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE7D697721E3D74300C1745C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BE7D697921E3D74300C1745C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BE7D697C21E3D74300C1745C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE7D697E21E3D74500C1745C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE7D698121E3D74500C1745C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BE7D698321E3D74500C1745C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE7D698821E3D74500C1745C /* Shot TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Shot TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE7D698C21E3D74500C1745C /* Shot_TrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_TrackerTests.swift; sourceTree = "<group>"; };
+		BE7D698E21E3D74500C1745C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE7D699321E3D74500C1745C /* Shot TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Shot TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE7D699721E3D74500C1745C /* Shot_TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_TrackerUITests.swift; sourceTree = "<group>"; };
+		BE7D699921E3D74500C1745C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE83903B21F64F1700D02C0B /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		BE83903C21F64F1900D02C0B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		BE83904721F660DB00D02C0B /* New Game Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Table.swift"; sourceTree = "<group>"; };
+		BE83904921F663A600D02C0B /* Team Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Team Info Table.swift"; sourceTree = "<group>"; };
+		BE83904B21F663BA00D02C0B /* Player Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player Info Table.swift"; sourceTree = "<group>"; };
+		BE83904F21F6715400D02C0B /* Goal Marker Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal Marker Table.swift"; sourceTree = "<group>"; };
+		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
+		BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Team_Page.swift; sourceTree = "<group>"; };
+		BEA08C962215F05200B6D73B /* Add_Player_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Player_Page.swift; sourceTree = "<group>"; };
+		BEA6A85A220790D900B871F4 /* Shot Tracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shot Tracker-Bridging-Header.h"; sourceTree = "<group>"; };
+		BEA6A85B220790DA00B871F4 /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
+		BEA6A85C220790DA00B871F4 /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
+		BEB718FF220A192B00DA6399 /* Current_Stats_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Current_Stats_Page.swift; sourceTree = "<group>"; };
+		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
+		BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker_Info_Page.swift; sourceTree = "<group>"; };
+		C8567FABF079141DA35EAF50 /* Pods-Shot Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE7D697121E3D74300C1745C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE83903F21F64F1900D02C0B /* Realm.framework in Frameworks */,
+				BE83903D21F64F1900D02C0B /* RealmSwift.framework in Frameworks */,
+				CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE7D698521E3D74500C1745C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A41063EAC8E5809883AFEAF /* Pods_Shot_TrackerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE7D699021E3D74500C1745C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94591E74093479D23B50C5C9 /* Pods_Shot_TrackerUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22858B79987914034CE1A581 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C8567FABF079141DA35EAF50 /* Pods-Shot Tracker.debug.xcconfig */,
+				786A436AB6DFB0DEE5F53E82 /* Pods-Shot Tracker.release.xcconfig */,
+				1E7E60591E00F4DC7D342863 /* Pods-Shot TrackerTests.debug.xcconfig */,
+				04CB533F1790B105A354C9FD /* Pods-Shot TrackerTests.release.xcconfig */,
+				6C62CACC7EDB869EB39B9819 /* Pods-Shot TrackerUITests.debug.xcconfig */,
+				B66ACACA2323B38B3C25CBEE /* Pods-Shot TrackerUITests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		38E61347044FA77C74753438 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */,
+				8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */,
+				90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE7D696B21E3D74300C1745C = {
+			isa = PBXGroup;
+			children = (
+				BE83903C21F64F1900D02C0B /* Realm.framework */,
+				BE83903B21F64F1700D02C0B /* RealmSwift.framework */,
+				BE7D697621E3D74300C1745C /* Shot Tracker */,
+				BE7D698B21E3D74500C1745C /* Shot TrackerTests */,
+				BE7D699621E3D74500C1745C /* Shot TrackerUITests */,
+				BE7D697521E3D74300C1745C /* Products */,
+				22858B79987914034CE1A581 /* Pods */,
+				38E61347044FA77C74753438 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BE7D697521E3D74300C1745C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE7D697421E3D74300C1745C /* Shot Tracker.app */,
+				BE7D698821E3D74500C1745C /* Shot TrackerTests.xctest */,
+				BE7D699321E3D74500C1745C /* Shot TrackerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE7D697621E3D74300C1745C /* Shot Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				BE7D697721E3D74300C1745C /* AppDelegate.swift */,
+				BE7D697921E3D74300C1745C /* ViewController.swift */,
+				BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */,
+				BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */,
+				BEB718FF220A192B00DA6399 /* Current_Stats_Page.swift */,
+				BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */,
+				BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */,
+				BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */,
+				BE0C7B752201576B0018E434 /* Team_Selection_View.swift */,
+				BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */,
+				4F5A0559222065F90053679C /* Old_Stats_Game_Details_Page.swift */,
+				BE029C012213360200B935A7 /* Settings Page.swift */,
+				BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */,
+				BEA08C962215F05200B6D73B /* Add_Player_Page.swift */,
+				BE7D697B21E3D74300C1745C /* Main.storyboard */,
+				BE7D697E21E3D74500C1745C /* Assets.xcassets */,
+				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
+				BE7D698321E3D74500C1745C /* Info.plist */,
+				BE83904721F660DB00D02C0B /* New Game Table.swift */,
+				BE83904921F663A600D02C0B /* Team Info Table.swift */,
+				BE83904B21F663BA00D02C0B /* Player Info Table.swift */,
+				BE83904F21F6715400D02C0B /* Goal Marker Table.swift */,
+				BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */,
+				BEA6A85C220790DA00B871F4 /* DLRadioButton.h */,
+				BEA6A85B220790DA00B871F4 /* DLRadioButton.m */,
+				BEA6A85A220790D900B871F4 /* Shot Tracker-Bridging-Header.h */,
+			);
+			path = "Shot Tracker";
+			sourceTree = "<group>";
+		};
+		BE7D698B21E3D74500C1745C /* Shot TrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				BE7D698C21E3D74500C1745C /* Shot_TrackerTests.swift */,
+				BE7D698E21E3D74500C1745C /* Info.plist */,
+			);
+			path = "Shot TrackerTests";
+			sourceTree = "<group>";
+		};
+		BE7D699621E3D74500C1745C /* Shot TrackerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BE7D699721E3D74500C1745C /* Shot_TrackerUITests.swift */,
+				BE7D699921E3D74500C1745C /* Info.plist */,
+			);
+			path = "Shot TrackerUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE7D697321E3D74300C1745C /* Shot Tracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE7D699C21E3D74500C1745C /* Build configuration list for PBXNativeTarget "Shot Tracker" */;
+			buildPhases = (
+				6EB4013C638AE9C31A99B4D0 /* [CP] Check Pods Manifest.lock */,
+				BE7D697021E3D74300C1745C /* Sources */,
+				BE7D697121E3D74300C1745C /* Frameworks */,
+				BE7D697221E3D74300C1745C /* Resources */,
+				BE83904121F64F1900D02C0B /* Embed Frameworks */,
+				BE83904221F650E900D02C0B /* ShellScript */,
+				66FFDB66CC3F3CED93501689 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Shot Tracker";
+			productName = "Shot Tracker";
+			productReference = BE7D697421E3D74300C1745C /* Shot Tracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BE7D698721E3D74500C1745C /* Shot TrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE7D699F21E3D74500C1745C /* Build configuration list for PBXNativeTarget "Shot TrackerTests" */;
+			buildPhases = (
+				CCBC1C8C57F3465F9FDC3609 /* [CP] Check Pods Manifest.lock */,
+				BE7D698421E3D74500C1745C /* Sources */,
+				BE7D698521E3D74500C1745C /* Frameworks */,
+				BE7D698621E3D74500C1745C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE7D698A21E3D74500C1745C /* PBXTargetDependency */,
+			);
+			name = "Shot TrackerTests";
+			productName = "Shot TrackerTests";
+			productReference = BE7D698821E3D74500C1745C /* Shot TrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BE7D699221E3D74500C1745C /* Shot TrackerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE7D69A221E3D74500C1745C /* Build configuration list for PBXNativeTarget "Shot TrackerUITests" */;
+			buildPhases = (
+				C75B5C241B38AE9D7BEA3F09 /* [CP] Check Pods Manifest.lock */,
+				BE7D698F21E3D74500C1745C /* Sources */,
+				BE7D699021E3D74500C1745C /* Frameworks */,
+				BE7D699121E3D74500C1745C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE7D699521E3D74500C1745C /* PBXTargetDependency */,
+			);
+			name = "Shot TrackerUITests";
+			productName = "Shot TrackerUITests";
+			productReference = BE7D699321E3D74500C1745C /* Shot TrackerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE7D696C21E3D74300C1745C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Greg Brooks";
+				TargetAttributes = {
+					BE7D697321E3D74300C1745C = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+					};
+					BE7D698721E3D74500C1745C = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = BE7D697321E3D74300C1745C;
+					};
+					BE7D699221E3D74500C1745C = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = BE7D697321E3D74300C1745C;
+					};
+				};
+			};
+			buildConfigurationList = BE7D696F21E3D74300C1745C /* Build configuration list for PBXProject "Shot Tracker" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE7D696B21E3D74300C1745C;
+			productRefGroup = BE7D697521E3D74300C1745C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE7D697321E3D74300C1745C /* Shot Tracker */,
+				BE7D698721E3D74500C1745C /* Shot TrackerTests */,
+				BE7D699221E3D74500C1745C /* Shot TrackerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE7D697221E3D74300C1745C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE83904521F6515E00D02C0B /* Realm.framework in Resources */,
+				BE83904621F6515E00D02C0B /* RealmSwift.framework in Resources */,
+				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
+				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
+				BE7D697D21E3D74300C1745C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE7D698621E3D74500C1745C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE7D699121E3D74500C1745C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		66FFDB66CC3F3CED93501689 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6EB4013C638AE9C31A99B4D0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Shot Tracker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE83904221F650E900D02C0B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
+		};
+		C75B5C241B38AE9D7BEA3F09 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Shot TrackerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCBC1C8C57F3465F9FDC3609 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Shot TrackerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE7D697021E3D74300C1745C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEB71900220A192B00DA6399 /* Current_Stats_Page.swift in Sources */,
+				BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */,
+				BE83904321F6515000D02C0B /* Realm.framework in Sources */,
+				BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */,
+				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
+				BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */,
+				BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */,
+				BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */,
+				BE029C022213360200B935A7 /* Settings Page.swift in Sources */,
+				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
+				BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */,
+				BE83904421F6515000D02C0B /* RealmSwift.framework in Sources */,
+				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
+				BE83904A21F663A600D02C0B /* Team Info Table.swift in Sources */,
+				BE7D697A21E3D74300C1745C /* ViewController.swift in Sources */,
+				BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */,
+				BE7A1C632200EF4D00E4D74B /* Shot Marker File.swift in Sources */,
+				4F5A055A222065F90053679C /* Old_Stats_Game_Details_Page.swift in Sources */,
+				BEA6A85D220790DA00B871F4 /* DLRadioButton.m in Sources */,
+				BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */,
+				BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */,
+				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE7D698421E3D74500C1745C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE7D698D21E3D74500C1745C /* Shot_TrackerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE7D698F21E3D74500C1745C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE7D699821E3D74500C1745C /* Shot_TrackerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE7D698A21E3D74500C1745C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE7D697321E3D74300C1745C /* Shot Tracker */;
+			targetProxy = BE7D698921E3D74500C1745C /* PBXContainerItemProxy */;
+		};
+		BE7D699521E3D74500C1745C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE7D697321E3D74300C1745C /* Shot Tracker */;
+			targetProxy = BE7D699421E3D74500C1745C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BE7D697B21E3D74300C1745C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE7D697C21E3D74300C1745C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE7D698121E3D74500C1745C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BE7D699A21E3D74500C1745C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BE7D699B21E3D74500C1745C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BE7D699D21E3D74500C1745C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8567FABF079141DA35EAF50 /* Pods-Shot Tracker.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GWWKFDZU72;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "Shot Tracker/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Shot-Marker";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Shot Tracker/Shot Tracker-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		BE7D699E21E3D74500C1745C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 786A436AB6DFB0DEE5F53E82 /* Pods-Shot Tracker.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GWWKFDZU72;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "Shot Tracker/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Shot-Marker";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Shot Tracker/Shot Tracker-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		BE7D69A021E3D74500C1745C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E7E60591E00F4DC7D342863 /* Pods-Shot TrackerTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Shot TrackerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "greg.Shot-TrackerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shot Tracker.app/Shot Tracker";
+			};
+			name = Debug;
+		};
+		BE7D69A121E3D74500C1745C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04CB533F1790B105A354C9FD /* Pods-Shot TrackerTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Shot TrackerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "greg.Shot-TrackerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shot Tracker.app/Shot Tracker";
+			};
+			name = Release;
+		};
+		BE7D69A321E3D74500C1745C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C62CACC7EDB869EB39B9819 /* Pods-Shot TrackerUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Shot TrackerUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "greg.Shot-TrackerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Shot Tracker";
+			};
+			name = Debug;
+		};
+		BE7D69A421E3D74500C1745C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B66ACACA2323B38B3C25CBEE /* Pods-Shot TrackerUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Shot TrackerUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "greg.Shot-TrackerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Shot Tracker";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE7D696F21E3D74300C1745C /* Build configuration list for PBXProject "Shot Tracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE7D699A21E3D74500C1745C /* Debug */,
+				BE7D699B21E3D74500C1745C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE7D699C21E3D74500C1745C /* Build configuration list for PBXNativeTarget "Shot Tracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE7D699D21E3D74500C1745C /* Debug */,
+				BE7D699E21E3D74500C1745C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE7D699F21E3D74500C1745C /* Build configuration list for PBXNativeTarget "Shot TrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE7D69A021E3D74500C1745C /* Debug */,
+				BE7D69A121E3D74500C1745C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE7D69A221E3D74500C1745C /* Build configuration list for PBXNativeTarget "Shot TrackerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE7D69A321E3D74500C1745C /* Debug */,
+				BE7D69A421E3D74500C1745C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BE7D696C21E3D74300C1745C /* Project object */;
+}
