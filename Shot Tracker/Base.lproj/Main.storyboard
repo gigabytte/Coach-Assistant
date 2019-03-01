@@ -419,7 +419,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="gear"/>
                                 <connections>
-                                    <segue destination="HGz-Vb-orN" kind="presentation" identifier="settingButtonSegue" id="tZu-hi-Zhn"/>
+                                    <segue destination="HGz-Vb-orN" kind="presentation" id="oNI-jA-1s2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQZ-W1-2q7">
@@ -644,7 +644,7 @@
                                     <navigationItem title="Settings" id="dX8-ci-r9u">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="jEL-ky-5p7">
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="backSettingSegue" id="LT8-ez-7Q9"/>
+                                                <segue destination="BYZ-38-t0r" kind="presentation" id="Ve8-tz-6Eb"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1654,6 +1654,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Fur-48-r3q"/>
         <segue reference="AYF-Xl-O9F"/>
-        <segue reference="2uF-ll-qm3"/>
+        <segue reference="Ve8-tz-6Eb"/>
     </inferredMetricsTieBreakers>
 </document>

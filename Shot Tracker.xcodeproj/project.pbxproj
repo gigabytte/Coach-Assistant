@@ -164,7 +164,6 @@
 				6C62CACC7EDB869EB39B9819 /* Pods-Shot TrackerUITests.debug.xcconfig */,
 				B66ACACA2323B38B3C25CBEE /* Pods-Shot TrackerUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -212,11 +211,11 @@
 				BEB718FF220A192B00DA6399 /* Current_Stats_Page.swift */,
 				BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */,
 				BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */,
+				BE029C012213360200B935A7 /* Settings Page.swift */,
 				BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */,
 				BE0C7B752201576B0018E434 /* Team_Selection_View.swift */,
 				BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */,
 				4F5A0559222065F90053679C /* Old_Stats_Game_Details_Page.swift */,
-				BE029C012213360200B935A7 /* Settings Page.swift */,
 				BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */,
 				BEA08C962215F05200B6D73B /* Add_Player_Page.swift */,
 				BE7D697B21E3D74300C1745C /* Main.storyboard */,

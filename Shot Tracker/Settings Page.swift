@@ -36,11 +36,15 @@ class Settings_Page: UIViewController {
     }
     // on button press perform CVS export functions
     @IBAction func exportCVSButtonAction(_ sender: UIButton) {
-        
+        if (isICloudContainerAvailable() == true){
         //teamInfoTableRealmProcessing()
         //createCSVTeamInfo()
         //shotMarkerRealmProcessing(cordSetIDArray: [String], tempGameIDArray: [String])
+        confirmationAlert()
         createCSVShotMarkerTable()
+        }else{
+            missingIcloudLogin()
+        }
         
     }
     // on button press perform CVS import functions
@@ -239,6 +243,37 @@ class Settings_Page: UIViewController {
     func creatCVS(){
         
         
+        
+    }
+    
+    func isICloudContainerAvailable()->Bool {
+        if let currentToken = FileManager.default.ubiquityIdentityToken {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func confirmationAlert(){
+        
+        // create the alert
+        let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+        exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(exportAlert, animated: true, completion: nil)
+        
+    }
+    func missingIcloudLogin(){
+        
+        // create the alert
+        let noIcloud = UIAlertController(title: "iCloud Account Error", message: "Please make sure you are logged into iCloud account before exporting or importing data", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        noIcloud.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(noIcloud, animated: true, completion: nil)
         
     }
 }
