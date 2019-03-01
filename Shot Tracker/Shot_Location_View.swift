@@ -310,7 +310,7 @@ class Shot_Location_View: UIViewController {
             realm.create(shotMarkerTable.self, value: ["cordSetID": shot_primaryID!, "gameID": currentGameID!]);
             let shotMarkerTableID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey: shot_primaryID!);
             // opposing team id
-            let teamIDProcessed = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", tempgoalieSelectedID!)).value(forKeyPath: "TeamID") as! [String]).compactMap({Int($0)})
+            let teamIDProcessed = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", tempGoalieSelectedID!)).value(forKeyPath: "TeamID") as! [String]).compactMap({Int($0)})
             // shooting team id processing
             if (teamIDProcessed[0] == homeTeamID){
                 let scoringTeamID = (realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i AND gameID == %i", teamIDProcessed[0], currentGameID!)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})
@@ -342,13 +342,13 @@ class Shot_Location_View: UIViewController {
             // if goal run below code
             if(shotLocationValueSelected != nil && hockeyNetImageView.image != hockeyNetAwayTeam){
                  let goalieIDFIlter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i AND activeState == true", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                tempgoalieSelectedID = goalieIDFIlter[0]
+                tempGoalieSelectedID = goalieIDFIlter[0]
                 animateOut()
                 currentArrayIndex = 0
                 self.performSegue(withIdentifier: "markerInfoSegue", sender: nil);
             }else if(shotLocationValueSelected == nil && hockeyNetImageView.image == hockeyNetAwayTeam){
                     let goalieIDFIlter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i AND activeState == true", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                    tempgoalieSelectedID = goalieIDFIlter[0]
+                tempGoalieSelectedID = goalieIDFIlter[0]
                     shotLocationValueSelected = 0
                     animateOut()
                     currentArrayIndex = 0
@@ -364,7 +364,7 @@ class Shot_Location_View: UIViewController {
             if(shotLocationValueSelected != nil && hockeyNetImageView.image != hockeyNetAwayTeam){
 
                 let goalieIDFIlter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i AND activeState == true", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                tempgoalieSelectedID = goalieIDFIlter[0]
+                tempGoalieSelectedID = goalieIDFIlter[0]
 
                 realmStatsAddShot()
                 animateOut()
@@ -372,7 +372,7 @@ class Shot_Location_View: UIViewController {
             }else if(shotLocationValueSelected == nil && hockeyNetImageView.image == hockeyNetAwayTeam){
 
                 let goalieIDFIlter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i AND activeState == true", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                tempgoalieSelectedID = goalieIDFIlter[0]
+                tempGoalieSelectedID = goalieIDFIlter[0]
 
                 shotLocationValueSelected = 0
                 realmStatsAddShot()
@@ -430,12 +430,11 @@ class Shot_Location_View: UIViewController {
             shotLocationVC.yCords = tempYCords
             shotLocationVC.markerType = tempMarkerType
 
-            shotLocationVC.goalieSelectedID = tempgoalieSelectedID
+            shotLocationVC.goalieSelectedID = tempGoalieSelectedID
             shotLocationVC.homeTeam = homeTeamID
             shotLocationVC.awayTeam = awayTeamID
             shotLocationVC.periodNumSelected = periodNumSelected
-            print("Passed Goalie ID", tempgoalieSelectedID)
-r
+            print("Passed Goalie ID", tempGoalieSelectedID)
             
         }
         if (segue.identifier == "cancelShotLocationSegue"){

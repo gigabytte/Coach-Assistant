@@ -75,10 +75,11 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        powerPlayToggleSwitch.isOn = false
         // call team data from realm
         teamSelectedProcessing()
         navBarProcessing()
+        lowDataWarning()
         // process goal type info on VC load
         goalTypeProcessing()
         //call main player data from realm
@@ -106,39 +107,57 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         // set auto rotation to false
         appDelegate.shouldRotate = true
-
+        
     }
     
-    func navBarProcessing(){
+    func navBarProcessing() -> String {
         if (periodNumSelected != nil && homeTeam != nil && awayTeam != nil){
             let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
             let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
             if (scoringPassedTeamID[0] == homeTeam){
                 navBar.topItem!.title = home_teamNameFilter! + " Goal"
+                return (home_teamNameFilter!)
             }else if (scoringPassedTeamID[0] == awayTeam){
                 navBar.topItem!.title = away_teamNameFilter! + " Goal"
+                return (away_teamNameFilter!)
             }
         }else{
             print("Error Unable to Gather Team Name, Nav Bar Has Defualted")
+            
+        }
+        return("Default Team")
+    }
+    
+    func lowDataWarning(){
+        delay(0.5){
+            if (self.mainPlayerPickerData.count <= 1){
+                let onePlayerAlert = UIAlertController(title: "Small Data Set Warning", message: "For Maximum Analytical Support we recommend Adding more than one Player to " + self.navBarProcessing(), preferredStyle: UIAlertController.Style.alert)
+                // add Ok action (button)
+                onePlayerAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
+                self.present(onePlayerAlert, animated: true, completion: nil)
+            }
         }
     }
     
     func teamSelectedProcessing() -> ([String]){
+       
         print("Goalie Selected ID: ", goalieSelectedID)
         // Get teams based on user slection form shot location view generating a goal
         scoringPassedTeamID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", goalieSelectedID!)).value(forKeyPath: "TeamID") as! [String]).compactMap({Int($0)})
         print(scoringPassedTeamID)
         if (scoringPassedTeamID[0] == homeTeam){
-            let teamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", goalieSelectedID)).value(forKeyPath: "nameofTeam") as! [String]).compactMap({String($0)})
+            let teamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", goalieSelectedID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
             scoringPassedTeamID[0] = awayTeam!
             opposingTeamID = homeTeam!
             return(teamName)
         }else{
-            let teamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", goalieSelectedID)).value(forKeyPath: "nameofTeam") as! [String]).compactMap({String($0)})
+            let teamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", goalieSelectedID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
             scoringPassedTeamID[0] = homeTeam!
             opposingTeamID = awayTeam!
             return(teamName)
         }
+       
+        
     }
     
     func goalTypeProcessing(){
@@ -215,14 +234,15 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     func savingErrorChecking(){
-        
-        if(selectedMainPlayer == selectedAssitantPlayerOne || selectedMainPlayer == selectedAssitantPlayerTwo){
-            let doubleEntry = UIAlertController(title: "Double Selection", message: "Please make sure you Goal scorer and your two Assitants are 3 diffrent players.", preferredStyle: UIAlertController.Style.alert)
-            // add Ok action (button)
-            doubleEntry.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
-            self.present(doubleEntry, animated: true, completion: nil)
+        if(mainPlayerPickerData.count <= 1){
+            print("All Selections Passed the Test and are safe to be saved")
         }else{
-            print("All Selections Passed the Test")
+            if(selectedMainPlayer == selectedAssitantPlayerOne || selectedMainPlayer == selectedAssitantPlayerTwo ){
+                let doubleEntry = UIAlertController(title: "Double Selection", message: "Please make sure you Goal scorer and your two Assitants are 3 diffrent players.", preferredStyle: UIAlertController.Style.alert)
+                // add Ok action (button)
+                doubleEntry.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
+                self.present(doubleEntry, animated: true, completion: nil)
+            }
         }
         
     }
@@ -384,7 +404,11 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
 //______________________________________________________________________________________________________________
 
-    
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
     // func used to pass varables on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
