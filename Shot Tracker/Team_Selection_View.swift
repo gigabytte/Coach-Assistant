@@ -157,7 +157,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     func gameTypeGesture() {
         
-        gameTypeStringArray = ["Regular Season", "Playoff", "Exhibition", "Tournament", "Pratice"]
+        gameTypeStringArray = ["Regular Season", "Playoff", "Exhibition", "Tournament", "Practice"]
         selectedGameType = gameTypeStringArray[0]
         gameTypeLabel.text = "Game Type: " + gameTypeStringArray[0]
         self.leftScrollArrowImage.image = leftArrowImage

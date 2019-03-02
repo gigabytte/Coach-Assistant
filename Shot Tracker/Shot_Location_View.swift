@@ -235,6 +235,8 @@ class Shot_Location_View: UIViewController {
             self.goalieNumberLabel.text = "Away"
             self.goalieNumberLabel.setNeedsDisplay()
             self.hockeyNetImageView.setNeedsDisplay()
+            // reset shot location
+            shotLocationValueSelected = nil
 
         }
         if (self.goalieNumberArray[self.currentArrayIndex] == self.goalieNumberArray.last){
