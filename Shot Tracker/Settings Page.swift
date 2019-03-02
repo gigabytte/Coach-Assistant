@@ -360,6 +360,35 @@ class Settings_Page: UIViewController {
             }
         }
     }
+    
+    func oldCSVFileFinder(){
+        let fileManager = FileManager.default
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+        let documentsPath = documentsUrl.path
+        
+        do {
+            if let documentPath = documentsPath
+            {
+                let fileNames = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
+                print("all files in cache: \(fileNames)")
+                for fileName in fileNames {
+                    
+                    if (fileName.hasSuffix(".csv"))
+                    {
+                        let filePathName = "\(documentPath)/\(fileName)"
+                        try fileManager.removeItem(atPath: filePathName)
+                    }
+                }
+                
+                let files = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
+                print("all files in cache after deleting images: \(files)")
+            }
+            
+        } catch {
+            print("Could not clear temp folder: \(error)")
+        }
+    }
+    
     // check if user is logged into iclpoud account
     func isICloudContainerAvailable()->Bool {
         if let currentToken = FileManager.default.ubiquityIdentityToken {
@@ -389,6 +418,7 @@ class Settings_Page: UIViewController {
         // add an action (button)
         exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
         exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: {action in
+            self.oldCSVFileFinder()
             self.createCSVTeamInfo()
             self.createCSVPlayerInfo()
             self.createCSVNewGameInfo()
@@ -406,6 +436,7 @@ class Settings_Page: UIViewController {
             // add an action (button)
             exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
             exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
+                self.oldCSVFileFinder()
                 self.createCSVTeamInfo()
                 self.createCSVPlayerInfo()
                 self.createCSVNewGameInfo()
