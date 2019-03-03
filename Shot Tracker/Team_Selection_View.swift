@@ -12,6 +12,8 @@ import Realm
 
 class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
+    let realm = try! Realm()
+    
     // decalre vars for primary key handling in terms of realm
     var primaryNewGameKey: Int = 0;
     var primaryGoalMarkerKey: Int = 0;
@@ -49,7 +51,6 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let realm = try! Realm()
         // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
         // get rotation allowances of device
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -298,9 +299,8 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func continueTeamSelection(){
         
-        let realm = try! Realm()
         try! realm.write() {
-            var primaryNewGameKey = realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "activeState": true]);
+            var primaryNewGameKey = realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "activeGameStatus": true, "activeState": true]);
         }
         self.performSegue(withIdentifier: "continueTeamSelectionSegue", sender: nil);
     }
