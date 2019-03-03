@@ -321,16 +321,42 @@ class New_Game_Page: UIViewController {
     }
     // action when clicking done button
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
+        // Create you actionsheet - preferredStyle: .actionSheet
+        let actionSheet = UIAlertController(title: "New Game Save State", message: "Please Select a State New Game Should be Saved to.", preferredStyle: .actionSheet)
         
-        // create the alert
-        let doneButtonAlert = UIAlertController(title: "Back to Dashboard", message: "Would you like to save this as a new game?", preferredStyle: UIAlertController.Style.alert)
-        // add Cancel action (button)
-        doneButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-        // add Save action (button)
-        // redirect to dashboard on button click
-        doneButtonAlert.addAction(UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {action in self.performSegue(withIdentifier: "newGameSegue", sender: nil);}))
-        // show the alert
-        self.present(doneButtonAlert, animated: true, completion: nil)
+        // Create your actions - take a look at different style attributes
+        //saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        let keepActiveAction = UIAlertAction(title: "Keep Active", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            // observe it in the buttons block, what button has been pressed
+            print("didPress Keep Active")
+            self.performSegue(withIdentifier: "newGameSegue", sender: nil)
+            try! self.realm.write{
+                self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus = true
+            }
+        })
+        
+        let saveAction = UIAlertAction(title: "Save", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "newGameSegue", sender: nil)
+            print("didPress Save")
+            try! self.realm.write{
+                self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus = false
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+            print("didPress Cancel")
+        })
+        // Add the actions to your actionSheet
+        actionSheet.addAction(keepActiveAction)
+        actionSheet.addAction(saveAction)
+        actionSheet.addAction(cancelAction)
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.barButtonItem = sender
+        }
+        
+        // Present the controller
+        self.present(actionSheet, animated: true, completion: nil)
+    
     }
     
 

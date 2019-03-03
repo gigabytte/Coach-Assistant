@@ -10,7 +10,11 @@ import RealmSwift
 import Realm
 
 class ViewController: UIViewController {
-
+    
+    let realm = try! Realm()
+    var activeStatus: Bool!
+    @IBOutlet weak var newGameButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +24,9 @@ class ViewController: UIViewController {
         // set auto rotation to true for current view
         appDelegate.shouldRotate = true
         
+        delay(0.5){
+            self.onGoingGame()
+        }
         
         /*----------------------------------------------------------------
          uncomment code block if chnages to DB tables are made,
@@ -27,15 +34,29 @@ class ViewController: UIViewController {
         //let defaultPath = Realm.Configuration.defaultConfiguration.fileURL?.path
         //try! FileManager.default.removeItem(atPath: defaultPath!)
         /*________________________________________________________________*/
-        let realm = try! Realm()
+        
         // get Realm Databse file location
         print(Realm.Configuration.defaultConfiguration.fileURL)
 
     }
     
-    @IBAction func newGameButton(_ sender: UIButton) {
+    func onGoingGame(){
+        if((realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).first != nil){
+        // get lastest new game active status
+            activeStatus = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus)!
         
-        let realm = try! Realm()
+            if (activeStatus == true){
+                newGameButton.setTitle("Ongoing Game", for: .normal)
+            }
+        }else{
+            print("No New Game Data Yet")
+            
+        }
+    }
+    
+    @IBAction func newGameButton(_ sender: UIButton) {
+    
+        
         // get first an last team entered in DB
         let teamOne = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
         let teamTwo = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
@@ -47,12 +68,17 @@ class ViewController: UIViewController {
         print(playerTwo)
         // check if team one returns nil and that team one isnt team two
         // check for only one team entered and or no team entered
-        if(teamOne.first != nil && playerOne.first != nil && teamOne.first != teamTwo.last && playerOne.first != playerTwo.last){
-            self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
-            
+        if (activeStatus != true){
+            if(teamOne.first != nil && playerOne.first != nil && teamOne.first != teamTwo.last && playerOne.first != playerTwo.last){
+                self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
+                
+            }else{
+                // if teams or players are not avaiable top be pulled alert error appears
+                dataReturnNilAlert()
+            }
         }else{
-            // if teams or players are not avaiable top be pulled alert error appears
-            dataReturnNilAlert()
+            self.performSegue(withIdentifier: "skipTeamSelectionSegue", sender: nil);
+            
         }
     }
     // if teams or players are not avaiable top be pulled alert error appears
@@ -65,5 +91,23 @@ class ViewController: UIViewController {
         // show the alert
         self.present(nilAlert, animated: true, completion: nil)
         
+    }
+    // func used to pass varables on segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check is appropriate segue is being used
+        if (segue.identifier == "skipTeamSelectionSegue"){
+            // set var vc as destination segue
+            let vc = segue.destination as! New_Game_Page
+            vc.newGameStarted = true
+            vc.homeTeam =  self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID
+            vc.awayTeam =  self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID
+            
+        }
+    }
+    
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 }

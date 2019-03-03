@@ -51,8 +51,7 @@ class Settings_Page: UIViewController {
     }
     // on button press perform CVS import functions
     @IBAction func importCVSButtonAction(_ sender: UIButton) {
-        
-        
+        self.performSegue(withIdentifier: "importPopUpSegue", sender: nil);
     }
     // creats csv file for  team info table
     func createCSVTeamInfo(){
