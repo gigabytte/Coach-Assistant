@@ -588,7 +588,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhV-fT-Hwx">
-                                <rect key="frame" x="461" y="561" width="102" height="56"/>
+                                <rect key="frame" x="463" y="681" width="99" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Add Player"/>
@@ -611,6 +611,17 @@
                                 <rect key="frame" x="349" y="382" width="326" height="104"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6MQ-DC-ryw">
+                                <rect key="frame" x="349" y="523" width="326" height="134"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick the Player's Position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pl0-gf-YfY">
+                                <rect key="frame" x="395" y="491" width="236" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -627,12 +638,13 @@
                         <outlet property="linePicker" destination="4ka-D6-U2J" id="MNC-kg-k3A"/>
                         <outlet property="playerName" destination="fUE-CS-N0M" id="pNv-eN-Ciy"/>
                         <outlet property="playerNumber" destination="8tu-cp-19N" id="Ij2-Dl-Qha"/>
+                        <outlet property="positonPicker" destination="6MQ-DC-ryw" id="wsT-eX-VHB"/>
                         <outlet property="teamPicker" destination="Yxh-e6-D8E" id="HEf-Q3-PT8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GLn-9h-BcY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-146" y="-1377"/>
+            <point key="canvasLocation" x="-146.484375" y="-1377.34375"/>
         </scene>
         <!--Import Pop Up View-->
         <scene sceneID="Ez8-Fx-7Ew">
@@ -1732,11 +1744,11 @@
     <resources>
         <image name="Coach Assitant Logo Only" width="141" height="111"/>
         <image name="Coach Assitant Top" width="380" height="219"/>
-        <image name="gear" width="192" height="192"/>
+        <image name="gear" width="240" height="240"/>
         <image name="hockey_goalie" width="300" height="300"/>
         <image name="hockey_net_basic_shot" width="902" height="531"/>
         <image name="hockey_net_period_basic" width="892" height="523"/>
-        <image name="hockey_player1" width="760.08245849609375" height="743.7525634765625"/>
+        <image name="hockey_player1" width="1024" height="1002"/>
         <image name="ice" width="1300" height="975"/>
         <image name="ice_rink_image" width="1236" height="627"/>
         <image name="left_scroll_arrow" width="128" height="128"/>
@@ -1746,6 +1758,6 @@
         <segue reference="J2W-Lf-Ndn"/>
         <segue reference="oNI-jA-1s2"/>
         <segue reference="AYF-Xl-O9F"/>
-        <segue reference="Qvi-1t-WK0"/>
+        <segue reference="5ot-VN-Vh3"/>
     </inferredMetricsTieBreakers>
 </document>

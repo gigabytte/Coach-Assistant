@@ -15,12 +15,15 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     let realm = try! Realm()
     @IBOutlet weak var linePicker: UIPickerView!
     @IBOutlet weak var teamPicker: UIPickerView!
+    @IBOutlet weak var positionPicker: UIPickerView!
     @IBOutlet weak var playerNumber: UITextField!
     @IBOutlet weak var playerName: UITextField!
     
     var pickerData:[String] = [String]()
+    var positionData:[String] = [String]()
     var selectLine:Int = 0
     var selectTeamKey:Int = 0
+    var selectPosition:String = ""
     var primaryPlayerID: Int!
     
     var teamPickerData:Results<teamInfoTable>!
@@ -41,6 +44,9 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.linePicker.delegate = self
         self.linePicker.dataSource = self
         
+        self.positionPicker.delegate = self
+        self.positionPicker.dataSource = self
+        
         self.teamPickerData = realm.objects(teamInfoTable.self)
         self.teamPickerSelect = Array(self.teamPickerData)
         
@@ -51,7 +57,8 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         // set auto rotation to false
         appDelegate.shouldRotate = true
         // Do any additional setup after loading the view.
-        pickerData = ["1","2","3","4","5","6"]
+        pickerData = ["Forward 1","Forward 2","Forward 3","Defence 1","Defence 2","Defence 3", "Goalie"]
+        positionData = ["Left Wing", "Center", "Right Wing", "Left Defence", "Right Defence", "Goalie"]
     }
     // restrict player number field to decimal degots only
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -74,22 +81,42 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if (pickerView == teamPicker){
             return teamPickerData.count
-        }else{
+        }else if(pickerView == linePicker){
             return pickerData.count
+        }else{
+            return positionData.count
         }
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if (pickerView == teamPicker){
             return teamPickerSelect[row].nameOfTeam
-        }else{
+        }else if(pickerView == linePicker){
             return pickerData[row]
+        }else{
+            return positionData[row]
         }
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView == teamPicker){
             selectTeamKey = teamPickerSelect[row].teamID
+        }else if(pickerView == linePicker){
+            if(pickerData[row] == "Forward 1"){
+                selectLine = 1
+            }else if(pickerData[row] == "Forward 2"){
+                selectLine = 2
+            }else if(pickerData[row] == "Forward 3"){
+                selectLine = 3
+            }else if(pickerData[row] == "Defence 1"){
+                selectLine = 4
+            }else if(pickerData[row] == "Defence 2"){
+                selectLine = 5
+            }else if(pickerData[row] == "Defence 3"){
+                selectLine = 6
+            }else{
+                selectLine = 7
+            }
         }else{
-            selectLine = Int(pickerData[row])!
+            selectPosition = positionData[row]
         }
     }
     
@@ -99,14 +126,15 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         let player: String = playerName.text!
         let number = Int(playerNumber.text!)
         let line = selectLine
+        let position = selectPosition
         let team = String(selectTeamKey)
         let newPlayer = playerInfoTable()
         
         if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
             
-             primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
+            primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
         }else{
-             primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
+            primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
             
         }
         
@@ -116,6 +144,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             newPlayer.playerName = player
             newPlayer.jerseyNum = number!
             newPlayer.lineNum = line
+            newPlayer.positionType = position
             newPlayer.TeamID = team
             
             try! realm.write{
@@ -154,5 +183,4 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         // show the alert
         self.present(successfulQuery, animated: true, completion: nil)
     }
-    
 }
