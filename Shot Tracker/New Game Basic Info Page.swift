@@ -130,10 +130,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     
     
     func goalieSelectionGesture() {
-        // default scroll arrow setup
-        self.leftScrollArrowImage.image = leftArrowImage
-        self.leftScrollArrowImage.alpha = 0.5
-        self.leftScrollArrowImage.setNeedsDisplay()
+        
         // get array of Goalie Jersey Nunbers of Page Load
         goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
         
@@ -151,6 +148,18 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
         swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         hockeyNetImageView.addGestureRecognizer(swipeLeft)
+        
+        // default scroll arrow setup
+        if (goalieNumberArray.count > 1){
+            self.leftScrollArrowImage.image = leftArrowImage
+            self.leftScrollArrowImage.alpha = 0.5
+            self.leftScrollArrowImage.setNeedsDisplay()
+        }else{
+            self.leftScrollArrowImage.alpha = 0.5
+             self.rightScrollArrowImage.alpha = 0.5
+            self.leftScrollArrowImage.setNeedsDisplay()
+            self.rightScrollArrowImage.setNeedsDisplay()
+        }
     }
     
     //Function for determining when tap gesture is in/outside of touchable area
@@ -219,7 +228,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             case UISwipeGestureRecognizer.Direction.left:
                 print("Left Swipe Detected")
                 print("Goalie Nu,ber Array: ", goalieNumberArray)
-                if (goalieNumberArray.count != 1){
+                if (goalieNumberArray.count > 1){
                     if goalieNumberArray[currentArrayIndex] == goalieNumberArray.first{
                         currentArrayIndex += 1
                         
@@ -245,7 +254,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                 }
             case UISwipeGestureRecognizer.Direction.right:
                 print("Right Swipe Detected")
-                if (goalieNumberArray.count != 1){
+                if (goalieNumberArray.count > 1){
                     if goalieNumberArray[currentArrayIndex] == goalieNumberArray.last{
                         currentArrayIndex -= 1
                         

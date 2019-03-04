@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         }
         
         /*----------------------------------------------------------------
-         uncomment code block if chnages to DB tables are made,
+         uncomment code block if changes to DB tables are made or merger error is stated,
          build app then comment code again and build app like normal*/
         //let defaultPath = Realm.Configuration.defaultConfiguration.fileURL?.path
         //try! FileManager.default.removeItem(atPath: defaultPath!)
@@ -54,22 +54,50 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func newGameButton(_ sender: UIButton) {
+    func goalieChecker() -> Bool{
+        
+        let goalieOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType == %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        let goalieTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType == %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        
+        if (goalieOne.first != nil && goalieOne.first != goalieTwo.last){
+            
+            return true
+        }else{
+            return false
+        }
+    }
+    func playerChecker() -> Bool{
+        
+        let playerOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType != %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        let playerTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType != %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        if (playerOne.first != nil && playerOne.first != playerTwo.last){
+            
+            return true
+        }else{
+            return false
+        }
+        
+    }
     
+    func teamChecker() -> Bool{
         
         // get first an last team entered in DB
         let teamOne = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
         let teamTwo = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
-        let playerOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        let playerTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        print(teamOne)
-        print(teamTwo)
-        print(playerOne)
-        print(playerTwo)
+        if (teamOne.first != nil && teamOne.first != teamTwo.last){
+            
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    @IBAction func newGameButton(_ sender: UIButton) {
+   
         // check if team one returns nil and that team one isnt team two
         // check for only one team entered and or no team entered
         if (activeStatus != true){
-            if(teamOne.first != nil && playerOne.first != nil && teamOne.first != teamTwo.last && playerOne.first != playerTwo.last){
+            if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
                 self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
                 
             }else{
@@ -77,15 +105,19 @@ class ViewController: UIViewController {
                 dataReturnNilAlert()
             }
         }else{
-            self.performSegue(withIdentifier: "skipTeamSelectionSegue", sender: nil);
-            
+            if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+                self.performSegue(withIdentifier: "skipTeamSelectionSegue", sender: nil);
+            }else{
+                // if teams or players are not avaiable top be pulled alert error appears
+                dataReturnNilAlert()
+            }
         }
     }
     // if teams or players are not avaiable top be pulled alert error appears
     func dataReturnNilAlert(){
         
         // create the alert
-        let nilAlert = UIAlertController(title: "Data Error", message: "Please add Teams and Players to App before starting a new Game.", preferredStyle: UIAlertController.Style.alert)
+        let nilAlert = UIAlertController(title: "Data Error", message: "Please add atleast two teams, one player and one goalie for each corresponding team.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         nilAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
