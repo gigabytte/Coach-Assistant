@@ -160,6 +160,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         }else{
             // alert user if missing fields are present
             missingFieldAlert()
+            print("test")
         }
     }
     // if player name or player number is missing create alert notifying user

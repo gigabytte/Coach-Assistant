@@ -190,6 +190,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             try! realm.write{
                 realm.add(newTeam, update: true)
                 succesfulTeamAdd()
+                print("test")
                 
             }
         }else{
