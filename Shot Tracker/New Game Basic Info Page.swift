@@ -130,10 +130,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     
     
     func goalieSelectionGesture() {
-        // default scroll arrow setup
-        self.leftScrollArrowImage.image = leftArrowImage
-        self.leftScrollArrowImage.alpha = 0.5
-        self.leftScrollArrowImage.setNeedsDisplay()
+        
         // get array of Goalie Jersey Nunbers of Page Load
         goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
         
@@ -151,6 +148,18 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
         swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         hockeyNetImageView.addGestureRecognizer(swipeLeft)
+        
+        // default scroll arrow setup
+        if (goalieNumberArray.count > 1){
+            self.leftScrollArrowImage.image = leftArrowImage
+            self.leftScrollArrowImage.alpha = 0.5
+            self.leftScrollArrowImage.setNeedsDisplay()
+        }else{
+            self.leftScrollArrowImage.alpha = 0.5
+             self.rightScrollArrowImage.alpha = 0.5
+            self.leftScrollArrowImage.setNeedsDisplay()
+            self.rightScrollArrowImage.setNeedsDisplay()
+        }
     }
     
     //Function for determining when tap gesture is in/outside of touchable area
@@ -218,43 +227,56 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.left:
                 print("Left Swipe Detected")
-                if goalieNumberArray[currentArrayIndex] == goalieNumberArray.first{
-                    currentArrayIndex += 1
-                    
-                }else if goalieNumberArray[currentArrayIndex] == goalieNumberArray.last{
-                    currentArrayIndex = goalieNumberArray.count - 1
-                    
-                }else{
-                    currentArrayIndex += 1
-                }
-                DispatchQueue.main.async {
-                    self.goalieNumberArrow()
-                    self.goalieNumberLabel.text = self.goalieNumberArray[self.currentArrayIndex]
-                    self.goalieNumberLabel.setNeedsDisplay()
-                }
+                print("Goalie Nu,ber Array: ", goalieNumberArray)
+                if (goalieNumberArray.count > 1){
+                    if goalieNumberArray[currentArrayIndex] == goalieNumberArray.first{
+                        currentArrayIndex += 1
+                        
+                    }else if goalieNumberArray[currentArrayIndex] == goalieNumberArray.last{
+                        currentArrayIndex = goalieNumberArray.count - 1
+                        
+                    }else{
+                        currentArrayIndex += 1
+                    }
+                    DispatchQueue.main.async {
+                        self.goalieNumberArrow()
+                        self.goalieNumberLabel.text = self.goalieNumberArray[self.currentArrayIndex]
+                        self.goalieNumberLabel.setNeedsDisplay()
+                    }
+                
                 let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                 tempgoalieSelectedID = selectedGoalieID[0]
                 print("goalie id: ", tempgoalieSelectedID)
-                
+                }else{
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    tempgoalieSelectedID = selectedGoalieID[0]
+                    print("goalie id: ", tempgoalieSelectedID)
+                }
             case UISwipeGestureRecognizer.Direction.right:
                 print("Right Swipe Detected")
-                if goalieNumberArray[currentArrayIndex] == goalieNumberArray.last{
-                    currentArrayIndex -= 1
-                    
-                }else if goalieNumberArray[currentArrayIndex] == goalieNumberArray.first{
-                    currentArrayIndex = 0
-                    
+                if (goalieNumberArray.count > 1){
+                    if goalieNumberArray[currentArrayIndex] == goalieNumberArray.last{
+                        currentArrayIndex -= 1
+                        
+                    }else if goalieNumberArray[currentArrayIndex] == goalieNumberArray.first{
+                        currentArrayIndex = 0
+                        
+                    }else{
+                        currentArrayIndex -= 1
+                    }
+                    DispatchQueue.main.async {
+                        self.goalieNumberArrow()
+                        self.goalieNumberLabel.text = self.goalieNumberArray[self.currentArrayIndex]
+                        self.goalieNumberLabel.setNeedsDisplay()
+                    }
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    tempgoalieSelectedID = selectedGoalieID[0]
+                    print("goalie id: ", tempgoalieSelectedID)
                 }else{
-                    currentArrayIndex -= 1
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    tempgoalieSelectedID = selectedGoalieID[0]
+                    print("goalie id: ", tempgoalieSelectedID)
                 }
-                DispatchQueue.main.async {
-                    self.goalieNumberArrow()
-                    self.goalieNumberLabel.text = self.goalieNumberArray[self.currentArrayIndex]
-                    self.goalieNumberLabel.setNeedsDisplay()
-                }
-                let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                tempgoalieSelectedID = selectedGoalieID[0]
-                print("goalie id: ", tempgoalieSelectedID)
             default:
                 break
             }
