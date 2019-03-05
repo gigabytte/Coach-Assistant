@@ -11,6 +11,8 @@ import RealmSwift
 
 class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let realm = try! Realm()
+    
     @IBOutlet weak var Popupview: UIView!
     
     @IBOutlet weak var tableView: UITableView!
@@ -32,7 +34,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func fileCollection(){
+    func fileCollection() -> [String]{
         
         let fileManager = FileManager.default
         let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
@@ -42,8 +44,9 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             if let documentPath = documentsPath
             {
                 let fileNames = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
+                let csvFileNames = fileNames.filter{$0.contains("Realm_")}
                 print("all files in cache: \(fileNames)")
-                for fileName in fileNames {
+                for fileName in csvFileNames {
                     
                     if (fileName.hasSuffix(".csv"))
                     {
@@ -59,6 +62,52 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         } catch {
             print("Could not clear document directory folder: \(error)")
         }
+        return(fileNamesArray)
+    }
+    
+    func csvFileToStringConver() -> ([[String]], [[String]], [[String]], [[String]], [[String]]) {
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let firstDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_New_Game_Info_Table.csv")!])
+        let secDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Team_Info_Table.csv")!])
+        let thirdDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Player_Info_Table.csv")!])
+        let fourthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Goal_Marker_Table.csv")!])
+        let fifthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Shot_Marker_Table.csv")!])
+        
+        var firstFileContentsParsed: [[String]] = [[String]]()
+        var secFileContentsParsed: [[String]] = [[String]]()
+        var thirdFileContentsParsed: [[String]] = [[String]]()
+        var forthFileContentsParsed: [[String]] = [[String]]()
+        var fifthFileContentsParsed: [[String]] = [[String]]()
+        
+            do {
+                firstFileContentsParsed =  (try String(contentsOf: firstDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+                secFileContentsParsed = (try String(contentsOf: secDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+                thirdFileContentsParsed = (try String(contentsOf: thirdDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+                forthFileContentsParsed = (try String(contentsOf: fourthDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+                fifthFileContentsParsed = (try String(contentsOf: fifthDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+                print("Contents of Parsed File One: ", firstFileContentsParsed)
+                print("Contents of Parsed File Two: ", secFileContentsParsed)
+                // REMOVE EMPTY SPACE AT END
+            } catch {
+                print("Error Finding Containts of File")
+        }
+        return(firstFileContentsParsed, secFileContentsParsed, thirdFileContentsParsed, forthFileContentsParsed, fifthFileContentsParsed)
+    }
+    
+    func csvStringToRealm(){
+        
+        try? realm.write ({
+            //delete contents of DB
+            realm.deleteAll()
+            
+            for i in 0..<csvFileToStringConver().0.count{
+                // skip first row
+                // loop through and check the nu ber of elemts against the first row
+                // if row is lower through error
+            }
+            
+        })
+
     }
     
     @IBAction func cancelButton(_ sender: Any) {
@@ -66,6 +115,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func importButton(_ sender: Any) {
+        csvFileToStringConver()
         self.performSegue(withIdentifier: "importButtonSegue", sender: nil);
     }
     // Returns count of items in tableView
