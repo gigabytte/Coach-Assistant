@@ -657,15 +657,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GR0-uW-j7M">
+                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cSs-YJ-2OL">
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAy-1L-lnD">
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="ClZ-F9-1Q3">
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <blurEffect style="light"/>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1HR-Ps-CyD" userLabel="Pop Up Import View">
                                 <rect key="frame" x="266.5" y="112" width="491" height="544"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IVr-6o-m3G">
-                                        <rect key="frame" x="0.0" y="39" width="491" height="457"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </tableView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select Files to be Imported" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrD-hQ-Exz">
-                                        <rect key="frame" x="91.5" y="15" width="308" height="24"/>
+                                        <rect key="frame" x="91.5" y="10" width="308" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="308" id="Auq-GO-i6c"/>
                                             <constraint firstAttribute="height" constant="24" id="RCX-Xp-JxE"/>
@@ -676,40 +691,60 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XL1-Ko-7Tf">
                                         <rect key="frame" x="242" y="496" width="249" height="48"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="249" id="btu-pg-AlM"/>
                                             <constraint firstAttribute="height" constant="48" id="faM-pQ-ayC"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Import">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="importButton:" destination="oAD-on-ycU" eventType="touchUpInside" id="E9W-mr-t5c"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vf-Ta-qcs">
                                         <rect key="frame" x="0.0" y="496" width="242" height="48"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="6Xw-lU-hIH"/>
                                             <constraint firstAttribute="width" constant="242" id="lR3-xc-VMg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
+                                            <action selector="cancelButton:" destination="oAD-on-ycU" eventType="touchUpInside" id="1gR-C3-BSR"/>
                                             <segue destination="HGz-Vb-orN" kind="presentation" identifier="cancelButtonSegue" id="iOf-qA-Ea5"/>
                                         </connections>
                                     </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IVr-6o-m3G">
+                                        <rect key="frame" x="0.0" y="46" width="491" height="452"/>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="9Mo-Q9-KT4">
+                                                <rect key="frame" x="0.0" y="28" width="491" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Mo-Q9-KT4" id="Dvf-Si-fAU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="491" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.88117308937823835" green="0.88117308937823835" blue="0.88117308937823835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="IVr-6o-m3G" secondAttribute="trailing" id="5uj-fL-Dbh"/>
                                     <constraint firstItem="qrD-hQ-Exz" firstAttribute="centerX" secondItem="1HR-Ps-CyD" secondAttribute="centerX" id="8hu-LM-zXo"/>
                                     <constraint firstItem="8vf-Ta-qcs" firstAttribute="bottom" secondItem="1HR-Ps-CyD" secondAttribute="bottom" id="Kxb-8c-s5c"/>
-                                    <constraint firstItem="IVr-6o-m3G" firstAttribute="top" secondItem="qrD-hQ-Exz" secondAttribute="bottom" id="Lpk-be-BMP"/>
+                                    <constraint firstItem="IVr-6o-m3G" firstAttribute="top" secondItem="qrD-hQ-Exz" secondAttribute="bottom" constant="10" id="Lpk-be-BMP"/>
                                     <constraint firstItem="IVr-6o-m3G" firstAttribute="leading" secondItem="1HR-Ps-CyD" secondAttribute="leading" id="Mz8-LW-59b"/>
                                     <constraint firstItem="IVr-6o-m3G" firstAttribute="centerX" secondItem="1HR-Ps-CyD" secondAttribute="centerX" id="OoB-qm-E0s"/>
-                                    <constraint firstItem="qrD-hQ-Exz" firstAttribute="top" secondItem="1HR-Ps-CyD" secondAttribute="top" constant="15" id="Pm1-Af-aAU"/>
+                                    <constraint firstItem="qrD-hQ-Exz" firstAttribute="top" secondItem="1HR-Ps-CyD" secondAttribute="top" constant="10" id="Pm1-Af-aAU"/>
                                     <constraint firstItem="XL1-Ko-7Tf" firstAttribute="trailing" secondItem="1HR-Ps-CyD" secondAttribute="trailing" id="QRC-HS-UWy"/>
                                     <constraint firstItem="XL1-Ko-7Tf" firstAttribute="bottom" secondItem="1HR-Ps-CyD" secondAttribute="bottom" id="R5X-wp-4E3"/>
                                     <constraint firstAttribute="width" constant="491" id="bvn-Nm-soJ"/>
@@ -722,18 +757,25 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="GR0-uW-j7M" firstAttribute="bottom" secondItem="ov2-VK-fSk" secondAttribute="bottom" id="FT1-Cz-FHD"/>
+                            <constraint firstItem="GR0-uW-j7M" firstAttribute="leading" secondItem="ov2-VK-fSk" secondAttribute="leading" id="H6b-Rr-ALK"/>
                             <constraint firstItem="1HR-Ps-CyD" firstAttribute="centerY" secondItem="gec-Le-bDI" secondAttribute="centerY" id="LPg-Bk-3cN"/>
                             <constraint firstItem="1HR-Ps-CyD" firstAttribute="centerX" secondItem="gec-Le-bDI" secondAttribute="centerX" id="Qzq-8C-lOf"/>
+                            <constraint firstItem="GR0-uW-j7M" firstAttribute="top" secondItem="ov2-VK-fSk" secondAttribute="top" id="Si9-1L-U5l"/>
+                            <constraint firstItem="GR0-uW-j7M" firstAttribute="trailing" secondItem="ov2-VK-fSk" secondAttribute="trailing" id="baH-Ye-et0"/>
+                            <constraint firstItem="GR0-uW-j7M" firstAttribute="centerX" secondItem="gec-Le-bDI" secondAttribute="centerX" id="m8H-d8-Man"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ov2-VK-fSk"/>
                     </view>
                     <connections>
-                        <outlet property="importPopUpView" destination="1HR-Ps-CyD" id="aPL-of-54h"/>
+                        <outlet property="Popupview" destination="1HR-Ps-CyD" id="s8S-iA-w2v"/>
+                        <outlet property="tableView" destination="IVr-6o-m3G" id="yPN-yh-k2e"/>
+                        <segue destination="HGz-Vb-orN" kind="presentation" identifier="importButtonSegue" id="G60-nY-BQ9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laI-ir-5Sg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1499.4140625" y="57.8125"/>
+            <point key="canvasLocation" x="-1695.1171875" y="32.8125"/>
         </scene>
         <!--Settings Page-->
         <scene sceneID="CnP-Gb-pp0">
@@ -1747,20 +1789,20 @@
     <resources>
         <image name="Coach Assitant Logo Only" width="141" height="111"/>
         <image name="Coach Assitant Top" width="380" height="219"/>
-        <image name="gear" width="240" height="240"/>
+        <image name="gear" width="192" height="192"/>
         <image name="hockey_goalie" width="300" height="300"/>
         <image name="hockey_net_basic_shot" width="902" height="531"/>
         <image name="hockey_net_period_basic" width="892" height="523"/>
-        <image name="hockey_player1" width="1024" height="1002"/>
+        <image name="hockey_player1" width="760.08245849609375" height="743.7525634765625"/>
         <image name="ice" width="1300" height="975"/>
         <image name="ice_rink_image" width="1236" height="627"/>
         <image name="left_scroll_arrow" width="128" height="128"/>
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3Is-IF-SeE"/>
-        <segue reference="oNI-jA-1s2"/>
+        <segue reference="Dru-ha-s6H"/>
+        <segue reference="G60-nY-BQ9"/>
         <segue reference="AYF-Xl-O9F"/>
-        <segue reference="Ggy-8a-rEU"/>
+        <segue reference="2uF-ll-qm3"/>
     </inferredMetricsTieBreakers>
 </document>

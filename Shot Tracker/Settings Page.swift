@@ -190,6 +190,9 @@ class Settings_Page: UIViewController {
         var tempOpposingTeamID: [String] = [String]()
         var tempHomeTeamID: [String] = [String]()
         var tempGameType: [String] = [String]()
+        var tempWiningTeam: [String] = [String]()
+        var tempLosingTeam: [String] = [String]()
+        var tempActiveGameStatus: [String] = [String]()
         var tempActiveState: [String] = [String]()
         
         for i in 0..<newGameIDCount{
@@ -199,6 +202,9 @@ class Settings_Page: UIViewController {
             let opposingTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.opposingTeamID;
             let homeTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.homeTeamID;
             let gameTypeValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameType;
+            let winingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.winingTeamID;
+            let losingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.losingTeamID;
+            let activeGameStatusValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeGameStatus;
             let activeStateValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeState;
             let dateString = formatter.string(from: dateGamePlayedValue!)
             tempGameIDArray.append(String(gameIDValue))
@@ -206,22 +212,28 @@ class Settings_Page: UIViewController {
             tempOpposingTeamID.append(String(opposingTeamIDValue))
             tempHomeTeamID.append(String(homeTeamIDValue))
             tempGameType.append(gameTypeValue)
+            tempWiningTeam.append(String(winingTeamValue))
+            tempLosingTeam.append(String(losingTeamValue))
+            tempActiveGameStatus.append(String(activeGameStatusValue))
             tempActiveState.append(String(activeStateValue))
             
         }
 
         let fileName = "New_Game_Info_Table_" + dateString + ".csv"
-        var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,activeState\n"
-        for x in 0..<tempGameIDArray.count {
+        var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,winingTeamID,losingTeamID,activeGameStatus,activeState\n"
+        for x in 0..<newGameIDCount {
             
             let gameIDVar = tempGameIDArray[x]
             let dateGamePlayerVar = tempDateGamePlayed[x]
             let opposingTeamIDVar = tempOpposingTeamID[x]
             let homeTeamIDVar = tempHomeTeamID[x]
             let gameTypeVar = tempGameType[x]
+            let winingTeamVar = tempWiningTeam[x]
+            let losingTeamVar = tempLosingTeam[x]
+            let activeGameStatusVar = tempActiveGameStatus[x]
             let activeStateVar = tempActiveState[x]
             
-            let newLine =  gameIDVar + ", " + dateGamePlayerVar + ", " + opposingTeamIDVar + ", " + homeTeamIDVar + ", " + gameTypeVar + ", " + activeStateVar + "\n"
+            let newLine =  gameIDVar + ", " + dateGamePlayerVar + ", " + opposingTeamIDVar + ", " + homeTeamIDVar + ", " + gameTypeVar + ", " + winingTeamVar + ", " + losingTeamVar + ", " + activeGameStatusVar + ", " + activeStateVar + "\n"
             csvText.append(newLine)
         }
         
@@ -245,44 +257,76 @@ class Settings_Page: UIViewController {
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let dateString = formatter.string(from: date)
         
-        let newGameIDCount =  realm.objects(newGameTable.self).filter("gameID >= 0").count
-        var tempGameIDArray: [String] = [String]()
-        var tempDateGamePlayed: [String] = [String]()
-        var tempOpposingTeamID: [String] = [String]()
-        var tempHomeTeamID: [String] = [String]()
-        var tempGameType: [String] = [String]()
-        var tempActiveState: [String] = [String]()
+        let goalMarkerIDCount =  realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").count
+        var tempcordSetID: [String] = [String]()
+        var tempgameID: [String] = [String]()
+        var tempgoalType: [String] = [String]()
+        var temppowerPlay: [String] = [String]()
+        var tempTeamID: [String] = [String]()
+        var tempgoalieID: [String] = [String]()
+        var tempgoalPlayerID: [String] = [String]()
+        var tempassitantPlayerID: [String] = [String]()
+        var tempsec_assitantPlayerID: [String] = [String]()
+        var tempperiodNumSet: [String] = [String]()
+        var tempxCordGoal: [String] = [String]()
+        var tempyCordGoal: [String] = [String]()
+        var tempshotLocation: [String] = [String]()
+        var tempactiveState: [String] = [String]()
+
         
-        for i in 0..<newGameIDCount{
+        for i in 0..<goalMarkerIDCount{
             
-            let gameIDValue = self.realm.object(ofType: newGameTable.self, forPrimaryKey: i)!.gameID;
-            let dateGamePlayedValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.dateGamePlayed;
-            let opposingTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.opposingTeamID;
-            let homeTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.homeTeamID;
-            let gameTypeValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameType;
-            let activeStateValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeState;
-            let dateString = formatter.string(from: dateGamePlayedValue!)
-            tempGameIDArray.append(String(gameIDValue))
-            tempDateGamePlayed.append(dateString)
-            tempOpposingTeamID.append(String(opposingTeamIDValue))
-            tempHomeTeamID.append(String(homeTeamIDValue))
-            tempGameType.append(gameTypeValue)
-            tempActiveState.append(String(activeStateValue))
+            let cordSetID = self.realm.object(ofType: goalMarkersTable.self, forPrimaryKey: i)!.cordSetID
+            let gameID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.gameID
+            let goalType = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalType
+            let powerPlay = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.powerPlay
+            let TeamID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.TeamID
+            let goalieID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalieID
+            let goalPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalPlayerID
+            let assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.assitantPlayerID
+            let sec_assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.sec_assitantPlayerID
+            let periodNumSet = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.periodNum
+            let xCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.xCordGoal
+            let yCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.yCordGoal
+            let shotLocation = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.shotLocation
+            let activeState = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.activeState
+            tempcordSetID.append(String(cordSetID))
+            tempgameID.append(String(gameID))
+            tempgoalType.append(goalType)
+            temppowerPlay.append(String(powerPlay))
+            tempTeamID.append(String(TeamID))
+            tempgoalieID.append(String(goalieID))
+            tempgoalPlayerID.append(String(goalPlayerID))
+            tempassitantPlayerID.append(String(assitantPlayerID))
+            tempsec_assitantPlayerID.append(String(sec_assitantPlayerID))
+            tempperiodNumSet.append(String(periodNumSet))
+            tempxCordGoal.append(String(xCordGoal))
+            tempyCordGoal.append(String(yCordGoal))
+            tempshotLocation.append(String(shotLocation))
+            tempactiveState.append(String(activeState))
             
         }
         
-        let fileName = "New_Game_Info_Table_" + dateString + ".csv"
-        var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,activeState\n"
-        for x in 0..<tempGameIDArray.count {
+        let fileName = "Goal_Marker_Table_" + dateString + ".csv"
+        var csvText = "cordSetID,gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        for x in 0..<goalMarkerIDCount{
             
-            let gameIDVar = tempGameIDArray[x]
-            let dateGamePlayerVar = tempDateGamePlayed[x]
-            let opposingTeamIDVar = tempOpposingTeamID[x]
-            let homeTeamIDVar = tempHomeTeamID[x]
-            let gameTypeVar = tempGameType[x]
-            let activeStateVar = tempActiveState[x]
+            let cordSetIDVar = tempcordSetID[x]
+            let gameIDVar = tempgameID[x]
+            let goalTypeVar = tempgoalType[x]
+            let powerPlayVar = temppowerPlay[x]
+            let teamIDVar = tempTeamID[x]
+            let goalieIDVar = tempgoalieID[x]
+            let goalPlayerIDVar = tempgoalPlayerID[x]
+            let assitIDVar = tempassitantPlayerID[x]
+            let sec_assitIDVar = tempsec_assitantPlayerID[x]
+            let periodNumVar = tempperiodNumSet[x]
+            let xCordVar = tempxCordGoal[x]
+            let yCordVar = tempyCordGoal[x]
+            let shotLocationVar = tempshotLocation[x]
+            let activeStateVar = tempactiveState[x]
             
-            let newLine =  gameIDVar + ", " + dateGamePlayerVar + ", " + opposingTeamIDVar + ", " + homeTeamIDVar + ", " + gameTypeVar + ", " + activeStateVar + "\n"
+            let newLine =  cordSetIDVar + "," + gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
             csvText.append(newLine)
         }
         
@@ -292,7 +336,7 @@ class Settings_Page: UIViewController {
             
             do {
                 try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                print("New Game Info CSV File URL: ", fileURL)
+                print("Goal Marker Table CSV File URL: ", fileURL)
             } catch {
                 print("\(error)")
             }
@@ -306,44 +350,56 @@ class Settings_Page: UIViewController {
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let dateString = formatter.string(from: date)
         
-        let newGameIDCount =  realm.objects(newGameTable.self).filter("gameID >= 0").count
-        var tempGameIDArray: [String] = [String]()
-        var tempDateGamePlayed: [String] = [String]()
-        var tempOpposingTeamID: [String] = [String]()
-        var tempHomeTeamID: [String] = [String]()
-        var tempGameType: [String] = [String]()
-        var tempActiveState: [String] = [String]()
+        let shotMarkerIDCount =  realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").count
+        var tempcordSetID: [String] = [String]()
+        var tempgameID: [String] = [String]()
+        var tempTeamID: [String] = [String]()
+        var tempgoalieID: [String] = [String]()
+        var tempperiodNumSet: [String] = [String]()
+        var tempxCordGoal: [String] = [String]()
+        var tempyCordGoal: [String] = [String]()
+        var tempshotLocation: [String] = [String]()
+        var tempactiveState: [String] = [String]()
         
-        for i in 0..<newGameIDCount{
+        
+        for i in 0..<shotMarkerIDCount{
             
-            let gameIDValue = self.realm.object(ofType: newGameTable.self, forPrimaryKey: i)!.gameID;
-            let dateGamePlayedValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.dateGamePlayed;
-            let opposingTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.opposingTeamID;
-            let homeTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.homeTeamID;
-            let gameTypeValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameType;
-            let activeStateValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeState;
-            let dateString = formatter.string(from: dateGamePlayedValue!)
-            tempGameIDArray.append(String(gameIDValue))
-            tempDateGamePlayed.append(dateString)
-            tempOpposingTeamID.append(String(opposingTeamIDValue))
-            tempHomeTeamID.append(String(homeTeamIDValue))
-            tempGameType.append(gameTypeValue)
-            tempActiveState.append(String(activeStateValue))
+            let cordSetID = self.realm.object(ofType: shotMarkerTable.self, forPrimaryKey: i)!.cordSetID
+            let gameID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.gameID
+            let TeamID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.TeamID
+            let goalieID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.goalieID
+            let periodNumSet = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.periodNum
+            let xCordGoal = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.xCordShot
+            let yCordGoal = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.yCordShot
+            let shotLocation = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.shotLocation
+            let activeState = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.activeState
+            tempcordSetID.append(String(cordSetID))
+            tempgameID.append(String(gameID))
+            tempTeamID.append(String(TeamID))
+            tempgoalieID.append(String(goalieID))
+            tempperiodNumSet.append(String(periodNumSet))
+            tempxCordGoal.append(String(xCordGoal))
+            tempyCordGoal.append(String(yCordGoal))
+            tempshotLocation.append(String(shotLocation))
+            tempactiveState.append(String(activeState))
             
         }
         
-        let fileName = "New_Game_Info_Table_" + dateString + ".csv"
-        var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,activeState\n"
-        for x in 0..<tempGameIDArray.count {
+        let fileName = "Shot_Marker_Table_" + dateString + ".csv"
+        var csvText = "cordSetID,gameID,TeamID,goalieID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        for x in 0..<shotMarkerIDCount{
             
-            let gameIDVar = tempGameIDArray[x]
-            let dateGamePlayerVar = tempDateGamePlayed[x]
-            let opposingTeamIDVar = tempOpposingTeamID[x]
-            let homeTeamIDVar = tempHomeTeamID[x]
-            let gameTypeVar = tempGameType[x]
-            let activeStateVar = tempActiveState[x]
+            let cordSetIDVar = tempcordSetID[x]
+            let gameIDVar = tempgameID[x]
+            let teamIDVar = tempTeamID[x]
+            let goalieIDVar = tempgoalieID[x]
+            let periodNumVar = tempperiodNumSet[x]
+            let xCordVar = tempxCordGoal[x]
+            let yCordVar = tempyCordGoal[x]
+            let shotLocationVar = tempshotLocation[x]
+            let activeStateVar = tempactiveState[x]
             
-            let newLine =  gameIDVar + ", " + dateGamePlayerVar + ", " + opposingTeamIDVar + ", " + homeTeamIDVar + ", " + gameTypeVar + ", " + activeStateVar + "\n"
+            let newLine =  cordSetIDVar + "," + gameIDVar + "," + teamIDVar + "," + goalieIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
             csvText.append(newLine)
         }
         
@@ -353,7 +409,7 @@ class Settings_Page: UIViewController {
             
             do {
                 try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                print("New Game Info CSV File URL: ", fileURL)
+                print("Shot Marker Table CSV File URL: ", fileURL)
             } catch {
                 print("\(error)")
             }
