@@ -73,14 +73,18 @@ class Settings_Page: UIViewController {
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let dateString = formatter.string(from: date)
         
-        let fileName = "Team_Info_Table_" + dateString + ".csv"
+        let fileName = "Realm_Team_Info_Table" + ".csv"
         var csvText = "teamID,nameOfTeam\n"
         for x in 0..<tempTeamIDArray.count {
             
             let teamIDVar = tempTeamIDArray[x]
             let teamNameVar = tempTeamNameArray[x]
             
-            let newLine = String(teamIDVar) + ", " + teamNameVar + "\n"
+            let newLine = String(teamIDVar) + "," + teamNameVar + "\n"
+            if(x == tempTeamIDArray.count){
+                newLine.dropLast()
+                newLine.dropLast()
+            }
             csvText.append(newLine)
         }
         
@@ -144,7 +148,7 @@ class Settings_Page: UIViewController {
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let dateString = formatter.string(from: date)
         
-        let fileName = "Player_Info_Table_" + dateString + ".csv"
+        let fileName = "Realm_Player_Info_Table" + ".csv"
         var csvText = "playerID,playerName,jerseyNum,positionType,TeamID,lineNum,goalCount,assitsCount,shotCount,plusMinus,activeState\n"
         for x in 0..<tempPlayerIDArray.count {
             
@@ -160,8 +164,12 @@ class Settings_Page: UIViewController {
             let playerPlusMinusVar = tempPlusMinus[x]
             let playerActiveStateVar = tempActiveState[x]
             
-            let newLine =  playerIDVar + ", " + playerNameVar + ", " + playerJerseyNum + ", " + playerPositionTypeVar + ", " + playerTeamIDVar + ", " + playerLineNumVar + ", " + playerGoalCountVar + ", " + playerAssitsCountVar + ", " + playerShotCountVar + ", " + playerPlusMinusVar + ", " + playerActiveStateVar + "\n"
-            csvText.append(newLine)
+                let newLine =  playerIDVar + "," + playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + ", " + playerActiveStateVar + "\n"
+                if(x == tempPlayerIDArray.count){
+                    newLine.dropLast()
+                    newLine.dropLast()
+                }
+                csvText.append(newLine)
         }
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -219,7 +227,7 @@ class Settings_Page: UIViewController {
             
         }
 
-        let fileName = "New_Game_Info_Table_" + dateString + ".csv"
+        let fileName = "Realm_New_Game_Info_Table" + ".csv"
         var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,winingTeamID,losingTeamID,activeGameStatus,activeState\n"
         for x in 0..<newGameIDCount {
             
@@ -233,7 +241,11 @@ class Settings_Page: UIViewController {
             let activeGameStatusVar = tempActiveGameStatus[x]
             let activeStateVar = tempActiveState[x]
             
-            let newLine =  gameIDVar + ", " + dateGamePlayerVar + ", " + opposingTeamIDVar + ", " + homeTeamIDVar + ", " + gameTypeVar + ", " + winingTeamVar + ", " + losingTeamVar + ", " + activeGameStatusVar + ", " + activeStateVar + "\n"
+            let newLine =  gameIDVar + "," + dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + winingTeamVar + "," + losingTeamVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
+            if(x == newGameIDCount){
+                newLine.dropLast()
+                newLine.dropLast()
+            }
             csvText.append(newLine)
         }
         
@@ -307,7 +319,7 @@ class Settings_Page: UIViewController {
             
         }
         
-        let fileName = "Goal_Marker_Table_" + dateString + ".csv"
+        let fileName = "Realm_Goal_Marker_Table" + ".csv"
         var csvText = "cordSetID,gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<goalMarkerIDCount{
             
@@ -327,6 +339,10 @@ class Settings_Page: UIViewController {
             let activeStateVar = tempactiveState[x]
             
             let newLine =  cordSetIDVar + "," + gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
+            if(x == goalMarkerIDCount){
+                newLine.dropLast()
+                newLine.dropLast()
+            }
             csvText.append(newLine)
         }
         
@@ -385,7 +401,7 @@ class Settings_Page: UIViewController {
             
         }
         
-        let fileName = "Shot_Marker_Table_" + dateString + ".csv"
+        let fileName = "Realm_Shot_Marker_Table" + ".csv"
         var csvText = "cordSetID,gameID,TeamID,goalieID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<shotMarkerIDCount{
             
@@ -400,6 +416,10 @@ class Settings_Page: UIViewController {
             let activeStateVar = tempactiveState[x]
             
             let newLine =  cordSetIDVar + "," + gameIDVar + "," + teamIDVar + "," + goalieIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
+            if(x == shotMarkerIDCount){
+                newLine.dropLast()
+                newLine.dropLast()
+            }
             csvText.append(newLine)
         }
         
