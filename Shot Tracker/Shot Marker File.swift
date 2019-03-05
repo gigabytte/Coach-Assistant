@@ -17,7 +17,7 @@ class shotMarkerTable: Object {
     
     @objc dynamic var  TeamID: Int = 0
     @objc dynamic var  goalieID: Int = 0
-    @objc dynamic var  periodNumSet: Int = 0
+    @objc dynamic var  periodNum: Int = 0
     @objc dynamic var  xCordShot: Int = 0
     @objc dynamic var  yCordShot: Int = 0
     @objc dynamic var  shotLocation: Int = 0

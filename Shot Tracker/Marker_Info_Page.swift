@@ -306,7 +306,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                     goalMarkerTableID?.goalieID = self.goalieSelectedID
                     goalMarkerTableID?.xCordGoal = (self.xCords)
                     goalMarkerTableID?.yCordGoal = (self.yCords)
-                    goalMarkerTableID?.periodNumSet = (self.periodSelectionNum)
+                    goalMarkerTableID?.periodNum = (self.periodSelectionNum)
                     goalMarkerTableID?.shotLocation = (Int(self.shotLocationValue)!)
                     goalMarkerTableID?.TeamID = (self.scoringPassedTeamID[0])
                     goalMarkerTableID?.goalPlayerID = (self.selectedMainPlayerID)

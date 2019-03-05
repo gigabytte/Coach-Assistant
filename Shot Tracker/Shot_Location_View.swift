@@ -325,7 +325,7 @@ class Shot_Location_View: UIViewController {
 
             shotMarkerTableID?.xCordShot = tempXCords
             shotMarkerTableID?.yCordShot = tempYCords
-            shotMarkerTableID?.periodNumSet = periodNumSelected!
+            shotMarkerTableID?.periodNum = periodNumSelected!
             shotMarkerTableID?.shotLocation = shotLocationValueSelected
             shotMarkerTableID?.activeState = true
 
