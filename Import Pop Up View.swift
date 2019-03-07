@@ -45,7 +45,6 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             {
                 let fileNames = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
                 let csvFileNames = fileNames.filter{$0.contains("Realm_")}
-                print("all files in cache: \(fileNames)")
                 for fileName in csvFileNames {
                     
                     if (fileName.hasSuffix(".csv"))
@@ -54,60 +53,264 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         fileNamesArray.append(fileName)
                     }
                 }
-                
-                let files = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
-                print("all files in cache after deleting CSV files: \(files)")
             }
             
         } catch {
-            print("Could not clear document directory folder: \(error)")
+            print("Could not find documents: \(error)")
         }
         return(fileNamesArray)
     }
-    
-    func csvFileToStringConver() -> ([[String]], [[String]], [[String]], [[String]], [[String]]) {
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let firstDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_New_Game_Info_Table.csv")!])
-        let secDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Team_Info_Table.csv")!])
-        let thirdDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Player_Info_Table.csv")!])
-        let fourthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Goal_Marker_Table.csv")!])
-        let fifthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Shot_Marker_Table.csv")!])
-        
-        var firstFileContentsParsed: [[String]] = [[String]]()
-        var secFileContentsParsed: [[String]] = [[String]]()
-        var thirdFileContentsParsed: [[String]] = [[String]]()
-        var forthFileContentsParsed: [[String]] = [[String]]()
-        var fifthFileContentsParsed: [[String]] = [[String]]()
-        
-            do {
-                firstFileContentsParsed =  (try String(contentsOf: firstDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
-                secFileContentsParsed = (try String(contentsOf: secDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
-                thirdFileContentsParsed = (try String(contentsOf: thirdDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
-                forthFileContentsParsed = (try String(contentsOf: fourthDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
-                fifthFileContentsParsed = (try String(contentsOf: fifthDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
-                print("Contents of Parsed File One: ", firstFileContentsParsed)
-                print("Contents of Parsed File Two: ", secFileContentsParsed)
-                // REMOVE EMPTY SPACE AT END
-            } catch {
-                print("Error Finding Containts of File")
-        }
-        return(firstFileContentsParsed, secFileContentsParsed, thirdFileContentsParsed, forthFileContentsParsed, fifthFileContentsParsed)
+
+    func stringToDateFormatter(stringDate: String) -> Date{
+        // string to date formatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+        let date = dateFormatter.date(from: stringDate)
+        return(date!)
     }
     
-    func csvStringToRealm(){
+    // convert csv files to string then convert [[string]] to new game table in realm
+    func csvStringToRealmNewGameTable() -> Bool{
+        // get document path based on search for spefic file
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let firstDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_New_Game_Info_Table.csv")!])
         
-        try? realm.write ({
-            //delete contents of DB
-            realm.deleteAll()
-            
-            for i in 0..<csvFileToStringConver().0.count{
-                // skip first row
-                // loop through and check the nu ber of elemts against the first row
-                // if row is lower through error
-            }
-            
-        })
-
+        var firstFileContentsParsed: [[String]] = [[String]]()
+        // get contents of specfic csv file and place into array above
+        do {
+            firstFileContentsParsed =  (try String(contentsOf: firstDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Containts of File")
+        }
+        
+        if (firstFileContentsParsed[1].count == firstFileContentsParsed[0].count){
+            try? realm.write ({
+                //delete contents of table in realm DB
+                realm.delete(realm.objects(newGameTable.self))
+                print(realm.objects(newGameTable.self))
+                for i in 1..<firstFileContentsParsed.count - 1{
+                    if(firstFileContentsParsed[i].first != nil){
+                        let currentGameID = Int(firstFileContentsParsed[i][0])
+                        self.realm.create(newGameTable.self, value: ["gameID": currentGameID])
+                        let primaryGameID = self.realm.object(ofType: newGameTable.self, forPrimaryKey: currentGameID)
+                        var count = 1
+                        primaryGameID?.dateGamePlayed = stringToDateFormatter(stringDate: firstFileContentsParsed[i][count]); count += 1
+                        primaryGameID?.opposingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
+                        primaryGameID?.homeTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
+                        primaryGameID?.gameType = firstFileContentsParsed[i][count]; count += 1
+                        primaryGameID?.winingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
+                        primaryGameID?.losingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
+                        primaryGameID?.activeGameStatus = Bool(firstFileContentsParsed[i][count])!; count += 1
+                        primaryGameID?.activeState = Bool(firstFileContentsParsed[i][count])!; count += 1
+                    }else{
+                        break
+                    }
+                }
+            })
+            print("New Game Success")
+            return(true)
+        }else{
+            incorrectDataFormat(fileType: "New Game Table")
+            return(false)
+        }
+    }
+    
+    // convert csv files to string then convert [[string]] to team table in realm
+    func csvStringToRealmTeamTable() -> Bool{
+        // get document path based on search for spefic file
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let sectDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Team_Info_Table.csv")!])
+        
+        var secFileContentsParsed: [[String]] = [[String]]()
+        // get contents of specfic csv file and place into array above
+        do {
+            secFileContentsParsed =  (try String(contentsOf: sectDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Containts of File")
+        }
+    
+        if (secFileContentsParsed[1].count == secFileContentsParsed[0].count){
+            try? realm.write ({
+            //delete contents of table in realm DB
+                realm.delete(realm.objects(teamInfoTable.self))
+                
+                for i in 1..<secFileContentsParsed.count - 1{
+                     if(secFileContentsParsed[i].first != nil){
+                        let currentTeamID = Int(secFileContentsParsed[i][0])
+                        self.realm.create(teamInfoTable.self, value: ["teamID": currentTeamID])
+                        let primaryTeamID = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: currentTeamID)
+                        var count = 1
+                        primaryTeamID?.nameOfTeam = secFileContentsParsed[i][count]; count += 1
+                        primaryTeamID?.activeState = Bool(secFileContentsParsed[i][count])!
+                     }else{
+                        break
+                    }
+                }
+            })
+            print("Team Table Success")
+            return(true)
+        }else{
+            incorrectDataFormat(fileType: "Team Info Table")
+            return(false)
+        }
+    }
+    
+    // convert csv files to string then convert [[string]] to player info table in realm
+    func csvStringToRealmPlayerTable() -> Bool{
+        // get document path based on search for spefic file
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let thirdDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Player_Info_Table.csv")!])
+        
+        var thirdFileContentsParsed: [[String]] = [[String]]()
+        // get contents of specfic csv file and place into array above
+        do {
+            thirdFileContentsParsed =  (try String(contentsOf: thirdDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Containts of File")
+        }
+        
+        if (thirdFileContentsParsed[1].count == thirdFileContentsParsed[0].count){
+            try? realm.write ({
+                //delete contents of table in realm DB
+                realm.delete(realm.objects(playerInfoTable.self))
+                
+                for i in 1..<thirdFileContentsParsed.count - 1{
+                     if(thirdFileContentsParsed[i].first != nil){
+                        let currentPlayerID = Int(thirdFileContentsParsed[i][0])
+                        self.realm.create(playerInfoTable.self, value: ["playerID": currentPlayerID])
+                        let primaryPlayerID = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: currentPlayerID)
+                        var count = 1
+                        primaryPlayerID?.playerName = thirdFileContentsParsed[i][count]; count += 1
+                        primaryPlayerID?.jerseyNum = Int(thirdFileContentsParsed[i][count])!; count += 1
+                        primaryPlayerID?.positionType = thirdFileContentsParsed[i][count]; count += 1
+                        primaryPlayerID?.TeamID = thirdFileContentsParsed[i][count]; count += 1
+                        primaryPlayerID?.lineNum = Int(thirdFileContentsParsed[i][count])!; count += 1
+                        primaryPlayerID?.goalCount = Int(thirdFileContentsParsed[i][count])!; count += 1
+                        primaryPlayerID?.assitsCount = Int(thirdFileContentsParsed[i][count])!; count += 1
+                        primaryPlayerID?.shotCount = Int(thirdFileContentsParsed[i][count])!; count += 1
+                        primaryPlayerID?.plusMinus = Int(thirdFileContentsParsed[i][count])!; count += 1
+                        //print(thirdFileContentsParsed[i][count])
+                        primaryPlayerID?.activeState = Bool(thirdFileContentsParsed[i][count])!;
+                     }else{
+                        break
+                    }
+                }
+            })
+            print("Player Table Success")
+            return(true)
+        }else{
+            incorrectDataFormat(fileType: "Player Info Table")
+            return(false)
+        }
+    }
+    
+    // convert csv files to string then convert [[string]] to goal Marker table in realm
+    func csvStringToRealmGoalMarkerTable() -> Bool{
+        // get document path based on search for spefic file
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fourthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Goal_Marker_Table.csv")!])
+        
+        var fourthFileContentsParsed: [[String]] = [[String]]()
+        // get contents of specfic csv file and place into array above
+        do {
+            fourthFileContentsParsed =  (try String(contentsOf: fourthDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Containts of File")
+        }
+        
+        if (fourthFileContentsParsed[1].count == fourthFileContentsParsed[0].count){
+            try? realm.write ({
+                //delete contents of table in realm DB
+                realm.delete(realm.objects(goalMarkersTable.self))
+                
+                for i in 1..<fourthFileContentsParsed.count - 1{
+                     if(fourthFileContentsParsed[i].first != nil){
+                        let currentMarkerID = Int(fourthFileContentsParsed[i][0])
+                        self.realm.create(goalMarkersTable.self, value: ["cordSetID": currentMarkerID])
+                        let primaryMarkerID = self.realm.object(ofType: goalMarkersTable.self, forPrimaryKey: currentMarkerID)
+                        var count = 1
+                        primaryMarkerID?.gameID = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.goalType = fourthFileContentsParsed[i][count]; count += 1
+                        primaryMarkerID?.powerPlay = Bool(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.TeamID = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.goalieID = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.goalPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.assitantPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.sec_assitantPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.periodNum = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.xCordGoal = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.yCordGoal = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.shotLocation = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.activeState = Bool(fourthFileContentsParsed[i][count])!; count += 1
+                     }else{
+                        break
+                    }
+                }
+            })
+            print("Goal Marker Table Success")
+            return(true)
+        }else{
+            incorrectDataFormat(fileType: "Goal Marker Table")
+            return(false)
+        }
+    }
+    
+    // convert csv files to string then convert [[string]] to shot Marker table in realm
+    func csvStringToRealmShotlMarkerTable() -> Bool{
+        // get document path based on search for spefic file
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fifthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Shot_Marker_Table.csv")!])
+        
+        var fifthFileContentsParsed: [[String]] = [[String]]()
+        // get contents of specfic csv file and place into array above
+        do {
+            fifthFileContentsParsed =  (try String(contentsOf: fifthDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Containts of File")
+        }
+        
+        if (fifthFileContentsParsed[1].count == fifthFileContentsParsed[0].count){
+            try? realm.write ({
+                //delete contents of table in realm DB
+                realm.delete(realm.objects(shotMarkerTable.self))
+                
+                for i in 1..<fifthFileContentsParsed.count - 1{
+                     if(fifthFileContentsParsed[i].first != nil){
+                        let currentMarkerID = Int(fifthFileContentsParsed[i][0])
+                        self.realm.create(shotMarkerTable.self, value: ["cordSetID": currentMarkerID])
+                        let primaryMarkerID = self.realm.object(ofType: shotMarkerTable.self, forPrimaryKey: currentMarkerID)
+                        var count = 1
+                        primaryMarkerID?.gameID = Int(fifthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.TeamID = Int(fifthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.goalieID = Int(fifthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.periodNum = Int(fifthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.xCordShot = Int(fifthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.yCordShot = Int(fifthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.shotLocation = Int(fifthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.activeState = Bool(fifthFileContentsParsed[i][count])!; count += 1
+                     }else{
+                        break
+                    }
+  
+                }
+            })
+            print("Shot Marker Table Success")
+            return(true)
+        }else{
+            incorrectDataFormat(fileType: "Shot Marker Table")
+            return(false)
+        }
+    }
+    
+    func incorrectDataFormat(fileType: String) -> Bool{
+        
+        let alertController = UIAlertController(title: "File Format Error", message:
+            "The \(fileType) format is incorrect please select another file and try again", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
+        }))
+        self.present(alertController, animated: true, completion: nil)
+        print("The \(fileType) format is incorrect please select another file and try again")
+        return true
     }
     
     @IBAction func cancelButton(_ sender: Any) {
@@ -115,8 +318,11 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func importButton(_ sender: Any) {
-        csvFileToStringConver()
-        self.performSegue(withIdentifier: "importButtonSegue", sender: nil);
+        
+        if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false){
+            print("Import Success")
+            self.performSegue(withIdentifier: "importButtonSegue", sender: nil);
+        }
     }
     // Returns count of items in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -175,5 +381,13 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 
-
+    // func used to pass varables on segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check is appropriate segue is being used
+        if (segue.identifier == "importButtonSegue"){
+            // set var vc as destination segue
+            let vc = segue.destination as! Settings_Page
+            vc.successImport = true
+        }
+    }
 }
