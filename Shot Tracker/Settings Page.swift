@@ -18,6 +18,7 @@ class Settings_Page: UIViewController {
     @IBOutlet weak var sucessProcessText: UILabel!
     
     var realm = try! Realm()
+    var successImport: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +31,15 @@ class Settings_Page: UIViewController {
         // round corners of export and import buttons
         exportCVSButton.layer.cornerRadius = 10
         importCVSButton.layer.cornerRadius = 10
-        // hide successful text fild y default on load
-        sucessProcessText.isHidden = true
         // runn delay then present missing icloud account warning
         delay(0.5){
             if (self.isICloudContainerAvailable() != true){
                 self.missingIcloudLogin()
             }
         }
+        promptMessage()
     }
+    
     // on button press perform CVS export functions
     @IBAction func exportCVSButtonAction(_ sender: UIButton) {
         // check is icloud account checker retuns true
@@ -53,19 +54,55 @@ class Settings_Page: UIViewController {
     @IBAction func importCVSButtonAction(_ sender: UIButton) {
         self.performSegue(withIdentifier: "importPopUpSegue", sender: nil);
     }
+    
+    
+    func promptMessage(){
+       // fix creation date!!
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let firstDocumentPath = documentsUrl.appendingPathComponent("Realm_New_Game_Info_Table.csv")
+        
+        do {
+            let attr = try FileManager.default.attributesOfFileSystem(forPath: String(contentsOf: firstDocumentPath))
+            print(attr)
+               let date = attr[FileAttributeKey.modificationDate] as? String
+               self.sucessProcessText.text = date
+                self.sucessProcessText.textAlignment = .center
+                self.sucessProcessText.textColor = UIColor.blue
+        } catch {
+            print("Can't find file creation date")
+        }
+        if (successImport != nil){
+            if (successImport != true){
+                self.sucessProcessText.text = "Please Try Importing Again"
+                self.sucessProcessText.textAlignment = .center
+                self.sucessProcessText.textColor = UIColor.red
+            }else{
+                self.sucessProcessText.text = "Import was Sucessful"
+                self.sucessProcessText.textAlignment = .center
+                self.sucessProcessText.textColor = UIColor.red
+            }
+        }else{
+           self.sucessProcessText.isHidden = true
+        }
+    }
+    
+    
     // creats csv file for  team info table
     func createCSVTeamInfo(){
         
         let TeamIDCount =  realm.objects(teamInfoTable.self).filter("teamID >= 0").count
         var tempTeamIDArray: [String] = [String]()
         var tempTeamNameArray: [String] = [String]()
+        var tempActiveStateArray: [String] = [String]()
         // print(TeamIDCount)
         for i in 0..<TeamIDCount{
             
             let teamIDValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey: i)!.teamID;
             let teamNameValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.nameOfTeam;
+            let activeStateValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.activeState;
             tempTeamIDArray.append(String(teamIDValue))
             tempTeamNameArray.append(teamNameValue)
+            tempActiveStateArray.append(String(activeStateValue))
         }
         
         let date = Date()
@@ -74,13 +111,14 @@ class Settings_Page: UIViewController {
         let dateString = formatter.string(from: date)
         
         let fileName = "Realm_Team_Info_Table" + ".csv"
-        var csvText = "teamID,nameOfTeam\n"
+        var csvText = "teamID,nameOfTeam,activeState\n"
         for x in 0..<tempTeamIDArray.count {
             
             let teamIDVar = tempTeamIDArray[x]
             let teamNameVar = tempTeamNameArray[x]
+            let activeStateVar = tempActiveStateArray[x]
             
-            let newLine = String(teamIDVar) + "," + teamNameVar + "\n"
+            let newLine = String(teamIDVar) + "," + teamNameVar + "," + activeStateVar + "\n"
             if(x == tempTeamIDArray.count){
                 newLine.dropLast()
                 newLine.dropLast()
@@ -164,7 +202,7 @@ class Settings_Page: UIViewController {
             let playerPlusMinusVar = tempPlusMinus[x]
             let playerActiveStateVar = tempActiveState[x]
             
-                let newLine =  playerIDVar + "," + playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + ", " + playerActiveStateVar + "\n"
+                let newLine =  playerIDVar + "," + playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerActiveStateVar + "\n"
                 if(x == tempPlayerIDArray.count){
                     newLine.dropLast()
                     newLine.dropLast()
@@ -540,4 +578,5 @@ class Settings_Page: UIViewController {
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
         }
-    }
+}
+
