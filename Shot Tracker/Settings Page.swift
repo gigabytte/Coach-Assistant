@@ -12,10 +12,11 @@ import RealmSwift
 import MessageUI
 
 class Settings_Page: UIViewController {
-
+    
     @IBOutlet weak var exportCVSButton: UIButton!
     @IBOutlet weak var importCVSButton: UIButton!
     @IBOutlet weak var sucessProcessText: UILabel!
+    @IBOutlet weak var backupDateLabel: UILabel!
     
     var realm = try! Realm()
     var successImport: Bool!
@@ -37,6 +38,7 @@ class Settings_Page: UIViewController {
                 self.missingIcloudLogin()
             }
         }
+        backupUpDateCheck()
         promptMessage()
     }
     
@@ -44,7 +46,7 @@ class Settings_Page: UIViewController {
     @IBAction func exportCVSButtonAction(_ sender: UIButton) {
         // check is icloud account checker retuns true
         if (isICloudContainerAvailable() == true){
-        confirmationiCloudAlert()
+            confirmationiCloudAlert()
         }else{
             confirmationLocalAlert()
         }
@@ -55,22 +57,17 @@ class Settings_Page: UIViewController {
         self.performSegue(withIdentifier: "importPopUpSegue", sender: nil);
     }
     
+    func backupUpDateCheck(){
+        
+        if(UserDefaults.standard.object(forKey: "lastBackup") != nil){
+            backupDateLabel.text = "Last Know Backup: \(UserDefaults.standard.object(forKey: "lastBackup") as! String)"
+        }else{
+            backupDateLabel.isHidden = true
+        }
+        
+    }
     
     func promptMessage(){
-       // fix creation date!!
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let firstDocumentPath = documentsUrl.appendingPathComponent("Realm_New_Game_Info_Table.csv")
-        
-        do {
-            let attr = try FileManager.default.attributesOfFileSystem(forPath: String(contentsOf: firstDocumentPath))
-            print(attr)
-               let date = attr[FileAttributeKey.modificationDate] as? String
-               self.sucessProcessText.text = date
-                self.sucessProcessText.textAlignment = .center
-                self.sucessProcessText.textColor = UIColor.blue
-        } catch {
-            print("Can't find file creation date")
-        }
         if (successImport != nil){
             if (successImport != true){
                 self.sucessProcessText.text = "Please Try Importing Again"
@@ -82,7 +79,7 @@ class Settings_Page: UIViewController {
                 self.sucessProcessText.textColor = UIColor.red
             }
         }else{
-           self.sucessProcessText.isHidden = true
+            self.sucessProcessText.isHidden = true
         }
     }
     
@@ -135,9 +132,9 @@ class Settings_Page: UIViewController {
                 print("Team CSV File URL: ", fileURL)
             } catch {
                 print("\(error)")
-                }
             }
         }
+    }
     // creats csv file for player info table
     func createCSVPlayerInfo(){
         
@@ -202,12 +199,12 @@ class Settings_Page: UIViewController {
             let playerPlusMinusVar = tempPlusMinus[x]
             let playerActiveStateVar = tempActiveState[x]
             
-                let newLine =  playerIDVar + "," + playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerActiveStateVar + "\n"
-                if(x == tempPlayerIDArray.count){
-                    newLine.dropLast()
-                    newLine.dropLast()
-                }
-                csvText.append(newLine)
+            let newLine =  playerIDVar + "," + playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerActiveStateVar + "\n"
+            if(x == tempPlayerIDArray.count){
+                newLine.dropLast()
+                newLine.dropLast()
+            }
+            csvText.append(newLine)
         }
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -222,9 +219,9 @@ class Settings_Page: UIViewController {
             }
         }
     }
-   // creats csv file for new game table
+    // creats csv file for new game table
     func createCSVNewGameInfo(){
-    
+        
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
@@ -264,7 +261,7 @@ class Settings_Page: UIViewController {
             tempActiveState.append(String(activeStateValue))
             
         }
-
+        
         let fileName = "Realm_New_Game_Info_Table" + ".csv"
         var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,winingTeamID,losingTeamID,activeGameStatus,activeState\n"
         for x in 0..<newGameIDCount {
@@ -322,7 +319,7 @@ class Settings_Page: UIViewController {
         var tempyCordGoal: [String] = [String]()
         var tempshotLocation: [String] = [String]()
         var tempactiveState: [String] = [String]()
-
+        
         
         for i in 0..<goalMarkerIDCount{
             
@@ -520,7 +517,7 @@ class Settings_Page: UIViewController {
         let sucessfulExportAlert = UIAlertController(title: "Succesful Export", message: "All App Data was Succesfully Exported Locally", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         sucessfulExportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-
+        
         // show the alert
         self.present(sucessfulExportAlert, animated: true, completion: nil)
         
@@ -539,29 +536,43 @@ class Settings_Page: UIViewController {
             self.createCSVNewGameInfo()
             self.createCSVGoalMarkerTable()
             self.createCSVShotMarkerTable()
+            // save last know backup to user defaults
+            let currentDateTime = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
+            let dateString = formatter.string(from: currentDateTime)
+            UserDefaults.standard.set(dateString, forKey: "lastBackup")
+            self.backupUpDateCheck()
         }))
         // show the alert
         self.present(exportAlert, animated: true, completion: nil)
         
     }
     func confirmationLocalAlert(){
-            
-             // create confirmation alert to save to local storage
-            let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to you Local Storage?", preferredStyle: UIAlertController.Style.alert)
-            // add an action (button)
-            exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-            exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
-                self.oldCSVFileFinder()
-                self.createCSVTeamInfo()
-                self.createCSVPlayerInfo()
-                self.createCSVNewGameInfo()
-                self.createCSVGoalMarkerTable()
-                self.createCSVShotMarkerTable()
-            }))
-            // show the alert
-            self.present(exportAlert, animated: true, completion: nil)
-            
-        }
+        
+        // create confirmation alert to save to local storage
+        let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to you Local Storage?", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+        exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
+            self.oldCSVFileFinder()
+            self.createCSVTeamInfo()
+            self.createCSVPlayerInfo()
+            self.createCSVNewGameInfo()
+            self.createCSVGoalMarkerTable()
+            self.createCSVShotMarkerTable()
+            // save last know backup to user defaults
+            let currentDateTime = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
+            let dateString = formatter.string(from: currentDateTime)
+            UserDefaults.standard.set(dateString, forKey: "lastBackup")
+            self.backupUpDateCheck()
+        }))
+        // show the alert
+        self.present(exportAlert, animated: true, completion: nil)
+        
+    }
     func missingIcloudLogin(){
         
         // create indicating missing iCloud account
@@ -572,11 +583,11 @@ class Settings_Page: UIViewController {
         self.present(noIcloud, animated: true, completion: nil)
         
     }
-        
+    
     // delay loop
     func delay(_ delay:Double, closure:@escaping ()->()) {
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-        }
+    }
 }
 
