@@ -185,18 +185,29 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         animation.fromValue = CGPoint(x: teamSelectionPopUpView.center.x - 10, y: teamSelectionPopUpView.center.y)
         animation.toValue = CGPoint(x: teamSelectionPopUpView.center.x + 10, y: teamSelectionPopUpView.center.y)
         teamSelectionPopUpView.layer.add(animation, forKey: "position")
-        // enable team election error text from hidden to appear
-        teamSelectionErrorText.isHidden = false
+        teamSelectionErrorText.textColor = UIColor.red
     }
     
     @IBAction func continueTeamSelectionButton(_ sender: UIButton) {
-        if (selectedHomeTeam != selectedAwayTeam){
-            // if home team and away team are not the same proceed with regular segue to New Game Page
-            animateOut()
-            continueTeamSelection()
+        if (teamPlayerGoalieChecker(homeKey: selectedHomeTeamKey, awayKey: selectedAwayTeamKey) != false && (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@",String(selectedAwayTeamKey), NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count != 0 && (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@",String(selectedHomeTeamKey), NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count != 0){
+            if (selectedHomeTeam != selectedAwayTeam){
+                // if home team and away team are not the same proceed with regular segue to New Game Page
+                animateOut()
+                continueTeamSelection()
+            }else{
+                // enable team election error text from hidden to appear
+                teamSelectionErrorText.isHidden = false
+                self.teamSelectionErrorText.text = "Please select two DIFFERENT teams"
+                // if home team and away team are the same value run alert
+                doubleHomeTeamAlert()
+                
+            }
         }else{
-            // if home team and away team are the same value run alert
             doubleHomeTeamAlert()
+            self.teamSelectionErrorText.isHidden = false
+            self.teamSelectionErrorText.text = "Please make sure both teams have a player and goalie"
+            self.teamSelectionErrorText.textAlignment = .center
+            self.teamSelectionErrorText.textColor = UIColor.red
         }
     }
     
@@ -287,6 +298,18 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
         
     }
+    
+    func teamPlayerGoalieChecker(homeKey: Int, awayKey: Int) -> Bool{
+        let playerOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == %@", String(homeKey), "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+       let goalieOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == %@", String(awayKey), "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        if (playerOne.first != nil && goalieOne.first != nil && playerOne.first != goalieOne.last){
+            
+            return true
+        }else{
+            return false
+        }
+    }
+    
     // func used to pass varables on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
@@ -303,5 +326,11 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
             var primaryNewGameKey = realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "activeGameStatus": true, "activeState": true]);
         }
         self.performSegue(withIdentifier: "continueTeamSelectionSegue", sender: nil);
+    }
+    
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 }

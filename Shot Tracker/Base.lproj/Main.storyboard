@@ -245,11 +245,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select two DIFFERENT teams." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xse-xV-C8h">
-                                        <rect key="frame" x="108" y="5" width="268" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="268" id="0RU-Sj-bdo"/>
-                                            <constraint firstAttribute="height" constant="21" id="YyU-9F-bfr"/>
-                                        </constraints>
+                                        <rect key="frame" x="108" y="5" width="268" height="18"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" red="1" green="0.33415259047759038" blue="0.18099303939710287" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1803,6 +1799,6 @@
         <segue reference="Dru-ha-s6H"/>
         <segue reference="G60-nY-BQ9"/>
         <segue reference="AYF-Xl-O9F"/>
-        <segue reference="Ve8-tz-6Eb"/>
+        <segue reference="2uF-ll-qm3"/>
     </inferredMetricsTieBreakers>
 </document>
