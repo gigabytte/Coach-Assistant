@@ -1,20 +1,18 @@
 //
-//  Old_Stats_Game_Details_Page.swift
+//  Old Game Ice View.swift
 //  Shot Tracker
 //
-//  Created by Ahad Ahmed on 2019-02-22.
+//  Created by Greg Brooks on 2019-03-08.
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
 
 import UIKit
 
-class Old_Stats_Game_Details_Page: UIViewController {
+class Old_Game_Ice_View: UIViewController {
 
-    var SeletedGame: Int!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print("Game Id Selected: ", SeletedGame!)
+
         // Do any additional setup after loading the view.
     }
     
