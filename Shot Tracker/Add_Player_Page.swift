@@ -18,16 +18,18 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     @IBOutlet weak var positionPicker: UIPickerView!
     @IBOutlet weak var playerNumber: UITextField!
     @IBOutlet weak var playerName: UITextField!
+    @IBOutlet weak var inActivePlayerToggle: UISwitch!
     
     var pickerData:[String] = [String]()
     var positionData:[String] = [String]()
-    var selectLine:Int = 0
-    var selectTeamKey:Int = 0
-    var selectPosition:String = ""
+    var positionCodeData:[String] = [String]()
+    var selectLine:Int!
+    var selectTeamKey: String!
+    var selectPosition:String!
     var primaryPlayerID: Int!
     
-    var teamPickerData:Results<teamInfoTable>!
-    var teamPickerSelect:[teamInfoTable] = []
+    var teamPickerData: [String] = [String]()
+    var teamIDPickerData:[String] = [String]()
     var selectTeam: String = ""
     
     override func viewDidLoad() {
@@ -47,9 +49,6 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.positionPicker.delegate = self
         self.positionPicker.dataSource = self
         
-        self.teamPickerData = realm.objects(teamInfoTable.self)
-        self.teamPickerSelect = Array(self.teamPickerData)
-        
         playerNumber.delegate = self
         // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
         // get rotation allowances of device
@@ -59,6 +58,13 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         // Do any additional setup after loading the view.
         pickerData = ["Forward 1","Forward 2","Forward 3","Defence 1","Defence 2","Defence 3", "Goalie"]
         positionData = ["Left Wing", "Center", "Right Wing", "Left Defence", "Right Defence", "Goalie"]
+        positionCodeData = ["LW", "C", "RW", "LD", "RD", "G"]
+        teamPickerData = (self.realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
+        teamIDPickerData = (self.realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})
+        print(teamIDPickerData)
+        selectTeamKey = teamIDPickerData[0]
+        selectPosition = positionCodeData[0]
+        selectLine = 1
     }
     // restrict player number field to decimal degots only
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -89,7 +95,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if (pickerView == teamPicker){
-            return teamPickerSelect[row].nameOfTeam
+            return teamPickerData[row]
         }else if(pickerView == linePicker){
             return pickerData[row]
         }else{
@@ -98,7 +104,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView == teamPicker){
-            selectTeamKey = teamPickerSelect[row].teamID
+            selectTeamKey = teamIDPickerData[row]
         }else if(pickerView == linePicker){
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
@@ -116,18 +122,18 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
                 selectLine = 7
             }
         }else{
-            selectPosition = positionData[row]
+            selectPosition = positionCodeData[row]
         }
     }
     
     // on add player button click
     @IBAction func savePlayer(_ sender: Any) {
         
-        let player: String = playerName.text!
+        let nameOfPlayer: String = playerName.text!
         let number = Int(playerNumber.text!)
         let line = selectLine
         let position = selectPosition
-        let team = String(selectTeamKey)
+        let teamID = selectTeamKey!
         let newPlayer = playerInfoTable()
         
         if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
@@ -139,13 +145,13 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         }
         
         // check to see if fields are filled out properly
-        if (number != nil && player != nil){
+        if (number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn != true){
             newPlayer.playerID = primaryPlayerID
-            newPlayer.playerName = player
+            newPlayer.playerName = nameOfPlayer
             newPlayer.jerseyNum = number!
-            newPlayer.lineNum = line
-            newPlayer.positionType = position
-            newPlayer.TeamID = team
+            newPlayer.lineNum = line!
+            newPlayer.positionType = position!
+            newPlayer.TeamID = teamID
             
             try! realm.write{
                 // write info to realm and reset all fields
@@ -154,13 +160,29 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
                 playerNumber.text = ""
                 self.teamPicker.reloadAllComponents()
                 self.linePicker.reloadAllComponents()
-                succesfulPlayerAdd()
+                succesfulPlayerAdd(playerName: nameOfPlayer)
             }
+        }else if(number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn == true){
+            newPlayer.playerID = primaryPlayerID
+            newPlayer.playerName = nameOfPlayer
+            newPlayer.jerseyNum = number!
+            newPlayer.lineNum = line!
+            newPlayer.positionType = position!
+            newPlayer.TeamID = teamID
+            newPlayer.activeState = false
             
+            try! realm.write{
+                // write info to realm and reset all fields
+                realm.add(newPlayer, update: true)
+                playerName.text = ""
+                playerNumber.text = ""
+                self.teamPicker.reloadAllComponents()
+                self.linePicker.reloadAllComponents()
+                succesfulPlayerAdd(playerName: nameOfPlayer)
+            }
         }else{
             // alert user if missing fields are present
             missingFieldAlert()
-            print("test")
         }
     }
     // if player name or player number is missing create alert notifying user
@@ -175,10 +197,10 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         
     }
     // if player was addded succesfully notify user
-    func succesfulPlayerAdd(){
+    func succesfulPlayerAdd(playerName: String){
         
         // create the alert
-        let successfulQuery = UIAlertController(title: "Player Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: "\(playerName) Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

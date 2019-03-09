@@ -100,6 +100,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         primaryGameID?.gameType = firstFileContentsParsed[i][count]; count += 1
                         primaryGameID?.winingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
                         primaryGameID?.losingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
+                        primaryGameID?.tieGameBool = Bool(firstFileContentsParsed[i][count])!; count += 1
                         primaryGameID?.activeGameStatus = Bool(firstFileContentsParsed[i][count])!; count += 1
                         primaryGameID?.activeState = Bool(firstFileContentsParsed[i][count])!; count += 1
                     }else{

@@ -343,14 +343,20 @@ class New_Game_Page: UIViewController {
                 let currenGameID = self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.gameID
                 let homeTeamIDCount = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", currenGameID!, self.homeTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
                 let awayTeamIDCount = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", currenGameID!, self.awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-                if (homeTeamIDCount > awayTeamIDCount){
-                    self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.winingTeamID = self.homeTeam
-                    self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.losingTeamID = self.awayTeam
+                if (homeTeamIDCount == awayTeamIDCount){
+                    self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.tieGameBool = true
+                    if (homeTeamIDCount > awayTeamIDCount){
+                        self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.winingTeamID = self.homeTeam
+                        self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.losingTeamID = self.awayTeam
+                        print("Home Team Won")
+                    }else{
+                        self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.winingTeamID = self.awayTeam
+                        self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.losingTeamID = self.homeTeam
+                        print("Away Team Won")
+                    }
                 }else{
-                    self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.winingTeamID = self.awayTeam
-                    self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.losingTeamID = self.homeTeam
+                    print("Game is not a Tie")
                 }
-                
             }
         })
         
