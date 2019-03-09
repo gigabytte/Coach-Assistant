@@ -45,15 +45,16 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         // get new gametable objects with filktered by gameID where >=0
-        let newGameTableData = realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= 0"))
+        let newGameTableData = realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= 0 AND activeGameStatus == false AND activeState == true"))
         // get object oriented array of all game ID's
         let newGameTableIDData = newGameTableData.value(forKeyPath: "gameID") as! [Int]
         // append all ID's to array but porcessing in terms of strings
         newGameIDs = newGameTableIDData.compactMap({String($0)})
         // get new gametable ID's based on anything 0 and larger
         let newGameTableDateData = newGameTableData.value(forKeyPath: "dateGamePlayed") as! [Date]
-        homeTeamID =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeState == true", 0)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})
-        awayTeamID =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeState == true", 0)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})
+        homeTeamID =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeGameStatus == false AND activeState == true", 0)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})
+        print(homeTeamID)
+        awayTeamID =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeGameStatus == false AND activeState == true", 0)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})
         // convert dates array type to string array type
         for date in newGameTableDateData{
             let dateFormatter = DateFormatter()

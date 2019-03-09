@@ -357,7 +357,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Ice Surface" id="zya-vQ-4yM">
                                             <connections>
-                                                <segue destination="zHg-Yo-d0f" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="JQ5-8K-2Rt"/>
+                                                <segue destination="zHg-Yo-d0f" kind="presentation" identifier="iceSurfaceSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="JQ5-8K-2Rt"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -492,7 +492,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Stats" id="Fmp-0A-iY8">
                                             <connections>
-                                                <segue destination="vrg-ac-Ef6" kind="presentation" id="CEj-RC-vyA"/>
+                                                <segue destination="vrg-ac-Ef6" kind="presentation" identifier="statsSegue" id="CEj-RC-vyA"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -635,6 +635,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RpM-Oj-VHe"/>
                     </view>
+                    <connections>
+                        <outlet property="awayTeamNameLabel" destination="AMV-pW-tC4" id="rzl-rK-RRn"/>
+                        <outlet property="awayTeamNumGoals" destination="MeQ-mA-oex" id="G92-xF-nP8"/>
+                        <outlet property="awayTeamNumShots" destination="1r2-y8-ww4" id="0pT-Xg-NKu"/>
+                        <outlet property="homeTeamNameLabel" destination="dvr-dK-NLd" id="Ty2-a7-F9c"/>
+                        <outlet property="homeTeamNumGoals" destination="4gm-mO-jwS" id="koY-L4-EZ8"/>
+                        <outlet property="homeTeamNumShots" destination="KWD-MT-onM" id="va0-bQ-adP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACA-Fc-UDp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
