@@ -16,6 +16,7 @@ class Add_Team_Page: UIViewController {
     var primaryTeamID: Int!
     
     @IBOutlet weak var teamName: UITextField!
+    @IBOutlet weak var inActiveTeamToggle: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class Add_Team_Page: UIViewController {
     }
 
     @IBAction func saveteamName(_ sender: Any){
-        let team: String = teamName.text!
+        let userInputTeam: String = teamName.text!
         if (realm.objects(teamInfoTable.self).max(ofProperty: "teamID") as Int? != nil){
             primaryTeamID = (realm.objects(teamInfoTable.self).max(ofProperty: "teamID")as Int? ?? 0) + 1
         }else{
@@ -32,23 +33,31 @@ class Add_Team_Page: UIViewController {
         }
         let newTeam = teamInfoTable()
         
-        if (team != ""){
+        if (userInputTeam != "" && inActiveTeamToggle.isOn != true){
             newTeam.teamID = primaryTeamID
-            newTeam.nameOfTeam = team
+            newTeam.nameOfTeam = userInputTeam
         
             try! realm.write{
                 realm.add(newTeam, update:true)
-                
                 teamName.text = ""
-                succesfulTeamAdd()
+                succesfulTeamAdd(teamName: userInputTeam)
+            }
+        }else if(userInputTeam != "" && inActiveTeamToggle.isOn == true){
+                newTeam.teamID = primaryTeamID
+                newTeam.nameOfTeam = userInputTeam
+                newTeam.activeState = false
+            try! realm.write{
+                realm.add(newTeam, update:true)
+                teamName.text = ""
+                succesfulTeamAdd(teamName: userInputTeam)
             }
         }else{
             missingFieldAlert()
         }
     }
-    func succesfulTeamAdd(){
+    func succesfulTeamAdd(teamName: String){
         
-        let successfulQuery = UIAlertController(title: "Team Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: "Team \(teamName) was Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
         self.present(successfulQuery, animated: true, completion: nil)

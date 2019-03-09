@@ -235,6 +235,7 @@ class Settings_Page: UIViewController {
         var tempGameType: [String] = [String]()
         var tempWiningTeam: [String] = [String]()
         var tempLosingTeam: [String] = [String]()
+        var tempTieBool: [String] = [String]()
         var tempActiveGameStatus: [String] = [String]()
         var tempActiveState: [String] = [String]()
         
@@ -247,6 +248,7 @@ class Settings_Page: UIViewController {
             let gameTypeValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameType;
             let winingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.winingTeamID;
             let losingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.losingTeamID;
+            let tieBoolValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.tieGameBool;
             let activeGameStatusValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeGameStatus;
             let activeStateValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeState;
             let dateString = formatter.string(from: dateGamePlayedValue!)
@@ -257,13 +259,14 @@ class Settings_Page: UIViewController {
             tempGameType.append(gameTypeValue)
             tempWiningTeam.append(String(winingTeamValue))
             tempLosingTeam.append(String(losingTeamValue))
+            tempTieBool.append(String(tieBoolValue))
             tempActiveGameStatus.append(String(activeGameStatusValue))
             tempActiveState.append(String(activeStateValue))
             
         }
         
         let fileName = "Realm_New_Game_Info_Table" + ".csv"
-        var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,winingTeamID,losingTeamID,activeGameStatus,activeState\n"
+        var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,winingTeamID,losingTeamID,tieBool,activeGameStatus,activeState\n"
         for x in 0..<newGameIDCount {
             
             let gameIDVar = tempGameIDArray[x]
@@ -273,10 +276,11 @@ class Settings_Page: UIViewController {
             let gameTypeVar = tempGameType[x]
             let winingTeamVar = tempWiningTeam[x]
             let losingTeamVar = tempLosingTeam[x]
+            let tieBoolVar = tempTieBool[x]
             let activeGameStatusVar = tempActiveGameStatus[x]
             let activeStateVar = tempActiveState[x]
             
-            let newLine =  gameIDVar + "," + dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + winingTeamVar + "," + losingTeamVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
+            let newLine =  gameIDVar + "," + dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + winingTeamVar + "," + losingTeamVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
             if(x == newGameIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
