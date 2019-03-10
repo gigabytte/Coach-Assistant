@@ -2018,7 +2018,7 @@
                                 <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSZ-4w-m2E">
-                                <rect key="frame" x="201" y="170" width="222" height="34"/>
+                                <rect key="frame" x="201" y="120" width="222" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="mCh-8I-p15"/>
                                     <constraint firstAttribute="width" constant="222" id="xpx-d1-0uM"/>
@@ -2028,7 +2028,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IId-Ic-KbT">
-                                <rect key="frame" x="662" y="234" width="100" height="150"/>
+                                <rect key="frame" x="662" y="204" width="100" height="150"/>
                                 <accessibility key="accessibilityConfiguration" label="Away_Team _Score_Label"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="M0G-CT-XAi"/>
@@ -2039,7 +2039,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFq-z5-t9Y">
-                                <rect key="frame" x="262" y="234" width="100" height="150"/>
+                                <rect key="frame" x="262" y="204" width="100" height="150"/>
                                 <accessibility key="accessibilityConfiguration" label="Home_Team _Score_Label"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="2pz-Cc-n9x"/>
@@ -2050,7 +2050,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l96-iq-BdI">
-                                <rect key="frame" x="604.5" y="170" width="215" height="34"/>
+                                <rect key="frame" x="604.5" y="120" width="215" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="d7G-He-MBZ"/>
                                     <constraint firstAttribute="width" constant="215" id="gpX-W3-FsL"/>
@@ -2073,7 +2073,7 @@
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Shots:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vb6-y2-AHe">
-                                <rect key="frame" x="212" y="434" width="200" height="21"/>
+                                <rect key="frame" x="212" y="384" width="200" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Hfg-U4-wbE"/>
                                     <constraint firstAttribute="height" constant="21" id="qk6-aD-W46"/>
@@ -2083,7 +2083,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Shots:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xl-lY-nge">
-                                <rect key="frame" x="612" y="434" width="200" height="21"/>
+                                <rect key="frame" x="612" y="384" width="200" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="U3U-qC-u1g"/>
                                     <constraint firstAttribute="width" constant="200" id="VZL-pH-caM"/>
@@ -2092,31 +2092,43 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AuT-gW-QsV" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="129" y="422" width="367" height="326"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BoB-m5-bNw" customClass="RadarChartView" customModule="Charts">
+                                <rect key="frame" x="529" y="422" width="367" height="326"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="leading" secondItem="kVl-nJ-a0j" secondAttribute="leading" id="46g-UP-82U"/>
                             <constraint firstItem="7wf-eN-HfQ" firstAttribute="trailing" secondItem="kVl-nJ-a0j" secondAttribute="trailing" id="4Fd-1X-VKh"/>
-                            <constraint firstItem="7xl-lY-nge" firstAttribute="top" secondItem="IId-Ic-KbT" secondAttribute="bottom" constant="50" id="5Kb-T7-loL"/>
+                            <constraint firstItem="7xl-lY-nge" firstAttribute="top" secondItem="IId-Ic-KbT" secondAttribute="bottom" constant="30" id="5Kb-T7-loL"/>
                             <constraint firstItem="Vb6-y2-AHe" firstAttribute="centerX" secondItem="zFq-z5-t9Y" secondAttribute="centerX" id="5RV-Bi-v8g"/>
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="trailing" secondItem="kVl-nJ-a0j" secondAttribute="trailing" id="5wN-la-T4J"/>
                             <constraint firstItem="l96-iq-BdI" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" constant="200" id="7aQ-hi-2Ai"/>
                             <constraint firstItem="7wf-eN-HfQ" firstAttribute="leading" secondItem="kVl-nJ-a0j" secondAttribute="leading" id="8j3-Wf-ajp"/>
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="bottom" secondItem="kVl-nJ-a0j" secondAttribute="bottom" id="BHF-rp-iH0"/>
                             <constraint firstItem="zFq-z5-t9Y" firstAttribute="centerX" secondItem="SSZ-4w-m2E" secondAttribute="centerX" id="Gam-8f-VT1"/>
-                            <constraint firstItem="Vb6-y2-AHe" firstAttribute="top" secondItem="zFq-z5-t9Y" secondAttribute="bottom" constant="50" id="Hq4-vF-jsM"/>
+                            <constraint firstItem="Vb6-y2-AHe" firstAttribute="top" secondItem="zFq-z5-t9Y" secondAttribute="bottom" constant="30" id="Hq4-vF-jsM"/>
+                            <constraint firstItem="AuT-gW-QsV" firstAttribute="top" secondItem="Vb6-y2-AHe" secondAttribute="bottom" constant="17" id="Kfu-Kd-8ZN"/>
                             <constraint firstItem="SSZ-4w-m2E" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" constant="-200" id="Omc-fA-DP1"/>
+                            <constraint firstItem="BoB-m5-bNw" firstAttribute="centerX" secondItem="AuT-gW-QsV" secondAttribute="centerX" constant="400" id="R4R-Nk-y26"/>
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="top" secondItem="7wf-eN-HfQ" secondAttribute="top" id="SC8-LD-YBK"/>
-                            <constraint firstItem="SSZ-4w-m2E" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" constant="150" id="Tz6-EC-NSV"/>
+                            <constraint firstItem="SSZ-4w-m2E" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" constant="100" id="Tz6-EC-NSV"/>
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" id="W2f-wQ-sX5"/>
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" id="Wbo-U2-fKi"/>
                             <constraint firstItem="IId-Ic-KbT" firstAttribute="centerX" secondItem="l96-iq-BdI" secondAttribute="centerX" id="YGG-cg-kae"/>
-                            <constraint firstItem="zFq-z5-t9Y" firstAttribute="centerY" secondItem="Vtt-mS-Wyc" secondAttribute="centerY" constant="-75" id="bbe-ny-hjh"/>
+                            <constraint firstItem="zFq-z5-t9Y" firstAttribute="top" secondItem="SSZ-4w-m2E" secondAttribute="bottom" constant="50" id="bbe-ny-hjh"/>
+                            <constraint firstItem="AuT-gW-QsV" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" id="c4b-3f-cW6"/>
                             <constraint firstAttribute="bottom" secondItem="Bvd-H0-Lcb" secondAttribute="bottom" id="cZj-C2-lhV"/>
                             <constraint firstItem="7wf-eN-HfQ" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" id="dYX-qh-mSB"/>
-                            <constraint firstItem="IId-Ic-KbT" firstAttribute="centerY" secondItem="Vtt-mS-Wyc" secondAttribute="centerY" constant="-75" id="fIO-7j-ngx"/>
+                            <constraint firstItem="IId-Ic-KbT" firstAttribute="top" secondItem="l96-iq-BdI" secondAttribute="bottom" constant="50" id="fIO-7j-ngx"/>
+                            <constraint firstItem="BoB-m5-bNw" firstAttribute="top" secondItem="7xl-lY-nge" secondAttribute="bottom" constant="17" id="lyl-Ni-kOd"/>
                             <constraint firstItem="7xl-lY-nge" firstAttribute="centerX" secondItem="IId-Ic-KbT" secondAttribute="centerX" id="qpX-D3-1zz"/>
-                            <constraint firstItem="l96-iq-BdI" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" constant="150" id="t6n-Rb-cFk"/>
+                            <constraint firstItem="l96-iq-BdI" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" constant="100" id="t6n-Rb-cFk"/>
                             <constraint firstItem="7wf-eN-HfQ" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" id="tx3-rz-7rg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kVl-nJ-a0j"/>
@@ -2128,11 +2140,13 @@
                         <outlet property="homeNumShotTextField" destination="Vb6-y2-AHe" id="DSg-f6-X0C"/>
                         <outlet property="homeTeamNameTextField" destination="SSZ-4w-m2E" id="8V9-hV-EV7"/>
                         <outlet property="homeTeamScoreTextField" destination="zFq-z5-t9Y" id="9wH-ci-Kpa"/>
+                        <outlet property="pieChartView" destination="AuT-gW-QsV" id="hXw-GK-tja"/>
+                        <outlet property="radarChartView" destination="BoB-m5-bNw" id="cIc-NL-CTN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hNh-0e-uJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1911" y="803"/>
+            <point key="canvasLocation" x="1910.7421874999998" y="802.34375"/>
         </scene>
     </scenes>
     <resources>
@@ -2147,7 +2161,7 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dru-ha-s6H"/>
+        <segue reference="J2W-Lf-Ndn"/>
         <segue reference="G60-nY-BQ9"/>
         <segue reference="LuW-ih-tSm"/>
         <segue reference="32S-Sg-MIU"/>
