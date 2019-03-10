@@ -26,12 +26,13 @@ class Old_Game_Ice_View: UIViewController {
     @IBOutlet weak var awayTeamNameLabel: UILabel!
     @IBOutlet weak var awayTeamNumGoals: UILabel!
     
-    var shotMarkerimageView   : UIImageView!
-    var goalMarkerimageView   : UIImageView!
+    var shotMarkerimageView: UIImageView!
+    var goalMarkerimageView: UIImageView!
     
     var SeletedGame: Int!
     var homeTeam: Int!
     var awayTeam: Int!
+    var tagCounter: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,36 +76,35 @@ class Old_Game_Ice_View: UIViewController {
         self.away_markerPlacement(markerType: self.awayTeamShotMarkerImage!)
         self.away_markerPlacement(markerType: self.awayTeamGoalMarkerImage!)
        
-        if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false || shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false){
-            shotMarkerimageView.isUserInteractionEnabled = true
+        /*if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false || shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false){
             // check Tap gestuires for a single tap
             let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped));
             // number of taps require 1
             singleShotTap.numberOfTapsRequired = 1
-            shotMarkerimageView.addGestureRecognizer(singleShotTap)
+            shotMarkerimageView.viewWithTag(shotMarkerimageView.tag)!.addGestureRecognizer(singleShotTap)
         }else{
             print("Dosent seem to be any shots to place :(")
         }
         if (goal_markerProcessing().home_xCordsForPlacementGoal.isEmpty == false || goal_markerProcessing().away_xCordsForPlacementGoal.isEmpty == false){
-            goalMarkerimageView.isUserInteractionEnabled = true
             // check Tap gestuires for a single tap
             let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped));
             // number of taps require 1
             singleGoalTap.numberOfTapsRequired = 1
-            goalMarkerimageView.addGestureRecognizer(singleGoalTap)
+            goalMarkerimageView.viewWithTag(goalMarkerimageView.tag)!.addGestureRecognizer(singleGoalTap)
         }else{
             print("Dosent seem to be any goals to place :(")
-        }
+        }*/
         
     }
-    @objc func singleShotMarkerTapped() {
+    @objc func singleShotMarkerTapped(_sender: UITapGestureRecognizer?) {
         print("Shot Marker Tapped")
-        tappedMarker(markerType: true)
+        //tappedMarker(markerType: false, markerTag: shotMarkerimageView)
+       
     }
     
     @objc func singleGoalMarkerTapped() {
         print("Goal Marker Tapped")
-       tappedMarker(markerType: false)
+       //tappedMarker(markerType: false, markerTag: goalMarkerimageView.tag)
     }
     
     func teamIDProcessing(){
@@ -166,36 +166,7 @@ class Old_Game_Ice_View: UIViewController {
         // return rresult of marker processing
         return(home_xCordsForPlacementGoal, home_yCordsForPlacementGoal, away_xCordsForPlacementGoal, away_yCordsForPlacementGoal)
     }
-    
-    func home_markerPlacement(markerType: UIImage){
-        if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false){
-            // check markerType image value
-            if(markerType == homeTeamShotMakerImage) {
-                print("shot maker count", shot_markerProcessing().home_xCordsForPlacementShot.count)
-                print(shot_markerProcessing().home_xCordsForPlacementShot)
-                print(shot_markerProcessing().home_yCordsForPlacementShot)
-                for i in 0..<shot_markerProcessing().home_xCordsForPlacementShot.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().home_xCordsForPlacementShot[i])! - 25, y: Int(shot_markerProcessing().home_yCordsForPlacementShot[i])! - 25, width: 50, height: 50));
-                    shotMarkerimageView.contentMode = .scaleAspectFill;
-                    shotMarkerimageView.image = markerType;
-                    view.addSubview(shotMarkerimageView);
-                }
-            }
-            if(markerType == homeTeamGoalMakerImage) {
-                for i in 0..<goal_markerProcessing().home_xCordsForPlacementGoal.count{
-                    goalMarkerimageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().home_xCordsForPlacementGoal[i])! - 25, y: Int(goal_markerProcessing().home_yCordsForPlacementGoal[i])! - 25, width: 50, height: 50));
-                    goalMarkerimageView.contentMode = .scaleAspectFill;
-                    goalMarkerimageView.image = markerType;
-                    view.addSubview(goalMarkerimageView);
-                }
-            }
-        }else{
-            // print error id not cord data present in arrays
-            //should only error out if user hasnt submittte any marker data to realm
-            print("No Home Marker Cords Found on Load")
-        }
-    }
-    
+    /*
     func shotLocationConversion(shotLocationInt: Int) -> String{
         switch shotLocationInt {
         case 1  :
@@ -211,12 +182,13 @@ class Old_Game_Ice_View: UIViewController {
         default :
             return("N/A")
         }
-       
     }
-    
-    func tappedMarker(markerType: Bool){
+    */
+   /* func tappedMarker(markerType: Bool, markerTag: Int){
         if(markerType == true){
-            let markerCords: CGPoint = shotMarkerimageView.frame.origin
+            let selectedMarker = shotMarkerimageView.viewWithTag(markerTag)
+            selectedMarker!.isUserInteractionEnabled = true
+            let markerCords: CGPoint = selectedMarker!.frame.origin
             let xMarkerCord: Int = Int(markerCords.x + 25)
             let yMarkerCord: Int = Int(markerCords.y + 25)
             print("Cords for shot image are: \(xMarkerCord) and \(yMarkerCord)")
@@ -234,7 +206,7 @@ class Old_Game_Ice_View: UIViewController {
             })
             actionSheet.addAction(okAction)
             if let popoverController = actionSheet.popoverPresentationController {
-                popoverController.sourceView = shotMarkerimageView
+                popoverController.sourceView = selectedMarker!
             }
             // Present the controller
             self.present(actionSheet, animated: true, completion: nil)
@@ -264,10 +236,49 @@ class Old_Game_Ice_View: UIViewController {
             // Present the controller
             self.present(actionSheet, animated: true, completion: nil)
         }
+    }*/
+    func home_markerPlacement(markerType: UIImage){
+        if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false){
+            // check markerType image value
+            if(markerType == homeTeamShotMakerImage) {
+                for i in 0..<shot_markerProcessing().home_xCordsForPlacementShot.count{
+                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().home_xCordsForPlacementShot[i])! - 25, y: Int(shot_markerProcessing().home_yCordsForPlacementShot[i])! - 25, width: 50, height: 50));
+                    shotMarkerimageView.contentMode = .scaleAspectFill;
+                    shotMarkerimageView.image = markerType;
+                    view.addSubview(shotMarkerimageView);
+                    /*shotMarkerimageView.tag = tagCounter
+                    shotMarkerimageView.viewWithTag(temp_shotView.tag)!.isUserInteractionEnabled = true
+                    // check Tap gestuires for a single tap
+                    let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped));
+                    // number of taps require 1
+                    singleShotTap.numberOfTapsRequired = 1
+                    temp_shoshotMarkerimageViewtView.viewWithTag(shotMarkerimageView.tag)!.addGestureRecognizer(singleShotTap)
+                    tagCounter += 1*/
+                }
+            }
+            if(markerType == homeTeamGoalMakerImage) {
+                for i in 0..<goal_markerProcessing().home_xCordsForPlacementGoal.count{
+                    goalMarkerimageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().home_xCordsForPlacementGoal[i])! - 25, y: Int(goal_markerProcessing().home_yCordsForPlacementGoal[i])! - 25, width: 50, height: 50));
+                    goalMarkerimageView.contentMode = .scaleAspectFill;
+                    goalMarkerimageView.image = markerType;
+                    view.addSubview(goalMarkerimageView);
+                   /* goalMarkerimageView.tag = tagCounter
+                    goalMarkerimageView.viewWithTag(goalMarkerimageView.tag)!.isUserInteractionEnabled = true
+                    // check Tap gestuires for a single tap
+                    let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped));
+                    // number of taps require 1
+                    singleGoalTap.numberOfTapsRequired = 1
+                    goalMarkerimageView.viewWithTag(goalMarkerimageView.tag)!.addGestureRecognizer(singleGoalTap)
+                    tagCounter += 1*/
+                }
+            }
+        }else{
+            // print error id not cord data present in arrays
+            //should only error out if user hasnt submittte any marker data to realm
+            print("No Home Marker Cords Found on Load")
+        }
     }
-    
     func away_markerPlacement(markerType: UIImage){
-        
         if (shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false){
             // check markerType image value
             if(markerType == awayTeamShotMarkerImage) {
@@ -276,6 +287,14 @@ class Old_Game_Ice_View: UIViewController {
                     shotMarkerimageView.contentMode = .scaleAspectFill;
                     shotMarkerimageView.image = markerType;
                     view.addSubview(shotMarkerimageView);
+                    /*shotMarkerimageView.tag = tagCounter
+                    shotMarkerimageView.viewWithTag(shotMarkerimageView.tag)!.isUserInteractionEnabled = true
+                    // check Tap gestuires for a single tap
+                    let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped));
+                    // number of taps require 1
+                    singleShotTap.numberOfTapsRequired = 1
+                    shotMarkerimageView.viewWithTag(shotMarkerimageView.tag)!.addGestureRecognizer(singleShotTap)
+                    tagCounter += 1*/
                 }
             }
             if(markerType == awayTeamGoalMarkerImage) {
@@ -284,6 +303,14 @@ class Old_Game_Ice_View: UIViewController {
                     goalMarkerimageView.contentMode = .scaleAspectFill;
                     goalMarkerimageView.image = markerType;
                     view.addSubview(goalMarkerimageView);
+                    /*goalMarkerimageView.tag = tagCounter
+                    goalMarkerimageView.viewWithTag(goalMarkerimageView.tag)!.isUserInteractionEnabled = true
+                    // check Tap gestuires for a single tap
+                    let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped));
+                    // number of taps require 1
+                    singleGoalTap.numberOfTapsRequired = 1
+                    goalMarkerimageView.viewWithTag(goalMarkerimageView.tag)!.addGestureRecognizer(singleGoalTap)
+                    tagCounter += 1*/
                 }
             }
         }else{
