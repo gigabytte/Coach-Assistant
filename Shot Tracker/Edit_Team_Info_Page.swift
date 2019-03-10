@@ -20,10 +20,11 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     var selectTeamKey:Int = 0
     var homeTeam: Int?
+    var scoringPassedTeamID: [Int] = [Int]()
     
     //variables for player data retrival from realm
     var mainPlayerPickerData: [String] = [String]()
-    var tempHomeMainIDArray: [String] = [String]()
+    var HomeMainIDArray: [String] = [String]()
     var selectedMainPlayer: String = ""
     var selectedMainPlayerID: Int!
     
@@ -43,8 +44,6 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // playerTeamRetervial()
-        
         self.teamPicker.delegate = self
         self.teamPicker.dataSource = self
         
@@ -59,6 +58,9 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         
         self.teamPickerData = realm.objects(teamInfoTable.self)
         self.teamPickerSelect = Array(self.teamPickerData)
+        
+        scoringPassedTeamID.append(0)
+        mainPlayerReterival()
         
         pickerData = ["Forward 1","Forward 2","Forward 3","Defence 1","Defence 2","Defence 3", "Goalie"]
         positionData = ["Left Wing", "Center", "Right Wing", "Left Defence", "Right Defence", "Goalie"]
@@ -103,7 +105,9 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if(pickerView == teamPicker){
             selectTeam = teamPickerSelect[row].nameOfTeam
-            homeTeam = teamPickerSelect[row].teamID
+            scoringPassedTeamID[0] = teamPickerSelect[row].teamID
+            mainPlayerReterival()
+            
         }else if(pickerView == linePicker){
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
@@ -124,7 +128,6 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             selectPosition = positionData[row]
         }else{
             selectedMainPlayer = mainPlayerPickerData[row]
-            selectedMainPlayerID = Int(tempHomeMainIDArray[0])!
         }
     }
     
@@ -148,39 +151,15 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         }
     }
     
-    /*func teamNameRealmRetrieval(){
-        // Get teams based on user slection form the team selection view
-        let newestPrimaryID = realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?
-        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: newestPrimaryID);
-        homeTeam = newGameFilter?.homeTeamID
-        let homeTeamString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam);
-        // add home and away teams selected to TeamPickerData array
-        //TeamPickerData.append(homeTeamString!.nameOfTeam)
-        //tempTeamIDArray.append(realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!.homeTeamID)
-        
-        //selectedTeam = homeTeamString!.nameOfTeam
-        //selectedTeamID = tempTeamIDArray[0]
-        //print("Team's Puilled From Realm: ", TeamPickerData)
-    }*/
-    
-    func playerTeamRetervial(){
+    func mainPlayerReterival(){
         
         // Get main Home players on view controller load
-        let mainPlayerNumFilter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == true", String(selectTeam), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
-        let mainPlayerNameFilter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == true", String(selectTeam), "G")).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+        let mainPlayerNameFilter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == true", String(scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
         
         for index in 0..<mainPlayerNameFilter.count {
-            mainPlayerPickerData.append("\(mainPlayerNameFilter[index]) \(mainPlayerNumFilter[index])")
+            mainPlayerPickerData.append("\(mainPlayerNameFilter[index])")
+            }
         }
-        print("Main Home Players Are: ", mainPlayerPickerData)
-        
-        // default value set
-        selectedMainPlayer = mainPlayerNameFilter[0]
-        tempHomeMainIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND playerName == %@ AND positionType != %@ AND activeState == true", String(selectTeam), selectedMainPlayer, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)})
-        // get default goal score id
-        selectedMainPlayerID = Int(tempHomeMainIDArray[0])
-        print("Selected Main Player ID: ", tempHomeMainIDArray)
-    }
     
     @IBAction func newerTeamName(_ sender: Any) {
         let team: String = selectTeam
