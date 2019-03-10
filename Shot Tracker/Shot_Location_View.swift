@@ -325,7 +325,7 @@ class Shot_Location_View: UIViewController {
                  let scoringTeamID = (realm.objects(newGameTable.self).filter(NSPredicate(format: "opposingTeamID == %i AND gameID == %i", teamIDProcessed[0], currentGameID!)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})
                 shotMarkerTableID?.TeamID = Int(scoringTeamID[0])
             }
-            shotMarkerTableID?.goalieID = goalieSelectedID
+            shotMarkerTableID?.goalieID = tempGoalieSelectedID
             shotMarkerTableID?.xCordShot = tempXCords
             shotMarkerTableID?.yCordShot = tempYCords
             shotMarkerTableID?.periodNum = periodNumSelected!
