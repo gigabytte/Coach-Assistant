@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import Charts
 
 class Current_Stats_Page: UIViewController {
 
@@ -18,6 +19,8 @@ class Current_Stats_Page: UIViewController {
     @IBOutlet weak var awayTeamScoreTextField: UILabel!
     @IBOutlet weak var homeNumShotTextField: UILabel!
     @IBOutlet weak var awayNumShotTextField: UILabel!
+    @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var radarChartView: RadarChartView!
     
     var homeTeam: Int!
     var awayTeam: Int!
@@ -26,11 +29,20 @@ class Current_Stats_Page: UIViewController {
     var goalieSelectedID: Int!
     var periodNumSelected: Int!
     
-    var realm = try! Realm()
+    var homeTeamShotsPie = PieChartDataEntry(value: 0)
+    var homeTeamGoalsPie = PieChartDataEntry(value: 0)
+    var awayTeamShotsPie = PieChartDataEntry(value: 0)
+    var awayTeamGoalsPie = PieChartDataEntry(value: 0)
+    
+    //var pieChartDataSet = []
+    
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         teamNameInitialize()
+        
+        
         // call functions for stats page dynamic function
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil && realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last != nil){
             scoreInitialize()
@@ -64,6 +76,13 @@ class Current_Stats_Page: UIViewController {
         let newAwayGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID;
         let homeTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: newHomeGameFilter);
         let awayTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: newAwayGameFilter);
+        
+        pieChartView.chartDescription?.text = "\(homeTeamNameString?.nameOfTeam) vs \(awayTeamNameString?.nameOfTeam) in Terms of Shots and Goals"
+        homeTeamGoalsPie.label = "\(homeTeamNameString?.nameOfTeam) Goals"
+        homeTeamShotsPie.label = "\(homeTeamNameString?.nameOfTeam) Shots"
+        awayTeamGoalsPie.label = "\(awayTeamNameString?.nameOfTeam) Goals"
+        awayTeamShotsPie.label = "\(awayTeamNameString?.nameOfTeam) Shots"
+        
         // align text in text field as well assign text value to text field to team name
         homeTeamNameTextField.text = homeTeamNameString?.nameOfTeam
         homeTeamNameTextField.textAlignment = .center
@@ -78,6 +97,10 @@ class Current_Stats_Page: UIViewController {
         let homeScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID?.gameID)!, homeTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
         let awayScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID?.gameID)!, awayTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        
+        homeTeamGoalsPie.value = Double(homeScoreFilter)
+        awayTeamGoalsPie.value = Double(awayScoreFilter)
+        
         // align text to center and assigned text field the value of homeScoreFilter query
         homeTeamScoreTextField.text = String(homeScoreFilter)
         homeTeamScoreTextField.textAlignment = .center
@@ -96,6 +119,10 @@ class Current_Stats_Page: UIViewController {
         let homeShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, homeTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
         let awayShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, awayTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        
+        homeTeamShotsPie.value = Double(homeShotCounter)
+        awayTeamShotsPie.value = Double(awayShotCounter)
+        
         // align text to center and assigned text field the value of homeScoreFilter query
         homeNumShotTextField.text = "Number of Shots: " + String(homeShotCounter)
         homeNumShotTextField.textAlignment = .center

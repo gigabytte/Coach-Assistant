@@ -19,6 +19,7 @@ class newGameTable: Object {
     @objc dynamic var gameType: String = ""
     @objc dynamic var winingTeamID: Int = 0
     @objc dynamic var losingTeamID: Int = 0
+    @objc dynamic var tieGameBool: Bool = false
     @objc dynamic var activeGameStatus: Bool = true
     @objc dynamic var activeState: Bool = true
     

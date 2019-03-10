@@ -14,7 +14,8 @@ class Old_Stats_Game_Details_Page: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Game Id Selected: ", SeletedGame!)
+        print("Selected Game ID \(SeletedGame)")
+        //print("Game Id Selected: ", SeletedGame!)
         // Do any additional setup after loading the view.
     }
     
@@ -28,5 +29,13 @@ class Old_Stats_Game_Details_Page: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check is appropriate segue is being used
+        if (segue.identifier == "iceSurfaceSegue"){
+            // set var vc as destination segue
+            let vc = segue.destination as! Old_Game_Ice_View
+            vc.SeletedGame = SeletedGame
+        }
+    }
 
 }

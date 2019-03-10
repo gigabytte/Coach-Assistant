@@ -36,6 +36,8 @@
 		BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904B21F663BA00D02C0B /* Player Info Table.swift */; };
 		BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904F21F6715400D02C0B /* Goal Marker Table.swift */; };
 		BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */; };
+		BE913A482233740500080081 /* Old Game Ice View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE913A472233740500080081 /* Old Game Ice View.swift */; };
+		BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */; };
 		BE9BDF38222EEBD7003114F6 /* Import Pop Up View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9BDF37222EEBD7003114F6 /* Import Pop Up View.swift */; };
 		BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */; };
 		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
@@ -114,6 +116,8 @@
 		BE83904B21F663BA00D02C0B /* Player Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player Info Table.swift"; sourceTree = "<group>"; };
 		BE83904F21F6715400D02C0B /* Goal Marker Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal Marker Table.swift"; sourceTree = "<group>"; };
 		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
+		BE913A472233740500080081 /* Old Game Ice View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Game Ice View.swift"; sourceTree = "<group>"; };
+		BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Import Pop Up View.swift"; path = "../Import Pop Up View.swift"; sourceTree = "<group>"; };
 		BE9BDF37222EEBD7003114F6 /* Import Pop Up View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Import Pop Up View.swift"; path = "../Import Pop Up View.swift"; sourceTree = "<group>"; };
 		BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Team_Page.swift; sourceTree = "<group>"; };
 		BEA08C962215F05200B6D73B /* Add_Player_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Player_Page.swift; sourceTree = "<group>"; };
@@ -215,10 +219,12 @@
 				BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */,
 				BE029C012213360200B935A7 /* Settings Page.swift */,
 				BE9BDF37222EEBD7003114F6 /* Import Pop Up View.swift */,
+				BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */,
 				BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */,
 				BE0C7B752201576B0018E434 /* Team_Selection_View.swift */,
 				BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */,
 				4F5A0559222065F90053679C /* Old_Stats_Game_Details_Page.swift */,
+				BE913A472233740500080081 /* Old Game Ice View.swift */,
 				BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */,
 				BEA08C962215F05200B6D73B /* Add_Player_Page.swift */,
 				BE7D697B21E3D74300C1745C /* Main.storyboard */,
@@ -516,6 +522,7 @@
 				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
 				BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */,
 				BE83904421F6515000D02C0B /* RealmSwift.framework in Sources */,
+				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
 				BE83904A21F663A600D02C0B /* Team Info Table.swift in Sources */,
 				BE7D697A21E3D74300C1745C /* ViewController.swift in Sources */,
@@ -526,6 +533,7 @@
 				BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */,
 				BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */,
 				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
+				BE913A482233740500080081 /* Old Game Ice View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
