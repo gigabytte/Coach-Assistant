@@ -357,11 +357,6 @@ class Old_Game_Ice_View: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
-        if (segue.identifier == "backToOldStatsSegue"){
-            // set var vc as destination segue
-            let vc = segue.destination as! Old_Game_Ice_View
-            vc.SeletedGame = SeletedGame
-        }
         if (segue.identifier == "statsSegue"){
             // set var vc as destination segue
             let vc = segue.destination as! Old_Stats_Game_Details_Page
