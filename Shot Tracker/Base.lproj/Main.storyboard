@@ -487,7 +487,7 @@
                                     <navigationItem title="Title" id="GgQ-19-nwf">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="3Ha-6C-sfr">
                                             <connections>
-                                                <segue destination="2AB-wA-RRv" kind="presentation" id="32S-Sg-MIU"/>
+                                                <segue destination="2AB-wA-RRv" kind="presentation" identifier="backToOldStatsSegue" id="32S-Sg-MIU"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Stats" id="Fmp-0A-iY8">
@@ -2161,6 +2161,7 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="JQ5-8K-2Rt"/>
         <segue reference="J2W-Lf-Ndn"/>
         <segue reference="G60-nY-BQ9"/>
         <segue reference="LuW-ih-tSm"/>

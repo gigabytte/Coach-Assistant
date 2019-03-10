@@ -14,6 +14,7 @@ class Old_Stats_Game_Details_Page: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Selected Game ID \(SeletedGame)")
         //print("Game Id Selected: ", SeletedGame!)
         // Do any additional setup after loading the view.
     }
@@ -33,11 +34,6 @@ class Old_Stats_Game_Details_Page: UIViewController {
         if (segue.identifier == "iceSurfaceSegue"){
             // set var vc as destination segue
             let vc = segue.destination as! Old_Game_Ice_View
-            vc.SeletedGame = SeletedGame
-        }
-        if (segue.identifier == "statsSegue"){
-            // set var vc as destination segue
-            let vc = segue.destination as! Old_Stats_Game_Details_Page
             vc.SeletedGame = SeletedGame
         }
     }

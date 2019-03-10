@@ -18,6 +18,9 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
     var homeTeamID: [Int] = [Int]()
     var awayTeamID: [Int] = [Int]()
     var newGameDates: [String] = [String]()
+    var homeTeamName: [String] = [String]()
+    var awayTeamName: [String] = [String]()
+    var gameType: [String] = [String]()
     var passedGameID: Int!
     
     // cell reuse id (cells that scroll out of view can be reused)
@@ -77,10 +80,9 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         // create a new cell if needed or reuse an old one
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
         // get new gametable objects with filktered by gameID where >=0
-        let newGameTableData = realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= 0"))
-        let homeTeamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", homeTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
-        let awayTeamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", awayTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
-        let gameType = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", Int(newGameIDs[indexPath.row])!)).value(forKeyPath: "gameType") as! [String]).compactMap({String($0)})
+        homeTeamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", homeTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}).reversed()
+        awayTeamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", awayTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}).reversed()
+        gameType = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", Int(newGameIDs[indexPath.row])!)).value(forKeyPath: "gameType") as! [String]).compactMap({String($0)}).reversed()
         // set the text from the data model
         cell.textLabel?.text = "\(gameType[0]) Game, \(homeTeamName[0]) vs \(awayTeamName[0]) on date \(String(self.newGameDates[indexPath.row]))"
         
