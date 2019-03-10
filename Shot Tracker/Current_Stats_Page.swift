@@ -34,18 +34,25 @@ class Current_Stats_Page: UIViewController {
     var awayTeamShotsPie = PieChartDataEntry(value: 0)
     var awayTeamGoalsPie = PieChartDataEntry(value: 0)
     
-    //var pieChartDataSet = []
+    var tlShotValue = RadarChartDataEntry(value: 0)
+    var trShotValue = RadarChartDataEntry(value: 0)
+    var blShotValue = RadarChartDataEntry(value: 0)
+    var brShotValue = RadarChartDataEntry(value: 0)
+    var cShotValue = RadarChartDataEntry(value: 0)
     
     let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Away team ID", awayTeam)
         teamNameInitialize()
-        
-        
+    
         // call functions for stats page dynamic function
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil && realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last != nil){
             scoreInitialize()
+            //goalLocationProcessing()
+            goal_dataInitilier()
+            //radarDataGoal()
             print("Succesfully Rendered Current Goal Stats")
         }else{
             // align text in text field as well assign text value to text field to team name
@@ -57,6 +64,9 @@ class Current_Stats_Page: UIViewController {
         }
         if(realm.objects(newGameTable.self).filter("gameID >= 0").last != nil && realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").last != nil){
             numShotInitialize()
+            shotLocationProcessing()
+            shot_dataInitilier()
+            //radarDataShot()
             print("Succesfully Rendered Current Shot Stats")
         }else{
             // align text to center and assigned text field the value of homeScoreFilter query
@@ -65,32 +75,131 @@ class Current_Stats_Page: UIViewController {
             awayNumShotTextField.text = "Number of Shots: " + String(0)
             awayNumShotTextField.textAlignment = .center
             print("Current Shot Stats Defaulted to 0")
+            
+            homeTeamShotsPie.value = 0
+            awayTeamShotsPie.value = 0
+            homeTeamGoalsPie.value = 0
+            awayTeamGoalsPie.value = 0
+            tlShotValue.value = 0
+            trShotValue.value = 0
+            blShotValue.value = 0
+            brShotValue.value = 0
+            cShotValue.value = 0
         }
+        tlShotValue.value = 2
+        trShotValue.value = 1
+        blShotValue.value = 0
+        brShotValue.value = 4
+        cShotValue.value = 0
+        pieChartSettings()
+        radarChartSettings()
         // Do any additional setup after loading the view.
+    }
+    
+    func pieChartSettings(){
+        let numberOfShots = [homeTeamGoalsPie, awayTeamGoalsPie, homeTeamShotsPie, awayTeamShotsPie]
+        let chartDataSet = PieChartDataSet(values: numberOfShots, label: nil)
+        let chartData = PieChartData(dataSet: chartDataSet)
+        let colours = [UIColor.green, UIColor.blue, UIColor.red, UIColor.purple]
+        chartDataSet.colors = colours as! [NSUIColor]
+        pieChartView.data = chartData
+        pieChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
+        
+    }
+    
+    func shot_dataInitilier(){
+        
+        homeTeamShotsPie.value = numShotInitialize().0
+        awayTeamShotsPie.value = numShotInitialize().1
+        
+    }
+    
+    func goal_dataInitilier(){
+        
+        homeTeamGoalsPie.value = scoreInitialize().0
+        awayTeamGoalsPie.value = scoreInitialize().1
+
+    }
+    
+    /*func radarDataShot(){
+        tlShotValue.value += shotLocationProcessing().0
+        print(tlShotValue.value += shotLocationProcessing().0)
+        trShotValue.value += shotLocationProcessing().1
+        blShotValue.value += shotLocationProcessing().2
+        brShotValue.value += shotLocationProcessing().3
+        cShotValue.value += shotLocationProcessing().4
+    }*/
+    
+    func radarDataGoal(){
+        
+        tlShotValue.value += goalLocationProcessing().0
+        trShotValue.value += goalLocationProcessing().1
+        blShotValue.value += goalLocationProcessing().2
+        brShotValue.value += goalLocationProcessing().3
+        cShotValue.value +=  goalLocationProcessing().4
+    }
+    
+    func radarChartSettings(){
+        let numberOfShots = [tlShotValue, trShotValue, blShotValue, brShotValue, cShotValue]
+        let values = [1, 2, 3]
+        let chartDataSet = RadarChartDataSet(: values)
+        
+        let chartData = RadarChartData(xVals: values, dataSet: chartDataSet)
+        let colours = [UIColor.green, UIColor.blue, UIColor.red, UIColor.purple]
+        chartDataSet.colors = colours as! [NSUIColor]
+        radarChartView.data = chartData
+        radarChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
+        
+    }
+    
+    func shotLocationProcessing()/* -> (Double, Double, Double, Double, Double)*/{
+        // query realm for number of specified shots on said location
+        let tl_homeGoalieShotLocation = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 1)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let tr_homeGoalieShotLocation = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 2, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let bl_homeGoalieShotLocation = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 3, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let br_homeGoalieShotLocation = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 4, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let c_homeGoalieShotLocation = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 5, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        print(c_homeGoalieShotLocation)
+        
+        tlShotValue.value += tl_homeGoalieShotLocation
+        trShotValue.value += tr_homeGoalieShotLocation
+        blShotValue.value += bl_homeGoalieShotLocation
+        brShotValue.value += br_homeGoalieShotLocation
+        cShotValue.value += c_homeGoalieShotLocation
+        
+        //return(tl_homeGoalieShotLocation, tr_homeGoalieShotLocation, bl_homeGoalieShotLocation,br_homeGoalieShotLocation,c_homeGoalieShotLocation)
+    }
+    
+    func goalLocationProcessing() -> (Double, Double, Double, Double, Double){
+        // query realm for number of specified shots on said location
+        let tl_homeGoalieGoalLocation = Double((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 1, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let tr_homeGoalieGoalLocation = Double((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 2, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let bl_homeGoalieGoalLocation = Double((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 3, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let br_homeGoalieGoalLocation = Double((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 4, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let c_homeGoalieGoalLocation = Double((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND TeamID == %i AND activeState == true", ((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), 5, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        
+        return(tl_homeGoalieGoalLocation, tr_homeGoalieGoalLocation, bl_homeGoalieGoalLocation,br_homeGoalieGoalLocation,c_homeGoalieGoalLocation)
     }
     
     func teamNameInitialize(){
         
         // query realm for team naames based on newest game
-        let newHomeGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID;
-        let newAwayGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID;
-        let homeTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: newHomeGameFilter);
-        let awayTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: newAwayGameFilter);
+        let homeTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID)!
+        let awayTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID)!
         
-        pieChartView.chartDescription?.text = "\(homeTeamNameString?.nameOfTeam) vs \(awayTeamNameString?.nameOfTeam) in Terms of Shots and Goals"
-        homeTeamGoalsPie.label = "\(homeTeamNameString?.nameOfTeam) Goals"
-        homeTeamShotsPie.label = "\(homeTeamNameString?.nameOfTeam) Shots"
-        awayTeamGoalsPie.label = "\(awayTeamNameString?.nameOfTeam) Goals"
-        awayTeamShotsPie.label = "\(awayTeamNameString?.nameOfTeam) Shots"
+        homeTeamGoalsPie.label = "\(homeTeamNameString.nameOfTeam) Goals"
+        homeTeamShotsPie.label = "\(homeTeamNameString.nameOfTeam) Shots"
+        awayTeamGoalsPie.label = "\(awayTeamNameString.nameOfTeam) Goals"
+        awayTeamShotsPie.label = "\(awayTeamNameString.nameOfTeam) Shots"
         
         // align text in text field as well assign text value to text field to team name
-        homeTeamNameTextField.text = homeTeamNameString?.nameOfTeam
+        homeTeamNameTextField.text = homeTeamNameString.nameOfTeam
         homeTeamNameTextField.textAlignment = .center
-        awayTeamNameTextField.text = awayTeamNameString?.nameOfTeam
+        awayTeamNameTextField.text = awayTeamNameString.nameOfTeam
         awayTeamNameTextField.textAlignment = .center
     }
     
-    func scoreInitialize(){
+    func scoreInitialize() -> (Double, Double){
         
         // query realm for goal count based on newest gam
         let gameID = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
@@ -106,15 +215,16 @@ class Current_Stats_Page: UIViewController {
         homeTeamScoreTextField.textAlignment = .center
         awayTeamScoreTextField.text = String(awayScoreFilter)
         awayTeamScoreTextField.textAlignment = .center
+        
+        return(Double(homeScoreFilter), Double(awayScoreFilter))
     }
     
-    func numShotInitialize(){
+    func numShotInitialize() -> (Double, Double){
         
         let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
         // get homeTeam and away team ID's fom said lastest new game entry
         homeTeam = newGameFilter?.homeTeamID
         awayTeam = newGameFilter?.opposingTeamID
-        print(newGameFilter?.gameID)
         //get array of team ID's and concert to regular string array from optional
         let homeShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, homeTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
@@ -128,6 +238,8 @@ class Current_Stats_Page: UIViewController {
         homeNumShotTextField.textAlignment = .center
         awayNumShotTextField.text = "Number of Shots: " + String(awayShotCounter)
         awayNumShotTextField.textAlignment = .center
+        
+        return(Double(homeShotCounter), Double(awayShotCounter))
         
     }
     // func used to pass varables on segue
