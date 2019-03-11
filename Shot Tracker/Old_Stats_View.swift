@@ -66,6 +66,7 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
             newGameDates.append(dateFormatter.string(from: date))
         }
         newGameDates.reverse()
+        newGameIDs.reverse()
         print(newGameDates)
     }
     
