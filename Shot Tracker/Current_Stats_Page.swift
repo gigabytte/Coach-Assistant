@@ -92,7 +92,7 @@ class Current_Stats_Page: UIViewController {
         brShotValue.value = 4
         cShotValue.value = 0
         pieChartSettings()
-        radarChartSettings()
+        //radarChartSettings()
         // Do any additional setup after loading the view.
     }
     
@@ -139,7 +139,7 @@ class Current_Stats_Page: UIViewController {
         cShotValue.value +=  goalLocationProcessing().4
     }
     
-    func radarChartSettings(){
+    /*func radarChartSettings(){
         let numberOfShots = [tlShotValue, trShotValue, blShotValue, brShotValue, cShotValue]
         let values = [1, 2, 3]
         let chartDataSet = RadarChartDataSet(: values)
@@ -150,7 +150,7 @@ class Current_Stats_Page: UIViewController {
         radarChartView.data = chartData
         radarChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
         
-    }
+    }*/
     
     func shotLocationProcessing()/* -> (Double, Double, Double, Double, Double)*/{
         // query realm for number of specified shots on said location

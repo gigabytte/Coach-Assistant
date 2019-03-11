@@ -107,7 +107,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             selectTeam = teamPickerSelect[row].nameOfTeam
             scoringPassedTeamID[0] = teamPickerSelect[row].teamID
             mainPlayerReterival()
-            
+            playersPicker.reloadAllComponents()
         }else if(pickerView == linePicker){
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
@@ -132,7 +132,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func newTeamName(_ sender: Any) {
-        //let team: String = selectTeam
+        let team: String = selectTeam
         let teamID = homeTeam
         let newName = newTeamName.text!
         let newTeam = teamInfoTable()

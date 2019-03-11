@@ -114,15 +114,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrK-fb-muw">
-                                <rect key="frame" x="232" y="388" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Make Inactive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrK-fb-muw">
+                                <rect key="frame" x="151" y="389" width="137" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lmL-4r-sW5">
-                                <rect key="frame" x="225" y="451" width="49" height="31"/>
+                                <rect key="frame" x="196" y="436" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
                         </subviews>
@@ -668,7 +668,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Add Team or Player"/>
                                 <connections>
-                                    <segue destination="laf-Ow-yCr" kind="presentation" identifier="" id="AYF-Xl-O9F"/>
+                                    <segue destination="xfg-Tt-WO4" kind="presentation" id="YVz-TT-Imk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guo-Th-gga">
@@ -1278,6 +1278,7 @@
                         <viewLayoutGuide key="safeArea" id="fNq-r3-Bmd"/>
                     </view>
                     <connections>
+                        <outlet property="inActiveTeamToggle" destination="Klt-bK-htL" id="xEt-dc-of9"/>
                         <outlet property="teamName" destination="iJN-fE-jbl" id="7Fj-dK-ieE"/>
                     </connections>
                 </viewController>
@@ -2160,7 +2161,7 @@
     <resources>
         <image name="Coach Assitant Logo Only" width="141" height="111"/>
         <image name="Coach Assitant Top" width="380" height="219"/>
-        <image name="gear" width="192" height="192"/>
+        <image name="gear" width="240" height="240"/>
         <image name="hockey_net_basic_shot" width="902" height="531"/>
         <image name="hockey_net_period_basic" width="892" height="523"/>
         <image name="ice" width="1300" height="975"/>
@@ -2169,12 +2170,10 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JQ5-8K-2Rt"/>
-        <segue reference="cly-bS-gmy"/>
-        <segue reference="J2W-Lf-Ndn"/>
-        <segue reference="G60-nY-BQ9"/>
-        <segue reference="LuW-ih-tSm"/>
-        <segue reference="32S-Sg-MIU"/>
+        <segue reference="3Is-IF-SeE"/>
+        <segue reference="YVz-TT-Imk"/>
+        <segue reference="oNI-jA-1s2"/>
+        <segue reference="vis-UJ-d0D"/>
         <segue reference="Ggy-8a-rEU"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
