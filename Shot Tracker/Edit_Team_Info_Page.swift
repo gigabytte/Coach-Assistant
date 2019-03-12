@@ -20,13 +20,19 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var newPlayerName: UITextField!
     @IBOutlet weak var newPlayerNumber: UITextField!
     @IBOutlet weak var editPlayerButton: UIButton!
+    @IBOutlet weak var activeStateTeamSwitch: UISwitch!
+    @IBOutlet weak var activeStateTeamLabel: UILabel!
+    @IBOutlet weak var activeStatePlayerSwitch: UISwitch!
+    @IBOutlet weak var activeStatePLayerLabel: UILabel!
     
     var selectTeamKey:Int = 0
     var homeTeam: Int?
     var scoringPassedTeamID: [Int] = [Int]()
+    var selectedTeamID: Int!
     
     //variables for player data retrival from realm
     var mainPlayerPickerData: [String] = [String]()
+    var mainPlayerPickerDataID: [Int] = [Int]()
     var HomeMainIDArray: [String] = [String]()
     var selectedMainPlayer: String = ""
     var selectedMainPlayerID: Int!
@@ -42,11 +48,16 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     var pickerData:[String] = [String]()
     var positionData:[String] = [String]()
     var positionCodeData:[String] = [String]()
+    var activeTeamBool: [String] = [String]()
+    var activePlayerBool: [String] = [String]()
     
     let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activeStateTeamSwitch.addTarget(self, action: #selector(self.switchValueDidChange), for: .valueChanged)
+        activeStatePlayerSwitch.addTarget(self, action: #selector(self.switchValueDidChange), for: .valueChanged)
         
         self.teamPicker.delegate = self
         self.teamPicker.dataSource = self
@@ -63,12 +74,23 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         self.teamPickerData = realm.objects(teamInfoTable.self)
         self.teamPickerSelect = Array(self.teamPickerData)
         
-        scoringPassedTeamID.append(0)
-        mainPlayerReterival()
+        scoringPassedTeamID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true OR activeState == false")).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
+        mainPlayerPickerData = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(scoringPassedTeamID[0]))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+        mainPlayerPickerDataID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(scoringPassedTeamID[0]))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        selectedMainPlayerID = mainPlayerPickerDataID[0]
         
         pickerData = ["Forward 1","Forward 2","Forward 3","Defence 1","Defence 2","Defence 3", "Goalie"]
         positionData = ["Left Wing", "Center", "Right Wing", "Left Defence", "Right Defence", "Goalie"]
         positionCodeData = ["LW", "C", "RW", "LD", "RD", "G"]
+        activeTeamBool = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true OR activeState == false")).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
+        activePlayerBool = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(scoringPassedTeamID[0]))).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
+        
+        activeStateTeamSwitch.isOn = Bool(activeTeamBool[0])!
+        if (activeStateTeamSwitch.isOn == true) {activeStateTeamLabel.text =
+            "Enable " + teamPickerData[0].nameOfTeam;}else{activeStateTeamLabel.text = "Disable " + teamPickerData[0].nameOfTeam;}
+        activeStatePlayerSwitch.isOn = Bool(activePlayerBool[0])!
+        if (activeStatePlayerSwitch.isOn == true) {activeStatePLayerLabel.text = "Enable \(mainPlayerPickerData[0])"}else{activeStatePLayerLabel.text = "Disable \(mainPlayerPickerData[0])"}
+
         // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
         // get rotation allowances of device
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -79,6 +101,21 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    @objc func switchValueDidChange(sender: UISwitch){
+        
+        if(activeStateTeamSwitch.isOn == true){
+            activeStateTeamLabel.text = "Enable \(selectTeam)"
+        }else{
+            activeStateTeamLabel.text = "Disable \(selectTeam)"
+        }
+        if(activeStatePlayerSwitch.isOn == true){
+            activeStatePLayerLabel.text = "Enable \(selectedMainPlayer)"
+        }else{
+            activeStatePLayerLabel.text = "Disable \(selectedMainPlayer)"
+        }
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -110,9 +147,18 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if(pickerView == teamPicker){
             selectTeam = teamPickerSelect[row].nameOfTeam
-            scoringPassedTeamID[0] = teamPickerSelect[row].teamID
+            selectedTeamID = teamPickerSelect[row].teamID
             mainPlayerReterival()
             playersPicker.reloadAllComponents()
+            if(activeTeamBool[row] == "true"){
+                activeStateTeamSwitch.isOn = true
+                activeStateTeamLabel.text = "Enable \(selectTeam)"
+            }else{
+                activeStateTeamSwitch.isOn = false
+                activeStateTeamLabel.text = "Disable \(selectTeam)"
+            }
+            activeStateTeamSwitch.reloadInputViews()
+           
         }else if(pickerView == linePicker){
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
@@ -133,6 +179,15 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             selectPosition = positionData[row]
         }else{
             selectedMainPlayer = mainPlayerPickerData[row]
+            selectedMainPlayerID = mainPlayerPickerDataID[row]
+            if(activePlayerBool[row] == "true"){
+                activeStatePlayerSwitch.isOn = true
+                activeStatePLayerLabel.text = "Enable \(selectedMainPlayer)"
+            }else{
+                activeStatePlayerSwitch.isOn = false
+                activeStatePLayerLabel.text = "Disable \(selectedMainPlayer)"
+            }
+            activeStatePlayerSwitch.reloadInputViews()
         
         }
     }
@@ -151,10 +206,18 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         let newName = newTeamName.text!
         let newTeam = teamInfoTable()
         
-        if (newName != ""){
+        if (newName != "" && activeStateTeamSwitch.isOn == true){
             newTeam.teamID = teamID!
             newTeam.nameOfTeam = newName
-            
+            try! realm.write{
+                realm.add(newTeam, update: true)
+                succesfulTeamAdd()
+                
+            }
+        }else if (newName != "" && activeStateTeamSwitch.isOn != true){
+            newTeam.teamID = teamID!
+            newTeam.nameOfTeam = newName
+            newTeam.activeState = false
             try! realm.write{
                 realm.add(newTeam, update: true)
                 succesfulTeamAdd()
@@ -168,9 +231,10 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func mainPlayerReterival(){
         
         // Get main Home players on view controller load
-        let mainPlayerNameFilter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(scoringPassedTeamID[0]))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
-        print(mainPlayerNameFilter)
-        mainPlayerPickerData = mainPlayerNameFilter
+        mainPlayerPickerData = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(selectedTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+        activePlayerBool = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(selectedTeamID))).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
+        mainPlayerPickerDataID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(selectedTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        print(activePlayerBool)
     }
     
     @IBAction func saveEditedPlayer(_ sender: Any) {
@@ -178,44 +242,45 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         let playerPosition = selectPosition
         let playerName = newPlayerName.text!
         let playerNumber = Int(newPlayerNumber.text!)
-        let editedPlayer = playerInfoTable()
+        let editedPlayer = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: selectedMainPlayerID);
         
         if(playerName != "" && newPlayerNumber.text! != ""){
-            editedPlayer.jerseyNum = playerNumber!
-            editedPlayer.playerName = playerName
-            editedPlayer.lineNum = playerLine
-            editedPlayer.positionType = playerPosition
             
             try! realm.write {
-                realm.add(editedPlayer, update: true)
+                editedPlayer!.jerseyNum = playerNumber!
+                editedPlayer!.playerName = playerName
+                editedPlayer!.lineNum = playerLine
+                editedPlayer!.positionType = playerPosition
+                editedPlayer!.activeState = activeStatePlayerSwitch.isOn
                 succesfulPlayerAdd()
             }
         }else if(playerName != "" && newPlayerNumber.text! == ""){
-            editedPlayer.playerName = playerName
-            editedPlayer.lineNum = playerLine
-            editedPlayer.positionType = playerPosition
-            
+           
             try! realm.write {
-                realm.add(editedPlayer, update: true)
+                editedPlayer!.playerName = playerName
+                editedPlayer!.lineNum = playerLine
+                editedPlayer!.positionType = playerPosition
+                editedPlayer!.activeState = activeStatePlayerSwitch.isOn
                 succesfulPlayerAdd()
             }
         }else if(playerName == "" && newPlayerNumber.text! != ""){
-            editedPlayer.jerseyNum = playerNumber!
-            editedPlayer.lineNum = playerLine
-            editedPlayer.positionType = playerPosition
-            
+          
             try! realm.write {
-                realm.add(editedPlayer, update: true)
+                editedPlayer!.jerseyNum = playerNumber!
+                editedPlayer!.lineNum = playerLine
+                editedPlayer!.positionType = playerPosition
+                editedPlayer!.activeState = activeStatePlayerSwitch.isOn
                 succesfulPlayerAdd()
             }
         }else{
-            editedPlayer.lineNum = playerLine
-            editedPlayer.positionType = playerPosition
             
             try! realm.write {
-                realm.add(editedPlayer, update: true)
+                editedPlayer!.lineNum = playerLine
+                editedPlayer!.positionType = playerPosition
+                editedPlayer!.activeState = activeStatePlayerSwitch.isOn
                 succesfulPlayerAdd()
-            }        }
+            }
+        }
     }
     
     func succesfulTeamAdd(){

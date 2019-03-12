@@ -13,6 +13,7 @@ import Realm
 class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     let realm = try! Realm()
+    
     @IBOutlet weak var linePicker: UIPickerView!
     @IBOutlet weak var teamPicker: UIPickerView!
     @IBOutlet weak var positionPicker: UIPickerView!
@@ -119,7 +120,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             }else if(pickerData[row] == "Defence 3"){
                 selectLine = 6
             }else{
-                selectLine = 7
+                selectLine = 0
             }
         }else{
             selectPosition = positionCodeData[row]

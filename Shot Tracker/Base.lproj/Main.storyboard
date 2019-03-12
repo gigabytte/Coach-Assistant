@@ -71,7 +71,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yci-7A-Ado">
-                                <rect key="frame" x="620" y="154" width="349" height="142"/>
+                                <rect key="frame" x="620" y="162" width="349" height="79"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick player you want to edit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0Q-hC-f9f">
@@ -82,31 +82,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter player's new last name" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pRv-Mw-n8n">
-                                <rect key="frame" x="664" y="296" width="268" height="30"/>
+                                <rect key="frame" x="664" y="249" width="268" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GUV-TY-Q3k">
-                                <rect key="frame" x="638" y="409" width="313" height="85"/>
+                                <rect key="frame" x="638" y="387" width="313" height="85"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player's Line" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3j-8Y-GoV">
-                                <rect key="frame" x="723" y="379" width="148" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player's Line" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3j-8Y-GoV">
+                                <rect key="frame" x="739" y="357" width="119" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jNl-yy-qLS">
-                                <rect key="frame" x="592" y="532" width="412" height="77"/>
+                                <rect key="frame" x="592" y="510" width="412" height="77"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player's Position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxZ-Vn-Sch">
-                                <rect key="frame" x="698" y="502" width="193" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player's Position" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxZ-Vn-Sch">
+                                <rect key="frame" x="720" y="478" width="156" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -122,12 +122,23 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter player's new number" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="492-Rt-q8J">
-                                <rect key="frame" x="664" y="341" width="268" height="30"/>
+                                <rect key="frame" x="664" y="296" width="268" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enable Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4z2-KT-sk2">
+                                <rect key="frame" x="691" y="630" width="103" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pYh-7Q-hdl">
+                                <rect key="frame" x="829" y="620" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -141,6 +152,10 @@
                         <viewLayoutGuide key="safeArea" id="aI0-dr-YTP"/>
                     </view>
                     <connections>
+                        <outlet property="activeStatePLayerLabel" destination="4z2-KT-sk2" id="TaC-Xi-6SY"/>
+                        <outlet property="activeStatePlayerSwitch" destination="pYh-7Q-hdl" id="Ttu-FH-N8X"/>
+                        <outlet property="activeStateTeamLabel" destination="xrK-fb-muw" id="bp0-tz-6qX"/>
+                        <outlet property="activeStateTeamSwitch" destination="lmL-4r-sW5" id="N0N-yc-efm"/>
                         <outlet property="editPlayerButton" destination="920-Yf-EdP" id="20K-x6-TE1"/>
                         <outlet property="linePicker" destination="GUV-TY-Q3k" id="4pT-Z3-zYC"/>
                         <outlet property="newPlayerName" destination="pRv-Mw-n8n" id="Xm8-Ie-W9S"/>
@@ -686,7 +701,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Edit Team or Player Info"/>
                                 <connections>
-                                    <segue destination="Dy4-TQ-ADn" kind="presentation" identifier="" id="j8M-yc-I1D"/>
+                                    <action selector="editTeamButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Csa-Ja-kMz"/>
+                                    <segue destination="Dy4-TQ-ADn" kind="presentation" identifier="editTeamPlayerSegue" id="j8M-yc-I1D"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDW-ul-wnx">
@@ -2327,11 +2343,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="G5K-rA-i7R"/>
-        <segue reference="J2W-Lf-Ndn"/>
+        <segue reference="3Is-IF-SeE"/>
         <segue reference="YVz-TT-Imk"/>
-        <segue reference="iOf-qA-Ea5"/>
-        <segue reference="VT3-rT-kon"/>
-        <segue reference="Qvi-1t-WK0"/>
+        <segue reference="oNI-jA-1s2"/>
+        <segue reference="vis-UJ-d0D"/>
+        <segue reference="Ggy-8a-rEU"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
 </document>

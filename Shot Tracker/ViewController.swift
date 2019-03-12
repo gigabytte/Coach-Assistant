@@ -91,6 +91,15 @@ class ViewController: UIViewController {
             return false
         }
     }
+    @IBAction func editTeamButton(_ sender: UIButton) {
+        if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+            self.performSegue(withIdentifier: "editTeamPlayerSegue", sender: nil);
+            
+        }else{
+            // if teams or players are not avaiable top be pulled alert error appears
+            dataReturnNilAlert()
+        }
+    }
     
     @IBAction func newGameButton(_ sender: UIButton) {
    
