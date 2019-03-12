@@ -434,15 +434,15 @@
                                 </prototypes>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qJB-b6-E1f">
-                                <rect key="frame" x="502" y="410" width="417" height="358"/>
+                                <rect key="frame" x="541" y="410" width="378" height="358"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RIw-yX-fWl">
-                                        <rect key="frame" x="0.0" y="28" width="417" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="378" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RIw-yX-fWl" id="9Vr-A7-cca">
-                                            <rect key="frame" x="0.0" y="0.0" width="417" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="378" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2077,7 +2077,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Analytical View" id="KFT-mX-y14">
                                             <connections>
-                                                <segue destination="H6E-KX-Ner" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="maz-bK-j91"/>
+                                                <segue destination="H6E-KX-Ner" kind="presentation" identifier="analyticalSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="maz-bK-j91"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -2103,6 +2103,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZY0-KF-XJ5">
+                                <rect key="frame" x="102" y="416" width="420" height="352"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="6Gb-nR-I1I">
+                                        <rect key="frame" x="0.0" y="28" width="420" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Gb-nR-I1I" id="fe6-cg-2VY">
+                                            <rect key="frame" x="0.0" y="0.0" width="420" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h2I-uS-fhY">
+                                <rect key="frame" x="548" y="396" width="420" height="352"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Vxw-EM-6rk">
+                                        <rect key="frame" x="0.0" y="28" width="420" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vxw-EM-6rk" id="raP-dT-v1U">
+                                            <rect key="frame" x="0.0" y="0.0" width="420" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2186,7 +2216,7 @@
                                         </constraints>
                                         <state key="normal" title="Close"/>
                                         <connections>
-                                            <segue destination="WgI-Nk-gS3" kind="presentation" modalTransitionStyle="crossDissolve" id="Cpl-HQ-F5G"/>
+                                            <segue destination="WgI-Nk-gS3" kind="presentation" identifier="closeAnalyticalViewSegue" modalTransitionStyle="crossDissolve" id="Cpl-HQ-F5G"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yq0-pt-9I2" customClass="PieChartView" customModule="Charts">
@@ -2254,9 +2284,9 @@
                         <viewLayoutGuide key="safeArea" id="45O-P9-UFD"/>
                     </view>
                     <connections>
-                        <outlet property="pieChartView" destination="Yq0-pt-9I2" id="sDl-xt-tUy"/>
+                        <outlet property="pieChartView" destination="Yq0-pt-9I2" id="KNT-bb-z8z"/>
                         <outlet property="popUpView" destination="edd-bs-oM5" id="v7j-ZV-7I8"/>
-                        <outlet property="shotLocationPieChartView" destination="bym-oM-ik0" id="uze-lP-RwS"/>
+                        <outlet property="shotLocationPieChartView" destination="bym-oM-ik0" id="I6Y-Wf-Hvy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PWD-Jc-Fyv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2281,7 +2311,7 @@
         <segue reference="J2W-Lf-Ndn"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="oNI-jA-1s2"/>
-        <segue reference="vis-UJ-d0D"/>
+        <segue reference="VT3-rT-kon"/>
         <segue reference="Ggy-8a-rEU"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>

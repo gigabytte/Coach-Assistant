@@ -15,6 +15,7 @@
 		BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B752201576B0018E434 /* Team_Selection_View.swift */; };
 		BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */; };
 		BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */; };
+		BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */; };
 		BE7A1C632200EF4D00E4D74B /* Shot Marker File.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */; };
 		BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D697721E3D74300C1745C /* AppDelegate.swift */; };
 		BE7D697A21E3D74300C1745C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D697921E3D74300C1745C /* ViewController.swift */; };
@@ -95,6 +96,7 @@
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
 		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
 		BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_Location_View.swift; sourceTree = "<group>"; };
+		BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current_Stats_Ananlytical_View:.swift"; sourceTree = "<group>"; };
 		BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shot Marker File.swift"; sourceTree = "<group>"; };
 		BE7D697421E3D74300C1745C /* Shot Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shot Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE7D697721E3D74300C1745C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */,
 				BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */,
 				BEB718FF220A192B00DA6399 /* Current_Stats_Page.swift */,
+				BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */,
 				BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */,
 				BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */,
 				BE029C012213360200B935A7 /* Settings Page.swift */,
@@ -515,6 +518,7 @@
 				BE83904321F6515000D02C0B /* Realm.framework in Sources */,
 				BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */,
 				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
+				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
 				BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */,
 				BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */,
 				BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */,
