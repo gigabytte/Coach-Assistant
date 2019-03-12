@@ -195,9 +195,12 @@ class Shot_Location_View: UIViewController {
             // if goal marker is placed run code below
             goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
             let awayTeamGoalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+            let awayTeamGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             goalieNumberArray.append(awayTeamGoalieNumberArray[0])
             selectedGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID!), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            selectedGoalieIDArray.append(awayTeamGoalieIDArray[0])
             print("Goalie Number Array for Goal: ", goalieNumberArray)
+            print("goalie number array", selectedGoalieIDArray)
         }else{
             goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", goalieSelectedID)).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
             let awayTeamGoalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
