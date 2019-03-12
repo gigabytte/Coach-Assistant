@@ -50,6 +50,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Edit Player"/>
+                                <connections>
+                                    <action selector="saveEditedPlayer:" destination="Dy4-TQ-ADn" eventType="touchUpInside" id="1BU-1O-jvY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLc-xw-iTr">
                                 <rect key="frame" x="131" y="693" width="177" height="36"/>
@@ -79,14 +82,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter player's new last name" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pRv-Mw-n8n">
-                                <rect key="frame" x="660" y="303" width="268" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter player's new number" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="492-Rt-q8J">
-                                <rect key="frame" x="660" y="341" width="268" height="30"/>
+                                <rect key="frame" x="664" y="296" width="268" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -125,6 +121,13 @@
                                 <rect key="frame" x="196" y="436" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter player's new number" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="492-Rt-q8J">
+                                <rect key="frame" x="664" y="341" width="268" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -138,7 +141,10 @@
                         <viewLayoutGuide key="safeArea" id="aI0-dr-YTP"/>
                     </view>
                     <connections>
+                        <outlet property="editPlayerButton" destination="920-Yf-EdP" id="20K-x6-TE1"/>
                         <outlet property="linePicker" destination="GUV-TY-Q3k" id="4pT-Z3-zYC"/>
+                        <outlet property="newPlayerName" destination="pRv-Mw-n8n" id="Xm8-Ie-W9S"/>
+                        <outlet property="newPlayerNumber" destination="492-Rt-q8J" id="V4Z-Yj-7hH"/>
                         <outlet property="newTeamName" destination="nEK-Jw-f5R" id="ZBC-b1-t2L"/>
                         <outlet property="playersPicker" destination="yci-7A-Ado" id="VHU-q9-fla"/>
                         <outlet property="positionPicker" destination="jNl-yy-qLS" id="Ofo-iJ-GXr"/>
@@ -2015,8 +2021,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="Bvd-H0-Lcb">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="Bvd-H0-Lcb">
+                                <rect key="frame" x="1" y="20" width="1024" height="748"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSZ-4w-m2E">
                                 <rect key="frame" x="201" y="120" width="222" height="34"/>
@@ -2170,7 +2176,7 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3Is-IF-SeE"/>
+        <segue reference="J2W-Lf-Ndn"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="oNI-jA-1s2"/>
         <segue reference="vis-UJ-d0D"/>

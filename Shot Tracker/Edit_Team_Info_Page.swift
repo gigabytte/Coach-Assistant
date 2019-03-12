@@ -17,6 +17,9 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var linePicker: UIPickerView!
     @IBOutlet weak var positionPicker: UIPickerView!
     @IBOutlet weak var newTeamName: UITextField!
+    @IBOutlet weak var newPlayerName: UITextField!
+    @IBOutlet weak var newPlayerNumber: UITextField!
+    @IBOutlet weak var editPlayerButton: UIButton!
     
     var selectTeamKey:Int = 0
     var homeTeam: Int?
@@ -38,6 +41,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     var pickerData:[String] = [String]()
     var positionData:[String] = [String]()
+    var positionCodeData:[String] = [String]()
     
     let realm = try! Realm()
     
@@ -64,6 +68,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         
         pickerData = ["Forward 1","Forward 2","Forward 3","Defence 1","Defence 2","Defence 3", "Goalie"]
         positionData = ["Left Wing", "Center", "Right Wing", "Left Defence", "Right Defence", "Goalie"]
+        positionCodeData = ["LW", "C", "RW", "LD", "RD", "G"]
         // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
         // get rotation allowances of device
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -128,11 +133,20 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             selectPosition = positionData[row]
         }else{
             selectedMainPlayer = mainPlayerPickerData[row]
+        
         }
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField == newPlayerNumber){
+            guard NSCharacterSet(charactersIn: "0123456789").isSuperset(of: NSCharacterSet(charactersIn: string) as CharacterSet) else {
+                return false
+            }
+        }
+        return true
+    }
+    
     @IBAction func newTeamName(_ sender: Any) {
-        let team: String = selectTeam
         let teamID = homeTeam
         let newName = newTeamName.text!
         let newTeam = teamInfoTable()
@@ -154,33 +168,56 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func mainPlayerReterival(){
         
         // Get main Home players on view controller load
-        let mainPlayerNameFilter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == true", String(scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
-        
-        for index in 0..<mainPlayerNameFilter.count {
-            mainPlayerPickerData.append("\(mainPlayerNameFilter[index])")
-            }
-        }
+        let mainPlayerNameFilter = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(scoringPassedTeamID[0]))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+        print(mainPlayerNameFilter)
+        mainPlayerPickerData = mainPlayerNameFilter
+    }
     
-    @IBAction func newerTeamName(_ sender: Any) {
-        let team: String = selectTeam
-        let teamID = selectTeamKey
-        let newName = newTeamName.text!
-        let newTeam = teamInfoTable()
+    @IBAction func saveEditedPlayer(_ sender: Any) {
+        let playerLine = selectLine
+        let playerPosition = selectPosition
+        let playerName = newPlayerName.text!
+        let playerNumber = Int(newPlayerNumber.text!)
+        let editedPlayer = playerInfoTable()
         
-        if (newName != ""){
-            newTeam.teamID = teamID
-            newTeam.nameOfTeam = newName
+        if(playerName != "" && newPlayerNumber.text! != ""){
+            editedPlayer.jerseyNum = playerNumber!
+            editedPlayer.playerName = playerName
+            editedPlayer.lineNum = playerLine
+            editedPlayer.positionType = playerPosition
             
-            try! realm.write{
-                realm.add(newTeam, update: true)
-                succesfulTeamAdd()
-                print("test")
-                
+            try! realm.write {
+                realm.add(editedPlayer, update: true)
+                succesfulPlayerAdd()
+            }
+        }else if(playerName != "" && newPlayerNumber.text! == ""){
+            editedPlayer.playerName = playerName
+            editedPlayer.lineNum = playerLine
+            editedPlayer.positionType = playerPosition
+            
+            try! realm.write {
+                realm.add(editedPlayer, update: true)
+                succesfulPlayerAdd()
+            }
+        }else if(playerName == "" && newPlayerNumber.text! != ""){
+            editedPlayer.jerseyNum = playerNumber!
+            editedPlayer.lineNum = playerLine
+            editedPlayer.positionType = playerPosition
+            
+            try! realm.write {
+                realm.add(editedPlayer, update: true)
+                succesfulPlayerAdd()
             }
         }else{
-            missingFieldAlert()
-        }
+            editedPlayer.lineNum = playerLine
+            editedPlayer.positionType = playerPosition
+            
+            try! realm.write {
+                realm.add(editedPlayer, update: true)
+                succesfulPlayerAdd()
+            }        }
     }
+    
     func succesfulTeamAdd(){
         
         let successfulQuery = UIAlertController(title: "Team changed Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
@@ -188,10 +225,19 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         
         self.present(successfulQuery, animated: true, completion: nil)
     }
+    
+    func succesfulPlayerAdd(){
+        
+        let successfulQuery = UIAlertController(title: "Player changed Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
+        self.present(successfulQuery, animated: true, completion: nil)
+    }
+    
     func missingFieldAlert(){
         
         // create the alert
-        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled out before attemtping to change a new team.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled out before attemtping to change a new team name.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
