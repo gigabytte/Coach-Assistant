@@ -101,35 +101,26 @@ class Settings_Page: UIViewController {
     func createCSVTeamInfo(){
         
         let TeamIDCount =  realm.objects(teamInfoTable.self).filter("teamID >= 0").count
-        var tempTeamIDArray: [String] = [String]()
         var tempTeamNameArray: [String] = [String]()
         var tempActiveStateArray: [String] = [String]()
         // print(TeamIDCount)
         for i in 0..<TeamIDCount{
             
-            let teamIDValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey: i)!.teamID;
             let teamNameValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.nameOfTeam;
             let activeStateValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.activeState;
-            tempTeamIDArray.append(String(teamIDValue))
             tempTeamNameArray.append(teamNameValue)
             tempActiveStateArray.append(String(activeStateValue))
         }
-        
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        let dateString = formatter.string(from: date)
-        
+     
         let fileName = "Realm_Team_Info_Table" + ".csv"
-        var csvText = "teamID,nameOfTeam,activeState\n"
-        for x in 0..<tempTeamIDArray.count {
+        var csvText = "nameOfTeam,activeState\n"
+        for x in 0..<tempTeamNameArray.count {
             
-            let teamIDVar = tempTeamIDArray[x]
             let teamNameVar = tempTeamNameArray[x]
             let activeStateVar = tempActiveStateArray[x]
             
-            let newLine = String(teamIDVar) + "," + teamNameVar + "," + activeStateVar + "\n"
-            if(x == tempTeamIDArray.count){
+            let newLine = teamNameVar + "," + activeStateVar + "\n"
+            if(x == tempTeamNameArray.count){
                 newLine.dropLast()
                 newLine.dropLast()
             }
@@ -152,7 +143,6 @@ class Settings_Page: UIViewController {
     func createCSVPlayerInfo(){
         
         let playerIDCount =  realm.objects(playerInfoTable.self).filter("playerID >= 0").count
-        var tempPlayerIDArray: [String] = [String]()
         var tempPlayerNameArray: [String] = [String]()
         var tempjerseyNum: [String] = [String]()
         var tempPositionType: [String] = [String]()
@@ -166,7 +156,6 @@ class Settings_Page: UIViewController {
         
         for i in 0..<playerIDCount{
             
-            let playerIDValue = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: i)!.playerID;
             let playerNameValue = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.playerName;
             let jerseyNum = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.jerseyNum;
             let positionType = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.positionType;
@@ -177,7 +166,6 @@ class Settings_Page: UIViewController {
             let shotCount = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.shotCount;
             let plusMinus = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.plusMinus;
             let activeState = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.activeState;
-            tempPlayerIDArray.append(String(playerIDValue))
             tempPlayerNameArray.append(playerNameValue)
             tempjerseyNum.append(String(jerseyNum))
             tempPositionType.append(positionType)
@@ -191,16 +179,10 @@ class Settings_Page: UIViewController {
             
         }
         
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        let dateString = formatter.string(from: date)
-        
         let fileName = "Realm_Player_Info_Table" + ".csv"
-        var csvText = "playerID,playerName,jerseyNum,positionType,TeamID,lineNum,goalCount,assitsCount,shotCount,plusMinus,activeState\n"
-        for x in 0..<tempPlayerIDArray.count {
+        var csvText = "playerName,jerseyNum,positionType,TeamID,lineNum,goalCount,assitsCount,shotCount,plusMinus,activeState\n"
+        for x in 0..<tempPlayerNameArray.count {
             
-            let playerIDVar = tempPlayerIDArray[x]
             let playerNameVar = tempPlayerNameArray[x]
             let playerJerseyNum = tempjerseyNum[x]
             let playerPositionTypeVar = tempPositionType[x]
@@ -212,8 +194,8 @@ class Settings_Page: UIViewController {
             let playerPlusMinusVar = tempPlusMinus[x]
             let playerActiveStateVar = tempActiveState[x]
             
-            let newLine =  playerIDVar + "," + playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerActiveStateVar + "\n"
-            if(x == tempPlayerIDArray.count){
+            let newLine =  playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerActiveStateVar + "\n"
+            if(x == tempPlayerNameArray.count){
                 newLine.dropLast()
                 newLine.dropLast()
             }
@@ -241,7 +223,6 @@ class Settings_Page: UIViewController {
         let dateString = formatter.string(from: date)
         
         let newGameIDCount =  realm.objects(newGameTable.self).filter("gameID >= 0").count
-        var tempGameIDArray: [String] = [String]()
         var tempDateGamePlayed: [String] = [String]()
         var tempOpposingTeamID: [String] = [String]()
         var tempHomeTeamID: [String] = [String]()
@@ -254,7 +235,6 @@ class Settings_Page: UIViewController {
         
         for i in 0..<newGameIDCount{
             
-            let gameIDValue = self.realm.object(ofType: newGameTable.self, forPrimaryKey: i)!.gameID;
             let dateGamePlayedValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.dateGamePlayed;
             let opposingTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.opposingTeamID;
             let homeTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.homeTeamID;
@@ -265,7 +245,6 @@ class Settings_Page: UIViewController {
             let activeGameStatusValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeGameStatus;
             let activeStateValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeState;
             let dateString = formatter.string(from: dateGamePlayedValue!)
-            tempGameIDArray.append(String(gameIDValue))
             tempDateGamePlayed.append(dateString)
             tempOpposingTeamID.append(String(opposingTeamIDValue))
             tempHomeTeamID.append(String(homeTeamIDValue))
@@ -279,10 +258,9 @@ class Settings_Page: UIViewController {
         }
         
         let fileName = "Realm_New_Game_Info_Table" + ".csv"
-        var csvText = "gameID,dateGamePlayed,opposingTeamID,homeTeamID,gameType,winingTeamID,losingTeamID,tieBool,activeGameStatus,activeState\n"
+        var csvText = "dateGamePlayed,opposingTeamID,homeTeamID,gameType,winingTeamID,losingTeamID,tieBool,activeGameStatus,activeState\n"
         for x in 0..<newGameIDCount {
-            
-            let gameIDVar = tempGameIDArray[x]
+        
             let dateGamePlayerVar = tempDateGamePlayed[x]
             let opposingTeamIDVar = tempOpposingTeamID[x]
             let homeTeamIDVar = tempHomeTeamID[x]
@@ -293,7 +271,7 @@ class Settings_Page: UIViewController {
             let activeGameStatusVar = tempActiveGameStatus[x]
             let activeStateVar = tempActiveState[x]
             
-            let newLine =  gameIDVar + "," + dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + winingTeamVar + "," + losingTeamVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
+            let newLine =  dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + winingTeamVar + "," + losingTeamVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
             if(x == newGameIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
@@ -316,13 +294,7 @@ class Settings_Page: UIViewController {
     // creats csv file for goal marker table
     func createCSVGoalMarkerTable(){
         
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        let dateString = formatter.string(from: date)
-        
         let goalMarkerIDCount =  realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").count
-        var tempcordSetID: [String] = [String]()
         var tempgameID: [String] = [String]()
         var tempgoalType: [String] = [String]()
         var temppowerPlay: [String] = [String]()
@@ -340,7 +312,6 @@ class Settings_Page: UIViewController {
         
         for i in 0..<goalMarkerIDCount{
             
-            let cordSetID = self.realm.object(ofType: goalMarkersTable.self, forPrimaryKey: i)!.cordSetID
             let gameID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.gameID
             let goalType = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalType
             let powerPlay = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.powerPlay
@@ -354,7 +325,6 @@ class Settings_Page: UIViewController {
             let yCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.yCordGoal
             let shotLocation = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.shotLocation
             let activeState = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.activeState
-            tempcordSetID.append(String(cordSetID))
             tempgameID.append(String(gameID))
             tempgoalType.append(goalType)
             temppowerPlay.append(String(powerPlay))
@@ -372,10 +342,9 @@ class Settings_Page: UIViewController {
         }
         
         let fileName = "Realm_Goal_Marker_Table" + ".csv"
-        var csvText = "cordSetID,gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        var csvText = "gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<goalMarkerIDCount{
             
-            let cordSetIDVar = tempcordSetID[x]
             let gameIDVar = tempgameID[x]
             let goalTypeVar = tempgoalType[x]
             let powerPlayVar = temppowerPlay[x]
@@ -390,7 +359,7 @@ class Settings_Page: UIViewController {
             let shotLocationVar = tempshotLocation[x]
             let activeStateVar = tempactiveState[x]
             
-            let newLine =  cordSetIDVar + "," + gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
+            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
             if(x == goalMarkerIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
@@ -413,13 +382,7 @@ class Settings_Page: UIViewController {
     // creats csv file for shot marker table
     func createCSVShotMarkerTable(){
         
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        let dateString = formatter.string(from: date)
-        
         let shotMarkerIDCount =  realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").count
-        var tempcordSetID: [String] = [String]()
         var tempgameID: [String] = [String]()
         var tempTeamID: [String] = [String]()
         var tempgoalieID: [String] = [String]()
@@ -432,7 +395,6 @@ class Settings_Page: UIViewController {
         
         for i in 0..<shotMarkerIDCount{
             
-            let cordSetID = self.realm.object(ofType: shotMarkerTable.self, forPrimaryKey: i)!.cordSetID
             let gameID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.gameID
             let TeamID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.TeamID
             let goalieID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.goalieID
@@ -441,7 +403,6 @@ class Settings_Page: UIViewController {
             let yCordGoal = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.yCordShot
             let shotLocation = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.shotLocation
             let activeState = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.activeState
-            tempcordSetID.append(String(cordSetID))
             tempgameID.append(String(gameID))
             tempTeamID.append(String(TeamID))
             tempgoalieID.append(String(goalieID))
@@ -454,10 +415,9 @@ class Settings_Page: UIViewController {
         }
         
         let fileName = "Realm_Shot_Marker_Table" + ".csv"
-        var csvText = "cordSetID,gameID,TeamID,goalieID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        var csvText = "gameID,TeamID,goalieID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<shotMarkerIDCount{
             
-            let cordSetIDVar = tempcordSetID[x]
             let gameIDVar = tempgameID[x]
             let teamIDVar = tempTeamID[x]
             let goalieIDVar = tempgoalieID[x]
@@ -467,7 +427,7 @@ class Settings_Page: UIViewController {
             let shotLocationVar = tempshotLocation[x]
             let activeStateVar = tempactiveState[x]
             
-            let newLine =  cordSetIDVar + "," + gameIDVar + "," + teamIDVar + "," + goalieIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
+            let newLine =  gameIDVar + "," + teamIDVar + "," + goalieIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
             if(x == shotMarkerIDCount){
                 newLine.dropLast()
                 newLine.dropLast()

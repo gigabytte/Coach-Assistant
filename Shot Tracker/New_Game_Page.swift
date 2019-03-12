@@ -90,6 +90,11 @@ class New_Game_Page: UIViewController {
             // call functions for stats page dynamic function
             if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
    
+                // refrence to below functionns for loading first pv initial VC load
+                self.teamIDProcessing()
+                self.shot_markerProcessing()
+                self.goal_markerProcessing()
+                
                 if (realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last == nil){
                 // align text in text field as well assign text value to text field to team name
                 self.homeTeamNumGoals.text = String(0)
@@ -115,16 +120,7 @@ class New_Game_Page: UIViewController {
             }else{
                 print("Score and Shot Count Ran Failed at newGameTable gameID")
             }
-        // refrence to below functionns for loading first pv initial VC load
-            self.teamIDProcessing()
-            self.shot_markerProcessing()
-            self.home_markerPlacement(markerType: self.homeTeamShotMakerImage!)
-            self.home_markerPlacement(markerType: self.homeTeamGoalMakerImage!)
-            self.goal_markerProcessing()
-            self.away_markerPlacement(markerType: self.awayTeamShotMarkerImage!)
-            self.away_markerPlacement(markerType: self.awayTeamGoalMarkerImage!)
         }
-        
     }
     
     func navBarProcessing(){
@@ -153,9 +149,7 @@ class New_Game_Page: UIViewController {
         awayTeam = newGameFilter?.opposingTeamID
     }
     // func used to process shot X and Y cord info from realm based on team selection on new game page load
-    func shot_markerProcessing() -> (home_xCordsForPlacementShot: [String], home_yCordsForPlacementShot: [String], away_xCordsForPlacementShot: [String], away_yCordsForPlacementShot: [String]){
-        
-        let realm = try! Realm()
+    func shot_markerProcessing(){
         
         let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.gameID;
     
@@ -164,17 +158,29 @@ class New_Game_Page: UIViewController {
         let away_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam!)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
         let away_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam!)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
 
-        let home_xCordsForPlacementShot = home_xCordsArray
-        let home_yCordsForPlacementShot = home_yCordsArray
-        let away_xCordsForPlacementShot = away_xCordsArray
-        let away_yCordsForPlacementShot = away_yCordsArray
-        // return rresult of marker processing
-        return(home_xCordsForPlacementShot, home_yCordsForPlacementShot, away_xCordsForPlacementShot, away_yCordsForPlacementShot)
+        if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
+            // check markerType image value
+            for i in 0..<home_xCordsArray.count{
+                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 25, y: Int(home_yCordsArray[i])! - 25, width: 50, height: 50));
+                    shotMarkerimageView.contentMode = .scaleAspectFill;
+                    shotMarkerimageView.image = homeTeamShotMakerImage;
+                    view.addSubview(shotMarkerimageView);
+            }
+            for i in 0..<away_xCordsArray.count{
+                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 25, y: Int(away_yCordsArray[i])! - 25, width: 50, height: 50));
+                    shotMarkerimageView.contentMode = .scaleAspectFill;
+                    shotMarkerimageView.image = awayTeamShotMarkerImage;
+                    view.addSubview(shotMarkerimageView);
+            }
+        }else{
+            // print error id not cord data present in arrays
+            //should only error out if user hasnt submittte any marker data to realm
+            print("No Shot Marker Cords Found on Load")
+        }
     }
     
     // func used to process shot X and Y cord info from realm based on team selection on new game page load
-    func goal_markerProcessing() -> (home_xCordsForPlacementGoal: [String], home_yCordsForPlacementGoal: [String], away_xCordsForPlacementGoal: [String], away_yCordsForPlacementGoal: [String]){
-        let realm = try! Realm()
+    func goal_markerProcessing() {
         
         let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.gameID;
         
@@ -182,35 +188,40 @@ class New_Game_Page: UIViewController {
         let home_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam!)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
         let away_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam!)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
         let away_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam!)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
-        // filter xCords and y cords by home  and away team realtive positions based on TeamID colum result
-        let home_xCordsForPlacementGoal = home_xCordsArray
-        let home_yCordsForPlacementGoal = home_yCordsArray
-        let away_xCordsForPlacementGoal = away_xCordsArray
-        let away_yCordsForPlacementGoal = away_yCordsArray
+        
         // log data grabbed from realm
-        print("Home team goal X cords to be used; ", home_xCordsForPlacementGoal)
-        print("Home team goal Y cords to be used; ", home_yCordsForPlacementGoal)
-        print("Away team goal X cords to be used; ", away_xCordsForPlacementGoal)
-        print("Away team goal Y cords to be used; ", away_yCordsForPlacementGoal)
-        // return rresult of marker processing
-        return(home_xCordsForPlacementGoal, home_yCordsForPlacementGoal, away_xCordsForPlacementGoal, away_yCordsForPlacementGoal)
+        if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
+            // check markerType image value
+            for i in 0..<home_xCordsArray.count{
+                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 25, y: Int(home_yCordsArray[i])! - 25, width: 50, height: 50));
+                goalMarkerimageView.contentMode = .scaleAspectFill;
+                goalMarkerimageView.image = homeTeamGoalMakerImage;
+                view.addSubview(goalMarkerimageView);
+            }
+            for i in 0..<away_xCordsArray.count{
+                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 25, y: Int(away_yCordsArray[i])! - 25, width: 50, height: 50));
+                goalMarkerimageView.contentMode = .scaleAspectFill;
+                goalMarkerimageView.image = awayTeamGoalMarkerImage;
+                view.addSubview(goalMarkerimageView);
+            }
+        }else{
+            // print error id not cord data present in arrays
+            //should only error out if user hasnt submittte any marker data to realm
+            print("No Goal Marker Cords Found on Load")
+        }
     }
     
-    func home_markerPlacement(markerType: UIImage){
+  /*  func home_markerPlacement(markerType: UIImage){
         if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false){
             // check markerType image value
             if(markerType == homeTeamShotMakerImage) {
-                print("shot maker count", shot_markerProcessing().home_xCordsForPlacementShot.count)
-                print(shot_markerProcessing().home_xCordsForPlacementShot)
-                print(shot_markerProcessing().home_yCordsForPlacementShot)
                 for i in 0..<shot_markerProcessing().home_xCordsForPlacementShot.count{
                     shotMarkerimageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().home_xCordsForPlacementShot[i])! - 25, y: Int(shot_markerProcessing().home_yCordsForPlacementShot[i])! - 25, width: 50, height: 50));
                     shotMarkerimageView.contentMode = .scaleAspectFill;
                     shotMarkerimageView.image = markerType;
                     view.addSubview(shotMarkerimageView);
                 }
-            }
-            if(markerType == homeTeamGoalMakerImage) {
+            }else{
                 for i in 0..<goal_markerProcessing().home_xCordsForPlacementGoal.count{
                     goalMarkerimageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().home_xCordsForPlacementGoal[i])! - 25, y: Int(goal_markerProcessing().home_yCordsForPlacementGoal[i])! - 25, width: 50, height: 50));
                     goalMarkerimageView.contentMode = .scaleAspectFill;
@@ -250,7 +261,7 @@ class New_Game_Page: UIViewController {
             //should only error out if user hasnt submittte any marker data to realm
             print("No Away Marker Cords Found on Load")
         }
-    }
+    }*/
     func teamNameInitialize(){
         
         // query realm for team naames based on newest game
