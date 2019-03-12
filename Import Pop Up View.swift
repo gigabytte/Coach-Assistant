@@ -80,10 +80,10 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         do {
             firstFileContentsParsed =  (try String(contentsOf: firstDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
         } catch {
-            print("Error Finding Containts of File")
+            print("Error Finding Contents of File")
         }
         
-        if (firstFileContentsParsed[1].count == firstFileContentsParsed[0].count){
+        if (firstFileContentsParsed[0].count == 10){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(newGameTable.self))
@@ -170,7 +170,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Containts of File")
         }
         
-        if (thirdFileContentsParsed[1].count == thirdFileContentsParsed[0].count){
+        if (thirdFileContentsParsed[0].count == 11){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(playerInfoTable.self))
@@ -219,7 +219,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Containts of File")
         }
         
-        if (fourthFileContentsParsed[1].count == fourthFileContentsParsed[0].count){
+        if (fourthFileContentsParsed[0].count == 14){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(goalMarkersTable.self))
@@ -270,7 +270,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Containts of File")
         }
         
-        if (fifthFileContentsParsed[1].count == fifthFileContentsParsed[0].count){
+        if (fifthFileContentsParsed[0].count == 9){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(shotMarkerTable.self))
@@ -350,7 +350,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     
                 }))
                 self.present(alertController, animated: true, completion: nil)
-                print("More than 4 items were selcted!")
+                print("More than \(limit) items were selcted!")
                 
             }
         }

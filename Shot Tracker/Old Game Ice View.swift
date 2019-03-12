@@ -197,9 +197,9 @@ class Old_Game_Ice_View: UIViewController {
             
             let shotLocation = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
             let goalieID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
-             let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID[0])?.playerName;
-             var teamID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
-             let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
+            let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID[0])?.playerName;
+            let teamID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
+            let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
             
             let actionSheet = UIAlertController(title: "Shot Marker Details", message: "Shot Location: \(shotLocationConversion(shotLocationInt: shotLocation[0])) \n Goalie Shot on: \(goalieName!) \n Shot by team: \(teamName!)", preferredStyle: .actionSheet)
             let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (alert: UIAlertAction!) -> Void in
@@ -215,17 +215,16 @@ class Old_Game_Ice_View: UIViewController {
         }else{
              let selectedGoalMarker = view.viewWithTag(markerTag)
             let markerCords: CGPoint = selectedGoalMarker!.frame.origin
-            let xMarkerCord = markerCords.x + 25
-            let yMarkerCord = markerCords.y + 25
+            let xMarkerCord = Int(markerCords.x + 25)
+            let yMarkerCord = Int(markerCords.y + 25)
             print("Cords for goal image are: \(xMarkerCord) and \(yMarkerCord)")
-            
-            let shotLocation = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
+            let shotLocation = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, self.SeletedGame!)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
             let goalieID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
             let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID[0])?.playerName;
-            var teamID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
+            let teamID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
             let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
-            var scoringPlayerID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
-            let scoringPlayerName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: scoringPlayerID[0])?.nameOfTeam;
+            let scoringPlayerID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame!)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})
+            let scoringPlayerName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: scoringPlayerID[0])?.playerName;
             
             let actionSheet = UIAlertController(title: "Goal Marker Details", message: "Goal Location: \(shotLocationConversion(shotLocationInt: shotLocation[0])) \n Goalie Shot on: \(goalieName!) \n Scored by team: \(teamName!) \n Player Scored: \(scoringPlayerName!)", preferredStyle: .actionSheet)
             let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (alert: UIAlertAction!) -> Void in

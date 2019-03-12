@@ -1162,6 +1162,23 @@
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEO-86-RCI">
+                                <rect key="frame" x="373" y="518" width="278" height="62"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="62" id="CJX-Ar-bgC"/>
+                                    <constraint firstAttribute="width" constant="278" id="DG1-Jy-PmS"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="278" id="hSr-vv-Wmv"/>
+                                    <constraint firstAttribute="height" constant="62" id="vqT-LX-cdP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Wipe Local Data">
+                                    <color key="titleColor" red="1" green="0.10566986239999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="wipeDataButton:" destination="HGz-Vb-orN" eventType="touchUpInside" id="0tt-oD-Lom"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1178,8 +1195,10 @@
                             <constraint firstItem="ESj-xy-RSN" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="fRW-08-kyh"/>
                             <constraint firstItem="tEJ-kz-1ET" firstAttribute="top" secondItem="vvg-VL-dlw" secondAttribute="bottom" constant="60" id="fvt-de-xEC"/>
                             <constraint firstItem="5nO-EQ-RoC" firstAttribute="trailing" secondItem="bPG-eK-eEE" secondAttribute="trailing" id="lRe-g6-ehC"/>
+                            <constraint firstItem="ZEO-86-RCI" firstAttribute="top" secondItem="tEJ-kz-1ET" secondAttribute="bottom" constant="100" id="mhH-G3-bwh"/>
                             <constraint firstItem="fcf-9r-McG" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="pUm-aI-7ji"/>
                             <constraint firstItem="5nO-EQ-RoC" firstAttribute="top" secondItem="bUQ-qh-K4R" secondAttribute="top" id="qh2-aT-URR"/>
+                            <constraint firstItem="ZEO-86-RCI" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="rY6-yo-iBq"/>
                             <constraint firstItem="tEJ-kz-1ET" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="sHl-qA-Q5b"/>
                             <constraint firstItem="5nO-EQ-RoC" firstAttribute="leading" secondItem="bPG-eK-eEE" secondAttribute="leading" id="xnh-ch-f2L"/>
                         </constraints>
@@ -1190,6 +1209,7 @@
                         <outlet property="exportCVSButton" destination="vvg-VL-dlw" id="0I7-6O-Rck"/>
                         <outlet property="importCVSButton" destination="tEJ-kz-1ET" id="cEG-LZ-gHB"/>
                         <outlet property="sucessProcessText" destination="OkN-qp-8fO" id="8xw-1H-kVR"/>
+                        <outlet property="wipeDataButton" destination="ZEO-86-RCI" id="o2t-nO-waI"/>
                         <segue destination="oAD-on-ycU" kind="presentation" identifier="importPopUpSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="cly-bS-gmy"/>
                     </connections>
                 </viewController>
@@ -2306,13 +2326,14 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="cly-bS-gmy"/>
         <segue reference="maz-bK-j91"/>
         <segue reference="Cpl-HQ-F5G"/>
         <segue reference="J2W-Lf-Ndn"/>
         <segue reference="YVz-TT-Imk"/>
-        <segue reference="oNI-jA-1s2"/>
+        <segue reference="iOf-qA-Ea5"/>
         <segue reference="VT3-rT-kon"/>
-        <segue reference="Ggy-8a-rEU"/>
+        <segue reference="Ve8-tz-6Eb"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
 </document>

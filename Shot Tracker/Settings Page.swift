@@ -17,12 +17,21 @@ class Settings_Page: UIViewController {
     @IBOutlet weak var importCVSButton: UIButton!
     @IBOutlet weak var sucessProcessText: UILabel!
     @IBOutlet weak var backupDateLabel: UILabel!
+    @IBOutlet weak var wipeDataButton: UIButton!
     
     var realm = try! Realm()
     var successImport: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        wipeDataButton.backgroundColor = .clear
+        wipeDataButton.layer.cornerRadius = 5
+        wipeDataButton.layer.borderWidth = 1
+        wipeDataButton.layer.borderColor = UIColor.black.cgColor
+        exportCVSButton.layer.cornerRadius = 5
+        importCVSButton.layer.cornerRadius = 5
+        
         // get rotation allowances of device
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         // set auto rotation to true for current view
@@ -40,6 +49,10 @@ class Settings_Page: UIViewController {
         }
         backupUpDateCheck()
         promptMessage()
+    }
+    // on buttoin press delete all of relam data
+    @IBAction func wipeDataButton(_ sender: Any) {
+       deleteDataPrompt()
     }
     
     // on button press perform CVS export functions
@@ -513,6 +526,24 @@ class Settings_Page: UIViewController {
         else {
             return false
         }
+    }
+    // display prompt before excuting realm deletion
+    func deleteDataPrompt(){
+        
+        // create the alert
+        let dataDelete = UIAlertController(title: "Succesful Export", message: "All App Data was Succesfully Exported Locally", preferredStyle: UIAlertController.Style.alert)
+        dataDelete.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        // add an action (button)
+        dataDelete.addAction(UIAlertAction(title: "Wipe Data", style: UIAlertAction.Style.destructive, handler: {action in
+            try? self.realm.write ({
+                //delete contents of DB
+                self.realm.deleteAll()
+            })
+        }))
+        
+        // show the alert
+        self.present(dataDelete, animated: true, completion: nil)
+        
     }
     // display success alert if export succesful
     func successLocalAlert(){
