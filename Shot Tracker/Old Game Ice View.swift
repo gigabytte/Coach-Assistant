@@ -240,7 +240,7 @@ class Old_Game_Ice_View: UIViewController {
         }
     }
     func home_markerPlacement(markerType: UIImage){
-        if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false){
+        if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false || goal_markerProcessing().away_xCordsForPlacementGoal.isEmpty == false){
             // check markerType image value
             if(markerType == homeTeamShotMakerImage) {
                 for i in 0..<shot_markerProcessing().home_xCordsForPlacementShot.count{
@@ -281,7 +281,7 @@ class Old_Game_Ice_View: UIViewController {
         }
     }
     func away_markerPlacement(markerType: UIImage){
-        if (shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false){
+        if (shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false || goal_markerProcessing().away_xCordsForPlacementGoal.isEmpty == false){
             // check markerType image value
             if(markerType == awayTeamShotMarkerImage) {
                 for i in 0..<shot_markerProcessing().away_xCordsForPlacementShot.count{
