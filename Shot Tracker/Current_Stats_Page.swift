@@ -11,7 +11,8 @@ import Realm
 import RealmSwift
 import Charts
 
-class Current_Stats_Page: UIViewController {
+
+class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet weak var homeTeamNameTextField: UILabel!
     @IBOutlet weak var awayTeamNameTextField: UILabel!
@@ -19,6 +20,9 @@ class Current_Stats_Page: UIViewController {
     @IBOutlet weak var awayTeamScoreTextField: UILabel!
     @IBOutlet weak var homeNumShotTextField: UILabel!
     @IBOutlet weak var awayNumShotTextField: UILabel!
+    @IBOutlet weak var homePlayerStatsTable: UITableView!
+    @IBOutlet weak var awayPlayerStatsTable: UITableView!
+
     
     var homeTeam: Int!
     var awayTeam: Int!
@@ -26,23 +30,21 @@ class Current_Stats_Page: UIViewController {
     var newGameStarted: Bool!
     var goalieSelectedID: Int!
     var periodNumSelected: Int!
+    var homePlayerStatsArray: [String] = [String]()
     
-    var homeTeamShotsPie = PieChartDataEntry(value: 0)
-    var homeTeamGoalsPie = PieChartDataEntry(value: 0)
-    var awayTeamShotsPie = PieChartDataEntry(value: 0)
-    var awayTeamGoalsPie = PieChartDataEntry(value: 0)
-    
-    var tlShotValue = PieChartDataEntry(value: 0)
-    var trShotValue = PieChartDataEntry(value: 0)
-    var blShotValue = PieChartDataEntry(value: 0)
-    var brShotValue = PieChartDataEntry(value: 0)
-    var cShotValue = PieChartDataEntry(value: 0)
-    
+    let textCellIdentifier = "cell"
+
     let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Away team ID", awayTeam)
+        homePlayerStatsTable.allowsSelection = false
+        awayPlayerStatsTable.allowsSelection = false
+        homePlayerStatsTable.dataSource = self
+        homePlayerStatsTable.delegate = self
+        awayPlayerStatsTable.dataSource = self
+        awayPlayerStatsTable.delegate = self
+        
         teamNameInitialize()
         
         // call functions for stats page dynamic function
@@ -122,6 +124,75 @@ class Current_Stats_Page: UIViewController {
         return(Double(homeShotCounter), Double(awayShotCounter))
         
     }
+    
+    func home_playerStatsProcessing() -> ([String], [Int], [Int], [Int]){
+        
+        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
+            
+        let homeScoringPlayerID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "TeamID == %i AND gameID == %i AND activeState == true", newGameFilter!.homeTeamID, newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})
+        let homeAssitPlayerID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "TeamID == %i AND gameID == %i AND activeState == true", newGameFilter!.homeTeamID, newGameFilter!.gameID)).value(forKeyPath: "assitantPlayerID") as! [Int]).compactMap({Int($0)})
+        let homeAssit2PlayerID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "TeamID == %i AND gameID == %i AND activeState == true", newGameFilter!.homeTeamID, newGameFilter!.gameID)).value(forKeyPath: "sec_assitantPlayerID") as! [Int]).compactMap({Int($0)})
+        
+        let homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+       
+        return(homePlayerName, homeScoringPlayerID, homeAssitPlayerID, homeAssit2PlayerID)
+        
+    }
+    
+    // Returns count of items in tableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
+        if (tableView == homePlayerStatsTable){
+            print("table view count", (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count)
+            return((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count)
+        }else{
+            return((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.opposingTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count)
+        }
+    }
+    //Assign values for tableView
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel!.numberOfLines = 0;
+        //if (tableView == homePlayerStatsTable){
+            var numberOfGoalsEach: [Int: Int] = [:]
+            home_playerStatsProcessing().1.forEach { numberOfGoalsEach[$0, default: 0] += 1 }
+            let homePlayerID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            print("Home Player ID", homePlayerID)
+            let tempDicKeyArray = Array(numberOfGoalsEach.keys)
+            let tempDicValuesArray = Array(numberOfGoalsEach.values)
+            print()
+            let maxForLoopCount = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count
+            for x in 0..<maxForLoopCount{
+                var count: Int = 0
+                print(count)
+                if(tempDicKeyArray.indices.contains(homePlayerID[x]) != false){
+                    
+                    homePlayerStatsArray.append("\(home_playerStatsProcessing().0[x])\nGoals: \(tempDicValuesArray[x])\n test\n")
+                }else{
+                    homePlayerStatsArray.append("\(home_playerStatsProcessing().0[x])\nGoals: 0\n test\n")
+                    
+                }
+                count += 1
+               
+            }
+            
+            
+        //}
+        cell.textLabel?.text = homePlayerStatsArray[indexPath.row]
+        print(cell)
+        return cell
+        /*else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            
+            cell.textLabel?.text = homePlayerStatsArray[indexPath.row]
+            print(cell)
+            return cell
+ 
+        }*/
+    }
+    
     // func used to pass varables on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
