@@ -40,7 +40,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     // vars for player data retrieval from Realm
     var mainPlayerPickerData: [String] = [String]()
-    var tempHomeMainIDArray: [String] = [String]()
+    var tempHomeMainIDArray: [Int] = [Int]()
     var selectedMainPlayer: String = ""
     var selectedMainPlayerID: Int!
     
@@ -180,9 +180,9 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
 
         // default value set
         selectedMainPlayer = mainPlayerNameFilter[0]
-        tempHomeMainIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND playerName == %@ AND positionType != %@ AND activeState == true", String(scoringPassedTeamID[0]), selectedMainPlayer, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)})
+        tempHomeMainIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == true", String(scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         // get default goal score id
-        selectedMainPlayerID = Int(tempHomeMainIDArray[0])
+        selectedMainPlayerID = tempHomeMainIDArray[0]
         print("Selected Main Player ID: ", tempHomeMainIDArray)
     }
     
@@ -317,9 +317,10 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                     goalMarkerTableID?.periodNum = (self.periodSelectionNum)
                     goalMarkerTableID?.shotLocation = (Int(self.shotLocationValue)!)
                     goalMarkerTableID?.TeamID = (self.scoringPassedTeamID[0])
-                    goalMarkerTableID?.goalPlayerID = (self.selectedMainPlayerID)
-                    goalMarkerTableID?.assitantPlayerID = (self.selectedAssitantPlayerOneID)
-                    goalMarkerTableID?.sec_assitantPlayerID = (self.selectedAssitantPlayerTwoID)
+                    goalMarkerTableID?.goalPlayerID = (self.selectedMainPlayerID!)
+                    print("realm sees main player id, ", self.selectedMainPlayerID!)
+                    goalMarkerTableID?.assitantPlayerID = (self.selectedAssitantPlayerOneID!)
+                    goalMarkerTableID?.sec_assitantPlayerID = (self.selectedAssitantPlayerTwoID!)
                     mainPlayerUpdateID?.goalCount += 1
                     assitPlayerUpdateID?.assitsCount += 1
                     assitTwoPlayerUpdateID?.assitsCount += 1
@@ -395,7 +396,9 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             print("Picker View Reload Happened")*/
         }else if (pickerView == shot_goalPickerView){
             selectedMainPlayer = mainPlayerPickerData[row]
+            selectedMainPlayerID = tempHomeMainIDArray[row]
             print("Goal Scorer Selected" + selectedMainPlayer)
+            print("Goal Scorer Selected ID", selectedMainPlayerID)
         }else if (pickerView == assitantsPickerView){
             // check if selected team is == to the home team oulled from realm
                 selectedAssitantPlayerOne = assitPlayerPickerData[0][row]

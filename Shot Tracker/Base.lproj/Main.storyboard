@@ -702,7 +702,6 @@
                                 <state key="normal" title="Edit Team or Player Info"/>
                                 <connections>
                                     <action selector="editTeamButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Csa-Ja-kMz"/>
-                                    <segue destination="Dy4-TQ-ADn" kind="presentation" identifier="editTeamPlayerSegue" id="j8M-yc-I1D"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDW-ul-wnx">
@@ -774,11 +773,12 @@
                     <connections>
                         <outlet property="newGameButton" destination="PQZ-W1-2q7" id="trf-gC-etC"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="skipTeamSelectionSegue" id="3Is-IF-SeE"/>
+                        <segue destination="Dy4-TQ-ADn" kind="presentation" identifier="editTeamPlayerSegue" id="jVU-KY-A3C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-132.421875" y="32.8125"/>
+            <point key="canvasLocation" x="-146" y="33"/>
         </scene>
         <!--Old Stats View-->
         <scene sceneID="ToW-Nb-Ghv">
@@ -2139,15 +2139,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZY0-KF-XJ5">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZY0-KF-XJ5">
                                 <rect key="frame" x="102" y="416" width="420" height="352"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="6Gb-nR-I1I">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="3Af-xf-yZm">
                                         <rect key="frame" x="0.0" y="28" width="420" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Gb-nR-I1I" id="fe6-cg-2VY">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Af-xf-yZm" id="Cvq-L0-T4u">
                                             <rect key="frame" x="0.0" y="0.0" width="420" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
@@ -2159,7 +2159,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Vxw-EM-6rk">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Vxw-EM-6rk">
                                         <rect key="frame" x="0.0" y="28" width="420" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vxw-EM-6rk" id="raP-dT-v1U">
@@ -2200,9 +2200,11 @@
                     </view>
                     <connections>
                         <outlet property="awayNumShotTextField" destination="7xl-lY-nge" id="KHU-dP-ztj"/>
+                        <outlet property="awayPlayerStatsTable" destination="h2I-uS-fhY" id="CH9-KQ-oEO"/>
                         <outlet property="awayTeamNameTextField" destination="l96-iq-BdI" id="KPd-AC-k7P"/>
                         <outlet property="awayTeamScoreTextField" destination="IId-Ic-KbT" id="A4a-2h-Srw"/>
                         <outlet property="homeNumShotTextField" destination="Vb6-y2-AHe" id="DSg-f6-X0C"/>
+                        <outlet property="homePlayerStatsTable" destination="ZY0-KF-XJ5" id="vet-Nd-Id5"/>
                         <outlet property="homeTeamNameTextField" destination="SSZ-4w-m2E" id="8V9-hV-EV7"/>
                         <outlet property="homeTeamScoreTextField" destination="zFq-z5-t9Y" id="9wH-ci-Kpa"/>
                     </connections>
@@ -2343,7 +2345,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="G5K-rA-i7R"/>
-        <segue reference="3Is-IF-SeE"/>
+        <segue reference="J2W-Lf-Ndn"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="oNI-jA-1s2"/>
         <segue reference="vis-UJ-d0D"/>
