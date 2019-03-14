@@ -31,6 +31,7 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     var goalieSelectedID: Int!
     var periodNumSelected: Int!
     var homePlayerStatsArray: [String] = [String]()
+    var homePlayerIDs: [Int] = [Int]()
     
     let textCellIdentifier = "cell"
 
@@ -38,6 +39,9 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        home_playerStatsProcessing()
+        
         homePlayerStatsTable.allowsSelection = false
         awayPlayerStatsTable.allowsSelection = false
         homePlayerStatsTable.dataSource = self
@@ -72,7 +76,6 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
             print("Current Shot Stats Defaulted to 0")
             
         }
-        home_playerStatsProcessing()
         
     }
     
@@ -142,20 +145,37 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
         // calc the number of occuring goals in query for each player
         homeScoringPlayerID.forEach { numberOfGoalsEach[$0, default: 0] += 1 }
         homeAssitPlayerID.forEach { numberOfAssitsEach[$0, default: 0] += 1 }
-        print(numberOfAssitsEach)
+        //print(numberOfAssitsEach)
         homeAssit2PlayerID.forEach { numberOfSecAssitsEach[$0, default: 0] += 1 }
         // get all player id's from home team to compare against
-        let homePlayerID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        print(homePlayerID)
+        homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        print(homePlayerIDs)
         // map values from dictionary sorting to array bpoth in terms of dictionary keys and names
+        // dictionary name
         let tempGoalDicKeyArray = Array(numberOfGoalsEach.keys)
+        // dictionary values to said name
         let tempGoalDicValuesArray = Array(numberOfGoalsEach.values)
         let tempAssitDicKeyArray = Array(numberOfAssitsEach.keys)
         let tempAssitDicValuesArray = Array(numberOfAssitsEach.values)
         //let tempSecAssitDicValuesArray = Array(numberOfSecAssitsEach.values)
         
-        let maxForLoopCount = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count
-        for x in 0..<maxForLoopCount{
+        //let maxForLoopCount = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count
+        for x in 0..<tempGoalDicKeyArray.count - 1{
+            print("hi")
+            homePlayerStatsArray.append("\(homePlayerName[tempGoalDicKeyArray[x]]) Stats\nGoals: \(tempGoalDicValuesArray[x])\n ")
+            
+        }
+        print("Home polkayer stats for goals:", homePlayerStatsArray)
+        // players without goals get processed here
+        print("home scores id: ", tempGoalDicKeyArray)
+        let tempPlayerID = arrayRemover(passedArray: tempGoalDicKeyArray)
+        print("Home player id stats for no goals:", tempPlayerID)
+        for x in 0..<tempPlayerID.count{
+            let temp_homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", tempPlayerID[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+            homePlayerStatsArray.append("\(temp_homePlayerName[0]) Stats\nGoals: 0\n ")
+        }
+        
+        /*for x in 0..<maxForLoopCount{
             
             if(tempGoalDicKeyArray.indices.contains(homePlayerID[x]) != false){
                 
@@ -170,7 +190,24 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
             }else{
                 homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Assits: 0\n"
             }
+        }*/
+    }
+    
+    func arrayRemover(passedArray: [Int]) -> [Int]{
+        // copy of home player IDs
+        var newPlayerIDArray: [Int] = homePlayerIDs
+        var count: Int = 0
+        for x in 0..<newPlayerIDArray.count - 1{
+            if(passedArray.count > count){
+                if (homePlayerIDs[x] == passedArray[count]){
+                    
+                    newPlayerIDArray.remove(at: x)
+                    print("removed player: ", newPlayerIDArray[x])
+                    count = count + 1
+                }
+            }
         }
+        return(newPlayerIDArray)
     }
     
     // Returns count of items in tableView
