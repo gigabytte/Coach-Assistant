@@ -38,9 +38,6 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         let realm = try! Realm()
         
-        playerName.delegate = self as? UITextFieldDelegate
-        playerNumber.delegate = self as? UITextFieldDelegate
-        
         self.teamPicker.delegate = self
         self.teamPicker.dataSource = self
         
@@ -63,6 +60,9 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         teamPickerData = (self.realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
         teamIDPickerData = (self.realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})
         print(teamIDPickerData)
+        
+        //Sets selected team ID and position is set to position zero
+        //of the arrays. Set selected line to 1(forward line 1)
         selectTeamKey = teamIDPickerData[0]
         selectPosition = positionCodeData[0]
         selectLine = 1
@@ -144,46 +144,141 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
             
         }
-        
-        // check to see if fields are filled out properly
-        if (number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn != true){
-            newPlayer.playerID = primaryPlayerID
-            newPlayer.playerName = nameOfPlayer
-            newPlayer.jerseyNum = number!
-            newPlayer.lineNum = line!
-            newPlayer.positionType = position!
-            newPlayer.TeamID = teamID
+        if(selectLine == 0 ){
+            if(selectPosition == "G"){
+                // check to see if fields are filled out properly
+                if (number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn != true){
+                    newPlayer.playerID = primaryPlayerID
+                    newPlayer.playerName = nameOfPlayer
+                    newPlayer.jerseyNum = number!
+                    newPlayer.lineNum = line!
+                    newPlayer.positionType = position!
+                    newPlayer.TeamID = teamID
             
-            try! realm.write{
-                // write info to realm and reset all fields
-                realm.add(newPlayer, update: true)
-                playerName.text = ""
-                playerNumber.text = ""
-                self.teamPicker.reloadAllComponents()
-                self.linePicker.reloadAllComponents()
-                succesfulPlayerAdd(playerName: nameOfPlayer)
-            }
-        }else if(number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn == true){
-            newPlayer.playerID = primaryPlayerID
-            newPlayer.playerName = nameOfPlayer
-            newPlayer.jerseyNum = number!
-            newPlayer.lineNum = line!
-            newPlayer.positionType = position!
-            newPlayer.TeamID = teamID
-            newPlayer.activeState = false
+                    try! realm.write{
+                        // write info to realm and reset all fields
+                        realm.add(newPlayer, update: true)
+                        playerName.text = ""
+                        playerNumber.text = ""
+                        self.teamPicker.reloadAllComponents()
+                        self.linePicker.reloadAllComponents()
+                        succesfulGoalieAdd(playerName: nameOfPlayer)
+                    }
+                }else if(number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn == true){
+                    newPlayer.playerID = primaryPlayerID
+                    newPlayer.playerName = nameOfPlayer
+                    newPlayer.jerseyNum = number!
+                    newPlayer.lineNum = line!
+                    newPlayer.positionType = position!
+                    newPlayer.TeamID = teamID
+                    newPlayer.activeState = false
             
-            try! realm.write{
-                // write info to realm and reset all fields
-                realm.add(newPlayer, update: true)
-                playerName.text = ""
-                playerNumber.text = ""
-                self.teamPicker.reloadAllComponents()
-                self.linePicker.reloadAllComponents()
-                succesfulPlayerAdd(playerName: nameOfPlayer)
+                    try! realm.write{
+                        // write info to realm and reset all fields
+                        realm.add(newPlayer, update: true)
+                        playerName.text = ""
+                        playerNumber.text = ""
+                        self.teamPicker.reloadAllComponents()
+                        self.linePicker.reloadAllComponents()
+                        succesfulGoalieAdd(playerName: nameOfPlayer)
+                    }
+                }else{
+                    // alert user if missing fields are present
+                    missingFieldAlert()
+                }
+            }else{
+                misMatchAlert()
             }
-        }else{
-            // alert user if missing fields are present
-            missingFieldAlert()
+        }else if(selectLine == 4 || selectLine == 5 || selectLine == 6){
+            if(selectPosition == "RD" || selectPosition == "LD"){
+                // check to see if fields are filled out properly
+                if (number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn != true){
+                    newPlayer.playerID = primaryPlayerID
+                    newPlayer.playerName = nameOfPlayer
+                    newPlayer.jerseyNum = number!
+                    newPlayer.lineNum = line!
+                    newPlayer.positionType = position!
+                    newPlayer.TeamID = teamID
+                    
+                    try! realm.write{
+                        // write info to realm and reset all fields
+                        realm.add(newPlayer, update: true)
+                        playerName.text = ""
+                        playerNumber.text = ""
+                        self.teamPicker.reloadAllComponents()
+                        self.linePicker.reloadAllComponents()
+                        succesfulPlayerAdd(playerName: nameOfPlayer)
+                    }
+                }else if(number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn == true){
+                    newPlayer.playerID = primaryPlayerID
+                    newPlayer.playerName = nameOfPlayer
+                    newPlayer.jerseyNum = number!
+                    newPlayer.lineNum = line!
+                    newPlayer.positionType = position!
+                    newPlayer.TeamID = teamID
+                    newPlayer.activeState = false
+                    
+                    try! realm.write{
+                        // write info to realm and reset all fields
+                        realm.add(newPlayer, update: true)
+                        playerName.text = ""
+                        playerNumber.text = ""
+                        self.teamPicker.reloadAllComponents()
+                        self.linePicker.reloadAllComponents()
+                        succesfulPlayerAdd(playerName: nameOfPlayer)
+                    }
+                }else{
+                    misMatchAlert()
+                    print("hi")
+                }
+            }else{
+                misMatchAlert()
+                print("hi")
+            }
+        }else if(selectLine == 1 || selectLine == 2 || selectLine == 3){
+            if(selectPosition == "RW" || selectPosition == "C" || selectPosition == "LW"){
+                if (number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn != true){
+                    newPlayer.playerID = primaryPlayerID
+                    newPlayer.playerName = nameOfPlayer
+                    newPlayer.jerseyNum = number!
+                    newPlayer.lineNum = line!
+                    newPlayer.positionType = position!
+                    newPlayer.TeamID = teamID
+                        
+                    try! realm.write{
+                        // write info to realm and reset all fields
+                        realm.add(newPlayer, update: true)
+                        playerName.text = ""
+                        playerNumber.text = ""
+                        self.teamPicker.reloadAllComponents()
+                        self.linePicker.reloadAllComponents()
+                        succesfulPlayerAdd(playerName: nameOfPlayer)
+                    }
+                }else if(number != nil && nameOfPlayer != "" && inActivePlayerToggle.isOn == true){
+                    newPlayer.playerID = primaryPlayerID
+                    newPlayer.playerName = nameOfPlayer
+                    newPlayer.jerseyNum = number!
+                    newPlayer.lineNum = line!
+                    newPlayer.positionType = position!
+                    newPlayer.TeamID = teamID
+                    newPlayer.activeState = false
+                        
+                    try! realm.write{
+                        // write info to realm and reset all fields
+                        realm.add(newPlayer, update: true)
+                        playerName.text = ""
+                        playerNumber.text = ""
+                        self.teamPicker.reloadAllComponents()
+                        self.linePicker.reloadAllComponents()
+                        succesfulPlayerAdd(playerName: nameOfPlayer)
+                    }
+                }else{
+                    missingFieldAlert()
+                }
+            }else{
+                misMatchAlert()
+                print("hi")
+            }
         }
     }
     // if player name or player number is missing create alert notifying user
@@ -197,8 +292,27 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.present(missingField, animated: true, completion: nil)
         
     }
+    func misMatchAlert(){
+        
+        // create the alert
+        let missingField = UIAlertController(title: "Mismatch of Position/Line Error", message: "Select the approiate line for the approiate position.", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(missingField, animated: true, completion: nil)
+        
+    }
     // if player was addded succesfully notify user
     func succesfulPlayerAdd(playerName: String){
+        
+        // create the alert
+        let successfulQuery = UIAlertController(title: "\(playerName) Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(successfulQuery, animated: true, completion: nil)
+    }
+    func succesfulGoalieAdd(playerName: String){
         
         // create the alert
         let successfulQuery = UIAlertController(title: "\(playerName) Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
