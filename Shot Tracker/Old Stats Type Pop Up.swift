@@ -37,7 +37,7 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         self.homeTeamPickerData =  realm.objects(teamInfoTable.self)
         self.homeTeamValueSelected = Array(self.homeTeamPickerData)
         
-        teamPickerView.isHidden = true
+        teamPickerView.alpha = 0.0
         // round corners of popup view
         popUpView.layer.cornerRadius = 10
         bottomRoundedCorners()
@@ -62,6 +62,7 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
                 self.playerButtonCon!.isActive = false
                 self.oldStatsButtonCon!.isActive = false
                 self.playerStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
+                self.oldStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
                 self.oldStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
                 self.view.layoutIfNeeded()
                 self.buttonBorder(updateBool: false)
@@ -147,7 +148,10 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         playerStatsButton.setTitle("Please Select Team", for: UIControl.State.normal)
         cancelButton.setTitle("Continue", for: UIControl.State.normal)
         oldStatsButton.setTitle("Back", for: UIControl.State.normal)
-        teamPickerView.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.teamPickerView.alpha = 1.0
+        }, completion: nil)
+        
     }
     
     @IBAction func oldStatsButton(_ sender: UIButton) {
@@ -155,8 +159,10 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         if  buttonTitle == "Back"{
             animationOnButtonCLick(reverseAnimateBool: true)
             oldStatsButton.setTitle("Old Stats", for: UIControl.State.normal)
-             cancelButton.setTitle("Cancel", for: UIControl.State.normal)
-            teamPickerView.isHidden = true
+            cancelButton.setTitle("Cancel", for: UIControl.State.normal)
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                self.teamPickerView.alpha = 0.0
+            }, completion: nil)
             
         }
     }
