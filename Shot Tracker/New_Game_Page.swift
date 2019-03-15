@@ -58,7 +58,7 @@ class New_Game_Page: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("period is", periodNumSelected)
         let realm = try! Realm()
         newGameDetection()
         teamNameInitialize()
@@ -211,57 +211,7 @@ class New_Game_Page: UIViewController {
         }
     }
     
-  /*  func home_markerPlacement(markerType: UIImage){
-        if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false){
-            // check markerType image value
-            if(markerType == homeTeamShotMakerImage) {
-                for i in 0..<shot_markerProcessing().home_xCordsForPlacementShot.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().home_xCordsForPlacementShot[i])! - 25, y: Int(shot_markerProcessing().home_yCordsForPlacementShot[i])! - 25, width: 50, height: 50));
-                    shotMarkerimageView.contentMode = .scaleAspectFill;
-                    shotMarkerimageView.image = markerType;
-                    view.addSubview(shotMarkerimageView);
-                }
-            }else{
-                for i in 0..<goal_markerProcessing().home_xCordsForPlacementGoal.count{
-                    goalMarkerimageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().home_xCordsForPlacementGoal[i])! - 25, y: Int(goal_markerProcessing().home_yCordsForPlacementGoal[i])! - 25, width: 50, height: 50));
-                    goalMarkerimageView.contentMode = .scaleAspectFill;
-                    goalMarkerimageView.image = markerType;
-                    view.addSubview(goalMarkerimageView);
-                }
-            }
-        }else{
-            // print error id not cord data present in arrays
-            //should only error out if user hasnt submittte any marker data to realm
-            print("No Home Marker Cords Found on Load")
-        }
-    }
-    
-    func away_markerPlacement(markerType: UIImage){
-        
-        if (shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false){
-            // check markerType image value
-            if(markerType == awayTeamShotMarkerImage) {
-                for i in 0..<shot_markerProcessing().away_xCordsForPlacementShot.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().away_xCordsForPlacementShot[i])! - 25, y: Int(shot_markerProcessing().away_yCordsForPlacementShot[i])! - 25, width: 50, height: 50));
-                    shotMarkerimageView.contentMode = .scaleAspectFill;
-                    shotMarkerimageView.image = markerType;
-                    view.addSubview(shotMarkerimageView);
-                }
-            }
-            if(markerType == awayTeamGoalMarkerImage) {
-                for i in 0..<goal_markerProcessing().away_xCordsForPlacementGoal.count{
-                    goalMarkerimageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().away_xCordsForPlacementGoal[i])! - 25, y: Int(goal_markerProcessing().away_yCordsForPlacementGoal[i])! - 25, width: 50, height: 50));
-                    goalMarkerimageView.contentMode = .scaleAspectFill;
-                    goalMarkerimageView.image = markerType;
-                    view.addSubview(goalMarkerimageView);
-                }
-            }
-        }else{
-            // print error id not cord data present in arrays
-            //should only error out if user hasnt submittte any marker data to realm
-            print("No Away Marker Cords Found on Load")
-        }
-    }*/
+  
     func teamNameInitialize(){
         
         // query realm for team naames based on newest game
