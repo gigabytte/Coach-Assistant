@@ -28,6 +28,7 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var awayNumShotTextField: UILabel!
     @IBOutlet weak var homePlayerStatsTable: UITableView!
     @IBOutlet weak var awayPlayerStatsTable: UITableView!
+    @IBOutlet weak var navBar: UINavigationBar!
     
     let textCellIdentifier = "cell"
     
@@ -52,6 +53,7 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
         awayPlayerStatsTable.delegate = self
         
         teamNameInitialize()
+        navBarProcessing()
         
         // call functions for stats page dynamic function
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil && realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last != nil){
@@ -129,6 +131,24 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
          return(Double(homeShotCounter), Double(awayShotCounter))
      
      }
+    
+    func navBarProcessing() {
+        if (homeTeam != nil && awayTeam != nil){
+            let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
+            let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
+            // get new gametable objects with filktered by gameID where >=0
+            let newGameTableData = realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeGameStatus == false AND activeState == true", SeletedGame)).value(forKeyPath: "dateGamePlayed") as! [Date]
+            
+            // convert dates array type to string type
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
+            let dateString = formatter.string(from: newGameTableData[0])
+            navBar.topItem!.title = "\(home_teamNameFilter!) vs \(away_teamNameFilter!) on \(dateString)"
+        }else{
+            print("Error Unable to Gather Team Name, Nav Bar Has Defaulted")
+            
+        }
+    }
     
      func home_playerStatsProcessing(){
      

@@ -25,6 +25,7 @@ class Old_Game_Ice_View: UIViewController {
     @IBOutlet weak var awayTeamNumShots: UILabel!
     @IBOutlet weak var awayTeamNameLabel: UILabel!
     @IBOutlet weak var awayTeamNumGoals: UILabel!
+    @IBOutlet weak var navBar: UINavigationBar!
     
     var shotMarkerimageView: UIImageView!
     var goalMarkerimageView: UIImageView!
@@ -39,6 +40,7 @@ class Old_Game_Ice_View: UIViewController {
         print("Game ID", SeletedGame)
         teamNameInitialize()
         teamIDProcessing()
+        navBarProcessing()
 
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
             
@@ -75,25 +77,6 @@ class Old_Game_Ice_View: UIViewController {
         self.goal_markerProcessing()
         self.away_markerPlacement(markerType: self.awayTeamShotMarkerImage!)
         self.away_markerPlacement(markerType: self.awayTeamGoalMarkerImage!)
-       
-        /*if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false || shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false){
-            // check Tap gestuires for a single tap
-            let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped));
-            // number of taps require 1
-            singleShotTap.numberOfTapsRequired = 1
-            shotMarkerimageView.viewWithTag(shotMarkerimageView.tag)!.addGestureRecognizer(singleShotTap)
-        }else{
-            print("Dosent seem to be any shots to place :(")
-        }
-        if (goal_markerProcessing().home_xCordsForPlacementGoal.isEmpty == false || goal_markerProcessing().away_xCordsForPlacementGoal.isEmpty == false){
-            // check Tap gestuires for a single tap
-            let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped));
-            // number of taps require 1
-            singleGoalTap.numberOfTapsRequired = 1
-            goalMarkerimageView.viewWithTag(goalMarkerimageView.tag)!.addGestureRecognizer(singleGoalTap)
-        }else{
-            print("Dosent seem to be any goals to place :(")
-        }*/
         
     }
     @objc func singleShotMarkerTapped(sender: UITapGestureRecognizer?) {
@@ -128,6 +111,18 @@ class Old_Game_Ice_View: UIViewController {
     homeTeamNumGoals.textAlignment = .center
     awayTeamNumGoals.text = String(awayScoreFilter)
     awayTeamNumGoals.textAlignment = .center
+    }
+    
+    func navBarProcessing() {
+        if (homeTeam != nil && awayTeam != nil){
+            let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
+            let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
+            
+            navBar.topItem!.title = "Ice Surafce View of \(home_teamNameFilter!) vs \(away_teamNameFilter!)"
+        }else{
+            print("Error Unable to Gather Team Name, Nav Bar Has Defaulted")
+            
+        }
     }
 
     func shot_markerProcessing() -> (home_xCordsForPlacementShot: [String], home_yCordsForPlacementShot: [String], away_xCordsForPlacementShot: [String], away_yCordsForPlacementShot: [String]){

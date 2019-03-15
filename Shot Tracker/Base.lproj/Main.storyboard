@@ -514,6 +514,7 @@
                         <outlet property="homePlayerStatsTable" destination="ArZ-WR-PFS" id="sUj-lu-XRf"/>
                         <outlet property="homeTeamNameTextField" destination="SH4-vG-51R" id="U2G-ny-Ga3"/>
                         <outlet property="homeTeamScoreTextField" destination="6ms-eq-NiK" id="TNf-mB-Dly"/>
+                        <outlet property="navBar" destination="KLD-Ta-cWG" id="ox6-1u-DaQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X2F-Gj-vZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -692,6 +693,7 @@
                         <outlet property="homeTeamNameLabel" destination="dvr-dK-NLd" id="Ty2-a7-F9c"/>
                         <outlet property="homeTeamNumGoals" destination="4gm-mO-jwS" id="koY-L4-EZ8"/>
                         <outlet property="homeTeamNumShots" destination="KWD-MT-onM" id="va0-bQ-adP"/>
+                        <outlet property="navBar" destination="W1h-sR-cQ2" id="aAE-gR-Y7E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACA-Fc-UDp" userLabel="First Responder" sceneMemberID="firstResponder"/>
