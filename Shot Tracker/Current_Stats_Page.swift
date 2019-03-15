@@ -226,25 +226,7 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
             }
         
     }
-    // function removes goal scorers from player ids list and creates new player
-    //id list in return
-    func arrayRemover(passedArray: [Int]) -> [Int]{
-        // copy of home player IDs
-        var newPlayerIDArray: [Int] = homePlayerIDs
-        var count: Int = 0
-        for x in 0..<newPlayerIDArray.count - 1{
-            if(passedArray.count > count){
-                if (homePlayerIDs[x] == passedArray[count]){
-                    
-                    newPlayerIDArray.remove(at: x)
-                    print("removed player: ", newPlayerIDArray[x])
-                    count = count + 1
-                }
-            }
-        }
-        return(newPlayerIDArray)
-    }
-    
+   
     // Returns count of items in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
