@@ -31,7 +31,9 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     var goalieSelectedID: Int!
     var periodNumSelected: Int!
     var homePlayerStatsArray: [String] = [String]()
+    var awayPlayerStatsArray: [String] = [String]()
     var homePlayerIDs: [Int] = [Int]()
+    var awayPlayerIDs: [Int] = [Int]()
     
     let textCellIdentifier = "cell"
 
@@ -39,8 +41,11 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // round corner of table views
+        homePlayerStatsTable.layer.cornerRadius = 10
+        awayPlayerStatsTable.layer.cornerRadius = 10
         home_playerStatsProcessing()
+        away_playerStatsProcessing()
         
         homePlayerStatsTable.allowsSelection = false
         awayPlayerStatsTable.allowsSelection = false
@@ -132,67 +137,97 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     func home_playerStatsProcessing(){
         
         let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
-            
-        let homeScoringPlayerID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "TeamID == %i AND gameID == %i AND activeState == true", newGameFilter!.homeTeamID, newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})
-        let homeAssitPlayerID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "TeamID == %i AND gameID == %i AND activeState == true", newGameFilter!.homeTeamID, newGameFilter!.gameID)).value(forKeyPath: "assitantPlayerID") as! [Int]).compactMap({Int($0)})
-        let homeAssit2PlayerID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "TeamID == %i AND gameID == %i AND activeState == true", newGameFilter!.homeTeamID, newGameFilter!.gameID)).value(forKeyPath: "sec_assitantPlayerID") as! [Int]).compactMap({Int($0)})
         
-        let homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
-       
-        var numberOfGoalsEach: [Int: Int] = [:]
-        var numberOfAssitsEach: [Int: Int] = [:]
-        var numberOfSecAssitsEach: [Int: Int] = [:]
-        // calc the number of occuring goals in query for each player
-        homeScoringPlayerID.forEach { numberOfGoalsEach[$0, default: 0] += 1 }
-        homeAssitPlayerID.forEach { numberOfAssitsEach[$0, default: 0] += 1 }
-        //print(numberOfAssitsEach)
-        homeAssit2PlayerID.forEach { numberOfSecAssitsEach[$0, default: 0] += 1 }
-        // get all player id's from home team to compare against
-        homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        print(homePlayerIDs)
-        // map values from dictionary sorting to array bpoth in terms of dictionary keys and names
-        // dictionary name
-        let tempGoalDicKeyArray = Array(numberOfGoalsEach.keys)
-        // dictionary values to said name
-        let tempGoalDicValuesArray = Array(numberOfGoalsEach.values)
-        let tempAssitDicKeyArray = Array(numberOfAssitsEach.keys)
-        let tempAssitDicValuesArray = Array(numberOfAssitsEach.values)
-        //let tempSecAssitDicValuesArray = Array(numberOfSecAssitsEach.values)
+       homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         
-        //let maxForLoopCount = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count
-        for x in 0..<tempGoalDicKeyArray.count - 1{
-            print("hi")
-            homePlayerStatsArray.append("\(homePlayerName[tempGoalDicKeyArray[x]]) Stats\nGoals: \(tempGoalDicValuesArray[x])\n ")
-            
-        }
-        print("Home polkayer stats for goals:", homePlayerStatsArray)
-        // players without goals get processed here
-        print("home scores id: ", tempGoalDicKeyArray)
-        let tempPlayerID = arrayRemover(passedArray: tempGoalDicKeyArray)
-        print("Home player id stats for no goals:", tempPlayerID)
-        for x in 0..<tempPlayerID.count{
-            let temp_homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", tempPlayerID[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
-            homePlayerStatsArray.append("\(temp_homePlayerName[0]) Stats\nGoals: 0\n ")
-        }
-        
-        /*for x in 0..<maxForLoopCount{
-            
-            if(tempGoalDicKeyArray.indices.contains(homePlayerID[x]) != false){
-                
-                homePlayerStatsArray.append("\(homePlayerName[x]) Stats\nGoals: \(tempGoalDicValuesArray[x])\n ")
+        for x in 0..<homePlayerIDs.count{
+            //-------------------- goal count -----------------------
+            // get number fos goals from player based oin looping player id
+            let nextPlayerCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
+            // if number of goals is not 0 aka the player scorerd atleast once
+            // ass goals to player stats if not set as zero
+
+            let homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+             let homePlayerNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+            homePlayerStatsArray.append("\(homePlayerName[0])'s #\(homePlayerNum[0]) Stats\nGoals: \(nextPlayerCount)\n")
+           // ------------------ assits count -----------------------------
+            // get number of assist from player based on looping player id
+            let nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
+            let sec_nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
+            // if number of assits is not 0 aka the player did not get assist atleast once
+            //  set assist num to 0
+            if (nextPlayerAssitCount != 0 || sec_nextPlayerAssitCount != 0){
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Assits: \(String(nextPlayerAssitCount + sec_nextPlayerAssitCount)) \n"
             }else{
-                homePlayerStatsArray.append("\(homePlayerName[x]) Stats\nGoals: 0\n")
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Assits: 0 \n"
+            }
+            // ------------------ plus minus count -----------------------------
+            // get current looping player's plus minus
+            let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})
+            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Overall Plus/Minus: \(String(nextPlayerPlusMinus[0])) \n"
+            // ------------------ player's line minus count -----------------------------
+            // add all plus/minus from all member of the current player ids line for the overall line plus minus
+            let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
+            let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum[0], String(homeTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            var totalPlusMinus: Int = 0
+            for i in 0..<allPlayersOnLine.count{
+                
+                totalPlusMinus = totalPlusMinus + ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", allPlayersOnLine[i])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}))[0]
                 
             }
-            print(tempAssitDicKeyArray)
-            if(tempAssitDicKeyArray.indices.contains(homePlayerID[x]) != false){
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Assits: \(tempAssitDicValuesArray[x])\n"
-            }else{
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Assits: 0\n"
-            }
-        }*/
+            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Overall Line Plus/Minus: \(String(totalPlusMinus))"
+            
+        }
     }
-    
+        
+        func away_playerStatsProcessing(){
+            
+            let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
+            
+            awayPlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.opposingTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            
+            for x in 0..<awayPlayerIDs.count{
+                //-------------------- goal count -----------------------
+                // get number fos goals from player based oin looping player id
+                let nextPlayerCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalPlayerID == %i AND gameID == %i AND activeState == true", awayPlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
+                // if number of goals is not 0 aka the player scorerd atleast once
+                // ass goals to player stats if not set as zero
+                
+                let homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+                let homePlayerNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+                awayPlayerStatsArray.append("\(homePlayerName[0])'s #\(homePlayerNum[0]) Stats\nGoals: \(nextPlayerCount)\n")
+                // ------------------ assits count -----------------------------
+                // get number of assist from player based on looping player id
+                let nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", awayPlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
+                let sec_nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", awayPlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
+                // if number of assits is not 0 aka the player did not get assist atleast once
+                //  set assist num to 0
+                if (nextPlayerAssitCount != 0 || sec_nextPlayerAssitCount != 0){
+                    awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "Assits: \(String(nextPlayerAssitCount + sec_nextPlayerAssitCount)) \n"
+                }else{
+                    awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "Assits: 0 \n"
+                }
+                // ------------------ plus minus count -----------------------------
+                // get current looping player's plus minus
+                let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})
+                awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "Overall Plus/Minus: \(String(nextPlayerPlusMinus[0])) \n"
+                // ------------------ player's line minus count -----------------------------
+                // add all plus/minus from all member of the current player ids line for the overall line plus minus
+                let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
+                let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum[0], String(awayTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                var totalPlusMinus: Int = 0
+                for i in 0..<allPlayersOnLine.count{
+                    
+                    totalPlusMinus = totalPlusMinus + ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", allPlayersOnLine[i])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}))[0]
+                    
+                }
+                awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "Overall Line Plus/Minus: \(String(totalPlusMinus))"
+                
+            }
+        
+    }
+    // function removes goal scorers from player ids list and creates new player
+    //id list in return
     func arrayRemover(passedArray: [Int]) -> [Int]{
         // copy of home player IDs
         var newPlayerIDArray: [Int] = homePlayerIDs
@@ -223,28 +258,21 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     }
     //Assign values for tableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.numberOfLines = 0;
-        //if (tableView == homePlayerStatsTable){
-        cell.textLabel?.text = homePlayerStatsArray[indexPath.row]
-        print(cell)
-        return cell
-               
-        }
-            
-            
-        //}
        
-        /*else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            
-            cell.textLabel?.text = homePlayerStatsArray[indexPath.row]
-            print(cell)
-            return cell
- 
-        }*/
-   //}
+            if (tableView == homePlayerStatsTable){
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                cell.textLabel!.numberOfLines = 0;
+                cell.textLabel?.text = homePlayerStatsArray[indexPath.row]
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                cell.textLabel!.numberOfLines = 0;
+                //if (tableView == homePlayerStatsTable){
+                cell.textLabel?.text = awayPlayerStatsArray[indexPath.row]
+                return cell
+                
+            }
+        }
     
     // func used to pass varables on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
