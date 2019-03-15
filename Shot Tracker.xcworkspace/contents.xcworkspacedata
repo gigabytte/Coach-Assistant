@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Import Pop Up View.swift">
-   </FileRef>
-   <FileRef
       location = "group:Shot Tracker.xcodeproj">
    </FileRef>
    <FileRef

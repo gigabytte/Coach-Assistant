@@ -62,6 +62,7 @@ class Shot_Location_View: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         print("period is", periodNumSelected)
         goalieSelectedID = tempGoalieSelectedID
         if (tempMarkerType != true){
             print("You are placing a goal, passed bool is: ", tempMarkerType)
@@ -353,13 +354,13 @@ class Shot_Location_View: UIViewController {
                 tempGoalieSelectedID = selectedGoalieIDArray[currentArrayIndex]
                 animateOut()
                 currentArrayIndex = 0
-                self.performSegue(withIdentifier: "markerInfoSegue", sender: nil);
+                self.performSegue(withIdentifier: "markerInfoSegue", sender: (Any).self);
             }else if(shotLocationValueSelected == nil && hockeyNetImageView.image == hockeyNetAwayTeam){
                     tempGoalieSelectedID = selectedGoalieIDArray[currentArrayIndex]
                     shotLocationValueSelected = 0
                     animateOut()
                     currentArrayIndex = 0
-                    self.performSegue(withIdentifier: "markerInfoSegue", sender: nil);
+                self.performSegue(withIdentifier: "markerInfoSegue", sender: (Any).self);
             }else{
                 missingSelectionError()
             }
@@ -437,7 +438,6 @@ class Shot_Location_View: UIViewController {
             shotLocationVC.homeTeam = homeTeamID
             shotLocationVC.awayTeam = awayTeamID
             shotLocationVC.periodNumSelected = periodNumSelected
-            print("Passed Goalie ID", tempGoalieSelectedID)
             
         }
         if (segue.identifier == "cancelShotLocationSegue"){
