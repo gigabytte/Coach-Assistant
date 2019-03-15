@@ -122,6 +122,16 @@ class ViewController: UIViewController {
             }
         }
     }
+    @IBAction func oldStatsButton(_ sender: UIButton) {
+        if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+            self.performSegue(withIdentifier: "oldStatsPopUpSegue", sender: nil);
+            
+        }else{
+            // if teams or players are not avaiable top be pulled alert error appears
+            dataReturnNilAlert()
+        }
+        
+    }
     // if teams or players are not avaiable top be pulled alert error appears
     func dataReturnNilAlert(){
         

@@ -740,7 +740,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Old Stats"/>
                                 <connections>
-                                    <segue destination="RfZ-c4-UZR" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Vic-Lv-0Rm"/>
+                                    <action selector="oldStatsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xBx-wo-Zuh"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Coach Assitant Top" translatesAutoresizingMaskIntoConstraints="NO" id="6ur-DR-cSQ">
@@ -805,6 +805,7 @@
                         <outlet property="newGameButton" destination="PQZ-W1-2q7" id="trf-gC-etC"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="skipTeamSelectionSegue" id="3Is-IF-SeE"/>
                         <segue destination="Dy4-TQ-ADn" kind="presentation" identifier="editTeamPlayerSegue" id="jVU-KY-A3C"/>
+                        <segue destination="RfZ-c4-UZR" kind="presentation" identifier="oldStatsPopUpSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="BkV-v9-ark"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -894,10 +895,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wbI-Za-1xJ"/>
                     </view>
+                    <connections>
+                        <outlet property="defenseLineStatsTable" destination="Hn0-c5-6TK" id="W57-E7-ELZ"/>
+                        <outlet property="forwardLineStatsTable" destination="hiW-Nc-JOe" id="Nio-IK-y8S"/>
+                        <outlet property="playerSatsTable" destination="fCO-fg-1mZ" id="lrp-te-xDu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xt7-He-Qhb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-831.4453125" y="785.9375"/>
+            <point key="canvasLocation" x="-894" y="802"/>
         </scene>
         <!--Old Stats Type Pop Up-->
         <scene sceneID="ir0-6E-Css">
@@ -915,9 +921,9 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JgN-qA-Fdc">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                            <rect key="frame" x="0.0" y="-20" width="1024" height="768"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="9UK-Oa-34G">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <vibrancyEffect>
@@ -928,7 +934,7 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="JgN-qA-Fdc" secondAttribute="trailing" id="0pU-Z3-Mn7"/>
                                         <constraint firstItem="JgN-qA-Fdc" firstAttribute="leading" secondItem="e0R-PD-gSn" secondAttribute="leading" id="GwH-rp-gvU"/>
-                                        <constraint firstItem="JgN-qA-Fdc" firstAttribute="centerY" secondItem="e0R-PD-gSn" secondAttribute="centerY" id="Tk0-Ks-aMr"/>
+                                        <constraint firstItem="JgN-qA-Fdc" firstAttribute="top" secondItem="e0R-PD-gSn" secondAttribute="top" id="Tk0-Ks-aMr"/>
                                         <constraint firstItem="JgN-qA-Fdc" firstAttribute="centerX" secondItem="e0R-PD-gSn" secondAttribute="centerX" id="UU0-5T-j8B"/>
                                     </constraints>
                                 </view>
@@ -946,7 +952,7 @@
                                         </constraints>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="presentation" id="3fp-Sv-dXI"/>
+                                            <action selector="cancelButton:" destination="RfZ-c4-UZR" eventType="touchUpInside" id="vFP-nP-gaD"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jOT-0Y-GH2" userLabel="Player Stats">
@@ -960,7 +966,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="JBG-4t-arR" kind="presentation" id="vFX-0q-OUj"/>
+                                            <action selector="playerStatsButtonPress:" destination="RfZ-c4-UZR" eventType="touchUpInside" id="fja-Fn-8gk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nnh-aJ-fC6" userLabel="Old Game Stats">
@@ -974,9 +980,16 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="2AB-wA-RRv" kind="presentation" identifier="" id="r5W-uS-Nog"/>
+                                            <action selector="oldStatsButton:" destination="RfZ-c4-UZR" eventType="touchUpInside" id="ioW-jM-LEA"/>
                                         </connections>
                                     </button>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUX-0G-wVb">
+                                        <rect key="frame" x="0.0" y="251" width="484" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="484" id="IVl-Kt-q1l"/>
+                                            <constraint firstAttribute="height" constant="59" id="bJg-rh-QiU"/>
+                                        </constraints>
+                                    </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -984,12 +997,15 @@
                                     <constraint firstAttribute="width" constant="484" id="4Kw-oN-qNr"/>
                                     <constraint firstItem="Nnh-aJ-fC6" firstAttribute="top" secondItem="uLy-WP-cyr" secondAttribute="top" id="4Z4-NS-YOV"/>
                                     <constraint firstItem="jOT-0Y-GH2" firstAttribute="bottom" secondItem="9OA-Qn-euu" secondAttribute="top" id="7wi-MD-ba5"/>
+                                    <constraint firstItem="LUX-0G-wVb" firstAttribute="centerX" secondItem="uLy-WP-cyr" secondAttribute="centerX" id="Odt-qG-aK0"/>
                                     <constraint firstItem="jOT-0Y-GH2" firstAttribute="leading" secondItem="uLy-WP-cyr" secondAttribute="leading" id="eC0-DZ-j8f"/>
                                     <constraint firstItem="9OA-Qn-euu" firstAttribute="centerX" secondItem="uLy-WP-cyr" secondAttribute="centerX" id="fPb-sb-cuH"/>
                                     <constraint firstAttribute="height" constant="381" id="mZy-iQ-x3W"/>
                                     <constraint firstItem="Nnh-aJ-fC6" firstAttribute="trailing" secondItem="uLy-WP-cyr" secondAttribute="trailing" id="mbI-OK-v8X"/>
                                     <constraint firstItem="9OA-Qn-euu" firstAttribute="bottom" secondItem="uLy-WP-cyr" secondAttribute="bottom" id="nvU-A1-SsW"/>
+                                    <constraint firstItem="LUX-0G-wVb" firstAttribute="bottom" secondItem="9OA-Qn-euu" secondAttribute="top" constant="-25" id="okD-NX-Bnd"/>
                                     <constraint firstItem="jOT-0Y-GH2" firstAttribute="top" secondItem="uLy-WP-cyr" secondAttribute="top" id="qyi-6j-JyN"/>
+                                    <constraint firstItem="Nnh-aJ-fC6" firstAttribute="leading" secondItem="jOT-0Y-GH2" secondAttribute="trailing" id="uwz-dB-Tl3"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1002,7 +1018,12 @@
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="9OA-Qn-euu" id="Dgs-Ls-dEt"/>
+                        <outlet property="oldStatsButton" destination="Nnh-aJ-fC6" id="A2T-SG-jRx"/>
+                        <outlet property="playerStatsButton" destination="jOT-0Y-GH2" id="rSn-2S-CSc"/>
                         <outlet property="popUpView" destination="uLy-WP-cyr" id="nO2-OF-xme"/>
+                        <outlet property="teamPickerView" destination="LUX-0G-wVb" id="gy4-Ub-xVh"/>
+                        <segue destination="JBG-4t-arR" kind="presentation" identifier="overallPlayerStatsSegue" id="Mpj-cL-Dxs"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="backToMainVC" id="ubp-Io-d9b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wvw-vD-mB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1338,7 +1359,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laI-ir-5Sg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1695.1171875" y="32.8125"/>
+            <point key="canvasLocation" x="-1562" y="61"/>
         </scene>
         <!--Settings Page-->
         <scene sceneID="CnP-Gb-pp0">
@@ -2521,8 +2542,8 @@
         <segue reference="Dru-ha-s6H"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="oNI-jA-1s2"/>
-        <segue reference="r5W-uS-Nog"/>
-        <segue reference="oiw-l9-Ygs"/>
+        <segue reference="VT3-rT-kon"/>
+        <segue reference="2uF-ll-qm3"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
 </document>
