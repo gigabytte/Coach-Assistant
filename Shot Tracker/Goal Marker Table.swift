@@ -22,6 +22,8 @@ class goalMarkersTable: Object {
     @objc dynamic var  goalPlayerID: Int = 0
     @objc dynamic var  assitantPlayerID: Int = 0
     @objc dynamic var  sec_assitantPlayerID: Int = 0
+    @objc dynamic var  againstFLine: Int = 0
+    @objc dynamic var  againstDLine: Int = 0
     @objc dynamic var  periodNum: Int = 0
     @objc dynamic var  xCordGoal: Int = 0
     @objc dynamic var  yCordGoal: Int = 0

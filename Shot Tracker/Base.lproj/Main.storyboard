@@ -1676,7 +1676,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6I-yR-9ZB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184.765625" y="-655.46875"/>
+            <point key="canvasLocation" x="1159" y="-1377"/>
         </scene>
         <!--Shot Location View-->
         <scene sceneID="rc0-lA-XJQ">
@@ -1799,7 +1799,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="joV-In-yGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1875.5859374999998" y="32.8125"/>
+            <point key="canvasLocation" x="1198" y="-677"/>
         </scene>
         <!--New Game Basic Info Page-->
         <scene sceneID="UCc-wQ-IfD">
@@ -1923,7 +1923,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0i-LH-ee5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1246" y="766"/>
+            <point key="canvasLocation" x="1198" y="719"/>
         </scene>
         <!--New Game Page-->
         <scene sceneID="4DF-eV-4kO">
@@ -2284,7 +2284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hNh-0e-uJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1910.7421874999998" y="802.34375"/>
+            <point key="canvasLocation" x="1885" y="33"/>
         </scene>
         <!--Current Stats Ananlytical View-->
         <scene sceneID="aLZ-9B-EiJ">
@@ -2333,8 +2333,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yq0-pt-9I2" customClass="PieChartView" customModule="Charts">
                                         <rect key="frame" x="0.0" y="146.5" width="400" height="365"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Play Types Made By Each Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQI-Xe-p0w">
-                                                <rect key="frame" x="30.5" y="-20" width="339" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overall Save % Between Each Goalie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQI-Xe-p0w">
+                                                <rect key="frame" x="56" y="-20" width="288.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -2351,8 +2351,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bym-oM-ik0" customClass="PieChartView" customModule="Charts">
                                         <rect key="frame" x="486" y="146.5" width="400" height="365"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Shot Type On Home Goalie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLA-UP-BAN">
-                                                <rect key="frame" x="48.5" y="-20" width="303" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save % by Shot Location on Net" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLA-UP-BAN">
+                                                <rect key="frame" x="74.5" y="-20" width="251.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -2402,7 +2402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PWD-Jc-Fyv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1906.6406249999998" y="1510.9375"/>
+            <point key="canvasLocation" x="2570" y="33"/>
         </scene>
     </scenes>
     <resources>
@@ -2417,8 +2417,8 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="G5K-rA-i7R"/>
-        <segue reference="bar-I4-51P"/>
+        <segue reference="Cpl-HQ-F5G"/>
+        <segue reference="Dru-ha-s6H"/>
         <segue reference="jMX-vY-t9s"/>
         <segue reference="iOf-qA-Ea5"/>
         <segue reference="3tR-ZW-gYG"/>
