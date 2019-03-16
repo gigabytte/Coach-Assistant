@@ -20,6 +20,8 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     var playerButtonCon: NSLayoutConstraint?
     var oldStatsButtonCon: NSLayoutConstraint?
+    var topBoarderCon: NSLayoutConstraint?
+    var topBorder:CALayer = CALayer()
     
     var homeTeamPickerData:Results<teamInfoTable>!
     var homeTeamValueSelected:[teamInfoTable] = []
@@ -36,12 +38,23 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         // data translation from realm to local view controller array
         self.homeTeamPickerData =  realm.objects(teamInfoTable.self)
         self.homeTeamValueSelected = Array(self.homeTeamPickerData)
+        // default team id for no touch picker view selection
+        selectedTeamID = homeTeamValueSelected[0].teamID;
         
-        teamPickerView.isHidden = true
-        // round corners of popup view
+        teamPickerView.alpha = 0.0
         popUpView.layer.cornerRadius = 10
         bottomRoundedCorners()
-        buttonBorder(updateBool: false)
+        
+        let topBorderView = UIView(frame: CGRect.zero)
+        topBorderView.backgroundColor = UIColor.black
+        self.playerStatsButton.addSubview(topBorderView)
+        topBorderView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topBorderView.topAnchor.constraint(equalTo: self.playerStatsButton.topAnchor),
+            topBorderView.trailingAnchor.constraint(equalTo: self.playerStatsButton.trailingAnchor),
+            topBorderView.widthAnchor.constraint(equalToConstant: 1),
+            topBorderView.heightAnchor.constraint(equalTo: self.playerStatsButton.heightAnchor)
+            ])
         
     }
     
@@ -49,12 +62,13 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         if(reverseAnimateBool != true){
             UIView.animate(withDuration: 1) {
+                
                 self.playerButtonCon = self.playerStatsButton.widthAnchor.constraint(equalToConstant: 400.0)
                 self.playerButtonCon!.isActive = true
                 self.oldStatsButtonCon = self.oldStatsButton.widthAnchor.constraint(equalToConstant: 87.0)
                 self.oldStatsButtonCon!.isActive = true
                 self.view.layoutIfNeeded()
-                self.buttonBorder(updateBool: true)
+                //self.buttonBorder(updateBool: true)
             }
         }else{
             
@@ -63,8 +77,9 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
                 self.oldStatsButtonCon!.isActive = false
                 self.playerStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
                 self.oldStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
+                self.oldStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
                 self.view.layoutIfNeeded()
-                self.buttonBorder(updateBool: false)
+                //self.buttonBorder(updateBool: false)
             
             }
         }
@@ -78,42 +93,7 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         maskLayer.path = path.cgPath
         cancelButton.layer.mask = maskLayer
     }
-    
-    func buttonBorder(updateBool: Bool){
-        if(updateBool != true){
-            let topBorder = CALayer()
-            if (self.playerStatsButton.layer.sublayers?.isEmpty == false){
-                self.playerStatsButton.layer.sublayers?[0].removeFromSuperlayer()
-                self.playerStatsButton.setNeedsDisplay()
-                
-            }
-            
-            topBorder.borderColor = UIColor.lightGray.cgColor;
-            topBorder.borderWidth = 2;
-            topBorder.frame = CGRect(x: playerStatsButton.frame.width, y: 0, width: 1, height: playerStatsButton.frame.height)
-            playerStatsButton.layer.addSublayer(topBorder)
-            self.playerStatsButton.layer.insertSublayer(topBorder, at: 0)
-            self.playerStatsButton.setNeedsDisplay()
-            print(self.playerStatsButton.layer.sublayers)
-        }else{
-            delay(0.5){
-                let topBorder = CALayer()
-                if (self.playerStatsButton.layer.sublayers?.isEmpty == false){
-                    self.playerStatsButton.layer.sublayers?[0].removeFromSuperlayer()
-                    self.playerStatsButton.setNeedsDisplay()
-                }
-                topBorder.borderColor = UIColor.lightGray.cgColor;
-                topBorder.borderWidth = 2;
-                topBorder.frame = CGRect(x: self.playerStatsButton.frame.width, y: 0, width: 1, height: self.playerStatsButton.frame.height)
-                self.playerStatsButton.layer.addSublayer(topBorder)
-                self.playerStatsButton.layer.insertSublayer(topBorder, at: 0)
-                self.playerStatsButton.setNeedsDisplay()
-                print(self.playerStatsButton.layer.sublayers)
-            
-            }
-        }
-       
-    }
+
     func numberOfComponents(in homeTeamPickerView: UIPickerView) -> Int  {
         return 1;
     }
@@ -147,16 +127,22 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         playerStatsButton.setTitle("Please Select Team", for: UIControl.State.normal)
         cancelButton.setTitle("Continue", for: UIControl.State.normal)
         oldStatsButton.setTitle("Back", for: UIControl.State.normal)
-        teamPickerView.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.teamPickerView.alpha = 1.0
+        }, completion: nil)
+        
     }
     
     @IBAction func oldStatsButton(_ sender: UIButton) {
         let buttonTitle = sender.title(for: .normal)
         if  buttonTitle == "Back"{
             animationOnButtonCLick(reverseAnimateBool: true)
+            playerStatsButton.setTitle("Player Sats", for: UIControl.State.normal)
             oldStatsButton.setTitle("Old Stats", for: UIControl.State.normal)
-             cancelButton.setTitle("Cancel", for: UIControl.State.normal)
-            teamPickerView.isHidden = true
+            cancelButton.setTitle("Cancel", for: UIControl.State.normal)
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                self.teamPickerView.alpha = 0.0
+            }, completion: nil)
             
         }
     }

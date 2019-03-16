@@ -984,9 +984,9 @@
                                         </connections>
                                     </button>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUX-0G-wVb">
-                                        <rect key="frame" x="0.0" y="251" width="484" height="59"/>
+                                        <rect key="frame" x="0.0" y="251" width="400" height="59"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="484" id="IVl-Kt-q1l"/>
+                                            <constraint firstAttribute="width" constant="400" id="IVl-Kt-q1l"/>
                                             <constraint firstAttribute="height" constant="59" id="bJg-rh-QiU"/>
                                         </constraints>
                                     </pickerView>
@@ -997,7 +997,7 @@
                                     <constraint firstAttribute="width" constant="484" id="4Kw-oN-qNr"/>
                                     <constraint firstItem="Nnh-aJ-fC6" firstAttribute="top" secondItem="uLy-WP-cyr" secondAttribute="top" id="4Z4-NS-YOV"/>
                                     <constraint firstItem="jOT-0Y-GH2" firstAttribute="bottom" secondItem="9OA-Qn-euu" secondAttribute="top" id="7wi-MD-ba5"/>
-                                    <constraint firstItem="LUX-0G-wVb" firstAttribute="centerX" secondItem="uLy-WP-cyr" secondAttribute="centerX" id="Odt-qG-aK0"/>
+                                    <constraint firstItem="LUX-0G-wVb" firstAttribute="leading" secondItem="uLy-WP-cyr" secondAttribute="leading" id="Odt-qG-aK0"/>
                                     <constraint firstItem="jOT-0Y-GH2" firstAttribute="leading" secondItem="uLy-WP-cyr" secondAttribute="leading" id="eC0-DZ-j8f"/>
                                     <constraint firstItem="9OA-Qn-euu" firstAttribute="centerX" secondItem="uLy-WP-cyr" secondAttribute="centerX" id="fPb-sb-cuH"/>
                                     <constraint firstAttribute="height" constant="381" id="mZy-iQ-x3W"/>
