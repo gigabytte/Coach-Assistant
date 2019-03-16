@@ -292,6 +292,8 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 goalMarkerTableID?.goalPlayerID = (self.selectedMainPlayerID!)
                 goalMarkerTableID?.assitantPlayerID = (self.selectedAssitantPlayerOneID!)
                 goalMarkerTableID?.sec_assitantPlayerID = (self.selectedAssitantPlayerTwoID!)
+                goalMarkerTableID?.againstFLine = Int(self.selectedForwardLine)!
+                goalMarkerTableID?.againstDLine = Int(self.selectedDefenseLine)!
                 mainPlayerUpdateID?.goalCount += 1
                 assitPlayerUpdateID?.assitsCount += 1
                 assitTwoPlayerUpdateID?.assitsCount += 1

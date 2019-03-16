@@ -303,6 +303,8 @@ class Settings_Page: UIViewController {
         var tempgoalPlayerID: [String] = [String]()
         var tempassitantPlayerID: [String] = [String]()
         var tempsec_assitantPlayerID: [String] = [String]()
+        var againstFLine: [String] = [String]()
+        var againstDLine: [String] = [String]()
         var tempperiodNumSet: [String] = [String]()
         var tempxCordGoal: [String] = [String]()
         var tempyCordGoal: [String] = [String]()
@@ -320,6 +322,8 @@ class Settings_Page: UIViewController {
             let goalPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalPlayerID
             let assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.assitantPlayerID
             let sec_assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.sec_assitantPlayerID
+            let againstFLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.againstFLine
+            let againstDLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.againstDLine
             let periodNumSet = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.periodNum
             let xCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.xCordGoal
             let yCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.yCordGoal
@@ -333,6 +337,8 @@ class Settings_Page: UIViewController {
             tempgoalPlayerID.append(String(goalPlayerID))
             tempassitantPlayerID.append(String(assitantPlayerID))
             tempsec_assitantPlayerID.append(String(sec_assitantPlayerID))
+            againstFLine.append(String(againstFLineNum))
+            againstDLine.append(String(againstDLineNum))
             tempperiodNumSet.append(String(periodNumSet))
             tempxCordGoal.append(String(xCordGoal))
             tempyCordGoal.append(String(yCordGoal))
@@ -342,7 +348,7 @@ class Settings_Page: UIViewController {
         }
         
         let fileName = "Realm_Goal_Marker_Table" + ".csv"
-        var csvText = "gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        var csvText = "gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,againstFLine,againstDLine,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<goalMarkerIDCount{
             
             let gameIDVar = tempgameID[x]
@@ -353,13 +359,15 @@ class Settings_Page: UIViewController {
             let goalPlayerIDVar = tempgoalPlayerID[x]
             let assitIDVar = tempassitantPlayerID[x]
             let sec_assitIDVar = tempsec_assitantPlayerID[x]
+            let againstFLineVar = againstFLine[x]
+            let againstDLineVar = againstDLine[x]
             let periodNumVar = tempperiodNumSet[x]
             let xCordVar = tempxCordGoal[x]
             let yCordVar = tempyCordGoal[x]
             let shotLocationVar = tempshotLocation[x]
             let activeStateVar = tempactiveState[x]
             
-            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
+            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + againstFLineVar + "," + againstDLineVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
             if(x == goalMarkerIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
