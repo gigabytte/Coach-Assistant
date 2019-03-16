@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Realm
 
-class Overall_Player_Stats_View: UIViewController/*, UITableViewDelegate, UITableViewDataSource */{
+class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     let realm = try! Realm()
     
@@ -19,29 +19,35 @@ class Overall_Player_Stats_View: UIViewController/*, UITableViewDelegate, UITabl
     @IBOutlet weak var defenseLineStatsTable: UITableView!
     
     var homePlayerStatsArray: [String] = [String]()
+    var forwardLineStatsArray:  [String] = [String]()
+    var defenseLineStatsArray:  [String] = [String]()
+    var homePlayerIDs: [Int] = [Int]()
     var homeTeamID :Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        home_playerStatsProcessing()
+        
         playerSatsTable.layer.cornerRadius = 10
-        playerSatsTable.layer.cornerRadius = 10
+        forwardLineStatsTable.layer.cornerRadius = 10
         defenseLineStatsTable.layer.cornerRadius = 10
-       /*
+       
         playerSatsTable.dataSource = self
         playerSatsTable.delegate = self
         forwardLineStatsTable.dataSource = self
         forwardLineStatsTable.delegate = self
         defenseLineStatsTable.dataSource = self
-        defenseLineStatsTable.delegate = self*/
+        defenseLineStatsTable.delegate = self
+        
 
         // Do any additional setup after loading the view.
     }
-    /*func home_playerStatsProcessing(){
+    func home_playerStatsProcessing(){
         
         let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
         
-        homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         
         for x in 0..<homePlayerIDs.count{
             //-------------------- goal count -----------------------
@@ -71,7 +77,7 @@ class Overall_Player_Stats_View: UIViewController/*, UITableViewDelegate, UITabl
             // ------------------ player's line minus count -----------------------------
             // add all plus/minus from all member of the current player ids line for the overall line plus minus
             let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
-            let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum[0], String(homeTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum[0], String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             var totalPlusMinus: Int = 0
             for i in 0..<allPlayersOnLine.count{
                 
@@ -83,12 +89,41 @@ class Overall_Player_Stats_View: UIViewController/*, UITableViewDelegate, UITabl
         }
     }
 
+    // Returns count of items in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if (tableView == playerSatsTable){
+            return((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count)
+        }else if (tableView == forwardLineStatsTable){
+            return((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND lineNum <= %i AND activeState == true", String(homeTeamID), 3)).value(forKeyPath: "lineNum") as! [Int]).compactMap({String($0)}).count)
+        }else{
+            
+            return((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND lineNum >= %i AND activeState == true", String(homeTeamID), 4)).value(forKeyPath: "lineNum") as! [Int]).compactMap({String($0)}).count)
+        }
     }
-    
+    //Assign values for tableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-    }*/
+        if (tableView == playerSatsTable){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel!.numberOfLines = 0;
+            cell.textLabel?.text = homePlayerStatsArray[indexPath.row]
+            return cell
+        }else if (tableView == forwardLineStatsTable){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel!.numberOfLines = 0;
+            //if (tableView == homePlayerStatsTable){
+            cell.textLabel?.text = forwardLineStatsArray[indexPath.row]
+            return cell
+            
+        }else{
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel!.numberOfLines = 0;
+            cell.textLabel?.text = defenseLineStatsArray[indexPath.row]
+            return cell
+            
+        }
+    }
 
 }
