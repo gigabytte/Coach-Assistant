@@ -32,6 +32,14 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // add blur effect to view along with popUpView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.addSubview(popUpView)
+        
         self.teamPickerView.delegate = self
         self.teamPickerView.dataSource = self
         
@@ -63,9 +71,9 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         if(reverseAnimateBool != true){
             UIView.animate(withDuration: 0.5) {
                 
-                self.playerButtonCon = self.playerStatsButton.widthAnchor.constraint(equalToConstant: 400.0)
+                self.playerButtonCon = self.playerStatsButton.widthAnchor.constraint(equalToConstant: 363.0)
                 self.playerButtonCon!.isActive = true
-                self.oldStatsButtonCon = self.oldStatsButton.widthAnchor.constraint(equalToConstant: 87.0)
+                self.oldStatsButtonCon = self.oldStatsButton.widthAnchor.constraint(equalToConstant: 121.0)
                 self.oldStatsButtonCon!.isActive = true
                 self.view.layoutIfNeeded()
                 //self.buttonBorder(updateBool: true)
@@ -105,7 +113,9 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         return homeTeamValueSelected.count;
         
     }
-    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 40.0
+    }
     // The data to return fopr the row and component (column) that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
@@ -123,30 +133,33 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func playerStatsButtonPress(_ sender: UIButton) {
-        animationOnButtonCLick(reverseAnimateBool: false)
-        playerStatsButton.setTitle("Please Select Team", for: UIControl.State.normal)
-        cancelButton.setTitle("Continue", for: UIControl.State.normal)
-        oldStatsButton.setTitle("Back", for: UIControl.State.normal)
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-            self.teamPickerView.alpha = 1.0
-        }, completion: nil)
-        
+        let buttonTitle = sender.title(for: .normal)
+        if  buttonTitle == "Player Stats"{
+            animationOnButtonCLick(reverseAnimateBool: false)
+            playerStatsButton.setTitle("Please Select Team", for: UIControl.State.normal)
+            cancelButton.setTitle("Continue", for: UIControl.State.normal)
+            oldStatsButton.setTitle("Back", for: UIControl.State.normal)
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                self.teamPickerView.alpha = 1.0
+            }, completion: nil)
+            print("Player Stats Button is Now Animating")
+        }
     }
     
     @IBAction func oldStatsButton(_ sender: UIButton) {
         let buttonTitle = sender.title(for: .normal)
         if  buttonTitle == "Back"{
             animationOnButtonCLick(reverseAnimateBool: true)
-            playerStatsButton.setTitle("Player Sats", for: UIControl.State.normal)
+            playerStatsButton.setTitle("Player Stats", for: UIControl.State.normal)
             oldStatsButton.setTitle("Old Stats", for: UIControl.State.normal)
             cancelButton.setTitle("Cancel", for: UIControl.State.normal)
             UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                 self.teamPickerView.alpha = 0.0
             }, completion: nil)
-            
+            print("Back Button is Now Animating")
         }else{
+             print("Old Stats Button was Pressed")
             self.performSegue(withIdentifier: "oldStatsSegue", sender: nil);
-            
         }
     }
         
