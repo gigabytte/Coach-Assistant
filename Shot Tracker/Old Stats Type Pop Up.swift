@@ -61,7 +61,7 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
     func animationOnButtonCLick(reverseAnimateBool: Bool){
         
         if(reverseAnimateBool != true){
-            UIView.animate(withDuration: 1) {
+            UIView.animate(withDuration: 0.5) {
                 
                 self.playerButtonCon = self.playerStatsButton.widthAnchor.constraint(equalToConstant: 400.0)
                 self.playerButtonCon!.isActive = true
@@ -72,7 +72,7 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
             }
         }else{
             
-            UIView.animate(withDuration: 1) {
+            UIView.animate(withDuration: 0.5) {
                 self.playerButtonCon!.isActive = false
                 self.oldStatsButtonCon!.isActive = false
                 self.playerStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
@@ -143,6 +143,9 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
             UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                 self.teamPickerView.alpha = 0.0
             }, completion: nil)
+            
+        }else{
+            self.performSegue(withIdentifier: "oldStatsSegue", sender: nil);
             
         }
     }
