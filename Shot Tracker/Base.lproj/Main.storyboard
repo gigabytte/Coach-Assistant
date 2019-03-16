@@ -1024,11 +1024,12 @@
                         <outlet property="teamPickerView" destination="LUX-0G-wVb" id="gy4-Ub-xVh"/>
                         <segue destination="JBG-4t-arR" kind="presentation" identifier="overallPlayerStatsSegue" id="Mpj-cL-Dxs"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="backToMainVC" id="ubp-Io-d9b"/>
+                        <segue destination="2AB-wA-RRv" kind="presentation" identifier="oldStatsSegue" id="3tR-ZW-gYG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wvw-vD-mB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-156.4453125" y="776.5625"/>
+            <point key="canvasLocation" x="-178" y="802"/>
         </scene>
         <!--Old Stats View-->
         <scene sceneID="ToW-Nb-Ghv">
@@ -1149,12 +1150,6 @@
                                     <constraint firstAttribute="width" constant="300" id="nAc-ha-Mfh"/>
                                 </constraints>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pick Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOz-n4-YLC">
-                                <rect key="frame" x="466" y="102" width="96" height="24"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ka-D6-U2J">
                                 <rect key="frame" x="124.5" y="513" width="300" height="100"/>
                                 <constraints>
@@ -1181,6 +1176,12 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Make Inactive" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNc-D6-AFf">
                                 <rect key="frame" x="769" y="112" width="131" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pick Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOz-n4-YLC">
+                                <rect key="frame" x="432" y="110" width="161" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2540,10 +2541,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="G5K-rA-i7R"/>
         <segue reference="Dru-ha-s6H"/>
-        <segue reference="YVz-TT-Imk"/>
+        <segue reference="jMX-vY-t9s"/>
         <segue reference="oNI-jA-1s2"/>
-        <segue reference="VT3-rT-kon"/>
-        <segue reference="2uF-ll-qm3"/>
-        <segue reference="CEj-RC-vyA"/>
+        <segue reference="3tR-ZW-gYG"/>
+        <segue reference="ubp-Io-d9b"/>
+        <segue reference="xrM-V5-vxZ"/>
     </inferredMetricsTieBreakers>
 </document>
