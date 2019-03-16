@@ -62,7 +62,16 @@ class Shot_Location_View: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         print("period is", periodNumSelected)
+        
+        // add blur effect to view along with popUpView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.addSubview(popUpView)
+        view.addSubview(goalieNumberLabel)
+        
         goalieSelectedID = tempGoalieSelectedID
         if (tempMarkerType != true){
             print("You are placing a goal, passed bool is: ", tempMarkerType)

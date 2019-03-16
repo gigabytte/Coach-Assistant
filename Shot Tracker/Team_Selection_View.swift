@@ -34,6 +34,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var leftScrollArrowImage: UIImageView!
     @IBOutlet weak var rightScrollArrowImage: UIImageView!
     @IBOutlet weak var gameTypeLabel: UILabel!
+    @IBOutlet weak var popUpView: UIView!
     
     //let realm = try! Realm()
     // vars for home team data retrieval from Realm
@@ -51,6 +52,13 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // add blur effect to view along with popUpView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.addSubview(popUpView)
         // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
         // get rotation allowances of device
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
