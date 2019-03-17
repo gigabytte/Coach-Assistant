@@ -2319,12 +2319,13 @@
                                 <rect key="frame" x="69" y="65" width="886" height="658"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WG1-OV-ykQ">
-                                        <rect key="frame" x="0.0" y="603" width="886" height="50"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="0.0" y="608" width="886" height="50"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Ldk-43-T9r"/>
                                             <constraint firstAttribute="width" constant="886" id="i0r-9x-YrX"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Close"/>
                                         <connections>
                                             <segue destination="WgI-Nk-gS3" kind="presentation" identifier="closeAnalyticalViewSegue" modalTransitionStyle="crossDissolve" id="Cpl-HQ-F5G"/>
@@ -2366,19 +2367,35 @@
                                             <constraint firstAttribute="height" constant="365" id="UOK-Fg-wO1"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data is Unavailable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jsf-vV-ljs">
+                                        <rect key="frame" x="113" y="317" width="174.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data is Unavailable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0b-zN-UMb">
+                                        <rect key="frame" x="599" y="317" width="174.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="C0b-zN-UMb" firstAttribute="centerY" secondItem="edd-bs-oM5" secondAttribute="centerY" id="2fk-9o-npF"/>
                                     <constraint firstAttribute="trailing" secondItem="WG1-OV-ykQ" secondAttribute="trailing" id="93B-3o-tzd"/>
+                                    <constraint firstItem="C0b-zN-UMb" firstAttribute="centerX" secondItem="bym-oM-ik0" secondAttribute="centerX" id="CeR-69-kiU"/>
+                                    <constraint firstItem="Jsf-vV-ljs" firstAttribute="centerY" secondItem="edd-bs-oM5" secondAttribute="centerY" id="IMg-K2-NMF"/>
                                     <constraint firstItem="bym-oM-ik0" firstAttribute="trailing" secondItem="edd-bs-oM5" secondAttribute="trailing" id="Iby-DI-R9x"/>
                                     <constraint firstItem="WG1-OV-ykQ" firstAttribute="leading" secondItem="edd-bs-oM5" secondAttribute="leading" id="RUp-ol-LOB"/>
                                     <constraint firstAttribute="width" constant="886" id="RZR-MO-W6i"/>
                                     <constraint firstItem="WG1-OV-ykQ" firstAttribute="centerX" secondItem="edd-bs-oM5" secondAttribute="centerX" id="Ywr-pM-YEz"/>
                                     <constraint firstAttribute="height" constant="658" id="aP7-Rr-aI4"/>
                                     <constraint firstItem="Yq0-pt-9I2" firstAttribute="centerY" secondItem="edd-bs-oM5" secondAttribute="centerY" id="d71-va-MoO"/>
-                                    <constraint firstItem="WG1-OV-ykQ" firstAttribute="bottom" secondItem="edd-bs-oM5" secondAttribute="bottom" constant="-5" id="dhM-sq-zM5"/>
+                                    <constraint firstItem="WG1-OV-ykQ" firstAttribute="bottom" secondItem="edd-bs-oM5" secondAttribute="bottom" id="dhM-sq-zM5"/>
                                     <constraint firstItem="Yq0-pt-9I2" firstAttribute="leading" secondItem="edd-bs-oM5" secondAttribute="leading" id="fKY-hg-BL5"/>
                                     <constraint firstItem="bym-oM-ik0" firstAttribute="centerY" secondItem="edd-bs-oM5" secondAttribute="centerY" id="gvS-06-dL9"/>
+                                    <constraint firstItem="Jsf-vV-ljs" firstAttribute="centerX" secondItem="Yq0-pt-9I2" secondAttribute="centerX" id="pI0-hr-w4f"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2395,8 +2412,11 @@
                         <viewLayoutGuide key="safeArea" id="45O-P9-UFD"/>
                     </view>
                     <connections>
+                        <outlet property="closeButton" destination="WG1-OV-ykQ" id="J0b-Gs-2Ga"/>
                         <outlet property="pieChartView" destination="Yq0-pt-9I2" id="KNT-bb-z8z"/>
                         <outlet property="popUpView" destination="edd-bs-oM5" id="v7j-ZV-7I8"/>
+                        <outlet property="savePerDataMissingLabel" destination="Jsf-vV-ljs" id="IvA-wQ-nsi"/>
+                        <outlet property="savePerShotDataMissingLabel" destination="C0b-zN-UMb" id="ERC-IB-JX8"/>
                         <outlet property="shotLocationPieChartView" destination="bym-oM-ik0" id="I6Y-Wf-Hvy"/>
                     </connections>
                 </viewController>
