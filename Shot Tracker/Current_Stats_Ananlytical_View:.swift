@@ -17,6 +17,9 @@ class Current_Stats_Ananlytical_View: UIViewController {
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var shotLocationPieChartView: PieChartView!
     @IBOutlet weak var popUpView: UIView!
+    @IBOutlet weak var savePerDataMissingLabel: UILabel!
+    @IBOutlet weak var savePerShotDataMissingLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
     
     var homeTeam: Int!
     var awayTeam: Int!
@@ -40,41 +43,57 @@ class Current_Stats_Ananlytical_View: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        savePerDataMissingLabel.isHidden = false
         homeGoalieID = goalieSelectedID
-        awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
+        awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
         
         popUpView.layer.cornerRadius = 10
+        bottomRoundedCorners()
         teamNameInitialize()
         
         // call functions for stats page dynamic function
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil && realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last != nil){
-            scoreInitialize()
+            
             homeAwayGoalieProcessing()
+            
             print("Succesfully Rendered Current Goal Stats")
         }else{
             print("Current Goal Stats Defaulted to 0")
         }
         if(realm.objects(newGameTable.self).filter("gameID >= 0").last != nil && realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").last != nil){
-            numShotInitialize()
-            goalieSavePercent()
+           
             homeAwayGoalieProcessing()
             print("Succesfully Rendered Current Shot Stats")
         }else{
             print("Current Shot Stats Defaulted to 0")
             
-            homeTeamGoalie.value = 0
-            awayTeamGoalie.value = 0
-            tlShotValue.value = 0
-            trShotValue.value = 0
-            blShotValue.value = 0
-            brShotValue.value = 0
-            cShotValue.value = 0
         }
-        
+        goalieSavePercent()
         pieChartSettings()
         shotLocationPieChartSettings()
         labelChecker()
+        dataUnavailableWarning()
+    }
+    
+    func dataUnavailableWarning(){
+        // display place holder message if data missing for pie charts
+        // ran on page load
+        if (tlShotValue.value == 0.0 && trShotValue.value == 0.0 && blShotValue.value == 0.0 && brShotValue.value == 0.0 && cShotValue.value == 0.0){
+            savePerShotDataMissingLabel.isHidden = false
+            
+        }else{
+            savePerShotDataMissingLabel.isHidden = true
+        }
         
+    }
+    
+    func bottomRoundedCorners(){
+        
+        // round bottom corners of button
+        let path = UIBezierPath(roundedRect:closeButton.bounds, byRoundingCorners:[.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        closeButton.layer.mask = maskLayer
     }
     
     func pieChartSettings(){
@@ -162,22 +181,26 @@ class Current_Stats_Ananlytical_View: UIViewController {
         
         let homeGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), homeGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         let homeGoalieGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), homeGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-        
+        print(homeGoalieShots, homeGoalieGoals)
         let awayGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), awayGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         let awayGoalieGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)!), awayGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-        
+        print(awayGoalieShots, awayGoalieGoals)
         var homeGoalieTotal:Double = (Double(homeGoalieShots) / (Double(homeGoalieGoals) + Double(homeGoalieShots)))
         var awayGoalieTotal:Double = (Double(awayGoalieShots) / (Double(awayGoalieGoals) + Double(awayGoalieShots)))
-  
-        if(homeGoalieTotal != 0){
+        print(homeGoalieTotal, awayGoalieTotal)
+        if(homeGoalieTotal > 0.0){
             homeTeamGoalie.value = (homeGoalieTotal / (homeGoalieTotal + awayGoalieTotal)) * 100.00
+            savePerDataMissingLabel.isHidden = true
         }else{
-            homeTeamGoalie.value = 0
+            homeTeamGoalie.value = 0.0
+            savePerDataMissingLabel.isHidden = false
         }
-        if(awayGoalieTotal != 0){
+        if(awayGoalieTotal > 0.0){
             awayTeamGoalie.value = (awayGoalieTotal / (homeGoalieTotal + awayGoalieTotal)) * 100.00
+            savePerDataMissingLabel.isHidden = true
         }else{
-            awayTeamGoalie.value = 0
+            awayTeamGoalie.value = 0.0
+            savePerDataMissingLabel.isHidden = false
         }
     }
     
@@ -197,31 +220,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
         cShotValue.label = "Five Hole"
     }
     
-    func scoreInitialize() -> (Double, Double){
-        
-        // query realm for goal count based on newest gam
-        let gameID = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
-        let homeScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID?.gameID)!, homeTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-        
-        let awayScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID?.gameID)!, awayTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-        
-        return(Double(homeScoreFilter), Double(awayScoreFilter))
-    }
     
-    func numShotInitialize() -> (Double, Double){
-        
-        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
-        // get homeTeam and away team ID's fom said lastest new game entry
-        homeTeam = newGameFilter?.homeTeamID
-        awayTeam = newGameFilter?.opposingTeamID
-        //get array of team ID's and concert to regular string array from optional
-        let homeShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, homeTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-        
-        let awayShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, awayTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-        
-        return(Double(homeShotCounter), Double(awayShotCounter))
-        
-    }
     // func used to pass varables on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
