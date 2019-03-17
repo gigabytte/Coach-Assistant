@@ -356,6 +356,12 @@ class Old_Game_Ice_View: UIViewController {
             let vc = segue.destination as! Old_Stats_Game_Details_Page
             vc.SeletedGame = SeletedGame
         }
+        if (segue.identifier == "oldStatsAnalyticsPopUp"){
+            // set var vc as destination segue
+            let vc = segue.destination as! Current_Stats_Ananlytical_View
+            vc.SeletedGame = SeletedGame
+            vc.oldStatsPopUpBool = true
+        }
     }
 
 }

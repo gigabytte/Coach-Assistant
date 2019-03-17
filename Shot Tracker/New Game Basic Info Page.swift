@@ -41,6 +41,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     var awayTeamID: Int!
     var currentArrayIndex: Int = 0
     var newGameStarted: Bool!
+    var setPeriodVar: Int!
     
     var goalieJerseyNumArray: [String] = [String]()
     var arrayCounter: Int = 0
@@ -179,7 +180,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         print("Tap Cords for Period Selection: ", tapPosition)
                 if self.periodOne!.contains(tapPosition) {
                     DispatchQueue.main.async {
-                        self.tempPeriodNumSelected = 1
+                        self.setPeriodVar = 1
                         self.hockeyNetImageView.image = self.hockeyNetPeriodOne
                         self.hockeyNetImageView.setNeedsDisplay()
                         print("Period 1")
@@ -187,7 +188,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                 }
                 else if(self.periodTwo!.contains(tapPosition)) {
                     DispatchQueue.main.async {
-                        self.tempPeriodNumSelected = 2
+                        self.setPeriodVar = 2
                         self.hockeyNetImageView.image = self.hockeyNetPeriodTwo
                         self.hockeyNetImageView.setNeedsDisplay()
                         print("Period 2")
@@ -195,14 +196,14 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                     
                 }else if(self.periodThree!.contains(tapPosition)){
                     DispatchQueue.main.async {
-                        self.tempPeriodNumSelected = 3
+                        self.setPeriodVar = 3
                         self.hockeyNetImageView.image = self.hockeyNetPeriodThree
                         self.hockeyNetImageView.setNeedsDisplay()
                         print("Period 3")
                     }
                 }else{
                     DispatchQueue.main.async {
-                    self.tempPeriodNumSelected = nil
+                    self.setPeriodVar = nil
                     self.hockeyNetImageView.image = self.basicHockeyNet
                     self.hockeyNetImageView.setNeedsDisplay()
                     print("Error! No Tape Detected")
@@ -302,8 +303,8 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func continueButton(_ sender: Any) {
-        if(tempPeriodNumSelected != nil){
-            print(tempPeriodNumSelected)
+        if(setPeriodVar != nil){
+            tempPeriodNumSelected = setPeriodVar
             animateOut()
             self.performSegue(withIdentifier: "continueBasicInfoSegue", sender: nil);
         }else{
