@@ -21,6 +21,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="0g4-wa-4Pe">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="fHN-eD-W1A">
+                                <rect key="frame" x="326.5" y="360" width="371" height="218"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="218" id="r28-6b-zdS"/>
+                                    <constraint firstAttribute="width" constant="371" id="vao-PA-Q1O"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developed by MAG Industries " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRY-xA-Ebl">
                                 <rect key="frame" x="362" y="724" width="300" height="24"/>
                                 <constraints>
@@ -31,32 +38,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="7Zw-0T-CbU">
-
-                                <rect key="frame" x="243" y="70" width="282" height="245"/>
-
-
-
-
+                                <rect key="frame" x="371" y="70" width="282" height="245"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="245" id="5A1-po-I7a"/>
                                     <constraint firstAttribute="width" constant="282" id="Sw2-SB-Uau"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Coach Assitant Side" translatesAutoresizingMaskIntoConstraints="NO" id="bAz-M6-mHj">
-
-                                <rect key="frame" x="186.5" y="365" width="395" height="132"/>
-
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="132" id="E1v-7k-sOH"/>
-                                    <constraint firstAttribute="width" constant="395" id="et1-xL-9wE"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-
                             <constraint firstItem="wRY-xA-Ebl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5Wf-2O-1Jv"/>
-                            <constraint firstItem="bAz-M6-mHj" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="V7D-XC-ZDh"/>
+                            <constraint firstItem="fHN-eD-W1A" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="DwB-X5-sjG"/>
+                            <constraint firstItem="fHN-eD-W1A" firstAttribute="top" secondItem="7Zw-0T-CbU" secondAttribute="bottom" constant="45" id="NJJ-f1-qvx"/>
                             <constraint firstItem="7Zw-0T-CbU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="anF-Bh-Qqz"/>
                             <constraint firstItem="0g4-wa-4Pe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="btx-vY-3MS"/>
                             <constraint firstItem="0g4-wa-4Pe" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="fL1-TC-S5i"/>
@@ -64,19 +57,17 @@
                             <constraint firstItem="wRY-xA-Ebl" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-20" id="lDX-3R-bor"/>
                             <constraint firstItem="7Zw-0T-CbU" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mH5-Lz-TpV"/>
                             <constraint firstItem="0g4-wa-4Pe" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="wTm-Gs-YBA"/>
-                            <constraint firstItem="bAz-M6-mHj" firstAttribute="top" secondItem="7Zw-0T-CbU" secondAttribute="bottom" constant="50" id="weu-do-7UO"/>
-
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-306.25" y="449.99999999999994"/>
+            <point key="canvasLocation" x="-306.4453125" y="449.21875"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Coach Assitant Side" width="315" height="85"/>
+        <image name="coach_assitant_full_trans" width="500" height="335"/>
         <image name="ice" width="1300" height="975"/>
         <image name="logo" width="167" height="167"/>
     </resources>

@@ -6,8 +6,28 @@
 	<dict>
 		<key>Shot Tracker.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>4</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>BE7D697321E3D74300C1745C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BE7D698721E3D74500C1745C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BE7D699221E3D74500C1745C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

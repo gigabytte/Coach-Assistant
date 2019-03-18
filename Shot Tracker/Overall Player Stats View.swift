@@ -16,7 +16,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var playerSatsTable: UITableView!
     @IBOutlet weak var goalieStatsTable: UITableView!
-    //@IBOutlet weak var lineStatsTable: UITableView!
+    @IBOutlet weak var teamRecordLabel: UILabel!
     
     var homePlayerStatsArray: [String] = [String]()
     var goalieStatsArray:  [String] = [String]()
@@ -28,10 +28,10 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Team ID is:", homeTeamID)
+
         homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         goalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        
+        recordLabelProcessing()
         playerStatsProcessing()
         goalieStatsProcessing()
         
@@ -46,6 +46,17 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
 
         // Do any additional setup after loading the view.
     }
+    
+    func recordLabelProcessing(){
+        
+        let teamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}))[0]
+        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "winingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "losingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        teamRecordLabel.text = "\(teamName)'s Record W:\(homeTeamWinCount)-L:\(homeTeamLooseCount)-T:\(homeTeamTieCount)"
+    }
+    
     func playerStatsProcessing(){
         
         for x in 0..<homePlayerIDs.count{

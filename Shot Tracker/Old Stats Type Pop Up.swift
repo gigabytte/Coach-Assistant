@@ -151,7 +151,7 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         if  buttonTitle == "Back"{
             animationOnButtonCLick(reverseAnimateBool: true)
             playerStatsButton.setTitle("Player Stats", for: UIControl.State.normal)
-            oldStatsButton.setTitle("Old Stats", for: UIControl.State.normal)
+            oldStatsButton.setTitle("Old Game Stats", for: UIControl.State.normal)
             cancelButton.setTitle("Cancel", for: UIControl.State.normal)
             UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                 self.teamPickerView.alpha = 0.0

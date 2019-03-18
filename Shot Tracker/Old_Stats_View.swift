@@ -36,10 +36,7 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         
-        // (optional) include this line if you want to remove the extra empty cell divider lines
-        // self.tableView.tableFooterView = UIView()
-        
-        // This view controller itself will provide the delegate methods and row data for the table view.
+        tableView.layer.cornerRadius = 10
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -85,8 +82,8 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         awayTeamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", awayTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}).reversed()
         gameType = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", Int(newGameIDs[indexPath.row])!)).value(forKeyPath: "gameType") as! [String]).compactMap({String($0)}).reversed()
         // set the text from the data model
-        cell.textLabel?.text = "\(gameType[0]) Game, \(homeTeamName[0]) vs \(awayTeamName[0]) on date \(String(self.newGameDates[indexPath.row]))"
-        
+        cell.textLabel?.text = "\n\(gameType[0]) Game, \(homeTeamName[0]) vs \(awayTeamName[0]) on date \(String(self.newGameDates[indexPath.row]))\n"
+        cell.textLabel!.numberOfLines = 0;
         return cell
     }
     
