@@ -243,44 +243,138 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         let playerName = newPlayerName.text!
         let playerNumber = Int(newPlayerNumber.text!)
         let editedPlayer = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: selectedMainPlayerID);
-        
-        if(playerName != "" && newPlayerNumber.text! != ""){
-            
-            try! realm.write {
-                editedPlayer!.jerseyNum = playerNumber!
-                editedPlayer!.playerName = playerName
-                editedPlayer!.lineNum = playerLine
-                editedPlayer!.positionType = playerPosition
-                editedPlayer!.activeState = activeStatePlayerSwitch.isOn
-                succesfulPlayerAdd()
+        if(selectLine == 0 ){
+            if(selectPosition == "G"){
+                // check to see if fields are filled out properly
+                if(playerName != "" && newPlayerNumber.text! != ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.jerseyNum = playerNumber!
+                        editedPlayer!.playerName = playerName
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else if(playerName != "" && newPlayerNumber.text! == ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.playerName = playerName
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else if(playerName == "" && newPlayerNumber.text! != ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.jerseyNum = playerNumber!
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else{
+                    
+                    try! realm.write {
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }
+            }else{
+                misMatchAlert()
             }
-        }else if(playerName != "" && newPlayerNumber.text! == ""){
-           
-            try! realm.write {
-                editedPlayer!.playerName = playerName
-                editedPlayer!.lineNum = playerLine
-                editedPlayer!.positionType = playerPosition
-                editedPlayer!.activeState = activeStatePlayerSwitch.isOn
-                succesfulPlayerAdd()
+        }else if(selectLine == 4 || selectLine == 5 || selectLine == 6){
+            if(selectPosition == "RD" || selectPosition == "LD"){
+                // check to see if fields are filled out properly
+                if(playerName != "" && newPlayerNumber.text! != ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.jerseyNum = playerNumber!
+                        editedPlayer!.playerName = playerName
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else if(playerName != "" && newPlayerNumber.text! == ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.playerName = playerName
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else if(playerName == "" && newPlayerNumber.text! != ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.jerseyNum = playerNumber!
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else{
+                    
+                    try! realm.write {
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }
+            }else{
+                misMatchAlert()
+                print("hi")
             }
-        }else if(playerName == "" && newPlayerNumber.text! != ""){
-          
-            try! realm.write {
-                editedPlayer!.jerseyNum = playerNumber!
-                editedPlayer!.lineNum = playerLine
-                editedPlayer!.positionType = playerPosition
-                editedPlayer!.activeState = activeStatePlayerSwitch.isOn
-                succesfulPlayerAdd()
-            }
-        }else{
-            
-            try! realm.write {
-                editedPlayer!.lineNum = playerLine
-                editedPlayer!.positionType = playerPosition
-                editedPlayer!.activeState = activeStatePlayerSwitch.isOn
-                succesfulPlayerAdd()
+        }else if(selectLine == 1 || selectLine == 2 || selectLine == 3){
+            if(selectPosition == "RW" || selectPosition == "C" || selectPosition == "LW"){
+                if(playerName != "" && newPlayerNumber.text! != ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.jerseyNum = playerNumber!
+                        editedPlayer!.playerName = playerName
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else if(playerName != "" && newPlayerNumber.text! == ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.playerName = playerName
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else if(playerName == "" && newPlayerNumber.text! != ""){
+                    
+                    try! realm.write {
+                        editedPlayer!.jerseyNum = playerNumber!
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }else{
+                    
+                    try! realm.write {
+                        editedPlayer!.lineNum = playerLine
+                        editedPlayer!.positionType = playerPosition
+                        editedPlayer!.activeState = activeStatePlayerSwitch.isOn
+                        succesfulPlayerAdd()
+                    }
+                }
+            }else{
+                misMatchAlert()
+                print("hi")
             }
         }
+        
     }
     
     func succesfulTeamAdd(){
@@ -307,5 +401,15 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
         self.present(missingField, animated: true, completion: nil)
+    }
+    func misMatchAlert(){
+        
+        // create the alert
+        let missingField = UIAlertController(title: "Mismatch of Position/Line Error", message: "Select the approiate line for the approiate position.", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(missingField, animated: true, completion: nil)
+        
     }
 }
