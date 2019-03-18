@@ -34,6 +34,9 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var leftScrollArrowImage: UIImageView!
     @IBOutlet weak var rightScrollArrowImage: UIImageView!
     @IBOutlet weak var gameTypeLabel: UILabel!
+    @IBOutlet weak var popUpView: UIView!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var continueButton: UIButton!
     
     //let realm = try! Realm()
     // vars for home team data retrieval from Realm
@@ -51,6 +54,16 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bottomRoundedCorners(buttonName: cancelButton)
+        bottomRoundedCorners(buttonName: continueButton)
+        // add blur effect to view along with popUpView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.addSubview(popUpView)
+        view.addSubview(gameTypeLabel)
         // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
         // get rotation allowances of device
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -94,6 +107,23 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         teamSelectionErrorText.isHidden = true
         
     }
+    
+    func bottomRoundedCorners(buttonName: UIButton){
+        if(buttonName == cancelButton){
+            // round bottom corners of button
+            let path = UIBezierPath(roundedRect:buttonName.bounds, byRoundingCorners:[.bottomLeft], cornerRadii: CGSize(width: 10, height: 10))
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = path.cgPath
+            buttonName.layer.mask = maskLayer
+        }else{
+            let path = UIBezierPath(roundedRect:buttonName.bounds, byRoundingCorners:[.bottomRight], cornerRadii: CGSize(width: 10, height: 10))
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = path.cgPath
+            buttonName.layer.mask = maskLayer
+            
+        }
+    }
+    
     func gameTypeProcessing(){
         if (self.gameTypeStringArray[self.currentArrayIndex] == self.gameTypeStringArray.last){
             self.gameTypeLabel.text = self.gameTypeStringArray[self.currentArrayIndex]

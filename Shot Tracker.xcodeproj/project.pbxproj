@@ -37,11 +37,12 @@
 		BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904B21F663BA00D02C0B /* Player Info Table.swift */; };
 		BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904F21F6715400D02C0B /* Goal Marker Table.swift */; };
 		BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */; };
+		BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */; };
+		BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25D223C300300228621 /* Overall Player Stats View.swift */; };
 		BE913A482233740500080081 /* Old Game Ice View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE913A472233740500080081 /* Old Game Ice View.swift */; };
 		BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */; };
 		BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */; };
 		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
-		BEA6A85D220790DA00B871F4 /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA6A85B220790DA00B871F4 /* DLRadioButton.m */; };
 		BEB71900220A192B00DA6399 /* Current_Stats_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB718FF220A192B00DA6399 /* Current_Stats_Page.swift */; };
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
 		BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */; };
@@ -117,13 +118,12 @@
 		BE83904B21F663BA00D02C0B /* Player Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player Info Table.swift"; sourceTree = "<group>"; };
 		BE83904F21F6715400D02C0B /* Goal Marker Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal Marker Table.swift"; sourceTree = "<group>"; };
 		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
+		BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Type Pop Up.swift"; sourceTree = "<group>"; };
+		BE90D25D223C300300228621 /* Overall Player Stats View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Overall Player Stats View.swift"; sourceTree = "<group>"; };
 		BE913A472233740500080081 /* Old Game Ice View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Game Ice View.swift"; sourceTree = "<group>"; };
 		BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Import Pop Up View.swift"; path = "../Import Pop Up View.swift"; sourceTree = "<group>"; };
 		BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Team_Page.swift; sourceTree = "<group>"; };
 		BEA08C962215F05200B6D73B /* Add_Player_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Player_Page.swift; sourceTree = "<group>"; };
-		BEA6A85A220790D900B871F4 /* Shot Tracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shot Tracker-Bridging-Header.h"; sourceTree = "<group>"; };
-		BEA6A85B220790DA00B871F4 /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
-		BEA6A85C220790DA00B871F4 /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
 		BEB718FF220A192B00DA6399 /* Current_Stats_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Current_Stats_Page.swift; sourceTree = "<group>"; };
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
 		BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker_Info_Page.swift; sourceTree = "<group>"; };
@@ -225,6 +225,8 @@
 				BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */,
 				4F5A0559222065F90053679C /* Old_Stats_Game_Details_Page.swift */,
 				BE913A472233740500080081 /* Old Game Ice View.swift */,
+				BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */,
+				BE90D25D223C300300228621 /* Overall Player Stats View.swift */,
 				BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */,
 				BEA08C962215F05200B6D73B /* Add_Player_Page.swift */,
 				BE7D697B21E3D74300C1745C /* Main.storyboard */,
@@ -236,9 +238,6 @@
 				BE83904B21F663BA00D02C0B /* Player Info Table.swift */,
 				BE83904F21F6715400D02C0B /* Goal Marker Table.swift */,
 				BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */,
-				BEA6A85C220790DA00B871F4 /* DLRadioButton.h */,
-				BEA6A85B220790DA00B871F4 /* DLRadioButton.m */,
-				BEA6A85A220790D900B871F4 /* Shot Tracker-Bridging-Header.h */,
 			);
 			path = "Shot Tracker";
 			sourceTree = "<group>";
@@ -515,6 +514,7 @@
 				BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */,
 				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
 				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
+				BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */,
 				BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */,
 				BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */,
 				BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */,
@@ -529,10 +529,10 @@
 				BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */,
 				BE7A1C632200EF4D00E4D74B /* Shot Marker File.swift in Sources */,
 				4F5A055A222065F90053679C /* Old_Stats_Game_Details_Page.swift in Sources */,
-				BEA6A85D220790DA00B871F4 /* DLRadioButton.m in Sources */,
 				BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */,
 				BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */,
 				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
+				BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */,
 				BE913A482233740500080081 /* Old Game Ice View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

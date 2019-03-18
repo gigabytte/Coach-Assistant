@@ -24,6 +24,14 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // add blur effect to view along with popUpView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.addSubview(Popupview)
+        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -285,6 +293,8 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         primaryMarkerID?.goalPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.assitantPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.sec_assitantPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.againstFLine = Int(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.againstDLine = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.periodNum = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.xCordGoal = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.yCordGoal = Int(fourthFileContentsParsed[i][count])!; count += 1

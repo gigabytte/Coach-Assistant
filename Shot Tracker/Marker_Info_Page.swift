@@ -30,9 +30,6 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     // vars for team data retrieval from Realm
     var TeamPickerData: [String] = [String]()
     var selectedTeam: String = ""
-    var pickedTeamID: Int!
-    var selectedTeamID: Int!
-    var tempTeamIDArray: [Int] = [Int]()
     
     //vars for shot type
     var goalTypePickerData: [String] = [String]()
@@ -61,10 +58,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     var xCords: Int = 0
     var yCords: Int = 0
     
-    var xCoordinate = goalMarkersTable();
-    var yCoordinate = goalMarkersTable();
-    var cordSetIDNum = goalMarkersTable();
-    
+    // cars used between segue for various reasons
     var markerType: Bool!
     var tempMarkerType: Bool!
     var periodSelectionNum: Int!
@@ -75,6 +69,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // set power play toggle to off by default
         powerPlayToggleSwitch.isOn = false
         // call team data from realm
         teamSelectedProcessing()
@@ -111,7 +106,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     func navBarProcessing() -> String {
-        if (periodNumSelected != nil && homeTeam != nil && awayTeam != nil){
+        if (homeTeam != nil && awayTeam != nil){
             let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
             let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
             if (scoringPassedTeamID[0] == homeTeam){
@@ -156,8 +151,6 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             opposingTeamID = awayTeam!
             return(teamName)
         }
-       
-        
     }
     
     func goalTypeProcessing(){
@@ -176,14 +169,12 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         for index in 0..<mainPlayerNameFilter.count {
             mainPlayerPickerData.append("\(mainPlayerNameFilter[index]) \(mainPlayerNumFilter[index])")
         }
-        print("Main Home Players Are: ", mainPlayerPickerData)
 
         // default value set
         selectedMainPlayer = mainPlayerNameFilter[0]
         tempHomeMainIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == true", String(scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         // get default goal score id
         selectedMainPlayerID = tempHomeMainIDArray[0]
-        print("Selected Main Player ID: ", tempHomeMainIDArray)
     }
     
     func assitantPlayerRealmRetrieval(){
@@ -208,7 +199,6 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         // get default assitant players IDs
         selectedAssitantPlayerOneID = temp_assitPlayerID[0][0]
         selectedAssitantPlayerTwoID = temp_assitPlayerID[1][0]
-        print("tempo assit player id", temp_assitPlayerID)
     }
     
     func linePlayerRealmRetrieval(){
@@ -218,21 +208,6 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         selectedForwardLine = linePickerData[0][0]
         selectedDefenseLine = linePickerData[1][0]
         
-    }
-    
-    // radio button action control
-    @IBAction func radioButtonAction(_ sender: DLRadioButton) {
-        // check the result of said selected button with the use of it's tag
-        if (sender.tag == 1){
-            print("Period 1 Selected")
-            periodSelectionNum = 1
-        }else if(sender.tag == 2){
-            print("Period 2 Selected")
-            periodSelectionNum = 2
-        }else{
-            print("Period 3 Selected")
-            periodSelectionNum = 3
-        }
     }
     
     func savingErrorChecking(){
@@ -251,90 +226,82 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     @IBAction func saveMarkerDataButton(_ sender: UIBarButtonItem) {
         savingErrorChecking()
-        // check if period was selected
-         if (periodSelectionNum != nil){
-            // create the alert
-            let saveButtonAlert = UIAlertController(title: "Back to Dashboard", message: "Would you like to save this as a new game?", preferredStyle: UIAlertController.Style.alert)
-            // add Cancel action (button)
-            saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-            // add Save action (button)
-            // redirect to dashboard on button click
-            saveButtonAlert.addAction(UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {action in self.performSegue(withIdentifier: "saveMarkerSeague", sender: nil); print("X Cord of Marker: ", self.xCords); print("Y Cord of Marker:", self.yCords);
-                // save marker data to realm
-                try! self.realm.write{
-                    // check if it's a shot or goal and update appropriate table
-                    // if marker is a shot then run shot table update
-                    if (self.realm.objects(goalMarkersTable.self).max(ofProperty: "cordSetID") as Int? != nil){
-                        self.goal_primaryID = (self.realm.objects(goalMarkersTable.self).max(ofProperty: "cordSetID") as Int? ?? 0) + 1;
-                    }else{
-                        self.goal_primaryID = (self.realm.objects(goalMarkersTable.self).max(ofProperty: "cordSetID") as Int? ?? 0);
-                    }
-                    let currentGameID = self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?
-                    self.realm.create(goalMarkersTable.self, value: ["cordSetID": self.goal_primaryID!, "gameID": currentGameID!]);
-                    let goalMarkerTableID = self.realm.object(ofType: goalMarkersTable.self, forPrimaryKey: self.goal_primaryID);
-                    let mainPlayerUpdateID = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: self.selectedMainPlayerID);
-                    let assitPlayerUpdateID = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: self.selectedAssitantPlayerOneID);
-                    let assitTwoPlayerUpdateID = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey:
-                        self.selectedAssitantPlayerTwoID);
-                    // calc plus minus of scoring lines based on user interaction with pickerviews
-                    var mainPlayerSelectedLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedMainPlayerID), String(self.scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                    print("main player seclected", mainPlayerSelectedLine)
-                    var one_assitPlayerSelectedLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedAssitantPlayerOneID), String(self.scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                    var two_assitPlayerSelectedLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedAssitantPlayerTwoID), String(self.scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                    for i in 0..<mainPlayerSelectedLine.count{
-                        self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: mainPlayerSelectedLine[i])?.plusMinus += 1
-                    }
-                    for i in 0..<one_assitPlayerSelectedLine.count{
-                        self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: one_assitPlayerSelectedLine[i])?.plusMinus += 1
-                    }
-                    for i in 0..<two_assitPlayerSelectedLine.count{
-                        self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: two_assitPlayerSelectedLine[i])?.plusMinus += 1
-                    }
-                    // calc plus minus for opposing team on ice
-                      if (self.mainPlayerPickerData.count > 1){
-                        var againstForwardLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedForwardLine)!, String(self.opposingTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                        var againstDefenseLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedDefenseLine)! + 3, String(self.opposingTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                        for i in 0..<againstForwardLine.count{
-                            self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: againstForwardLine[i])?.plusMinus -= 1
-                        }
-                        for i in 0..<againstDefenseLine.count{
-                            self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: againstDefenseLine[i])?.plusMinus -= 1
-                        }
-                      }else{
-                        var againstForwardLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", 1, String(self.opposingTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                        self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: againstForwardLine[0])?.plusMinus -= 1
-                    }
-                    if (self.powerPlayToggleSwitch.isOn){
-                        goalMarkerTableID?.powerPlay = true
-                    }else{
-                        goalMarkerTableID?.powerPlay = false
-                    }
-                    goalMarkerTableID?.activeState = true
-                    goalMarkerTableID?.goalType = self.selectedGoalType
-                    goalMarkerTableID?.goalieID = self.goalieSelectedID
-                    goalMarkerTableID?.xCordGoal = (self.xCords)
-                    goalMarkerTableID?.yCordGoal = (self.yCords)
-                    goalMarkerTableID?.periodNum = (self.periodSelectionNum)
-                    goalMarkerTableID?.shotLocation = (Int(self.shotLocationValue)!)
-                    goalMarkerTableID?.TeamID = (self.scoringPassedTeamID[0])
-                    goalMarkerTableID?.goalPlayerID = (self.selectedMainPlayerID!)
-                    print("realm sees main player id, ", self.selectedMainPlayerID!)
-                    goalMarkerTableID?.assitantPlayerID = (self.selectedAssitantPlayerOneID!)
-                    goalMarkerTableID?.sec_assitantPlayerID = (self.selectedAssitantPlayerTwoID!)
-                    mainPlayerUpdateID?.goalCount += 1
-                    assitPlayerUpdateID?.assitsCount += 1
-                    assitTwoPlayerUpdateID?.assitsCount += 1
+        // create the alert
+        let saveButtonAlert = UIAlertController(title: "Back to Dashboard", message: "Would you like to save this as a new game?", preferredStyle: UIAlertController.Style.alert)
+        // add Cancel action (button)
+        saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        // add Save action (button)
+        // redirect to dashboard on button click
+        saveButtonAlert.addAction(UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {action in self.performSegue(withIdentifier: "saveMarkerSeague", sender: nil);
+            // save marker data to realm
+            try! self.realm.write{
+                // check if it's a shot or goal and update appropriate table
+                // if marker is a shot then run shot table update
+                if (self.realm.objects(goalMarkersTable.self).max(ofProperty: "cordSetID") as Int? != nil){
+                    self.goal_primaryID = (self.realm.objects(goalMarkersTable.self).max(ofProperty: "cordSetID") as Int? ?? 0) + 1;
+                }else{
+                    self.goal_primaryID = (self.realm.objects(goalMarkersTable.self).max(ofProperty: "cordSetID") as Int? ?? 0);
                 }
-            }))
-            // show the alert
-            self.present(saveButtonAlert, animated: true, completion: nil)
-        }else{
-            // display an alert if period option was not selected
-            let incompleteAlert = UIAlertController(title: "Missing Field", message: "Please select a Period when this event occured", preferredStyle: UIAlertController.Style.alert)
-            // add Ok action (button)
-            incompleteAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
-            self.present(incompleteAlert, animated: true, completion: nil)
-        }
+                let currentGameID = self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?
+                self.realm.create(goalMarkersTable.self, value: ["cordSetID": self.goal_primaryID!, "gameID": currentGameID!]);
+                let goalMarkerTableID = self.realm.object(ofType: goalMarkersTable.self, forPrimaryKey: self.goal_primaryID);
+                let mainPlayerUpdateID = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: self.selectedMainPlayerID);
+                let assitPlayerUpdateID = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: self.selectedAssitantPlayerOneID);
+                let assitTwoPlayerUpdateID = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey:
+                    self.selectedAssitantPlayerTwoID);
+                // calc plus minus of scoring lines based on user interaction with pickerviews
+                var mainPlayerSelectedLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedMainPlayerID), String(self.scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                var one_assitPlayerSelectedLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedAssitantPlayerOneID), String(self.scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                var two_assitPlayerSelectedLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedAssitantPlayerTwoID), String(self.scoringPassedTeamID[0]), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                for i in 0..<mainPlayerSelectedLine.count{
+                    self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: mainPlayerSelectedLine[i])?.plusMinus += 1
+                }
+                for i in 0..<one_assitPlayerSelectedLine.count{
+                    self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: one_assitPlayerSelectedLine[i])?.plusMinus += 1
+                }
+                for i in 0..<two_assitPlayerSelectedLine.count{
+                    self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: two_assitPlayerSelectedLine[i])?.plusMinus += 1
+                }
+                // calc plus minus for opposing team on ice
+                  if (self.mainPlayerPickerData.count > 1){
+                    var againstForwardLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedForwardLine)!, String(self.opposingTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    var againstDefenseLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", Int(self.selectedDefenseLine)! + 3, String(self.opposingTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    for i in 0..<againstForwardLine.count{
+                        self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: againstForwardLine[i])?.plusMinus -= 1
+                    }
+                    for i in 0..<againstDefenseLine.count{
+                        self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: againstDefenseLine[i])?.plusMinus -= 1
+                    }
+                  }else{
+                    var againstForwardLine = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i AND TeamID == %@ AND positionType != %@ AND activeState == true", 1, String(self.opposingTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: againstForwardLine[0])?.plusMinus -= 1
+                }
+                if (self.powerPlayToggleSwitch.isOn){
+                    goalMarkerTableID?.powerPlay = true
+                }else{
+                    goalMarkerTableID?.powerPlay = false
+                }
+                goalMarkerTableID?.activeState = true
+                goalMarkerTableID?.goalType = self.selectedGoalType
+                goalMarkerTableID?.goalieID = self.goalieSelectedID
+                goalMarkerTableID?.xCordGoal = (self.xCords)
+                goalMarkerTableID?.yCordGoal = (self.yCords)
+                goalMarkerTableID?.periodNum = (self.periodNumSelected)
+                goalMarkerTableID?.shotLocation = (Int(self.shotLocationValue)!)
+                goalMarkerTableID?.TeamID = (self.scoringPassedTeamID[0])
+                goalMarkerTableID?.goalPlayerID = (self.selectedMainPlayerID!)
+                goalMarkerTableID?.assitantPlayerID = (self.selectedAssitantPlayerOneID!)
+                goalMarkerTableID?.sec_assitantPlayerID = (self.selectedAssitantPlayerTwoID!)
+                goalMarkerTableID?.againstFLine = Int(self.selectedForwardLine)!
+                goalMarkerTableID?.againstDLine = Int(self.selectedDefenseLine)!
+                mainPlayerUpdateID?.goalCount += 1
+                assitPlayerUpdateID?.assitsCount += 1
+                assitTwoPlayerUpdateID?.assitsCount += 1
+            }
+        }))
+        // show the alert
+        self.present(saveButtonAlert, animated: true, completion: nil)
+        
     }
     
 //----------------------------------------------------------------------------------------------------------
@@ -391,28 +358,23 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         // The parameter named row and component represents what was selected.
         if (pickerView == goalTypePickerView){
             selectedGoalType = goalTypePickerData[row]
-            /*self.shot_goalPickerView.reloadAllComponents()
-            self.assitantsPickerView.reloadAllComponents()
-            print("Picker View Reload Happened")*/
+            
         }else if (pickerView == shot_goalPickerView){
             selectedMainPlayer = mainPlayerPickerData[row]
             selectedMainPlayerID = tempHomeMainIDArray[row]
-            print("Goal Scorer Selected" + selectedMainPlayer)
-            print("Goal Scorer Selected ID", selectedMainPlayerID)
+            
         }else if (pickerView == assitantsPickerView){
             // check if selected team is == to the home team oulled from realm
                 selectedAssitantPlayerOne = assitPlayerPickerData[0][row]
                 selectedAssitantPlayerTwo = assitPlayerPickerData[1][row]
                 selectedAssitantPlayerOneID = temp_assitPlayerID[0][row]
                 selectedAssitantPlayerTwoID = temp_assitPlayerID[1][row]
-                print("Assitant Players Selected" + selectedAssitantPlayerOne + selectedAssitantPlayerTwo)
         } else{
             if(component == 0){
                 return selectedForwardLine = linePickerData[0][row]
             }else{
                 selectedDefenseLine = linePickerData[1][row]
             }
-            print("Lines Selected: " + selectedForwardLine + selectedDefenseLine)
         }
     }
 //______________________________________________________________________________________________________________
@@ -426,7 +388,6 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
         if (segue.identifier == "saveMarkerSeague" || segue.identifier == "backToIceSurfaceSegue"){
-            // set var vc as destination segue
             let markerInfoVC = segue.destination as! New_Game_Page
             markerInfoVC.homeTeam = homeTeam
             markerInfoVC.awayTeam = awayTeam
