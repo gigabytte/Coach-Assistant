@@ -48,11 +48,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.positionPicker.dataSource = self
         
         playerNumber.delegate = self
-        // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
-        // get rotation allowances of device
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        // set auto rotation to false
-        appDelegate.shouldRotate = true
+       
         // Do any additional setup after loading the view.
         pickerData = ["Forward 1","Forward 2","Forward 3","Defence 1","Defence 2","Defence 3", "Goalie"]
         positionData = ["Left Wing", "Center", "Right Wing", "Left Defence", "Right Defence", "Goalie"]

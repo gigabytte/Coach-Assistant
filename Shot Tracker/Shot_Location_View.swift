@@ -82,11 +82,7 @@ class Shot_Location_View: UIViewController {
         tapLocationSelectionErrorLabel.isHidden = true
         // Do any additional setup after loading the view.
         
-        // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
-        // get rotation allowances of device
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        // set auto rotation to false
-        appDelegate.shouldRotate = false
+        
         print("goalie id: ", goalieSelectedID)
         // if true its a shot
         if(tempMarkerType != false){
