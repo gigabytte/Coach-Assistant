@@ -91,11 +91,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         activeStatePlayerSwitch.isOn = Bool(activePlayerBool[0])!
         if (activeStatePlayerSwitch.isOn == true) {activeStatePLayerLabel.text = "Enable \(mainPlayerPickerData[0])"}else{activeStatePLayerLabel.text = "Disable \(mainPlayerPickerData[0])"}
 
-        // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
-        // get rotation allowances of device
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        // set auto rotation to false
-        appDelegate.shouldRotate = true
+      
     }
     
     override func didReceiveMemoryWarning() {

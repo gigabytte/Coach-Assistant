@@ -32,10 +32,6 @@ class Settings_Page: UIViewController {
         exportCVSButton.layer.cornerRadius = 5
         importCVSButton.layer.cornerRadius = 5
         
-        // get rotation allowances of device
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        // set auto rotation to true for current view
-        appDelegate.shouldRotate = true
         // Do any additional setup after loading the view.
         
         // round corners of export and import buttons

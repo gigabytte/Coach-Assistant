@@ -79,11 +79,7 @@ class New_Game_Page: UIViewController {
         //longTap.delaysTouchesBegan = true
         iceRinkImage.addGestureRecognizer(longTap)
         
-        // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
-        // get rotation allowances of device
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        // set auto rotation to false
-        appDelegate.shouldRotate = false
+       
     
         // run delay loop ever so after realm refreshes so you get the most current x and y cord placements
         delay(0.5){

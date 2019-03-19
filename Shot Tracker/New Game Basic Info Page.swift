@@ -70,11 +70,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         popUpView.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
         
-        // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
-        // get rotation allowances of device
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        // set auto rotation to false
-        appDelegate.shouldRotate = false
+        
         
         newGameStartedViewRender()
         goalieSelectionGesture()
