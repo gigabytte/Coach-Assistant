@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "coach_assitant_full_trans.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "coach_assitant_full_trans.png",
       "scale" : "2x"
     },
     {

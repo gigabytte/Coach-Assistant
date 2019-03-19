@@ -63,7 +63,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
-        view.addSubview(gameTypeLabel)
+        //view.addSubview(gameTypeLabel)
         // MUST SET ON EACH VIEW DEPENDENT ON ORIENTATION NEEDS
         // get rotation allowances of device
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -287,7 +287,10 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func numberOfComponents(in homeTeamPickerView: UIPickerView) -> Int  {
         return 1;
     }
-    
+    // height of picker views defined here
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 30.0
+    }
     // The number of rows of data
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         //return homeTeamValueSelected.count;

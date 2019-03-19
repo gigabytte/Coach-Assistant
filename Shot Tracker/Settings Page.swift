@@ -41,12 +41,7 @@ class Settings_Page: UIViewController {
         // round corners of export and import buttons
         exportCVSButton.layer.cornerRadius = 10
         importCVSButton.layer.cornerRadius = 10
-        // runn delay then present missing icloud account warning
-        delay(0.5){
-            if (self.isICloudContainerAvailable() != true){
-                self.missingIcloudLogin()
-            }
-        }
+        
         backupUpDateCheck()
         promptMessage()
     }
@@ -57,12 +52,8 @@ class Settings_Page: UIViewController {
     
     // on button press perform CVS export functions
     @IBAction func exportCVSButtonAction(_ sender: UIButton) {
-        // check is icloud account checker retuns true
-        if (isICloudContainerAvailable() == true){
-            confirmationiCloudAlert()
-        }else{
-            confirmationLocalAlert()
-        }
+        // run confirmation alert
+        confirmationLocalAlert()
         
     }
     // on button press perform CVS import functions
@@ -499,10 +490,10 @@ class Settings_Page: UIViewController {
     func deleteDataPrompt(){
         
         // create the alert
-        let dataDelete = UIAlertController(title: "Succesful Export", message: "All App Data was Succesfully Exported Locally", preferredStyle: UIAlertController.Style.alert)
+        let dataDelete = UIAlertController(title: "App Data Deletion", message: "Would you like to wipe all data stored locally on this device?", preferredStyle: UIAlertController.Style.alert)
         dataDelete.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
         // add an action (button)
-        dataDelete.addAction(UIAlertAction(title: "Wipe Data", style: UIAlertAction.Style.destructive, handler: {action in
+        dataDelete.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: {action in
             try? self.realm.write ({
                 //delete contents of DB
                 self.realm.deleteAll()
@@ -525,32 +516,7 @@ class Settings_Page: UIViewController {
         self.present(sucessfulExportAlert, animated: true, completion: nil)
         
     }
-    
-    func confirmationiCloudAlert(){
-        
-        // create confirmation alert to save to icloud account
-        let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to iCloud?", preferredStyle: UIAlertController.Style.alert)
-        // add an action (button)
-        exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-        exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: {action in
-            self.oldCSVFileFinder()
-            self.createCSVTeamInfo()
-            self.createCSVPlayerInfo()
-            self.createCSVNewGameInfo()
-            self.createCSVGoalMarkerTable()
-            self.createCSVShotMarkerTable()
-            // save last know backup to user defaults
-            let currentDateTime = Date()
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy HH:mm"
-            let dateString = formatter.string(from: currentDateTime)
-            UserDefaults.standard.set(dateString, forKey: "lastBackup")
-            self.backupUpDateCheck()
-        }))
-        // show the alert
-        self.present(exportAlert, animated: true, completion: nil)
-        
-    }
+
     func confirmationLocalAlert(){
         
         // create confirmation alert to save to local storage
@@ -574,16 +540,6 @@ class Settings_Page: UIViewController {
         }))
         // show the alert
         self.present(exportAlert, animated: true, completion: nil)
-        
-    }
-    func missingIcloudLogin(){
-        
-        // create indicating missing iCloud account
-        let noIcloud = UIAlertController(title: "iCloud Account Error", message: "All data will be exported or imported via local storage if iCloud account is not present.", preferredStyle: UIAlertController.Style.alert)
-        // add an action (button)
-        noIcloud.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-        // show the alert
-        self.present(noIcloud, animated: true, completion: nil)
         
     }
     

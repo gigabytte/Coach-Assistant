@@ -227,7 +227,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     @IBAction func saveMarkerDataButton(_ sender: UIBarButtonItem) {
         savingErrorChecking()
         // create the alert
-        let saveButtonAlert = UIAlertController(title: "Back to Dashboard", message: "Would you like to save this as a new game?", preferredStyle: UIAlertController.Style.alert)
+        let saveButtonAlert = UIAlertController(title: "Back to Ice Surafce", message: "Would you like this info to be saved?", preferredStyle: UIAlertController.Style.alert)
         // add Cancel action (button)
         saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
         // add Save action (button)

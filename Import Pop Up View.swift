@@ -269,7 +269,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Containts of File")
         }
         
-        if (fourthFileContentsParsed[0].count == 13){
+        if (fourthFileContentsParsed[0].count == 15){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(goalMarkersTable.self))

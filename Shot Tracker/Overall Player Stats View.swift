@@ -50,11 +50,11 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     func recordLabelProcessing(){
         
         let teamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}))[0]
-        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "winingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
-        let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
-        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "losingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         
-        teamRecordLabel.text = "\(teamName)'s Record W:\(homeTeamWinCount)-L:\(homeTeamLooseCount)-T:\(homeTeamTieCount)"
+        teamRecordLabel.text = "\(teamName)'s Record W:\(String(homeTeamWinCount))-L:\(String(homeTeamLooseCount))-T:\(String(homeTeamTieCount))"
     }
     
     func playerStatsProcessing(){
