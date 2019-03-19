@@ -36,7 +36,8 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let realm = try! Realm()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         self.teamPicker.delegate = self
         self.teamPicker.dataSource = self
@@ -63,6 +64,22 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         selectPosition = positionCodeData[0]
         selectLine = 1
     }
+    
+    // if keyboard is out push whole view up half the height of the keyboard
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= (keyboardSize.height / 2)
+            }
+        }
+    }
+    // when keybaord down return view back to y orgin of 0
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     // restrict player number field to decimal degots only
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if (textField == playerNumber){
