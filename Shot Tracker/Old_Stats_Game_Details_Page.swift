@@ -88,16 +88,25 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
     // appropriate label
     func recordLabelProcessing(){
         
-        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "winingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
-        let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
-        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "losingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
         
-        let awayTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "winingTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
-        let awayTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
-        let awayTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "losingTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        let homeTeamTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         
-        homeTeamRecordLabel.text = "W:\(homeTeamWinCount)-L:\(homeTeamLooseCount)-T:\(homeTeamTieCount)"
-        awayTeamRecordLabel.text = "W:\(awayTeamWinCount)-L:\(awayTeamLooseCount)-T:\(awayTeamTieCount)"
+        let awayTeamHomeTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND opposingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+  
+        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        
+        let awayTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+      
+        let awayTeamTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND opposingTeamID == %i AND activeState == true" ,awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        let homeTeamAwayTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+
+        let awayTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        homeTeamRecordLabel.text = "W:\(homeTeamWinCount)-L:\(homeTeamLooseCount)-T:\(String(homeTeamTieCount + awayTeamHomeTieCount))"
+        awayTeamRecordLabel.text = "W:\(awayTeamWinCount)-L:\(awayTeamLooseCount)-T:\(String(awayTeamTieCount + homeTeamAwayTieCount))"
     }
     
      func teamNameInitialize(){

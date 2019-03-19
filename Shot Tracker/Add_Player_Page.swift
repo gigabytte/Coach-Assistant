@@ -295,7 +295,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     func misMatchAlert(){
         
         // create the alert
-        let missingField = UIAlertController(title: "Mismatch of Position/Line Error", message: "Select the approiate line for the approiate position.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: "Mismatch of Position/Line Error", message: "Select the appropriate line for the appropriate position.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

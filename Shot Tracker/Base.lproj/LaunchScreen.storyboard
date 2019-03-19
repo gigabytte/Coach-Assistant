@@ -14,51 +14,55 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="zcq-50-W1x">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="0g4-wa-4Pe">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="p4C-i4-sY4">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="fHN-eD-W1A">
-                                <rect key="frame" x="326.5" y="360" width="371" height="218"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="sfc-Em-KTY">
+                                <rect key="frame" x="374.5" y="70" width="275" height="236"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="218" id="r28-6b-zdS"/>
-                                    <constraint firstAttribute="width" constant="371" id="vao-PA-Q1O"/>
+                                    <constraint firstAttribute="width" constant="275" id="Cim-dj-hAb"/>
+                                    <constraint firstAttribute="height" constant="236" id="QQ5-Z4-QM4"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developed by MAG Industries " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRY-xA-Ebl">
-                                <rect key="frame" x="362" y="724" width="300" height="24"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="6gH-x9-kSN">
+                                <rect key="frame" x="326" y="336" width="372" height="201"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="8jZ-gl-hFQ"/>
+                                    <constraint firstAttribute="height" constant="201" id="fYc-Lz-caG"/>
+                                    <constraint firstAttribute="width" constant="372" id="jUJ-nL-PFD"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developed by MAG Industries" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6is-on-S4e">
+                                <rect key="frame" x="387.5" y="736" width="249" height="22"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="7Zw-0T-CbU">
-                                <rect key="frame" x="371" y="70" width="282" height="245"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="245" id="5A1-po-I7a"/>
-                                    <constraint firstAttribute="width" constant="282" id="Sw2-SB-Uau"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="wRY-xA-Ebl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5Wf-2O-1Jv"/>
-                            <constraint firstItem="fHN-eD-W1A" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="DwB-X5-sjG"/>
-                            <constraint firstItem="fHN-eD-W1A" firstAttribute="top" secondItem="7Zw-0T-CbU" secondAttribute="bottom" constant="45" id="NJJ-f1-qvx"/>
-                            <constraint firstItem="7Zw-0T-CbU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="anF-Bh-Qqz"/>
-                            <constraint firstItem="0g4-wa-4Pe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="btx-vY-3MS"/>
-                            <constraint firstItem="0g4-wa-4Pe" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="fL1-TC-S5i"/>
-                            <constraint firstItem="0g4-wa-4Pe" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ki1-G0-vVI"/>
-                            <constraint firstItem="wRY-xA-Ebl" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-20" id="lDX-3R-bor"/>
-                            <constraint firstItem="7Zw-0T-CbU" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mH5-Lz-TpV"/>
-                            <constraint firstItem="0g4-wa-4Pe" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="wTm-Gs-YBA"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="bottom" secondItem="GGn-L9-un1" secondAttribute="bottom" id="0df-Ww-m7b"/>
+                            <constraint firstItem="sfc-Em-KTY" firstAttribute="top" secondItem="GGn-L9-un1" secondAttribute="top" constant="50" id="3jH-sR-hjc"/>
+                            <constraint firstItem="6gH-x9-kSN" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="82B-YK-Btg"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="leading" secondItem="GGn-L9-un1" secondAttribute="leading" id="B1t-RN-JxR"/>
+                            <constraint firstItem="sfc-Em-KTY" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="DH6-SP-Na9"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="N0d-ml-czC"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" id="VAh-Lb-glb"/>
+                            <constraint firstItem="6is-on-S4e" firstAttribute="bottom" secondItem="GGn-L9-un1" secondAttribute="bottom" constant="-10" id="W4s-GX-wQJ"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="trailing" secondItem="GGn-L9-un1" secondAttribute="trailing" id="fbD-AF-vXx"/>
+                            <constraint firstItem="6is-on-S4e" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="kSa-Wq-jxs"/>
+                            <constraint firstItem="6gH-x9-kSN" firstAttribute="top" secondItem="sfc-Em-KTY" secondAttribute="bottom" constant="30" id="tYK-iF-b1j"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="GGn-L9-un1"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

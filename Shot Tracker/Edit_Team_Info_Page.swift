@@ -379,7 +379,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     func succesfulTeamAdd(){
         
-        let successfulQuery = UIAlertController(title: "Team changed Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: "Team \(selectTeam) has been successfully changed to \(newTeamName.text)", message: "", preferredStyle: UIAlertController.Style.alert)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
         self.present(successfulQuery, animated: true, completion: nil)
@@ -387,7 +387,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     func succesfulPlayerAdd(){
         
-        let successfulQuery = UIAlertController(title: "Player changed Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: "Player \(selectedMainPlayer) has been successfully changed to \(newPlayerName.text)", message: "", preferredStyle: UIAlertController.Style.alert)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
         self.present(successfulQuery, animated: true, completion: nil)
@@ -405,7 +405,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func misMatchAlert(){
         
         // create the alert
-        let missingField = UIAlertController(title: "Mismatch of Position/Line Error", message: "Select the approiate line for the approiate position.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: "Mismatch of Position/Line Error", message: "Select the appropriate line for the appropriate position.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
