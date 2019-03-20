@@ -20,6 +20,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
     @IBOutlet weak var savePerDataMissingLabel: UILabel!
     @IBOutlet weak var savePerShotDataMissingLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var oneHundredPerNote: UILabel!
     
     var homeTeam: Int!
     var awayTeam: Int!
@@ -195,27 +196,35 @@ class Current_Stats_Ananlytical_View: UIViewController {
         // ---------------- save % overall ------------------
         let homeGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",gameID, homeGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         let homeGoalieGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",gameID, homeGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-        print(homeGoalieShots, homeGoalieGoals)
+        
         let awayGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",gameID, awayGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         let awayGoalieGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",gameID, awayGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
-        print(awayGoalieShots, awayGoalieGoals)
+        
         var homeGoalieTotal:Double = (Double(homeGoalieShots) / (Double(homeGoalieGoals) + Double(homeGoalieShots)))
         var awayGoalieTotal:Double = (Double(awayGoalieShots) / (Double(awayGoalieGoals) + Double(awayGoalieShots)))
-        print(homeGoalieTotal, awayGoalieTotal)
-        if(homeGoalieTotal > 0.0){
-            homeTeamGoalie.value = (homeGoalieTotal / (homeGoalieTotal + awayGoalieTotal)) * 100.00
-            savePerDataMissingLabel.isHidden = true
+       
+        if(homeGoalieTotal > 0.0 && awayGoalieTotal > 0.0){
+            let homeGoalieValue = (awayGoalieTotal / (homeGoalieTotal + awayGoalieTotal)) * 100.00
+            let awayGoalieValue = (homeGoalieTotal / (homeGoalieTotal + awayGoalieTotal)) * 100.00
+            print(homeGoalieValue, awayGoalieValue)
+            if (homeGoalieValue == 50.0 && awayGoalieValue == 50.0){
+                awayTeamGoalie.value = homeGoalieValue
+                homeTeamGoalie.value = awayGoalieValue
+                savePerDataMissingLabel.isHidden = true
+                oneHundredPerNote.isHidden = false
+            }else{
+                self.awayTeamGoalie.value = awayGoalieValue
+                self.homeTeamGoalie.value = homeGoalieValue
+                self.savePerDataMissingLabel.isHidden = true
+                oneHundredPerNote.isHidden = true
+            }
+            
         }else{
             homeTeamGoalie.value = 0.0
             savePerDataMissingLabel.isHidden = false
+            oneHundredPerNote.isHidden = true
         }
-        if(awayGoalieTotal > 0.0){
-            awayTeamGoalie.value = (awayGoalieTotal / (homeGoalieTotal + awayGoalieTotal)) * 100.00
-            savePerDataMissingLabel.isHidden = true
-        }else{
-            awayTeamGoalie.value = 0.0
-            savePerDataMissingLabel.isHidden = false
-        }
+       
     }
     
     func teamNameInitialize(){
