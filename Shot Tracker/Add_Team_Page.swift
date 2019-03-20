@@ -26,8 +26,17 @@ class Add_Team_Page: UIViewController {
         
     }
 
+    @IBAction func addPlayerButton(_ sender: UIButton) {
+     
+        if (realm.objects(teamInfoTable.self).max(ofProperty: "teamID") as Int? != nil){
+            self.performSegue(withIdentifier: "oldStatsPopUpSegue", sender: nil);
+        }else{
+            noTeamAlert()
+        }
+        
+    }
     //Func for when the add button is clicked
-    @IBAction func saveteamName(_ sender: Any){
+    @IBAction func saveteamName(_ sender: UIButton){
         //Takes user's input and stores it in the userinput variable
         let userInputTeam: String = teamName.text!
         
@@ -81,7 +90,7 @@ class Add_Team_Page: UIViewController {
         // creating a variable to hold alert controller with attached message and also the style of the alert controller
         let successfulQuery = UIAlertController(title: "Team \(teamName) was Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
         //adds action button to alert
-        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        successfulQuery.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         
         //show the alert
         self.present(successfulQuery, animated: true, completion: nil)
@@ -92,8 +101,18 @@ class Add_Team_Page: UIViewController {
             // create the alert
             let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled out before attemtping to add a new team.", preferredStyle: UIAlertController.Style.alert)
             // add an action (button)
-            missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            missingField.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             // show the alert
             self.present(missingField, animated: true, completion: nil)
+    }
+    //function for missing field alert
+    func noTeamAlert(){
+        
+        // create the alert
+        let noTeamAlert = UIAlertController(title: "Whoops!", message: "Please add a team before attempting to add players.", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        noTeamAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(noTeamAlert, animated: true, completion: nil)
     }
 }

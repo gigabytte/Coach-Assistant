@@ -39,8 +39,11 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("Selected team", SeletedGame)
+        
         homeTeam = realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.homeTeamID)?.teamID
         awayTeam = realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.opposingTeamID)?.teamID
+        
         recordLabelProcessing()
         homePlayerStatsTable.layer.cornerRadius = 10
         awayPlayerStatsTable.layer.cornerRadius = 10
@@ -70,6 +73,7 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
             print("Current Goal Stats Defaulted to 0")
         }
         if(realm.objects(newGameTable.self).filter("gameID >= 0").last != nil && realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").last != nil){
+
             numShotInitialize()
             
             print("Succesfully Rendered Current Shot Stats")
@@ -82,12 +86,14 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
             print("Current Shot Stats Defaulted to 0")
             
         }
+        print(homePlayerStatsArray)
+        print(awayPlayerStatsArray)
        
     }
     // func gets count for number of wins, losses and ties and displays them
     // appropriate label
     func recordLabelProcessing(){
-        
+    
         let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
         
         let homeTeamTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
@@ -224,6 +230,7 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
             homePlayerStatsArray[x] = homePlayerStatsArray[x] + "In Game Plus/Minus: \(String(plusMinusTotal))"
             
          }
+         print("home player passed")
      }
     
      func away_playerStatsProcessing(){
@@ -271,8 +278,9 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
             }
             
             awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "In Game Plus/Minus: \(String(plusMinusTotal))"
-         
+            
          }
+        print("away player passed")
      
      }
     
