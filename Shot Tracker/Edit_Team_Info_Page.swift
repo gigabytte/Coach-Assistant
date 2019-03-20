@@ -250,7 +250,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         print(activePlayerBool)
     }
     
-    @IBAction func saveEditedPlayer(_ sender: Any) {
+    @IBAction func saveEditedPlayer(_ sender: UIButton) {
         let playerLine = selectLine
         let playerPosition = selectPosition
         let playerName = newPlayerName.text!
