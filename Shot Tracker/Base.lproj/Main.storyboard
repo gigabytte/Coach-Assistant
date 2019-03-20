@@ -1537,7 +1537,7 @@
                     <connections>
                         <outlet property="inActiveTeamToggle" destination="Klt-bK-htL" id="xEt-dc-of9"/>
                         <outlet property="teamName" destination="iJN-fE-jbl" id="7Fj-dK-ieE"/>
-                        <segue destination="laf-Ow-yCr" kind="presentation" identifier="adddPlayerSegue" id="rYW-Ia-h23"/>
+                        <segue destination="laf-Ow-yCr" kind="presentation" identifier="addPlayerSegue" id="rYW-Ia-h23"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pTf-W0-xMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2485,10 +2485,11 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="rYW-Ia-h23"/>
         <segue reference="h0M-DS-WA3"/>
         <segue reference="G5K-rA-i7R"/>
         <segue reference="Dru-ha-s6H"/>
-        <segue reference="YVz-TT-Imk"/>
+        <segue reference="jMX-vY-t9s"/>
         <segue reference="G60-nY-BQ9"/>
         <segue reference="32S-Sg-MIU"/>
         <segue reference="gnl-VH-ivh"/>

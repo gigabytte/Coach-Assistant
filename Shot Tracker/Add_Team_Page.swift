@@ -29,7 +29,7 @@ class Add_Team_Page: UIViewController {
     @IBAction func addPlayerButton(_ sender: UIButton) {
      
         if (realm.objects(teamInfoTable.self).max(ofProperty: "teamID") as Int? != nil){
-            self.performSegue(withIdentifier: "oldStatsPopUpSegue", sender: nil);
+            self.performSegue(withIdentifier: "addPlayerSegue", sender: nil);
         }else{
             noTeamAlert()
         }
