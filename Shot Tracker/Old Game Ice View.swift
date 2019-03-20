@@ -118,7 +118,7 @@ class Old_Game_Ice_View: UIViewController {
             let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
             let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
             
-            navBar.topItem!.title = "Ice Surafce View of \(home_teamNameFilter!) vs \(away_teamNameFilter!)"
+            navBar.topItem!.title = "Ice Surface View of \(home_teamNameFilter!) vs \(away_teamNameFilter!)"
         }else{
             print("Error Unable to Gather Team Name, Nav Bar Has Defaulted")
             

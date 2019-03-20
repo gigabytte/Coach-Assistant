@@ -60,7 +60,7 @@ class Settings_Page: UIViewController {
     func backupUpDateCheck(){
         
         if(UserDefaults.standard.object(forKey: "lastBackup") != nil){
-            backupDateLabel.text = "Last Know Backup: \(UserDefaults.standard.object(forKey: "lastBackup") as! String)"
+            backupDateLabel.text = "Last Known Backup: \(UserDefaults.standard.object(forKey: "lastBackup") as! String)"
         }else{
             backupDateLabel.isHidden = true
         }
@@ -74,7 +74,7 @@ class Settings_Page: UIViewController {
                 self.sucessProcessText.textAlignment = .center
                 self.sucessProcessText.textColor = UIColor.red
             }else{
-                self.sucessProcessText.text = "Import was Sucessful"
+                self.sucessProcessText.text = "Import was Successful"
                 self.sucessProcessText.textAlignment = .center
                 self.sucessProcessText.textColor = UIColor.red
             }
