@@ -621,9 +621,6 @@
                                         <state key="normal" backgroundImage="coach_assitant_icon">
                                             <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
-                                        <connections>
-                                            <segue destination="H6E-KX-Ner" kind="presentation" identifier="oldStatsAnalyticsPopUp" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="h0M-DS-WA3"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shots" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSn-7q-ddJ" userLabel="Away Shots">
                                         <rect key="frame" x="582" y="24.5" width="47" height="22"/>
@@ -712,15 +709,118 @@
                         <outlet property="awayTeamNameLabel" destination="AMV-pW-tC4" id="rzl-rK-RRn"/>
                         <outlet property="awayTeamNumGoals" destination="MeQ-mA-oex" id="G92-xF-nP8"/>
                         <outlet property="awayTeamNumShots" destination="1r2-y8-ww4" id="0pT-Xg-NKu"/>
+                        <outlet property="coachAssitantLogoBtn" destination="L2b-zm-3bP" id="wPH-Wq-3K1"/>
                         <outlet property="homeTeamNameLabel" destination="dvr-dK-NLd" id="Ty2-a7-F9c"/>
                         <outlet property="homeTeamNumGoals" destination="4gm-mO-jwS" id="koY-L4-EZ8"/>
                         <outlet property="homeTeamNumShots" destination="KWD-MT-onM" id="va0-bQ-adP"/>
                         <outlet property="navBar" destination="W1h-sR-cQ2" id="aAE-gR-Y7E"/>
+                        <segue destination="H6E-KX-Ner" kind="presentation" identifier="oldStatsAnalyticsPopUp" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="pOz-SY-0TH"/>
+                        <segue destination="tO8-VR-M4z" kind="presentation" identifier="goalieSelectionPopUp" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="6SA-oY-Fmn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACA-Fc-UDp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="526.7578125" y="2155.46875"/>
+        </scene>
+        <!--Old Stats Goalie Selection View-->
+        <scene sceneID="hkf-2k-HKK">
+            <objects>
+                <viewController id="tO8-VR-M4z" customClass="Old_Stats_Goalie_Selection_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yXe-FU-cey">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rwm-8d-iK0" userLabel="popUpView">
+                                <rect key="frame" x="270" y="193.5" width="484" height="381"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="blank_goalie" translatesAutoresizingMaskIntoConstraints="NO" id="IX9-eh-2Cc">
+                                        <rect key="frame" x="0.0" y="0.0" width="484" height="325"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5I3-s7-CwR">
+                                        <rect key="frame" x="201" y="75" width="82.5" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select Goalie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2A-PN-h54">
+                                        <rect key="frame" x="127" y="-100" width="230.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="StA-ju-Dxm">
+                                        <rect key="frame" x="0.0" y="324" width="484" height="57"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="57" id="FCC-ZP-ZMA"/>
+                                            <constraint firstAttribute="width" constant="484" id="vrl-me-OCa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Continue"/>
+                                        <connections>
+                                            <action selector="continueButton:" destination="gVv-Rk-J4I" eventType="touchUpInside" id="6tY-FH-EZj"/>
+                                            <action selector="continueButton:" destination="tO8-VR-M4z" eventType="touchUpInside" id="qFZ-0B-tDu"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_scroll_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="R6a-Lf-KeC">
+                                        <rect key="frame" x="426" y="141.5" width="58" height="58"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="58" id="Zcp-lE-JzX"/>
+                                            <constraint firstAttribute="height" constant="58" id="maC-7l-mh4"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left_scroll_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="LrY-7P-3bg">
+                                        <rect key="frame" x="0.0" y="141.5" width="58" height="58"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="58" id="9Uy-f2-6lM"/>
+                                            <constraint firstAttribute="width" constant="58" id="obd-QR-kOs"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.870648478" green="0.870648478" blue="0.870648478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="R6a-Lf-KeC" firstAttribute="centerY" secondItem="LrY-7P-3bg" secondAttribute="centerY" id="1ne-yV-fhj"/>
+                                    <constraint firstItem="LrY-7P-3bg" firstAttribute="leading" secondItem="Rwm-8d-iK0" secondAttribute="leading" id="43P-v3-1bl"/>
+                                    <constraint firstItem="StA-ju-Dxm" firstAttribute="leading" secondItem="Rwm-8d-iK0" secondAttribute="leading" id="9vM-Sy-CAI"/>
+                                    <constraint firstItem="IX9-eh-2Cc" firstAttribute="leading" secondItem="Rwm-8d-iK0" secondAttribute="leading" id="C7u-q3-6Xi"/>
+                                    <constraint firstAttribute="width" constant="484" id="G9L-ex-jEn"/>
+                                    <constraint firstItem="5I3-s7-CwR" firstAttribute="centerX" secondItem="Rwm-8d-iK0" secondAttribute="centerX" id="I50-ep-vt5"/>
+                                    <constraint firstAttribute="height" constant="381" id="JCe-Mt-VpF"/>
+                                    <constraint firstItem="IX9-eh-2Cc" firstAttribute="top" secondItem="Rwm-8d-iK0" secondAttribute="top" id="KDd-do-PQz"/>
+                                    <constraint firstItem="StA-ju-Dxm" firstAttribute="bottom" secondItem="Rwm-8d-iK0" secondAttribute="bottom" id="Ku8-9j-XZf"/>
+                                    <constraint firstItem="IX9-eh-2Cc" firstAttribute="centerX" secondItem="Rwm-8d-iK0" secondAttribute="centerX" id="Veg-EK-jLU"/>
+                                    <constraint firstItem="5I3-s7-CwR" firstAttribute="top" secondItem="Rwm-8d-iK0" secondAttribute="top" constant="75" id="gFy-Z6-rFD"/>
+                                    <constraint firstItem="L2A-PN-h54" firstAttribute="centerX" secondItem="Rwm-8d-iK0" secondAttribute="centerX" id="giQ-dq-4fb"/>
+                                    <constraint firstItem="StA-ju-Dxm" firstAttribute="trailing" secondItem="Rwm-8d-iK0" secondAttribute="trailing" id="i4V-ft-v7W"/>
+                                    <constraint firstItem="LrY-7P-3bg" firstAttribute="centerY" secondItem="Rwm-8d-iK0" secondAttribute="centerY" constant="-20" id="jgy-lY-nh3"/>
+                                    <constraint firstItem="R6a-Lf-KeC" firstAttribute="trailing" secondItem="Rwm-8d-iK0" secondAttribute="trailing" id="xtj-PR-ifH"/>
+                                    <constraint firstAttribute="trailing" secondItem="IX9-eh-2Cc" secondAttribute="trailing" id="yjt-TL-z9U"/>
+                                    <constraint firstItem="L2A-PN-h54" firstAttribute="top" secondItem="Rwm-8d-iK0" secondAttribute="top" constant="-100" id="z5j-Dl-h2E"/>
+                                    <constraint firstItem="IX9-eh-2Cc" firstAttribute="bottom" secondItem="StA-ju-Dxm" secondAttribute="top" id="zsg-Nz-Idd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Rwm-8d-iK0" firstAttribute="centerY" secondItem="yXe-FU-cey" secondAttribute="centerY" id="1Bf-bQ-z8I"/>
+                            <constraint firstItem="Rwm-8d-iK0" firstAttribute="centerX" secondItem="yXe-FU-cey" secondAttribute="centerX" id="tlE-UA-YZ5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ZKg-0b-IyO"/>
+                    </view>
+                    <connections>
+                        <outlet property="continueButton" destination="StA-ju-Dxm" id="BvA-3W-LZK"/>
+                        <outlet property="goalieNumberLabel" destination="5I3-s7-CwR" id="Uhg-6H-fzb"/>
+                        <outlet property="hockeyNetImageView" destination="IX9-eh-2Cc" id="Fcx-Se-f4F"/>
+                        <outlet property="leftScrollArrowImage" destination="LrY-7P-3bg" id="Nht-31-Yp3"/>
+                        <outlet property="newGameLabel" destination="L2A-PN-h54" id="OUf-SG-cdf"/>
+                        <outlet property="popUpView" destination="Rwm-8d-iK0" id="zhV-XV-vTa"/>
+                        <outlet property="rightScrollArrowImage" destination="R6a-Lf-KeC" id="OrK-4x-aSb"/>
+                        <segue destination="zHg-Yo-d0f" kind="presentation" identifier="closeGoalieSelection" modalTransitionStyle="crossDissolve" id="vMV-Fg-8jE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y41-eJ-X1D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="526.7578125" y="2958.59375"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -2483,6 +2583,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="blank_goalie" width="672.75" height="401.25"/>
         <image name="coach_assitant_full_trans" width="500" height="335"/>
         <image name="coach_assitant_icon" width="45.599998474121094" height="45.599998474121094"/>
         <image name="gear" width="192" height="192"/>
@@ -2494,14 +2595,14 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="maz-bK-j91"/>
+        <segue reference="pOz-SY-0TH"/>
         <segue reference="Ptd-6y-Gek"/>
-        <segue reference="J2W-Lf-Ndn"/>
+        <segue reference="hOb-ku-mB8"/>
         <segue reference="jMX-vY-t9s"/>
         <segue reference="G60-nY-BQ9"/>
-        <segue reference="VT3-rT-kon"/>
-        <segue reference="Qvi-1t-WK0"/>
-        <segue reference="B9O-nl-JB9"/>
+        <segue reference="32S-Sg-MIU"/>
+        <segue reference="Ggy-8a-rEU"/>
+        <segue reference="vMV-Fg-8jE"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
 </document>

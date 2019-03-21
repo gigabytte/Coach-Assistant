@@ -26,18 +26,26 @@ class Old_Game_Ice_View: UIViewController {
     @IBOutlet weak var awayTeamNameLabel: UILabel!
     @IBOutlet weak var awayTeamNumGoals: UILabel!
     @IBOutlet weak var navBar: UINavigationBar!
+    @IBOutlet weak var coachAssitantLogoBtn: UIButton!
     
     var shotMarkerimageView: UIImageView!
     var goalMarkerimageView: UIImageView!
     
     var SeletedGame: Int!
+    var goalieSelectedID: Int!
     var homeTeam: Int!
     var awayTeam: Int!
     var tagCounter: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Game ID", SeletedGame)
+        print(goalieSelectedID)
+        if (goalieSelectedID == nil){
+            delay(0.5){
+                self.performSegue(withIdentifier: "goalieSelectionPopUp", sender: nil);
+            }
+        }
+        
         teamNameInitialize()
         teamIDProcessing()
         navBarProcessing()
@@ -78,7 +86,28 @@ class Old_Game_Ice_View: UIViewController {
         self.away_markerPlacement(markerType: self.awayTeamShotMarkerImage!)
         self.away_markerPlacement(markerType: self.awayTeamGoalMarkerImage!)
         
+        let singleLogoGesture = UITapGestureRecognizer(target: self, action: #selector(normalTapLogo(_:)))
+        singleLogoGesture.numberOfTapsRequired = 1
+        coachAssitantLogoBtn.addGestureRecognizer(singleLogoGesture)
+        
+        let longLogoGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapLogo(_:)))
+        coachAssitantLogoBtn.addGestureRecognizer(longLogoGesture)
+        
     }
+    
+    @objc func normalTapLogo(_ sender: UIGestureRecognizer){
+        // segue to golaie picker poage from new game on single press
+       self.performSegue(withIdentifier: "goalieSelectionPopUp", sender: nil);
+    }
+    
+    @objc func longTapLogo(_ sender: UIGestureRecognizer){
+        // segue to ananlytics page on long press
+        if sender.state == .ended {
+            self.performSegue(withIdentifier: "oldStatsAnalyticsPopUp", sender: nil);
+            
+        }
+    }
+    
     @objc func singleShotMarkerTapped(sender: UITapGestureRecognizer?) {
         print("Shot Marker Tapped")
         let newView = sender?.view
@@ -355,13 +384,28 @@ class Old_Game_Ice_View: UIViewController {
             // set var vc as destination segue
             let vc = segue.destination as! Old_Stats_Game_Details_Page
             vc.SeletedGame = SeletedGame
+            vc.goalieSelectedID = goalieSelectedID
+        }
+        if (segue.identifier == "goalieSelectionPopUp"){
+            // set var vc as destination segue
+            let vc = segue.destination as! Old_Stats_Goalie_Selection_View
+            vc.SeletedGame = SeletedGame
+            vc.goalieSelectedID = goalieSelectedID
         }
         if (segue.identifier == "oldStatsAnalyticsPopUp"){
             // set var vc as destination segue
             let vc = segue.destination as! Current_Stats_Ananlytical_View
             vc.SeletedGame = SeletedGame
             vc.oldStatsPopUpBool = true
+            vc.goalieSelectedID = goalieSelectedID
         }
+        
+    
+    }
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 
 }
