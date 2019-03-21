@@ -2494,7 +2494,6 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rYW-Ia-h23"/>
         <segue reference="maz-bK-j91"/>
         <segue reference="Ptd-6y-Gek"/>
         <segue reference="J2W-Lf-Ndn"/>
