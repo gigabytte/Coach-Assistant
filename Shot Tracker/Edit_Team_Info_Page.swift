@@ -279,7 +279,6 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func newTeamName(_ sender: UIButton) {
-        let teamID = homeTeam
         let newName = newTeamName.text!
         let newTeam = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID!);
         
@@ -332,6 +331,8 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func mainPlayerReterival(){
         if(((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(selectedTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})).count != 0){
              playersPicker.isUserInteractionEnabled = true
+            editPlayerButton.alpha = 1.0
+            editPlayerButton.isUserInteractionEnabled = false
             // Get main Home players on view controller load
             mainPlayerPickerData = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(selectedTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
             activePlayerBool = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(selectedTeamID))).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
@@ -343,6 +344,9 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             
             self.present(missingPlayers, animated: true, completion: nil)
              playersPicker.isUserInteractionEnabled = false
+            editPlayerButton.alpha = 0.5
+            editPlayerButton.isUserInteractionEnabled = false
+            mainPlayerPickerData = ["Default Player"]
            
         }
         

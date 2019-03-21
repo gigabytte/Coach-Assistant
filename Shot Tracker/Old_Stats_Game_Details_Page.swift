@@ -15,6 +15,7 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
     var SeletedGame: Int!
     var homeTeam: Int!
     var awayTeam: Int!
+    var goalieSelectedID: Int!
     var homePlayerIDs: [Int] = [Int]()
     var awayPlayerIDs: [Int] = [Int]()
     var homePlayerStatsArray: [String] = [String]()
@@ -317,6 +318,7 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
             // set var vc as destination segue
             let vc = segue.destination as! Old_Game_Ice_View
             vc.SeletedGame = SeletedGame
+            vc.goalieSelectedID = goalieSelectedID
         }
     }
 

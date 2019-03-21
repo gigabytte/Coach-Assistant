@@ -47,15 +47,17 @@ class Current_Stats_Ananlytical_View: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // if accesss from current game setting
         if(oldStatsPopUpBool != true){
             homeGoalieID = goalieSelectedID
             awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             gameID = (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
         }else{
+            // if accesse from old stats
             gameID = SeletedGame
             homeTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})[0]
             awayTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})[0]
-            homeGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
+            homeGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND positionType == %@ AND activeState == true", goalieSelectedID, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             
             
@@ -271,6 +273,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
             // set var vc as destination segue
             let currentStats = segue.destination as! Old_Game_Ice_View
             currentStats.SeletedGame = SeletedGame
+            currentStats.goalieSelectedID = goalieSelectedID
             
         }
         
