@@ -866,7 +866,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="6ur-DR-cSQ">
-                                <rect key="frame" x="322" y="40" width="315" height="269"/>
+                                <rect key="frame" x="322" y="40" width="383" height="213"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="219" id="W4g-GJ-dMf"/>
                                     <constraint firstAttribute="width" constant="380" id="fjF-xm-QI7"/>
@@ -1707,31 +1707,17 @@
                                     <constraint firstAttribute="height" constant="75" id="V4K-oR-at9"/>
                                 </constraints>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Against Forward Line" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTP-pc-13f">
-                                <rect key="frame" x="225" y="505" width="300" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="Q1W-ng-2cR"/>
-                                    <constraint firstAttribute="height" constant="29" id="gdi-6H-wpH"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For / Against Forward Line" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dew-Yp-yVO">
+                                <rect key="frame" x="140.5" y="515" width="269" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Against Defense Line" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dew-Yp-yVO">
-                                <rect key="frame" x="594" y="505" width="250" height="29"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A94-KV-RHa" userLabel="forwardLinesPicker">
+                                <rect key="frame" x="60" y="594" width="430" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="0bb-Ur-hLV"/>
-                                    <constraint firstAttribute="width" constant="250" id="Dht-Y2-BhM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A94-KV-RHa" userLabel="forwardAndDefenseLinePicker">
-                                <rect key="frame" x="185" y="549" width="654" height="104"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="654" id="kbo-jL-2fQ"/>
-                                    <constraint firstAttribute="height" constant="104" id="vvu-I6-x1J"/>
+                                    <constraint firstAttribute="height" constant="100" id="wSY-ON-vOZ"/>
+                                    <constraint firstAttribute="width" constant="430" id="xUM-1i-fvJ"/>
                                 </constraints>
                             </pickerView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOY-fD-I1s">
@@ -1768,48 +1754,64 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For / Against Defense Line" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6b-pZ-kNf">
+                                <rect key="frame" x="613" y="515" width="272" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="naE-Hz-xp9" userLabel="defenseLinePicker">
+                                <rect key="frame" x="534" y="594" width="430" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="HMU-do-kp4"/>
+                                    <constraint firstAttribute="width" constant="430" id="gYH-VD-boH"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Hg3-QB-gtK" firstAttribute="centerY" secondItem="QRi-cL-59M" secondAttribute="centerY" id="0Bh-lR-Enh"/>
+                            <constraint firstItem="z6b-pZ-kNf" firstAttribute="centerX" secondItem="Hg3-QB-gtK" secondAttribute="centerX" id="1Wh-xI-0HE"/>
                             <constraint firstItem="eOY-fD-I1s" firstAttribute="trailing" secondItem="8kU-Ou-ndF" secondAttribute="trailing" constant="-50" id="1lc-4Z-AbG"/>
                             <constraint firstItem="2qM-nr-541" firstAttribute="top" secondItem="8kU-Ou-ndF" secondAttribute="top" id="4I6-Hu-Mx6"/>
                             <constraint firstItem="HbF-vW-oyp" firstAttribute="top" secondItem="QRi-cL-59M" secondAttribute="bottom" constant="15" id="4Zn-uM-8Gf"/>
                             <constraint firstItem="F4T-PN-kBE" firstAttribute="centerX" secondItem="DNz-M4-no2" secondAttribute="centerX" id="5EK-v6-PJf"/>
-                            <constraint firstItem="Dew-Yp-yVO" firstAttribute="centerY" secondItem="YTP-pc-13f" secondAttribute="centerY" id="5fj-Uc-Cdg"/>
-                            <constraint firstItem="Dew-Yp-yVO" firstAttribute="leading" secondItem="Hg3-QB-gtK" secondAttribute="leading" constant="-30" id="7bB-4P-lue"/>
+                            <constraint firstItem="Dew-Yp-yVO" firstAttribute="centerX" secondItem="QRi-cL-59M" secondAttribute="centerX" id="6IC-oy-FkV"/>
                             <constraint firstItem="eOY-fD-I1s" firstAttribute="top" secondItem="fa1-wV-J1X" secondAttribute="bottom" constant="40" id="CXY-8G-uAd"/>
                             <constraint firstItem="fa1-wV-J1X" firstAttribute="leading" secondItem="8kU-Ou-ndF" secondAttribute="leading" id="Cmt-IH-LDG"/>
                             <constraint firstItem="fa1-wV-J1X" firstAttribute="centerX" secondItem="DNz-M4-no2" secondAttribute="centerX" id="F9T-Ao-KWT"/>
                             <constraint firstItem="fU4-p8-c6j" firstAttribute="top" secondItem="fa1-wV-J1X" secondAttribute="bottom" constant="60" id="HQ2-8S-aGb"/>
                             <constraint firstItem="1gc-HH-OWp" firstAttribute="trailing" secondItem="eOY-fD-I1s" secondAttribute="leading" constant="-15" id="I9i-Ct-fTA"/>
                             <constraint firstAttribute="trailing" secondItem="2qM-nr-541" secondAttribute="trailing" id="ILF-wn-5aT"/>
-                            <constraint firstItem="YTP-pc-13f" firstAttribute="leading" secondItem="QRi-cL-59M" secondAttribute="leading" constant="75" id="JU0-98-LdB"/>
-                            <constraint firstItem="YTP-pc-13f" firstAttribute="top" secondItem="HbF-vW-oyp" secondAttribute="bottom" constant="65" id="NpV-6K-iCS"/>
+                            <constraint firstItem="A94-KV-RHa" firstAttribute="top" secondItem="Dew-Yp-yVO" secondAttribute="bottom" constant="50" id="MaZ-dj-eW4"/>
                             <constraint firstItem="bSo-kO-Xx7" firstAttribute="centerY" secondItem="HbF-vW-oyp" secondAttribute="centerY" id="PkA-oC-g1R"/>
                             <constraint firstAttribute="bottom" secondItem="2qM-nr-541" secondAttribute="bottom" id="QYh-Fr-rUW"/>
                             <constraint firstItem="2qM-nr-541" firstAttribute="centerX" secondItem="DNz-M4-no2" secondAttribute="centerX" id="W6s-gq-Hgy"/>
+                            <constraint firstItem="naE-Hz-xp9" firstAttribute="centerX" secondItem="z6b-pZ-kNf" secondAttribute="centerX" id="WZ9-4O-Tcp"/>
                             <constraint firstItem="2qM-nr-541" firstAttribute="leading" secondItem="DNz-M4-no2" secondAttribute="leading" id="YFH-SW-wDa"/>
+                            <constraint firstItem="Dew-Yp-yVO" firstAttribute="top" secondItem="HbF-vW-oyp" secondAttribute="bottom" constant="75" id="YOg-kk-ewV"/>
                             <constraint firstItem="QRi-cL-59M" firstAttribute="top" secondItem="F4T-PN-kBE" secondAttribute="bottom" constant="50" id="YhT-zc-ywn"/>
                             <constraint firstItem="fU4-p8-c6j" firstAttribute="centerX" secondItem="DNz-M4-no2" secondAttribute="centerX" id="bue-Ym-cT2"/>
                             <constraint firstItem="2qM-nr-541" firstAttribute="top" secondItem="8kU-Ou-ndF" secondAttribute="top" id="dQc-gt-BZn"/>
                             <constraint firstItem="bSo-kO-Xx7" firstAttribute="centerX" secondItem="Hg3-QB-gtK" secondAttribute="centerX" id="g7d-yi-MHO"/>
-                            <constraint firstItem="A94-KV-RHa" firstAttribute="centerX" secondItem="DNz-M4-no2" secondAttribute="centerX" id="gW2-Qv-XO0"/>
                             <constraint firstItem="F4T-PN-kBE" firstAttribute="top" secondItem="fU4-p8-c6j" secondAttribute="bottom" constant="10" id="hgQ-O3-MLZ"/>
                             <constraint firstItem="HbF-vW-oyp" firstAttribute="centerX" secondItem="QRi-cL-59M" secondAttribute="centerX" id="hlt-Ey-HUZ"/>
+                            <constraint firstItem="naE-Hz-xp9" firstAttribute="top" secondItem="z6b-pZ-kNf" secondAttribute="bottom" constant="50" id="iL5-lr-TBV"/>
                             <constraint firstItem="Hg3-QB-gtK" firstAttribute="trailing" secondItem="8kU-Ou-ndF" secondAttribute="trailing" constant="-150" id="idD-Iq-cNY"/>
-                            <constraint firstItem="A94-KV-RHa" firstAttribute="top" secondItem="YTP-pc-13f" secondAttribute="bottom" constant="15" id="nFj-es-vKR"/>
+                            <constraint firstItem="A94-KV-RHa" firstAttribute="centerX" secondItem="Dew-Yp-yVO" secondAttribute="centerX" id="shr-hA-e5S"/>
                             <constraint firstItem="QRi-cL-59M" firstAttribute="leading" secondItem="DNz-M4-no2" secondAttribute="leading" constant="150" id="v0t-hn-e6l"/>
                             <constraint firstItem="fa1-wV-J1X" firstAttribute="trailing" secondItem="8kU-Ou-ndF" secondAttribute="trailing" id="w8a-uZ-mIR"/>
                             <constraint firstItem="1gc-HH-OWp" firstAttribute="centerY" secondItem="eOY-fD-I1s" secondAttribute="centerY" id="wBQ-nH-AVv"/>
+                            <constraint firstItem="z6b-pZ-kNf" firstAttribute="centerY" secondItem="Dew-Yp-yVO" secondAttribute="centerY" id="wZy-BN-HKk"/>
                             <constraint firstItem="fa1-wV-J1X" firstAttribute="top" secondItem="8kU-Ou-ndF" secondAttribute="top" id="ypo-KL-ntQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8kU-Ou-ndF"/>
                     </view>
                     <connections>
                         <outlet property="assitantsPickerView" destination="bSo-kO-Xx7" id="fHN-qw-uUW"/>
+                        <outlet property="defenseLinePicker" destination="naE-Hz-xp9" id="xQj-Tg-EWo"/>
+                        <outlet property="forwardLinePicker" destination="A94-KV-RHa" id="EnJ-pc-tMR"/>
                         <outlet property="goalTypePickerView" destination="F4T-PN-kBE" id="cGd-XI-SQs"/>
-                        <outlet property="linePickerView" destination="A94-KV-RHa" id="WPu-OU-IXg"/>
                         <outlet property="navBar" destination="fa1-wV-J1X" id="5Z7-9H-cAO"/>
                         <outlet property="powerPlayToggleSwitch" destination="eOY-fD-I1s" id="iFN-8n-OBG"/>
                         <outlet property="shot_goalPickerView" destination="HbF-vW-oyp" id="ET8-Ez-wpb"/>
@@ -1818,7 +1820,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6I-yR-9ZB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1159" y="-1377"/>
+            <point key="canvasLocation" x="1158.984375" y="-1377.34375"/>
         </scene>
         <!--Shot Location View-->
         <scene sceneID="rc0-lA-XJQ">
@@ -2597,9 +2599,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="pOz-SY-0TH"/>
         <segue reference="Ptd-6y-Gek"/>
-        <segue reference="hOb-ku-mB8"/>
-        <segue reference="jMX-vY-t9s"/>
-        <segue reference="G60-nY-BQ9"/>
+        <segue reference="Fur-48-r3q"/>
+        <segue reference="YVz-TT-Imk"/>
+        <segue reference="oNI-jA-1s2"/>
         <segue reference="32S-Sg-MIU"/>
         <segue reference="Ggy-8a-rEU"/>
         <segue reference="vMV-Fg-8jE"/>
