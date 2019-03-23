@@ -93,7 +93,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         selectedTeamID = teamPickerSelect[0].teamID
         selectPosition = positionCodeData[0]
         selectedMainPlayer = mainPlayerPickerData[0]
-        selectLine = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", selectedMainPlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)}))[0]
+        selectLine = 1
         activeTeamBool = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true OR activeState == false")).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
         activePlayerBool = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(scoringPassedTeamID[0]))).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
         
@@ -176,7 +176,8 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 return goaliePositionData[row]
             }
         }else if(pickerView == linePicker){
-            return pickerData[row]
+                return pickerData[row]
+            
         }else{
             return mainPlayerPickerData[row];
         }
@@ -213,6 +214,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 selectLine = 0
                  positionPicker.reloadAllComponents()
             }
+            selectPosition = positionCodeData[row]
             print(selectLine)
         }else if(pickerView == positionPicker){
             switch selectLine{
@@ -399,7 +401,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 activePlayerBoolFunc(index: (mainPlayerPickerData.firstIndex(of: selectedMainPlayer)!))
             }
         }else{
-            
+            print("player postion",playerPosition)
             try! realm.write {
                 editedPlayer!.lineNum = playerLine
                 editedPlayer!.positionType = playerPosition
