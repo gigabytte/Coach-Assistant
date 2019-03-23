@@ -37,6 +37,7 @@
 		BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904B21F663BA00D02C0B /* Player Info Table.swift */; };
 		BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83904F21F6715400D02C0B /* Goal Marker Table.swift */; };
 		BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */; };
+		BE9016B622469E45006ECE5B /* Default Team Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9016B522469E45006ECE5B /* Default Team Selection View.swift */; };
 		BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */; };
 		BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25D223C300300228621 /* Overall Player Stats View.swift */; };
 		BE913A482233740500080081 /* Old Game Ice View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE913A472233740500080081 /* Old Game Ice View.swift */; };
@@ -119,6 +120,7 @@
 		BE83904B21F663BA00D02C0B /* Player Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player Info Table.swift"; sourceTree = "<group>"; };
 		BE83904F21F6715400D02C0B /* Goal Marker Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal Marker Table.swift"; sourceTree = "<group>"; };
 		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
+		BE9016B522469E45006ECE5B /* Default Team Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Default Team Selection View.swift"; sourceTree = "<group>"; };
 		BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Type Pop Up.swift"; sourceTree = "<group>"; };
 		BE90D25D223C300300228621 /* Overall Player Stats View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Overall Player Stats View.swift"; sourceTree = "<group>"; };
 		BE913A472233740500080081 /* Old Game Ice View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Game Ice View.swift"; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				BE90D25D223C300300228621 /* Overall Player Stats View.swift */,
 				BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */,
 				BEA08C962215F05200B6D73B /* Add_Player_Page.swift */,
+				BE9016B522469E45006ECE5B /* Default Team Selection View.swift */,
 				BE7D697B21E3D74300C1745C /* Main.storyboard */,
 				BE7D697E21E3D74500C1745C /* Assets.xcassets */,
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
@@ -514,6 +517,7 @@
 				BEB71900220A192B00DA6399 /* Current_Stats_Page.swift in Sources */,
 				BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */,
 				BE83904321F6515000D02C0B /* Realm.framework in Sources */,
+				BE9016B622469E45006ECE5B /* Default Team Selection View.swift in Sources */,
 				BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */,
 				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
 				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,

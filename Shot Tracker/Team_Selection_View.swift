@@ -28,7 +28,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     let rightArrowImage = UIImage(named: "right_scroll_arrow")
     
     // refrence to home and away pickerviews
-    @IBOutlet weak var homeTeamPickerView: UIPickerView!
+    @IBOutlet weak var defaultHomeTeamLabel: UILabel!
     @IBOutlet weak var awayTeamPickerView: UIPickerView!
     @IBOutlet weak var teamSelectionErrorText: UILabel!
     @IBOutlet weak var leftScrollArrowImage: UIImageView!
@@ -37,12 +37,6 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var continueButton: UIButton!
-    
-    //let realm = try! Realm()
-    // vars for home team data retrieval from Realm
-    var homeTeamPickerData:Results<teamInfoTable>!
-    var homeTeamValueSelected:[teamInfoTable] = []
-    var selectedHomeTeam: String = ""
     
     // vars for away team data retrieval from Realm
     var awayTeamPickerData:Results<teamInfoTable>!
@@ -54,6 +48,9 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        selectedHomeTeamKey = (UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)
+        
         bottomRoundedCorners(buttonName: cancelButton)
         bottomRoundedCorners(buttonName: continueButton)
         // add blur effect to view along with popUpView
@@ -77,16 +74,9 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
             primaryShotMarkerKey = (realm.objects(shotMarkerTable.self).max(ofProperty: "cordSetID") as Int? ?? 0);
         }
         
-        // Data Connections for picker views:
-        self.homeTeamPickerView.delegate = self
-        self.homeTeamPickerView.dataSource = self
         
         self.awayTeamPickerView.delegate = self
         self.awayTeamPickerView.dataSource = self
-        
-        // data translation from realm to local view controller array
-        self.homeTeamPickerData =  realm.objects(teamInfoTable.self)
-        self.homeTeamValueSelected = Array(self.homeTeamPickerData)
         
         self.awayTeamPickerData =  realm.objects(teamInfoTable.self)
         self.awayTeamValueSelected = Array(self.awayTeamPickerData)
@@ -95,7 +85,8 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         teamSelectionPopUpView.layer.cornerRadius = 10
         
         // default home team and away team selection
-        selectedHomeTeam = String(homeTeamValueSelected[0].nameOfTeam)
+        let homeTeamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == %@", selectedHomeTeamKey, NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}))[0]
+        defaultHomeTeamLabel.text = "\(homeTeamName) VS"
         selectedAwayTeam = String(awayTeamValueSelected[0].nameOfTeam)
         //hide team selectionn error by default
         teamSelectionErrorText.isHidden = true
@@ -214,7 +205,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBAction func continueTeamSelectionButton(_ sender: UIButton) {
         if (teamPlayerGoalieChecker(homeKey: selectedHomeTeamKey, awayKey: selectedAwayTeamKey) != false && (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@",String(selectedAwayTeamKey), NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count != 0 && (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@",String(selectedHomeTeamKey), NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count != 0){
-            if (selectedHomeTeam != selectedAwayTeam){
+            if (selectedHomeTeamKey != selectedAwayTeamKey){
                 // if home team and away team are not the same proceed with regular segue to New Game Page
                 animateOut()
                 continueTeamSelection()
@@ -287,42 +278,26 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     // The number of rows of data
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        //return homeTeamValueSelected.count;
-        if (pickerView == homeTeamPickerView){
-            return homeTeamValueSelected.count;
-        }else{
-            
-           return awayTeamValueSelected.count;
-        }
+        
+        return awayTeamValueSelected.count;
+     
     }
     
     // The data to return fopr the row and component (column) that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 
-        if (pickerView == homeTeamPickerView){
-            return homeTeamValueSelected[row].nameOfTeam;
-        }else{
-            
-            return awayTeamValueSelected[row].nameOfTeam;
-        }
+        return awayTeamValueSelected[row].nameOfTeam;
     }
     
     // Capture the picker view selection
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
-        if (pickerView == homeTeamPickerView){
-            teamSelectionErrorText.isHidden = true
-            selectedHomeTeam = homeTeamValueSelected[row].nameOfTeam;
-            selectedHomeTeamKey = homeTeamValueSelected[row].teamID;
-            print("Home Team Selected" + selectedHomeTeam + " " + String(selectedHomeTeamKey));
-        }else{
-            teamSelectionErrorText.isHidden = true
-            selectedAwayTeam = awayTeamValueSelected[row].nameOfTeam;
-            selectedAwayTeamKey = awayTeamValueSelected[row].teamID;
-            print("Away Team Selected" + selectedAwayTeam + " " + String(selectedAwayTeamKey));
-            //awayTeamValueSelected= awayTeamPickerData[row];
-        }
+        teamSelectionErrorText.isHidden = true
+        selectedAwayTeam = awayTeamValueSelected[row].nameOfTeam;
+        selectedAwayTeamKey = awayTeamValueSelected[row].teamID;
+        print("Away Team Selected" + selectedAwayTeam + " " + String(selectedAwayTeamKey));
+      
         
     }
     

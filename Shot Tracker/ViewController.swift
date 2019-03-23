@@ -12,13 +12,23 @@ import Realm
 class ViewController: UIViewController {
     
     let realm = try! Realm()
+    
     var activeStatus: Bool!
+    
     @IBOutlet weak var newGameButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    
+        // check is usr has selected a a deafult team yet
+       
+        if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
+              delay(0.5){
+                self.performSegue(withIdentifier: "defaultTeamSelection", sender: nil);
+            }
+            }else{
+                print("Default Home Team ID: \(UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)")
+        }
         
         delay(0.5){
             self.onGoingGame()
@@ -148,6 +158,12 @@ class ViewController: UIViewController {
             vc.newGameStarted = true
             vc.homeTeam =  self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID
             vc.awayTeam =  self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID
+            
+        }
+        if (segue.identifier == "defaultTeamSelection"){
+            // set var vc as destination segue
+            let vc = segue.destination as! Default_Team_Selection_View
+            vc.newGameLoad = true
             
         }
     }

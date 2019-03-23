@@ -217,7 +217,7 @@
                                 <rect key="frame" x="270" y="193.5" width="484" height="381"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left_scroll_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="En1-Eg-MO2" userLabel="Left Scroll Arrow">
-                                        <rect key="frame" x="0.0" y="142.5" width="58" height="58"/>
+                                        <rect key="frame" x="0.0" y="127.5" width="58" height="58"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="58" id="8oy-iW-iqH"/>
                                             <constraint firstAttribute="height" constant="58" id="wRZ-jN-mYT"/>
@@ -242,7 +242,7 @@
                                         </connections>
                                     </button>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qy2-Ug-Ndw" userLabel="Away Picker View">
-                                        <rect key="frame" x="0.0" y="258" width="484" height="60"/>
+                                        <rect key="frame" x="0.0" y="248" width="484" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="484" id="gog-kA-k0j"/>
                                             <constraint firstAttribute="height" constant="60" id="xDs-5o-yM2"/>
@@ -265,15 +265,8 @@
                                             <action selector="cancelTeamSelectionButton:" destination="IZU-xv-7nc" eventType="touchUpInside" id="yYY-M6-Bud"/>
                                         </connections>
                                     </button>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdC-Sk-Oys" userLabel="Home Picker View">
-                                        <rect key="frame" x="0.0" y="65" width="484" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="CIJ-fe-MuY"/>
-                                            <constraint firstAttribute="width" constant="484" id="tAu-Jj-A7c"/>
-                                        </constraints>
-                                    </pickerView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGg-Jz-AJ0">
-                                        <rect key="frame" x="0.0" y="30" width="484" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Team VS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZGg-Jz-AJ0">
+                                        <rect key="frame" x="0.0" y="40" width="484" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="O4K-gL-uga"/>
                                             <constraint firstAttribute="width" constant="484" id="e6m-Gq-aY3"/>
@@ -289,20 +282,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKD-Db-K0y">
-                                        <rect key="frame" x="193.5" y="160" width="97" height="23"/>
+                                        <rect key="frame" x="193.5" y="145" width="97" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_scroll_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="4Nh-NG-NRg" userLabel="Right Scroll Arrow">
-                                        <rect key="frame" x="426" y="142.5" width="58" height="58"/>
+                                        <rect key="frame" x="426" y="127.5" width="58" height="58"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="58" id="EHf-pR-r4q"/>
                                             <constraint firstAttribute="width" constant="58" id="sGV-7U-FOn"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHi-DB-y3W">
-                                        <rect key="frame" x="0.0" y="218" width="484" height="30"/>
+                                        <rect key="frame" x="0.0" y="208" width="484" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="484" id="6dk-Lv-bwY"/>
                                             <constraint firstAttribute="height" constant="30" id="VPQ-x4-qgg"/>
@@ -314,12 +307,9 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="tKD-Db-K0y" firstAttribute="top" secondItem="CdC-Sk-Oys" secondAttribute="bottom" constant="35" id="0I1-2h-MNh"/>
                                     <constraint firstItem="n7j-t7-pia" firstAttribute="trailing" secondItem="yaC-rk-9fe" secondAttribute="leading" id="0nA-ne-dNl"/>
                                     <constraint firstItem="ZGg-Jz-AJ0" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="6RT-UZ-u5G"/>
                                     <constraint firstItem="qy2-Ug-Ndw" firstAttribute="top" secondItem="CHi-DB-y3W" secondAttribute="bottom" constant="10" id="7i6-Aq-Qmg"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="484" id="Lmt-gP-lXm"/>
-                                    <constraint firstItem="CdC-Sk-Oys" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="SWm-s5-55r"/>
                                     <constraint firstItem="xse-xV-C8h" firstAttribute="top" secondItem="gwk-tY-52j" secondAttribute="top" constant="5" id="TgU-ve-zwO"/>
                                     <constraint firstItem="xse-xV-C8h" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="Tvl-99-tUu"/>
                                     <constraint firstItem="yaC-rk-9fe" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" multiplier="1.5" id="Uq4-TT-Wce"/>
@@ -327,17 +317,16 @@
                                     <constraint firstItem="CHi-DB-y3W" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="YQg-Hg-beB"/>
                                     <constraint firstItem="En1-Eg-MO2" firstAttribute="centerY" secondItem="tKD-Db-K0y" secondAttribute="centerY" id="bTW-2E-C8U"/>
                                     <constraint firstItem="4Nh-NG-NRg" firstAttribute="trailing" secondItem="gwk-tY-52j" secondAttribute="trailing" id="dYf-5Y-VeS"/>
-                                    <constraint firstItem="CHi-DB-y3W" firstAttribute="top" secondItem="tKD-Db-K0y" secondAttribute="bottom" constant="35" id="hQw-hf-ygL"/>
+                                    <constraint firstItem="CHi-DB-y3W" firstAttribute="top" secondItem="tKD-Db-K0y" secondAttribute="bottom" constant="40" id="hQw-hf-ygL"/>
+                                    <constraint firstItem="tKD-Db-K0y" firstAttribute="top" secondItem="ZGg-Jz-AJ0" secondAttribute="bottom" constant="75" id="iQK-Oj-GF6"/>
                                     <constraint firstAttribute="height" constant="381" id="jmI-WS-nhH"/>
                                     <constraint firstItem="4Nh-NG-NRg" firstAttribute="centerY" secondItem="tKD-Db-K0y" secondAttribute="centerY" id="koK-H0-Tjp"/>
                                     <constraint firstItem="qy2-Ug-Ndw" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="nAg-PS-OTd"/>
-                                    <constraint firstItem="tKD-Db-K0y" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="nj3-7f-A3R"/>
                                     <constraint firstAttribute="width" constant="484" id="obf-Gj-IXU"/>
                                     <constraint firstItem="En1-Eg-MO2" firstAttribute="leading" secondItem="gwk-tY-52j" secondAttribute="leading" id="qVN-jp-qAq"/>
-                                    <constraint firstItem="ZGg-Jz-AJ0" firstAttribute="top" secondItem="gwk-tY-52j" secondAttribute="top" constant="30" id="vNu-qp-NPs"/>
-                                    <constraint firstItem="CdC-Sk-Oys" firstAttribute="top" secondItem="ZGg-Jz-AJ0" secondAttribute="bottom" constant="5" id="yKL-xr-2mj"/>
+                                    <constraint firstItem="tKD-Db-K0y" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="usw-pY-o8P"/>
+                                    <constraint firstItem="ZGg-Jz-AJ0" firstAttribute="top" secondItem="gwk-tY-52j" secondAttribute="top" constant="40" id="vNu-qp-NPs"/>
                                     <constraint firstItem="n7j-t7-pia" firstAttribute="bottom" secondItem="gwk-tY-52j" secondAttribute="bottom" id="yL1-FE-6eR"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="381" id="zDZ-Y7-1q4"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="wBG-Ff-uhM"/>
                             </view>
@@ -354,8 +343,8 @@
                         <outlet property="awayTeamPickerView" destination="qy2-Ug-Ndw" id="ugH-LA-0rP"/>
                         <outlet property="cancelButton" destination="n7j-t7-pia" id="FZj-z6-Gal"/>
                         <outlet property="continueButton" destination="yaC-rk-9fe" id="vVF-Fb-eaN"/>
+                        <outlet property="defaultHomeTeamLabel" destination="ZGg-Jz-AJ0" id="94i-Yf-iaV"/>
                         <outlet property="gameTypeLabel" destination="tKD-Db-K0y" id="dU6-qP-Wav"/>
-                        <outlet property="homeTeamPickerView" destination="CdC-Sk-Oys" id="OjL-2J-4cG"/>
                         <outlet property="leftScrollArrowImage" destination="En1-Eg-MO2" id="Dwe-iL-3L0"/>
                         <outlet property="popUpView" destination="gwk-tY-52j" id="W06-aO-afh"/>
                         <outlet property="rightScrollArrowImage" destination="4Nh-NG-NRg" id="svK-Vu-tfS"/>
@@ -928,6 +917,7 @@
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="skipTeamSelectionSegue" id="3Is-IF-SeE"/>
                         <segue destination="Dy4-TQ-ADn" kind="presentation" identifier="editTeamPlayerSegue" id="jVU-KY-A3C"/>
                         <segue destination="RfZ-c4-UZR" kind="presentation" identifier="oldStatsPopUpSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="BkV-v9-ark"/>
+                        <segue destination="bPx-PN-8g4" kind="presentation" identifier="defaultTeamSelection" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="UEu-dW-dyP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1428,6 +1418,90 @@
             </objects>
             <point key="canvasLocation" x="-1562" y="61"/>
         </scene>
+        <!--Default Team Selection View-->
+        <scene sceneID="Fvf-hg-hNn">
+            <objects>
+                <viewController id="bPx-PN-8g4" customClass="Default_Team_Selection_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bva-aw-U34">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YeT-BL-u0Z" userLabel="popUpView">
+                                <rect key="frame" x="270" y="193.5" width="484" height="381"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sj0-HZ-nsp">
+                                        <rect key="frame" x="0.0" y="332" width="484" height="49"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="V1J-Dt-6BC"/>
+                                            <constraint firstAttribute="width" constant="484" id="fjh-4D-9db"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Continue">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="continueButton:" destination="bPx-PN-8g4" eventType="touchUpInside" id="VeV-UD-1b8"/>
+                                            <action selector="continueShotLocationButton:" destination="JOK-ut-mRn" eventType="touchUpInside" id="w3N-W6-bDk"/>
+                                            <action selector="continueTeamSelectionButton:" destination="IZU-xv-7nc" eventType="touchUpInside" id="p0X-0a-WfH"/>
+                                            <action selector="shotLocationInfoButton:" destination="n6v-6v-um8" eventType="touchUpInside" id="XL2-yP-JpT"/>
+                                        </connections>
+                                    </button>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9VB-Y7-b6A" userLabel="Home Picker View">
+                                        <rect key="frame" x="0.0" y="180" width="484" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="3OX-OL-gAk"/>
+                                            <constraint firstAttribute="width" constant="484" id="cNm-BQ-bhi"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select Your Default Team:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mle-KX-5so">
+                                        <rect key="frame" x="0.0" y="75" width="484" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="484" id="0vQ-jw-Zfq"/>
+                                            <constraint firstAttribute="height" constant="30" id="9iv-v7-sf4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="sj0-HZ-nsp" firstAttribute="leading" secondItem="YeT-BL-u0Z" secondAttribute="leading" multiplier="1.5" id="9MW-nU-tgR"/>
+                                    <constraint firstAttribute="height" constant="381" id="GCR-FY-Zaj"/>
+                                    <constraint firstItem="sj0-HZ-nsp" firstAttribute="bottom" secondItem="YeT-BL-u0Z" secondAttribute="bottom" id="cvq-DS-VwP"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="381" id="e2Q-fR-wxb"/>
+                                    <constraint firstItem="9VB-Y7-b6A" firstAttribute="top" secondItem="Mle-KX-5so" secondAttribute="bottom" constant="75" id="glJ-PO-Mn3"/>
+                                    <constraint firstItem="9VB-Y7-b6A" firstAttribute="centerX" secondItem="YeT-BL-u0Z" secondAttribute="centerX" id="jux-y3-0ct"/>
+                                    <constraint firstItem="sj0-HZ-nsp" firstAttribute="trailing" secondItem="zEZ-tK-Jcb" secondAttribute="trailing" id="k33-9G-Svw"/>
+                                    <constraint firstAttribute="width" constant="484" id="nkD-92-qjF"/>
+                                    <constraint firstItem="Mle-KX-5so" firstAttribute="top" secondItem="YeT-BL-u0Z" secondAttribute="top" constant="75" id="t8y-rw-Oo8"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="484" id="yu4-aO-AeR"/>
+                                    <constraint firstItem="Mle-KX-5so" firstAttribute="centerX" secondItem="YeT-BL-u0Z" secondAttribute="centerX" id="zJR-RV-OEy"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="zEZ-tK-Jcb"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YeT-BL-u0Z" firstAttribute="centerX" secondItem="bva-aw-U34" secondAttribute="centerX" id="j4C-FE-hBz"/>
+                            <constraint firstItem="YeT-BL-u0Z" firstAttribute="centerY" secondItem="bva-aw-U34" secondAttribute="centerY" id="kHh-su-jIn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sWB-LF-vmI"/>
+                    </view>
+                    <connections>
+                        <outlet property="continueButton" destination="sj0-HZ-nsp" id="Zog-px-5tG"/>
+                        <outlet property="homeTeamPicker" destination="9VB-Y7-b6A" id="pBQ-8h-y5O"/>
+                        <outlet property="popUpView" destination="YeT-BL-u0Z" id="swK-hA-r7u"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="backToHomeDefaultTeam" modalTransitionStyle="crossDissolve" id="S9b-VU-SC9"/>
+                        <segue destination="HGz-Vb-orN" kind="presentation" identifier="backToSettingsDefaultTeam" modalTransitionStyle="crossDissolve" id="EG1-6G-kQz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AeX-sG-syS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1766.015625" y="1568.75"/>
+        </scene>
         <!--Settings Page-->
         <scene sceneID="CnP-Gb-pp0">
             <objects>
@@ -1512,12 +1586,24 @@
                                     <action selector="wipeDataButton:" destination="HGz-Vb-orN" eventType="touchUpInside" id="0tt-oD-Lom"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nq-AB-PaT">
+                                <rect key="frame" x="949" y="97" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="dHh-RW-BAq"/>
+                                    <constraint firstAttribute="height" constant="45" id="f46-ZQ-abJ"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="defaults_icon"/>
+                                <connections>
+                                    <action selector="defaultsButton:" destination="HGz-Vb-orN" eventType="touchUpInside" id="xAB-RU-7Pt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5nO-EQ-RoC" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="1wq-TL-f3R"/>
                             <constraint firstItem="vvg-VL-dlw" firstAttribute="top" secondItem="bPG-eK-eEE" secondAttribute="centerY" constant="-150" id="6vi-sE-Exe"/>
                             <constraint firstItem="OkN-qp-8fO" firstAttribute="top" secondItem="5nO-EQ-RoC" secondAttribute="top" constant="100" id="7dp-gu-UWP"/>
+                            <constraint firstItem="7nq-AB-PaT" firstAttribute="top" secondItem="5nO-EQ-RoC" secondAttribute="bottom" constant="40" id="9MM-Rm-mII"/>
                             <constraint firstItem="vvg-VL-dlw" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="Acj-J6-AI0"/>
                             <constraint firstItem="OkN-qp-8fO" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="IEl-dQ-iry"/>
                             <constraint firstItem="ESj-xy-RSN" firstAttribute="bottom" secondItem="bUQ-qh-K4R" secondAttribute="bottom" constant="-30" id="JMB-v1-H94"/>
@@ -1529,6 +1615,7 @@
                             <constraint firstItem="tEJ-kz-1ET" firstAttribute="top" secondItem="vvg-VL-dlw" secondAttribute="bottom" constant="60" id="fvt-de-xEC"/>
                             <constraint firstItem="5nO-EQ-RoC" firstAttribute="trailing" secondItem="bPG-eK-eEE" secondAttribute="trailing" id="lRe-g6-ehC"/>
                             <constraint firstItem="ZEO-86-RCI" firstAttribute="top" secondItem="tEJ-kz-1ET" secondAttribute="bottom" constant="100" id="mhH-G3-bwh"/>
+                            <constraint firstItem="7nq-AB-PaT" firstAttribute="trailing" secondItem="bPG-eK-eEE" secondAttribute="trailing" constant="-30" id="pAm-J2-BKc"/>
                             <constraint firstItem="fcf-9r-McG" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="pUm-aI-7ji"/>
                             <constraint firstItem="5nO-EQ-RoC" firstAttribute="top" secondItem="bUQ-qh-K4R" secondAttribute="top" id="qh2-aT-URR"/>
                             <constraint firstItem="ZEO-86-RCI" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="rY6-yo-iBq"/>
@@ -1544,11 +1631,12 @@
                         <outlet property="sucessProcessText" destination="OkN-qp-8fO" id="8xw-1H-kVR"/>
                         <outlet property="wipeDataButton" destination="ZEO-86-RCI" id="o2t-nO-waI"/>
                         <segue destination="oAD-on-ycU" kind="presentation" identifier="importPopUpSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="cly-bS-gmy"/>
+                        <segue destination="bPx-PN-8g4" kind="presentation" identifier="defaultTeamSelectionSettings" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="pcX-mI-E1f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k0b-QP-s8q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-850" y="61"/>
+            <point key="canvasLocation" x="-850.1953125" y="60.9375"/>
         </scene>
         <!--Add Team Page-->
         <scene sceneID="Mka-Sj-9D5">
@@ -2588,6 +2676,7 @@
         <image name="blank_goalie" width="672.75" height="401.25"/>
         <image name="coach_assitant_full_trans" width="500" height="335"/>
         <image name="coach_assitant_icon" width="45.599998474121094" height="45.599998474121094"/>
+        <image name="defaults_icon" width="37.5" height="37.5"/>
         <image name="gear" width="192" height="192"/>
         <image name="hockey_net_basic_shot" width="902" height="531"/>
         <image name="hockey_net_period_basic" width="892" height="523"/>
@@ -2599,11 +2688,12 @@
     <inferredMetricsTieBreakers>
         <segue reference="pOz-SY-0TH"/>
         <segue reference="Ptd-6y-Gek"/>
-        <segue reference="Fur-48-r3q"/>
+        <segue reference="hOb-ku-mB8"/>
         <segue reference="YVz-TT-Imk"/>
-        <segue reference="oNI-jA-1s2"/>
+        <segue reference="EG1-6G-kQz"/>
+        <segue reference="pcX-mI-E1f"/>
         <segue reference="32S-Sg-MIU"/>
-        <segue reference="Ggy-8a-rEU"/>
+        <segue reference="2uF-ll-qm3"/>
         <segue reference="vMV-Fg-8jE"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
