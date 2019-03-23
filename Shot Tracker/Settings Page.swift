@@ -41,6 +41,10 @@ class Settings_Page: UIViewController {
         backupUpDateCheck()
         promptMessage()
     }
+    @IBAction func defaultsButton(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "defaultTeamSelectionSettings", sender: nil);
+        
+    }
     // on buttoin press delete all of relam data
     @IBAction func wipeDataButton(_ sender: Any) {
        deleteDataPrompt()
