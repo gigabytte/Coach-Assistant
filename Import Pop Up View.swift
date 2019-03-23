@@ -91,7 +91,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Contents of File")
         }
         
-        if (firstFileContentsParsed[0].count == 9){
+        if (firstFileContentsParsed[0].count == 10){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(newGameTable.self))
@@ -111,6 +111,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         primaryGameID?.opposingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
                         primaryGameID?.homeTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
                         primaryGameID?.gameType = firstFileContentsParsed[i][count]; count += 1
+                        primaryGameID?.gameLocation = firstFileContentsParsed[i][count]; count += 1
                         primaryGameID?.winingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
                         primaryGameID?.losingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
                         if (Bool(firstFileContentsParsed[i][count]) != nil && Bool(firstFileContentsParsed[i][count])!){

@@ -22,7 +22,8 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var awayNumShotTextField: UILabel!
     @IBOutlet weak var homePlayerStatsTable: UITableView!
     @IBOutlet weak var awayPlayerStatsTable: UITableView!
-
+    @IBOutlet weak var gameLocationLabel: UILabel!
+    
     
     var homeTeam: Int!
     var awayTeam: Int!
@@ -41,6 +42,11 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+         let gameLocation = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.gameID)!.gameLocation
+        gameLocationLabel.text = "Game Location:\n\(gameLocation)"
+        gameLocationLabel.textAlignment = .center
+        
         // round corner of table views
         homePlayerStatsTable.layer.cornerRadius = 10
         awayPlayerStatsTable.layer.cornerRadius = 10

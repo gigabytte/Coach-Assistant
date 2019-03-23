@@ -356,6 +356,7 @@
                         <outlet property="cancelButton" destination="n7j-t7-pia" id="FZj-z6-Gal"/>
                         <outlet property="continueButton" destination="yaC-rk-9fe" id="vVF-Fb-eaN"/>
                         <outlet property="defaultHomeTeamLabel" destination="ZGg-Jz-AJ0" id="94i-Yf-iaV"/>
+                        <outlet property="gameLocationTextField" destination="fyl-o8-rXI" id="4yw-FN-iN7"/>
                         <outlet property="gameTypeLabel" destination="tKD-Db-K0y" id="dU6-qP-Wav"/>
                         <outlet property="leftScrollArrowImage" destination="En1-Eg-MO2" id="Dwe-iL-3L0"/>
                         <outlet property="popUpView" destination="gwk-tY-52j" id="W06-aO-afh"/>
@@ -399,37 +400,37 @@
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zRj-sz-dhj">
-                                <rect key="frame" x="653" y="120" width="118" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <rect key="frame" x="643.5" y="120" width="137" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ms-eq-NiK">
-                                <rect key="frame" x="265" y="149" width="94" height="179.5"/>
+                                <rect key="frame" x="265" y="153.5" width="94" height="179.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="150"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Record" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XQ-br-dDt">
-                                <rect key="frame" x="236.5" y="358.5" width="151" height="21"/>
+                                <rect key="frame" x="236.5" y="363" width="151" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Record" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyM-ce-QUq">
-                                <rect key="frame" x="639.5" y="358.5" width="145" height="21"/>
+                                <rect key="frame" x="639.5" y="363" width="145" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Shot Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVs-LP-x8a">
-                                <rect key="frame" x="220.5" y="327.5" width="183" height="21"/>
+                                <rect key="frame" x="220.5" y="332" width="183" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Shot Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmW-z0-sgt">
-                                <rect key="frame" x="623.5" y="327.5" width="177" height="21"/>
+                                <rect key="frame" x="623.5" y="332" width="177" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -471,14 +472,20 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPY-Gv-SZA">
-                                <rect key="frame" x="665" y="149" width="94" height="179.5"/>
+                                <rect key="frame" x="665" y="153.5" width="94" height="179.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="150"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SH4-vG-51R">
-                                <rect key="frame" x="250" y="120" width="124" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <rect key="frame" x="240" y="120" width="144" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAL-11-tT6">
+                                <rect key="frame" x="444.5" y="181.5" width="135" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -500,6 +507,7 @@
                             <constraint firstItem="KLD-Ta-cWG" firstAttribute="top" secondItem="bsf-Y3-F2F" secondAttribute="top" id="FoY-HF-zJP"/>
                             <constraint firstItem="6ms-eq-NiK" firstAttribute="centerX" secondItem="SH4-vG-51R" secondAttribute="centerX" id="GSe-3e-NG8"/>
                             <constraint firstItem="9XQ-br-dDt" firstAttribute="top" secondItem="NVs-LP-x8a" secondAttribute="bottom" constant="10" id="KF8-Dp-3JE"/>
+                            <constraint firstItem="sAL-11-tT6" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" id="RZp-98-9KV"/>
                             <constraint firstItem="cyM-ce-QUq" firstAttribute="centerY" secondItem="9XQ-br-dDt" secondAttribute="centerY" id="TDE-5D-r34"/>
                             <constraint firstItem="KLD-Ta-cWG" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" id="Ubx-ff-3RX"/>
                             <constraint firstItem="ArZ-WR-PFS" firstAttribute="centerX" secondItem="SH4-vG-51R" secondAttribute="centerX" id="VQu-Kp-YjD"/>
@@ -507,6 +515,7 @@
                             <constraint firstItem="zRj-sz-dhj" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" constant="200" id="ZyX-V7-gcB"/>
                             <constraint firstItem="YPY-Gv-SZA" firstAttribute="centerY" secondItem="6ms-eq-NiK" secondAttribute="centerY" id="edk-vP-KWi"/>
                             <constraint firstItem="9XQ-br-dDt" firstAttribute="centerX" secondItem="SH4-vG-51R" secondAttribute="centerX" id="gQS-Qj-dRQ"/>
+                            <constraint firstItem="sAL-11-tT6" firstAttribute="centerY" secondItem="6ms-eq-NiK" secondAttribute="centerY" constant="-50" id="gWe-Af-FrE"/>
                             <constraint firstItem="ArZ-WR-PFS" firstAttribute="bottom" secondItem="XyQ-YX-gXN" secondAttribute="bottom" id="ibk-4I-hZr"/>
                             <constraint firstItem="X2R-7i-uk1" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" id="lMA-vt-IvW"/>
                             <constraint firstItem="MmW-z0-sgt" firstAttribute="centerX" secondItem="YPY-Gv-SZA" secondAttribute="centerX" id="lZi-UQ-GtC"/>
@@ -525,6 +534,7 @@
                         <outlet property="awayTeamNameTextField" destination="zRj-sz-dhj" id="Z93-gG-9SC"/>
                         <outlet property="awayTeamRecordLabel" destination="cyM-ce-QUq" id="xAK-ib-kCN"/>
                         <outlet property="awayTeamScoreTextField" destination="YPY-Gv-SZA" id="aPm-vh-NHZ"/>
+                        <outlet property="gameLocationLabel" destination="sAL-11-tT6" id="m36-Ec-cda"/>
                         <outlet property="homeNumShotTextField" destination="NVs-LP-x8a" id="k22-4r-a3Z"/>
                         <outlet property="homePlayerStatsTable" destination="ArZ-WR-PFS" id="sUj-lu-XRf"/>
                         <outlet property="homeTeamNameTextField" destination="SH4-vG-51R" id="U2G-ny-Ga3"/>
@@ -843,7 +853,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
                                 <state key="normal" title="Add Team or Player"/>
                                 <connections>
-                                    <segue destination="xfg-Tt-WO4" kind="presentation" id="YVz-TT-Imk"/>
+                                    <segue destination="xfg-Tt-WO4" kind="presentation" identifier="addTeamSegueFromMain" id="YVz-TT-Imk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guo-Th-gga">
@@ -1599,10 +1609,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nq-AB-PaT">
-                                <rect key="frame" x="949" y="97" width="45" height="45"/>
+                                <rect key="frame" x="959" y="97" width="35" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="dHh-RW-BAq"/>
-                                    <constraint firstAttribute="height" constant="45" id="f46-ZQ-abJ"/>
+                                    <constraint firstAttribute="width" constant="35" id="dHh-RW-BAq"/>
+                                    <constraint firstAttribute="height" constant="35" id="f46-ZQ-abJ"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="defaults_icon"/>
                                 <connections>
@@ -1615,7 +1625,7 @@
                             <constraint firstItem="5nO-EQ-RoC" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="1wq-TL-f3R"/>
                             <constraint firstItem="vvg-VL-dlw" firstAttribute="top" secondItem="bPG-eK-eEE" secondAttribute="centerY" constant="-150" id="6vi-sE-Exe"/>
                             <constraint firstItem="OkN-qp-8fO" firstAttribute="top" secondItem="5nO-EQ-RoC" secondAttribute="top" constant="100" id="7dp-gu-UWP"/>
-                            <constraint firstItem="7nq-AB-PaT" firstAttribute="top" secondItem="5nO-EQ-RoC" secondAttribute="bottom" constant="40" id="9MM-Rm-mII"/>
+                            <constraint firstItem="7nq-AB-PaT" firstAttribute="top" secondItem="5nO-EQ-RoC" secondAttribute="bottom" constant="35" id="9MM-Rm-mII"/>
                             <constraint firstItem="vvg-VL-dlw" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="Acj-J6-AI0"/>
                             <constraint firstItem="OkN-qp-8fO" firstAttribute="centerX" secondItem="bPG-eK-eEE" secondAttribute="centerX" id="IEl-dQ-iry"/>
                             <constraint firstItem="ESj-xy-RSN" firstAttribute="bottom" secondItem="bUQ-qh-K4R" secondAttribute="bottom" constant="-30" id="JMB-v1-H94"/>
@@ -1738,6 +1748,7 @@
                         <outlet property="inActiveTeamToggle" destination="Klt-bK-htL" id="xEt-dc-of9"/>
                         <outlet property="teamName" destination="iJN-fE-jbl" id="7Fj-dK-ieE"/>
                         <segue destination="laf-Ow-yCr" kind="presentation" identifier="addPlayerSegue" id="rYW-Ia-h23"/>
+                        <segue destination="HGz-Vb-orN" kind="presentation" identifier="noTeamSettingsSegue" id="3Bq-Va-GKz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pTf-W0-xMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2371,7 +2382,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="Bvd-H0-Lcb">
                                 <rect key="frame" x="1" y="20" width="1024" height="748"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SSZ-4w-m2E">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SSZ-4w-m2E">
                                 <rect key="frame" x="201" y="120" width="222" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="mCh-8I-p15"/>
@@ -2403,7 +2414,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="l96-iq-BdI">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l96-iq-BdI">
                                 <rect key="frame" x="604.5" y="120" width="215" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="d7G-He-MBZ"/>
@@ -2486,6 +2497,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Location:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1tW-ky-Tds">
+                                <rect key="frame" x="441.5" y="197" width="141" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2498,6 +2515,7 @@
                             <constraint firstItem="7wf-eN-HfQ" firstAttribute="leading" secondItem="kVl-nJ-a0j" secondAttribute="leading" id="8j3-Wf-ajp"/>
                             <constraint firstItem="ZY0-KF-XJ5" firstAttribute="centerX" secondItem="zFq-z5-t9Y" secondAttribute="centerX" id="9NM-wQ-0dg"/>
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="bottom" secondItem="kVl-nJ-a0j" secondAttribute="bottom" id="BHF-rp-iH0"/>
+                            <constraint firstItem="1tW-ky-Tds" firstAttribute="centerY" secondItem="IId-Ic-KbT" secondAttribute="centerY" constant="-50" id="DfX-lP-7cI"/>
                             <constraint firstItem="zFq-z5-t9Y" firstAttribute="centerX" secondItem="SSZ-4w-m2E" secondAttribute="centerX" id="Gam-8f-VT1"/>
                             <constraint firstItem="Vb6-y2-AHe" firstAttribute="top" secondItem="zFq-z5-t9Y" secondAttribute="bottom" constant="25" id="Hq4-vF-jsM"/>
                             <constraint firstItem="h2I-uS-fhY" firstAttribute="centerX" secondItem="IId-Ic-KbT" secondAttribute="centerX" constant="20" id="Lgl-9p-JN7"/>
@@ -2507,6 +2525,7 @@
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" id="W2f-wQ-sX5"/>
                             <constraint firstItem="Bvd-H0-Lcb" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" id="Wbo-U2-fKi"/>
                             <constraint firstItem="IId-Ic-KbT" firstAttribute="centerX" secondItem="l96-iq-BdI" secondAttribute="centerX" id="YGG-cg-kae"/>
+                            <constraint firstItem="1tW-ky-Tds" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" id="Yv0-1F-fFj"/>
                             <constraint firstItem="h2I-uS-fhY" firstAttribute="bottom" secondItem="kVl-nJ-a0j" secondAttribute="bottom" id="ajv-SY-0zi"/>
                             <constraint firstItem="zFq-z5-t9Y" firstAttribute="top" secondItem="SSZ-4w-m2E" secondAttribute="bottom" constant="30" id="bbe-ny-hjh"/>
                             <constraint firstAttribute="bottom" secondItem="Bvd-H0-Lcb" secondAttribute="bottom" id="cZj-C2-lhV"/>
@@ -2524,6 +2543,7 @@
                         <outlet property="awayPlayerStatsTable" destination="h2I-uS-fhY" id="CH9-KQ-oEO"/>
                         <outlet property="awayTeamNameTextField" destination="l96-iq-BdI" id="KPd-AC-k7P"/>
                         <outlet property="awayTeamScoreTextField" destination="IId-Ic-KbT" id="A4a-2h-Srw"/>
+                        <outlet property="gameLocationLabel" destination="1tW-ky-Tds" id="QiG-iG-e78"/>
                         <outlet property="homeNumShotTextField" destination="Vb6-y2-AHe" id="DSg-f6-X0C"/>
                         <outlet property="homePlayerStatsTable" destination="ZY0-KF-XJ5" id="vet-Nd-Id5"/>
                         <outlet property="homeTeamNameTextField" destination="SSZ-4w-m2E" id="8V9-hV-EV7"/>
@@ -2698,15 +2718,15 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pOz-SY-0TH"/>
+        <segue reference="maz-bK-j91"/>
         <segue reference="Ptd-6y-Gek"/>
-        <segue reference="Dru-ha-s6H"/>
+        <segue reference="J2W-Lf-Ndn"/>
         <segue reference="YVz-TT-Imk"/>
-        <segue reference="EG1-6G-kQz"/>
+        <segue reference="3Bq-Va-GKz"/>
         <segue reference="pcX-mI-E1f"/>
-        <segue reference="32S-Sg-MIU"/>
-        <segue reference="2uF-ll-qm3"/>
-        <segue reference="vMV-Fg-8jE"/>
+        <segue reference="VT3-rT-kon"/>
+        <segue reference="Ve8-tz-6Eb"/>
+        <segue reference="JQ5-8K-2Rt"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
 </document>
