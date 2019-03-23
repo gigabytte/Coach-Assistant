@@ -32,6 +32,7 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var homeTeamRecordLabel: UILabel!
     @IBOutlet weak var awayTeamRecordLabel: UILabel!
+    @IBOutlet weak var gameLocationLabel: UILabel!
     
     let textCellIdentifier = "cell"
     
@@ -39,8 +40,10 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("Selected team", SeletedGame)
+        // gather location data for game slected
+        let gameLocation = realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)!.gameLocation
+        gameLocationLabel.text = "Game Location:\n\(gameLocation)"
+        gameLocationLabel.textAlignment = .center
         
         homeTeam = realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.homeTeamID)?.teamID
         awayTeam = realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.opposingTeamID)?.teamID

@@ -37,6 +37,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var gameLocationTextField: UITextField!
     
     // vars for away team data retrieval from Realm
     var awayTeamPickerData:Results<teamInfoTable>!
@@ -48,6 +49,9 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         selectedHomeTeamKey = (UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)
         
@@ -74,7 +78,6 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
             primaryShotMarkerKey = (realm.objects(shotMarkerTable.self).max(ofProperty: "cordSetID") as Int? ?? 0);
         }
         
-        
         self.awayTeamPickerView.delegate = self
         self.awayTeamPickerView.dataSource = self
         
@@ -91,6 +94,23 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         //hide team selectionn error by default
         teamSelectionErrorText.isHidden = true
         
+    }
+    
+    // if keyboard is out push whole view up half the height of the keyboard
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= (keyboardSize.height / 4)
+                //self.popUpView.frame.origin.y -= (keyboardSize.height / 4)
+            }
+        }
+    }
+    // when keybaord down return view back to y orgin of 0
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+           // self.popUpView.frame.origin.y = 0
+        }
     }
     
     func bottomRoundedCorners(buttonName: UIButton){
@@ -191,7 +211,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         teamSelectionPopUpView.addGestureRecognizer(swipeLeft)
     }
     
-    func doubleHomeTeamAlert(){
+    func doubleHomeTeamAlert(errorMessage: String){
         //produce shake animation on error of double home team
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 0.06
@@ -201,26 +221,33 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         animation.toValue = CGPoint(x: teamSelectionPopUpView.center.x + 10, y: teamSelectionPopUpView.center.y)
         teamSelectionPopUpView.layer.add(animation, forKey: "position")
         teamSelectionErrorText.textColor = UIColor.red
+        teamSelectionErrorText.text = errorMessage
     }
     
     @IBAction func continueTeamSelectionButton(_ sender: UIButton) {
         if (teamPlayerGoalieChecker(homeKey: selectedHomeTeamKey, awayKey: selectedAwayTeamKey) != false && (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@",String(selectedAwayTeamKey), NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count != 0 && (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@",String(selectedHomeTeamKey), NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count != 0){
             if (selectedHomeTeamKey != selectedAwayTeamKey){
-                // if home team and away team are not the same proceed with regular segue to New Game Page
-                animateOut()
-                continueTeamSelection()
+               
+                if(gameLocationTextField.text != ""){
+                     // if home team and away team are not the same proceed with regular segue to New Game Page
+                    // and game location is not left blank procceed
+                    animateOut()
+                    continueTeamSelection()
+                }else{
+                    // enable team election error text from hidden to appear
+                    teamSelectionErrorText.isHidden = false
+                    doubleHomeTeamAlert(errorMessage: "Whoops! Please Add a Location to Your Game")
+                }
             }else{
                 // enable team election error text from hidden to appear
                 teamSelectionErrorText.isHidden = false
-                self.teamSelectionErrorText.text = "Please select two DIFFERENT teams"
                 // if home team and away team are the same value run alert
-                doubleHomeTeamAlert()
+                doubleHomeTeamAlert(errorMessage: "Please select two DIFFERENT teams")
                 
             }
         }else{
-            doubleHomeTeamAlert()
+            doubleHomeTeamAlert(errorMessage: "Please make sure both teams have a player and goalie")
             self.teamSelectionErrorText.isHidden = false
-            self.teamSelectionErrorText.text = "Please make sure both teams have a player and goalie"
             self.teamSelectionErrorText.textAlignment = .center
             self.teamSelectionErrorText.textColor = UIColor.red
         }
@@ -325,14 +352,10 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func continueTeamSelection(){
         
         try! realm.write() {
-            var primaryNewGameKey = realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "activeGameStatus": true, "activeState": true]);
+            var primaryNewGameKey = realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "gameLocation": gameLocationTextField.text, "activeGameStatus": true, "activeState": true]);
         }
         self.performSegue(withIdentifier: "continueTeamSelectionSegue", sender: nil);
     }
     
-    // delay loop
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        DispatchQueue.main.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-    }
+    
 }

@@ -15,6 +15,7 @@ class Add_Team_Page: UIViewController {
     //Creates variables for coneceting to the realm database and for the team's ID Number
     let realm = try! Realm()
     var primaryTeamID: Int!
+    var noTeamsBool: Bool!
     
     //Connections to the page
     @IBOutlet weak var teamName: UITextField!
@@ -22,8 +23,24 @@ class Add_Team_Page: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //
+        if(noTeamsBool == true){
+            delay(0.5){
+                
+                // create the alert
+                let noTeams = UIAlertController(title: "Missing Team Data", message: "Please add at least one team before adding a default team or import a team from settings.", preferredStyle: UIAlertController.Style.alert)
+                // add an action (button)
+                noTeams.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                // add an action (button)
+                noTeams.addAction(UIAlertAction(title: "Settings", style: UIAlertAction.Style.destructive,  handler: {action in
+                    self.performSegue(withIdentifier: "noTeamSettingsSegue", sender: nil);
+                }))
+                // show the alert
+                self.present(noTeams, animated: true, completion: nil)
+            }
+        }
         
+       
     }
 
     @IBAction func addPlayerButton(_ sender: UIButton) {
@@ -98,12 +115,12 @@ class Add_Team_Page: UIViewController {
     //function for missing field alert
     func missingFieldAlert(){
             
-            // create the alert
-            let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled out before attemtping to add a new team.", preferredStyle: UIAlertController.Style.alert)
-            // add an action (button)
-            missingField.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-            // show the alert
-            self.present(missingField, animated: true, completion: nil)
+        // create the alert
+        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled out before attemtping to add a new team.", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        missingField.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(missingField, animated: true, completion: nil)
     }
     //function for missing field alert
     func noTeamAlert(){
@@ -115,4 +132,11 @@ class Add_Team_Page: UIViewController {
         // show the alert
         self.present(noTeamAlert, animated: true, completion: nil)
     }
+
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
+    
 }

@@ -218,6 +218,7 @@ class Settings_Page: UIViewController {
         var tempOpposingTeamID: [String] = [String]()
         var tempHomeTeamID: [String] = [String]()
         var tempGameType: [String] = [String]()
+        var tempLocation: [String] = [String]()
         var tempWiningTeam: [String] = [String]()
         var tempLosingTeam: [String] = [String]()
         var tempTieBool: [String] = [String]()
@@ -230,6 +231,7 @@ class Settings_Page: UIViewController {
             let opposingTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.opposingTeamID;
             let homeTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.homeTeamID;
             let gameTypeValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameType;
+            let locationValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameLocation;
             let winingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.winingTeamID;
             let losingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.losingTeamID;
             let tieBoolValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.tieGameBool;
@@ -240,6 +242,7 @@ class Settings_Page: UIViewController {
             tempOpposingTeamID.append(String(opposingTeamIDValue))
             tempHomeTeamID.append(String(homeTeamIDValue))
             tempGameType.append(gameTypeValue)
+            tempLocation.append(locationValue)
             tempWiningTeam.append(String(winingTeamValue))
             tempLosingTeam.append(String(losingTeamValue))
             tempTieBool.append(String(tieBoolValue))
@@ -249,20 +252,21 @@ class Settings_Page: UIViewController {
         }
         
         let fileName = "Realm_New_Game_Info_Table" + ".csv"
-        var csvText = "dateGamePlayed,opposingTeamID,homeTeamID,gameType,winingTeamID,losingTeamID,tieBool,activeGameStatus,activeState\n"
+        var csvText = "dateGamePlayed,opposingTeamID,homeTeamID,gameType,gameLocation,winingTeamID,losingTeamID,tieBool,activeGameStatus,activeState\n"
         for x in 0..<newGameIDCount {
         
             let dateGamePlayerVar = tempDateGamePlayed[x]
             let opposingTeamIDVar = tempOpposingTeamID[x]
             let homeTeamIDVar = tempHomeTeamID[x]
             let gameTypeVar = tempGameType[x]
+            let locationVar = tempLocation[x]
             let winingTeamVar = tempWiningTeam[x]
             let losingTeamVar = tempLosingTeam[x]
             let tieBoolVar = tempTieBool[x]
             let activeGameStatusVar = tempActiveGameStatus[x]
             let activeStateVar = tempActiveState[x]
             
-            let newLine =  dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + winingTeamVar + "," + losingTeamVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
+            let newLine =  dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + locationVar + "," + winingTeamVar + "," + losingTeamVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
             if(x == newGameIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
@@ -498,6 +502,7 @@ class Settings_Page: UIViewController {
                 //delete contents of DB
                 self.realm.deleteAll()
             })
+            UserDefaults.standard.set(nil, forKey: "defaultHomeTeamID")
         }))
         
         // show the alert

@@ -60,15 +60,39 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     func playerStatsProcessing(){
         
         for x in 0..<homePlayerIDs.count{
+            let homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
+            let homePlayerNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+            homePlayerStatsArray.append("\(homePlayerName[0])'s #\(homePlayerNum[0]) Stats\n")
+            // ------------------ player position -----------------------
+            let playerPosition = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "positionType") as! [String]).compactMap({String($0)})
+            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Position: \(playerPosition[0])\n"
+            // ------------------ player line -----------------------
+            let playerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
+            switch playerLineNum[0]{
+            case 0:
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: G\n"
+            case 1:
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: F1\n"
+            case 2:
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: F2\n"
+            case 3:
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: F3\n"
+            case 4:
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: D1\n"
+            case 5:
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: D2\n"
+            case 6:
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: D3\n"
+            default:
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: N/A\n"
+            }
+            
             //-------------------- goal count -----------------------
             // get number fos goals from player based oin looping player id
             let nextPlayerCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], homeTeamID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
             // if number of goals is not 0 aka the player scorerd atleast once
             // ass goals to player stats if not set as zero
-            
-            let homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
-            let homePlayerNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
-            homePlayerStatsArray.append("\(homePlayerName[0])'s #\(homePlayerNum[0]) Stats\nGoals: \(nextPlayerCount)\n")
+            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Goals: \(nextPlayerCount)\n"
             // ------------------ assits count -----------------------------
             // get number of assist from player based on looping player id
             let nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], homeTeamID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count

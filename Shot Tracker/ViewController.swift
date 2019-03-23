@@ -21,15 +21,20 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         // check is usr has selected a a deafult team yet
-       
-        if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
-              delay(0.5){
-                self.performSegue(withIdentifier: "defaultTeamSelection", sender: nil);
+        if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
+            if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
+                  delay(0.5){
+                    self.performSegue(withIdentifier: "defaultTeamSelection", sender: nil);
+                }
+                }else{
+                    print("Default Home Team ID: \(UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)")
             }
-            }else{
-                print("Default Home Team ID: \(UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)")
+        }else{
+            delay(0.5){
+                print("No Teams Found on Start")
+                self.performSegue(withIdentifier: "addTeamSegueFromMain", sender: nil);
+            }
         }
-        
         delay(0.5){
             self.onGoingGame()
         }
@@ -164,6 +169,12 @@ class ViewController: UIViewController {
             // set var vc as destination segue
             let vc = segue.destination as! Default_Team_Selection_View
             vc.newGameLoad = true
+            
+        }
+        if (segue.identifier == "addTeamSegueFromMain"){
+            // set var vc as destination segue
+            let vc = segue.destination as! Add_Team_Page
+            vc.noTeamsBool = true
             
         }
     }
