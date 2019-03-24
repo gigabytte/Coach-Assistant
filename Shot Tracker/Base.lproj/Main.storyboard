@@ -21,7 +21,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="ZMH-9n-YNK">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                             </imageView>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKf-iR-Dz6">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pKf-iR-Dz6">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
                                 <items>
                                     <navigationItem title="Team Edit" id="njM-Sn-4Ay">
@@ -2731,7 +2731,7 @@
         <segue reference="3Bq-Va-GKz"/>
         <segue reference="pcX-mI-E1f"/>
         <segue reference="VT3-rT-kon"/>
-        <segue reference="5ot-VN-Vh3"/>
+        <segue reference="Ggy-8a-rEU"/>
         <segue reference="JQ5-8K-2Rt"/>
         <segue reference="xrM-V5-vxZ"/>
     </inferredMetricsTieBreakers>
