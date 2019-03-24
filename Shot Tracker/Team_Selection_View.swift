@@ -40,8 +40,8 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var gameLocationTextField: UITextField!
     
     // vars for away team data retrieval from Realm
-    var awayTeamPickerData:Results<teamInfoTable>!
-    var awayTeamValueSelected:[teamInfoTable] = []
+    var awayTeamPickerData: [String] = [String]()
+    var awayTeamPickerDataID: [Int] = [Int]()
     var selectedAwayTeam: String = ""
     
     //refrence to popup view
@@ -81,16 +81,17 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         self.awayTeamPickerView.delegate = self
         self.awayTeamPickerView.dataSource = self
         
-        self.awayTeamPickerData =  realm.objects(teamInfoTable.self)
-        self.awayTeamValueSelected = Array(self.awayTeamPickerData)
+        awayTeamPickerData = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
+        awayTeamPickerDataID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
         
         //round corners with a radius of 10 for popup view so my eyes dont bleed!
         teamSelectionPopUpView.layer.cornerRadius = 10
         
         // default home team and away team selection
         let homeTeamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == %@", selectedHomeTeamKey, NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}))[0]
-        defaultHomeTeamLabel.text = "\(homeTeamName) VS"
-        selectedAwayTeam = String(awayTeamValueSelected[0].nameOfTeam)
+        defaultHomeTeamLabel.text = "\(homeTeamName) Vs"
+        selectedAwayTeam = awayTeamPickerData[0]
+        selectedAwayTeamKey = awayTeamPickerDataID[0]
         //hide team selectionn error by default
         teamSelectionErrorText.isHidden = true
         
@@ -306,14 +307,14 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     // The number of rows of data
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        return awayTeamValueSelected.count;
+        return awayTeamPickerData.count;
      
     }
     
     // The data to return fopr the row and component (column) that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 
-        return awayTeamValueSelected[row].nameOfTeam;
+        return awayTeamPickerData[row];
     }
     
     // Capture the picker view selection
@@ -321,9 +322,9 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
         teamSelectionErrorText.isHidden = true
-        selectedAwayTeam = awayTeamValueSelected[row].nameOfTeam;
-        selectedAwayTeamKey = awayTeamValueSelected[row].teamID;
-        print("Away Team Selected" + selectedAwayTeam + " " + String(selectedAwayTeamKey));
+        selectedAwayTeam = awayTeamPickerData[row]
+        selectedAwayTeamKey = awayTeamPickerDataID[row]
+        print("Away Team Selected" + selectedAwayTeam + " " + String(selectedAwayTeamKey))
       
         
     }

@@ -24,11 +24,11 @@ class Add_Team_Page: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //
-        if(noTeamsBool == true){
+        if((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
             delay(0.5){
                 
                 // create the alert
-                let noTeams = UIAlertController(title: "Missing Team Data", message: "Please add at least one team before adding a default team or import a team from settings.", preferredStyle: UIAlertController.Style.alert)
+                let noTeams = UIAlertController(title: "New to the App?", message: "Please add at least one team before adding a default team or import a team from settings.", preferredStyle: UIAlertController.Style.alert)
                 // add an action (button)
                 noTeams.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                 // add an action (button)

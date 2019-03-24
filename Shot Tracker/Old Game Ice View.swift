@@ -102,7 +102,7 @@ class Old_Game_Ice_View: UIViewController {
     
     @objc func longTapLogo(_ sender: UIGestureRecognizer){
         // segue to ananlytics page on long press
-        if sender.state == .ended {
+        if sender.state == .began {
             self.performSegue(withIdentifier: "oldStatsAnalyticsPopUp", sender: nil);
             
         }

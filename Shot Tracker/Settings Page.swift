@@ -41,9 +41,9 @@ class Settings_Page: UIViewController {
         backupUpDateCheck()
         promptMessage()
     }
-    @IBAction func defaultsButton(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "defaultTeamSelectionSettings", sender: nil);
+    @IBAction func defaultsButton(_ sender: UIBarButtonItem) {
         
+        self.performSegue(withIdentifier: "defaultTeamSelectionSettings", sender: nil);
     }
     // on buttoin press delete all of relam data
     @IBAction func wipeDataButton(_ sender: Any) {
@@ -481,15 +481,7 @@ class Settings_Page: UIViewController {
         }
     }
     
-    // check if user is logged into iclpoud account
-    func isICloudContainerAvailable()->Bool {
-        if let currentToken = FileManager.default.ubiquityIdentityToken {
-            return true
-        }
-        else {
-            return false
-        }
-    }
+    
     // display prompt before excuting realm deletion
     func deleteDataPrompt(){
         

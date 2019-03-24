@@ -171,12 +171,7 @@ class ViewController: UIViewController {
             vc.newGameLoad = true
             
         }
-        if (segue.identifier == "addTeamSegueFromMain"){
-            // set var vc as destination segue
-            let vc = segue.destination as! Add_Team_Page
-            vc.noTeamsBool = true
-            
-        }
+       
     }
     
     // delay loop
