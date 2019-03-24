@@ -14,8 +14,9 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
    
     let realm = try! Realm()
     
-    var homeTeamPickerData:Results<teamInfoTable>!
-    var homeTeamValueSelected:[teamInfoTable] = []
+    var homeTeamPickerData: [String] = [String]()
+    var homeTeamPickerDataID: [Int] = [Int]()
+    var homeTeamValueSelected: Int!
     var selectedHomeTeam: String = ""
     var selectedHomeTeamKey:Int = 0;
     var newGameLoad: Bool!
@@ -39,11 +40,13 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         // Data Connections for picker views:
         self.homeTeamPicker.delegate = self
         self.homeTeamPicker.dataSource = self
-        // data translation from realm to local view controller array
-        self.homeTeamPickerData =  realm.objects(teamInfoTable.self)
-        self.homeTeamValueSelected = Array(self.homeTeamPickerData)
+        
+        homeTeamPickerData = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
+        homeTeamPickerDataID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
+        
         // default home team and away team selection
-        selectedHomeTeam = String(homeTeamValueSelected[0].nameOfTeam)
+        selectedHomeTeam = homeTeamPickerData[0]
+        selectedHomeTeamKey = homeTeamPickerDataID[0]
         //round corners with a radius of 10 for popup view so my eyes dont bleed!
         popUpView.layer.cornerRadius = 10
     }
@@ -74,20 +77,20 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
     }
     // height of picker views defined here
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 30.0
+        return 40.0
     }
     // The number of rows of data
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
      
-        return homeTeamValueSelected.count;
+        return homeTeamPickerData.count;
         
     }
     
     // The data to return fopr the row and component (column) that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return homeTeamValueSelected[row].nameOfTeam;
+        return homeTeamPickerData[row];
         
     }
     
@@ -96,8 +99,8 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
       
-        selectedHomeTeam = homeTeamValueSelected[row].nameOfTeam;
-        selectedHomeTeamKey = homeTeamValueSelected[row].teamID;
+        selectedHomeTeam = homeTeamPickerData[row];
+        selectedHomeTeamKey = homeTeamPickerDataID[row];
        
         
     }

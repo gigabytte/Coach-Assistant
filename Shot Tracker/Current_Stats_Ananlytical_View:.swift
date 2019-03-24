@@ -62,6 +62,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
             
             
         }
+        oneHundredPerNote.isHidden = true
         savePerDataMissingLabel.isHidden = false
         popUpView.layer.cornerRadius = 10
         bottomRoundedCorners()
