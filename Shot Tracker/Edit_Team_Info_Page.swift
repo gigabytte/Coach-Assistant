@@ -298,14 +298,25 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 
             }
         }else if (newName == "" && activeStateTeamSwitch.isOn != true){
-           
+            if (selectedTeamID == (UserDefaults.standard.object(forKey: "defaultHomeTeamID") as? Int)){
+                UserDefaults.standard.set(nil, forKey: "defaultHomeTeamID")
+                print("Default Team Reset")
+            }else{
+                print("Default Team \(newTeam?.nameOfTeam) remains the same")
+            }
             try! realm.write{
                 newTeam!.activeState = false
                 succesfulTeamAdd(teamName: selectTeam)
             }
+            
                 
         }else if (newName != "" && activeStateTeamSwitch.isOn != true){
-            
+            if (selectedTeamID == (UserDefaults.standard.object(forKey: "defaultHomeTeamID") as? Int)){
+                UserDefaults.standard.set(nil, forKey: "defaultHomeTeamID")
+                print("Default Team Reset")
+            }else{
+                print("Default Team \(newTeam?.nameOfTeam) remains the same")
+            }
                 try! realm.write{
                     newTeam!.activeState = false
                     newTeam!.nameOfTeam = newName

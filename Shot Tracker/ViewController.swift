@@ -113,25 +113,49 @@ class ViewController: UIViewController {
     }
     
     @IBAction func newGameButton(_ sender: UIButton) {
-   
-        // check if team one returns nil and that team one isnt team two
-        // check for only one team entered and or no team entered
-        if (activeStatus != true){
-            if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
-                self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
-                
+       
+            // check if team one returns nil and that team one isnt team two
+            // check for only one team entered and or no team entered
+            if (activeStatus != true){
+                if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+                    self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
+                    
+                }else{
+                    // if teams or players are not avaiable top be pulled alert error appears
+                    dataReturnNilAlert()
+                }
             }else{
-                // if teams or players are not avaiable top be pulled alert error appears
-                dataReturnNilAlert()
-            }
-        }else{
-            if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
-                self.performSegue(withIdentifier: "skipTeamSelectionSegue", sender: nil);
-            }else{
-                // if teams or players are not avaiable top be pulled alert error appears
-                dataReturnNilAlert()
+                // check if user has chnaged the default team while a game is ongoing or if this a new game all together
+                if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int) == (realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID))?.teamID || (realm.object(ofType: newGameTable.self, forPrimaryKey: (self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus) == false){
+                    if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+                        self.performSegue(withIdentifier: "skipTeamSelectionSegue", sender: nil);
+                    }else{
+                        // if teams or players are not avaiable top be pulled alert error appears
+                        dataReturnNilAlert()
+                    }
+                }else{
+                    print("usrr has chnaged default team and cannot procceed with current on going game!")
+                    // create the alert
+                    let misMatchedDefault = UIAlertController(title: "Deactive Default Team", message: "Your default team has been deactivated, please re-activate your orginal default team or close this game", preferredStyle: UIAlertController.Style.alert)
+                    // add an action (button)
+                    misMatchedDefault.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                    // add an action (button)
+                    misMatchedDefault.addAction(UIAlertAction(title: "Close Game", style: UIAlertAction.Style.destructive, handler: { action in
+                        // set current game to not active
+                        try! self.realm.write{
+                            self.realm.object(ofType: newGameTable.self, forPrimaryKey: (self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus = false
+                        }
+                        
+                    }))
+                    // show the alert
+                    self.present(misMatchedDefault, animated: true, completion: nil)
+                    // chnage button text to refelct user selection
+                    newGameButton.setTitle("New Game", for: .normal)
+                   
+              
             }
         }
+         //self.onGoingGame()
     }
     @IBAction func oldStatsButton(_ sender: UIButton) {
         if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
