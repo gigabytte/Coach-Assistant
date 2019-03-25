@@ -195,6 +195,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
                 positionPicker.reloadAllComponents()
+               
             }else if(pickerData[row] == "Forward 2"){
                 selectLine = 2
                 positionPicker.reloadAllComponents()
@@ -214,8 +215,6 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 selectLine = 0
                  positionPicker.reloadAllComponents()
             }
-            selectPosition = positionCodeData[row]
-            print(selectLine)
         }else if(pickerView == positionPicker){
             switch selectLine{
             case  1,2,3:
