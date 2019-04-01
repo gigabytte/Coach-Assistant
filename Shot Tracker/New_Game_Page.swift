@@ -40,7 +40,8 @@ class New_Game_Page: UIViewController {
     var markerType: Bool!
     var newGameStarted: Bool!
     var periodNumSelected: Int!
-    var goalieSelectedID: Int!
+    var tempGoalieSelectedID: Int!
+    var fixedGoalieID: Int!
     var selectedGameTypeString: String!
     
     var homeTeam: Int!
@@ -59,6 +60,7 @@ class New_Game_Page: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("period is", periodNumSelected)
+        print("goalie id: ", tempGoalieSelectedID)
         let realm = try! Realm()
         newGameDetection()
         teamNameInitialize()
@@ -157,13 +159,13 @@ class New_Game_Page: UIViewController {
         if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
             // check markerType image value
             for i in 0..<home_xCordsArray.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 25, y: Int(home_yCordsArray[i])! - 25, width: 50, height: 50));
+                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 16, y: Int(home_yCordsArray[i])! - 16, width: 32, height: 32));
                     shotMarkerimageView.contentMode = .scaleAspectFill;
                     shotMarkerimageView.image = homeTeamShotMakerImage;
                     view.addSubview(shotMarkerimageView);
             }
             for i in 0..<away_xCordsArray.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 25, y: Int(away_yCordsArray[i])! - 25, width: 50, height: 50));
+                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 16, y: Int(away_yCordsArray[i])! - 16, width: 32, height: 32));
                     shotMarkerimageView.contentMode = .scaleAspectFill;
                     shotMarkerimageView.image = awayTeamShotMarkerImage;
                     view.addSubview(shotMarkerimageView);
@@ -189,13 +191,13 @@ class New_Game_Page: UIViewController {
         if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
             // check markerType image value
             for i in 0..<home_xCordsArray.count{
-                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 25, y: Int(home_yCordsArray[i])! - 25, width: 50, height: 50));
+                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 16, y: Int(home_yCordsArray[i])! - 16, width: 32, height: 32));
                 goalMarkerimageView.contentMode = .scaleAspectFill;
                 goalMarkerimageView.image = homeTeamGoalMakerImage;
                 view.addSubview(goalMarkerimageView);
             }
             for i in 0..<away_xCordsArray.count{
-                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 25, y: Int(away_yCordsArray[i])! - 25, width: 50, height: 50));
+                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 16, y: Int(away_yCordsArray[i])! - 16, width: 32, height: 32));
                 goalMarkerimageView.contentMode = .scaleAspectFill;
                 goalMarkerimageView.image = awayTeamGoalMarkerImage;
                 view.addSubview(goalMarkerimageView);
@@ -346,7 +348,7 @@ class New_Game_Page: UIViewController {
             vc.tempMarkerType = markerType
             vc.homeTeamID = homeTeam
             vc.awayTeamID = awayTeam
-            vc.tempGoalieSelectedID = goalieSelectedID
+            vc.fixedGoalieID = fixedGoalieID
             vc.periodNumSelected = periodNumSelected
         }
         // check is appropriate segue is being used
@@ -365,7 +367,7 @@ class New_Game_Page: UIViewController {
             vc.homeTeam = homeTeam
             vc.awayTeam = awayTeam
             vc.newGameStarted = newGameStarted
-            vc.goalieSelectedID = goalieSelectedID
+            vc.fixedGoalieID = fixedGoalieID
             vc.periodNumSelected = periodNumSelected
         }
     }

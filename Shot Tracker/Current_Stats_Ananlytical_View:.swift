@@ -26,7 +26,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
     var awayTeam: Int!
     var teamIDArray: [String] = [String]()
     var newGameStarted: Bool!
-    var goalieSelectedID: Int!
+    var fixedGoalieID: Int!
     var periodNumSelected: Int!
     var homeGoalieID: Int!
     var awayGoalieID: Int!
@@ -49,7 +49,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
         super.viewDidLoad()
         // if accesss from current game setting
         if(oldStatsPopUpBool != true){
-            homeGoalieID = goalieSelectedID
+            homeGoalieID = fixedGoalieID
             awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             gameID = (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
         }else{
@@ -57,7 +57,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
             gameID = SeletedGame
             homeTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})[0]
             awayTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})[0]
-            homeGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND positionType == %@ AND activeState == true", goalieSelectedID, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
+            homeGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND positionType == %@ AND activeState == true", fixedGoalieID, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             
             
@@ -267,14 +267,14 @@ class Current_Stats_Ananlytical_View: UIViewController {
             currentStats.newGameStarted = false
             currentStats.homeTeam = homeTeam
             currentStats.awayTeam = awayTeam
-            currentStats.goalieSelectedID = homeGoalieID
+            currentStats.fixedGoalieID = homeGoalieID
             currentStats.periodNumSelected = periodNumSelected
         }
         if (segue.identifier == "cancelOldStats"){
             // set var vc as destination segue
             let currentStats = segue.destination as! Old_Game_Ice_View
             currentStats.SeletedGame = SeletedGame
-            currentStats.goalieSelectedID = goalieSelectedID
+            currentStats.goalieSelectedID = fixedGoalieID
             
         }
         

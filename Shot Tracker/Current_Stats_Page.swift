@@ -29,7 +29,7 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     var awayTeam: Int!
     var teamIDArray: [String] = [String]()
     var newGameStarted: Bool!
-    var goalieSelectedID: Int!
+    var fixedGoalieID: Int!
     var periodNumSelected: Int!
     var homePlayerStatsArray: [String] = [String]()
     var awayPlayerStatsArray: [String] = [String]()
@@ -276,7 +276,7 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
             currentStats.newGameStarted = false
             currentStats.homeTeam = homeTeam
             currentStats.awayTeam = awayTeam
-            currentStats.goalieSelectedID = goalieSelectedID
+            currentStats.fixedGoalieID = fixedGoalieID
             currentStats.periodNumSelected = periodNumSelected
         }
         if (segue.identifier == "analyticalSegue"){
@@ -285,7 +285,7 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
             currentStats.newGameStarted = false
             currentStats.homeTeam = homeTeam
             currentStats.awayTeam = awayTeam
-            currentStats.goalieSelectedID = goalieSelectedID
+            currentStats.fixedGoalieID = fixedGoalieID
             currentStats.periodNumSelected = periodNumSelected
         }
         

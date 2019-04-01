@@ -53,6 +53,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     var tempPeriodNumSelected: Int!
     
     var tempgoalieSelectedID: Int!
+    var fixedGoalieID: Int!
     
     var periodOne: CGRect?
     var periodTwo: CGRect?
@@ -72,7 +73,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         periodSelectionErrorLabel.isHidden = true
         popUpView.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
-        
+        tempgoalieSelectedID = fixedGoalieID
         newGameStartedViewRender()
         goalieSelectionGesture()
         
@@ -344,20 +345,28 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     // func used to pass varables on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
-        if (segue.identifier == "cancelBasicInfoSegue" || segue.identifier == "continueBasicInfoSegue"){
+        if (segue.identifier == "cancelBasicInfoSegue"){
             // set var vc as destination segue
             let vc = segue.destination as! New_Game_Page
             print(tempgoalieSelectedID)
             vc.newGameStarted = false
             vc.periodNumSelected = tempPeriodNumSelected
-            vc.goalieSelectedID = tempgoalieSelectedID
+            vc.fixedGoalieID = fixedGoalieID
+        }
+        if (segue.identifier == "continueBasicInfoSegue"){
+            // set var vc as destination segue
+            let vc = segue.destination as! New_Game_Page
+            print(tempgoalieSelectedID)
+            vc.newGameStarted = false
+            vc.periodNumSelected = tempPeriodNumSelected
+            vc.fixedGoalieID = tempgoalieSelectedID
         }
         if (segue.identifier == "backFromGoalie"){
             // set var vc as destination segue
             let vc = segue.destination as! Old_Game_Ice_View
            
             vc.SeletedGame = SeletedGame
-            vc.goalieSelectedID = tempgoalieSelectedID
+            vc.goalieSelectedID = fixedGoalieID
         
         }
     }
