@@ -397,7 +397,7 @@ class Old_Game_Ice_View: UIViewController {
             let vc = segue.destination as! Current_Stats_Ananlytical_View
             vc.SeletedGame = SeletedGame
             vc.oldStatsPopUpBool = true
-            vc.goalieSelectedID = goalieSelectedID
+            vc.fixedGoalieID = goalieSelectedID
         }
         
     

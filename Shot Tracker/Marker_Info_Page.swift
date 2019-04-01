@@ -68,11 +68,13 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     var periodSelectionNum: Int!
     var shotLocationValue: String!
     var goalieSelectedID: Int!
+    var fixedGoalieID: Int!
     var shot_primaryID: Int!
     var goal_primaryID: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("goalie id: ", goalieSelectedID)
         // set power play toggle to off by default
         powerPlayToggleSwitch.isOn = false
         // call team data from realm
@@ -458,7 +460,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             markerInfoVC.awayTeam = awayTeam
             markerInfoVC.newGameStarted = false
             markerInfoVC.periodNumSelected = periodNumSelected
-            markerInfoVC.goalieSelectedID = goalieSelectedID
+            markerInfoVC.fixedGoalieID = fixedGoalieID
 
         }
     }

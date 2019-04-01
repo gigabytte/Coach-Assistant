@@ -40,7 +40,7 @@ class Shot_Location_View: UIViewController {
     var homeTeamID: Int!
     var awayTeamID: Int!
     var tempGoalieSelectedID: Int!
-    var goalieSelectedID: Int!
+    var fixedGoalieID: Int!
     var selectedGoalieIDArray: [Int] = [Int]()
     var universalGoalieIDArray: [Int] = [Int]()
     var realmSelectTeamID: Int!
@@ -72,7 +72,7 @@ class Shot_Location_View: UIViewController {
         view.addSubview(popUpView)
         view.addSubview(goalieNumberLabel)
         
-        goalieSelectedID = tempGoalieSelectedID
+        tempGoalieSelectedID = fixedGoalieID
         if (tempMarkerType != true){
             print("You are placing a goal, passed bool is: ", tempMarkerType)
         }else{
@@ -83,12 +83,12 @@ class Shot_Location_View: UIViewController {
         // Do any additional setup after loading the view.
         
         
-        print("goalie id: ", goalieSelectedID)
+        print("goalie id: ", fixedGoalieID)
         // if true its a shot
         if(tempMarkerType != false){
             netImageViewBoundaries()
             goalieSelectionGesture()
-            let selectedGoalieJerseyNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", goalieSelectedID)).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})
+            let selectedGoalieJerseyNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", fixedGoalieID)).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})
             print(selectedGoalieJerseyNum)
             self.goalieNumberLabel.text = String(selectedGoalieJerseyNum[0])
             realmSelectTeamID = awayTeamID
@@ -208,11 +208,11 @@ class Shot_Location_View: UIViewController {
             print("Goalie Number Array for Goal: ", goalieNumberArray)
             print("goalie number array", selectedGoalieIDArray)
         }else{
-            goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", goalieSelectedID)).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+            goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", fixedGoalieID)).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
             let awayTeamGoalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
              let awayTeamGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             goalieNumberArray.append(awayTeamGoalieNumberArray[0])
-            selectedGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i AND playerID == %i AND activeState == true", Int(goalieNumberArray[0])!, goalieSelectedID)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            selectedGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i AND playerID == %i AND activeState == true", Int(goalieNumberArray[0])!, fixedGoalieID)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             selectedGoalieIDArray.append(awayTeamGoalieIDArray[0])
             print("Goalie Number Array for Shot: ", goalieNumberArray)
         }
@@ -221,7 +221,7 @@ class Shot_Location_View: UIViewController {
         self.leftScrollArrowImage.setNeedsDisplay()
         // set deafult jersey number
         goalieNumberLabel.text = goalieNumberArray[0]
-        goalieSelectedID = selectedGoalieIDArray[0]
+        tempGoalieSelectedID = selectedGoalieIDArray[0]
         
         hockeyNetImageView.isUserInteractionEnabled = true
         
@@ -440,6 +440,7 @@ class Shot_Location_View: UIViewController {
             shotLocationVC.markerType = tempMarkerType
 
             shotLocationVC.goalieSelectedID = tempGoalieSelectedID
+            shotLocationVC.fixedGoalieID = fixedGoalieID
             shotLocationVC.homeTeam = homeTeamID
             shotLocationVC.awayTeam = awayTeamID
             shotLocationVC.periodNumSelected = periodNumSelected
@@ -450,7 +451,7 @@ class Shot_Location_View: UIViewController {
             let shotLocationVC = segue.destination as! New_Game_Page
             //let new_vc = segue.destination as! New_Game_Page
             shotLocationVC.newGameStarted = false
-            shotLocationVC.goalieSelectedID = goalieSelectedID
+            shotLocationVC.fixedGoalieID = fixedGoalieID
             shotLocationVC.periodNumSelected = periodNumSelected
         }
     }

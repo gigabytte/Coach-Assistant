@@ -1836,7 +1836,7 @@
                                     <constraint firstAttribute="width" constant="430" id="xUM-1i-fvJ"/>
                                 </constraints>
                             </pickerView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOY-fD-I1s">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOY-fD-I1s">
                                 <rect key="frame" x="925" y="110" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="RWK-H7-qAx"/>
@@ -2723,10 +2723,9 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rYW-Ia-h23"/>
         <segue reference="maz-bK-j91"/>
         <segue reference="G5K-rA-i7R"/>
-        <segue reference="Fur-48-r3q"/>
+        <segue reference="bar-I4-51P"/>
         <segue reference="jMX-vY-t9s"/>
         <segue reference="3Bq-Va-GKz"/>
         <segue reference="pcX-mI-E1f"/>
