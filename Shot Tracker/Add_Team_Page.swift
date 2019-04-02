@@ -39,8 +39,7 @@ class Add_Team_Page: UIViewController {
                 self.present(noTeams, animated: true, completion: nil)
             }
         }
-        
-       
+
     }
 
     @IBAction func addPlayerButton(_ sender: UIButton) {

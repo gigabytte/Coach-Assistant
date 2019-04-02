@@ -41,7 +41,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         fileCollection()
         
     }
-    
+    // get all files in file app that start with Realm_ and place in array
     func fileCollection() -> [String]{
         
         let fileManager = FileManager.default
@@ -57,7 +57,6 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                     
                     if (fileName.hasSuffix(".csv"))
                     {
-                        let filePathName = "\(documentPath)/\(fileName)"
                         fileNamesArray.append(fileName)
                     }
                 }
@@ -68,7 +67,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         }
         return(fileNamesArray)
     }
-
+    // converts string to date format, retuns date format
     func stringToDateFormatter(stringDate: String) -> Date{
         // string to date formatter
         let dateFormatter = DateFormatter()

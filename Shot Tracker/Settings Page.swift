@@ -24,7 +24,7 @@ class Settings_Page: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // set visual effects on buttonin settings
         wipeDataButton.backgroundColor = .clear
         wipeDataButton.layer.cornerRadius = 5
         wipeDataButton.layer.borderWidth = 1
@@ -42,7 +42,7 @@ class Settings_Page: UIViewController {
         promptMessage()
     }
     @IBAction func defaultsButton(_ sender: UIBarButtonItem) {
-        
+        // segue to default teams selection popup
         self.performSegue(withIdentifier: "defaultTeamSelectionSettings", sender: nil);
     }
     // on buttoin press delete all of relam data
@@ -451,8 +451,7 @@ class Settings_Page: UIViewController {
         }
     }
     
-    
-    
+    // func used to delete old CSV files stored in file manager app
     func oldCSVFileFinder(){
         let fileManager = FileManager.default
         let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL

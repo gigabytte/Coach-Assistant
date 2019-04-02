@@ -34,8 +34,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     
     var goalieNumberArray: [String] = [String]()
     
-    var shotLocationValueSelected: String = "";
-    
+    // vars passed between segue
     var tempXCords: Int = 0
     var tempYCords: Int = 0
     var homeTeamID: Int!
@@ -47,7 +46,6 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     var oldStatsGoalieSelection: Bool!
     
     var goalieJerseyNumArray: [String] = [String]()
-    var arrayCounter: Int = 0
     
     var tempMarkerType: Bool!
     var tempPeriodNumSelected: Int!
@@ -66,10 +64,11 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        // add elements to subview so they arent blurred out
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
         view.addSubview(goalieNumberLabel)
-        
+    
         periodSelectionErrorLabel.isHidden = true
         popUpView.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
@@ -78,6 +77,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         goalieSelectionGesture()
         
     }
+    // change constrints based on when the view appears
     func newGameStartedViewRender(){
         
         if(newGameStarted != false){
@@ -92,7 +92,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             netImageViewBoundaries()
 
         }else{
-           
+           // dynamically change button layour based on user inaction in game
             netImageViewBoundaries()
             newGameLabel.isHidden = true
             cancelButton.isEnabled = true
@@ -100,9 +100,9 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             continueButton.widthAnchor.constraint(equalToConstant: 230).isActive = true
             continueButton.titleLabel?.textAlignment = .center
             hockeyNetImageView.bottomAnchor.constraint(equalTo: continueButton.topAnchor)
-            }
+        }
     }
-    
+    // shake animation when called on error
     func missingSelectionError(){
         //produce shake animation on error of double home team
         let animation = CABasicAnimation(keyPath: "position")
@@ -115,9 +115,9 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         // enable team election error text from hidden to appear
         periodSelectionErrorLabel.isHidden = false
     }
-    
-
-    
+    // set CGRect boundaries for user inaction with hockeynetimagview
+    // allws for view to be split up into cunks for user inaction with period selection
+    // imageview is changed based on hat chunk user selects
     func netImageViewBoundaries(){
         
         hockeyNetImageView.isUserInteractionEnabled = true
@@ -138,7 +138,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    
+    // gesture for swiping throughn the avaible goalies
     func goalieSelectionGesture() {
         
         // get array of Goalie Jersey Nunbers of Page Load
@@ -159,7 +159,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         hockeyNetImageView.addGestureRecognizer(swipeLeft)
         
-        // default scroll arrow setup
+        // default scroll arrow setup based on number of golaies available to choose from
         if (goalieNumberArray.count > 1){
             self.leftScrollArrowImage.image = leftArrowImage
             self.leftScrollArrowImage.alpha = 0.5
@@ -174,12 +174,13 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     
     //Function for determining when tap gesture is in/outside of touchable area
     @objc func netLocationSelectionTap(sender: UITapGestureRecognizer){
-        print(currentArrayIndex)
+            // get user seletion based on where the user taps on the imageview
             self.hockeyNetImageView.reloadInputViews()
             let tapPosition = sender.location(in: self.hockeyNetImageView)
             self.periodSelectionErrorLabel.isHidden = true
         print("Tap Cords for Period Selection: ", tapPosition)
                 if self.periodOne!.contains(tapPosition) {
+                    // force update imagview based on user selection
                     DispatchQueue.main.async {
                         self.setPeriodVar = 1
                         self.hockeyNetImageView.image = self.hockeyNetPeriodOne
@@ -211,9 +212,11 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                     }
                 }
         }
-    
+    // func changes arrows based on user interaction
     func goalieNumberArrow(){
+        // if the user has hit the end of the golaie array set the image views alpha accordingly
         if (self.goalieNumberArray[self.currentArrayIndex] == self.goalieNumberArray.last){
+            // update arrows according to user interaction
             self.rightScrollArrowImage.image = rightArrowImage
             self.rightScrollArrowImage.alpha = 0.5
             self.leftScrollArrowImage.image = leftArrowImage
@@ -229,31 +232,37 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             self.rightScrollArrowImage.setNeedsDisplay()
         }
     }
-    
+    // logic based on user swipe interaction with view
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-       
-        let realm = try! Realm()
+
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
+            // array index and goalie selecton based on left swipe gesture
             case UISwipeGestureRecognizer.Direction.left:
                 print("Left Swipe Detected")
                 print("Goalie Nu,ber Array: ", goalieNumberArray)
+                // check if there is more than one goalie present
                 if (goalieNumberArray.count > 1){
+                    // check if user is presented with the first golaie in the array
                     if goalieNumberArray[currentArrayIndex] == goalieNumberArray.first{
+                        // add one to array if user swipes  right
                         currentArrayIndex += 1
-                        
+                    // check if user is presented with lasdt goalie in array
                     }else if goalieNumberArray[currentArrayIndex] == goalieNumberArray.last{
+                        // decrement goalie array based on left swipe
                         currentArrayIndex = goalieNumberArray.count - 1
                         
                     }else{
+                        // add one to index if last resort
                         currentArrayIndex += 1
                     }
+                    // force update goalie jersey num based on user swiup interaction
                     DispatchQueue.main.async {
                         self.goalieNumberArrow()
                         self.goalieNumberLabel.text = self.goalieNumberArray[self.currentArrayIndex]
                         self.goalieNumberLabel.setNeedsDisplay()
                     }
-                
+                // get selected goalie id based on user selection
                 let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                 tempgoalieSelectedID = selectedGoalieID[0]
                 print("goalie id: ", tempgoalieSelectedID)
@@ -262,6 +271,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                     tempgoalieSelectedID = selectedGoalieID[0]
                     print("goalie id: ", tempgoalieSelectedID)
                 }
+                // below code is copy of above but opposite interms of right swipe
             case UISwipeGestureRecognizer.Direction.right:
                 print("Right Swipe Detected")
                 if (goalieNumberArray.count > 1){
@@ -288,27 +298,31 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                     print("goalie id: ", tempgoalieSelectedID)
                 }
             default:
+                 print("Error user selection could not be dictated")
                 break
             }
         }
     }
-    
+    // get goalies jersey numbers based on teams selected
     func goalieNameProcessing(){
         
         goalieJerseyNumArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
     }
     
     @IBAction func cancelButton(_ sender: Any) {
+        
         animateOut()
         self.performSegue(withIdentifier: "cancelBasicInfoSegue", sender: nil);
     }
     
     @IBAction func continueButton(_ sender: Any) {
+        // redfine valuye for poeriod selected based on user interaction with view
         if(setPeriodVar != nil){
             tempPeriodNumSelected = setPeriodVar
             animateOut()
             self.performSegue(withIdentifier: "continueBasicInfoSegue", sender: nil);
         }else{
+            // error out
             missingSelectionError()
             
         }

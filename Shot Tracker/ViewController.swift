@@ -12,7 +12,7 @@ import Realm
 class ViewController: UIViewController {
     
     let realm = try! Realm()
-    
+    // active status bool used to check if a game is ongoing
     var activeStatus: Bool!
     
     @IBOutlet weak var newGameButton: UIButton!
@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         // check is usr has selected a a deafult team yet
         if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
+            // check if deafult team has been selected on load
             if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
                   delay(0.5){
                     self.performSegue(withIdentifier: "defaultTeamSelection", sender: nil);
@@ -30,11 +31,15 @@ class ViewController: UIViewController {
                     print("Default Home Team ID: \(UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)")
             }
         }else{
+            // if no default team has been selected on load and no teams present
+            // redirect to team add team page VC
             delay(0.5){
                 print("No Teams Found on Start")
                 self.performSegue(withIdentifier: "addTeamSegueFromMain", sender: nil);
             }
         }
+        // run on going game funtion to dynamically chnage new game button text based on
+        // game status
         delay(0.5){
             self.onGoingGame()
         }
@@ -50,8 +55,9 @@ class ViewController: UIViewController {
         print(Realm.Configuration.defaultConfiguration.fileURL)
 
     }
-    
+    // cherck is game if currently running function
     func onGoingGame(){
+        // based on activeStaus bool the New Game Button text chnages dynamically
         if((realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).first != nil){
         // get lastest new game active status
             activeStatus = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus)!
@@ -61,10 +67,9 @@ class ViewController: UIViewController {
             }
         }else{
             print("No New Game Data Yet")
-            
         }
     }
-    
+    // func checks if there is atleast one goalie from each team to prevent new game errors; returns bool
     func goalieChecker() -> Bool{
         
         let goalieOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType == %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
@@ -77,6 +82,8 @@ class ViewController: UIViewController {
             return false
         }
     }
+    
+    // func checks if there is atleast one player from each team to prevent new game errors; returns bool
     func playerChecker() -> Bool{
         
         let playerOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType != %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
@@ -90,6 +97,7 @@ class ViewController: UIViewController {
         
     }
     
+    // func checks if there is atleast two teams prevent new game errors; returns bool
     func teamChecker() -> Bool{
         
         // get first an last team entered in DB
@@ -134,7 +142,7 @@ class ViewController: UIViewController {
                         dataReturnNilAlert()
                     }
                 }else{
-                    print("usrr has chnaged default team and cannot procceed with current on going game!")
+                    // present a alert controller if default team has been chnaged while a game is ongoing
                     // create the alert
                     let misMatchedDefault = UIAlertController(title: "Deactive Default Team", message: "Your default team has been deactivated, please re-activate your orginal default team or close this game", preferredStyle: UIAlertController.Style.alert)
                     // add an action (button)
@@ -145,14 +153,14 @@ class ViewController: UIViewController {
                         try! self.realm.write{
                             self.realm.object(ofType: newGameTable.self, forPrimaryKey: (self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus = false
                         }
-                        
+                        // change defaults based on user selection to close game
+                        self.newGameButton.setTitle("New Game", for: .normal)
+                        self.activeStatus = false
                     }))
                     // show the alert
                     self.present(misMatchedDefault, animated: true, completion: nil)
-                    // chnage button text to refelct user selection
-                    newGameButton.setTitle("New Game", for: .normal)
-                   
-              
+                    
+                    print("user has changed default team and cannot procceed with current on going game!")
             }
         }
          //self.onGoingGame()
@@ -182,7 +190,7 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
         if (segue.identifier == "skipTeamSelectionSegue"){
-            // set var vc as destination segue
+            // pass values on segue to new game page
             let vc = segue.destination as! New_Game_Page
             vc.newGameStarted = true
             vc.homeTeam =  self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID
@@ -190,7 +198,7 @@ class ViewController: UIViewController {
             
         }
         if (segue.identifier == "defaultTeamSelection"){
-            // set var vc as destination segue
+            // pass values on segue to new game page
             let vc = segue.destination as! Default_Team_Selection_View
             vc.newGameLoad = true
             
