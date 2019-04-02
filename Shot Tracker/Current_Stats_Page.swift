@@ -24,7 +24,7 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var awayPlayerStatsTable: UITableView!
     @IBOutlet weak var gameLocationLabel: UILabel!
     
-    
+    // vars used on segue passing
     var homeTeam: Int!
     var awayTeam: Int!
     var teamIDArray: [String] = [String]()
@@ -35,8 +35,6 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     var awayPlayerStatsArray: [String] = [String]()
     var homePlayerIDs: [Int] = [Int]()
     var awayPlayerIDs: [Int] = [Int]()
-    
-    let textCellIdentifier = "cell"
 
     let realm = try! Realm()
     
