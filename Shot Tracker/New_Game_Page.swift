@@ -58,6 +58,7 @@ class New_Game_Page: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("golaie id:", fixedGoalieID)
         // run important functions on load, functions reponsible for displaying game data
         newGameDetection()
         teamNameInitialize()
@@ -359,6 +360,7 @@ class New_Game_Page: UIViewController {
             vc.homeTeamID = homeTeam
             vc.awayTeamID = awayTeam
             vc.tempPeriodNumSelected = periodNumSelected
+            vc.fixedGoalieID = fixedGoalieID
             vc.newGameStarted = newGameStarted
         }
             // check is appropriate segue is being used
