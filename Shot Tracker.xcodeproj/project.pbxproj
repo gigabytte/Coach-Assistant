@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,9 @@
 		BE029C022213360200B935A7 /* Settings Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE029C012213360200B935A7 /* Settings Page.swift */; };
 		BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */; };
 		BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B752201576B0018E434 /* Team_Selection_View.swift */; };
+		BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */; };
+		BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */; };
+		BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */; };
 		BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */; };
 		BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */; };
 		BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */; };
@@ -96,6 +99,9 @@
 		BE029C012213360200B935A7 /* Settings Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Page.swift"; sourceTree = "<group>"; };
 		BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_Team_Info_Page.swift; sourceTree = "<group>"; };
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
+		BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Settings Page View Controller.swift"; sourceTree = "<group>"; };
+		BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Backup View Controller.swift"; sourceTree = "<group>"; };
+		BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Defaults View Controller.swift"; sourceTree = "<group>"; };
 		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
 		BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_Location_View.swift; sourceTree = "<group>"; };
 		BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current_Stats_Ananlytical_View:.swift"; sourceTree = "<group>"; };
@@ -223,6 +229,9 @@
 				BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */,
 				BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */,
 				BE029C012213360200B935A7 /* Settings Page.swift */,
+				BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */,
+				BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */,
+				BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */,
 				BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */,
 				BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */,
 				BE0C7B752201576B0018E434 /* Team_Selection_View.swift */,
@@ -408,16 +417,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -527,11 +531,13 @@
 				BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */,
 				BE029C022213360200B935A7 /* Settings Page.swift in Sources */,
 				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
+				BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */,
 				BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */,
 				BE83904421F6515000D02C0B /* RealmSwift.framework in Sources */,
 				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
 				BE83904A21F663A600D02C0B /* Team Info Table.swift in Sources */,
+				BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */,
 				BE7D697A21E3D74300C1745C /* ViewController.swift in Sources */,
 				BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */,
 				BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */,
@@ -541,6 +547,7 @@
 				BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */,
 				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
 				BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */,
+				BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */,
 				BE913A482233740500080081 /* Old Game Ice View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
