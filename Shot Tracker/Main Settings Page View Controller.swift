@@ -12,9 +12,13 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var containerView: UIView!
+    
     var rowIndex: Int!
+    
+    
     // Data model: These strings will be the data for the table view cells
-    let animals: [String] = ["Backup", "Defaults", "Legal"]
+    let settingsName: [String] = ["Backup", "Defaults", "Legal"]
+    let imageNames: [String] = ["backup.PNG", "defaults.PNG", "defaults_icon.PNG"]
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -49,10 +53,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-        
-        // (optional) include this line if you want to remove the extra empty cell divider lines
-        // self.tableView.tableFooterView = UIView()
+        self.tableView.rowHeight = 75.0
         
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
@@ -69,18 +70,16 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     private func updateView() {
         switch rowIndex{
         case 0:
-            
             remove(asChildViewController: defaultsViewController)
             add(asChildViewController: backupViewController)
         case 1:
             remove(asChildViewController: backupViewController)
             add(asChildViewController: defaultsViewController)
         default:
-            remove(asChildViewController: backupViewController)
-            add(asChildViewController: defaultsViewController)
+            remove(asChildViewController: defaultsViewController)
+            add(asChildViewController: backupViewController)
         }
     }
-    
     // MARK: - Actions
     
     @objc func selectionDidChange(_ sender: UISegmentedControl) {
@@ -117,27 +116,33 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.animals.count
+        return self.settingsName.count
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if(indexPath.row == 0)
+        {
+            let rowToSelect:NSIndexPath = NSIndexPath(row: 0, section: 0)
+            
+            tableView.selectRow(at: rowToSelect as IndexPath, animated: true, scrollPosition: UITableView.ScrollPosition.none)
+            
+            //tableView(tableView, didSelectRowAtIndexPath: rowToSelect)
+        }
+    }
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // create a new cell if needed or reuse an old one
-        let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
+        let cell:customSettingCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customSettingCell
         
-        // set the text from the data model
-        cell.textLabel?.text = self.animals[indexPath.row]
+        cell.settingsLabel!.text = self.settingsName[indexPath.row]
+        //cell.imageView?.image = UIImage(named: self.imageNames[indexPath.row])
         
         return cell
     }
     
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You tapped cell number \(indexPath.row).")
         rowIndex = indexPath.row
-        setupView()
+        print("You tapped cell number \(indexPath.row).")
+        self.setupView()
     }
-
-   
 }
