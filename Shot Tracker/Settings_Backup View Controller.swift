@@ -54,10 +54,6 @@ final class Settings_Backup_View_Controller: UIViewController {
         print("Back Up View Controller Called")
     }
     
-    @IBAction func defaultsButton(_ sender: UIBarButtonItem) {
-        // segue to default teams selection popup
-        self.performSegue(withIdentifier: "defaultTeamSelectionSettings", sender: nil);
-    }
     // on buttoin press delete all of relam data
     @IBAction func wipeDataButton(_ sender: Any) {
         deleteDataPrompt()

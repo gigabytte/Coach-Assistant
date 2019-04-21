@@ -467,13 +467,5 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "importButtonSegue"){
-            // set var vc as destination segue
-            let vc = segue.destination as! Settings_Page
-            vc.successImport = true
-        }
-    }
+   
 }
