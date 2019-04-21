@@ -12,6 +12,7 @@
 		94591E74093479D23B50C5C9 /* Pods_Shot_TrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */; };
 		BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */; };
 		BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B752201576B0018E434 /* Team_Selection_View.swift */; };
+		BE4E8E70226CEDC20046D710 /* Settings_Legal_View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */; };
 		BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */; };
 		BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */; };
 		BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */; };
@@ -98,6 +99,7 @@
 		B66ACACA2323B38B3C25CBEE /* Pods-Shot TrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerUITests.release.xcconfig"; path = "Target Support Files/Pods-Shot TrackerUITests/Pods-Shot TrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_Team_Info_Page.swift; sourceTree = "<group>"; };
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
+		BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Legal_View Controller.swift"; sourceTree = "<group>"; };
 		BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Settings Page View Controller.swift"; sourceTree = "<group>"; };
 		BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Backup View Controller.swift"; sourceTree = "<group>"; };
 		BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Defaults View Controller.swift"; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */,
 				BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */,
 				BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */,
+				BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */,
 				BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */,
 				BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */,
 				BE0C7B752201576B0018E434 /* Team_Selection_View.swift */,
@@ -536,6 +539,7 @@
 				BE83904421F6515000D02C0B /* RealmSwift.framework in Sources */,
 				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
+				BE4E8E70226CEDC20046D710 /* Settings_Legal_View Controller.swift in Sources */,
 				BE83904A21F663A600D02C0B /* Team Info Table.swift in Sources */,
 				BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */,
 				BE7D697A21E3D74300C1745C /* ViewController.swift in Sources */,

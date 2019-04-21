@@ -49,6 +49,20 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         return viewController
     }()
     
+    // MARK other view controllers initialked here for future context
+    private lazy var legalViewController: Settings_Legal_View_Controller = {
+        // Load Storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        
+        // Instantiate View Controller
+        var viewController = storyboard.instantiateViewController(withIdentifier: "Settings_Legal_View_Controller") as! Settings_Legal_View_Controller
+        
+        // Add View Controller as Child View Controller
+        self.add(asChildViewController: viewController)
+        
+        return viewController
+    }()
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -71,12 +85,19 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         switch rowIndex{
         case 0:
             remove(asChildViewController: defaultsViewController)
+            remove(asChildViewController: legalViewController)
             add(asChildViewController: backupViewController)
         case 1:
             remove(asChildViewController: backupViewController)
+            remove(asChildViewController: legalViewController)
             add(asChildViewController: defaultsViewController)
+        case 2:
+            remove(asChildViewController: backupViewController)
+            remove(asChildViewController: defaultsViewController)
+            add(asChildViewController: legalViewController)
         default:
             remove(asChildViewController: defaultsViewController)
+            remove(asChildViewController: legalViewController)
             add(asChildViewController: backupViewController)
         }
     }
