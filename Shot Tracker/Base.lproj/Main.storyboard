@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sbU-vj-OV2">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -842,7 +842,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Main" storyboardIdentifier="Main" id="BYZ-38-t0r" customClass="ViewController" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2905,6 +2905,101 @@
             </objects>
             <point key="canvasLocation" x="-2445" y="1652"/>
         </scene>
+        <!--Initial Setup Page Controller-->
+        <scene sceneID="dbv-D2-cc0">
+            <objects>
+                <pageViewController storyboardIdentifier="Setup" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="sbU-vj-OV2" customClass="Initial_Setup_Page_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nlW-XN-2eO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-838" y="3227"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="B3a-Zm-yvX">
+            <objects>
+                <viewController storyboardIdentifier="Second" id="e1a-Ji-2CN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JHM-03-GQz">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sO-eT-Zaa">
+                                <rect key="frame" x="441" y="369" width="142" height="30"/>
+                                <color key="backgroundColor" red="0.17111966740000001" green="1" blue="0.1047022864" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4sO-eT-Zaa" firstAttribute="centerY" secondItem="JHM-03-GQz" secondAttribute="centerY" id="Bkp-DU-JrT"/>
+                            <constraint firstItem="4sO-eT-Zaa" firstAttribute="centerX" secondItem="JHM-03-GQz" secondAttribute="centerX" id="KnY-Cj-tNR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DqP-zp-5TD"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MHW-h0-a1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-854" y="3983"/>
+        </scene>
+        <!--Initial SetupF Inish Page View Controller-->
+        <scene sceneID="DOZ-Cs-t0V">
+            <objects>
+                <viewController storyboardIdentifier="Third" id="8iu-rp-BmU" customClass="Initial_Setup_FInish_Page_ViewController" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5s6-XA-goL">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AY2-HX-CNW">
+                                <rect key="frame" x="453" y="364.5" width="118" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Finish Setup">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="finishButton:" destination="8iu-rp-BmU" eventType="touchUpInside" id="Ftb-hI-adf"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="finishSetupSegue" modalTransitionStyle="crossDissolve" id="1iC-az-XYT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="AY2-HX-CNW" firstAttribute="centerY" secondItem="5s6-XA-goL" secondAttribute="centerY" id="gGn-2T-i1j"/>
+                            <constraint firstItem="AY2-HX-CNW" firstAttribute="centerX" secondItem="5s6-XA-goL" secondAttribute="centerX" id="n1B-qm-xqp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RV0-RI-BmZ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ALE-3F-xcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-123" y="3977"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="JBW-bT-AQL">
+            <objects>
+                <viewController storyboardIdentifier="First" id="npm-zg-yPU" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4k7-15-cTi">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNB-S4-9Xk">
+                                <rect key="frame" x="461.5" y="369" width="101" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jNB-S4-9Xk" firstAttribute="centerY" secondItem="4k7-15-cTi" secondAttribute="centerY" id="ePj-2W-bEY"/>
+                            <constraint firstItem="jNB-S4-9Xk" firstAttribute="centerX" secondItem="4k7-15-cTi" secondAttribute="centerX" id="fXK-UW-U04"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HRA-q0-YjW"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y5p-Wg-5Bj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1562" y="3983"/>
+        </scene>
     </scenes>
     <resources>
         <image name="blank_goalie" width="672.75" height="401.25"/>
@@ -2919,14 +3014,14 @@
         <image name="right_scroll_arrow" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="maz-bK-j91"/>
+        <segue reference="pOz-SY-0TH"/>
         <segue reference="G5K-rA-i7R"/>
         <segue reference="3Is-IF-SeE"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="RuC-Pi-VMU"/>
         <segue reference="VT3-rT-kon"/>
-        <segue reference="Big-e3-Hx4"/>
+        <segue reference="1iC-az-XYT"/>
         <segue reference="JQ5-8K-2Rt"/>
-        <segue reference="xrM-V5-vxZ"/>
+        <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
 </document>

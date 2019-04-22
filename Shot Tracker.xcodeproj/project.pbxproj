@@ -18,6 +18,8 @@
 		BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */; };
 		BE523714226A88A7009D9254 /* customSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE523713226A88A7009D9254 /* customSettingCell.swift */; };
 		BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */; };
+		BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */; };
+		BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */; };
 		BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */; };
 		BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */; };
 		BE7A1C632200EF4D00E4D74B /* Shot Marker File.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */; };
@@ -105,6 +107,8 @@
 		BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Defaults View Controller.swift"; sourceTree = "<group>"; };
 		BE523713226A88A7009D9254 /* customSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customSettingCell.swift; path = "/Users/gregbrooks/Desktop/Coach-Assitant/Shot Tracker/customSettingCell.swift"; sourceTree = "<absolute>"; };
 		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
+		BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Page_Controller.swift; sourceTree = "<group>"; };
+		BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_FInish_Page_ViewController.swift; sourceTree = "<group>"; };
 		BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_Location_View.swift; sourceTree = "<group>"; };
 		BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current_Stats_Ananlytical_View:.swift"; sourceTree = "<group>"; };
 		BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shot Marker File.swift"; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 			children = (
 				BE7D697721E3D74300C1745C /* AppDelegate.swift */,
 				BE7D697921E3D74300C1745C /* ViewController.swift */,
+				BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */,
+				BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */,
 				BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */,
 				BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */,
 				BEB718FF220A192B00DA6399 /* Current_Stats_Page.swift */,
@@ -524,10 +530,12 @@
 				BEB71900220A192B00DA6399 /* Current_Stats_Page.swift in Sources */,
 				BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */,
 				BE83904321F6515000D02C0B /* Realm.framework in Sources */,
+				BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */,
 				BE9016B622469E45006ECE5B /* Default Team Selection View.swift in Sources */,
 				BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */,
 				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
 				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
+				BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */,
 				BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */,
 				BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */,
 				BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */,
