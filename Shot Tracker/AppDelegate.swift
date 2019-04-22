@@ -17,9 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
-       
-        
-        return true
+        // check if user is new before redirecting to pefic page
+        if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
+            self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main") as? UIViewController
+            return true
+        }else{
+            // redicrt to setup process if user is new
+            self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setup") as? UIViewController
+            return true
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
