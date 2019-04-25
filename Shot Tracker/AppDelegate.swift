@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
         // check if user is new before redirecting to pefic page
+        /* MARK  Uncomment for testing
+        */UserDefaults.standard.set(nil, forKey: "newUser")
+        //*/
         if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main") as? UIViewController
             return true
@@ -26,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setup") as? UIViewController
             return true
         }
+        // get Realm Databse file location
+        print(Realm.Configuration.defaultConfiguration.fileURL)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -21,18 +21,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="p4C-i4-sY4">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="sfc-Em-KTY">
-                                <rect key="frame" x="374.5" y="70" width="275" height="236"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="275" id="Cim-dj-hAb"/>
-                                    <constraint firstAttribute="height" constant="236" id="QQ5-Z4-QM4"/>
-                                </constraints>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="6gH-x9-kSN">
-                                <rect key="frame" x="326" y="336" width="372" height="201"/>
+                                <rect key="frame" x="326" y="150" width="372" height="201"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -41,8 +31,8 @@
                                     <constraint firstAttribute="width" constant="372" id="jUJ-nL-PFD"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developed by MAG Industries" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6is-on-S4e">
-                                <rect key="frame" x="387.5" y="736" width="249" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Between the Posts Studios" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6is-on-S4e">
+                                <rect key="frame" x="399" y="736" width="226" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -51,16 +41,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="bottom" secondItem="GGn-L9-un1" secondAttribute="bottom" id="0df-Ww-m7b"/>
-                            <constraint firstItem="sfc-Em-KTY" firstAttribute="top" secondItem="GGn-L9-un1" secondAttribute="top" constant="50" id="3jH-sR-hjc"/>
                             <constraint firstItem="6gH-x9-kSN" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="82B-YK-Btg"/>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="leading" secondItem="GGn-L9-un1" secondAttribute="leading" id="B1t-RN-JxR"/>
-                            <constraint firstItem="sfc-Em-KTY" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="DH6-SP-Na9"/>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="N0d-ml-czC"/>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" id="VAh-Lb-glb"/>
                             <constraint firstItem="6is-on-S4e" firstAttribute="bottom" secondItem="GGn-L9-un1" secondAttribute="bottom" constant="-10" id="W4s-GX-wQJ"/>
+                            <constraint firstItem="6gH-x9-kSN" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" constant="150" id="cb2-ES-zKD"/>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="trailing" secondItem="GGn-L9-un1" secondAttribute="trailing" id="fbD-AF-vXx"/>
                             <constraint firstItem="6is-on-S4e" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="kSa-Wq-jxs"/>
-                            <constraint firstItem="6gH-x9-kSN" firstAttribute="top" secondItem="sfc-Em-KTY" secondAttribute="bottom" constant="30" id="tYK-iF-b1j"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGn-L9-un1"/>
                     </view>
@@ -73,6 +61,5 @@
     <resources>
         <image name="coach_assitant_full_trans" width="500" height="335"/>
         <image name="ice" width="1300" height="975"/>
-        <image name="logo" width="167" height="167"/>
     </resources>
 </document>

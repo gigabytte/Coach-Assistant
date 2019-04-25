@@ -7,20 +7,27 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource  {
-        
+    
+    let realm = try! Realm()
         var pageControl = UIPageControl()
         
         // MARK: UIPageViewControllerDataSource
         
         lazy var orderedViewControllers: [UIViewController] = {
-            return [self.newVc(viewController: "First"),
-                    self.newVc(viewController: "Second"), self.newVc(viewController: "Third")]
+            return [self.newVc(viewController: "first"),
+                    self.newVc(viewController: "second"), self.newVc(viewController: "third"), self.newVc(viewController: "fourth"), self.newVc(viewController: "fifth")]
         }()
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            
+            // get Realm Databse file location
+            print(Realm.Configuration.defaultConfiguration.fileURL)
+            
             self.dataSource = self
             self.delegate = self
             
@@ -57,8 +64,21 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
         
         // MARK: Delegate methords
         func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-            let pageContentViewController = pageViewController.viewControllers![0]
-            self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
+            
+             let playerCheck = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            //let pageContentViewController = pageViewController.viewControllers![0]
+            //self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
+            if (self.pageControl.currentPage == 1){
+                print("Add team page detected!")
+                if (playerCheck.last == nil){
+                   
+                    self.pageControl.currentPage = 1//orderedViewControllers.index(of: pageContentViewController)!
+                }
+            }else{
+                let pageContentViewController = pageViewController.viewControllers![0]
+                self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
+                
+            }
         }
         
         // MARK: Data source functions.
@@ -88,10 +108,13 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                 return nil
             }
+            var nextIndex: Int!
+            var orderedViewControllersCount: Int!
+            // check if user has added a player to the app
+            nextIndex = viewControllerIndex + 1
+            orderedViewControllersCount = orderedViewControllers.count
             
-            let nextIndex = viewControllerIndex + 1
-            let orderedViewControllersCount = orderedViewControllers.count
-            
+ 
             // User is on the last view controller and swiped right to loop to
             // the first view controller.
             guard orderedViewControllersCount != nextIndex else {
@@ -103,8 +126,13 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             guard orderedViewControllersCount > nextIndex else {
                 return nil
             }
-            
-            return orderedViewControllers[nextIndex]
+            let className = String(describing: Initial_Setup_Team_Add_View_Controller.self)
+            print(className)
+            //if (className == "Initial_Setup_Team_Add_View_Controlle"{
+              //  return orderedViewControllers[viewControllerIndex]
+                //}else{
+                return orderedViewControllers[nextIndex]
+            //}
         }
         
         
