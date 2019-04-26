@@ -851,7 +851,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="us1-ey-YFn">
-                                <rect key="frame" x="362" y="524" width="300" height="30"/>
+                                <rect key="frame" x="362" y="525" width="300" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Bbi-6U-ZBc"/>
                                     <constraint firstAttribute="width" constant="300" id="lZy-XD-bwq"/>
@@ -863,7 +863,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guo-Th-gga">
-                                <rect key="frame" x="362" y="624" width="300" height="30"/>
+                                <rect key="frame" x="362" y="625" width="300" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="E4W-3c-L5V"/>
                                     <constraint firstAttribute="height" constant="30" id="izE-41-Xs0"/>
@@ -875,7 +875,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDW-ul-wnx">
-                                <rect key="frame" x="455.5" y="409" width="113" height="45"/>
+                                <rect key="frame" x="455.5" y="410" width="113" height="45"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
                                 <state key="normal" title="Old Stats"/>
                                 <connections>
@@ -885,7 +885,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="6ur-DR-cSQ">
                                 <rect key="frame" x="322" y="40" width="383" height="213"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="219" id="W4g-GJ-dMf"/>
+                                    <constraint firstAttribute="height" constant="220" id="W4g-GJ-dMf"/>
                                     <constraint firstAttribute="width" constant="380" id="fjF-xm-QI7"/>
                                 </constraints>
                             </imageView>
@@ -1491,22 +1491,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setting Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXR-GN-Jy9">
-                                                    <rect key="frame" x="25" y="27" width="104" height="21"/>
+                                                    <rect key="frame" x="150" y="27" width="104" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KtK-VF-mAY">
-                                                    <rect key="frame" x="249" y="-0.5" width="75" height="75.5"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KtK-VF-mAY">
+                                                    <rect key="frame" x="10" y="12.5" width="50" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="75" id="QXd-Nc-PaM"/>
-                                                        <constraint firstAttribute="width" constant="75" id="zhM-h5-dHF"/>
+                                                        <constraint firstAttribute="height" constant="50" id="QXd-Nc-PaM"/>
+                                                        <constraint firstAttribute="width" constant="50" id="zhM-h5-dHF"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="KtK-VF-mAY" firstAttribute="leading" secondItem="DxJ-pa-ia1" secondAttribute="leading" constant="10" id="8Yg-5Q-SQb"/>
                                                 <constraint firstItem="EXR-GN-Jy9" firstAttribute="centerY" secondItem="DxJ-pa-ia1" secondAttribute="centerY" id="nL0-4u-T0F"/>
-                                                <constraint firstItem="EXR-GN-Jy9" firstAttribute="leading" secondItem="DxJ-pa-ia1" secondAttribute="leading" constant="25" id="s9a-kd-I9t"/>
+                                                <constraint firstItem="EXR-GN-Jy9" firstAttribute="trailing" secondItem="DxJ-pa-ia1" secondAttribute="trailing" constant="-25" id="s9a-kd-I9t"/>
+                                                <constraint firstItem="KtK-VF-mAY" firstAttribute="centerY" secondItem="DxJ-pa-ia1" secondAttribute="centerY" id="twd-TF-7rH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="customSettingCellIdentifier"/>
@@ -3220,7 +3222,7 @@
         <segue reference="YVz-TT-Imk"/>
         <segue reference="RuC-Pi-VMU"/>
         <segue reference="VT3-rT-kon"/>
-        <segue reference="1iC-az-XYT"/>
+        <segue reference="Big-e3-Hx4"/>
         <segue reference="JQ5-8K-2Rt"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>

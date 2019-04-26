@@ -33,58 +33,61 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
         //Takes user's input and stores it in the userinput variable
         let userInputTeam: String = teamName.text!
         
-        // if team name adding functionlity is added
-        if (addTeamButton.titleLabel?.text == "Add Team"){
-            //Checks to see if the database table has an entry in it or not. If not
-            //adds the first entry with team ID equal to zero. If there are entries, it
-            //finds the one with the higest ID number and then add one.
-            if (realm.objects(teamInfoTable.self).max(ofProperty: "teamID") as Int? != nil){
-                primaryTeamID = (realm.objects(teamInfoTable.self).max(ofProperty: "teamID")as Int? ?? 0) + 1
+        if (((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).count <= 0){
+            // if team name adding functionlity is added
+            if (addTeamButton.titleLabel?.text == "Add Team"){
+                //Checks to see if the database table has an entry in it or not. If not
+                //adds the first entry with team ID equal to zero. If there are entries, it
+                //finds the one with the higest ID number and then add one.
+                if (realm.objects(teamInfoTable.self).max(ofProperty: "teamID") as Int? != nil){
+                    primaryTeamID = (realm.objects(teamInfoTable.self).max(ofProperty: "teamID")as Int? ?? 0) + 1
+                }else{
+                    primaryTeamID = (realm.objects(teamInfoTable.self).max(ofProperty: "teamID")as Int? ?? 0)
+                }
+            
+                let newTeam = teamInfoTable()
+            
+                //Checks to see if the text box object is not blank and if the toggle switch is
+                //not on then adds the primary team ID and the team name to the new team entry.
+                switch userInputTeam {
+                case "":
+                    missingFieldAlert(missingType: "Team")
+                default:
+                    try! realm.write{
+                        newTeam.teamID = primaryTeamID
+                        newTeam.nameOfTeam = teamName.text!
+                        realm.add(newTeam, update:true)
+                        teamAddCheck()
+                    }
+                }
+                // add team as default team
+                UserDefaults.standard.set(primaryTeamID, forKey: "defaultHomeTeamID")
             }else{
-                primaryTeamID = (realm.objects(teamInfoTable.self).max(ofProperty: "teamID")as Int? ?? 0)
-            }
-        
-            let newTeam = teamInfoTable()
-        
-            //Checks to see if the text box object is not blank and if the toggle switch is
-            //not on then adds the primary team ID and the team name to the new team entry.
-            switch userInputTeam {
-            case "":
-                missingFieldAlert(missingType: "Team")
-            default:
-                try! realm.write{
-                    newTeam.teamID = primaryTeamID
-                    newTeam.nameOfTeam = teamName.text!
-                    realm.add(newTeam, update:true)
-                    teamAddCheck()
+                // if player functionality is introduced
+                if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
+                    primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
+                }else{
+                    primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
+                }
+                
+                let newplayer = playerInfoTable()
+                
+                //Checks to see if the text box object is not blank and if the toggle switch is
+                //not on then adds the primary team ID and the team name to the new team entry.
+                switch userInputTeam {
+                case "":
+                    missingFieldAlert(missingType: "Player")
+                default:
+                    try! realm.write{
+                        newplayer.playerID = primaryTeamID
+                        newplayer.playerName = teamName.text!
+                        realm.add(newplayer, update:true)
+                    }
                 }
             }
-            // add team as default team
-            UserDefaults.standard.set(primaryTeamID, forKey: "defaultHomeTeamID")
         }else{
-            // if player functionality is introduced
-            if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
-                primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
-            }else{
-                primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
-            }
-            
-            let newplayer = playerInfoTable()
-            
-            //Checks to see if the text box object is not blank and if the toggle switch is
-            //not on then adds the primary team ID and the team name to the new team entry.
-            switch userInputTeam {
-            case "":
-                missingFieldAlert(missingType: "Player")
-            default:
-                try! realm.write{
-                    newplayer.playerID = primaryTeamID
-                    newplayer.playerName = teamName.text!
-                    realm.add(newplayer, update:true)
-                }
-            }
+            teamAlreadyPresent()
         }
-       
     }
     
     //func for succesful team add alert
@@ -125,15 +128,16 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
         // show the alert
         self.present(missingField, animated: true, completion: nil)
     }
+    
     //function for missing field alert
-    func noTeamAlert(){
+    func teamAlreadyPresent(){
         
         // create the alert
-        let noTeamAlert = UIAlertController(title: "Whoops!", message: "Please add a team before attempting to add players.", preferredStyle: UIAlertController.Style.alert)
+        let doubleTeamAlert = UIAlertController(title: "Whoops!", message: "Looks like we already have a team in the app, please proceed to the next page.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
-        noTeamAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        doubleTeamAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
-        self.present(noTeamAlert, animated: true, completion: nil)
+        self.present(doubleTeamAlert, animated: true, completion: nil)
     }
     
     // delay loop

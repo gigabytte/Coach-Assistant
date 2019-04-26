@@ -54,6 +54,8 @@ final class Settings_Backup_View_Controller: UIViewController {
         print("Back Up View Controller Called")
     }
     
+    
+    
     // on buttoin press delete all of relam data
     @IBAction func wipeDataButton(_ sender: Any) {
         deleteDataPrompt()
@@ -62,7 +64,8 @@ final class Settings_Backup_View_Controller: UIViewController {
     // on button press perform CVS export functions
     @IBAction func exportCVSButtonAction(_ sender: UIButton) {
         // run confirmation alert
-        confirmationLocalAlert()
+ 
+      confirmationLocalAlert()
         
     }
     // on button press perform CVS import functions

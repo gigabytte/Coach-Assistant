@@ -154,8 +154,10 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         
         let cell:customSettingCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customSettingCell
         
+        let image = UIImage(named: self.imageNames[indexPath.row])
+        
         cell.settingsLabel!.text = self.settingsName[indexPath.row]
-        //cell.imageView?.image = UIImage(named: self.imageNames[indexPath.row])
+        cell.settingsImageView?.image = image
         
         return cell
     }

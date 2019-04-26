@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // check if user is new before redirecting to pefic page
         /* MARK  Uncomment for testing
-        */UserDefaults.standard.set(nil, forKey: "newUser")
-        //*/
+        UserDefaults.standard.set(nil, forKey: "newUser")
+        */
         if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main") as? UIViewController
             return true
