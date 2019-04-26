@@ -146,7 +146,6 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
             
             tableView.selectRow(at: rowToSelect as IndexPath, animated: true, scrollPosition: UITableView.ScrollPosition.none)
             
-            //tableView(tableView, didSelectRowAtIndexPath: rowToSelect)
         }
     }
     // create a cell for each table view row
