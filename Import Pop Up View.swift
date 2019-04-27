@@ -14,16 +14,18 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     let realm = try! Realm()
     
     @IBOutlet weak var Popupview: UIView!
-    
+    @IBOutlet weak var importButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     var fileNamesArray: [String] = [String]()
     var selectedFileNamesArray: [String] = [String]()
     var limit: String = "5"
+    var setupPhaseBool: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        importFromSetup()
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -41,6 +43,18 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         fileCollection()
         
     }
+    
+    func importFromSetup(){
+        /* sets button requirments based on if user as accessed this view from
+        the setup process */
+        if (setupPhaseBool == true){
+            print("Segue from setup")
+            importButton.setTitle("Import and Finish Setup", for: .normal)
+            cancelButton.setTitle("Back to Setup", for: .normal)
+        }
+         
+    }
+    
     // get all files in file app that start with Realm_ and place in array
     func fileCollection() -> [String]{
         
@@ -400,14 +414,20 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func cancelButton(_ sender: Any) {
-        self.performSegue(withIdentifier: "cancelButtonSegue", sender: nil);
+        if (setupPhaseBool != true){
+            self.performSegue(withIdentifier: "defaultCancelButton", sender: nil);
+        }else{
+            self.performSegue(withIdentifier: "setupStart", sender: nil);
+        }
     }
     
     @IBAction func importButton(_ sender: Any) {
         
-        if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false){
+        if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && setupPhaseBool != true){
             print("Import Success")
             self.performSegue(withIdentifier: "importButtonSegue", sender: nil);
+        }else if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && setupPhaseBool == true){
+            self.performSegue(withIdentifier: "fromImportFInish", sender: nil);
         }
     }
     // Returns count of items in tableView
@@ -467,5 +487,4 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 
-   
 }
