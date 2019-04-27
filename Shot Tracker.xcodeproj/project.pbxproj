@@ -23,6 +23,7 @@
 		BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */; };
 		BE669DC9226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift */; };
 		BE669DCB226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DCA226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift */; };
+		BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6F1E132274B44000673062 /* Settings_About_View_Controller.swift */; };
 		BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */; };
 		BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */; };
 		BE7A1C632200EF4D00E4D74B /* Shot Marker File.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */; };
@@ -117,6 +118,7 @@
 		BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_FInish_Page_ViewController.swift; sourceTree = "<group>"; };
 		BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Team_Add_View_Controller.swift; sourceTree = "<group>"; };
 		BE669DCA226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Initial_Setup_Player_Add_View Controller.swift"; sourceTree = "<group>"; };
+		BE6F1E132274B44000673062 /* Settings_About_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_About_View_Controller.swift; sourceTree = "<group>"; };
 		BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_Location_View.swift; sourceTree = "<group>"; };
 		BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current_Stats_Ananlytical_View:.swift"; sourceTree = "<group>"; };
 		BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shot Marker File.swift"; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */,
 				BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */,
 				BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */,
+				BE6F1E132274B44000673062 /* Settings_About_View_Controller.swift */,
 				BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */,
 				BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */,
 				BE0C7B752201576B0018E434 /* Team_Selection_View.swift */,
@@ -557,6 +560,7 @@
 				BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */,
 				BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */,
 				BE669DCB226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift in Sources */,
+				BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */,
 				BE523714226A88A7009D9254 /* customSettingCell.swift in Sources */,
 				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
 				BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */,
@@ -757,8 +761,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GWWKFDZU72;
+				DEVELOPMENT_TEAM = GCRT29DPHF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -768,8 +773,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Shot-Marker";
+				PRODUCT_BUNDLE_IDENTIFIER = "Shot-Marker-Offical";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Shot Tracker/Shot Tracker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -783,8 +789,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GWWKFDZU72;
+				DEVELOPMENT_TEAM = GCRT29DPHF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -794,8 +801,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Shot-Marker";
+				PRODUCT_BUNDLE_IDENTIFIER = "Shot-Marker-Offical";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Shot Tracker/Shot Tracker-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;

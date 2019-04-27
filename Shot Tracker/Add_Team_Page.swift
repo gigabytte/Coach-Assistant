@@ -30,7 +30,7 @@ class Add_Team_Page: UIViewController {
                 // create the alert
                 let noTeams = UIAlertController(title: "New to the App?", message: "Please add at least one team before adding a default team or import a team from settings.", preferredStyle: UIAlertController.Style.alert)
                 // add an action (button)
-                noTeams.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                noTeams.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                 // add an action (button)
                 noTeams.addAction(UIAlertAction(title: "Settings", style: UIAlertAction.Style.destructive,  handler: {action in
                     self.performSegue(withIdentifier: "noTeamSettingsSegue", sender: nil);

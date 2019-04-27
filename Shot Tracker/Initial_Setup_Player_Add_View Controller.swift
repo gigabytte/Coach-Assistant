@@ -34,11 +34,6 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        
         self.playerLinePicker.delegate = self
         self.playerLinePicker.dataSource = self
         
@@ -64,28 +59,31 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         defensePositionData = ["Left Defence", "Right Defence"]
         goaliePositionData = ["Goalie"]
         positionCodeData = ["LW", "C", "RW", "LD", "RD", "G"]
-        queryTeamID = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last
-        // set View COntroller title based on users previous team add
-        let queryTeamName = realm.object(ofType: teamInfoTable.self, forPrimaryKey: queryTeamID)?.nameOfTeam
-        viewControllerTitle.text = "Add Player to \(queryTeamName!)"
-        //Sets selected team ID and position is set to position zero
-        //of the arrays. Set selected line to 1(forward line 1)
-        selectPosition = positionCodeData[0]
-        selectPlayerLine = 1
-    }
-    
-    // if keyboard is out push whole view up half the height of the keyboard
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= (keyboardSize.height / 2)
-            }
-        }
-    }
-    // when keybaord down return view back to y orgin of 0
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+        
+        if (((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last != nil){
+            queryTeamID = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last
+            // set View COntroller title based on users previous team add
+            let queryTeamName = realm.object(ofType: teamInfoTable.self, forPrimaryKey: queryTeamID)?.nameOfTeam
+            viewControllerTitle.text = "Add Player to \(queryTeamName!)"
+            //Sets selected team ID and position is set to position zero
+            //of the arrays. Set selected line to 1(forward line 1)
+            selectPosition = positionCodeData[0]
+            selectPlayerLine = 1
+        }else{
+            let warningMessageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 500, height: 21))
+            warningMessageLabel.center.x = self.view.center.x
+            warningMessageLabel.center.y = self.view.center.y
+            warningMessageLabel.textAlignment = .center
+            warningMessageLabel.text = "Please Add a Team Before Adding a Player"
+            warningMessageLabel.textColor = UIColor.blue
+            warningMessageLabel.font.withSize(24.0)
+            // add blur effect to view along with popUpView
+            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.addSubview(blurEffectView)
+            view.addSubview(warningMessageLabel)
         }
     }
 

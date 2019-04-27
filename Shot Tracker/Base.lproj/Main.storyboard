@@ -1450,7 +1450,6 @@
                                         </state>
                                         <connections>
                                             <action selector="cancelButton:" destination="oAD-on-ycU" eventType="touchUpInside" id="1gR-C3-BSR"/>
-                                            <segue destination="BYV-5S-q4x" kind="presentation" identifier="cancelButtonSegue" id="mpO-F2-apV"/>
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IVr-6o-m3G">
@@ -1497,8 +1496,13 @@
                     </view>
                     <connections>
                         <outlet property="Popupview" destination="1HR-Ps-CyD" id="s8S-iA-w2v"/>
+                        <outlet property="cancelButton" destination="8vf-Ta-qcs" id="h6F-Cd-VzG"/>
+                        <outlet property="importButton" destination="XL1-Ko-7Tf" id="6o2-CG-GJK"/>
                         <outlet property="tableView" destination="IVr-6o-m3G" id="yPN-yh-k2e"/>
                         <segue destination="BYV-5S-q4x" kind="presentation" identifier="importButtonSegue" id="qRB-fp-XSG"/>
+                        <segue destination="8iu-rp-BmU" kind="presentation" identifier="fromImportFInish" id="7Ck-Zu-Lfh"/>
+                        <segue destination="BYV-5S-q4x" kind="presentation" identifier="defaultCancelButton" id="9gt-uS-D9h"/>
+                        <segue destination="sbU-vj-OV2" kind="presentation" identifier="setupStart" id="EST-ei-0IR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laI-ir-5Sg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2957,7 +2961,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HpE-A0-oE6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2445" y="1652"/>
+            <point key="canvasLocation" x="-2445" y="1613"/>
         </scene>
         <!--Initial Setup Page Controller-->
         <scene sceneID="dbv-D2-cc0">
@@ -3002,6 +3006,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQi-ni-6tU">
                                 <rect key="frame" x="442" y="688" width="140" height="30"/>
                                 <state key="normal" title="Import From Backup"/>
+                                <connections>
+                                    <action selector="importButton:" destination="e1a-Ji-2CN" eventType="touchUpInside" id="T41-cW-cM1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3021,6 +3028,7 @@
                         <outlet property="addTeamButton" destination="yKR-o2-RQ6" id="iff-bF-DtP"/>
                         <outlet property="teamName" destination="tIW-sU-Lkc" id="rXQ-rF-aGJ"/>
                         <outlet property="viewControllerLabelTitle" destination="87c-zf-Xjq" id="ugA-xW-81R"/>
+                        <segue destination="oAD-on-ycU" kind="presentation" identifier="setupImportSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Rea-8q-XFp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHW-h0-a1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3253,6 +3261,55 @@
             </objects>
             <point key="canvasLocation" x="-1562.109375" y="3982.8125"/>
         </scene>
+        <!--Settings_About_View_Controller-->
+        <scene sceneID="H0e-0F-60d">
+            <objects>
+                <viewController restorationIdentifier="Settings_About_View_Controller" storyboardIdentifier="Settings_About_View_Controller" id="wod-eN-JcS" userLabel="Settings_About_View_Controller" customClass="Settings_About_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QLt-Zd-1AK">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="Lrq-xW-Zc1">
+                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOt-Z5-BIh">
+                                <rect key="frame" x="276" y="20" width="748" height="748"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version #" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiQ-V2-aTT">
+                                        <rect key="frame" x="322" y="100" width="104.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="jiQ-V2-aTT" firstAttribute="top" secondItem="UOt-Z5-BIh" secondAttribute="top" constant="100" id="hDZ-dc-0Mp"/>
+                                    <constraint firstAttribute="width" secondItem="UOt-Z5-BIh" secondAttribute="height" multiplier="4:4" id="u8x-8J-1eY"/>
+                                    <constraint firstItem="jiQ-V2-aTT" firstAttribute="centerX" secondItem="UOt-Z5-BIh" secondAttribute="centerX" id="zMq-pj-d4T"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="UOt-Z5-BIh" firstAttribute="top" secondItem="F5U-DD-Dqp" secondAttribute="top" id="AdM-1e-HTe"/>
+                            <constraint firstItem="Lrq-xW-Zc1" firstAttribute="bottom" secondItem="QLt-Zd-1AK" secondAttribute="bottom" id="Cte-tR-Uvj"/>
+                            <constraint firstItem="Lrq-xW-Zc1" firstAttribute="trailing" secondItem="QLt-Zd-1AK" secondAttribute="trailing" id="S06-Om-MID"/>
+                            <constraint firstItem="Lrq-xW-Zc1" firstAttribute="leading" secondItem="QLt-Zd-1AK" secondAttribute="leading" id="StW-3t-xpD"/>
+                            <constraint firstItem="UOt-Z5-BIh" firstAttribute="bottom" secondItem="QLt-Zd-1AK" secondAttribute="bottom" id="a5Y-Ey-IAl"/>
+                            <constraint firstItem="Lrq-xW-Zc1" firstAttribute="top" secondItem="F5U-DD-Dqp" secondAttribute="top" id="bd4-LK-7IV"/>
+                            <constraint firstItem="UOt-Z5-BIh" firstAttribute="trailing" secondItem="QLt-Zd-1AK" secondAttribute="trailing" id="jRF-lI-yJg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="F5U-DD-Dqp"/>
+                    </view>
+                    <connections>
+                        <outlet property="versionNumberLabel" destination="jiQ-V2-aTT" id="HCy-NG-XFq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P9A-Q2-lhx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2445" y="2335"/>
+        </scene>
     </scenes>
     <resources>
         <image name="blank_goalie" width="672.75" height="401.25"/>
@@ -3270,11 +3327,12 @@
     <inferredMetricsTieBreakers>
         <segue reference="pOz-SY-0TH"/>
         <segue reference="G5K-rA-i7R"/>
-        <segue reference="3Is-IF-SeE"/>
+        <segue reference="iwx-ea-EBk"/>
         <segue reference="YVz-TT-Imk"/>
-        <segue reference="RuC-Pi-VMU"/>
+        <segue reference="qRB-fp-XSG"/>
+        <segue reference="Rea-8q-XFp"/>
         <segue reference="VT3-rT-kon"/>
-        <segue reference="oiw-l9-Ygs"/>
+        <segue reference="Ggy-8a-rEU"/>
         <segue reference="JQ5-8K-2Rt"/>
         <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>

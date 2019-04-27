@@ -31,8 +31,6 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             self.dataSource = self
             self.delegate = self
             
-            
-            
             // This sets up the first view that will show up on our page control
             if let firstViewController = orderedViewControllers.first {
                 setViewControllers([firstViewController],
@@ -43,7 +41,6 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             
             configurePageControl()
             
-            // Do any additional setup after loading the view.
         }
         
         func configurePageControl() {
@@ -65,20 +62,8 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
         // MARK: Delegate methords
         func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
             
-             let playerCheck = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-            //let pageContentViewController = pageViewController.viewControllers![0]
-            //self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
-            if (self.pageControl.currentPage == 1){
-                print("Add team page detected!")
-                if (playerCheck.last == nil){
-                   
-                    self.pageControl.currentPage = 1//orderedViewControllers.index(of: pageContentViewController)!
-                }
-            }else{
-                let pageContentViewController = pageViewController.viewControllers![0]
-                self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
-                
-            }
+            let pageContentViewController = pageViewController.viewControllers![0]
+            self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
         }
         
         // MARK: Data source functions.

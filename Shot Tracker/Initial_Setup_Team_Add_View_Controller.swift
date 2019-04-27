@@ -28,8 +28,12 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
         super.viewDidLoad()
         
     }
+    @IBAction func importButton(_ sender: Any) {
+         self.performSegue(withIdentifier: "setupImportSegue", sender: nil);
+    }
     //Func for when the add button is clicked
     @IBAction func saveteamName(_ sender: UIButton){
+        
         //Takes user's input and stores it in the userinput variable
         let userInputTeam: String = teamName.text!
         
@@ -144,6 +148,14 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
     func delay(_ delay:Double, closure:@escaping ()->()) {
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check is appropriate segue is being used
+        if (segue.identifier == "setupImportSegue"){
+            // set var vc as destination segue
+            let vc = segue.destination as! Import_Pop_Up_View
+            vc.setupPhaseBool = true
+        }
     }
     
 }
