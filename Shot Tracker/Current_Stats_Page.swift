@@ -25,12 +25,9 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var gameLocationLabel: UILabel!
     
     // vars used on segue passing
-    var homeTeam: Int!
-    var awayTeam: Int!
+    var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
+    var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
     var teamIDArray: [String] = [String]()
-    var newGameStarted: Bool!
-    var fixedGoalieID: Int!
-    var periodNumSelected: Int!
     var homePlayerStatsArray: [String] = [String]()
     var awayPlayerStatsArray: [String] = [String]()
     var homePlayerIDs: [Int] = [Int]()
@@ -104,9 +101,9 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
         
         // query realm for goal count based on newest gam
         let gameID = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
-        let homeScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID?.gameID)!, homeTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        let homeScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID?.gameID)!, homeTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
-        let awayScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID?.gameID)!, awayTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        let awayScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID?.gameID)!, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
         // align text to center and assigned text field the value of homeScoreFilter query
         homeTeamScoreTextField.text = String(homeScoreFilter)
@@ -121,12 +118,12 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
         
         let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
         // get homeTeam and away team ID's fom said lastest new game entry
-        homeTeam = newGameFilter?.homeTeamID
-        awayTeam = newGameFilter?.opposingTeamID
+        homeTeam = (newGameFilter?.homeTeamID)!
+        awayTeam = (newGameFilter?.opposingTeamID)!
         //get array of team ID's and concert to regular string array from optional
-        let homeShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, homeTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        let homeShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, homeTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
-        let awayShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, awayTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        let awayShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (newGameFilter?.gameID)!, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
         // align text to center and assigned text field the value of homeScoreFilter query
         homeNumShotTextField.text = "Number of Shots: " + String(homeShotCounter)
@@ -265,28 +262,6 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "backFromCurrentGameStatsSegue"){
-            // set var vc as destination segue
-            let currentStats = segue.destination as! New_Game_Page
-            currentStats.newGameStarted = false
-            currentStats.homeTeam = homeTeam
-            currentStats.awayTeam = awayTeam
-            currentStats.fixedGoalieID = fixedGoalieID
-            currentStats.periodNumSelected = periodNumSelected
-        }
-        if (segue.identifier == "analyticalSegue"){
-            // set var vc as destination segue
-            let currentStats = segue.destination as! Current_Stats_Ananlytical_View
-            currentStats.newGameStarted = false
-            currentStats.homeTeam = homeTeam
-            currentStats.awayTeam = awayTeam
-            currentStats.fixedGoalieID = fixedGoalieID
-            currentStats.periodNumSelected = periodNumSelected
-        }
-        
-    }
+    
     
 }

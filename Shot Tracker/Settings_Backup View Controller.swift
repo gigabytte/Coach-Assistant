@@ -463,6 +463,71 @@ final class Settings_Backup_View_Controller: UIViewController {
         }
     }
     
+    // creats csv file for penalty table
+    func createCSVPenaltyTable(){
+        
+        let shotMarkerIDCount =  realm.objects(penaltyTable.self).filter("penaltyID >= 0").count
+        var tempGameID: [String] = [String]()
+        var tempPlayerID: [String] = [String]()
+        var tempPenaltyType: [String] = [String]()
+        var tempTimeOfOffense: [String] = [String]()
+        var tempxCord: [String] = [String]()
+        var tempyCord: [String] = [String]()
+        var tempactiveState: [String] = [String]()
+        
+        
+        for i in 0..<shotMarkerIDCount{
+            
+            let gameID = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.gameID
+            let playerID = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.playerID
+            let penaltyType = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.penaltyType
+            let timeOfOffense = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.timeOfOffense
+            let xCord = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.xCord
+            let yCord = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.yCord
+            let activeState = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.activeState
+            tempGameID.append(String(gameID))
+            tempPlayerID.append(String(playerID))
+            tempPenaltyType.append(String(penaltyType))
+            tempTimeOfOffense.append(dateToString.dateToStringFormatter(unformattedDate: timeOfOffense!))
+            tempxCord.append(String(xCord))
+            tempyCord.append(String(yCord))
+            tempactiveState.append(String(activeState))
+            
+        }
+        
+        let fileName = "Realm_Penalty_Table" + ".csv"
+        var csvText = "gameID,playerID,penaltyType,timeOfOffense,xCord,yCord,activeState\n"
+        for x in 0..<shotMarkerIDCount{
+            
+            let gameIDVar = tempGameID[x]
+            let playerIDVar = tempPlayerID[x]
+            let penaltyTypeVar = tempPenaltyType[x]
+            let timeOfOffenseVar = tempTimeOfOffense[x]
+            let xCordVar = tempxCord[x]
+            let yCordVar = tempyCord[x]
+            let activeStateVar = tempactiveState[x]
+            
+            let newLine =  gameIDVar + "," + playerIDVar + "," + penaltyTypeVar + "," + timeOfOffenseVar + "," + xCordVar + "," + yCordVar + "," + activeStateVar + "\n"
+            if(x == shotMarkerIDCount){
+                newLine.dropLast()
+                newLine.dropLast()
+            }
+            csvText.append(newLine)
+        }
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(fileName)
+            
+            do {
+                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
+                print("Penalty Table CSV File URL: ", fileURL)
+            } catch {
+                print("\(error)")
+            }
+        }
+    }
+    
     // func used to delete old CSV files stored in file manager app
     func oldCSVFileFinder(){
         let fileManager = FileManager.default
@@ -538,6 +603,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             self.createCSVNewGameInfo()
             self.createCSVGoalMarkerTable()
             self.createCSVShotMarkerTable()
+            self.createCSVPenaltyTable()
             // save last know backup to user defaults
             let currentDateTime = Date()
             let formatter = DateFormatter()

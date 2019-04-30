@@ -37,14 +37,14 @@ class Shot_Location_View: UIViewController {
     
     var tempXCords: Int = 0
     var tempYCords: Int = 0
-    var homeTeamID: Int!
-    var awayTeamID: Int!
+    var homeTeamID: Int = UserDefaults.standard.integer(forKey: "homeTeam")
+    var awayTeamID: Int = UserDefaults.standard.integer(forKey: "awayTeam")
     var tempGoalieSelectedID: Int!
-    var fixedGoalieID: Int!
+    var fixedGoalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
     var selectedGoalieIDArray: [Int] = [Int]()
     var universalGoalieIDArray: [Int] = [Int]()
     var realmSelectTeamID: Int!
-    var periodNumSelected: Int!
+    var periodNumSelected: Int = UserDefaults.standard.integer(forKey: "periodNumber")
     var currentArrayIndex: Int = 0
     var homeTeamGoalieIndex: Int = 0
     
@@ -199,18 +199,18 @@ class Shot_Location_View: UIViewController {
         // get array of Goalie Jersey Nunbers of Page Load
         if (tempMarkerType != true){
             // if goal marker is placed run code below
-            goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
-            let awayTeamGoalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
-            let awayTeamGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+            let awayTeamGoalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+            let awayTeamGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             goalieNumberArray.append(awayTeamGoalieNumberArray[0])
-            selectedGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID!), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            selectedGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             selectedGoalieIDArray.append(awayTeamGoalieIDArray[0])
             print("Goalie Number Array for Goal: ", goalieNumberArray)
             print("goalie number array", selectedGoalieIDArray)
         }else{
             goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", fixedGoalieID)).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
-            let awayTeamGoalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
-             let awayTeamGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID!), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            let awayTeamGoalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+            let awayTeamGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             goalieNumberArray.append(awayTeamGoalieNumberArray[0])
             selectedGoalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i AND playerID == %i AND activeState == true", Int(goalieNumberArray[0])!, fixedGoalieID)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             selectedGoalieIDArray.append(awayTeamGoalieIDArray[0])
@@ -337,7 +337,7 @@ class Shot_Location_View: UIViewController {
             shotMarkerTableID?.goalieID = tempGoalieSelectedID
             shotMarkerTableID?.xCordShot = tempXCords
             shotMarkerTableID?.yCordShot = tempYCords
-            shotMarkerTableID?.periodNum = periodNumSelected!
+            shotMarkerTableID?.periodNum = periodNumSelected
             shotMarkerTableID?.shotLocation = shotLocationValueSelected
             shotMarkerTableID?.activeState = true
 
@@ -426,34 +426,18 @@ class Shot_Location_View: UIViewController {
         
         print("popUpView has been Teared Down")
     }
-    
-    // func used to pass varables on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
         if (segue.identifier == "markerInfoSegue"){
             // set var vc as destination segue
-            let shotLocationVC = segue.destination as! Marker_Info_Page
-            //let new_vc = segue.destination as! New_Game_Page
-            shotLocationVC.shotLocationValue = String(shotLocationValueSelected)
-            shotLocationVC.xCords = tempXCords
-            shotLocationVC.yCords = tempYCords
-            shotLocationVC.markerType = tempMarkerType
-
-            shotLocationVC.goalieSelectedID = tempGoalieSelectedID
-            shotLocationVC.fixedGoalieID = fixedGoalieID
-            shotLocationVC.homeTeam = homeTeamID
-            shotLocationVC.awayTeam = awayTeamID
-            shotLocationVC.periodNumSelected = periodNumSelected
-            
-        }
-        if (segue.identifier == "cancelShotLocationSegue"){
-            // set var vc as destination segue
-            let shotLocationVC = segue.destination as! New_Game_Page
-            //let new_vc = segue.destination as! New_Game_Page
-            shotLocationVC.newGameStarted = false
-            shotLocationVC.fixedGoalieID = fixedGoalieID
-            shotLocationVC.periodNumSelected = periodNumSelected
+            let vc = segue.destination as! Marker_Info_Page
+            vc.goalieSelectedID = tempGoalieSelectedID
+            vc.xCords = tempXCords
+            vc.yCords = tempYCords
+            vc.shotLocationValue = shotLocationValueSelected
         }
     }
+
+    
 }
 

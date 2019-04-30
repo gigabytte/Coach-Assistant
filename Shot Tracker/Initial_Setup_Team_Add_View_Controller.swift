@@ -21,12 +21,13 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
     
     //Connections to the page
     
+    @IBOutlet weak var proceedArrow: UIImageView!
     @IBOutlet weak var viewControllerLabelTitle: UILabel!
     @IBOutlet weak var addTeamButton: UIButton!
     @IBOutlet weak var teamName: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        proceedArrow.isHidden = true
     }
     @IBAction func importButton(_ sender: Any) {
          self.performSegue(withIdentifier: "setupImportSegue", sender: nil);
@@ -64,32 +65,12 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
                         teamAddCheck()
                     }
                 }
+                proceedArrow.isHidden = false
                 // add team as default team
                 UserDefaults.standard.set(primaryTeamID, forKey: "defaultHomeTeamID")
-            }else{
-                // if player functionality is introduced
-                if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
-                    primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
-                }else{
-                    primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
-                }
-                
-                let newplayer = playerInfoTable()
-                
-                //Checks to see if the text box object is not blank and if the toggle switch is
-                //not on then adds the primary team ID and the team name to the new team entry.
-                switch userInputTeam {
-                case "":
-                    missingFieldAlert(missingType: "Player")
-                default:
-                    try! realm.write{
-                        newplayer.playerID = primaryTeamID
-                        newplayer.playerName = teamName.text!
-                        realm.add(newplayer, update:true)
-                    }
-                }
             }
         }else{
+            proceedArrow.isHidden = false
             teamAlreadyPresent()
         }
     }
