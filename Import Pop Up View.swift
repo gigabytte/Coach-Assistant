@@ -20,7 +20,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     
     var fileNamesArray: [String] = [String]()
     var selectedFileNamesArray: [String] = [String]()
-    var limit: String = "5"
+    var limit: String = "6"
     var setupPhaseBool: Bool!
     
     override func viewDidLoad() {
@@ -390,6 +390,64 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             return(false)
         }
     }
+    
+    // convert csv files to string then convert [[string]] to penalty table in realm
+    func csvStringToRealmPenaltyTable() -> Bool{
+        // get document path based on search for spefic file
+        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fifthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Penalty_Table.csv")!])
+        
+        var sixFileContentsParsed: [[String]] = [[String]]()
+        // get contents of specfic csv file and place into array above
+        do {
+            sixFileContentsParsed =  (try String(contentsOf: fifthDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Containts of File")
+        }
+        
+        if (sixFileContentsParsed[0].count == 7){
+            try? realm.write ({
+                //delete contents of table in realm DB
+                realm.delete(realm.objects(penaltyTable.self))
+                
+                for i in 1..<sixFileContentsParsed.count - 1{
+                    if(sixFileContentsParsed[i].contains{$0 != ""}){
+                        var primaryID: Int!
+                        if (self.realm.objects(penaltyTable.self).max(ofProperty: "penaltyID") as Int? != nil){
+                            primaryID = (self.realm.objects(penaltyTable.self).max(ofProperty: "penaltyID") as Int? ?? 0) + 1;
+                        }else{
+                            primaryID = (self.realm.objects(penaltyTable.self).max(ofProperty: "penaltyID") as Int? ?? 0);
+                        }
+                        self.realm.create(penaltyTable.self, value: ["penaltyID": primaryID])
+                        let primaryMarkerID = self.realm.object(ofType: penaltyTable.self, forPrimaryKey: primaryID)
+                        var count = 0
+                        primaryMarkerID?.gameID = Int(sixFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.playerID = Int(sixFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.penaltyType = sixFileContentsParsed[i][count]; count += 1
+                        primaryMarkerID?.timeOfOffense = stringToDate.stringToDateFormatter(unformattedString: sixFileContentsParsed[i][count]); count += 1
+                        primaryMarkerID?.xCord = Int(sixFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.yCord = Int(sixFileContentsParsed[i][count])!; count += 1
+                        if (Bool(sixFileContentsParsed[i][count]) != nil && Bool(sixFileContentsParsed[i][count])!){
+                            primaryMarkerID?.activeState = (Bool(sixFileContentsParsed[i][count]))!; count += 1
+                        }else{
+                            let set = CharacterSet(charactersIn: "truefalse")
+                            primaryMarkerID?.activeState = Bool((sixFileContentsParsed[i][count]).lowercased().components(separatedBy: set.inverted).joined())!; count += 1
+                        }
+                    }else{
+                        acceptedIncorrectDataFormat(fileType: "Penalty Table")
+                        break
+                    }
+                    
+                }
+            })
+            print("Shot Marker Table Success")
+            return(true)
+        }else{
+            incorrectDataFormat(fileType: "Penalty Table")
+            return(false)
+        }
+    }
+    
     
     func incorrectDataFormat(fileType: String) -> Bool{
         

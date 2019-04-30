@@ -34,13 +34,10 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     
     var goalieNumberArray: [String] = [String]()
     
-    // vars passed between segue
-    var tempXCords: Int = 0
-    var tempYCords: Int = 0
-    var homeTeamID: Int!
-    var awayTeamID: Int!
+    var homeTeamID: Int = UserDefaults.standard.integer(forKey: "homeTeam")
+    var awayTeamID: Int = UserDefaults.standard.integer(forKey: "awayTeam")
     var currentArrayIndex: Int = 0
-    var newGameStarted: Bool!
+    var newGameStarted: Bool = UserDefaults.standard.bool(forKey: "newGameStarted")
     var setPeriodVar: Int!
     var SeletedGame: Int!
     var oldStatsGoalieSelection: Bool!
@@ -51,7 +48,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     var tempPeriodNumSelected: Int!
     
     var tempgoalieSelectedID: Int!
-    var fixedGoalieID: Int!
+    var fixedGoalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
     
     var periodOne: CGRect?
     var periodTwo: CGRect?
@@ -142,7 +139,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     func goalieSelectionGesture() {
         
         // get array of Goalie Jersey Nunbers of Page Load
-        goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+        goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
         
         // set deafult jersey number
         goalieNumberLabel.text = goalieNumberArray[0]
@@ -291,6 +288,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                     }
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
+                    
                     print("goalie id: ", tempgoalieSelectedID)
                 }else{
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
@@ -306,7 +304,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     // get goalies jersey numbers based on teams selected
     func goalieNameProcessing(){
         
-        goalieJerseyNumArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+        goalieJerseyNumArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
     }
     
     @IBAction func cancelButton(_ sender: Any) {
@@ -318,7 +316,9 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func continueButton(_ sender: Any) {
         // redfine valuye for poeriod selected based on user interaction with view
         if(setPeriodVar != nil){
-            tempPeriodNumSelected = setPeriodVar
+            UserDefaults.standard.set(setPeriodVar, forKey: "periodNumber")
+            UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
+            UserDefaults.standard.set(false, forKey: "newGameStarted")
             animateOut()
             self.performSegue(withIdentifier: "continueBasicInfoSegue", sender: nil);
         }else{
@@ -356,33 +356,6 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         print("popUpView has been Teared Down")
     }
     
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "cancelBasicInfoSegue"){
-            // set var vc as destination segue
-            let vc = segue.destination as! New_Game_Page
-            print(tempgoalieSelectedID)
-            vc.newGameStarted = false
-            vc.periodNumSelected = tempPeriodNumSelected
-            vc.fixedGoalieID = fixedGoalieID
-        }
-        if (segue.identifier == "continueBasicInfoSegue"){
-            // set var vc as destination segue
-            let vc = segue.destination as! New_Game_Page
-            print(tempgoalieSelectedID)
-            vc.newGameStarted = false
-            vc.periodNumSelected = tempPeriodNumSelected
-            vc.fixedGoalieID = tempgoalieSelectedID
-        }
-        if (segue.identifier == "backFromGoalie"){
-            // set var vc as destination segue
-            let vc = segue.destination as! Old_Game_Ice_View
-           
-            vc.SeletedGame = SeletedGame
-            vc.goalieSelectedID = fixedGoalieID
-        
-        }
-    }
+    
 }
 

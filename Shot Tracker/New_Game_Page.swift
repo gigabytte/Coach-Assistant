@@ -21,6 +21,8 @@ class New_Game_Page: UIViewController {
     let homeTeamShotMakerImage = UIImage(named: "home_team_shot.png");
     let awayTeamGoalMarkerImage = UIImage(named: "away_team_goal.png")
     let awayTeamShotMarkerImage = UIImage(named: "away_team_shot.png")
+    let awayTeamPenaltyMarkerImage = UIImage(named: "away_penalty.png")
+    let homeTeamPenaltyMarkerImage = UIImage(named: "home_penalty.png")
     
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var logoButton: UIButton!
@@ -34,17 +36,19 @@ class New_Game_Page: UIViewController {
     var yLocationCords: Int = 0
     var xLocationCords: Int = 0
     
-    var shotMarkerimageView   : UIImageView!
-    var goalMarkerimageView   : UIImageView!
+    var shotMarkerimageView : UIImageView!
+    var goalMarkerimageView : UIImageView!
+    var penaltyMarkerimageView : UIImageView!
     
     var markerType: Bool!
-    var newGameStarted: Bool!
-    var periodNumSelected: Int!
+    var newGameStarted: Bool = UserDefaults.standard.bool(forKey: "newGameStarted")
+    var periodNumSelected: Int = UserDefaults.standard.integer(forKey: "periodNumber")
     var tempGoalieSelectedID: Int!
-    var fixedGoalieID: Int!
+    var fixedGoalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
     
-    var homeTeam: Int!
-    var awayTeam: Int!
+    var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
+    var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
+    
     // get location cords on user interaction with ice surface
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
@@ -58,11 +62,10 @@ class New_Game_Page: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("golaie id:", fixedGoalieID)
-        // run important functions on load, functions reponsible for displaying game data
+
+        
         newGameDetection()
         teamNameInitialize()
-        teamIDProcessing()
         navBarProcessing()
         // enable ice rink image user interaction
         iceRinkImage.isUserInteractionEnabled = true
@@ -81,15 +84,23 @@ class New_Game_Page: UIViewController {
         // add geature to imageview
         iceRinkImage.addGestureRecognizer(longTap)
     
+        // check Tap gestures for a two finger tap tap
+        let twoFingerTap = UITapGestureRecognizer(target: self, action: #selector(twoFingerTapped));
+        // number of taps require 2
+        // number of finger required 1
+        twoFingerTap.numberOfTouchesRequired = 2
+        twoFingerTap.numberOfTapsRequired = 1
+        // add geature to imageview
+        iceRinkImage.addGestureRecognizer(twoFingerTap)
+        
         // run delay loop ever so after realm refreshes so you get the most current x and y cord placements
         delay(0.5){
             // call functions for stats page dynamic function
             if (self.realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
    
-                // refrence to below functionns for loading first pv initial VC load
-                self.teamIDProcessing()
                 self.shot_markerProcessing()
                 self.goal_markerProcessing()
+                self.penalty_markerProcessing()
                 
                 if (self.realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last == nil){
                 // align text in text field as well assign text value to text field to team name
@@ -130,6 +141,7 @@ class New_Game_Page: UIViewController {
             print("Error Unable to Gather Period Number Selection!")
         }
     }
+
     // if current game has been saved as Keep Active skip team selection segue
     func newGameDetection(){
         delay(0.3){
@@ -139,23 +151,15 @@ class New_Game_Page: UIViewController {
             
         }
     }
-    // get id's of both home and away teams for this game
-    func teamIDProcessing(){
-        // get home team and away team id from the most recent new gamne entry
-        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
-        homeTeam = newGameFilter?.homeTeamID
-        awayTeam = newGameFilter?.opposingTeamID
-    }
-    
     // func used to process shot X and Y cord info from realm based on team selection on new game page load
     func shot_markerProcessing(){
         
         let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.gameID;
         // collect all the x and y cords for each marker placed that was a shot
-        let home_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam!)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
-        let home_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam!)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
-        let away_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam!)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
-        let away_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam!)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
+        let home_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
+        let home_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
+        let away_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
+        let away_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
         // check to see if either array cords arrays are not empty
         if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
             // loop through the corresponding shot arrays for both x and y and place a imageview marker in said spot
@@ -184,10 +188,10 @@ class New_Game_Page: UIViewController {
         
         let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.gameID;
         
-        let home_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam!)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
-        let home_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam!)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
-        let away_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam!)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
-        let away_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam!)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
+        let home_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
+        let home_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
+        let away_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
+        let away_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
         
         // log data grabbed from realm
         if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
@@ -211,6 +215,38 @@ class New_Game_Page: UIViewController {
         }
     }
     
+    // func used to process shot X and Y cord info from realm based on team selection on new game page load
+    // func is exact copy of above but places penalty markers instead
+    func penalty_markerProcessing() {
+        
+        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.gameID;
+        
+        let home_xCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "xCord") as! [Int]).compactMap({String($0)})
+        let home_yCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCord") as! [Int]).compactMap({String($0)})
+        let away_xCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "xCord") as! [Int]).compactMap({String($0)})
+        let away_yCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "yCord") as! [Int]).compactMap({String($0)})
+        
+        // log data grabbed from realm
+        if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
+            // check markerType image value
+            for i in 0..<home_xCordsArray.count{
+                penaltyMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 16, y: Int(home_yCordsArray[i])! - 16, width: 32, height: 32));
+                penaltyMarkerimageView.contentMode = .scaleAspectFill;
+                penaltyMarkerimageView.image = homeTeamPenaltyMarkerImage;
+                view.addSubview(penaltyMarkerimageView);
+            }
+            for i in 0..<away_xCordsArray.count{
+                penaltyMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 16, y: Int(away_yCordsArray[i])! - 16, width: 32, height: 32));
+                penaltyMarkerimageView.contentMode = .scaleAspectFill;
+                penaltyMarkerimageView.image = awayTeamPenaltyMarkerImage;
+                view.addSubview(penaltyMarkerimageView);
+            }
+        }else{
+            // print error id not cord data present in arrays
+            //should only error out if user hasnt submittte any marker data to realm
+            print("No Penalty Marker Cords Found on Load")
+        }
+    }
   
     func teamNameInitialize(){
         // query realm for team names of teams based on newest game
@@ -229,9 +265,9 @@ class New_Game_Page: UIViewController {
         
         // query realm for goal count based on newest gam
         let gameID = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
-        let homeScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", (gameID?.gameID)!, homeTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        let homeScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", (gameID?.gameID)!, homeTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
-        let awayScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", (gameID?.gameID)!, awayTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        let awayScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", (gameID?.gameID)!, awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         // align text to center and assigned text field the value of homeScoreFilter query
         homeTeamNumGoals.text = String(homeScoreFilter)
         homeTeamNumGoals.textAlignment = .center
@@ -241,15 +277,12 @@ class New_Game_Page: UIViewController {
     // func responsible for updating quick shot view at bottom of VC
     func numShotInitialize(){
         
-        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?);
-        // get homeTeam and away team ID's fom said lastest new game entry
-        homeTeam = newGameFilter?.homeTeamID
-        awayTeam = newGameFilter?.opposingTeamID
+       let queryGameID = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
         
         //get array of team ID's and concert to regular string array from optional
-        let homeShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", (newGameFilter?.gameID)!, homeTeam!)).value(forKeyPath: "TeamID") as! [Int]).compactMap({String($0)}).count
+        let homeShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", (queryGameID!.gameID), homeTeam)).value(forKeyPath: "TeamID") as! [Int]).compactMap({String($0)}).count
         
-        let awayShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", (newGameFilter?.gameID)!, awayTeam!)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
+        let awayShotCounter = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", (queryGameID!.gameID), awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         // align text to center and assigned text field the value of homeScoreFilter query
         homeTeamNumShots.text = String(homeShotCounter)
         homeTeamNumShots.textAlignment = .center
@@ -273,10 +306,22 @@ class New_Game_Page: UIViewController {
         // display custom view controller alert alert
         popUpSegue()
     }
+    // long tap function applies red x to ice surface when gesture returns correct
+    @objc func twoFingerTapped() {
+        print("Double Finger Tap Detected")
+        // display custom view controller alert alert
+        popUpPenaltySegue()
+    }
     // segue to period and goalie selction popup
     func popUpSegue(){
         
         self.performSegue(withIdentifier: "popUpSegueView", sender: nil);
+        
+    }
+    
+    func popUpPenaltySegue(){
+        
+         self.performSegue(withIdentifier: "popUpPenaltyView", sender: nil);
         
     }
     
@@ -292,6 +337,8 @@ class New_Game_Page: UIViewController {
             try! self.realm.write{
                 self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus = true
             }
+            // delete all user defaults generated from newgame
+            deleteNewGameUserDefaults.deleteUserDefaults()
              // segue back to home screen when done
             self.performSegue(withIdentifier: "newGameSegue", sender: nil)
         })
@@ -318,6 +365,8 @@ class New_Game_Page: UIViewController {
                 }
               
             }
+            // delete all user defaults generated from newgame
+            deleteNewGameUserDefaults.deleteUserDefaults()
             // segue back to home screen when done
             self.performSegue(withIdentifier: "newGameSegue", sender: nil)
         })
@@ -348,30 +397,11 @@ class New_Game_Page: UIViewController {
             vc.tempXCords = xLocationCords
             vc.tempYCords = yLocationCords
             vc.tempMarkerType = markerType
-            vc.homeTeamID = homeTeam
-            vc.awayTeamID = awayTeam
-            vc.fixedGoalieID = fixedGoalieID
-            vc.periodNumSelected = periodNumSelected
-        }
-        // check is appropriate segue is being used
-        else if (segue.identifier == "logoButtonSegue"){
+        } else if (segue.identifier == "popUpPenaltyView"){
             // set var vc as destination segue
-            let vc = segue.destination as! New_Game_Basic_Info_Page
-            vc.homeTeamID = homeTeam
-            vc.awayTeamID = awayTeam
-            vc.tempPeriodNumSelected = periodNumSelected
-            vc.fixedGoalieID = fixedGoalieID
-            vc.newGameStarted = newGameStarted
-        }
-            // check is appropriate segue is being used
-        else if (segue.identifier == "gameStatsSegue"){
-            // set var vc as destination segue
-            let vc = segue.destination as! Current_Stats_Page
-            vc.homeTeam = homeTeam
-            vc.awayTeam = awayTeam
-            vc.newGameStarted = newGameStarted
-            vc.fixedGoalieID = fixedGoalieID
-            vc.periodNumSelected = periodNumSelected
+            let vc = segue.destination as! Penalty_Popup_View_Controller
+            vc.tempXCords = xLocationCords
+            vc.tempYCords = yLocationCords
         }
     }
     // delay loop

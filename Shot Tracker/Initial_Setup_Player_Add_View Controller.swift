@@ -14,6 +14,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     
     let realm = try! Realm()
     
+    @IBOutlet weak var proceedArrow: UIImageView!
     @IBOutlet weak var playerNameTextField: UITextField!
     @IBOutlet weak var playerNumberTextField: UITextField!
     @IBOutlet weak var playerPositionPicker: UIPickerView!
@@ -60,6 +61,12 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         goaliePositionData = ["Goalie"]
         positionCodeData = ["LW", "C", "RW", "LD", "RD", "G"]
         
+        proceedArrow.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if (((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last != nil){
             queryTeamID = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last
             // set View COntroller title based on users previous team add
@@ -86,7 +93,8 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             view.addSubview(warningMessageLabel)
         }
     }
-
+    
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -242,6 +250,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             newPlayer.positionType = selectPosition
             realm.add(newPlayer, update:true)
         }
+        proceedArrow.isHidden = false
         // reset textfields
         playerNameTextField.text = ""
         playerNumberTextField.text = ""

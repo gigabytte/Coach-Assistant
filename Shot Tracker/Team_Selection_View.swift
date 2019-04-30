@@ -227,11 +227,15 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBAction func continueTeamSelectionButton(_ sender: UIButton) {
         if (teamPlayerGoalieChecker(homeKey: selectedHomeTeamKey, awayKey: selectedAwayTeamKey) != false && (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@",String(selectedAwayTeamKey), NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count != 0 && (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@",String(selectedHomeTeamKey), NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count != 0){
+            
             if (selectedHomeTeamKey != selectedAwayTeamKey){
                
                 if(gameLocationTextField.text != ""){
                      // if home team and away team are not the same proceed with regular segue to New Game Page
                     // and game location is not left blank procceed
+                    newGameUserDefaultGen().userDefaults()
+                    UserDefaults.standard.set(true, forKey: "newGameStarted")
+    
                     animateOut()
                     continueTeamSelection()
                 }else{
@@ -340,21 +344,18 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
     }
     
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "continueTeamSelectionSegue"){
-            // set var vc as destination segue
-            let vc = segue.destination as! New_Game_Page
-            vc.newGameStarted = true
-        }
-    }
+    
     
     func continueTeamSelection(){
         
         try! realm.write() {
-            var primaryNewGameKey = realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "gameLocation": gameLocationTextField.text, "activeGameStatus": true, "activeState": true]);
+            let gameGen = realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "gameLocation": gameLocationTextField.text, "activeGameStatus": true, "activeState": true]);
         }
+        let tempHomeTeamID = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: primaryNewGameKey)?.homeTeamID)!
+        let tempAwayTeamID = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: primaryNewGameKey)?.opposingTeamID)!
+        UserDefaults.standard.set(tempHomeTeamID, forKey: "homeTeam")
+        UserDefaults.standard.set(tempAwayTeamID, forKey: "awayTeam")
+        print("Segue to New Game Page")
         self.performSegue(withIdentifier: "continueTeamSelectionSegue", sender: nil);
     }
     

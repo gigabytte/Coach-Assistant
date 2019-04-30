@@ -60,14 +60,10 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
     }
 
     @IBAction func continueButton(_ sender: UIButton) {
-        if (newGameLoad == true){
-            UserDefaults.standard.set(selectedHomeTeamKey, forKey: "defaultHomeTeamID")
-            self.performSegue(withIdentifier: "backToHomeDefaultTeam", sender: nil);
-        }else{
-            UserDefaults.standard.set(selectedHomeTeamKey, forKey: "defaultHomeTeamID")
-            self.performSegue(withIdentifier: "backToSettingsDefaultTeam", sender: nil);
-            
-        }
+      
+        UserDefaults.standard.set(selectedHomeTeamKey, forKey: "defaultHomeTeamID")
+        self.performSegue(withIdentifier: "backToHomeDefaultTeam", sender: nil);
+      
     }
     //-------------------------------------------------------------------------------
     // Picker View Functions for Home and Away Team Picking

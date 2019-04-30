@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 import Realm
 
-class ViewController: UIViewController {
+class Home_Page_View_Controller: UIViewController {
     
     let realm = try! Realm()
     // active status bool used to check if a game is ongoing
@@ -126,6 +126,7 @@ class ViewController: UIViewController {
             // check for only one team entered and or no team entered
             if (activeStatus != true){
                 if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+                    UserDefaults.standard.set(true, forKey: "newGameStarted")
                     self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
                     
                 }else{
@@ -136,6 +137,11 @@ class ViewController: UIViewController {
                 // check if user has chnaged the default team while a game is ongoing or if this a new game all together
                 if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int) == (realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID))?.teamID || (realm.object(ofType: newGameTable.self, forPrimaryKey: (self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus) == false){
                     if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+                        let tempHomeTeamID  = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID)!
+                        let tempAwayTeamID  = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID)!
+                        UserDefaults.standard.set(tempHomeTeamID, forKey: "homeTeam")
+                        UserDefaults.standard.set(tempAwayTeamID, forKey: "awayTeam")
+                        UserDefaults.standard.set(true, forKey: "newGameStarted")
                         self.performSegue(withIdentifier: "skipTeamSelectionSegue", sender: nil);
                     }else{
                         // if teams or players are not avaiable top be pulled alert error appears
@@ -185,25 +191,6 @@ class ViewController: UIViewController {
         // show the alert
         self.present(nilAlert, animated: true, completion: nil)
         
-    }
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "skipTeamSelectionSegue"){
-            // pass values on segue to new game page
-            let vc = segue.destination as! New_Game_Page
-            vc.newGameStarted = true
-            vc.homeTeam =  self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID
-            vc.awayTeam =  self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID
-            
-        }
-        if (segue.identifier == "defaultTeamSelection"){
-            // pass values on segue to new game page
-            let vc = segue.destination as! Default_Team_Selection_View
-            vc.newGameLoad = true
-            
-        }
-       
     }
     
     // delay loop

@@ -20,11 +20,11 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var powerPlayToggleSwitch: UISwitch!
     
-    var homeTeam: Int?
-    var awayTeam:Int?
+    var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
+    var awayTeam:Int = UserDefaults.standard.integer(forKey: "awayTeam")
     var scoringPassedTeamID: [Int] = [Int]()
     var opposingTeamID: Int!
-    var periodNumSelected: Int!
+    var periodNumSelected: Int = UserDefaults.standard.integer(forKey: "periodNumber")
     
     let realm = try! Realm()
     
@@ -62,14 +62,8 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     var xCords: Int = 0
     var yCords: Int = 0
     
-    // cars used between segue for various reasons
-    var markerType: Bool!
-    var tempMarkerType: Bool!
-    var periodSelectionNum: Int!
-    var shotLocationValue: String!
+    var shotLocationValue: Int!
     var goalieSelectedID: Int!
-    var fixedGoalieID: Int!
-    var shot_primaryID: Int!
     var goal_primaryID: Int!
     
     override func viewDidLoad() {
@@ -147,13 +141,13 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         print(scoringPassedTeamID)
         if (scoringPassedTeamID[0] == homeTeam){
             let teamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", goalieSelectedID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
-            scoringPassedTeamID[0] = awayTeam!
-            opposingTeamID = homeTeam!
+            scoringPassedTeamID[0] = awayTeam
+            opposingTeamID = homeTeam
             return(teamName)
         }else{
             let teamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", goalieSelectedID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
-            scoringPassedTeamID[0] = homeTeam!
-            opposingTeamID = awayTeam!
+            scoringPassedTeamID[0] = homeTeam
+            opposingTeamID = awayTeam
             return(teamName)
         }
     }
@@ -305,14 +299,14 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 goalMarkerTableID?.activeState = true
                 goalMarkerTableID?.goalType = self.selectedGoalType
                 goalMarkerTableID?.goalieID = self.goalieSelectedID
-                goalMarkerTableID?.xCordGoal = (self.xCords)
-                goalMarkerTableID?.yCordGoal = (self.yCords)
-                goalMarkerTableID?.periodNum = (self.periodNumSelected)
-                goalMarkerTableID?.shotLocation = (Int(self.shotLocationValue)!)
-                goalMarkerTableID?.TeamID = (self.scoringPassedTeamID[0])
-                goalMarkerTableID?.goalPlayerID = (self.selectedMainPlayerID!)
-                goalMarkerTableID?.assitantPlayerID = (self.selectedAssitantPlayerOneID!)
-                goalMarkerTableID?.sec_assitantPlayerID = (self.selectedAssitantPlayerTwoID!)
+                goalMarkerTableID?.xCordGoal = self.xCords
+                goalMarkerTableID?.yCordGoal = self.yCords
+                goalMarkerTableID?.periodNum = self.periodNumSelected
+                goalMarkerTableID?.shotLocation = self.shotLocationValue
+                goalMarkerTableID?.TeamID = self.scoringPassedTeamID[0]
+                goalMarkerTableID?.goalPlayerID = self.selectedMainPlayerID!
+                goalMarkerTableID?.assitantPlayerID = self.selectedAssitantPlayerOneID!
+                goalMarkerTableID?.sec_assitantPlayerID = self.selectedAssitantPlayerTwoID!
                 goalMarkerTableID?.againstFLine = Int(self.selectedAgainstForwardLine)!
                 goalMarkerTableID?.againstDLine = Int(self.selectedAgainstDefenseLine)!
                 mainPlayerUpdateID?.goalCount += 1
@@ -451,17 +445,5 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "saveMarkerSeague" || segue.identifier == "backToIceSurfaceSegue"){
-            let markerInfoVC = segue.destination as! New_Game_Page
-            markerInfoVC.homeTeam = homeTeam
-            markerInfoVC.awayTeam = awayTeam
-            markerInfoVC.newGameStarted = false
-            markerInfoVC.periodNumSelected = periodNumSelected
-            markerInfoVC.fixedGoalieID = fixedGoalieID
-
-        }
-    }
+    
 }

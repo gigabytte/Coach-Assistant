@@ -22,12 +22,10 @@ class Current_Stats_Ananlytical_View: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var oneHundredPerNote: UILabel!
     
-    var homeTeam: Int!
-    var awayTeam: Int!
+    var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
+    var awayTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
     var teamIDArray: [String] = [String]()
-    var newGameStarted: Bool!
-    var fixedGoalieID: Int!
-    var periodNumSelected: Int!
+   
     var homeGoalieID: Int!
     var awayGoalieID: Int!
     var oldStatsPopUpBool: Bool!
@@ -49,7 +47,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
         super.viewDidLoad()
         // if accessec from current game setting
         if(oldStatsPopUpBool != true){
-            homeGoalieID = fixedGoalieID
+            homeGoalieID = UserDefaults.standard.integer(forKey: "selectedGoalieID")
             awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             gameID = (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
         }else{
@@ -57,7 +55,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
             gameID = SeletedGame
             homeTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})[0]
             awayTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})[0]
-            homeGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND positionType == %@ AND activeState == true", fixedGoalieID, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
+            homeGoalieID = UserDefaults.standard.integer(forKey: "selectedGoalieID")
             awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             
             
@@ -268,27 +266,5 @@ class Current_Stats_Ananlytical_View: UIViewController {
         }
         
     }
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "cancelCurrentSats"){
-            // set var vc as destination segue
-            let currentStats = segue.destination as! Current_Stats_Page
-            currentStats.newGameStarted = false
-            currentStats.homeTeam = homeTeam
-            currentStats.awayTeam = awayTeam
-            currentStats.fixedGoalieID = homeGoalieID
-            currentStats.periodNumSelected = periodNumSelected
-        }
-        if (segue.identifier == "cancelOldStats"){
-            // set var vc as destination segue
-            let currentStats = segue.destination as! Old_Game_Ice_View
-            currentStats.SeletedGame = SeletedGame
-            currentStats.goalieSelectedID = fixedGoalieID
-            
-        }
-        
-    }
-    
 }
 
