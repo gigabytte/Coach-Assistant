@@ -13,6 +13,7 @@
 		BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */; };
 		BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B752201576B0018E434 /* Team_Selection_View.swift */; };
 		BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */; };
+		BE1F4D2E2278D96F00D8B4F3 /* customCurrentStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */; };
 		BE4E8E70226CEDC20046D710 /* Settings_Legal_View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */; };
 		BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */; };
 		BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */; };
@@ -111,6 +112,7 @@
 		BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_Team_Info_Page.swift; sourceTree = "<group>"; };
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
 		BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customOverallStatsCell.swift; path = ../customOverallStatsCell.swift; sourceTree = "<group>"; };
+		BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customCurrentStatsCell.swift; path = ../customCurrentStatsCell.swift; sourceTree = "<group>"; };
 		BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Legal_View Controller.swift"; sourceTree = "<group>"; };
 		BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Settings Page View Controller.swift"; sourceTree = "<group>"; };
 		BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Backup View Controller.swift"; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BE8F88B5227747260087ED88 /* varReference.swift */,
 				BEBB0673227214FC001DDD61 /* GIF_Processing.swift */,
+				BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */,
 				BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */,
 				BE523713226A88A7009D9254 /* customSettingCell.swift */,
 				BE7F8C12227538530093F629 /* Penalty Table.swift */,
@@ -570,6 +573,7 @@
 				BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */,
 				BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */,
 				BE669DCB226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift in Sources */,
+				BE1F4D2E2278D96F00D8B4F3 /* customCurrentStatsCell.swift in Sources */,
 				BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */,
 				BE523714226A88A7009D9254 /* customSettingCell.swift in Sources */,
 				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
