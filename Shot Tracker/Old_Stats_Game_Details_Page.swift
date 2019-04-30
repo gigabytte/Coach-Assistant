@@ -20,6 +20,8 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
     var awayPlayerIDs: [Int] = [Int]()
     var homePlayerStatsArray: [String] = [String]()
     var awayPlayerStatsArray: [String] = [String]()
+    var homePlayerNames: [String] = [String]()
+    var awayPlayerNames: [String] = [String]()
     
     @IBOutlet weak var homeTeamNameTextField: UILabel!
     @IBOutlet weak var awayTeamNameTextField: UILabel!
@@ -34,12 +36,22 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var awayTeamRecordLabel: UILabel!
     @IBOutlet weak var gameLocationLabel: UILabel!
     
-    let textCellIdentifier = "cell"
+    
     
     let realm = try! Realm()
+    // cell reuse id (cells that scroll out of view can be reused)
+    let cellReuseIdentifier = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.homePlayerStatsTable.estimatedRowHeight = 75.0
+        self.homePlayerStatsTable.rowHeight = UITableView.automaticDimension
+        
+        self.awayPlayerStatsTable.estimatedRowHeight = 75.0
+        self.awayPlayerStatsTable.rowHeight = UITableView.automaticDimension
+        
+        
         // gather location data for game slected
         let gameLocation = realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)!.gameLocation
         gameLocationLabel.text = "Game Location:\n\(gameLocation)"
@@ -62,6 +74,7 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
         awayPlayerStatsTable.delegate = self
         
         teamNameInitialize()
+        playerNameFetch()
         navBarProcessing()
         
         // call functions for stats page dynamic function
@@ -93,6 +106,37 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
         print(homePlayerStatsArray)
         print(awayPlayerStatsArray)
        
+    }
+    
+    
+    func playerNameFetch(){
+        if (homePlayerIDs.isEmpty != true){
+            for x in 0..<homePlayerIDs.count{
+                
+                let queryPlayerName = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})).first
+                let queryPlayerNumber = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})).first
+                
+                let playerFormatter = "\(queryPlayerName!) #\(queryPlayerNumber!)"
+                homePlayerNames.append(playerFormatter)
+            }
+        }else{
+            homePlayerNames[0] = "No Players Found"
+            
+        }
+        
+        if (awayPlayerIDs.isEmpty != true){
+            for x in 0..<awayPlayerIDs.count{
+                
+                let queryPlayerName = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})).first
+                let queryPlayerNumber = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})).first
+                
+                let playerFormatter = "\(queryPlayerName!) #\(queryPlayerNumber!)"
+                awayPlayerNames.append(playerFormatter)
+            }
+        }else{
+            awayPlayerNames[0] = "No Players Found"
+            
+        }
     }
     // func gets count for number of wins, losses and ties and displays them
     // appropriate label
@@ -298,23 +342,25 @@ class Old_Stats_Game_Details_Page: UIViewController, UITableViewDelegate, UITabl
                 return((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.opposingTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count)
              }
          }
-         //Assign values for tableView
-         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         
-         if (tableView == homePlayerStatsTable){
-             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-             cell.textLabel!.numberOfLines = 0;
-             cell.textLabel?.text = homePlayerStatsArray[indexPath.row]
-             return cell
-            }else{
-             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-             cell.textLabel!.numberOfLines = 0;
-             //if (tableView == homePlayerStatsTable){
-             cell.textLabel?.text = awayPlayerStatsArray[indexPath.row]
-             return cell
-         
-         }
-     }
+    //Assign values for tableView
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if (tableView == homePlayerStatsTable){
+            let cell:customCurrentStatsCell = self.homePlayerStatsTable.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customCurrentStatsCell
+            cell.homePlayerNameLabel!.text = homePlayerNames[indexPath.row]
+            cell.homePlayerStatsLabel?.text = self.homePlayerStatsArray[indexPath.row]
+            
+            return cell
+        }else{
+            let cell:customCurrentStatsCell = self.awayPlayerStatsTable.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customCurrentStatsCell
+            cell.awayPlayerNameLabel!.text = awayPlayerNames[indexPath.row]
+            cell.awayPlayerStatsLabel?.text = self.awayPlayerStatsArray[indexPath.row]
+            
+            return cell
+            
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
         if (segue.identifier == "iceSurfaceSegue"){

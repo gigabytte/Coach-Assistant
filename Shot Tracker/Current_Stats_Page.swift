@@ -30,13 +30,23 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     var teamIDArray: [String] = [String]()
     var homePlayerStatsArray: [String] = [String]()
     var awayPlayerStatsArray: [String] = [String]()
+    var homePlayerNames: [String] = [String]()
+    var awayPlayerNames: [String] = [String]()
     var homePlayerIDs: [Int] = [Int]()
     var awayPlayerIDs: [Int] = [Int]()
 
     let realm = try! Realm()
+    // cell reuse id (cells that scroll out of view can be reused)
+    let cellReuseIdentifier = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.homePlayerStatsTable.estimatedRowHeight = 75.0
+        self.homePlayerStatsTable.rowHeight = UITableView.automaticDimension
+        
+        self.awayPlayerStatsTable.estimatedRowHeight = 75.0
+        self.awayPlayerStatsTable.rowHeight = UITableView.automaticDimension
         
          let gameLocation = realm.object(ofType: newGameTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.gameID)!.gameLocation
         gameLocationLabel.text = "Game Location:\n\(gameLocation)"
@@ -56,6 +66,7 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
         awayPlayerStatsTable.delegate = self
         
         teamNameInitialize()
+        playerNameFetch()
         
         // call functions for stats page dynamic function
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil && realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last != nil){
@@ -83,6 +94,36 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
             
         }
         
+    }
+    
+    func playerNameFetch(){
+        if (homePlayerIDs.isEmpty != true){
+            for x in 0..<homePlayerIDs.count{
+                
+                let queryPlayerName = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})).first
+                let queryPlayerNumber = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})).first
+                
+                let playerFormatter = "\(queryPlayerName!) #\(queryPlayerNumber!)"
+                homePlayerNames.append(playerFormatter)
+            }
+        }else{
+            homePlayerNames[0] = "No Players Found"
+            
+        }
+        
+        if (awayPlayerIDs.isEmpty != true){
+            for x in 0..<awayPlayerIDs.count{
+                
+                let queryPlayerName = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})).first
+                let queryPlayerNumber = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})).first
+                
+                let playerFormatter = "\(queryPlayerName!) #\(queryPlayerNumber!)"
+                awayPlayerNames.append(playerFormatter)
+            }
+        }else{
+            awayPlayerNames[0] = "No Players Found"
+            
+        }
     }
     
     func teamNameInitialize(){
@@ -147,10 +188,7 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
             let nextPlayerCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
             // if number of goals is not 0 aka the player scorerd atleast once
             // ass goals to player stats if not set as zero
-
-            let homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
-             let homePlayerNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
-            homePlayerStatsArray.append("\(homePlayerName[0])'s #\(homePlayerNum[0]) Current Stats\nGoals: \(nextPlayerCount)\n")
+            homePlayerStatsArray.append("Goals: \(nextPlayerCount)\n")
            // ------------------ assits count -----------------------------
             // get number of assist from player based on looping player id
             let nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
@@ -195,11 +233,9 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
                 // get number fos goals from player based oin looping player id
                 let nextPlayerCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalPlayerID == %i AND gameID == %i AND activeState == true", awayPlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
                 // if number of goals is not 0 aka the player scorerd atleast once
-                // ass goals to player stats if not set as zero
+                // as goals to player stats if not set as zero
                 
-                let homePlayerName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
-                let homePlayerNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
-                awayPlayerStatsArray.append("\(homePlayerName[0])'s #\(homePlayerNum[0]) Current Stats\nGoals: \(nextPlayerCount)\n")
+                awayPlayerStatsArray.append("Goals: \(nextPlayerCount)\n")
                 // ------------------ assits count -----------------------------
                 // get number of assist from player based on looping player id
                 let nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", awayPlayerIDs[x], newGameFilter!.gameID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
@@ -248,15 +284,16 @@ class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
             if (tableView == homePlayerStatsTable){
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-                cell.textLabel!.numberOfLines = 0;
-                cell.textLabel?.text = homePlayerStatsArray[indexPath.row]
+                let cell:customCurrentStatsCell = self.homePlayerStatsTable.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customCurrentStatsCell
+                cell.homePlayerNameLabel!.text = homePlayerNames[indexPath.row]
+                cell.homePlayerStatsLabel?.text = self.homePlayerStatsArray[indexPath.row]
+                
                 return cell
             }else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-                cell.textLabel!.numberOfLines = 0;
-                //if (tableView == homePlayerStatsTable){
-                cell.textLabel?.text = awayPlayerStatsArray[indexPath.row]
+                let cell:customCurrentStatsCell = self.awayPlayerStatsTable.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customCurrentStatsCell
+                cell.awayPlayerNameLabel!.text = awayPlayerNames[indexPath.row]
+                cell.awayPlayerStatsLabel?.text = self.awayPlayerStatsArray[indexPath.row]
+                
                 return cell
                 
             }
