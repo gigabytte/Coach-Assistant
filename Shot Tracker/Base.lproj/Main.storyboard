@@ -24,7 +24,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pKf-iR-Dz6">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
                                 <items>
-                                    <navigationItem title="Team Edit" id="njM-Sn-4Ay">
+                                    <navigationItem title="Edit Team" id="njM-Sn-4Ay">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="SK2-RK-sVf">
                                             <connections>
                                                 <segue destination="BYZ-38-t0r" kind="presentation" identifier="backTeamEditSegue" id="Ggy-8a-rEU"/>
@@ -33,21 +33,21 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the team to edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mes-Hd-Rcf">
-                                <rect key="frame" x="125" y="120" width="262" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Team to Edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mes-Hd-Rcf">
+                                <rect key="frame" x="125" y="120" width="222.5" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1M9-c6-9Ph">
-                                <rect key="frame" x="64" y="175" width="384" height="142"/>
+                                <rect key="frame" x="44.5" y="175" width="384" height="142"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="142" id="Q9d-UZ-Ptr"/>
                                     <constraint firstAttribute="width" constant="384" id="aQJ-aq-ZZy"/>
                                 </constraints>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="920-Yf-EdP">
-                                <rect key="frame" x="734" y="697" width="98" height="36"/>
+                                <rect key="frame" x="733.5" y="697" width="98" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <state key="normal" title="Edit Player"/>
                                 <connections>
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLc-xw-iTr">
-                                <rect key="frame" x="163.5" y="697" width="185" height="36"/>
+                                <rect key="frame" x="144" y="697" width="185" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <state key="normal" title="Save Team Changes"/>
                                 <connections>
@@ -63,79 +63,88 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Team Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nEK-Jw-f5R">
-                                <rect key="frame" x="172" y="332" width="168" height="30"/>
+                                <rect key="frame" x="125" y="332" width="222.5" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="dez-10-m77"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yci-7A-Ado">
-                                <rect key="frame" x="625.5" y="160" width="315" height="85"/>
+                                <rect key="frame" x="625" y="160" width="315" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="315" id="APS-DD-1ro"/>
                                     <constraint firstAttribute="height" constant="85" id="Kr5-ml-jjM"/>
                                 </constraints>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select player to edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0Q-hC-f9f">
-                                <rect key="frame" x="667" y="120" width="232" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Player to Edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0Q-hC-f9f">
+                                <rect key="frame" x="666" y="120" width="233" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter player's new last name" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pRv-Mw-n8n">
-                                <rect key="frame" x="649" y="260" width="268" height="30"/>
+                                <rect key="frame" x="648.5" y="260" width="268" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="bdk-Pc-S3r"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUV-TY-Q3k">
-                                <rect key="frame" x="625.5" y="394" width="315" height="85"/>
+                                <rect key="frame" x="625" y="404" width="315" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="315" id="YZU-9q-zKw"/>
                                     <constraint firstAttribute="height" constant="85" id="jTS-EY-AKK"/>
                                 </constraints>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player's Line" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3j-8Y-GoV">
-                                <rect key="frame" x="723.5" y="355" width="119" height="24"/>
+                                <rect key="frame" x="723" y="365" width="119" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNl-yy-qLS">
-                                <rect key="frame" x="625.5" y="528" width="315" height="85"/>
+                                <rect key="frame" x="625" y="538" width="315" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="315" id="Va6-UY-jBt"/>
                                     <constraint firstAttribute="height" constant="85" id="Xhn-0H-MNQ"/>
                                 </constraints>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player's Position" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxZ-Vn-Sch">
-                                <rect key="frame" x="705" y="489" width="156" height="24"/>
+                                <rect key="frame" x="704.5" y="499" width="156" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make Inactive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrK-fb-muw">
-                                <rect key="frame" x="125" y="437" width="126" height="26"/>
+                                <rect key="frame" x="125" y="452" width="126" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lmL-4r-sW5">
-                                <rect key="frame" x="286" y="434.5" width="51" height="31"/>
+                                <rect key="frame" x="286" y="449.5" width="51" height="31"/>
                             </switch>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter player's new number" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="492-Rt-q8J">
-                                <rect key="frame" x="658" y="305" width="250.5" height="30"/>
+                                <rect key="frame" x="657.5" y="310" width="250.5" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="3Mb-lg-TCX"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make Inactive" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4z2-KT-sk2">
-                                <rect key="frame" x="667" y="633" width="126" height="26"/>
+                                <rect key="frame" x="666" y="643" width="126" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pYh-7Q-hdl">
-                                <rect key="frame" x="828" y="630.5" width="51" height="31"/>
+                                <rect key="frame" x="827" y="640.5" width="51" height="31"/>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -161,7 +170,7 @@
                             <constraint firstItem="nEK-Jw-f5R" firstAttribute="top" secondItem="1M9-c6-9Ph" secondAttribute="bottom" constant="15" id="QsC-bw-b61"/>
                             <constraint firstItem="492-Rt-q8J" firstAttribute="top" secondItem="pRv-Mw-n8n" secondAttribute="bottom" constant="15" id="Qvl-z3-ola"/>
                             <constraint firstItem="pKf-iR-Dz6" firstAttribute="leading" secondItem="aI0-dr-YTP" secondAttribute="leading" id="UeK-UV-hr9"/>
-                            <constraint firstItem="nEK-Jw-f5R" firstAttribute="centerX" secondItem="Mes-Hd-Rcf" secondAttribute="centerX" id="VRV-wJ-7xC"/>
+                            <constraint firstItem="nEK-Jw-f5R" firstAttribute="trailing" secondItem="Mes-Hd-Rcf" secondAttribute="trailing" id="VRV-wJ-7xC"/>
                             <constraint firstItem="jNl-yy-qLS" firstAttribute="top" secondItem="zxZ-Vn-Sch" secondAttribute="bottom" constant="15" id="XJN-7Q-dWL"/>
                             <constraint firstItem="pKf-iR-Dz6" firstAttribute="top" secondItem="aI0-dr-YTP" secondAttribute="top" id="Yjz-b3-G4P"/>
                             <constraint firstAttribute="bottom" secondItem="ZMH-9n-YNK" secondAttribute="bottom" id="ahZ-qp-vja"/>
@@ -172,6 +181,7 @@
                             <constraint firstItem="pKf-iR-Dz6" firstAttribute="centerX" secondItem="aTa-a5-pRA" secondAttribute="centerX" id="exL-Wx-XbZ"/>
                             <constraint firstItem="P0Q-hC-f9f" firstAttribute="trailing" secondItem="aTa-a5-pRA" secondAttribute="trailing" constant="-125" id="fUd-Nc-Zau"/>
                             <constraint firstItem="1M9-c6-9Ph" firstAttribute="centerX" secondItem="Mes-Hd-Rcf" secondAttribute="centerX" id="ft6-eJ-JRD"/>
+                            <constraint firstItem="nEK-Jw-f5R" firstAttribute="leading" secondItem="Mes-Hd-Rcf" secondAttribute="leading" id="jM0-GL-WfV"/>
                             <constraint firstItem="1M9-c6-9Ph" firstAttribute="top" secondItem="Mes-Hd-Rcf" secondAttribute="bottom" constant="25" id="jrf-WI-gCo"/>
                             <constraint firstItem="GUV-TY-Q3k" firstAttribute="top" secondItem="I3j-8Y-GoV" secondAttribute="bottom" constant="15" id="lic-u4-Xut"/>
                             <constraint firstItem="ZMH-9n-YNK" firstAttribute="top" secondItem="aI0-dr-YTP" secondAttribute="top" id="noW-mf-GQQ"/>
@@ -1263,7 +1273,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0g-lk-UYd">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
                                 <items>
-                                    <navigationItem title="New Player" id="yVP-yr-zoY">
+                                    <navigationItem title="Add New Player" id="yVP-yr-zoY">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="dce-Rg-TwA">
                                             <connections>
                                                 <segue destination="BYZ-38-t0r" kind="presentation" identifier="backPlayerEditSegue" id="5ot-VN-Vh3"/>
@@ -1278,7 +1288,7 @@
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Player Last Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fUE-CS-N0M">
-                                <rect key="frame" x="401" y="350" width="222" height="40"/>
+                                <rect key="frame" x="401" y="355" width="222" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="neP-Qm-Xdu"/>
                                 </constraints>
@@ -1287,16 +1297,16 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Player Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8tu-cp-19N">
-                                <rect key="frame" x="412" y="289" width="200" height="40"/>
+                                <rect key="frame" x="412" y="289" width="200" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Fbf-Ag-O8f"/>
+                                    <constraint firstAttribute="height" constant="45" id="Fbf-Ag-O8f"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick the Player's Line" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oz8-RO-dEN">
-                                <rect key="frame" x="175" y="440" width="217.5" height="26.5"/>
+                                <rect key="frame" x="175" y="445" width="217.5" height="26.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1318,21 +1328,21 @@
                                 </constraints>
                             </pickerView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ka-D6-U2J">
-                                <rect key="frame" x="134" y="491.5" width="300" height="100"/>
+                                <rect key="frame" x="134" y="496.5" width="300" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="QHT-Oo-AFO"/>
                                     <constraint firstAttribute="height" constant="100" id="SVS-IE-OEj"/>
                                 </constraints>
                             </pickerView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6MQ-DC-ryw">
-                                <rect key="frame" x="570.5" y="491.5" width="300" height="100"/>
+                                <rect key="frame" x="570.5" y="496.5" width="300" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="1MY-y9-zlH"/>
                                     <constraint firstAttribute="width" constant="300" id="mkx-RR-Jl4"/>
                                 </constraints>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick the Player's Position" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pl0-gf-YfY">
-                                <rect key="frame" x="591.5" y="440" width="257.5" height="26.5"/>
+                                <rect key="frame" x="591.5" y="445" width="257.5" height="26.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -3534,10 +3544,9 @@
         <image name="welcomearrow" width="163.5" height="162"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Als-jc-kWj"/>
         <segue reference="pOz-SY-0TH"/>
         <segue reference="G5K-rA-i7R"/>
-        <segue reference="xuE-4F-QZp"/>
+        <segue reference="3Is-IF-SeE"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="RuC-Pi-VMU"/>
         <segue reference="Rea-8q-XFp"/>
