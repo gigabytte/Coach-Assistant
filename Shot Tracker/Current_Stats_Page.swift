@@ -12,7 +12,7 @@ import RealmSwift
 import Charts
 
 
-class Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet weak var homeTeamNameTextField: UILabel!
     @IBOutlet weak var awayTeamNameTextField: UILabel!
