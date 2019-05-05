@@ -381,228 +381,6 @@
             </objects>
             <point key="canvasLocation" x="526.7578125" y="32.8125"/>
         </scene>
-        <!--Old Stats Game Details Page-->
-        <scene sceneID="RMo-0C-9km">
-            <objects>
-                <viewController id="vrg-ac-Ef6" customClass="Old_Stats_Game_Details_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XyQ-YX-gXN">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="X2R-7i-uk1">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
-                            </imageView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KLD-Ta-cWG">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
-                                <items>
-                                    <navigationItem title="Home Team Vs Away Team On Date" id="z5z-WH-lfS">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="aO8-pg-f3e">
-                                            <connections>
-                                                <segue destination="2AB-wA-RRv" kind="presentation" id="VT3-rT-kon"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Ice Surface" id="zya-vQ-4yM">
-                                            <connections>
-                                                <segue destination="zHg-Yo-d0f" kind="presentation" identifier="iceSurfaceSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="JQ5-8K-2Rt"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zRj-sz-dhj">
-                                <rect key="frame" x="512" y="120" width="400" height="33.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="IXG-qh-4ED"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ms-eq-NiK">
-                                <rect key="frame" x="265" y="153.5" width="94" height="179.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="150"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Record" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XQ-br-dDt">
-                                <rect key="frame" x="236.5" y="363" width="151" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Record" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyM-ce-QUq">
-                                <rect key="frame" x="639.5" y="363" width="145" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Shot Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVs-LP-x8a">
-                                <rect key="frame" x="220.5" y="332" width="183" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Shot Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmW-z0-sgt">
-                                <rect key="frame" x="623.5" y="332" width="177" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ArZ-WR-PFS">
-                                <rect key="frame" x="70" y="394" width="442" height="374"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="LhH-s9-gNC" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="442" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LhH-s9-gNC" id="GGH-Uc-7pG">
-                                            <rect key="frame" x="0.0" y="0.0" width="442" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6e-0n-N16">
-                                                    <rect key="frame" x="25" y="0.0" width="116" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stats Will Go Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYy-tM-bVE">
-                                                    <rect key="frame" x="35" y="25" width="407" height="34.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="AYy-tM-bVE" firstAttribute="trailing" secondItem="GGH-Uc-7pG" secondAttribute="trailing" id="9zV-6B-Gvt"/>
-                                                <constraint firstItem="AYy-tM-bVE" firstAttribute="top" secondItem="s6e-0n-N16" secondAttribute="top" constant="25" id="CI1-me-Wup"/>
-                                                <constraint firstItem="s6e-0n-N16" firstAttribute="leading" secondItem="GGH-Uc-7pG" secondAttribute="leading" constant="25" id="FRF-Nt-cEs"/>
-                                                <constraint firstItem="AYy-tM-bVE" firstAttribute="bottom" secondItem="GGH-Uc-7pG" secondAttribute="bottom" constant="-15" id="Pnq-3t-rJb"/>
-                                                <constraint firstItem="s6e-0n-N16" firstAttribute="top" secondItem="GGH-Uc-7pG" secondAttribute="top" id="maT-MG-NiO"/>
-                                                <constraint firstItem="AYy-tM-bVE" firstAttribute="leading" secondItem="s6e-0n-N16" secondAttribute="leading" constant="10" id="uSw-n8-ne5"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPY-Gv-SZA">
-                                <rect key="frame" x="665" y="153.5" width="94" height="179.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="150"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SH4-vG-51R">
-                                <rect key="frame" x="112" y="120" width="400" height="33.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="Lbv-77-g7a"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAL-11-tT6">
-                                <rect key="frame" x="444.5" y="206.5" width="135" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8hN-Bb-uW1">
-                                <rect key="frame" x="512" y="394" width="442" height="374"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="soG-u6-fp5" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="442" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="soG-u6-fp5" id="KIi-Ls-ajh">
-                                            <rect key="frame" x="0.0" y="0.0" width="442" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99O-Vn-tUv">
-                                                    <rect key="frame" x="25" y="0.0" width="116" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stats Will Go Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nea-cB-SsE">
-                                                    <rect key="frame" x="35" y="25" width="407" height="34.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="nea-cB-SsE" firstAttribute="leading" secondItem="99O-Vn-tUv" secondAttribute="leading" constant="10" id="HjK-zJ-XgM"/>
-                                                <constraint firstItem="99O-Vn-tUv" firstAttribute="leading" secondItem="KIi-Ls-ajh" secondAttribute="leading" constant="25" id="IuV-JR-CCN"/>
-                                                <constraint firstItem="99O-Vn-tUv" firstAttribute="top" secondItem="KIi-Ls-ajh" secondAttribute="top" id="Oj1-8K-GYS"/>
-                                                <constraint firstItem="nea-cB-SsE" firstAttribute="top" secondItem="99O-Vn-tUv" secondAttribute="top" constant="25" id="RUm-yd-t8r"/>
-                                                <constraint firstItem="nea-cB-SsE" firstAttribute="bottom" secondItem="KIi-Ls-ajh" secondAttribute="bottom" constant="-15" id="ZKj-P4-bhA"/>
-                                                <constraint firstItem="nea-cB-SsE" firstAttribute="trailing" secondItem="KIi-Ls-ajh" secondAttribute="trailing" id="yPe-n9-QeI"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="cyM-ce-QUq" firstAttribute="centerX" secondItem="YPY-Gv-SZA" secondAttribute="centerX" id="3aG-WS-zgc"/>
-                            <constraint firstItem="6ms-eq-NiK" firstAttribute="top" secondItem="SH4-vG-51R" secondAttribute="bottom" id="5PY-e0-tyF"/>
-                            <constraint firstItem="X2R-7i-uk1" firstAttribute="leading" secondItem="bsf-Y3-F2F" secondAttribute="leading" id="5pu-kC-o4u"/>
-                            <constraint firstItem="X2R-7i-uk1" firstAttribute="trailing" secondItem="bsf-Y3-F2F" secondAttribute="trailing" id="611-mx-XSq"/>
-                            <constraint firstItem="YPY-Gv-SZA" firstAttribute="centerX" secondItem="zRj-sz-dhj" secondAttribute="centerX" id="6ju-xq-8cY"/>
-                            <constraint firstItem="X2R-7i-uk1" firstAttribute="trailing" secondItem="bsf-Y3-F2F" secondAttribute="trailing" id="7Mw-9c-ekM"/>
-                            <constraint firstItem="NVs-LP-x8a" firstAttribute="centerX" secondItem="SH4-vG-51R" secondAttribute="centerX" id="8Mo-5s-zu2"/>
-                            <constraint firstItem="NVs-LP-x8a" firstAttribute="bottom" secondItem="6ms-eq-NiK" secondAttribute="bottom" constant="20" id="AIu-hl-JRK"/>
-                            <constraint firstItem="KLD-Ta-cWG" firstAttribute="leading" secondItem="bsf-Y3-F2F" secondAttribute="leading" id="B3z-rM-zfX"/>
-                            <constraint firstItem="X2R-7i-uk1" firstAttribute="leading" secondItem="bsf-Y3-F2F" secondAttribute="leading" id="BIU-ql-CkQ"/>
-                            <constraint firstItem="X2R-7i-uk1" firstAttribute="bottom" secondItem="bsf-Y3-F2F" secondAttribute="bottom" id="E0D-vp-3mv"/>
-                            <constraint firstItem="KLD-Ta-cWG" firstAttribute="top" secondItem="bsf-Y3-F2F" secondAttribute="top" id="FoY-HF-zJP"/>
-                            <constraint firstItem="6ms-eq-NiK" firstAttribute="centerX" secondItem="SH4-vG-51R" secondAttribute="centerX" id="GSe-3e-NG8"/>
-                            <constraint firstItem="8hN-Bb-uW1" firstAttribute="top" secondItem="XyQ-YX-gXN" secondAttribute="centerY" constant="10" id="HKU-ga-g2a"/>
-                            <constraint firstItem="ArZ-WR-PFS" firstAttribute="top" secondItem="XyQ-YX-gXN" secondAttribute="centerY" constant="10" id="HRu-j6-zZE"/>
-                            <constraint firstItem="9XQ-br-dDt" firstAttribute="top" secondItem="NVs-LP-x8a" secondAttribute="bottom" constant="10" id="KF8-Dp-3JE"/>
-                            <constraint firstItem="sAL-11-tT6" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" id="RZp-98-9KV"/>
-                            <constraint firstItem="cyM-ce-QUq" firstAttribute="centerY" secondItem="9XQ-br-dDt" secondAttribute="centerY" id="TDE-5D-r34"/>
-                            <constraint firstItem="KLD-Ta-cWG" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" id="Ubx-ff-3RX"/>
-                            <constraint firstItem="ArZ-WR-PFS" firstAttribute="leading" secondItem="XyQ-YX-gXN" secondAttribute="leading" constant="70" id="VQu-Kp-YjD"/>
-                            <constraint firstItem="X2R-7i-uk1" firstAttribute="top" secondItem="KLD-Ta-cWG" secondAttribute="top" id="ZUb-dY-WHd"/>
-                            <constraint firstItem="zRj-sz-dhj" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" constant="200" id="ZyX-V7-gcB"/>
-                            <constraint firstItem="YPY-Gv-SZA" firstAttribute="centerY" secondItem="6ms-eq-NiK" secondAttribute="centerY" id="edk-vP-KWi"/>
-                            <constraint firstItem="9XQ-br-dDt" firstAttribute="centerX" secondItem="SH4-vG-51R" secondAttribute="centerX" id="gQS-Qj-dRQ"/>
-                            <constraint firstItem="sAL-11-tT6" firstAttribute="centerY" secondItem="6ms-eq-NiK" secondAttribute="centerY" constant="-25" id="gWe-Af-FrE"/>
-                            <constraint firstItem="ArZ-WR-PFS" firstAttribute="bottom" secondItem="XyQ-YX-gXN" secondAttribute="bottom" id="ibk-4I-hZr"/>
-                            <constraint firstItem="X2R-7i-uk1" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" id="lMA-vt-IvW"/>
-                            <constraint firstItem="MmW-z0-sgt" firstAttribute="centerX" secondItem="YPY-Gv-SZA" secondAttribute="centerX" id="lZi-UQ-GtC"/>
-                            <constraint firstItem="ArZ-WR-PFS" firstAttribute="trailing" secondItem="XyQ-YX-gXN" secondAttribute="centerX" id="luc-BK-iPc"/>
-                            <constraint firstItem="zRj-sz-dhj" firstAttribute="top" secondItem="KLD-Ta-cWG" secondAttribute="bottom" constant="50" id="n1O-ci-hQd"/>
-                            <constraint firstItem="KLD-Ta-cWG" firstAttribute="trailing" secondItem="bsf-Y3-F2F" secondAttribute="trailing" id="n7K-jj-Zkr"/>
-                            <constraint firstItem="8hN-Bb-uW1" firstAttribute="bottom" secondItem="XyQ-YX-gXN" secondAttribute="bottom" id="qRc-M3-JzO"/>
-                            <constraint firstItem="8hN-Bb-uW1" firstAttribute="trailing" secondItem="XyQ-YX-gXN" secondAttribute="trailing" constant="-70" id="tfL-85-3k7"/>
-                            <constraint firstItem="SH4-vG-51R" firstAttribute="top" secondItem="KLD-Ta-cWG" secondAttribute="bottom" constant="50" id="uiY-r7-t5W"/>
-                            <constraint firstItem="8hN-Bb-uW1" firstAttribute="leading" secondItem="XyQ-YX-gXN" secondAttribute="centerX" id="xhQ-gK-HZN"/>
-                            <constraint firstItem="MmW-z0-sgt" firstAttribute="centerY" secondItem="NVs-LP-x8a" secondAttribute="centerY" id="yZW-p6-c5h"/>
-                            <constraint firstItem="SH4-vG-51R" firstAttribute="centerX" secondItem="XyQ-YX-gXN" secondAttribute="centerX" constant="-200" id="yaB-1q-IOe"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="bsf-Y3-F2F"/>
-                    </view>
-                    <connections>
-                        <outlet property="awayNumShotTextField" destination="MmW-z0-sgt" id="nnT-Kv-QyL"/>
-                        <outlet property="awayPlayerStatsTable" destination="8hN-Bb-uW1" id="KEh-p8-Q9S"/>
-                        <outlet property="awayTeamNameTextField" destination="zRj-sz-dhj" id="Z93-gG-9SC"/>
-                        <outlet property="awayTeamRecordLabel" destination="cyM-ce-QUq" id="xAK-ib-kCN"/>
-                        <outlet property="awayTeamScoreTextField" destination="YPY-Gv-SZA" id="aPm-vh-NHZ"/>
-                        <outlet property="gameLocationLabel" destination="sAL-11-tT6" id="m36-Ec-cda"/>
-                        <outlet property="homeNumShotTextField" destination="NVs-LP-x8a" id="k22-4r-a3Z"/>
-                        <outlet property="homePlayerStatsTable" destination="ArZ-WR-PFS" id="sUj-lu-XRf"/>
-                        <outlet property="homeTeamNameTextField" destination="SH4-vG-51R" id="U2G-ny-Ga3"/>
-                        <outlet property="homeTeamRecordLabel" destination="9XQ-br-dDt" id="FWQ-Jg-BJZ"/>
-                        <outlet property="homeTeamScoreTextField" destination="6ms-eq-NiK" id="TNf-mB-Dly"/>
-                        <outlet property="navBar" destination="KLD-Ta-cWG" id="ox6-1u-DaQ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="X2F-Gj-vZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="527" y="1451"/>
-        </scene>
         <!--Old Game Ice View-->
         <scene sceneID="wEi-Ht-ZW2">
             <objects>
@@ -624,12 +402,12 @@
                                     <navigationItem title="Ice Surafce View of Home Vs Away" id="GgQ-19-nwf">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="3Ha-6C-sfr">
                                             <connections>
-                                                <segue destination="2AB-wA-RRv" kind="presentation" identifier="backToOldStatsSegue" id="32S-Sg-MIU"/>
+                                                <action selector="backbutton:" destination="zHg-Yo-d0f" id="eud-Lu-gwA"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Stats" id="Fmp-0A-iY8">
+                                        <barButtonItem key="rightBarButtonItem" title="Stats View" id="Fmp-0A-iY8">
                                             <connections>
-                                                <segue destination="vrg-ac-Ef6" kind="presentation" identifier="statsSegue" id="CEj-RC-vyA"/>
+                                                <segue destination="YiU-MJ-9Xs" kind="presentation" id="mFh-IL-lrN"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -783,11 +561,12 @@
                         <outlet property="navBar" destination="W1h-sR-cQ2" id="aAE-gR-Y7E"/>
                         <segue destination="H6E-KX-Ner" kind="presentation" identifier="oldStatsAnalyticsPopUp" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="pOz-SY-0TH"/>
                         <segue destination="tO8-VR-M4z" kind="presentation" identifier="goalieSelectionPopUp" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="6SA-oY-Fmn"/>
+                        <segue destination="2AB-wA-RRv" kind="presentation" identifier="backToOldStatsSegue" id="nhd-cM-urx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACA-Fc-UDp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="526.7578125" y="2155.46875"/>
+            <point key="canvasLocation" x="593" y="1761"/>
         </scene>
         <!--Old Stats Goalie Selection View-->
         <scene sceneID="hkf-2k-HKK">
@@ -1292,7 +1071,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="uyc-Iw-tsS" id="1py-eh-qx3"/>
-                        <segue destination="vrg-ac-Ef6" kind="presentation" identifier="oldStatsGameViewSegue" id="xrM-V5-vxZ"/>
+                        <segue destination="YiU-MJ-9Xs" kind="presentation" identifier="segueToOldSatsGameView" id="XF8-mz-HSq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3y7-lw-zrH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3183,7 +2962,7 @@
                         <outlet property="savePerShotDataMissingLabel" destination="C0b-zN-UMb" id="ERC-IB-JX8"/>
                         <outlet property="shotLocationPieChartView" destination="bym-oM-ik0" id="I6Y-Wf-Hvy"/>
                         <segue destination="zHg-Yo-d0f" kind="presentation" identifier="cancelOldStats" modalTransitionStyle="crossDissolve" id="B9O-nl-JB9"/>
-                        <segue destination="YiU-MJ-9Xs" kind="presentation" identifier="cancelCurrentSats" id="p9k-GG-4VP"/>
+                        <segue destination="YiU-MJ-9Xs" kind="presentation" identifier="cancelCurrentSats" modalTransitionStyle="crossDissolve" id="p9k-GG-4VP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PWD-Jc-Fyv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3378,10 +3157,10 @@
             </objects>
             <point key="canvasLocation" x="2095.8984375" y="1335.9375"/>
         </scene>
-        <!--Main Current Stats View Controller-->
+        <!--Main Game Stats View Controller-->
         <scene sceneID="8zs-HM-eh5">
             <objects>
-                <viewController id="YiU-MJ-9Xs" customClass="Main_Current_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YiU-MJ-9Xs" customClass="Main_Game_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RQL-cI-ugr">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3395,12 +3174,12 @@
                                     <navigationItem title="Current Game Stats" id="SqQ-F4-7H3">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="6i1-lj-sWg">
                                             <connections>
-                                                <segue destination="n6v-6v-um8" kind="presentation" identifier="backFromCurrentGameStatsSegue" id="O76-kX-bnA"/>
+                                                <action selector="backButton:" destination="YiU-MJ-9Xs" id="Gj9-qD-ief"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Analytical View" id="meS-li-P1Y">
                                             <connections>
-                                                <segue destination="H6E-KX-Ner" kind="presentation" identifier="analyticalSegue" id="5Ko-Jn-rX0"/>
+                                                <action selector="optionsButton:" destination="YiU-MJ-9Xs" id="5Ix-Ca-ahD"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -3441,7 +3220,12 @@
                     </view>
                     <connections>
                         <outlet property="containerView" destination="xNe-sv-Sfc" id="0LD-0z-2Jp"/>
+                        <outlet property="navBar" destination="ytE-Lf-Ruk" id="GGQ-oy-LJg"/>
                         <outlet property="viewTypeSwitch" destination="x4E-fF-hCm" id="LXA-dy-RtQ"/>
+                        <segue destination="n6v-6v-um8" kind="presentation" identifier="liveGameStatsBack" id="uyd-PZ-fI3"/>
+                        <segue destination="2AB-wA-RRv" kind="presentation" identifier="oldGameStatsBack" id="IlU-9U-sIV"/>
+                        <segue destination="zHg-Yo-d0f" kind="presentation" identifier="oldStatsIceView" id="w5X-2C-weP"/>
+                        <segue destination="H6E-KX-Ner" kind="presentation" identifier="analyticalSegue" id="VdZ-aC-tCs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V1b-m4-IgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3876,15 +3660,14 @@
         <image name="welcomearrow" width="163.5" height="162"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="p9k-GG-4VP"/>
-        <segue reference="5Ko-Jn-rX0"/>
-        <segue reference="O76-kX-bnA"/>
+        <segue reference="mFh-IL-lrN"/>
+        <segue reference="pOz-SY-0TH"/>
+        <segue reference="uyd-PZ-fI3"/>
         <segue reference="jMX-vY-t9s"/>
         <segue reference="RuC-Pi-VMU"/>
         <segue reference="Rea-8q-XFp"/>
-        <segue reference="VT3-rT-kon"/>
-        <segue reference="Ggy-8a-rEU"/>
+        <segue reference="nhd-cM-urx"/>
+        <segue reference="bI8-gU-cwQ"/>
         <segue reference="B9O-nl-JB9"/>
-        <segue reference="CEj-RC-vyA"/>
     </inferredMetricsTieBreakers>
 </document>

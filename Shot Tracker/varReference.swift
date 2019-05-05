@@ -21,6 +21,8 @@ class newGameUserDefaultGen{
         UserDefaults.standard.set(nil, forKey: "homeTeam")
         UserDefaults.standard.set(nil, forKey: "awayTeam")
         UserDefaults.standard.set(nil, forKey: "newGameStarted")
+        UserDefaults.standard.set(nil, forKey: "gameID")
+        UserDefaults.standard.set(nil, forKey: "oldStatsBool")
     }
 }
 
@@ -37,6 +39,8 @@ class deleteNewGameUserDefaults{
         UserDefaults.standard.removeObject(forKey: "homeTeam")
         UserDefaults.standard.removeObject(forKey: "awayTeam")
         UserDefaults.standard.removeObject(forKey: "newGameStarted")
+        UserDefaults.standard.removeObject(forKey: "gameID")
+        UserDefaults.standard.removeObject(forKey: "oldStatsBoolß")
         
     }
 }
@@ -72,5 +76,16 @@ class dateToString{
         return dateString
     }
     
+    
+}
+/*
+ Stores Varaiables used accorss the app
+ */
+class universalValue{
+  
+    var markerCenterX: Int = 16
+    var markerCenterY:Int = 16
+    var markerWidth: Int = 32
+    var markerHeight:Int = 32
     
 }

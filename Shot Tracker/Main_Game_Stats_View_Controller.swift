@@ -8,13 +8,16 @@
 
 import UIKit
 
-class Main_Current_Stats_View_Controller: UIViewController {
+class Main_Game_Stats_View_Controller: UIViewController {
 
     
+    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var viewTypeSwitch: UISegmentedControl!
     @IBOutlet weak var containerView: UIView!
     
     var rowIndex: Int = 0
+    var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
+    var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
 
     private lazy var basicStatsView: Basic_Current_Stats_Page = {
         // Load Storyboard
@@ -44,6 +47,7 @@ class Main_Current_Stats_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navBarProcessing()
         setupView()
         // Do any additional setup after loading the view.
     }
@@ -99,6 +103,16 @@ class Main_Current_Stats_View_Controller: UIViewController {
         viewController.removeFromParent()
     }
     
+    func navBarProcessing() {
+        if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
+            navBar.topItem!.title = "Live Game Stats"
+            navBar.topItem?.rightBarButtonItem!.title = "Analytical View"
+        }else{
+             navBar.topItem!.title = "Previous Game Stats"
+             navBar.topItem?.rightBarButtonItem!.title = "Ice Surafce View"
+        }
+    }
+    
     @IBAction func viewTypeSwitch(_ sender: UISegmentedControl) {
         
         switch viewTypeSwitch.selectedSegmentIndex {
@@ -112,6 +126,27 @@ class Main_Current_Stats_View_Controller: UIViewController {
             break;
         }
     }
+    @IBAction func optionsButton(_ sender: UIBarButtonItem) {
+        
+        if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
+            self.performSegue(withIdentifier: "analyticalSegue", sender: nil);
+            
+        }else{
+            self.performSegue(withIdentifier: "oldStatsIceView", sender: nil);
+        }
+    }
     
-
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
+        // check is user came from old stats or a liev game to determine segue
+        if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
+             self.performSegue(withIdentifier: "liveGameStatsBack", sender: nil);
+            
+        }else{
+            // delete user defaults then exit old game stats view
+            deleteNewGameUserDefaults.deleteUserDefaults()
+            self.performSegue(withIdentifier: "oldGameStatsBack", sender: nil);
+        }
+        
+    }
+    
 }

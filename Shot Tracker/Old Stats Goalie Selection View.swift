@@ -30,10 +30,10 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
     
     var shotLocationValueSelected: String = "";
     
-    var homeTeamID: Int!
-    var awayTeamID: Int!
+    var homeTeamID: Int = UserDefaults.standard.integer(forKey: "homeTeam")
+    var awayTeamID: Int = UserDefaults.standard.integer(forKey: "awayTeam")
     var currentArrayIndex: Int = 0
-    var SeletedGame: Int!
+    var SeletedGame: Int = UserDefaults.standard.integer(forKey: "gameID")
     var oldStatsGoalieSelection: Bool!
     
     var goalieJerseyNumArray: [String] = [String]()
@@ -45,7 +45,7 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        homeTeamID = realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.homeTeamID)?.teamID
+        homeTeamID = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.homeTeamID)?.teamID)!
         
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -64,7 +64,7 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
     func goalieSelectionGesture() {
         
         // get array of Goalie Jersey Nunbers of Page Load
-        goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+        goalieNumberArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
         
         // set deafult jersey number
         goalieNumberLabel.text = goalieNumberArray[0]
@@ -179,10 +179,11 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
     
     func goalieNameProcessing(){
         
-        goalieJerseyNumArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID!), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
+        goalieJerseyNumArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@", String(homeTeamID), "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({String($0)})
     }
     
     @IBAction func continueButton(_ sender: Any) {
+        UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
         self.performSegue(withIdentifier: "closeGoalieSelection", sender: nil);
     }
     // on animateIn display popUpview over top of New Game View
@@ -213,18 +214,6 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
         }
         print("popUpView has been Teared Down")
     }
-    
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "closeGoalieSelection"){
-            // set var vc as destination segue
-            let vc = segue.destination as! Old_Game_Ice_View
-        
-            vc.SeletedGame = SeletedGame
-            vc.goalieSelectedID = tempgoalieSelectedID
-        }
 
-    }
 }
 

@@ -355,6 +355,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         let tempAwayTeamID = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: primaryNewGameKey)?.opposingTeamID)!
         UserDefaults.standard.set(tempHomeTeamID, forKey: "homeTeam")
         UserDefaults.standard.set(tempAwayTeamID, forKey: "awayTeam")
+        UserDefaults.standard.set(primaryNewGameKey, forKey: "gameID")
         print("Segue to New Game Page")
         self.performSegue(withIdentifier: "continueTeamSelectionSegue", sender: nil);
     }
