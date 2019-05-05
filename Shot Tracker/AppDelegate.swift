@@ -22,10 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(nil, forKey: "newUser")
         */
         if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
+            deleteNewGameUserDefaults.deleteUserDefaults()
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main") as? UIViewController
             return true
         }else{
             // redicrt to setup process if user is new
+            deleteNewGameUserDefaults.deleteUserDefaults()
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setup") as? UIViewController
             return true
         }

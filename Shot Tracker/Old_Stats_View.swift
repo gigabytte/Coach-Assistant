@@ -32,6 +32,7 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         newGameDataProcessing()
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -90,22 +91,15 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tapped cell number \(indexPath.row).")
-        passedGameID = Int(newGameIDs[indexPath.row])
-        self.performSegue(withIdentifier: "oldStatsGameViewSegue", sender: nil);
+        UserDefaults.standard.set(Int(newGameIDs[indexPath.row]), forKey: "gameID")
+        UserDefaults.standard.set(Int(homeTeamID[indexPath.row]), forKey: "homeTeam")
+        UserDefaults.standard.set(Int(awayTeamID[indexPath.row]), forKey: "awayTeam")
+        UserDefaults.standard.set(true, forKey: "oldStatsBool")
+        self.performSegue(withIdentifier: "segueToOldSatsGameView", sender: nil);
     }
     
     // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    // func used to pass varables on segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check is appropriate segue is being used
-        if (segue.identifier == "oldStatsGameViewSegue"){
-            // set var vc as destination segue
-            let vc = segue.destination as! Old_Stats_Game_Details_Page
-            vc.SeletedGame = passedGameID
-        }
-    }
+
     
 }
 

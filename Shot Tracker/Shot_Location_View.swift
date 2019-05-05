@@ -365,7 +365,7 @@ class Shot_Location_View: UIViewController {
                     shotLocationValueSelected = 0
                     animateOut()
                     currentArrayIndex = 0
-                self.performSegue(withIdentifier: "markerInfoSegue", sender: (Any).self);
+                    self.performSegue(withIdentifier: "markerInfoSegue", sender: (Any).self);
             }else{
                 missingSelectionError()
             }

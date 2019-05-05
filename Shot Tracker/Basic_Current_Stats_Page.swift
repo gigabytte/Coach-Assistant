@@ -268,6 +268,31 @@ class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableVi
             }
         
     }
+    
+    // func gets count for number of wins, losses and ties and displays them
+    // appropriate label
+    /*func recordLabelProcessing(){
+        
+        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        let homeTeamTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        
+        let awayTeamHomeTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND opposingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        
+        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        
+        let awayTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        let awayTeamTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND opposingTeamID == %i AND activeState == true" ,awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        let homeTeamAwayTieCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        
+        let awayTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true", awayTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)}).count
+        
+        homeTeamRecordLabel.text = "W:\(homeTeamWinCount)-L:\(homeTeamLooseCount)-T:\(String(homeTeamTieCount + awayTeamHomeTieCount))"
+        awayTeamRecordLabel.text = "W:\(awayTeamWinCount)-L:\(awayTeamLooseCount)-T:\(String(awayTeamTieCount + homeTeamAwayTieCount))"
+    }*/
    
     // Returns count of items in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -164,13 +164,13 @@ class New_Game_Page: UIViewController {
         if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
             // loop through the corresponding shot arrays for both x and y and place a imageview marker in said spot
             for i in 0..<home_xCordsArray.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 16, y: Int(home_yCordsArray[i])! - 16, width: 32, height: 32));
+                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                     shotMarkerimageView.contentMode = .scaleAspectFill;
                     shotMarkerimageView.image = homeTeamShotMakerImage;
                     view.addSubview(shotMarkerimageView);
             }
             for i in 0..<away_xCordsArray.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 16, y: Int(away_yCordsArray[i])! - 16, width: 32, height: 32));
+                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                     shotMarkerimageView.contentMode = .scaleAspectFill;
                     shotMarkerimageView.image = awayTeamShotMarkerImage;
                     view.addSubview(shotMarkerimageView);
@@ -197,13 +197,13 @@ class New_Game_Page: UIViewController {
         if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
             // check markerType image value
             for i in 0..<home_xCordsArray.count{
-                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 16, y: Int(home_yCordsArray[i])! - 16, width: 32, height: 32));
+                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                 goalMarkerimageView.contentMode = .scaleAspectFill;
                 goalMarkerimageView.image = homeTeamGoalMakerImage;
                 view.addSubview(goalMarkerimageView);
             }
             for i in 0..<away_xCordsArray.count{
-                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 16, y: Int(away_yCordsArray[i])! - 16, width: 32, height: 32));
+                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                 goalMarkerimageView.contentMode = .scaleAspectFill;
                 goalMarkerimageView.image = awayTeamGoalMarkerImage;
                 view.addSubview(goalMarkerimageView);
@@ -230,13 +230,13 @@ class New_Game_Page: UIViewController {
         if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
             // check markerType image value
             for i in 0..<home_xCordsArray.count{
-                penaltyMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - 16, y: Int(home_yCordsArray[i])! - 16, width: 32, height: 32));
+                penaltyMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                 penaltyMarkerimageView.contentMode = .scaleAspectFill;
                 penaltyMarkerimageView.image = homeTeamPenaltyMarkerImage;
                 view.addSubview(penaltyMarkerimageView);
             }
             for i in 0..<away_xCordsArray.count{
-                penaltyMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - 16, y: Int(away_yCordsArray[i])! - 16, width: 32, height: 32));
+                penaltyMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                 penaltyMarkerimageView.contentMode = .scaleAspectFill;
                 penaltyMarkerimageView.image = awayTeamPenaltyMarkerImage;
                 view.addSubview(penaltyMarkerimageView);
@@ -310,7 +310,10 @@ class New_Game_Page: UIViewController {
     @objc func twoFingerTapped() {
         print("Double Finger Tap Detected")
         // display custom view controller alert alert
+        print(xLocationCords)
+        print(yLocationCords)
         popUpPenaltySegue()
+        
     }
     // segue to period and goalie selction popup
     func popUpSegue(){

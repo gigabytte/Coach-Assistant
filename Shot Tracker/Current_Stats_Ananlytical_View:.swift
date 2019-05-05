@@ -257,7 +257,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
     // close button redirects to previous VC user came from
     @IBAction func closeButton(_ sender: UIButton) {
         
-        if (oldStatsPopUpBool != true){
+        if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
             
             self.performSegue(withIdentifier: "cancelCurrentSats", sender: nil);
         }else{
