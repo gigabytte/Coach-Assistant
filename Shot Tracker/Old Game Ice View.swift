@@ -37,11 +37,12 @@ class Old_Game_Ice_View: UIViewController {
     var SeletedGame: Int = UserDefaults.standard.integer(forKey: "gameID")
     var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
     var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
+    var goalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
     var tagCounter: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         print("Game ID \(SeletedGame)")
+        
         if (isKeyPresentInUserDefaults(key: "selectedGoalieID") != true){
             delay(0.5){
                 self.performSegue(withIdentifier: "goalieSelectionPopUp", sender: nil);
@@ -98,6 +99,7 @@ class Old_Game_Ice_View: UIViewController {
         
         let longLogoGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapLogo(_:)))
         coachAssitantLogoBtn.addGestureRecognizer(longLogoGesture)
+        print("golaie ID \(UserDefaults.standard.integer(forKey: "selectedGoalieID"))")
         
     }
     @IBAction func backbutton(_ sender: UIBarButtonItem) {
@@ -180,8 +182,8 @@ class Old_Game_Ice_View: UIViewController {
         
         let home_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
         let home_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
-        let away_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
-        let away_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
+        let away_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND TeamID == %i", newGameFilter!, UserDefaults.standard.integer(forKey: "selectedGoalieID"), awayTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
+        let away_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND TeamID == %i", newGameFilter!, UserDefaults.standard.integer(forKey: "selectedGoalieID"), awayTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
         
         let home_xCordsForPlacementShot = home_xCordsArray
         let home_yCordsForPlacementShot = home_yCordsArray
@@ -196,10 +198,10 @@ class Old_Game_Ice_View: UIViewController {
         
         let newGameFilter = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.gameID)
         
-        let home_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
-        let home_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
-        let away_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
-        let away_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
+        let home_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!,homeTeam)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
+        let home_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!,homeTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
+        let away_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND TeamID == %i", newGameFilter!,UserDefaults.standard.integer(forKey: "selectedGoalieID"),awayTeam)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
+        let away_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND TeamID == %i", newGameFilter!,UserDefaults.standard.integer(forKey: "selectedGoalieID"),awayTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
         // filter xCords and y cords by home  and away team realtive positions based on TeamID colum result
         let home_xCordsForPlacementGoal = home_xCordsArray
         let home_yCordsForPlacementGoal = home_yCordsArray
@@ -213,7 +215,6 @@ class Old_Game_Ice_View: UIViewController {
         // return rresult of marker processing
         return(home_xCordsForPlacementGoal, home_yCordsForPlacementGoal, away_xCordsForPlacementGoal, away_yCordsForPlacementGoal)
     }
-    
     // func used to process shot X and Y cord info from realm based on team selection on new game page load
     func peanlty_markerProcessing() -> (home_xCordsForPlacementPenalty: [String], home_yCordsForPlacementPenalty: [String], away_xCordsForPlacementPenalty: [String], away_yCordsForPlacementPenalty: [String]){
         
@@ -264,7 +265,8 @@ class Old_Game_Ice_View: UIViewController {
             
             let shotLocation = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
             let goalieID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
-            let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID[0])?.playerName;
+            let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID.first)?.playerName;
+             print("Goalie ID \(goalieID.first) \(goalieName)")
             let teamID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
             let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
             
@@ -288,7 +290,9 @@ class Old_Game_Ice_View: UIViewController {
             
             let shotLocation = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, self.SeletedGame)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
             let goalieID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
-            let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID[0])?.playerName;
+           
+            let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID.first)?.playerName;
+            
             let teamID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
             let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
             let scoringPlayerID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})

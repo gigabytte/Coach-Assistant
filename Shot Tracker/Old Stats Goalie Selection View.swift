@@ -68,7 +68,7 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
         
         // set deafult jersey number
         goalieNumberLabel.text = goalieNumberArray[0]
-        let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID) ,Int(goalieNumberArray.first!)!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         tempgoalieSelectedID = selectedGoalieID[0]
         
         hockeyNetImageView.isUserInteractionEnabled = true
@@ -138,11 +138,13 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
                         self.goalieNumberLabel.setNeedsDisplay()
                     }
                     
-                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    // get selected goalie id based on user selection
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
                     print("goalie id: ", tempgoalieSelectedID)
                 }else{
-                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    // get selected goalie id based on user selection
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
                     print("goalie id: ", tempgoalieSelectedID)
                 }
@@ -163,11 +165,13 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
                         self.goalieNumberLabel.text = self.goalieNumberArray[self.currentArrayIndex]
                         self.goalieNumberLabel.setNeedsDisplay()
                     }
-                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    // get selected goalie id based on user selection
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
                     print("goalie id: ", tempgoalieSelectedID)
                 }else{
-                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    // get selected goalie id based on user selection
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
                     print("goalie id: ", tempgoalieSelectedID)
                 }

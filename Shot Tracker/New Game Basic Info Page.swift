@@ -143,7 +143,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         
         // set deafult jersey number
         goalieNumberLabel.text = goalieNumberArray[0]
-        let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID) ,Int(goalieNumberArray.first!)!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         tempgoalieSelectedID = selectedGoalieID[0]
         
         hockeyNetImageView.isUserInteractionEnabled = true
@@ -260,11 +260,11 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                         self.goalieNumberLabel.setNeedsDisplay()
                     }
                 // get selected goalie id based on user selection
-                let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                 tempgoalieSelectedID = selectedGoalieID[0]
                 print("goalie id: ", tempgoalieSelectedID)
                 }else{
-                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[0])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
                     print("goalie id: ", tempgoalieSelectedID)
                 }
@@ -286,12 +286,12 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                         self.goalieNumberLabel.text = self.goalieNumberArray[self.currentArrayIndex]
                         self.goalieNumberLabel.setNeedsDisplay()
                     }
-                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[currentArrayIndex])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
                     
                     print("goalie id: ", tempgoalieSelectedID)
                 }else{
-                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "jerseyNum == %i", Int(goalieNumberArray[0])!)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                    let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[0])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
                     print("goalie id: ", tempgoalieSelectedID)
                 }
@@ -316,6 +316,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func continueButton(_ sender: Any) {
         // redfine valuye for poeriod selected based on user interaction with view
         if(setPeriodVar != nil){
+            print("Golaie ID", tempgoalieSelectedID)
             UserDefaults.standard.set(setPeriodVar, forKey: "periodNumber")
             UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
             UserDefaults.standard.set(false, forKey: "newGameStarted")
