@@ -83,9 +83,14 @@ class dateToString{
  */
 class universalValue{
   
+    // used for markers placed on ice surface
     var markerCenterX: Int = 16
     var markerCenterY:Int = 16
     var markerWidth: Int = 32
     var markerHeight:Int = 32
+    
+    // used for the length of penalty minutes
+    var minorPenanlty: Int =  2
+    var majorPenalty: Int = 4
     
 }

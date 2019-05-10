@@ -325,10 +325,9 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
         let penaltyMinutesAgainstMinor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i AND penaltyType == %@ AND activeState == true", (gameID), homeTeam, "Minor")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
         let penaltyMinutesAgainstMajor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i AND penaltyType == %@ AND activeState == true", (gameID), homeTeam, "Major")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
        
-        let totalMinutes = (penaltyMinutesAgainstMinor * 2) + (penaltyMinutesAgainstMajor * 2)
+        let totalMinutes = (penaltyMinutesAgainstMinor * universalValue().minorPenanlty) + (penaltyMinutesAgainstMajor * universalValue().majorPenalty)
         teamStatsVar.append(String(totalMinutes))
         
-        print("Team Stats Vars:", teamStatsVar)
     }
     
     // Returns count of items in tableView

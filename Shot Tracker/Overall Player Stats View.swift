@@ -20,10 +20,10 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var goalieStatsTable: UITableView!
     @IBOutlet weak var teamRecordLabel: UILabel!
     
-    var homePlayerStatsArray: [String] = [String]()
+    var homePlayerStatsArray: [[String]] = [[String]]()
     var homePlayerNames: [String] = [String]()
     var homeGoalieNames: [String] = [String]()
-    var goalieStatsArray:  [String] = [String]()
+    var goalieStatsArray:  [[String]] = [[String]]()
     var lineStatsArray:  [String] = [String]()
     var homePlayerIDs: [Int] = [Int]()
     var goalieIDArray: [Int] = [Int]()
@@ -54,8 +54,10 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
         goalieStatsTable.dataSource = self
         goalieStatsTable.delegate = self
         
+     
     }
     
+  
     
     func playerNameFetch(){
         if (homePlayerIDs.isEmpty != true){
@@ -103,26 +105,26 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
         for x in 0..<homePlayerIDs.count{
             // ------------------ player position -----------------------
             let playerPosition = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "positionType") as! [String]).compactMap({String($0)})
-            homePlayerStatsArray.append("Position: \(playerPosition[0])\n")
+            homePlayerStatsArray.append(["Position: \(playerPosition.first!)"])
             // ------------------ player line -----------------------
             let playerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
             switch playerLineNum[0]{
             case 0:
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: G\n"
+                homePlayerStatsArray[x].append("Line Number: G")
             case 1:
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: F1\n"
+                homePlayerStatsArray[x].append("Line Number: F1")
             case 2:
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: F2\n"
+                homePlayerStatsArray[x].append("Line Number: F2")
             case 3:
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: F3\n"
+                homePlayerStatsArray[x].append("Line Number: F3")
             case 4:
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: D1\n"
+                homePlayerStatsArray[x].append("Line Number: D1")
             case 5:
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: D2\n"
+                homePlayerStatsArray[x].append("Line Number: D2")
             case 6:
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: D3\n"
+                homePlayerStatsArray[x].append("Line Number: D3")
             default:
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Line Number: N/A\n"
+                homePlayerStatsArray[x].append("Line Number: N/A")
             }
             
             //-------------------- goal count -----------------------
@@ -130,7 +132,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             let nextPlayerCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], homeTeamID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
             // if number of goals is not 0 aka the player scorerd atleast once
             // ass goals to player stats if not set as zero
-            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Goals: \(nextPlayerCount)\n"
+            homePlayerStatsArray[x].append("Goals: \(nextPlayerCount)")
             // ------------------ assits count -----------------------------
             // get number of assist from player based on looping player id
             let nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], homeTeamID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
@@ -138,14 +140,14 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             // if number of assits is not 0 aka the player did not get assist atleast once
             //  set assist num to 0
             if (nextPlayerAssitCount != 0 || sec_nextPlayerAssitCount != 0){
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Assits: \(String(nextPlayerAssitCount + sec_nextPlayerAssitCount)) \n"
+                homePlayerStatsArray[x].append("Assits: \(String(nextPlayerAssitCount + sec_nextPlayerAssitCount))")
             }else{
-                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Assits: 0 \n"
+                homePlayerStatsArray[x].append("Assits: 0")
             }
             // ------------------ plus minus count -----------------------------
             // get current looping player's plus minus
             let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})
-            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Overall Plus/Minus: \(String(nextPlayerPlusMinus[0])) \n"
+            homePlayerStatsArray[x].append("Overall Plus/Minus: \(String(nextPlayerPlusMinus[0]))")
             // ------------------ player's line minus count -----------------------------
             // add all plus/minus from all member of the current player ids line for the overall line plus minus
             let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
@@ -156,22 +158,36 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
                 totalPlusMinus = totalPlusMinus + ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", allPlayersOnLine[i])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}))[0]
                 
             }
-            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Overall Line Plus/Minus: \(String(totalPlusMinus))"
+            homePlayerStatsArray[x].append("Overall Line Plus/Minus: \(String(totalPlusMinus))")
             
+            // -------------------- PIM (Penalty in minutes for season against player -----------------------------
+            let penaltyMinutesAgainstMinor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "playerID == %i AND penaltyType == %@ AND activeState == true", homePlayerIDs[x], "Minor")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
+            let penaltyMinutesAgainstMajor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "playerID == %i AND penaltyType == %@ AND activeState == true", homePlayerIDs[x], "Major")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
+            
+            let totalMinutes = (penaltyMinutesAgainstMinor * universalValue().minorPenanlty) + (penaltyMinutesAgainstMajor * universalValue().majorPenalty)
+            homePlayerStatsArray[x].append(String(totalMinutes))
+            
+            /* -------------------------- GMG Game Wining Goals for the Season ----------------
+            let countOfGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i OR opposingTeamID == %i AND activeState == true", homeTeamID, homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
+           for y in 0..<countOfGames{
+            
+             let penaltyMinutesAgainstMinor = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "playerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], )).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            }
+            */
         }
     }
     
     func goalieStatsProcessing(){
         
         for x in 0..<goalieIDArray.count{
-            print("Goalie ID", goalieIDArray[x])
+            
             //----------- goals against avg -------------------------
              let numberOfHomeGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
              let numberOfAwayGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "opposingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
              let numberOfGoalsAgainst = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", goalieIDArray[x], homeTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
             
             let GAA:Double = Double(numberOfGoalsAgainst) / Double(numberOfHomeGames + numberOfAwayGames)
-            goalieStatsArray.append("Goals Against Average: \(String(format: "%.2f", GAA))\n")
+            goalieStatsArray.append(["Goals Against Average: \(String(format: "%.2f", GAA))"])
             
             //-------------- save % overall ------------------
             let homeGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", goalieIDArray[x])).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count
@@ -179,9 +195,9 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             print(homeGoalieShots, homeGoalieGoals)
             if (homeGoalieShots != 0 && homeGoalieGoals != 0){
                 let homeGoalieTotal:Double = (Double(homeGoalieShots) / Double(homeGoalieGoals + homeGoalieShots))
-                goalieStatsArray[x] = goalieStatsArray[x] + "Overall Save %: \(String(format: "%.2f", homeGoalieTotal))\n"
+                goalieStatsArray[x].append("Overall Save %: \(String(format: "%.2f", homeGoalieTotal))")
             }else{
-                goalieStatsArray[x] = goalieStatsArray[x] + "Overall Save %: N/A\n"
+                goalieStatsArray[x].append("Overall Save %: N/A")
             }
          // ----------- save % by shot location --------------------
             let topLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", goalieIDArray[x], 1)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
@@ -193,9 +209,17 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             let totalShot:Double = topLeft + topRight + bottomLeft + bottomRight + center
             
             if (totalShot != 0.0){
-            goalieStatsArray[x] = goalieStatsArray[x] + "Top Left Save %: \(String(format: "%.2f",(topLeft/totalShot)))\nTop Right Save %: \(String(format: "%.2f",(topRight/totalShot)))\nBottom Left Save %: \(String(format: "%.2f", (bottomLeft/totalShot)))\nBottom Right Save %: \(String(format: "%.2f",(bottomRight/totalShot)))\nFive Hole Save %: \(String(format: "%.2f",(center/totalShot)))"
+                goalieStatsArray[x].append("Top Left Save %: \(String(format: "%.2f",(topLeft/totalShot)))")
+                goalieStatsArray[x].append("Top Right Save %: \(String(format: "%.2f",(topRight/totalShot)))")
+                goalieStatsArray[x].append("Bottom Left Save %: \(String(format: "%.2f", (bottomLeft/totalShot)))")
+                goalieStatsArray[x].append("Bottom Right Save %: \(String(format: "%.2f",(bottomRight/totalShot)))")
+                goalieStatsArray[x].append("Five Hole Save %: \(String(format: "%.2f",(center/totalShot)))")
             }else{
-                 goalieStatsArray[x] = goalieStatsArray[x] + "Top Left Save %: N/A\nTop Right Save %: N/A\nBottom Left Save %: N/A\nBottom Right Save %: N/A\nFive Hole Save %: N/A"
+                goalieStatsArray[x].append("Top Left Save %: N/A")
+                goalieStatsArray[x].append("Top Right Save %: N/A")
+                goalieStatsArray[x].append("Bottom Left Save %: N/A")
+                goalieStatsArray[x].append("Bottom Right Save %: N/A")
+                goalieStatsArray[x].append("Five Hole Save %: N/A")
             }
         }
         
@@ -222,17 +246,32 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     //Assign values for tableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        var count: Int = 0
+        
         if (tableView == playerSatsTable){
+            
             let cell:customOverallStatsCell = self.playerSatsTable.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customOverallStatsCell
             cell.playerNameLabel!.text = homePlayerNames[indexPath.row]
-            cell.playerStatsLabel?.text = self.homePlayerStatsArray[indexPath.row]
+            cell.playerPositionLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
+            cell.playerLineNumberLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
+            cell.playerGoalCountLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
+            cell.playerAssistCountLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
+            cell.playerLinePlusMinusLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
+            cell.playerPlusMinusLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; //count = count  + 1
             
             return cell
+            
         }else {
            
             let cell:customOverallStatsCell = self.goalieStatsTable.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customOverallStatsCell
             cell.goalieNameLabel!.text = homeGoalieNames[indexPath.row]
-            cell.goalieStatsLabel?.text = self.goalieStatsArray[indexPath.row]
+            cell.goalieSavePerLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+            cell.goalieGoalsAGAVGLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+            cell.goalieSavePerTopLeftLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+            cell.goalieSavePerTopRightLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+            cell.goalieSavePerBottomLeftLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+            cell.goalieSavePerBottomRightLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+            cell.goalieSavePerCenterLabel?.text = self.goalieStatsArray[indexPath.row][count]; //count = count  + 1
             
             return cell
             
