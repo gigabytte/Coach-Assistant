@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:customSettingCell.swift">
+   </FileRef>
+   <FileRef
       location = "group:customCurrentStatsCell.swift">
    </FileRef>
    <FileRef
