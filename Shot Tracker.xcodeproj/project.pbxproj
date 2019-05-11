@@ -15,6 +15,7 @@
 		BE12DE5D228740BE0071BC17 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5B228740BE0071BC17 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE12DE5F228740C10071BC17 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5E228740C10071BC17 /* RealmSwift.framework */; };
 		BE12DE60228740C10071BC17 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5E228740C10071BC17 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BE12DE62228744B80071BC17 /* customSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE12DE61228744B80071BC17 /* customSettingCell.swift */; };
 		BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */; };
 		BE1F4D2E2278D96F00D8B4F3 /* customCurrentStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */; };
 		BE1F4D302278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2F2278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift */; };
@@ -23,7 +24,6 @@
 		BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */; };
 		BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */; };
 		BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */; };
-		BE523714226A88A7009D9254 /* customSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE523713226A88A7009D9254 /* customSettingCell.swift */; };
 		BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */; };
 		BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */; };
 		BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */; };
@@ -109,6 +109,7 @@
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
 		BE12DE5B228740BE0071BC17 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		BE12DE5E228740C10071BC17 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		BE12DE61228744B80071BC17 /* customSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customSettingCell.swift; path = ../customSettingCell.swift; sourceTree = "<group>"; };
 		BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customOverallStatsCell.swift; path = ../customOverallStatsCell.swift; sourceTree = "<group>"; };
 		BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customCurrentStatsCell.swift; path = ../customCurrentStatsCell.swift; sourceTree = "<group>"; };
 		BE1F4D2F2278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_Game_Stats_View_Controller.swift; sourceTree = "<group>"; };
@@ -117,7 +118,6 @@
 		BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Settings Page View Controller.swift"; sourceTree = "<group>"; };
 		BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Backup View Controller.swift"; sourceTree = "<group>"; };
 		BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Defaults View Controller.swift"; sourceTree = "<group>"; };
-		BE523713226A88A7009D9254 /* customSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customSettingCell.swift; path = "/Users/gregbrooks/Desktop/Coach-Assitant/Shot Tracker/customSettingCell.swift"; sourceTree = "<absolute>"; };
 		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
 		BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Page_Controller.swift; sourceTree = "<group>"; };
 		BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_FInish_Page_ViewController.swift; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 				BEBB0673227214FC001DDD61 /* GIF_Processing.swift */,
 				BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */,
 				BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */,
-				BE523713226A88A7009D9254 /* customSettingCell.swift */,
+				BE12DE61228744B80071BC17 /* customSettingCell.swift */,
 				BE7F8C12227538530093F629 /* Penalty Table.swift */,
 				BE83904721F660DB00D02C0B /* New Game Table.swift */,
 				BE83904921F663A600D02C0B /* Team Info Table.swift */,
@@ -573,7 +573,6 @@
 				BE669DCB226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift in Sources */,
 				BE1F4D2E2278D96F00D8B4F3 /* customCurrentStatsCell.swift in Sources */,
 				BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */,
-				BE523714226A88A7009D9254 /* customSettingCell.swift in Sources */,
 				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
 				BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */,
 				BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */,
@@ -587,6 +586,7 @@
 				BE83904A21F663A600D02C0B /* Team Info Table.swift in Sources */,
 				BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */,
 				BE7D697A21E3D74300C1745C /* Home_Page_View_Controller.swift in Sources */,
+				BE12DE62228744B80071BC17 /* customSettingCell.swift in Sources */,
 				BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */,
 				BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */,
 				BE7A1C632200EF4D00E4D74B /* Shot Marker File.swift in Sources */,
