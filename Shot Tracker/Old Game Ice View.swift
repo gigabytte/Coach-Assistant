@@ -112,8 +112,7 @@ class Old_Game_Ice_View: UIViewController {
         adView.rootViewController = self
         adView.load(GADRequest())
         
-        let x = 0
-        if x == 1{
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             adView.heightAnchor.constraint(equalToConstant: 0.0).isActive = true
         }else{
             adView.heightAnchor.constraint(equalToConstant: 40.0).isActive = true

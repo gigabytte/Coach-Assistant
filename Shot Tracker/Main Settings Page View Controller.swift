@@ -17,8 +17,8 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     
     
     // Data model: These strings will be the data for the table view cells
-    let settingsName: [String] = ["Backup", "Defaults", "Legal", "About"]
-    let imageNames: [String] = ["backup.PNG", "defaults.PNG", "defaults_icon.PNG", "defaults_icon.PNG"]
+    let settingsName: [String] = ["Backup", "Defaults", "Subscriptions", "Legal", "About"]
+    let imageNames: [String] = ["backup.PNG", "defaults.PNG", "defaults_icon.PNG", "defaults_icon.PNG", "defaults_icon.PNG"]
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -35,6 +35,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         
         return viewController
     }()
+    
     // MARK other view controllers initialked here for future context
     private lazy var defaultsViewController: Settings_Defaults_View_Controller = {
         // Load Storyboard
@@ -42,6 +43,20 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "Settings_Default_View_Controller") as! Settings_Defaults_View_Controller
+        
+        // Add View Controller as Child View Controller
+        self.add(asChildViewController: viewController)
+        
+        return viewController
+    }()
+    
+    // MARK other view controllers initialked here for future context
+    private lazy var subscriptionsViewController: Settings_Subscriptions_View_Controller = {
+        // Load Storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        
+        // Instantiate View Controller
+        var viewController = storyboard.instantiateViewController(withIdentifier: "Settings_Subscriptions_View_Controller") as! Settings_Subscriptions_View_Controller
         
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
@@ -101,26 +116,42 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
             remove(asChildViewController: defaultsViewController)
             remove(asChildViewController: aboutViewController)
             remove(asChildViewController: legalViewController)
+            remove(asChildViewController: subscriptionsViewController)
             add(asChildViewController: backupViewController)
+            
         case 1:
             remove(asChildViewController: backupViewController)
             remove(asChildViewController: aboutViewController)
             remove(asChildViewController: legalViewController)
+            remove(asChildViewController: subscriptionsViewController)
             add(asChildViewController: defaultsViewController)
+            
         case 2:
-            remove(asChildViewController: backupViewController)
-            remove(asChildViewController: aboutViewController)
-            remove(asChildViewController: defaultsViewController)
-            add(asChildViewController: legalViewController)
-        case 3:
             remove(asChildViewController: legalViewController)
             remove(asChildViewController: backupViewController)
             remove(asChildViewController: defaultsViewController)
+            remove(asChildViewController: aboutViewController)
+            add(asChildViewController: subscriptionsViewController)
+            
+        case 3:
+            remove(asChildViewController: backupViewController)
+            remove(asChildViewController: aboutViewController)
+            remove(asChildViewController: defaultsViewController)
+            remove(asChildViewController: subscriptionsViewController)
+            add(asChildViewController: legalViewController)
+           
+        case 4:
+            remove(asChildViewController: legalViewController)
+            remove(asChildViewController: backupViewController)
+            remove(asChildViewController: defaultsViewController)
+            remove(asChildViewController: subscriptionsViewController)
             add(asChildViewController: aboutViewController)
+            
         default:
             remove(asChildViewController: aboutViewController)
             remove(asChildViewController: defaultsViewController)
             remove(asChildViewController: legalViewController)
+            remove(asChildViewController: subscriptionsViewController)
             add(asChildViewController: backupViewController)
         }
     }
