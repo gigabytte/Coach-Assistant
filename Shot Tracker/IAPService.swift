@@ -70,6 +70,7 @@ extension SKPaymentTransactionState {
         case .deferred: return "deferred"
         case .failed:
             UserDefaults.standard.set(false, forKey: "userPurchaseConf")
+            //Settings_Subscriptions_View_Controller().loadingIndicator.stopAnimating()
             return "failed"
         case .purchased:
             UserDefaults.standard.set(true, forKey: "userPurchaseConf")

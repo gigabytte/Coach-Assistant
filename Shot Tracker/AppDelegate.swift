@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         */
         if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
             deleteNewGameUserDefaults.deleteUserDefaults()
+            UserDefaults.standard.set(false, forKey: "userPurchaseConf")
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main") as? UIViewController
             
             // Use Firebase library to configure APIs.
@@ -36,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }else{
             // redicrt to setup process if user is new
             deleteNewGameUserDefaults.deleteUserDefaults()
+            UserDefaults.standard.set(false, forKey: "userPurchaseConf")
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setup") as? UIViewController
             
             return true

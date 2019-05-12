@@ -14,15 +14,26 @@ import Firebase
 class Settings_Subscriptions_View_Controller: UIViewController {
 
     
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var upgradeButton: UIButton!
+    @IBOutlet weak var subView: UIView!
     
     @IBOutlet weak var restoreButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //super.viewDidLoad()
+        view.alpha = 1.0
+        loadingIndicator.isHidden = true
+        loadingIndicator.stopAnimating()
         IAPService.shared.getProducts()
-       // IAPService.shared.getProducts()
-        //IAPService.shared.restorePurchases()
         
         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             
@@ -37,10 +48,13 @@ class Settings_Subscriptions_View_Controller: UIViewController {
             
             
         }
-        // Do any additional setup after loading the view.
+        
+        loadingIndicator.stopAnimating()
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        loadingIndicator.stopAnimating()
+    }
    
     @IBAction func restoreButton(_ sender: UIButton) {
         
@@ -52,8 +66,29 @@ class Settings_Subscriptions_View_Controller: UIViewController {
     @IBAction func upgradeButton(_ sender: UIButton) {
         print("Upgrading Now!")
        //IAPService.shared.getProducts()
-    IAPService.shared.purchase(product: .autoRenewableSubscription)
+        loadingIndicator.startAnimating()
+        view.backgroundColor = UIColor.darkGray
+        view.alpha = 0.7
+        upgradeButton.isUserInteractionEnabled = false
+        restoreButton.isUserInteractionEnabled = false
+        IAPService.shared.purchase(product: .autoRenewableSubscription)
+        delay(8){
+            self.view.backgroundColor = UIColor.clear
+            self.view.alpha = 1.0
+            self.upgradeButton.isUserInteractionEnabled = true
+            self.restoreButton.isUserInteractionEnabled = true
+            self.loadingIndicator.stopAnimating()
+        }
         
         
+        
+        
+        
+    }
+    
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 }
