@@ -1701,6 +1701,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="0uX-hd-dhf">
+                                        <rect key="frame" x="346.5" y="346.5" width="75" height="75"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="PhH-hE-Att"/>
+                                            <constraint firstAttribute="width" constant="75" id="nmU-HM-pSX"/>
+                                        </constraints>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGm-u7-xTk">
                                         <rect key="frame" x="245" y="392" width="278" height="62"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1733,7 +1742,9 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="IGm-u7-xTk" firstAttribute="top" secondItem="qUp-DH-IzP" secondAttribute="bottom" constant="100" id="Fq2-0g-nm0"/>
+                                    <constraint firstItem="0uX-hd-dhf" firstAttribute="centerY" secondItem="kLA-gr-vHC" secondAttribute="centerY" id="HCK-5v-N93"/>
                                     <constraint firstItem="IGm-u7-xTk" firstAttribute="centerX" secondItem="kLA-gr-vHC" secondAttribute="centerX" id="L9z-fX-gnf"/>
+                                    <constraint firstItem="0uX-hd-dhf" firstAttribute="centerX" secondItem="kLA-gr-vHC" secondAttribute="centerX" id="Li8-6B-QmA"/>
                                     <constraint firstItem="kwn-OG-Ctz" firstAttribute="centerX" secondItem="kLA-gr-vHC" secondAttribute="centerX" id="SNs-By-Jfu"/>
                                     <constraint firstItem="IGm-u7-xTk" firstAttribute="centerX" secondItem="kLA-gr-vHC" secondAttribute="centerX" id="fo4-Ka-RV1"/>
                                     <constraint firstItem="kwn-OG-Ctz" firstAttribute="top" secondItem="kLA-gr-vHC" secondAttribute="top" constant="100" id="gKK-EU-5aD"/>
@@ -1757,7 +1768,9 @@
                         <viewLayoutGuide key="safeArea" id="hSf-OF-apw"/>
                     </view>
                     <connections>
+                        <outlet property="loadingIndicator" destination="0uX-hd-dhf" id="0ao-UJ-MTa"/>
                         <outlet property="restoreButton" destination="IGm-u7-xTk" id="UTM-8K-cFK"/>
+                        <outlet property="subView" destination="kLA-gr-vHC" id="KzD-dJ-b6o"/>
                         <outlet property="upgradeButton" destination="qUp-DH-IzP" id="lqN-PR-9dh"/>
                     </connections>
                 </viewController>
@@ -3889,13 +3902,13 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mFh-IL-lrN"/>
-        <segue reference="pOz-SY-0TH"/>
+        <segue reference="VdZ-aC-tCs"/>
         <segue reference="uyd-PZ-fI3"/>
         <segue reference="jMX-vY-t9s"/>
         <segue reference="9gt-uS-D9h"/>
         <segue reference="CQV-MR-jeA"/>
-        <segue reference="nhd-cM-urx"/>
+        <segue reference="IlU-9U-sIV"/>
         <segue reference="S9b-VU-SC9"/>
-        <segue reference="B9O-nl-JB9"/>
+        <segue reference="w5X-2C-weP"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -47,6 +47,9 @@ class Main_Game_Stats_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         navBarProcessing()
         setupView()
         // Do any additional setup after loading the view.
@@ -114,16 +117,33 @@ class Main_Game_Stats_View_Controller: UIViewController {
     }
     
     @IBAction func viewTypeSwitch(_ sender: UISegmentedControl) {
-        
-        switch viewTypeSwitch.selectedSegmentIndex {
-        case 0:
-            rowIndex = 0
-            self.setupView()
-        case 1:
-            rowIndex = 1
-            self.setupView()
-        default:
-            break;
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+            switch viewTypeSwitch.selectedSegmentIndex {
+            case 0:
+                rowIndex = 0
+                self.setupView()
+            case 1:
+                rowIndex = 1
+                self.setupView()
+            default:
+                break;
+            }
+        }else{
+            // create the alert
+            let notPro = UIAlertController(title: "You're Missing Out", message: "Upgrade now and unlock an in depth look into your teams perfrommce. A break down of all your plays along with your goalies and most importantly your team as a whole.", preferredStyle: UIAlertController.Style.alert)
+            
+            // add an action (button)
+            notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
+            // add an action (button)
+            notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
+                IAPService.shared.getProducts()
+                IAPService.shared.purchase(product: .autoRenewableSubscription)
+                
+            }))
+            // show the alert
+            self.present(notPro, animated: true, completion: nil)
+            viewTypeSwitch.selectedSegmentIndex = 0
+            
         }
     }
     @IBAction func optionsButton(_ sender: UIBarButtonItem) {

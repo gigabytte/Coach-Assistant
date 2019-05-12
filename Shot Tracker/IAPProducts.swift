@@ -11,7 +11,7 @@ import Foundation
 enum IAPProducts: String {
     case consumable = "Coach-Assistant-iPad1"
     case nonConsumable = "Coach-Assistant-iPad"
-    case autoRenewableSubscription = "Coach-Assistant-iPad2"
+    case autoRenewableSubscription = "Pro_Sub_CA_iPad"
     case nonRenewingSubscription = "Coach-Assistant-iPad3"
     
  
