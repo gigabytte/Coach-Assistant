@@ -7,6 +7,8 @@ target 'Shot Tracker' do
 
   # Pods for Shot Tracker
   pod 'Charts'
+  pod 'Firebase/Core'
+  pod 'Firebase/AdMob'
   target 'Shot TrackerTests' do
     inherit! :search_paths
     # Pods for testing

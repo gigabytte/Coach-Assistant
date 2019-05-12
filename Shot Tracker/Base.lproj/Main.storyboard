@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sbU-vj-OV2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sbU-vj-OV2">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -390,11 +390,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice_rink_image" translatesAutoresizingMaskIntoConstraints="NO" id="6MZ-OM-abI">
-                                <rect key="frame" x="0.0" y="70" width="1024" height="619"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="619" id="Kkb-xy-K72"/>
-                                    <constraint firstAttribute="width" constant="1024" id="MxJ-uD-z9G"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="70" width="1024" height="587"/>
                             </imageView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1h-sR-cQ2">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
@@ -413,8 +409,8 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GqT-GX-Jdb">
-                                <rect key="frame" x="0.0" y="697" width="1024" height="71"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GqT-GX-Jdb" userLabel="Quick Stats View">
+                                <rect key="frame" x="0.0" y="657" width="1024" height="71"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Goal's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvr-dK-NLd">
                                         <rect key="frame" x="50" y="23.5" width="167" height="24"/>
@@ -532,6 +528,13 @@
                                     <constraint firstItem="1r2-y8-ww4" firstAttribute="leading" secondItem="DSn-7q-ddJ" secondAttribute="trailing" constant="15" id="wHk-Gd-uce"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAe-R2-spI" userLabel="Ad Banner" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="728" width="1024" height="40"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" placeholder="YES" id="qjp-5J-5gg"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -540,17 +543,22 @@
                             <constraint firstItem="6MZ-OM-abI" firstAttribute="trailing" secondItem="RpM-Oj-VHe" secondAttribute="trailing" id="OHY-PP-xwQ"/>
                             <constraint firstItem="W1h-sR-cQ2" firstAttribute="centerX" secondItem="L10-OJ-NML" secondAttribute="centerX" id="OV3-S3-o9S"/>
                             <constraint firstItem="6MZ-OM-abI" firstAttribute="centerX" secondItem="L10-OJ-NML" secondAttribute="centerX" id="P4Q-ak-FE5"/>
+                            <constraint firstItem="wAe-R2-spI" firstAttribute="bottom" secondItem="L10-OJ-NML" secondAttribute="bottom" id="Qca-oA-Re6"/>
                             <constraint firstItem="GqT-GX-Jdb" firstAttribute="leading" secondItem="RpM-Oj-VHe" secondAttribute="leading" id="Xyl-W1-YQO"/>
                             <constraint firstItem="GqT-GX-Jdb" firstAttribute="trailing" secondItem="RpM-Oj-VHe" secondAttribute="trailing" id="aCF-B0-7xf"/>
                             <constraint firstItem="GqT-GX-Jdb" firstAttribute="centerX" secondItem="L10-OJ-NML" secondAttribute="centerX" id="gRy-19-o2s"/>
                             <constraint firstItem="W1h-sR-cQ2" firstAttribute="top" secondItem="RpM-Oj-VHe" secondAttribute="top" id="iLK-Tn-IGw"/>
-                            <constraint firstItem="GqT-GX-Jdb" firstAttribute="bottom" secondItem="RpM-Oj-VHe" secondAttribute="bottom" id="nCy-AN-i5E"/>
+                            <constraint firstItem="wAe-R2-spI" firstAttribute="trailing" secondItem="L10-OJ-NML" secondAttribute="trailing" id="lnG-ws-oPN"/>
+                            <constraint firstItem="GqT-GX-Jdb" firstAttribute="bottom" secondItem="wAe-R2-spI" secondAttribute="top" id="nCy-AN-i5E"/>
+                            <constraint firstItem="6MZ-OM-abI" firstAttribute="bottom" secondItem="GqT-GX-Jdb" secondAttribute="top" id="oJG-Ku-EUc"/>
                             <constraint firstItem="W1h-sR-cQ2" firstAttribute="leading" secondItem="RpM-Oj-VHe" secondAttribute="leading" id="qay-2H-GNR"/>
+                            <constraint firstItem="wAe-R2-spI" firstAttribute="leading" secondItem="L10-OJ-NML" secondAttribute="leading" id="rO7-tl-Cam"/>
                             <constraint firstItem="6MZ-OM-abI" firstAttribute="leading" secondItem="RpM-Oj-VHe" secondAttribute="leading" id="zSv-88-G1S"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RpM-Oj-VHe"/>
                     </view>
                     <connections>
+                        <outlet property="adView" destination="wAe-R2-spI" id="JdO-ae-a7o"/>
                         <outlet property="awayTeamNameLabel" destination="AMV-pW-tC4" id="rzl-rK-RRn"/>
                         <outlet property="awayTeamNumGoals" destination="MeQ-mA-oex" id="G92-xF-nP8"/>
                         <outlet property="awayTeamNumShots" destination="1r2-y8-ww4" id="0pT-Xg-NKu"/>
@@ -1463,7 +1471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laI-ir-5Sg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1562" y="61"/>
+            <point key="canvasLocation" x="-2443" y="89"/>
         </scene>
         <!--Main Settings Page View Controller-->
         <scene sceneID="wEP-oY-DDc">
@@ -1671,7 +1679,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7I-ce-Xyx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2444" y="61"/>
+            <point key="canvasLocation" x="-1697" y="89"/>
         </scene>
         <!--Settings_Default_View_Controller-->
         <scene sceneID="VRR-zi-b77">
@@ -1745,7 +1753,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rry-V9-wKU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2445" y="880"/>
+            <point key="canvasLocation" x="-1698" y="908"/>
         </scene>
         <!--Default Team Selection View-->
         <scene sceneID="Fvf-hg-hNn">
@@ -1828,7 +1836,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AeX-sG-syS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1707" y="1720"/>
+            <point key="canvasLocation" x="-913" y="1613"/>
         </scene>
         <!--Add Team Page-->
         <scene sceneID="Mka-Sj-9D5">
@@ -2377,11 +2385,11 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXp-JP-8v8">
-                                <rect key="frame" x="0.0" y="697" width="1024" height="71"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXp-JP-8v8" userLabel="Quick Stats Bar">
+                                <rect key="frame" x="0.0" y="653" width="1024" height="75"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Goal's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZC3-Yy-Eek">
-                                        <rect key="frame" x="50" y="23.5" width="167" height="24"/>
+                                        <rect key="frame" x="50" y="25.5" width="167" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="167" id="c64-qo-DpS"/>
                                             <constraint firstAttribute="height" constant="24" id="kFu-t6-rxH"/>
@@ -2391,7 +2399,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3x-rs-0Xe" userLabel="homeTeamNumGoals">
-                                        <rect key="frame" x="232" y="-10" width="75" height="91"/>
+                                        <rect key="frame" x="232" y="-8" width="75" height="91"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="91" id="TGz-P3-Ow6"/>
                                             <constraint firstAttribute="width" constant="75" id="u0B-Ib-Qs5"/>
@@ -2401,7 +2409,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shots" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Woh-Gi-GoY" userLabel="Home Shots">
-                                        <rect key="frame" x="332" y="24.5" width="100" height="22"/>
+                                        <rect key="frame" x="332" y="26.5" width="100" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="fHI-C4-wRz"/>
                                             <constraint firstAttribute="height" constant="22" id="h94-LX-3hs"/>
@@ -2411,7 +2419,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afY-bF-aUx" userLabel="homeTeamNumShots">
-                                        <rect key="frame" x="402" y="-4.5" width="75" height="80"/>
+                                        <rect key="frame" x="402" y="-2.5" width="75" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="CIG-pP-kXz"/>
                                             <constraint firstAttribute="width" constant="75" id="xCE-5a-jeM"/>
@@ -2421,7 +2429,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAv-Vd-pgC">
-                                        <rect key="frame" x="467" y="-1.5" width="90" height="74"/>
+                                        <rect key="frame" x="467" y="0.5" width="90" height="74"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="74" id="aME-jH-etS"/>
                                             <constraint firstAttribute="width" constant="90" id="yDg-la-qqL"/>
@@ -2435,7 +2443,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shots" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQl-y9-ipM" userLabel="Away Shots">
-                                        <rect key="frame" x="582" y="24.5" width="47" height="22"/>
+                                        <rect key="frame" x="582" y="26.5" width="47" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="47" id="HFm-mw-XNP"/>
                                             <constraint firstAttribute="height" constant="22" id="SEF-3Y-s7k"/>
@@ -2445,7 +2453,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NK6-Nn-Vf6" userLabel="awayTeamNumShots">
-                                        <rect key="frame" x="644" y="-4.5" width="75" height="80"/>
+                                        <rect key="frame" x="644" y="-2.5" width="75" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="DWt-2m-P85"/>
                                             <constraint firstAttribute="height" constant="80" id="drY-EE-XbQ"/>
@@ -2455,7 +2463,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Goal's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lh5-nb-Yko">
-                                        <rect key="frame" x="719" y="23.5" width="162" height="24"/>
+                                        <rect key="frame" x="719" y="25.5" width="162" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="4mr-lH-ia8"/>
                                             <constraint firstAttribute="width" constant="162" id="ri1-gR-HPa"/>
@@ -2465,7 +2473,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irK-kw-NvH" userLabel="awayTeamNumGoals">
-                                        <rect key="frame" x="896" y="-10" width="75" height="91"/>
+                                        <rect key="frame" x="896" y="-8" width="75" height="91"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="91" id="EgJ-CU-Vdo"/>
                                             <constraint firstAttribute="width" constant="75" id="fSg-Z6-zdq"/>
@@ -2483,6 +2491,7 @@
                                     <constraint firstItem="kQl-y9-ipM" firstAttribute="leading" secondItem="JAv-Vd-pgC" secondAttribute="trailing" constant="25" id="GeF-It-ENh"/>
                                     <constraint firstItem="afY-bF-aUx" firstAttribute="centerY" secondItem="QXp-JP-8v8" secondAttribute="centerY" id="I3p-3T-QYM"/>
                                     <constraint firstItem="afY-bF-aUx" firstAttribute="leading" secondItem="Woh-Gi-GoY" secondAttribute="trailing" constant="-30" id="PMw-Ai-PJ0"/>
+                                    <constraint firstAttribute="height" constant="75" id="TeS-99-lpO"/>
                                     <constraint firstItem="JAv-Vd-pgC" firstAttribute="centerX" secondItem="QXp-JP-8v8" secondAttribute="centerX" id="VWm-Sm-Y8Q"/>
                                     <constraint firstItem="NK6-Nn-Vf6" firstAttribute="leading" secondItem="kQl-y9-ipM" secondAttribute="trailing" constant="15" id="Yyh-rY-s1o"/>
                                     <constraint firstItem="kQl-y9-ipM" firstAttribute="centerY" secondItem="QXp-JP-8v8" secondAttribute="centerY" id="aRj-Re-qmZ"/>
@@ -2498,32 +2507,39 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice_rink_image" translatesAutoresizingMaskIntoConstraints="NO" id="9BP-Sp-ZrV">
-                                <rect key="frame" x="0.0" y="70" width="1024" height="627"/>
+                                <rect key="frame" x="0.0" y="70" width="1024" height="583"/>
                                 <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="627" id="3ef-gZ-giI"/>
-                                    <constraint firstAttribute="width" constant="1024" id="twb-ju-N38"/>
-                                </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3V-IC-rOK" userLabel="Ad Banner" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="728" width="1024" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" placeholder="YES" id="M6j-IJ-iXC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="QXp-JP-8v8" firstAttribute="bottom" secondItem="kTi-Ql-faF" secondAttribute="bottom" id="241-FL-OoP"/>
+                            <constraint firstItem="QXp-JP-8v8" firstAttribute="bottom" secondItem="X3V-IC-rOK" secondAttribute="top" id="241-FL-OoP"/>
                             <constraint firstItem="QXp-JP-8v8" firstAttribute="centerX" secondItem="9gi-KV-32I" secondAttribute="centerX" id="5qp-Is-Fxt"/>
+                            <constraint firstItem="X3V-IC-rOK" firstAttribute="trailing" secondItem="9gi-KV-32I" secondAttribute="trailing" id="9UM-Jh-uVm"/>
                             <constraint firstItem="jQz-EK-h2H" firstAttribute="leading" secondItem="kTi-Ql-faF" secondAttribute="leading" id="9bb-RG-LiX"/>
                             <constraint firstItem="9BP-Sp-ZrV" firstAttribute="top" secondItem="jQz-EK-h2H" secondAttribute="bottom" id="JAc-mC-0En"/>
+                            <constraint firstItem="X3V-IC-rOK" firstAttribute="bottom" secondItem="9gi-KV-32I" secondAttribute="bottom" id="LMy-Kr-F76"/>
                             <constraint firstItem="QXp-JP-8v8" firstAttribute="top" secondItem="9BP-Sp-ZrV" secondAttribute="bottom" id="ML7-7a-1Rd"/>
                             <constraint firstItem="9BP-Sp-ZrV" firstAttribute="bottom" secondItem="QXp-JP-8v8" secondAttribute="top" id="Qhn-fs-0iQ"/>
                             <constraint firstItem="QXp-JP-8v8" firstAttribute="trailing" secondItem="kTi-Ql-faF" secondAttribute="trailing" id="R5G-42-GSa"/>
                             <constraint firstItem="QXp-JP-8v8" firstAttribute="leading" secondItem="kTi-Ql-faF" secondAttribute="leading" id="RBi-Xi-iYm"/>
                             <constraint firstItem="9BP-Sp-ZrV" firstAttribute="trailing" secondItem="kTi-Ql-faF" secondAttribute="trailing" id="cDz-5c-XrA"/>
                             <constraint firstItem="jQz-EK-h2H" firstAttribute="trailing" secondItem="kTi-Ql-faF" secondAttribute="trailing" id="eer-4d-jaY"/>
+                            <constraint firstItem="X3V-IC-rOK" firstAttribute="leading" secondItem="9gi-KV-32I" secondAttribute="leading" id="gz3-hb-lBA"/>
                             <constraint firstItem="9BP-Sp-ZrV" firstAttribute="leading" secondItem="kTi-Ql-faF" secondAttribute="leading" id="hPU-fD-whA"/>
                             <constraint firstItem="jQz-EK-h2H" firstAttribute="top" secondItem="kTi-Ql-faF" secondAttribute="top" id="isn-EJ-cKQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kTi-Ql-faF"/>
                     </view>
                     <connections>
+                        <outlet property="adView" destination="X3V-IC-rOK" id="VpN-hk-a1t"/>
                         <outlet property="awayTeamNameLabel" destination="lh5-nb-Yko" id="BwM-AS-mC1"/>
                         <outlet property="awayTeamNumGoals" destination="irK-kw-NvH" id="9z3-6B-rtz"/>
                         <outlet property="awayTeamNumShots" destination="NK6-Nn-Vf6" id="5nx-YL-EVe"/>
@@ -3403,7 +3419,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HpE-A0-oE6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2445" y="1613"/>
+            <point key="canvasLocation" x="-1698" y="1641"/>
         </scene>
         <!--Initial Setup Page Controller-->
         <scene sceneID="dbv-D2-cc0">
@@ -3770,32 +3786,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P9A-Q2-lhx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2445" y="2335"/>
+            <point key="canvasLocation" x="-1698" y="2363"/>
         </scene>
     </scenes>
     <resources>
-        <image name="blank_goalie" width="672.75" height="401.25"/>
-        <image name="coach_assitant_full_trans" width="500" height="335"/>
-        <image name="coach_assitant_icon" width="45.599998474121094" height="45.599998474121094"/>
-        <image name="gear" width="192" height="192"/>
+        <image name="blank_goalie" width="897" height="535"/>
+        <image name="coach_assitant_full_trans" width="250" height="167.5"/>
+        <image name="coach_assitant_icon" width="76" height="76"/>
+        <image name="gear" width="240" height="240"/>
         <image name="hockey_net_basic_shot" width="902" height="531"/>
         <image name="hockey_net_period_basic" width="892" height="523"/>
         <image name="ice" width="1300" height="975"/>
-        <image name="ice_rink_image" width="756" height="394.5"/>
+        <image name="ice_rink_image" width="1008" height="526"/>
         <image name="left_scroll_arrow" width="128" height="128"/>
         <image name="premium_logo" width="250" height="116"/>
         <image name="right_scroll_arrow" width="128" height="128"/>
-        <image name="welcomearrow" width="163.5" height="162"/>
+        <image name="welcomearrow" width="218" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mFh-IL-lrN"/>
         <segue reference="pOz-SY-0TH"/>
         <segue reference="uyd-PZ-fI3"/>
         <segue reference="jMX-vY-t9s"/>
-        <segue reference="RuC-Pi-VMU"/>
-        <segue reference="Rea-8q-XFp"/>
+        <segue reference="9gt-uS-D9h"/>
+        <segue reference="CQV-MR-jeA"/>
         <segue reference="nhd-cM-urx"/>
-        <segue reference="oiw-l9-Ygs"/>
+        <segue reference="S9b-VU-SC9"/>
         <segue reference="B9O-nl-JB9"/>
     </inferredMetricsTieBreakers>
 </document>

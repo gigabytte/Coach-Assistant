@@ -9,6 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
+import GoogleMobileAds
 
 class Old_Game_Ice_View: UIViewController {
 
@@ -21,6 +22,7 @@ class Old_Game_Ice_View: UIViewController {
     let awayTeamPenaltyMarkerImage = UIImage(named: "away_penalty.png")
     let homeTeamPenaltyMarkerImage = UIImage(named: "home_penalty.png")
     
+    @IBOutlet weak var adView: GADBannerView!
     @IBOutlet weak var homeTeamNameLabel: UILabel!
     @IBOutlet weak var homeTeamNumGoals: UILabel!
     @IBOutlet weak var homeTeamNumShots: UILabel!
@@ -101,7 +103,23 @@ class Old_Game_Ice_View: UIViewController {
         coachAssitantLogoBtn.addGestureRecognizer(longLogoGesture)
         print("golaie ID \(UserDefaults.standard.integer(forKey: "selectedGoalieID"))")
         
+        bannerViewInitialize()
     }
+    
+    func bannerViewInitialize(){
+        
+        adView.adUnitID = universalValue().newGameAdUnitID
+        adView.rootViewController = self
+        adView.load(GADRequest())
+        
+        let x = 0
+        if x == 1{
+            adView.heightAnchor.constraint(equalToConstant: 0.0).isActive = true
+        }else{
+            adView.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+        }
+    }
+    
     @IBAction func backbutton(_ sender: UIBarButtonItem) {
         // delete user defaults then exit old game stats view
         deleteNewGameUserDefaults.deleteUserDefaults()
