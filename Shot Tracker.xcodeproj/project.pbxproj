@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6A41063EAC8E5809883AFEAF /* Pods_Shot_TrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */; };
 		94591E74093479D23B50C5C9 /* Pods_Shot_TrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */; };
+		BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */; };
+		BE0C1F9C22887242000C2177 /* IAPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C1F9B22887242000C2177 /* IAPService.swift */; };
+		BE0C1F9E2288724A000C2177 /* IAPProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C1F9D22887249000C2177 /* IAPProducts.swift */; };
 		BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */; };
 		BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B752201576B0018E434 /* Team_Selection_View.swift */; };
 		BE12DE5C228740BE0071BC17 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5B228740BE0071BC17 /* Realm.framework */; };
@@ -107,6 +110,9 @@
 		8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shot_TrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shot_TrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66ACACA2323B38B3C25CBEE /* Pods-Shot TrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerUITests.release.xcconfig"; path = "Target Support Files/Pods-Shot TrackerUITests/Pods-Shot TrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_Subscriptions_View_Controller.swift; sourceTree = "<group>"; };
+		BE0C1F9B22887242000C2177 /* IAPService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPService.swift; sourceTree = "<group>"; };
+		BE0C1F9D22887249000C2177 /* IAPProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProducts.swift; sourceTree = "<group>"; };
 		BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_Team_Info_Page.swift; sourceTree = "<group>"; };
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
 		BE12DE5B228740BE0071BC17 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
@@ -269,6 +275,7 @@
 				BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */,
 				BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */,
 				BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */,
+				BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */,
 				BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */,
 				BE6F1E132274B44000673062 /* Settings_About_View_Controller.swift */,
 				BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */,
@@ -287,6 +294,8 @@
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
+				BE0C1F9B22887242000C2177 /* IAPService.swift */,
+				BE0C1F9D22887249000C2177 /* IAPProducts.swift */,
 				BE8F88B5227747260087ED88 /* varReference.swift */,
 				BEBB0673227214FC001DDD61 /* GIF_Processing.swift */,
 				BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */,
@@ -581,6 +590,7 @@
 				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
 				BE7F8C13227538530093F629 /* Penalty Table.swift in Sources */,
 				BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */,
+				BE0C1F9C22887242000C2177 /* IAPService.swift in Sources */,
 				BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */,
 				BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */,
 				BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */,
@@ -594,12 +604,14 @@
 				BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */,
 				BE669DC9226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift in Sources */,
 				BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */,
+				BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */,
 				BEBB0674227214FC001DDD61 /* GIF_Processing.swift in Sources */,
 				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
 				BE92E0212274E1AB00B95209 /* Penalty_Popup_View_Controller.swift in Sources */,
 				BE4E8E70226CEDC20046D710 /* Settings_Legal_View Controller.swift in Sources */,
 				BE83904A21F663A600D02C0B /* Team Info Table.swift in Sources */,
+				BE0C1F9E2288724A000C2177 /* IAPProducts.swift in Sources */,
 				BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */,
 				BE7D697A21E3D74300C1745C /* Home_Page_View_Controller.swift in Sources */,
 				BE12DE62228744B80071BC17 /* customSettingCell.swift in Sources */,
