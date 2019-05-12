@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import RealmSwift
 
 @UIApplicationMain
@@ -24,11 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
             deleteNewGameUserDefaults.deleteUserDefaults()
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main") as? UIViewController
+            
+            // Use Firebase library to configure APIs.
+            FirebaseApp.configure()
+            // Initialize the Google Mobile Ads SDK.
+            GADMobileAds.configure(withApplicationID: "ca-app-pub-1292859049443143~4868035029")
+            
             return true
         }else{
             // redicrt to setup process if user is new
             deleteNewGameUserDefaults.deleteUserDefaults()
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setup") as? UIViewController
+            
             return true
         }
         // get Realm Databse file location

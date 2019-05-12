@@ -93,4 +93,8 @@ class universalValue{
     var minorPenanlty: Int =  2
     var majorPenalty: Int = 4
     
+    // ads unit id used across app
+    // new game ads
+    var newGameAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+    
 }

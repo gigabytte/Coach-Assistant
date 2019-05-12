@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import Realm
+import GoogleMobileAds
 
 class New_Game_Page: UIViewController {
     
@@ -24,6 +25,8 @@ class New_Game_Page: UIViewController {
     let awayTeamPenaltyMarkerImage = UIImage(named: "away_penalty.png")
     let homeTeamPenaltyMarkerImage = UIImage(named: "home_penalty.png")
     
+   
+    @IBOutlet weak var adView: GADBannerView!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var logoButton: UIButton!
     @IBOutlet weak var homeTeamNameLabel: UILabel!
@@ -127,6 +130,23 @@ class New_Game_Page: UIViewController {
             }else{
                 print("Score and Shot Count Ran Failed at newGameTable gameID")
             }
+        }
+       
+        bannerViewInitialize()
+        
+    }
+    
+    func bannerViewInitialize(){
+        
+        adView.adUnitID = universalValue().newGameAdUnitID
+        adView.rootViewController = self
+        adView.load(GADRequest())
+        
+        let x = 0
+        if x == 1{
+            adView.heightAnchor.constraint(equalToConstant: 0.0).isActive = true
+        }else{
+            adView.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
         }
     }
     
