@@ -45,6 +45,14 @@ class Current_Stats_Ananlytical_View: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // add blur effect to view along with popUpView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.addSubview(popUpView)
+        
         // if accessec from current game setting
         if(oldStatsPopUpBool != true){
             homeGoalieID = UserDefaults.standard.integer(forKey: "selectedGoalieID")
