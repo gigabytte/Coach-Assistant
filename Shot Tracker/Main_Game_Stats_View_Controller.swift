@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Main_Game_Stats_View_Controller: UIViewController {
+class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
 
     
     @IBOutlet weak var navBar: UINavigationBar!
@@ -47,12 +47,38 @@ class Main_Game_Stats_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.becomeFirstResponder() // To get shake gesture
         
         
         navBarProcessing()
         setupView()
         // Do any additional setup after loading the view.
+    }
+    
+    // We are willing to become first responder to get shake motion
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
+    }
+    
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            /* let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+             self.present(newViewController, animated: true, completion: nil)*/
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+            
+            present(popupVC, animated: true, completion: nil)
+            print("Help Guide Presented!")
+        }
     }
     
     private func setupView() {

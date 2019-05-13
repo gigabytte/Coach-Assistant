@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 import Realm
 
-class Home_Page_View_Controller: UIViewController {
+class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
     
     let realm = try! Realm()
     // active status bool used to check if a game is ongoing
@@ -19,6 +19,7 @@ class Home_Page_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.becomeFirstResponder() // To get shake gesture
         // Do any additional setup after loading the view, typically from a nib.
         // check is usr has selected a a deafult team yet
         if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
@@ -55,6 +56,33 @@ class Home_Page_View_Controller: UIViewController {
         print(Realm.Configuration.defaultConfiguration.fileURL)
 
     }
+    
+    // We are willing to become first responder to get shake motion
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
+    }
+    
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+           /* let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+            self.present(newViewController, animated: true, completion: nil)*/
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+           
+            present(popupVC, animated: true, completion: nil)
+            print("Help Guide Presented!")
+        }
+    }
+    
     // cherck is game if currently running function
     func onGoingGame(){
         // based on activeStaus bool the New Game Button text chnages dynamically

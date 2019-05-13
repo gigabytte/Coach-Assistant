@@ -64,6 +64,7 @@
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
 		BEBB0674227214FC001DDD61 /* GIF_Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0673227214FC001DDD61 /* GIF_Processing.swift */; };
 		BEBB0676227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */; };
+		BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */; };
 		BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED34AE7228863B200791B95 /* GoogleService-Info.plist */; };
 		BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */; };
 		CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */; };
@@ -169,6 +170,7 @@
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
 		BEBB0673227214FC001DDD61 /* GIF_Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF_Processing.swift; sourceTree = "<group>"; };
 		BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_More_Info_View_Controller.swift; sourceTree = "<group>"; };
+		BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help_Guide_View_Controller.swift; sourceTree = "<group>"; };
 		BED34AE7228863B200791B95 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker_Info_Page.swift; sourceTree = "<group>"; };
 		C8567FABF079141DA35EAF50 /* Pods-Shot Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */,
 				BEA08C962215F05200B6D73B /* Add_Player_Page.swift */,
 				BE9016B522469E45006ECE5B /* Default Team Selection View.swift */,
+				BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */,
 				BE7D697B21E3D74300C1745C /* Main.storyboard */,
 				BE7D697E21E3D74500C1745C /* Assets.xcassets */,
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
@@ -594,6 +597,7 @@
 				BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */,
 				BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */,
 				BE83905021F6715400D02C0B /* Goal Marker Table.swift in Sources */,
+				BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */,
 				BE83904C21F663BA00D02C0B /* Player Info Table.swift in Sources */,
 				BE1F4D322278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift in Sources */,
 				BE669DCB226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift in Sources */,
