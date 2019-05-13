@@ -49,7 +49,7 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        UserDefaults.standard.removeObject(forKey: "userTrialPeriod")
+        //UserDefaults.standard.removeObject(forKey: "userTrialPeriod")
         
         navBarProcessing()
         setupView()
