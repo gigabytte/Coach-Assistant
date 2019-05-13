@@ -165,7 +165,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             let penaltyMinutesAgainstMajor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "playerID == %i AND penaltyType == %@ AND activeState == true", homePlayerIDs[x], "Major")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
             
             let totalMinutes = (penaltyMinutesAgainstMinor * universalValue().minorPenanlty) + (penaltyMinutesAgainstMajor * universalValue().majorPenalty)
-            homePlayerStatsArray[x].append(String(totalMinutes))
+            homePlayerStatsArray[x].append("PIM: \(String(totalMinutes))")
             
             /* -------------------------- GMG Game Wining Goals for the Season ----------------
             let countOfGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i OR opposingTeamID == %i AND activeState == true", homeTeamID, homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
@@ -256,9 +256,20 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             cell.playerLineNumberLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
             cell.playerGoalCountLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
             cell.playerAssistCountLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
+            if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             cell.playerLinePlusMinusLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
-            cell.playerPlusMinusLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; //count = count  + 1
-            
+                cell.playerLinePlusMinusImageView.isHidden = true
+            }else{
+                count = count  + 1
+                cell.playerLinePlusMinusImageView.isHidden = false
+            }
+            cell.playerPlusMinusLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
+            if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+            cell.playerPIMLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; //count = count  + 1
+            cell.playerPIMIMageView.isHidden = true
+            }else{
+                cell.playerPIMIMageView.isHidden = false
+            }
             return cell
             
         }else {
@@ -267,15 +278,19 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             cell.goalieNameLabel!.text = homeGoalieNames[indexPath.row]
             cell.goalieSavePerLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
             cell.goalieGoalsAGAVGLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
-            cell.goalieSavePerTopLeftLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
-            cell.goalieSavePerTopRightLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
-            cell.goalieSavePerBottomLeftLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
-            cell.goalieSavePerBottomRightLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
-            cell.goalieSavePerCenterLabel?.text = self.goalieStatsArray[indexPath.row][count]; //count = count  + 1
-            
+            if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+                cell.goalieSavePerTopLeftLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+                cell.goalieSavePerTopRightLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+                cell.goalieSavePerBottomLeftLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+                cell.goalieSavePerBottomRightLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+                cell.goalieSavePerCenterLabel?.text = self.goalieStatsArray[indexPath.row][count]; //count = count  + 1
+                cell.goalieLocationSavePerImageView.isHidden = true
+            }
             return cell
             
         }
     }
+    
+    
 
 }
