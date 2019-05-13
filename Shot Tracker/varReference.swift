@@ -97,4 +97,7 @@ class universalValue{
     // new game ads
     var newGameAdUnitID = "ca-app-pub-3940256099942544/2934735716"
     
+    // Help Guide PDF file name
+    var helpGuidePDFName:String = "help_guide_iPad"
+    
 }
