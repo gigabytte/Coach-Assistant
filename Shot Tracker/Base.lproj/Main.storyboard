@@ -879,23 +879,24 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="premium_logo" translatesAutoresizingMaskIntoConstraints="NO" id="A5h-ql-eMZ">
-                                                    <rect key="frame" x="221" y="189" width="77" height="21"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="premium_logo" translatesAutoresizingMaskIntoConstraints="NO" id="nd5-Je-1Bh">
+                                                    <rect key="frame" x="183" y="189" width="65" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="9gl-aQ-iHd"/>
-                                                        <constraint firstAttribute="width" constant="65" id="meg-Sx-Ulc"/>
+                                                        <constraint firstAttribute="width" constant="65" id="G4w-Kr-z6l"/>
+                                                        <constraint firstAttribute="height" constant="22" id="Y5M-Yn-kIa"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="cJm-Qr-Erm" firstAttribute="leading" secondItem="joU-i0-MRy" secondAttribute="leading" id="1nY-Re-Mr8"/>
-                                                <constraint firstItem="A5h-ql-eMZ" firstAttribute="centerY" secondItem="cJm-Qr-Erm" secondAttribute="centerY" id="6PN-iv-a7Y"/>
                                                 <constraint firstItem="aOZ-nY-DvA" firstAttribute="leading" secondItem="A8N-2N-oU2" secondAttribute="leading" constant="25" id="7PQ-JY-MEX"/>
                                                 <constraint firstItem="cJm-Qr-Erm" firstAttribute="top" secondItem="joU-i0-MRy" secondAttribute="bottom" constant="5" id="81u-tf-iXR"/>
                                                 <constraint firstItem="cJm-Qr-Erm" firstAttribute="bottom" secondItem="A8N-2N-oU2" secondAttribute="bottom" constant="-15" id="8SJ-xd-JVt"/>
                                                 <constraint firstItem="sna-p3-JOb" firstAttribute="leading" secondItem="aOZ-nY-DvA" secondAttribute="leading" constant="15" id="Aj1-Qd-mrC"/>
+                                                <constraint firstItem="nd5-Je-1Bh" firstAttribute="leading" secondItem="joU-i0-MRy" secondAttribute="trailing" constant="50" id="D2V-5g-cpx"/>
                                                 <constraint firstItem="joU-i0-MRy" firstAttribute="top" secondItem="kG9-YZ-1on" secondAttribute="bottom" constant="5" id="GeU-mg-rHn"/>
                                                 <constraint firstItem="PIo-T0-l8E" firstAttribute="leading" secondItem="GhT-fd-Wcq" secondAttribute="leading" id="MD9-FR-TQM"/>
+                                                <constraint firstItem="nd5-Je-1Bh" firstAttribute="centerY" secondItem="cJm-Qr-Erm" secondAttribute="centerY" id="Q2A-ua-BBs"/>
                                                 <constraint firstItem="joU-i0-MRy" firstAttribute="leading" secondItem="kG9-YZ-1on" secondAttribute="leading" id="Rg1-Zg-TYJ"/>
                                                 <constraint firstItem="aOZ-nY-DvA" firstAttribute="top" secondItem="A8N-2N-oU2" secondAttribute="top" constant="10" id="UMf-ib-7am"/>
                                                 <constraint firstItem="cJm-Qr-Erm" firstAttribute="trailing" secondItem="A8N-2N-oU2" secondAttribute="trailing" id="ZSf-3T-t62"/>
@@ -908,7 +909,6 @@
                                                 <constraint firstItem="PIo-T0-l8E" firstAttribute="top" secondItem="GhT-fd-Wcq" secondAttribute="bottom" constant="5" id="pbH-mV-tfV"/>
                                                 <constraint firstItem="VS6-S4-Odx" firstAttribute="top" secondItem="PIo-T0-l8E" secondAttribute="bottom" constant="5" id="q82-q6-nLO"/>
                                                 <constraint firstItem="hpK-Yu-jJz" firstAttribute="leading" secondItem="kG9-YZ-1on" secondAttribute="trailing" constant="75" id="qo3-aE-tcJ"/>
-                                                <constraint firstItem="A5h-ql-eMZ" firstAttribute="leading" secondItem="cJm-Qr-Erm" secondAttribute="trailing" constant="75" id="v8L-lI-a7P"/>
                                                 <constraint firstItem="GhT-fd-Wcq" firstAttribute="leading" secondItem="sna-p3-JOb" secondAttribute="leading" id="zso-6T-GGN"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -919,7 +919,8 @@
                                             <outlet property="playerLinePlusMinusImageView" destination="hpK-Yu-jJz" id="g3W-fx-5gv"/>
                                             <outlet property="playerLinePlusMinusLabel" destination="kG9-YZ-1on" id="W9j-Re-6ds"/>
                                             <outlet property="playerNameLabel" destination="aOZ-nY-DvA" id="0lj-uN-BUv"/>
-                                            <outlet property="playerPIMIMageView" destination="A5h-ql-eMZ" id="SSF-Jq-Kcd"/>
+                                            <outlet property="playerPIMIMageView" destination="nd5-Je-1Bh" id="S6J-f1-8Er"/>
+                                            <outlet property="playerPIMLabel" destination="cJm-Qr-Erm" id="jSv-9J-rYx"/>
                                             <outlet property="playerPlusMinusLabel" destination="joU-i0-MRy" id="cRd-Xm-3AN"/>
                                             <outlet property="playerPositionLabel" destination="sna-p3-JOb" id="3Zw-7c-YQZ"/>
                                         </connections>
@@ -986,16 +987,25 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="premium_logo" translatesAutoresizingMaskIntoConstraints="NO" id="kb0-6c-Eym">
+                                                    <rect key="frame" x="235" y="139" width="65" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="65" id="DzE-E5-Cfr"/>
+                                                        <constraint firstAttribute="height" constant="22" id="rdK-I6-jub"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="g8G-ob-TVZ" firstAttribute="top" secondItem="Ndr-IJ-zjJ" secondAttribute="bottom" id="0Ps-X9-QH3"/>
                                                 <constraint firstItem="Sis-AX-G6G" firstAttribute="leading" secondItem="prA-IY-aUi" secondAttribute="leading" id="1Fd-Wd-OV8"/>
                                                 <constraint firstItem="ASR-TY-XYj" firstAttribute="leading" secondItem="oVl-ss-8bi" secondAttribute="leading" constant="25" id="1mh-TK-aRD"/>
                                                 <constraint firstItem="prA-IY-aUi" firstAttribute="leading" secondItem="8Ip-cL-6ay" secondAttribute="leading" id="1tm-vx-Lc7"/>
+                                                <constraint firstItem="kb0-6c-Eym" firstAttribute="leading" secondItem="Sis-AX-G6G" secondAttribute="trailing" constant="50" id="4z9-Lm-scj"/>
                                                 <constraint firstItem="iVI-0i-kM3" firstAttribute="leading" secondItem="ASR-TY-XYj" secondAttribute="leading" constant="10" id="67m-2T-bRV"/>
                                                 <constraint firstItem="g8G-ob-TVZ" firstAttribute="leading" secondItem="Ndr-IJ-zjJ" secondAttribute="leading" id="7vh-9r-Z24"/>
                                                 <constraint firstItem="Ndr-IJ-zjJ" firstAttribute="top" secondItem="Sis-AX-G6G" secondAttribute="bottom" id="9Qi-TA-Etw"/>
                                                 <constraint firstItem="ASR-TY-XYj" firstAttribute="top" secondItem="oVl-ss-8bi" secondAttribute="top" constant="10" id="DbS-uu-SYS"/>
+                                                <constraint firstItem="kb0-6c-Eym" firstAttribute="centerY" secondItem="Sis-AX-G6G" secondAttribute="centerY" id="Fky-fp-KVV"/>
                                                 <constraint firstItem="Ndr-IJ-zjJ" firstAttribute="leading" secondItem="Sis-AX-G6G" secondAttribute="leading" id="L4t-4c-vSZ"/>
                                                 <constraint firstItem="g8G-ob-TVZ" firstAttribute="bottom" secondItem="oVl-ss-8bi" secondAttribute="bottom" constant="-15" id="LVg-bg-1Dv"/>
                                                 <constraint firstItem="g8G-ob-TVZ" firstAttribute="trailing" secondItem="oVl-ss-8bi" secondAttribute="trailing" id="Uod-F3-0pT"/>
@@ -1010,6 +1020,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="goalieGoalsAGAVGLabel" destination="iVI-0i-kM3" id="IQk-eL-cp7"/>
+                                            <outlet property="goalieLocationSavePerImageView" destination="kb0-6c-Eym" id="JCx-Av-eRE"/>
                                             <outlet property="goalieNameLabel" destination="ASR-TY-XYj" id="Ied-GU-9EP"/>
                                             <outlet property="goalieSavePerBottomLeftLabel" destination="Sis-AX-G6G" id="keE-On-xku"/>
                                             <outlet property="goalieSavePerBottomRightLabel" destination="Ndr-IJ-zjJ" id="8CD-PP-LT9"/>
@@ -3413,6 +3424,23 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNe-sv-Sfc">
                                 <rect key="frame" x="0.0" y="123" width="1024" height="645"/>
                             </containerView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBY-ss-XyF" userLabel="upgradeView">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade Now to Unlock!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYN-Vz-ncW">
+                                        <rect key="frame" x="252" y="354" width="520.5" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.73467859459999996" green="0.73467859459999996" blue="0.73467859459999996" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="RYN-Vz-ncW" firstAttribute="centerX" secondItem="iBY-ss-XyF" secondAttribute="centerX" id="jh4-ai-M5f"/>
+                                    <constraint firstItem="RYN-Vz-ncW" firstAttribute="centerY" secondItem="iBY-ss-XyF" secondAttribute="centerY" id="oZV-MN-ECF"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="cSU-xc-GtL"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -3422,19 +3450,24 @@
                             <constraint firstItem="x4E-fF-hCm" firstAttribute="top" secondItem="ytE-Lf-Ruk" secondAttribute="bottom" constant="25" id="Acb-nZ-aVa"/>
                             <constraint firstItem="ZKH-ee-JSB" firstAttribute="bottom" secondItem="RQL-cI-ugr" secondAttribute="bottom" id="Aif-9e-Xoh"/>
                             <constraint firstItem="ZKH-ee-JSB" firstAttribute="top" secondItem="HyY-D2-QR7" secondAttribute="top" id="CiD-3a-Say"/>
+                            <constraint firstItem="iBY-ss-XyF" firstAttribute="bottom" secondItem="RQL-cI-ugr" secondAttribute="bottom" id="Ctx-qi-euy"/>
                             <constraint firstItem="xNe-sv-Sfc" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="FDk-G7-XyX"/>
                             <constraint firstItem="ytE-Lf-Ruk" firstAttribute="top" secondItem="HyY-D2-QR7" secondAttribute="top" id="KHt-vo-wCm"/>
                             <constraint firstItem="ZKH-ee-JSB" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="Qz9-We-vUU"/>
+                            <constraint firstItem="iBY-ss-XyF" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="R99-Gf-otE"/>
                             <constraint firstItem="xNe-sv-Sfc" firstAttribute="top" secondItem="x4E-fF-hCm" secondAttribute="bottom" id="d2S-7l-O8J"/>
                             <constraint firstItem="ZKH-ee-JSB" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="f6x-XY-PCU"/>
+                            <constraint firstItem="iBY-ss-XyF" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="hTV-5j-c32"/>
                             <constraint firstItem="ytE-Lf-Ruk" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="ill-dZ-9Bp"/>
                             <constraint firstItem="ytE-Lf-Ruk" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="tCy-Ik-A1Y"/>
+                            <constraint firstItem="iBY-ss-XyF" firstAttribute="top" secondItem="RQL-cI-ugr" secondAttribute="top" id="uRE-X7-qZ0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HyY-D2-QR7"/>
                     </view>
                     <connections>
                         <outlet property="containerView" destination="xNe-sv-Sfc" id="0LD-0z-2Jp"/>
                         <outlet property="navBar" destination="ytE-Lf-Ruk" id="GGQ-oy-LJg"/>
+                        <outlet property="upgradeView" destination="iBY-ss-XyF" id="1R9-vB-1yk"/>
                         <outlet property="viewTypeSwitch" destination="x4E-fF-hCm" id="LXA-dy-RtQ"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="liveGameStatsBack" id="uyd-PZ-fI3"/>
                         <segue destination="2AB-wA-RRv" kind="presentation" identifier="oldGameStatsBack" id="IlU-9U-sIV"/>
@@ -3951,7 +3984,7 @@
         <segue reference="9gt-uS-D9h"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="IlU-9U-sIV"/>
-        <segue reference="S9b-VU-SC9"/>
-        <segue reference="B9O-nl-JB9"/>
+        <segue reference="oiw-l9-Ygs"/>
+        <segue reference="w5X-2C-weP"/>
     </inferredMetricsTieBreakers>
 </document>

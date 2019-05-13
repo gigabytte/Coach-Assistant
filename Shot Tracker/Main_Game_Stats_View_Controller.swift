@@ -11,6 +11,7 @@ import UIKit
 class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
 
     
+    @IBOutlet weak var upgradeView: UIView!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var viewTypeSwitch: UISegmentedControl!
     @IBOutlet weak var containerView: UIView!
@@ -48,10 +49,11 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        
+        UserDefaults.standard.removeObject(forKey: "userTrialPeriod")
         
         navBarProcessing()
         setupView()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -143,34 +145,40 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     }
     
     @IBAction func viewTypeSwitch(_ sender: UISegmentedControl) {
-        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             switch viewTypeSwitch.selectedSegmentIndex {
             case 0:
                 rowIndex = 0
                 self.setupView()
             case 1:
-                rowIndex = 1
-                self.setupView()
+                if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+                    rowIndex = 1
+                    self.setupView()
+                }else{
+                     if (isKeyPresentInUserDefaults(key: "userTrialPeriod") != true){
+                        print("Trail Stats Period")
+                        upgradeView.isHidden = false
+    
+                        delay(10){
+                            self.noUpgradeAlert()
+                            UserDefaults.standard.set(false, forKey: "userTrialPeriod")
+                            self.viewTypeSwitch.selectedSegmentIndex = 0
+                            self.rowIndex = 0
+                            self.setupView()
+                            self.upgradeView.isHidden = true
+                            
+                        }
+                        rowIndex = 1
+                        self.setupView()
+                       
+                     }else{
+                        noUpgradeAlert()
+                        viewTypeSwitch.selectedSegmentIndex = 0
+                    }
+                   
+                }
             default:
                 break;
             }
-        }else{
-            // create the alert
-            let notPro = UIAlertController(title: "You're Missing Out", message: "Upgrade now and unlock an in depth look into your teams perfrommce. A break down of all your plays along with your goalies and most importantly your team as a whole.", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
-            // add an action (button)
-            notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
-                IAPService.shared.getProducts()
-                IAPService.shared.purchase(product: .autoRenewableSubscription)
-                
-            }))
-            // show the alert
-            self.present(notPro, animated: true, completion: nil)
-            viewTypeSwitch.selectedSegmentIndex = 0
-            
-        }
     }
     @IBAction func optionsButton(_ sender: UIBarButtonItem) {
         
@@ -193,6 +201,34 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
             self.performSegue(withIdentifier: "oldGameStatsBack", sender: nil);
         }
         
+    }
+    
+    func noUpgradeAlert(){
+        
+        // create the alert
+        let notPro = UIAlertController(title: "You're Missing Out", message: "Upgrade now and unlock an in depth look into your teams perfrommce. A break down of all your plays along with your goalies and most importantly your team as a whole.", preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
+        // add an action (button)
+        notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
+            IAPService.shared.getProducts()
+            IAPService.shared.purchase(product: .autoRenewableSubscription)
+            
+        }))
+        // show the alert
+        self.present(notPro, animated: true, completion: nil)
+        viewTypeSwitch.selectedSegmentIndex = 0
+    }
+    
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
     
 }

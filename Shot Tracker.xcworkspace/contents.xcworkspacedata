@@ -11,9 +11,6 @@
       location = "group:customOverallStatsCell.swift">
    </FileRef>
    <FileRef
-      location = "group:/Users/gregbrooks/Desktop/Coach-Assitant/Shot Tracker/customSettingCell.swift">
-   </FileRef>
-   <FileRef
       location = "group:Shot Tracker.xcodeproj">
    </FileRef>
    <FileRef

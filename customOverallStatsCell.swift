@@ -29,10 +29,11 @@ class customOverallStatsCell: UITableViewCell {
     @IBOutlet weak var playerPlusMinusLabel: UILabel!
     @IBOutlet weak var playerLinePlusMinusLabel: UILabel!
     @IBOutlet weak var playerLineNumberLabel: UILabel!
-    
+    @IBOutlet weak var playerPIMLabel: UILabel!
     // refrence to preimum imageviews
     @IBOutlet weak var playerLinePlusMinusImageView: UIImageView!
     @IBOutlet weak var playerPIMIMageView: UIImageView!
+    @IBOutlet weak var goalieLocationSavePerImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
