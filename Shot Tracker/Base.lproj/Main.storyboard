@@ -3775,6 +3775,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vaw-oJ-rTC">
                                 <rect key="frame" x="69" y="55" width="886" height="658"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cxh-k5-IjZ" userLabel="pdfView">
+                                        <rect key="frame" x="0.0" y="50" width="886" height="558"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JxM-xx-ywa">
                                         <rect key="frame" x="0.0" y="608" width="886" height="50"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -3790,29 +3794,25 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help Guide" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="che-5X-bxD">
-                                        <rect key="frame" x="382.5" y="40" width="121" height="30"/>
+                                        <rect key="frame" x="382.5" y="10" width="121" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aup-7e-nDw">
-                                        <rect key="frame" x="0.0" y="0.0" width="886" height="608"/>
-                                    </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="aup-7e-nDw" firstAttribute="trailing" secondItem="Vaw-oJ-rTC" secondAttribute="trailing" id="6Ol-hi-5XO"/>
                                     <constraint firstItem="JxM-xx-ywa" firstAttribute="centerX" secondItem="Vaw-oJ-rTC" secondAttribute="centerX" id="AcM-zy-Nuu"/>
                                     <constraint firstItem="che-5X-bxD" firstAttribute="centerX" secondItem="Vaw-oJ-rTC" secondAttribute="centerX" id="CmG-55-Apb"/>
                                     <constraint firstAttribute="height" constant="658" id="D0e-I3-wcu"/>
-                                    <constraint firstItem="che-5X-bxD" firstAttribute="top" secondItem="Vaw-oJ-rTC" secondAttribute="top" constant="40" id="LwH-SN-Nkh"/>
+                                    <constraint firstItem="che-5X-bxD" firstAttribute="top" secondItem="Vaw-oJ-rTC" secondAttribute="top" constant="10" id="LwH-SN-Nkh"/>
                                     <constraint firstItem="JxM-xx-ywa" firstAttribute="leading" secondItem="Vaw-oJ-rTC" secondAttribute="leading" id="Shn-eb-KkQ"/>
+                                    <constraint firstItem="Cxh-k5-IjZ" firstAttribute="top" secondItem="Vaw-oJ-rTC" secondAttribute="top" constant="50" id="W4A-a9-COK"/>
                                     <constraint firstAttribute="width" constant="886" id="Zla-4j-P3N"/>
                                     <constraint firstItem="JxM-xx-ywa" firstAttribute="bottom" secondItem="Vaw-oJ-rTC" secondAttribute="bottom" id="atY-D2-GVQ"/>
+                                    <constraint firstItem="Cxh-k5-IjZ" firstAttribute="trailing" secondItem="Vaw-oJ-rTC" secondAttribute="trailing" id="glj-T2-KiI"/>
                                     <constraint firstAttribute="trailing" secondItem="JxM-xx-ywa" secondAttribute="trailing" id="gnO-XR-Rhr"/>
-                                    <constraint firstItem="aup-7e-nDw" firstAttribute="leading" secondItem="Vaw-oJ-rTC" secondAttribute="leading" id="jbM-Vo-Xex"/>
-                                    <constraint firstItem="aup-7e-nDw" firstAttribute="bottom" secondItem="JxM-xx-ywa" secondAttribute="top" id="kHr-Nl-Gcr"/>
-                                    <constraint firstItem="aup-7e-nDw" firstAttribute="top" secondItem="Vaw-oJ-rTC" secondAttribute="top" id="mKL-Ie-caZ"/>
+                                    <constraint firstItem="Cxh-k5-IjZ" firstAttribute="leading" secondItem="Vaw-oJ-rTC" secondAttribute="leading" id="gpS-Mt-MNU"/>
+                                    <constraint firstItem="Cxh-k5-IjZ" firstAttribute="bottom" secondItem="JxM-xx-ywa" secondAttribute="top" id="h7s-Wh-qzS"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -3825,8 +3825,8 @@
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="JxM-xx-ywa" id="aMl-ta-7BM"/>
+                        <outlet property="pdfView" destination="Cxh-k5-IjZ" id="7dP-Jm-6Yu"/>
                         <outlet property="popUpView" destination="Vaw-oJ-rTC" id="5eo-af-4ig"/>
-                        <outlet property="scrollView" destination="aup-7e-nDw" id="NG6-2K-4zW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NUr-S3-uTJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

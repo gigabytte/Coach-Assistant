@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import PDFKit
 
 class Help_Guide_View_Controller: UIViewController {
 
     @IBOutlet weak var popUpView: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pdfView: UIView!
     @IBOutlet weak var closeButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        pdfIntegration()
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -28,6 +29,21 @@ class Help_Guide_View_Controller: UIViewController {
         popUpView.layer.cornerRadius = 10
         bottomRoundedCorners()
         // Do any additional setup after loading the view.
+    }
+    
+    func pdfIntegration(){
+        
+        // Add PDFView to view controller.
+        let pdfView = PDFView(frame: self.pdfView.bounds)
+        pdfView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.pdfView.addSubview(pdfView)
+        
+        // Fit content in PDFView.
+        pdfView.autoScales = true
+        
+        // Load Sample.pdf file from app bundle.
+        let fileURL = Bundle.main.url(forResource: universalValue().helpGuidePDFName, withExtension: "pdf")
+        pdfView.document = PDFDocument(url: fileURL!)
     }
     
     // round corners of close button
