@@ -752,6 +752,12 @@
                                     <segue destination="IZU-xv-7nc" kind="presentation" identifier="newGameButtonSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="h7O-PI-f29"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beta Build" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTh-bx-uZU">
+                                <rect key="frame" x="903" y="25" width="96" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.25" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -759,6 +765,7 @@
                             <constraint firstItem="PQZ-W1-2q7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2Ig-65-nUT"/>
                             <constraint firstItem="idZ-mh-f9F" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="4O4-4I-16q"/>
                             <constraint firstItem="EDW-ul-wnx" firstAttribute="top" secondItem="PQZ-W1-2q7" secondAttribute="bottom" constant="70" id="9MA-hM-AAQ"/>
+                            <constraint firstItem="MTh-bx-uZU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="Ab6-G8-6zY"/>
                             <constraint firstItem="dH8-0b-lY4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="B4P-fT-p8p"/>
                             <constraint firstItem="Guo-Th-gga" firstAttribute="top" secondItem="us1-ey-YFn" secondAttribute="bottom" constant="70" id="DKh-dV-Msw"/>
                             <constraint firstItem="us1-ey-YFn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IAC-CY-9RN"/>
@@ -766,6 +773,7 @@
                             <constraint firstItem="us1-ey-YFn" firstAttribute="top" secondItem="EDW-ul-wnx" secondAttribute="bottom" constant="70" id="N0A-6e-K9k"/>
                             <constraint firstItem="PQZ-W1-2q7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VXh-t0-bBs"/>
                             <constraint firstItem="Guo-Th-gga" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XFx-5e-pOi"/>
+                            <constraint firstItem="MTh-bx-uZU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" constant="-25" id="ZwB-Ha-7NH"/>
                             <constraint firstAttribute="trailing" secondItem="dH8-0b-lY4" secondAttribute="trailing" id="ac3-zB-fIl"/>
                             <constraint firstItem="6ur-DR-cSQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="atb-nr-7gd"/>
                             <constraint firstAttribute="bottom" secondItem="dH8-0b-lY4" secondAttribute="bottom" id="ehp-dJ-7tY"/>
@@ -3895,14 +3903,22 @@
                                     <constraint firstAttribute="height" constant="198" id="sqa-3J-hq5"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beta Build" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wum-1F-afJ">
+                                <rect key="frame" x="908" y="25" width="96" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.25" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="F7N-A5-Ehp" firstAttribute="leading" secondItem="jNB-S4-9Xk" secondAttribute="trailing" constant="10" id="7US-SJ-pB3"/>
                             <constraint firstItem="cf3-dZ-hrz" firstAttribute="centerX" secondItem="4k7-15-cTi" secondAttribute="centerX" id="Cid-wY-x90"/>
+                            <constraint firstItem="wum-1F-afJ" firstAttribute="top" secondItem="HRA-q0-YjW" secondAttribute="top" constant="5" id="Irg-nt-3tV"/>
                             <constraint firstItem="cf3-dZ-hrz" firstAttribute="top" secondItem="4k7-15-cTi" secondAttribute="top" constant="75" id="K7P-If-5CD"/>
                             <constraint firstItem="jNB-S4-9Xk" firstAttribute="top" secondItem="cf3-dZ-hrz" secondAttribute="bottom" constant="125" id="ePj-2W-bEY"/>
                             <constraint firstItem="jNB-S4-9Xk" firstAttribute="centerX" secondItem="4k7-15-cTi" secondAttribute="centerX" constant="-15" id="fXK-UW-U04"/>
+                            <constraint firstItem="wum-1F-afJ" firstAttribute="trailing" secondItem="4k7-15-cTi" secondAttribute="trailing" constant="-20" id="get-Ns-rNK"/>
                             <constraint firstItem="F7N-A5-Ehp" firstAttribute="centerY" secondItem="jNB-S4-9Xk" secondAttribute="centerY" constant="1" id="yIK-8l-x4K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HRA-q0-YjW"/>
@@ -3977,11 +3993,12 @@
         <image name="welcomearrow" width="218" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="BkV-v9-ark"/>
         <segue reference="p9k-GG-4VP"/>
         <segue reference="VdZ-aC-tCs"/>
-        <segue reference="uyd-PZ-fI3"/>
-        <segue reference="jMX-vY-t9s"/>
-        <segue reference="9gt-uS-D9h"/>
+        <segue reference="3Is-IF-SeE"/>
+        <segue reference="YVz-TT-Imk"/>
+        <segue reference="RuC-Pi-VMU"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="IlU-9U-sIV"/>
         <segue reference="oiw-l9-Ygs"/>
