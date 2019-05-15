@@ -18,7 +18,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     
     // Data model: These strings will be the data for the table view cells
     let settingsName: [String] = ["Backup", "Defaults", "Subscriptions", "Legal", "About"]
-    let imageNames: [String] = ["backup.PNG", "defaults.PNG", "defaults_icon.PNG", "defaults_icon.PNG", "defaults_icon.PNG"]
+    let imageNames: [String] = ["backup.PNG", "defaults.PNG", "sub_icon", "legal_icon", "about_icon"]
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"

@@ -100,4 +100,7 @@ class universalValue{
     // Help Guide PDF file name
     var helpGuidePDFName:String = "help_guide_iPad"
     
+    // legal info pdf file name refrence
+    var appLegalPDF: String = "App_Legal_PDF"
+    
 }

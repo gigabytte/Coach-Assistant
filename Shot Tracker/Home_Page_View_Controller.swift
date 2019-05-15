@@ -11,15 +11,21 @@ import Realm
 
 class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
     
+    @IBOutlet weak var newGameButton: UIButton!
+    @IBOutlet weak var oldStatsButton: UIButton!
+    @IBOutlet weak var addTeamPlayerButton: UIButton!
+    @IBOutlet weak var editTeamPlayerButton: UIButton!
+    
+    
     let realm = try! Realm()
     // active status bool used to check if a game is ongoing
     var activeStatus: Bool!
     
-    @IBOutlet weak var newGameButton: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
         // check is usr has selected a a deafult team yet
         if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){

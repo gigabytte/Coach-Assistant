@@ -23,7 +23,8 @@ class Settings_Subscriptions_View_Controller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        upgradeButton.layer.cornerRadius = 10
+        restoreButton.layer.cornerRadius = 10
         
         // Do any additional setup after loading the view.
     }

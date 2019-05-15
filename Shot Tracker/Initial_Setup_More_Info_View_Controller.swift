@@ -10,19 +10,23 @@ import UIKit
 
 class Initial_Setup_More_Info_View_Controller: UIViewController {
 
+    @IBOutlet weak var addTeamPlayerView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        addTeamPlayerView.layer.cornerRadius = 10
         // gif processing func called
         gifProcessing()
-
+        
         // Do any additional setup after loading the view.
     }
-   
+    
     func gifProcessing(){
         
-        let jeremyGif = UIImage.gifImageWithName("funny")
+        let jeremyGif = UIImage.gifImageWithName(universalValue().helpGuidePDFName)
         let imageView = UIImageView(image: jeremyGif)
-        imageView.frame = CGRect(x: 20.0, y: 50.0, width: self.view.frame.size.width - 40, height: 150.0)
-        view.addSubview(imageView)
+        imageView.frame = CGRect(x: 0, y: 0, width: self.addTeamPlayerView.frame.size.width, height: self.addTeamPlayerView.frame.size.height)
+        imageView.layer.cornerRadius = 10
+        addTeamPlayerView.addSubview(imageView)
     }
 }

@@ -65,6 +65,7 @@
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
 		BEBB0674227214FC001DDD61 /* GIF_Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0673227214FC001DDD61 /* GIF_Processing.swift */; };
 		BEBB0676227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */; };
+		BEC391E2228CCC680004F5D1 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BEC391E1228CCC680004F5D1 /* help_guide_iPad.gif */; };
 		BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */; };
 		BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED34AE7228863B200791B95 /* GoogleService-Info.plist */; };
 		BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */; };
@@ -172,6 +173,7 @@
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
 		BEBB0673227214FC001DDD61 /* GIF_Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF_Processing.swift; sourceTree = "<group>"; };
 		BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_More_Info_View_Controller.swift; sourceTree = "<group>"; };
+		BEC391E1228CCC680004F5D1 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = help_guide_iPad.gif; sourceTree = "<group>"; };
 		BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help_Guide_View_Controller.swift; sourceTree = "<group>"; };
 		BED34AE7228863B200791B95 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker_Info_Page.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
+				BEC391E1228CCC680004F5D1 /* help_guide_iPad.gif */,
 				BEAB5EED2289D5EC001E974C /* help_guide_iPad.pdf */,
 				BE0C1F9B22887242000C2177 /* IAPService.swift */,
 				BE0C1F9D22887249000C2177 /* IAPProducts.swift */,
@@ -454,6 +457,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEC391E2228CCC680004F5D1 /* help_guide_iPad.gif in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
 				BEAB5EEE2289D5EC001E974C /* help_guide_iPad.pdf in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
@@ -817,6 +821,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Shot Tracker/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -845,6 +850,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Shot Tracker/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
