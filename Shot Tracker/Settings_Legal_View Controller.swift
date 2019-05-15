@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import PDFKit
 
 class Settings_Legal_View_Controller: UIViewController {
 
+    @IBOutlet weak var pdfView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pdfView.layer.cornerRadius = 10
+        pdfIntegration()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -27,14 +31,19 @@ class Settings_Legal_View_Controller: UIViewController {
         print("Legal View Controller Called")
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func pdfIntegration(){
+        
+        // Add PDFView to view controller.
+        let pdfView = PDFView(frame: self.pdfView.bounds)
+        pdfView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.pdfView.addSubview(pdfView)
+        
+        // Fit content in PDFView.
+        pdfView.autoScales = true
+        
+        // Load legal pdf file from app bundle.
+        /*let fileURL = Bundle.main.url(forResource: universalValue().appLegalPDF, withExtension: "pdf")
+        pdfView.document = PDFDocument(url: fileURL!)*/
     }
-    */
 
 }

@@ -14,6 +14,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     
     let realm = try! Realm()
     
+    @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var proceedArrow: UIImageView!
     @IBOutlet weak var playerNameTextField: UITextField!
     @IBOutlet weak var playerNumberTextField: UITextField!
@@ -76,21 +77,33 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             //of the arrays. Set selected line to 1(forward line 1)
             selectPosition = positionCodeData[0]
             selectPlayerLine = 1
+            
+            // hide warning label if user has added a team
+            warningLabel.isHidden = true
         }else{
-            let warningMessageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 500, height: 21))
-            warningMessageLabel.center.x = self.view.center.x
-            warningMessageLabel.center.y = self.view.center.y
-            warningMessageLabel.textAlignment = .center
-            warningMessageLabel.text = "Please Add a Team Before Adding a Player"
-            warningMessageLabel.textColor = UIColor.blue
-            warningMessageLabel.font.withSize(24.0)
+            // show warning label / proceed arrow and blur VC if user has added a team
+            warningLabel.isHidden = false
+            proceedArrow.isHidden = false
             // add blur effect to view along with popUpView
             let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
             blurEffectView.frame = view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             view.addSubview(blurEffectView)
-            view.addSubview(warningMessageLabel)
+            view.addSubview(warningLabel)
+            view.addSubview(proceedArrow)
+            
+            // animate arrow spining to the back position
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            rotationAnimation.fromValue = 0.0
+            rotationAnimation.toValue = Double.pi
+            rotationAnimation.duration = 1.0
+            self.proceedArrow.layer.add(rotationAnimation, forKey: nil)
+            // stick uiikmage in 108 position
+            let angle = CGFloat(Double.pi)
+            let tr = CGAffineTransform.identity.rotated(by: angle)
+            proceedArrow.transform = tr
+            //self.proceedArrow.layer.
         }
     }
     
