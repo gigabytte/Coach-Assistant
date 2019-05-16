@@ -9,7 +9,6 @@
 import UIKit
 import RealmSwift
 import Realm
-import Firebase
 
 class Settings_Subscriptions_View_Controller: UIViewController {
 
@@ -39,7 +38,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             
             upgradeButton.alpha = 0.5
-            upgradeButton.isUserInteractionEnabled = false
+            //upgradeButton.isUserInteractionEnabled = false
             print("User Bought Pro")
             
         }else{
@@ -65,25 +64,29 @@ class Settings_Subscriptions_View_Controller: UIViewController {
     }
     
     @IBAction func upgradeButton(_ sender: UIButton) {
-        print("Upgrading Now!")
-       //IAPService.shared.getProducts()
-        loadingIndicator.startAnimating()
-        view.backgroundColor = UIColor.darkGray
-        view.alpha = 0.7
-        upgradeButton.isUserInteractionEnabled = false
-        restoreButton.isUserInteractionEnabled = false
-        IAPService.shared.purchase(product: .autoRenewableSubscription)
-        delay(8){
-            self.view.backgroundColor = UIColor.clear
-            self.view.alpha = 1.0
-            self.upgradeButton.isUserInteractionEnabled = true
-            self.restoreButton.isUserInteractionEnabled = true
-            self.loadingIndicator.stopAnimating()
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
+            print("Upgrading Now!")
+            loadingIndicator.startAnimating()
+            view.backgroundColor = UIColor.darkGray
+            view.alpha = 0.7
+            upgradeButton.isUserInteractionEnabled = false
+            restoreButton.isUserInteractionEnabled = false
+            IAPService.shared.purchase(product: .autoRenewableSubscription)
+            delay(8){
+                self.view.backgroundColor = UIColor.clear
+                self.view.alpha = 1.0
+                self.upgradeButton.isUserInteractionEnabled = true
+                self.restoreButton.isUserInteractionEnabled = true
+                self.loadingIndicator.stopAnimating()
+            }
+        }else{
+            // create the alert
+            let alreadyProAlert = UIAlertController(title: "Already a Pro!", message: "Looks like you are already subscription to Coach Assistant: Ice Hockey PRO, if you have questions regarding your subscription visit the app store.", preferredStyle: UIAlertController.Style.alert)
+            // add an action (button)
+            alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            // show the alert
+            self.present(alreadyProAlert, animated: true, completion: nil)
         }
-        
-        
-        
-        
         
     }
     
