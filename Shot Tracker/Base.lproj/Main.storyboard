@@ -692,10 +692,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="us1-ey-YFn">
-                                <rect key="frame" x="357" y="535" width="310" height="75"/>
+                                <rect key="frame" x="381.5" y="535" width="261" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="Bbi-6U-ZBc"/>
-                                    <constraint firstAttribute="width" constant="310" id="nEh-wf-eDP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                 <state key="normal" title="Add Team or Player">
@@ -706,9 +705,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guo-Th-gga">
-                                <rect key="frame" x="337" y="652.5" width="350" height="75"/>
+                                <rect key="frame" x="354" y="652.5" width="316" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="350" id="GQj-cJ-rbr"/>
                                     <constraint firstAttribute="height" constant="75" id="izE-41-Xs0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
@@ -720,9 +718,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDW-ul-wnx">
-                                <rect key="frame" x="424.5" y="417.5" width="175" height="75"/>
+                                <rect key="frame" x="449" y="417.5" width="126" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="175" id="oAj-eL-QVg"/>
                                     <constraint firstAttribute="height" constant="75" id="oqK-hB-UHz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
@@ -752,10 +749,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQZ-W1-2q7">
-                                <rect key="frame" x="412" y="300" width="200" height="75"/>
+                                <rect key="frame" x="437.5" y="300" width="149" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="0E3-Lu-Tqs"/>
-                                    <constraint firstAttribute="width" constant="200" id="YfX-we-gBf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                 <state key="normal" title="New Game">
@@ -1748,15 +1744,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="0uX-hd-dhf">
-                                        <rect key="frame" x="336.5" y="336.5" width="75" height="75"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="75" id="PhH-hE-Att"/>
-                                            <constraint firstAttribute="width" constant="75" id="nmU-HM-pSX"/>
-                                        </constraints>
-                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGm-u7-xTk">
                                         <rect key="frame" x="235" y="337.5" width="278" height="62"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1785,6 +1772,15 @@
                                             <action selector="upgradeButton:" destination="7Fy-so-Tw5" eventType="touchUpInside" id="NYN-go-lgk"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="0uX-hd-dhf">
+                                        <rect key="frame" x="336.5" y="336.5" width="75" height="75"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="PhH-hE-Att"/>
+                                            <constraint firstAttribute="width" constant="75" id="nmU-HM-pSX"/>
+                                        </constraints>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -4062,8 +4058,8 @@
         <segue reference="p9k-GG-4VP"/>
         <segue reference="VdZ-aC-tCs"/>
         <segue reference="3Is-IF-SeE"/>
-        <segue reference="jMX-vY-t9s"/>
-        <segue reference="RLO-IA-6Z6"/>
+        <segue reference="YVz-TT-Imk"/>
+        <segue reference="RuC-Pi-VMU"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="IlU-9U-sIV"/>
         <segue reference="gnl-VH-ivh"/>
