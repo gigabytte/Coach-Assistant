@@ -42,8 +42,8 @@ class Settings_Legal_View_Controller: UIViewController {
         pdfView.autoScales = true
         
         // Load legal pdf file from app bundle.
-        /*let fileURL = Bundle.main.url(forResource: universalValue().appLegalPDF, withExtension: "pdf")
-        pdfView.document = PDFDocument(url: fileURL!)*/
+        let fileURL = Bundle.main.url(forResource: universalValue().appLegalPDF, withExtension: "pdf")
+        pdfView.document = PDFDocument(url: fileURL!)
     }
 
 }
