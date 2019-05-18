@@ -52,6 +52,7 @@
 		BE8F88B6227747260087ED88 /* varReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8F88B5227747260087ED88 /* varReference.swift */; };
 		BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */; };
 		BE9016B622469E45006ECE5B /* Default Team Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9016B522469E45006ECE5B /* Default Team Selection View.swift */; };
+		BE906EBA2290BCE400B2CBEA /* Coach_Assistant_Legal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BE906EB92290BCE400B2CBEA /* Coach_Assistant_Legal.pdf */; };
 		BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */; };
 		BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25D223C300300228621 /* Overall Player Stats View.swift */; };
 		BE913A482233740500080081 /* Old Game Ice View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE913A472233740500080081 /* Old Game Ice View.swift */; };
@@ -160,6 +161,7 @@
 		BE8F88B5227747260087ED88 /* varReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = varReference.swift; sourceTree = "<group>"; };
 		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
 		BE9016B522469E45006ECE5B /* Default Team Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Default Team Selection View.swift"; sourceTree = "<group>"; };
+		BE906EB92290BCE400B2CBEA /* Coach_Assistant_Legal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Coach_Assistant_Legal.pdf; sourceTree = "<group>"; };
 		BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Type Pop Up.swift"; sourceTree = "<group>"; };
 		BE90D25D223C300300228621 /* Overall Player Stats View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Overall Player Stats View.swift"; sourceTree = "<group>"; };
 		BE913A472233740500080081 /* Old Game Ice View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Game Ice View.swift"; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
 				BEC391E1228CCC680004F5D1 /* help_guide_iPad.gif */,
 				BEAB5EED2289D5EC001E974C /* help_guide_iPad.pdf */,
+				BE906EB92290BCE400B2CBEA /* Coach_Assistant_Legal.pdf */,
 				BE0C1F9B22887242000C2177 /* IAPService.swift */,
 				BE0C1F9D22887249000C2177 /* IAPProducts.swift */,
 				BE8F88B5227747260087ED88 /* varReference.swift */,
@@ -460,6 +463,7 @@
 				BEC391E2228CCC680004F5D1 /* help_guide_iPad.gif in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
 				BEAB5EEE2289D5EC001E974C /* help_guide_iPad.pdf in Resources */,
+				BE906EBA2290BCE400B2CBEA /* Coach_Assistant_Legal.pdf in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
 				BE7D697D21E3D74300C1745C /* Main.storyboard in Resources */,
