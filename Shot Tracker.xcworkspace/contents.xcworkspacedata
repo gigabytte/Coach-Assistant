@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/gregbrooks/Desktop/Coach-Assistant/Shot Tracker/appPurchases.swift">
+   </FileRef>
+   <FileRef
       location = "group:customSettingCell.swift">
    </FileRef>
    <FileRef

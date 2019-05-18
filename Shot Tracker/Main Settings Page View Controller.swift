@@ -13,6 +13,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var containerView: UIView!
     
+    
     var rowIndex: Int!
     
     
@@ -97,6 +98,8 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
+        
+        
         self.tableView.rowHeight = 75.0
         
         // This view controller itself will provide the delegate methods and row data for the table view.

@@ -213,7 +213,7 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         // add an action (button)
         notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
             IAPService.shared.getProducts()
-            IAPService.shared.purchase(product: .autoRenewableSubscription)
+            IAPService.shared.purchase(product: .nonConsumable)
             
         }))
         // show the alert

@@ -164,7 +164,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             let penaltyMinutesAgainstMinor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "playerID == %i AND penaltyType == %@ AND activeState == true", homePlayerIDs[x], "Minor")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
             let penaltyMinutesAgainstMajor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "playerID == %i AND penaltyType == %@ AND activeState == true", homePlayerIDs[x], "Major")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
             
-            let totalMinutes = (penaltyMinutesAgainstMinor * universalValue().minorPenanlty) + (penaltyMinutesAgainstMajor * universalValue().majorPenalty)
+           let totalMinutes = (penaltyMinutesAgainstMinor * UserDefaults.standard.integer(forKey: "minorPenaltyLength")) + (penaltyMinutesAgainstMajor * UserDefaults.standard.integer(forKey: "majorPenaltyLength"))
             homePlayerStatsArray[x].append("PIM: \(String(totalMinutes))")
             
             /* -------------------------- GMG Game Wining Goals for the Season ----------------

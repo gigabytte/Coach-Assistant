@@ -53,8 +53,9 @@ class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableVi
         gameLocationLabel.textAlignment = .center
         
         // round corner of table views
-        homePlayerStatsTable.layer.cornerRadius = 10
-        awayPlayerStatsTable.layer.cornerRadius = 10
+        customTableViewRoundedCorners(tableViewName: homePlayerStatsTable)
+        customTableViewRoundedCorners(tableViewName: awayPlayerStatsTable)
+        
         home_playerStatsProcessing()
         away_playerStatsProcessing()
         
@@ -95,6 +96,23 @@ class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableVi
         }
         
     }
+    
+    func customTableViewRoundedCorners(tableViewName: UITableView){
+        if(tableViewName == homePlayerStatsTable){
+            // round bottom corners of button
+            let path = UIBezierPath(roundedRect:tableViewName.bounds, byRoundingCorners:[.topLeft], cornerRadii: CGSize(width: 10, height: 10))
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = path.cgPath
+            tableViewName.layer.mask = maskLayer
+        }else{
+            let path = UIBezierPath(roundedRect:tableViewName.bounds, byRoundingCorners:[.topRight], cornerRadii: CGSize(width: 10, height: 10))
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = path.cgPath
+            tableViewName.layer.mask = maskLayer
+            
+        }
+    }
+    
     
     func playerNameFetch(){
         if (homePlayerIDs.isEmpty != true){

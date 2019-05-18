@@ -16,22 +16,33 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
     
     var homeTeamPickerData: [String] = [String]()
     var homeTeamPickerDataID: [Int] = [Int]()
+    var penaltyLengthData: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     var homeTeamValueSelected: Int!
     var selectedHomeTeam: String = ""
     var selectedHomeTeamKey:Int = 0;
+    var selectedPenaltyTimeAmount: Int!
     var newGameLoad: Bool!
     
     @IBOutlet weak var homeTeamPicker: UIPickerView!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var penaltyLengthPicker: UIPickerView!
+    @IBOutlet weak var savePenaltyButton: UIButton!
+    @IBOutlet weak var penaltySegControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // round corner of save button
         saveButton.layer.cornerRadius = 5
+        savePenaltyButton.layer.cornerRadius = 5
         
         // Data Connections for picker views:
         self.homeTeamPicker.delegate = self
         self.homeTeamPicker.dataSource = self
+        self.penaltyLengthPicker.delegate = self
+        self.penaltyLengthPicker.dataSource = self
+        
+        selectedPenaltyTimeAmount = 1
+        
         if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) != nil){
             homeTeamPickerData = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
             homeTeamPickerDataID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
@@ -66,10 +77,10 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
         if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) != nil){
             if (newGameLoad == true){
                 UserDefaults.standard.set(selectedHomeTeamKey, forKey: "defaultHomeTeamID")
-                //self.performSegue(withIdentifier: "backToHomeDefaultTeam", sender: nil);
+                updateAlert(varTypeUpdated: "Default Team", varupdatedTo: selectedHomeTeam)
             }else{
                 UserDefaults.standard.set(selectedHomeTeamKey, forKey: "defaultHomeTeamID")
-                //self.performSegue(withIdentifier: "backToSettingsDefaultTeam", sender: nil);
+                updateAlert(varTypeUpdated: "Default Team", varupdatedTo: selectedHomeTeam)
                 
             }
         }else{
@@ -78,6 +89,23 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
             noTeamAlert()
             
         }
+    }
+    
+    @IBAction func savePenaltyLengthButton(_ sender: UIButton) {
+        switch penaltySegControl.selectedSegmentIndex {
+        case 0:
+            UserDefaults.standard.set(selectedPenaltyTimeAmount, forKey: "minorPenaltyLength")
+            print("Minor Penalty Amount Updated")
+            updateAlert(varTypeUpdated: "Minor Penalty", varupdatedTo: "\(selectedPenaltyTimeAmount!) minute long")
+            
+        case 1:
+            UserDefaults.standard.set(selectedPenaltyTimeAmount, forKey: "majorPenaltyLength")
+            print("Major Penalty Amount Updated")
+            updateAlert(varTypeUpdated: "Major Penalty", varupdatedTo: "\(selectedPenaltyTimeAmount!) minute long")
+        default:
+            print("Something went wrong!")
+        }
+        
     }
     
     func noTeamAlert(){
@@ -103,15 +131,22 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
     // The number of rows of data
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        
-        return homeTeamPickerData.count;
-        
+        if (pickerView == homeTeamPicker){
+            return homeTeamPickerData.count;
+        }else{
+            return penaltyLengthData.count
+        }
     }
     
     // The data to return fopr the row and component (column) that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return homeTeamPickerData[row];
+        
+        if (pickerView == homeTeamPicker){
+            return homeTeamPickerData[row];
+        }else{
+            return String(penaltyLengthData[row])
+        }
         
     }
     
@@ -119,12 +154,26 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
-        
-        selectedHomeTeam = homeTeamPickerData[row];
-        selectedHomeTeamKey = homeTeamPickerDataID[row];
+         if (pickerView == homeTeamPicker){
+            selectedHomeTeam = homeTeamPickerData[row];
+            selectedHomeTeamKey = homeTeamPickerDataID[row];
+         }else{
+            selectedPenaltyTimeAmount = penaltyLengthData[row]
+        }
         
         
     }
+    
+    func updateAlert(varTypeUpdated: String, varupdatedTo: String){
+        
+        // create the alert
+        let updateAlert = UIAlertController(title: "\(varTypeUpdated) has been successfully updated to \(varupdatedTo)", message: "", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        updateAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(updateAlert, animated: true, completion: nil)
+    }
+    
     // delay loop
     func delay(_ delay:Double, closure:@escaping ()->()) {
         DispatchQueue.main.asyncAfter(

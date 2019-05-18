@@ -134,15 +134,16 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     func bannerViewInitialize(){
-        
-        adView.adUnitID = universalValue().newGameAdUnitID
-        adView.rootViewController = self
-        adView.load(GADRequest())
-        
+    
         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             adView.heightAnchor.constraint(equalToConstant: 0.0).isActive = true
         }else{
             adView.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+            adView.adUnitID = universalValue().newGameAdUnitID
+            adView.rootViewController = self
+            adView.load(GADRequest())
+            adView.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+            adView.backgroundColor = UIColor.lightGray
         }
     }
     

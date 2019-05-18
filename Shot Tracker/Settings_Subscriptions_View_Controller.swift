@@ -71,7 +71,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
             view.alpha = 0.7
             upgradeButton.isUserInteractionEnabled = false
             restoreButton.isUserInteractionEnabled = false
-            IAPService.shared.purchase(product: .autoRenewableSubscription)
+            IAPService.shared.purchase(product: .nonConsumable)
             delay(8){
                 self.view.backgroundColor = UIColor.clear
                 self.view.alpha = 1.0

@@ -67,6 +67,8 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
         
+        UserDefaults.standard.set(false, forKey: "userPurchaseConf")
+        
         newGameDetection()
         teamNameInitialize()
         navBarProcessing()
@@ -145,9 +147,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     // Enable detection of shake motion
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            /* let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
-             self.present(newViewController, animated: true, completion: nil)*/
+            
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
             popupVC.modalPresentationStyle = .overCurrentContext
@@ -164,14 +164,16 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     func bannerViewInitialize(){
         
-        adView.adUnitID = universalValue().newGameAdUnitID
-        adView.rootViewController = self
-        adView.load(GADRequest())
+        
         
         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             adView.heightAnchor.constraint(equalToConstant: 0.0).isActive = true
         }else{
+            adView.adUnitID = universalValue().newGameAdUnitID
+            adView.rootViewController = self
+            adView.load(GADRequest())
             adView.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+            adView.backgroundColor = UIColor.lightGray
         }
     }
     
