@@ -23,6 +23,8 @@ class newGameUserDefaultGen{
         UserDefaults.standard.set(nil, forKey: "newGameStarted")
         UserDefaults.standard.set(nil, forKey: "gameID")
         UserDefaults.standard.set(nil, forKey: "oldStatsBool")
+        UserDefaults.standard.set(2, forKey: "minorPenaltyLength")
+        UserDefaults.standard.set(4, forKey: "majorPenaltyLength")
     }
 }
 
@@ -102,5 +104,6 @@ class universalValue{
     
     // legal info pdf file name refrence
     var appLegalPDF: String = "App_Legal_PDF"
+    
     
 }

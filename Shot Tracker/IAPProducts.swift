@@ -10,8 +10,8 @@ import Foundation
 
 enum IAPProducts: String {
     case consumable = "Coach-Assistant-iPad1"
-    case nonConsumable = "Coach-Assistant-iPad"
-    case autoRenewableSubscription = "Pro_Sub_CA_iPad"
+    case nonConsumable = "com.tinysquare.coachassistant.pro"
+    case autoRenewableSubscription = "coach"
     case nonRenewingSubscription = "Coach-Assistant-iPad3"
     
  

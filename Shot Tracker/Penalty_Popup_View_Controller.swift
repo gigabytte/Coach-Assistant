@@ -82,7 +82,7 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
 
         // values are broken down into a 2D matrix with corresponding values ranging from minutes to seconds
         timePickerValues = [/*FIrst Row Minute values*/["0", "1", "2", "3", "4", "5", "6", "7", "8"], /*Sec Row Minute values*/["0", "1", "2", "3", "4", "5", "6", "7", "8"], /*Sec values*/["0", "1", "2", "3", "4", "5", "6", "7", "8"]]
-        penaltyType = ["Minor", "Major", "Other"]
+        penaltyType = ["Minor", "Major"]
         // set default player names for home team to be used in picker
         playerNameArray = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "activeState == %@ AND TeamID == %@", NSNumber(value: true), String(homeTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)}))
         // set default player Id for home team to ve used in picker
