@@ -48,15 +48,8 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // rounding of corners for tableview
-        goalieStatsTableView.layer.cornerRadius = 10
-        goalieStatsTableView.layer.cornerRadius = 10
         
-        teamStatsTableView.layer.cornerRadius = 10
-        teamStatsTableView.layer.cornerRadius = 10
         
-        customTableViewRoundedCorners(tableViewName: homePlayerStatsTableView)
-        customTableViewRoundedCorners(tableViewName: awayPlayerStatsTableView)
         
         // disable section for tableview to used as a excel like table only
         homePlayerStatsTableView.allowsSelection = false
@@ -102,23 +95,15 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
         self.goalieStatsTableView.rowHeight = UITableView.automaticDimension
        
         self.teamStatsTableView.rowHeight = 50.0
+        
+        
+        // rounding of corners for tableview
+        goalieStatsTableView.layer.cornerRadius = 10
+        teamStatsTableView.layer.cornerRadius = 10
+        roundedCorners().tableViewTopLeft(tableviewType: homePlayerStatsTableView)
+        roundedCorners().tableViewTopRight(tableviewType: awayPlayerStatsTableView)
     }
     
-    func customTableViewRoundedCorners(tableViewName: UITableView){
-        if(tableViewName == homePlayerStatsTableView){
-            // round bottom corners of button
-            let path = UIBezierPath(roundedRect:tableViewName.bounds, byRoundingCorners:[.topLeft], cornerRadii: CGSize(width: 10, height: 10))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            tableViewName.layer.mask = maskLayer
-        }else{
-            let path = UIBezierPath(roundedRect:tableViewName.bounds, byRoundingCorners:[.topRight], cornerRadii: CGSize(width: 10, height: 10))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            tableViewName.layer.mask = maskLayer
-            
-        }
-    }
     
     
     func playerNameFetch(){
