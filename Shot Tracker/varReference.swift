@@ -81,6 +81,27 @@ class dateToString{
     
 }
 /*
+ Takes in View type and rounders corners baseed onn function parameters
+ INPUT: View Type
+ OUPUT: None
+*/
+class roundedCorners{
+    func tableViewTopLeft(tableviewType: UITableView){
+        
+        tableviewType.clipsToBounds = true
+        tableviewType.layer.cornerRadius = 10
+        tableviewType.layer.maskedCorners = [.layerMinXMinYCorner]
+    }
+    func tableViewTopRight(tableviewType: UITableView){
+        
+        tableviewType.clipsToBounds = true
+        tableviewType.layer.cornerRadius = 10
+        tableviewType.layer.maskedCorners = [.layerMaxXMinYCorner]
+    }
+    
+}
+
+/*
  Stores Varaiables used accorss the app
  */
 class universalValue{
