@@ -13,6 +13,7 @@ import MessageUI
 
 final class Settings_Backup_View_Controller: UIViewController {
 
+    @IBOutlet weak var icloudToggleSwitch: UISwitch!
     @IBOutlet weak var exportCVSButton: UIButton!
     @IBOutlet weak var importCVSButton: UIButton!
     @IBOutlet weak var sucessProcessText: UILabel!
@@ -24,6 +25,11 @@ final class Settings_Backup_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // check is icloud conatiner exsiss on user icloud account
+        // if so icloud logged in and reachable within reason
+        
+        
+        
         // set visual effects on buttonin settings
         wipeDataButton.backgroundColor = .clear
         wipeDataButton.layer.cornerRadius = 5
@@ -44,7 +50,22 @@ final class Settings_Backup_View_Controller: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        // check to see if user has pro and if user is logged into icloud to backup to the cloud
+         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+            if (icloudAccountCheck().isICloudContainerAvailable() == true){
+                
+                print("User is Logged into iCLoud Account")
+                
+            }else{
+                print("User is **NOT** Logged into iCLoud Account")
+                icloudToggleSwitch.isOn = false
+            }
+         }else{
+            print("User is not PRO yet cannot use iCloud")
+            icloudToggleSwitch.isUserInteractionEnabled = false
+            icloudToggleSwitch.alpha = 0.5
+            upgradeNowAlert()
+        }
         print("Back Up View Controller Called")
     }
     
@@ -55,6 +76,22 @@ final class Settings_Backup_View_Controller: UIViewController {
     }
     
     
+    @IBAction func icouldToggleSwitch(_ sender: Any) {
+        
+        if (icloudAccountCheck().isICloudContainerAvailable() == true && icloudToggleSwitch.isOn == true){
+            
+            icloudToggleSwitch.isOn = false
+            icloudOnAlert()
+            
+        }else if (icloudAccountCheck().isICloudContainerAvailable() == false){
+            
+            icloudToggleSwitch.isOn = false
+            missingIcloudCredsAlert()
+            
+        }else{
+            
+        }
+    }
     
     // on buttoin press delete all of relam data
     @IBAction func wipeDataButton(_ sender: Any) {
@@ -312,6 +349,8 @@ final class Settings_Backup_View_Controller: UIViewController {
         var tempsec_assitantPlayerID: [String] = [String]()
         var againstFLine: [String] = [String]()
         var againstDLine: [String] = [String]()
+        var forFLine: [String] = [String]()
+        var forDLine: [String] = [String]()
         var tempperiodNumSet: [String] = [String]()
         var tempxCordGoal: [String] = [String]()
         var tempyCordGoal: [String] = [String]()
@@ -331,6 +370,8 @@ final class Settings_Backup_View_Controller: UIViewController {
             let sec_assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.sec_assitantPlayerID
             let againstFLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.againstFLine
             let againstDLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.againstDLine
+            let forFLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.forFLine
+            let forDLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.forDLine
             let periodNumSet = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.periodNum
             let xCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.xCordGoal
             let yCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.yCordGoal
@@ -346,6 +387,8 @@ final class Settings_Backup_View_Controller: UIViewController {
             tempsec_assitantPlayerID.append(String(sec_assitantPlayerID))
             againstFLine.append(String(againstFLineNum))
             againstDLine.append(String(againstDLineNum))
+            forFLine.append(String(forFLineNum))
+            forDLine.append(String(forDLineNum))
             tempperiodNumSet.append(String(periodNumSet))
             tempxCordGoal.append(String(xCordGoal))
             tempyCordGoal.append(String(yCordGoal))
@@ -355,7 +398,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         }
         
         let fileName = "Realm_Goal_Marker_Table" + ".csv"
-        var csvText = "gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,againstFLine,againstDLine,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        var csvText = "gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,againstFLine,againstDLine,forFLine,forDLine,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<goalMarkerIDCount{
             
             let gameIDVar = tempgameID[x]
@@ -368,13 +411,15 @@ final class Settings_Backup_View_Controller: UIViewController {
             let sec_assitIDVar = tempsec_assitantPlayerID[x]
             let againstFLineVar = againstFLine[x]
             let againstDLineVar = againstDLine[x]
+            let forFLineVar = forFLine[x]
+            let forDLineVar = forDLine[x]
             let periodNumVar = tempperiodNumSet[x]
             let xCordVar = tempxCordGoal[x]
             let yCordVar = tempyCordGoal[x]
             let shotLocationVar = tempshotLocation[x]
             let activeStateVar = tempactiveState[x]
             
-            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + againstFLineVar + "," + againstDLineVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
+            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + againstFLineVar + "," + againstDLineVar + "," + forFLineVar + "," + forDLineVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
             if(x == goalMarkerIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
@@ -589,6 +634,49 @@ final class Settings_Backup_View_Controller: UIViewController {
         self.present(sucessfulExportAlert, animated: true, completion: nil)
         
     }
+    
+    // upgrade alert used to display the use cases for upgrading to pro
+    func upgradeNowAlert(){
+        
+        // create the alert
+        let notPro = UIAlertController(title: "You're Missing Out!", message: "Upgrade now and unlock the ability to backup your teams stats to cloud! Coach Assistant Pro memebers get iCloud backup and import access across all devices with PRO!.", preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
+        // add an action (button)
+        notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
+            IAPService.shared.getProducts()
+            IAPService.shared.purchase(product: .nonConsumable)
+            
+        }))
+        // show the alert
+        self.present(notPro, animated: true, completion: nil)
+        
+        
+    }
+    
+    func missingIcloudCredsAlert(){
+    
+        // create the alert
+        let sucessfulExportAlert = UIAlertController(title: "iCloud Error", message: "In order to backup to iCLoud you must first be logged into and or have access to an iCloud account", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        sucessfulExportAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+    
+        // show the alert
+        self.present(sucessfulExportAlert, animated: true, completion: nil)
+    }
+    
+    func icloudOnAlert(){
+        // create the alert
+        let icloudOnALert = UIAlertController(title: "iCloud Backup On", message: "Backups and Imports will now be made in conjuntion with iCloud, to export / import locally on this device please toggle off 'Backup to iCloud'", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        icloudOnALert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(icloudOnALert, animated: true, completion: nil)
+        
+    }
+    
     
     func confirmationLocalAlert(){
         

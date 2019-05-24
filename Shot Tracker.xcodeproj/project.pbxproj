@@ -52,7 +52,6 @@
 		BE8F88B6227747260087ED88 /* varReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8F88B5227747260087ED88 /* varReference.swift */; };
 		BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */; };
 		BE9016B622469E45006ECE5B /* Default Team Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9016B522469E45006ECE5B /* Default Team Selection View.swift */; };
-		BE906EBA2290BCE400B2CBEA /* Coach_Assistant_Legal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BE906EB92290BCE400B2CBEA /* Coach_Assistant_Legal.pdf */; };
 		BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */; };
 		BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25D223C300300228621 /* Overall Player Stats View.swift */; };
 		BE913A482233740500080081 /* Old Game Ice View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE913A472233740500080081 /* Old Game Ice View.swift */; };
@@ -62,6 +61,8 @@
 		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
 		BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */; };
 		BEAB5EEE2289D5EC001E974C /* help_guide_iPad.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEAB5EED2289D5EC001E974C /* help_guide_iPad.pdf */; };
+		BEABCF9822975B8E0061D280 /* Coach_Assistant_Legal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */; };
+		BEB0EB9822981CB500339641 /* Current Game Stats Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0EB9722981CB500339641 /* Current Game Stats Table.swift */; };
 		BEB71900220A192B00DA6399 /* Basic_Current_Stats_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */; };
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
 		BEBB0674227214FC001DDD61 /* GIF_Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0673227214FC001DDD61 /* GIF_Processing.swift */; };
@@ -132,6 +133,7 @@
 		BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Defaults View Controller.swift"; sourceTree = "<group>"; };
 		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
 		BE57ACDA228756F800AD2054 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Shot Tracker.entitlements"; sourceTree = "<group>"; };
 		BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Page_Controller.swift; sourceTree = "<group>"; };
 		BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_FInish_Page_ViewController.swift; sourceTree = "<group>"; };
 		BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Team_Add_View_Controller.swift; sourceTree = "<group>"; };
@@ -161,7 +163,6 @@
 		BE8F88B5227747260087ED88 /* varReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = varReference.swift; sourceTree = "<group>"; };
 		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
 		BE9016B522469E45006ECE5B /* Default Team Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Default Team Selection View.swift"; sourceTree = "<group>"; };
-		BE906EB92290BCE400B2CBEA /* Coach_Assistant_Legal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Coach_Assistant_Legal.pdf; sourceTree = "<group>"; };
 		BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Type Pop Up.swift"; sourceTree = "<group>"; };
 		BE90D25D223C300300228621 /* Overall Player Stats View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Overall Player Stats View.swift"; sourceTree = "<group>"; };
 		BE913A472233740500080081 /* Old Game Ice View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Game Ice View.swift"; sourceTree = "<group>"; };
@@ -171,6 +172,8 @@
 		BEA08C962215F05200B6D73B /* Add_Player_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Player_Page.swift; sourceTree = "<group>"; };
 		BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Goalie Selection View.swift"; sourceTree = "<group>"; };
 		BEAB5EED2289D5EC001E974C /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = help_guide_iPad.pdf; sourceTree = "<group>"; };
+		BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Coach_Assistant_Legal.pdf; path = ../../../Documents/Coach_Assistant_Legal.pdf; sourceTree = "<group>"; };
+		BEB0EB9722981CB500339641 /* Current Game Stats Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current Game Stats Table.swift"; sourceTree = "<group>"; };
 		BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basic_Current_Stats_Page.swift; sourceTree = "<group>"; };
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
 		BEBB0673227214FC001DDD61 /* GIF_Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF_Processing.swift; sourceTree = "<group>"; };
@@ -264,6 +267,7 @@
 		BE7D697621E3D74300C1745C /* Shot Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */,
 				BE7D697721E3D74300C1745C /* AppDelegate.swift */,
 				BE7D697921E3D74300C1745C /* Home_Page_View_Controller.swift */,
 				BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */,
@@ -305,7 +309,7 @@
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
 				BEC391E1228CCC680004F5D1 /* help_guide_iPad.gif */,
 				BEAB5EED2289D5EC001E974C /* help_guide_iPad.pdf */,
-				BE906EB92290BCE400B2CBEA /* Coach_Assistant_Legal.pdf */,
+				BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */,
 				BE0C1F9B22887242000C2177 /* IAPService.swift */,
 				BE0C1F9D22887249000C2177 /* IAPProducts.swift */,
 				BE8F88B5227747260087ED88 /* varReference.swift */,
@@ -319,6 +323,7 @@
 				BE83904B21F663BA00D02C0B /* Player Info Table.swift */,
 				BE83904F21F6715400D02C0B /* Goal Marker Table.swift */,
 				BE7A1C622200EF4D00E4D74B /* Shot Marker File.swift */,
+				BEB0EB9722981CB500339641 /* Current Game Stats Table.swift */,
 			);
 			path = "Shot Tracker";
 			sourceTree = "<group>";
@@ -421,7 +426,7 @@
 								enabled = 1;
 							};
 							com.apple.iCloud = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -463,7 +468,7 @@
 				BEC391E2228CCC680004F5D1 /* help_guide_iPad.gif in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
 				BEAB5EEE2289D5EC001E974C /* help_guide_iPad.pdf in Resources */,
-				BE906EBA2290BCE400B2CBEA /* Coach_Assistant_Legal.pdf in Resources */,
+				BEABCF9822975B8E0061D280 /* Coach_Assistant_Legal.pdf in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
 				BE7D697D21E3D74300C1745C /* Main.storyboard in Resources */,
@@ -639,6 +644,7 @@
 				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
 				BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */,
 				BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */,
+				BEB0EB9822981CB500339641 /* Current Game Stats Table.swift in Sources */,
 				BE8F88B6227747260087ED88 /* varReference.swift in Sources */,
 				BE913A482233740500080081 /* Old Game Ice View.swift in Sources */,
 			);
@@ -817,6 +823,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Shot Tracker/Shot Tracker.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GCRT29DPHF;
@@ -846,6 +853,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Shot Tracker/Shot Tracker.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GCRT29DPHF;
