@@ -292,10 +292,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Game Location..." textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyl-o8-rXI">
-                                        <rect key="frame" x="112.5" y="95" width="275" height="30"/>
+                                        <rect key="frame" x="100" y="85" width="300" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="275" id="GMj-rH-cVN"/>
-                                            <constraint firstAttribute="height" constant="30" id="uZv-lA-O6O"/>
+                                            <constraint firstAttribute="width" constant="300" id="GMj-rH-cVN"/>
+                                            <constraint firstAttribute="height" constant="40" id="uZv-lA-O6O"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -334,7 +334,7 @@
                                     <constraint firstItem="ZGg-Jz-AJ0" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="6RT-UZ-u5G"/>
                                     <constraint firstItem="qy2-Ug-Ndw" firstAttribute="top" secondItem="CHi-DB-y3W" secondAttribute="bottom" constant="10" id="7i6-Aq-Qmg"/>
                                     <constraint firstItem="n7j-t7-pia" firstAttribute="bottom" secondItem="gwk-tY-52j" secondAttribute="bottom" id="FIu-fa-Eom"/>
-                                    <constraint firstItem="fyl-o8-rXI" firstAttribute="top" secondItem="ZGg-Jz-AJ0" secondAttribute="bottom" constant="30" id="Ku7-SA-hsZ"/>
+                                    <constraint firstItem="fyl-o8-rXI" firstAttribute="top" secondItem="ZGg-Jz-AJ0" secondAttribute="bottom" constant="20" id="Ku7-SA-hsZ"/>
                                     <constraint firstItem="xse-xV-C8h" firstAttribute="top" secondItem="gwk-tY-52j" secondAttribute="top" constant="5" id="TgU-ve-zwO"/>
                                     <constraint firstItem="xse-xV-C8h" firstAttribute="centerX" secondItem="gwk-tY-52j" secondAttribute="centerX" id="Tvl-99-tUu"/>
                                     <constraint firstItem="n7j-t7-pia" firstAttribute="leading" secondItem="gwk-tY-52j" secondAttribute="leading" id="UO1-2x-lSZ"/>
@@ -1692,17 +1692,33 @@
                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jHW-qb-WnI">
+                                        <rect key="frame" x="674" y="79" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="icouldToggleSwitch:" destination="Wvb-9Q-V4V" eventType="valueChanged" id="Htw-RH-qiP"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backup to iCLoud" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPw-7d-EOH">
+                                        <rect key="frame" x="510" y="83" width="154" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="bSw-yw-dBJ" firstAttribute="top" secondItem="b3b-5s-nbl" secondAttribute="bottom" constant="50" id="0n3-gK-vad"/>
                                     <constraint firstItem="U94-Qa-rZ2" firstAttribute="centerX" secondItem="5sh-6F-l2X" secondAttribute="centerX" id="9I6-Hb-sfK"/>
+                                    <constraint firstItem="CPw-7d-EOH" firstAttribute="centerY" secondItem="jHW-qb-WnI" secondAttribute="centerY" id="Alv-yw-p8c"/>
                                     <constraint firstItem="U94-Qa-rZ2" firstAttribute="top" secondItem="bSw-yw-dBJ" secondAttribute="bottom" constant="100" id="EcB-k7-r2y"/>
+                                    <constraint firstItem="jHW-qb-WnI" firstAttribute="top" secondItem="w7C-V1-XrN" secondAttribute="bottom" id="HuO-Va-p6V"/>
+                                    <constraint firstItem="CPw-7d-EOH" firstAttribute="trailing" secondItem="jHW-qb-WnI" secondAttribute="leading" constant="-10" id="KUB-QZ-CnY"/>
                                     <constraint firstItem="dJo-F6-AXh" firstAttribute="top" secondItem="fL4-9Y-O65" secondAttribute="top" constant="-50" id="LgL-XR-t7X"/>
                                     <constraint firstItem="w7C-V1-XrN" firstAttribute="leading" secondItem="5sh-6F-l2X" secondAttribute="leading" constant="50" id="PAd-IE-r97"/>
                                     <constraint firstAttribute="width" secondItem="5sh-6F-l2X" secondAttribute="height" multiplier="4:4" id="Wq6-Ph-2JW"/>
                                     <constraint firstItem="dJo-F6-AXh" firstAttribute="centerX" secondItem="5sh-6F-l2X" secondAttribute="centerX" id="feP-QR-eYw"/>
                                     <constraint firstItem="bSw-yw-dBJ" firstAttribute="centerX" secondItem="5sh-6F-l2X" secondAttribute="centerX" id="g4A-6W-Xbr"/>
+                                    <constraint firstItem="jHW-qb-WnI" firstAttribute="trailing" secondItem="5sh-6F-l2X" secondAttribute="trailing" constant="-25" id="kTo-Nv-H9t"/>
                                     <constraint firstItem="b3b-5s-nbl" firstAttribute="top" secondItem="5sh-6F-l2X" secondAttribute="top" constant="150" id="mau-hZ-AUa"/>
                                     <constraint firstItem="fL4-9Y-O65" firstAttribute="bottom" secondItem="5sh-6F-l2X" secondAttribute="bottom" constant="-100" id="rLE-Nn-5Ig"/>
                                     <constraint firstItem="b3b-5s-nbl" firstAttribute="centerX" secondItem="5sh-6F-l2X" secondAttribute="centerX" id="srH-Cp-GcR"/>
@@ -1726,6 +1742,7 @@
                     <connections>
                         <outlet property="backupDateLabel" destination="fL4-9Y-O65" id="UTg-wg-4EH"/>
                         <outlet property="exportCVSButton" destination="b3b-5s-nbl" id="0jF-bY-Kzl"/>
+                        <outlet property="icloudToggleSwitch" destination="jHW-qb-WnI" id="hTp-Qi-kFt"/>
                         <outlet property="importCVSButton" destination="bSw-yw-dBJ" id="XlV-4X-WUe"/>
                         <outlet property="sucessProcessText" destination="dJo-F6-AXh" id="JbV-DY-D1J"/>
                         <outlet property="wipeDataButton" destination="U94-Qa-rZ2" id="3zw-8R-SI1"/>
@@ -1860,7 +1877,7 @@
                                             <constraint firstAttribute="height" constant="55" id="kOQ-Dq-Ipg"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal" title="Save Team"/>
+                                        <state key="normal" title="Save Default Team"/>
                                         <connections>
                                             <action selector="continueButton:" destination="6WW-AT-OW6" eventType="touchUpInside" id="WbA-3q-Xt7"/>
                                         </connections>
@@ -4132,12 +4149,12 @@
     <inferredMetricsTieBreakers>
         <segue reference="XF8-mz-HSq"/>
         <segue reference="pOz-SY-0TH"/>
-        <segue reference="3Is-IF-SeE"/>
+        <segue reference="Dru-ha-s6H"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="RuC-Pi-VMU"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="3tR-ZW-gYG"/>
-        <segue reference="ubp-Io-d9b"/>
+        <segue reference="2uF-ll-qm3"/>
         <segue reference="w5X-2C-weP"/>
     </inferredMetricsTieBreakers>
 </document>

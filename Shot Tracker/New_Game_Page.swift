@@ -160,7 +160,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             print("Help Guide Presented!")
         }
     }
-    
+
     
     func bannerViewInitialize(){
         
@@ -412,7 +412,24 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                   self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.winingTeamID = self.awayTeam
                     self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.losingTeamID = self.homeTeam
                     print("Away Team Won")
+                    
+                    
                 }
+                // update player info tabke based on stata from currrent stats table
+                let listOfPlayerID = (self.realm.objects(currentStatsTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+                
+                for i in 0..<listOfPlayerID.count{
+                    let playerObjc = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: listOfPlayerID[i]);
+                    let goalQuery = (self.realm.object(ofType: currentStatsTable.self, forPrimaryKey: listOfPlayerID[i]))?.goalCount
+                    let plusMinus = (self.realm.object(ofType: currentStatsTable.self, forPrimaryKey: listOfPlayerID[i]))?.plusMinus
+                    let assistCount = (self.realm.object(ofType: currentStatsTable.self, forPrimaryKey: listOfPlayerID[i]))?.plusMinus
+                    
+                    playerObjc?.goalCount += goalQuery!
+                    playerObjc?.plusMinus += plusMinus!
+                    playerObjc?.assitsCount += assistCount!
+                }
+                //delete contents currentStatsTable of DB
+                self.realm.delete(self.realm.objects(currentStatsTable.self))
               
             }
             // delete all user defaults generated from newgame

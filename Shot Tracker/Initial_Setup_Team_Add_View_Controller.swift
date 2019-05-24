@@ -62,12 +62,13 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
                         newTeam.teamID = primaryTeamID
                         newTeam.nameOfTeam = teamName.text!
                         realm.add(newTeam, update:true)
-                        teamAddCheck()
                     }
+                    
                 }
                 proceedArrow.isHidden = false
                 // add team as default team
                 UserDefaults.standard.set(primaryTeamID, forKey: "defaultHomeTeamID")
+                succesfulTeamAdd(teamName: teamName.text!)
             }
         }else{
             proceedArrow.isHidden = false
@@ -86,22 +87,7 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
         //show the alert
         self.present(successfulQuery, animated: true, completion: nil)
     }
-    
-    // function checks if user as addedteam to app properly
-    func teamAddCheck(){
-        let teamCheck = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
-        // check if team has been added to realm
-        if (teamCheck.last != nil){
-            viewControllerLabelTitle.text = "Add Player"
-            addTeamButton.setTitle("Add Player", for: .normal)
-            teamName.placeholder = "Player Name ..."
-            teamName.text = ""
-            print("Team is present in App, proceed to player adding functionlity.")
-           
-            
-        }
-        
-    }
+
     
     //function for missing field alert
     func missingFieldAlert(missingType: String){
@@ -120,7 +106,7 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
         // create the alert
         let doubleTeamAlert = UIAlertController(title: "Whoops!", message: "Looks like we already have a team in the app, please proceed to the next page.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
-        doubleTeamAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        doubleTeamAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
         self.present(doubleTeamAlert, animated: true, completion: nil)
     }

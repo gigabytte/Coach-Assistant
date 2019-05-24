@@ -26,11 +26,11 @@ class Current_Stats_Ananlytical_View: UIViewController {
     var awayTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
     var teamIDArray: [String] = [String]()
    
-    var homeGoalieID: Int!
+    var homeGoalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
     var awayGoalieID: Int!
     var oldStatsPopUpBool: Bool!
     var SeletedGame: Int!
-    var gameID: Int!
+    var gameID: Int = UserDefaults.standard.integer(forKey: "gameID")
     
     var homeTeamGoalie = PieChartDataEntry(value: 0)
     var awayTeamGoalie = PieChartDataEntry(value: 0)
@@ -53,21 +53,13 @@ class Current_Stats_Ananlytical_View: UIViewController {
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
         
-        // if accessec from current game setting
-        if(oldStatsPopUpBool != true){
-            homeGoalieID = UserDefaults.standard.integer(forKey: "selectedGoalieID")
-            awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
-            gameID = (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)
-        }else{
-            // if accessed from old stats
-            gameID = SeletedGame
+        // if accessed from old stats
             homeTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})[0]
             awayTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})[0]
             homeGoalieID = UserDefaults.standard.integer(forKey: "selectedGoalieID")
             awayGoalieID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(awayTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))[0]
             
-            
-        }
+        
         // set defaults values on load
         oneHundredPerNote.isHidden = true
         savePerDataMissingLabel.isHidden = false

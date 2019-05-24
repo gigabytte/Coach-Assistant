@@ -350,6 +350,40 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         try! realm.write() {
             let gameGen = realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "gameLocation": gameLocationTextField.text, "activeGameStatus": true, "activeState": true]);
+            
+            let primaryHomePlayerID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ && activeState == %@", String(selectedHomeTeamKey),NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            let primaryAwayPlayerID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ && activeState == %@", String(selectedAwayTeamKey),NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            
+            for i in 0..<primaryHomePlayerID.count {
+                var primaryID: Int!
+                if (self.realm.objects(currentStatsTable.self).max(ofProperty: "currentStatID") as Int? != nil){
+                    primaryID = (self.realm.objects(currentStatsTable.self).max(ofProperty: "currentStatID") as Int? ?? 0) + 1;
+                }else{
+                    primaryID = (self.realm.objects(currentStatsTable.self).max(ofProperty: "currentStatID") as Int? ?? 0);
+                }
+                self.realm.create(currentStatsTable.self, value: ["currentStatID": primaryID])
+                let primaryCurrentStatID = self.realm.object(ofType: currentStatsTable.self, forPrimaryKey: primaryID)
+                
+                primaryCurrentStatID?.playerID = primaryHomePlayerID[i];
+                primaryCurrentStatID?.teamID = selectedHomeTeamKey
+                primaryCurrentStatID?.lineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i && activeState == %@", primaryHomePlayerID[i],NSNumber(value: true))).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)}).first!
+                primaryCurrentStatID?.activeState = true
+                
+            }
+            for i in 0..<primaryAwayPlayerID.count {
+                var primaryID: Int!
+                primaryID = (self.realm.objects(currentStatsTable.self).max(ofProperty: "currentStatID") as Int? ?? 0) + 1;
+                    
+                self.realm.create(currentStatsTable.self, value: ["currentStatID": primaryID])
+                let primaryCurrentStatID = self.realm.object(ofType: currentStatsTable.self, forPrimaryKey: primaryID)
+                
+                primaryCurrentStatID?.playerID = primaryAwayPlayerID[i];
+                primaryCurrentStatID?.teamID = selectedAwayTeamKey
+                primaryCurrentStatID?.lineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i && activeState == %@", primaryAwayPlayerID[i],NSNumber(value: true))).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)}).first!
+                primaryCurrentStatID?.activeState = true
+                
+            }
+            
         }
         let tempHomeTeamID = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: primaryNewGameKey)?.homeTeamID)!
         let tempAwayTeamID = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: primaryNewGameKey)?.opposingTeamID)!
@@ -360,5 +394,8 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         self.performSegue(withIdentifier: "continueTeamSelectionSegue", sender: nil);
     }
     
+    func addPlayer(){
     
+    
+    }
 }

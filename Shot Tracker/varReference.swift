@@ -102,6 +102,21 @@ class roundedCorners{
 }
 
 /*
+Check to see if icloud account logged in
+*/
+class icloudAccountCheck{
+    
+    func isICloudContainerAvailable()->Bool {
+        if let currentToken = FileManager.default.ubiquityIdentityToken {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+}
+
+/*
  Stores Varaiables used accorss the app
  */
 class universalValue{

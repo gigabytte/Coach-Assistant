@@ -267,6 +267,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         // reset textfields
         playerNameTextField.text = ""
         playerNumberTextField.text = ""
+        succesfulPlayerAdd(playerName: playerNameTextField.text!)
         }else{
             print("User is missing a field, player canot be saved properly")
         }
