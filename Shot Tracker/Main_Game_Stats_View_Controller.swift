@@ -206,7 +206,7 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     func noUpgradeAlert(){
         
         // create the alert
-        let notPro = UIAlertController(title: "You're Missing Out", message: "Upgrade now and unlock an in depth look into your teams perfrommce. A break down of all your plays along with your goalies and most importantly your team as a whole.", preferredStyle: UIAlertController.Style.alert)
+        let notPro = UIAlertController(title: "You're Missing Out", message: "Upgrade now and unlock an in depth look into your teams performance. A break down of all your plays along with your goalies and most importantly your team as a whole.", preferredStyle: UIAlertController.Style.alert)
         
         // add an action (button)
         notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
