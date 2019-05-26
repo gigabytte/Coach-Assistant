@@ -141,5 +141,8 @@ class universalValue{
     // legal info pdf file name refrence
     var appLegalPDF: String = "Coach_Assistant_Legal"
     
+    // website url for mutipl,e team / player adding
+    var websiteURLHelp: String = "https://tinysquaremail.wixsite.com/coachassistant/csv-file-importing"
+    
     
 }

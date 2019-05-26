@@ -21,6 +21,17 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="ZMH-9n-YNK">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIE-8G-yBc">
+                                <rect key="frame" x="25" y="95" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="Uc4-ek-wBH"/>
+                                    <constraint firstAttribute="height" constant="30" id="rWx-Lj-oux"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="about_icon"/>
+                                <connections>
+                                    <action selector="visitWebsiteButton:" destination="Dy4-TQ-ADn" eventType="touchUpInside" id="LEF-Tb-uJa"/>
+                                </connections>
+                            </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pKf-iR-Dz6">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
                                 <items>
@@ -161,10 +172,12 @@
                             <constraint firstItem="492-Rt-q8J" firstAttribute="centerX" secondItem="P0Q-hC-f9f" secondAttribute="centerX" id="BAT-AM-Wem"/>
                             <constraint firstItem="lmL-4r-sW5" firstAttribute="centerY" secondItem="xrK-fb-muw" secondAttribute="centerY" id="Bli-5S-WWg"/>
                             <constraint firstItem="Mes-Hd-Rcf" firstAttribute="top" secondItem="pKf-iR-Dz6" secondAttribute="bottom" constant="50" id="CAP-aN-2UK"/>
+                            <constraint firstItem="XIE-8G-yBc" firstAttribute="leading" secondItem="aTa-a5-pRA" secondAttribute="leading" constant="25" id="DuI-ce-iw2"/>
                             <constraint firstItem="GUV-TY-Q3k" firstAttribute="centerX" secondItem="P0Q-hC-f9f" secondAttribute="centerX" id="E7E-Po-Ui4"/>
                             <constraint firstItem="I3j-8Y-GoV" firstAttribute="top" secondItem="492-Rt-q8J" secondAttribute="bottom" constant="20" id="EBv-Nh-pV9"/>
                             <constraint firstItem="DLc-xw-iTr" firstAttribute="centerX" secondItem="Mes-Hd-Rcf" secondAttribute="centerX" id="GSH-Wp-ZLj"/>
                             <constraint firstItem="920-Yf-EdP" firstAttribute="centerY" secondItem="DLc-xw-iTr" secondAttribute="centerY" id="KHP-Ql-wkM"/>
+                            <constraint firstItem="XIE-8G-yBc" firstAttribute="top" secondItem="pKf-iR-Dz6" secondAttribute="bottom" constant="25" id="KoB-jZ-qwi"/>
                             <constraint firstItem="lmL-4r-sW5" firstAttribute="leading" secondItem="xrK-fb-muw" secondAttribute="trailing" constant="35" id="LDc-xC-9cX"/>
                             <constraint firstItem="pYh-7Q-hdl" firstAttribute="centerY" secondItem="4z2-KT-sk2" secondAttribute="centerY" id="LKQ-2c-zu5"/>
                             <constraint firstItem="Mes-Hd-Rcf" firstAttribute="leading" secondItem="aTa-a5-pRA" secondAttribute="leading" constant="125" id="M5j-ut-JwK"/>
@@ -213,6 +226,7 @@
                         <outlet property="playersPicker" destination="yci-7A-Ado" id="VHU-q9-fla"/>
                         <outlet property="positionPicker" destination="jNl-yy-qLS" id="Ofo-iJ-GXr"/>
                         <outlet property="teamPicker" destination="1M9-c6-9Ph" id="n2p-6u-Guh"/>
+                        <outlet property="visitWebsiteButton" destination="XIE-8G-yBc" id="vzM-nj-fs5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wxf-8s-3Yo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1266,6 +1280,18 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="Xw8-Rg-SwB">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZ6-VT-t31">
+                                <rect key="frame" x="25" y="95" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="11T-6s-J3x"/>
+                                    <constraint firstAttribute="height" constant="30" id="fhe-uj-KB2"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="about_icon"/>
+                                <connections>
+                                    <action selector="visitWebsiteButton:" destination="laf-Ow-yCr" eventType="touchUpInside" id="jhQ-Sc-5XY"/>
+                                    <action selector="visitWebsiteURL:" destination="AH6-eX-2gd" eventType="touchUpInside" id="7FH-0V-xWZ"/>
+                                </connections>
+                            </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0g-lk-UYd">
                                 <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
                                 <items>
@@ -1368,6 +1394,7 @@
                             <constraint firstItem="T0g-lk-UYd" firstAttribute="top" secondItem="PBE-o3-OcP" secondAttribute="top" id="3Oy-nu-TZU"/>
                             <constraint firstItem="NoF-mf-28z" firstAttribute="leading" secondItem="YNc-D6-AFf" secondAttribute="trailing" constant="23" id="5vI-HQ-D0m"/>
                             <constraint firstItem="6MQ-DC-ryw" firstAttribute="centerX" secondItem="Pl0-gf-YfY" secondAttribute="centerX" id="6I3-wU-EoY"/>
+                            <constraint firstItem="AZ6-VT-t31" firstAttribute="top" secondItem="T0g-lk-UYd" secondAttribute="bottom" constant="25" id="91i-We-adM"/>
                             <constraint firstItem="Xw8-Rg-SwB" firstAttribute="top" secondItem="PBE-o3-OcP" secondAttribute="top" id="CcZ-7D-rr2"/>
                             <constraint firstItem="4ka-D6-U2J" firstAttribute="centerX" secondItem="Oz8-RO-dEN" secondAttribute="centerX" id="Erf-mP-A32"/>
                             <constraint firstItem="Pl0-gf-YfY" firstAttribute="trailing" secondItem="PBE-o3-OcP" secondAttribute="trailing" constant="-175" id="Fxo-Bi-Fdd"/>
@@ -1382,6 +1409,7 @@
                             <constraint firstItem="8tu-cp-19N" firstAttribute="centerX" secondItem="7Aj-OW-QHa" secondAttribute="centerX" id="RJt-9B-Dwg"/>
                             <constraint firstItem="8tu-cp-19N" firstAttribute="top" secondItem="Yxh-e6-D8E" secondAttribute="bottom" constant="25" id="S6g-Sj-2Ra"/>
                             <constraint firstItem="T0g-lk-UYd" firstAttribute="trailing" secondItem="PBE-o3-OcP" secondAttribute="trailing" id="SVL-fG-qam"/>
+                            <constraint firstItem="AZ6-VT-t31" firstAttribute="leading" secondItem="7Aj-OW-QHa" secondAttribute="leading" constant="25" id="WN4-RY-eDT"/>
                             <constraint firstItem="Yxh-e6-D8E" firstAttribute="top" secondItem="jOz-n4-YLC" secondAttribute="bottom" constant="15" id="X5K-Lb-1ot"/>
                             <constraint firstItem="Xw8-Rg-SwB" firstAttribute="bottom" secondItem="7Aj-OW-QHa" secondAttribute="bottom" id="Y7h-ug-9Jw"/>
                             <constraint firstItem="YNc-D6-AFf" firstAttribute="trailing" secondItem="7Aj-OW-QHa" secondAttribute="trailing" constant="-125" id="a1g-UB-L77"/>
@@ -1405,9 +1433,11 @@
                         <outlet property="playerNumber" destination="8tu-cp-19N" id="Ij2-Dl-Qha"/>
                         <outlet property="positionPicker" destination="6MQ-DC-ryw" id="ZWb-7o-JPh"/>
                         <outlet property="teamPicker" destination="Yxh-e6-D8E" id="HEf-Q3-PT8"/>
+                        <outlet property="visitWebsiteButton" destination="AZ6-VT-t31" id="7P1-0J-zlb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GLn-9h-BcY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="AH6-eX-2gd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-146.484375" y="-1377.34375"/>
         </scene>
@@ -1540,9 +1570,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTe-wJ-khw">
-                                <rect key="frame" x="0.0" y="70" width="1024" height="698"/>
-                            </containerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b3C-zm-Z6d">
                                 <rect key="frame" x="0.0" y="70" width="279" height="698"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1586,6 +1613,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTe-wJ-khw">
+                                <rect key="frame" x="0.0" y="70" width="1024" height="698"/>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2127,13 +2157,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NET-Zl-FPt">
+                                <rect key="frame" x="25" y="95" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="h7E-jS-05t"/>
+                                    <constraint firstAttribute="height" constant="30" id="kfO-Vq-9im"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="about_icon"/>
+                                <connections>
+                                    <action selector="visitWebsiteButton:" destination="xfg-Tt-WO4" eventType="touchUpInside" id="1rE-dP-Nol"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="NET-Zl-FPt" firstAttribute="top" secondItem="n8V-jG-XUj" secondAttribute="bottom" constant="25" id="1Ml-Tr-pct"/>
                             <constraint firstItem="n8V-jG-XUj" firstAttribute="leading" secondItem="fNq-r3-Bmd" secondAttribute="leading" id="56l-ch-L2C"/>
                             <constraint firstItem="MTr-6M-lXy" firstAttribute="top" secondItem="n8V-jG-XUj" secondAttribute="top" constant="125" id="5Cp-iW-Azy"/>
                             <constraint firstItem="Tfq-VD-D3p" firstAttribute="bottom" secondItem="XbA-WL-kWG" secondAttribute="bottom" id="Bc8-RY-3k9"/>
                             <constraint firstItem="Klt-bK-htL" firstAttribute="leading" secondItem="FBw-gU-76v" secondAttribute="trailing" constant="15" id="Pzv-ci-MXN"/>
+                            <constraint firstItem="NET-Zl-FPt" firstAttribute="leading" secondItem="XbA-WL-kWG" secondAttribute="leading" constant="25" id="Rjy-fk-EdY"/>
                             <constraint firstItem="Tfq-VD-D3p" firstAttribute="leading" secondItem="XbA-WL-kWG" secondAttribute="leading" id="Rsj-XN-bQL"/>
                             <constraint firstItem="ZEy-o9-QtI" firstAttribute="top" secondItem="FBw-gU-76v" secondAttribute="bottom" constant="125" id="T9o-Rg-w4I"/>
                             <constraint firstItem="Tfq-VD-D3p" firstAttribute="trailing" secondItem="XbA-WL-kWG" secondAttribute="trailing" id="Tvr-38-Rla"/>
@@ -2153,6 +2196,7 @@
                     <connections>
                         <outlet property="inActiveTeamToggle" destination="Klt-bK-htL" id="xEt-dc-of9"/>
                         <outlet property="teamName" destination="iJN-fE-jbl" id="7Fj-dK-ieE"/>
+                        <outlet property="visitWebsiteButton" destination="NET-Zl-FPt" id="3xO-DW-yWq"/>
                         <segue destination="laf-Ow-yCr" kind="presentation" identifier="addPlayerSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="rYW-Ia-h23"/>
                         <segue destination="BYV-5S-q4x" kind="presentation" identifier="noTeamSettingsSegue" id="RLO-IA-6Z6"/>
                     </connections>
@@ -4126,6 +4170,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="about_icon" width="1200" height="1200"/>
         <image name="blank_goalie" width="897" height="535"/>
         <image name="coach_assitant_full_trans" width="250" height="167.5"/>
         <image name="coach_assitant_icon" width="76" height="76"/>
@@ -4143,11 +4188,11 @@
         <segue reference="XF8-mz-HSq"/>
         <segue reference="pOz-SY-0TH"/>
         <segue reference="Dru-ha-s6H"/>
-        <segue reference="YVz-TT-Imk"/>
-        <segue reference="RuC-Pi-VMU"/>
+        <segue reference="jMX-vY-t9s"/>
+        <segue reference="RLO-IA-6Z6"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="3tR-ZW-gYG"/>
-        <segue reference="2uF-ll-qm3"/>
+        <segue reference="5ot-VN-Vh3"/>
         <segue reference="w5X-2C-weP"/>
     </inferredMetricsTieBreakers>
 </document>

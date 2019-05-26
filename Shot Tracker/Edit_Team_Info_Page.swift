@@ -24,6 +24,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var activeStateTeamLabel: UILabel!
     @IBOutlet weak var activeStatePlayerSwitch: UISwitch!
     @IBOutlet weak var activeStatePLayerLabel: UILabel!
+    @IBOutlet weak var visitWebsiteButton: UIButton!
     
     var selectTeamKey:Int = 0
     var homeTeam: Int?
@@ -136,6 +137,9 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
+    
     // if keyboard is out push whole view up half the height of the keyboard
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -150,6 +154,33 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             self.view.frame.origin.y = 0
         }
     }
+    
+    @IBAction func visitWebsiteButton(_ sender: Any) {
+        
+        let actionSheet = UIAlertController(title: "Did you Know?", message: "Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you cqn get started!", preferredStyle: .actionSheet)
+        
+        
+        let openAction = UIAlertAction(title: "Open", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+            guard let url = URL(string: universalValue().websiteURLHelp) else { return }
+            UIApplication.shared.open(url)
+        })
+        // tapp anywhere outside of popup alert controller
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+            print("didPress Cancel")
+        })
+        // Add the actions to your actionSheet
+        actionSheet.addAction(openAction)
+        actionSheet.addAction(cancelAction)
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.visitWebsiteButton
+            
+        }
+        // Present the controller
+        self.present(actionSheet, animated: true, completion: nil)
+        
+    }
+    
+    
     
     @objc func switchValueDidChange(sender: UISwitch){
         
