@@ -4014,13 +4014,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNB-S4-9Xk">
-                                <rect key="frame" x="440.5" y="451" width="113" height="33.5"/>
+                                <rect key="frame" x="440.5" y="446.5" width="113" height="33.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7N-A5-Ehp">
-                                <rect key="frame" x="563.5" y="456.5" width="25" height="25"/>
+                                <rect key="frame" x="563.5" y="452" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="OXg-XD-5l9"/>
                                     <constraint firstAttribute="height" constant="25" id="i2q-8k-tBk"/>
@@ -4041,8 +4041,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record.  Analyse.  Perform." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQg-ce-W9j">
-                                <rect key="frame" x="403" y="358" width="218" height="18"/>
-                                <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="18"/>
+                                <rect key="frame" x="405.5" y="348" width="213.5" height="23.5"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="18"/>
                                 <color key="textColor" red="0.0049068285150000003" green="0.4474061728" blue="0.63255959750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -4054,7 +4054,7 @@
                             <constraint firstItem="vQg-ce-W9j" firstAttribute="centerX" secondItem="4k7-15-cTi" secondAttribute="centerX" id="DOZ-IY-VGA"/>
                             <constraint firstItem="wum-1F-afJ" firstAttribute="top" secondItem="HRA-q0-YjW" secondAttribute="top" constant="5" id="Irg-nt-3tV"/>
                             <constraint firstItem="cf3-dZ-hrz" firstAttribute="top" secondItem="4k7-15-cTi" secondAttribute="top" constant="75" id="K7P-If-5CD"/>
-                            <constraint firstItem="vQg-ce-W9j" firstAttribute="top" secondItem="cf3-dZ-hrz" secondAttribute="bottom" constant="35" id="UdT-nb-lL4"/>
+                            <constraint firstItem="vQg-ce-W9j" firstAttribute="top" secondItem="cf3-dZ-hrz" secondAttribute="bottom" constant="25" id="UdT-nb-lL4"/>
                             <constraint firstItem="jNB-S4-9Xk" firstAttribute="top" secondItem="vQg-ce-W9j" secondAttribute="bottom" constant="75" id="ePj-2W-bEY"/>
                             <constraint firstItem="jNB-S4-9Xk" firstAttribute="centerX" secondItem="4k7-15-cTi" secondAttribute="centerX" constant="-15" id="fXK-UW-U04"/>
                             <constraint firstItem="wum-1F-afJ" firstAttribute="trailing" secondItem="4k7-15-cTi" secondAttribute="trailing" constant="-20" id="get-Ns-rNK"/>

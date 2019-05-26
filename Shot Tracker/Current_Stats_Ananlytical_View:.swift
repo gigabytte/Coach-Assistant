@@ -116,7 +116,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
     func pieChartSettings(){
         // get values for home and away goalie and apply them to piechart
         let numberOfShots = [homeTeamGoalie, awayTeamGoalie]
-        let chartDataSet = PieChartDataSet(values: numberOfShots, label: nil)
+        let chartDataSet = PieChartDataSet(entries: numberOfShots, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
         // set visual aspect of pie chart iuncluding colours and animations
         let colours = [UIColor.green, UIColor.blue]
@@ -148,7 +148,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
     func shotLocationPieChartSettings(){
         // get values for home and away goalie and apply them to piechart
         let numberOfShots = [tlShotValue, trShotValue, blShotValue, brShotValue, cShotValue]
-        let chartDataSet = PieChartDataSet(values: numberOfShots, label: nil)
+        let chartDataSet = PieChartDataSet(entries: numberOfShots, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
         // set visual aspect of pie chart iuncluding colours and animations
         let colours = [UIColor.green, UIColor.blue, UIColor.red, UIColor.purple, UIColor.orange, UIColor.yellow]

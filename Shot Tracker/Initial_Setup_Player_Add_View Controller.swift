@@ -68,6 +68,11 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
         if (((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last != nil){
             queryTeamID = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last
             // set View COntroller title based on users previous team add
@@ -106,7 +111,6 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             //self.proceedArrow.layer.
         }
     }
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
