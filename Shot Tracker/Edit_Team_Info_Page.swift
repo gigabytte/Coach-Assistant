@@ -160,7 +160,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         let actionSheet = UIAlertController(title: "Did you Know?", message: "Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you cqn get started!", preferredStyle: .actionSheet)
         
         
-        let openAction = UIAlertAction(title: "Open", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+        let openAction = UIAlertAction(title: "Open", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             guard let url = URL(string: universalValue().websiteURLHelp) else { return }
             UIApplication.shared.open(url)
         })
