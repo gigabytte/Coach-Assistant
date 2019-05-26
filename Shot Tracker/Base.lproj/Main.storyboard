@@ -1633,7 +1633,7 @@
                                             <constraint firstAttribute="height" constant="62" id="gZt-gS-Lf2"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal" title="Backup to CVS File"/>
+                                        <state key="normal" title="Backup Locally"/>
                                         <connections>
                                             <action selector="exportCVSButtonAction:" destination="Wvb-9Q-V4V" eventType="touchUpInside" id="wDZ-kR-Q9J"/>
                                         </connections>
@@ -1648,7 +1648,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="62" id="Xz7-ff-o1a"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal" title="Import Data From CVS File"/>
+                                        <state key="normal" title="Import Data Locally"/>
                                         <connections>
                                             <action selector="importCVSButtonAction:" destination="Wvb-9Q-V4V" eventType="touchUpInside" id="6IS-vH-WtT"/>
                                         </connections>
@@ -1692,14 +1692,14 @@
                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jHW-qb-WnI">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jHW-qb-WnI">
                                         <rect key="frame" x="674" y="79" width="51" height="31"/>
                                         <connections>
                                             <action selector="icouldToggleSwitch:" destination="Wvb-9Q-V4V" eventType="valueChanged" id="Htw-RH-qiP"/>
                                         </connections>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backup to iCLoud" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPw-7d-EOH">
-                                        <rect key="frame" x="510" y="83" width="154" height="23"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backup to iCloud" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPw-7d-EOH">
+                                        <rect key="frame" x="515.5" y="83" width="148.5" height="23"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1742,6 +1742,7 @@
                     <connections>
                         <outlet property="backupDateLabel" destination="fL4-9Y-O65" id="UTg-wg-4EH"/>
                         <outlet property="exportCVSButton" destination="b3b-5s-nbl" id="0jF-bY-Kzl"/>
+                        <outlet property="icloudExportLabel" destination="CPw-7d-EOH" id="ixT-ZG-5Zp"/>
                         <outlet property="icloudToggleSwitch" destination="jHW-qb-WnI" id="hTp-Qi-kFt"/>
                         <outlet property="importCVSButton" destination="bSw-yw-dBJ" id="XlV-4X-WUe"/>
                         <outlet property="sucessProcessText" destination="dJo-F6-AXh" id="JbV-DY-D1J"/>
@@ -3633,14 +3634,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yri-O5-AB5">
-                                        <rect key="frame" x="125" y="129" width="523" height="619"/>
+                                        <rect key="frame" x="115" y="129" width="543" height="619"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Yri-O5-AB5" firstAttribute="leading" secondItem="lIU-G5-ixg" secondAttribute="leading" constant="125" id="Anr-bR-RsG"/>
-                                    <constraint firstItem="Yri-O5-AB5" firstAttribute="trailing" secondItem="lIU-G5-ixg" secondAttribute="trailing" constant="-100" id="S9b-1t-XL2"/>
+                                    <constraint firstItem="Yri-O5-AB5" firstAttribute="leading" secondItem="lIU-G5-ixg" secondAttribute="leading" constant="115" id="Anr-bR-RsG"/>
+                                    <constraint firstItem="Yri-O5-AB5" firstAttribute="trailing" secondItem="lIU-G5-ixg" secondAttribute="trailing" constant="-90" id="S9b-1t-XL2"/>
                                     <constraint firstItem="Yri-O5-AB5" firstAttribute="bottom" secondItem="lIU-G5-ixg" secondAttribute="bottom" id="WhO-3S-Asm"/>
                                     <constraint firstAttribute="width" secondItem="lIU-G5-ixg" secondAttribute="height" multiplier="4:4" id="dxn-UD-rbH"/>
                                     <constraint firstItem="Yri-O5-AB5" firstAttribute="top" secondItem="O92-6r-yYJ" secondAttribute="bottom" constant="50" id="f2E-al-J8f"/>
@@ -3870,25 +3871,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In Case you Need a Hand ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G00-km-d4t">
-                                <rect key="frame" x="346.5" y="100" width="331.5" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In Case You Need a Hand ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G00-km-d4t">
+                                <rect key="frame" x="345.5" y="100" width="333" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MnK-ha-juI">
                                 <rect key="frame" x="200" y="200" width="624" height="468"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="MnK-ha-juI" secondAttribute="height" multiplier="4:3" id="CXh-xt-C2U"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help guide turotial goes here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3v-7R-F8g">
-                                <rect key="frame" x="370" y="370" width="284" height="28"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <color key="textColor" red="0.2699810071" green="1" blue="0.1398365198" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -3896,9 +3891,7 @@
                             <constraint firstItem="G00-km-d4t" firstAttribute="top" secondItem="Kjq-K4-ndY" secondAttribute="top" constant="100" id="3jT-Dc-xRy"/>
                             <constraint firstItem="MnK-ha-juI" firstAttribute="leading" secondItem="Kjq-K4-ndY" secondAttribute="leading" constant="200" id="Pr1-4W-Wsz"/>
                             <constraint firstItem="G00-km-d4t" firstAttribute="centerX" secondItem="Kjq-K4-ndY" secondAttribute="centerX" id="UYV-Wq-sZM"/>
-                            <constraint firstItem="R3v-7R-F8g" firstAttribute="centerX" secondItem="Kjq-K4-ndY" secondAttribute="centerX" id="YZk-pI-VOq"/>
                             <constraint firstItem="MnK-ha-juI" firstAttribute="trailing" secondItem="Kjq-K4-ndY" secondAttribute="trailing" constant="-200" id="vma-aZ-gua"/>
-                            <constraint firstItem="R3v-7R-F8g" firstAttribute="centerY" secondItem="Kjq-K4-ndY" secondAttribute="centerY" id="voz-wD-1xl"/>
                             <constraint firstItem="MnK-ha-juI" firstAttribute="top" secondItem="G00-km-d4t" secondAttribute="bottom" constant="50" id="wfJ-K6-jJy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OaQ-D5-Ggi"/>

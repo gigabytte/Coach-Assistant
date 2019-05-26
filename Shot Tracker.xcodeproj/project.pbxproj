@@ -23,6 +23,9 @@
 		BE1F4D2E2278D96F00D8B4F3 /* customCurrentStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */; };
 		BE1F4D302278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2F2278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift */; };
 		BE1F4D322278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D312278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift */; };
+		BE3EF902229A45EF00CCBB2A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3EF901229A45EF00CCBB2A /* CloudKit.framework */; };
+		BE4047CD229AE67F009C9171 /* help_guide_iPad.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BE4047CC229AE67F009C9171 /* help_guide_iPad.pdf */; };
+		BE4047D1229AF80A009C9171 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE4047D0229AF80A009C9171 /* help_guide_iPad.gif */; };
 		BE4E8E70226CEDC20046D710 /* Settings_Legal_View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */; };
 		BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */; };
 		BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */; };
@@ -60,14 +63,12 @@
 		BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */; };
 		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
 		BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */; };
-		BEAB5EEE2289D5EC001E974C /* help_guide_iPad.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEAB5EED2289D5EC001E974C /* help_guide_iPad.pdf */; };
 		BEABCF9822975B8E0061D280 /* Coach_Assistant_Legal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */; };
 		BEB0EB9822981CB500339641 /* Current Game Stats Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0EB9722981CB500339641 /* Current Game Stats Table.swift */; };
 		BEB71900220A192B00DA6399 /* Basic_Current_Stats_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */; };
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
 		BEBB0674227214FC001DDD61 /* GIF_Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0673227214FC001DDD61 /* GIF_Processing.swift */; };
 		BEBB0676227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */; };
-		BEC391E2228CCC680004F5D1 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BEC391E1228CCC680004F5D1 /* help_guide_iPad.gif */; };
 		BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */; };
 		BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED34AE7228863B200791B95 /* GoogleService-Info.plist */; };
 		BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */; };
@@ -127,6 +128,9 @@
 		BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = customCurrentStatsCell.swift; path = ../customCurrentStatsCell.swift; sourceTree = "<group>"; };
 		BE1F4D2F2278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_Game_Stats_View_Controller.swift; sourceTree = "<group>"; };
 		BE1F4D312278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detailed_Current_Stats_View_Controller.swift; sourceTree = "<group>"; };
+		BE3EF901229A45EF00CCBB2A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		BE4047CC229AE67F009C9171 /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = help_guide_iPad.pdf; path = ../../../Documents/help_guide_iPad.pdf; sourceTree = "<group>"; };
+		BE4047D0229AF80A009C9171 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = help_guide_iPad.gif; path = ../../../Documents/help_guide_iPad.gif; sourceTree = "<group>"; };
 		BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Legal_View Controller.swift"; sourceTree = "<group>"; };
 		BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Settings Page View Controller.swift"; sourceTree = "<group>"; };
 		BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Backup View Controller.swift"; sourceTree = "<group>"; };
@@ -171,14 +175,12 @@
 		BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Team_Page.swift; sourceTree = "<group>"; };
 		BEA08C962215F05200B6D73B /* Add_Player_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Player_Page.swift; sourceTree = "<group>"; };
 		BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Goalie Selection View.swift"; sourceTree = "<group>"; };
-		BEAB5EED2289D5EC001E974C /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = help_guide_iPad.pdf; sourceTree = "<group>"; };
 		BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Coach_Assistant_Legal.pdf; path = ../../../Documents/Coach_Assistant_Legal.pdf; sourceTree = "<group>"; };
 		BEB0EB9722981CB500339641 /* Current Game Stats Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current Game Stats Table.swift"; sourceTree = "<group>"; };
 		BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basic_Current_Stats_Page.swift; sourceTree = "<group>"; };
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
 		BEBB0673227214FC001DDD61 /* GIF_Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF_Processing.swift; sourceTree = "<group>"; };
 		BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_More_Info_View_Controller.swift; sourceTree = "<group>"; };
-		BEC391E1228CCC680004F5D1 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = help_guide_iPad.gif; sourceTree = "<group>"; };
 		BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help_Guide_View_Controller.swift; sourceTree = "<group>"; };
 		BED34AE7228863B200791B95 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker_Info_Page.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3EF902229A45EF00CCBB2A /* CloudKit.framework in Frameworks */,
 				BE12DE5C228740BE0071BC17 /* Realm.framework in Frameworks */,
 				CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */,
 				BE12DE5F228740C10071BC17 /* RealmSwift.framework in Frameworks */,
@@ -232,6 +235,7 @@
 		38E61347044FA77C74753438 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE3EF901229A45EF00CCBB2A /* CloudKit.framework */,
 				BE57ACDA228756F800AD2054 /* StoreKit.framework */,
 				6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */,
 				8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */,
@@ -307,8 +311,8 @@
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
-				BEC391E1228CCC680004F5D1 /* help_guide_iPad.gif */,
-				BEAB5EED2289D5EC001E974C /* help_guide_iPad.pdf */,
+				BE4047D0229AF80A009C9171 /* help_guide_iPad.gif */,
+				BE4047CC229AE67F009C9171 /* help_guide_iPad.pdf */,
 				BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */,
 				BE0C1F9B22887242000C2177 /* IAPService.swift */,
 				BE0C1F9D22887249000C2177 /* IAPProducts.swift */,
@@ -425,6 +429,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};
@@ -465,10 +472,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEC391E2228CCC680004F5D1 /* help_guide_iPad.gif in Resources */,
+				BE4047CD229AE67F009C9171 /* help_guide_iPad.pdf in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
-				BEAB5EEE2289D5EC001E974C /* help_guide_iPad.pdf in Resources */,
 				BEABCF9822975B8E0061D280 /* Coach_Assistant_Legal.pdf in Resources */,
+				BE4047D1229AF80A009C9171 /* help_guide_iPad.gif in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
 				BE7D697D21E3D74300C1745C /* Main.storyboard in Resources */,

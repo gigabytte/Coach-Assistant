@@ -12,7 +12,8 @@ import RealmSwift
 import MessageUI
 
 final class Settings_Backup_View_Controller: UIViewController {
-
+    
+    @IBOutlet weak var icloudExportLabel: UILabel!
     @IBOutlet weak var icloudToggleSwitch: UISwitch!
     @IBOutlet weak var exportCVSButton: UIButton!
     @IBOutlet weak var importCVSButton: UIButton!
@@ -26,9 +27,7 @@ final class Settings_Backup_View_Controller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // check is icloud conatiner exsiss on user icloud account
-        // if so icloud logged in and reachable within reason
-        
-        
+        // if so icloud logged in and reachable within reaso
         
         // set visual effects on buttonin settings
         wipeDataButton.backgroundColor = .clear
@@ -46,27 +45,22 @@ final class Settings_Backup_View_Controller: UIViewController {
         
         backupUpDateCheck()
         promptMessage()
+        // check icloud exprt criteria
+        reloadView()
+        print("Back Up View Controller Called")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // check to see if user has pro and if user is logged into icloud to backup to the cloud
-         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
-            if (icloudAccountCheck().isICloudContainerAvailable() == true){
-                
-                print("User is Logged into iCLoud Account")
-                
-            }else{
-                print("User is **NOT** Logged into iCLoud Account")
-                icloudToggleSwitch.isOn = false
-            }
-         }else{
-            print("User is not PRO yet cannot use iCloud")
-            icloudToggleSwitch.isUserInteractionEnabled = false
-            icloudToggleSwitch.alpha = 0.5
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
             upgradeNowAlert()
         }
-        print("Back Up View Controller Called")
+        reloadView()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,21 +69,56 @@ final class Settings_Backup_View_Controller: UIViewController {
         print("Back Up View Controller Called")
     }
     
+    func reloadView(){
+        
+        icloudToggleSwitch.isOn = UserDefaults.standard.bool(forKey: "iCloudBackupToggle")
+        
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+            if (icloudAccountCheck().isICloudContainerAvailable() == true){
+                if (icloudToggleSwitch.isOn == true){
+                    
+                    print("User can export to iCloud")
+                    DispatchQueue.main.async {
+                        self.exportCVSButton.titleLabel?.text = "iCloud Backup"
+                        self.exportCVSButton.setNeedsDisplay()
+                    }
+                    
+                }else{
+                    print("User cannot export to iCLoud!")
+                    DispatchQueue.main.async {
+                        self.exportCVSButton.titleLabel?.text = "Backup Locally"
+                        self.exportCVSButton.setNeedsDisplay()
+                    }
+                }
+            }else{
+                print("USernot logged in icloud")
+                missingIcloudCredsAlert()
+            }
+        }else{
+            print("User is not PRO yet cannot use iCloud")
+            icloudToggleSwitch.isUserInteractionEnabled = false
+            icloudToggleSwitch.alpha = 0.5
+            icloudExportLabel.alpha = 0.5
+            
+        }
+    }
+    
     
     @IBAction func icouldToggleSwitch(_ sender: Any) {
         
-        if (icloudAccountCheck().isICloudContainerAvailable() == true && icloudToggleSwitch.isOn == true){
-            
-            icloudToggleSwitch.isOn = false
-            icloudOnAlert()
-            
-        }else if (icloudAccountCheck().isICloudContainerAvailable() == false){
-            
-            icloudToggleSwitch.isOn = false
-            missingIcloudCredsAlert()
-            
-        }else{
-            
+        if (icloudToggleSwitch.isOn == true){
+            DispatchQueue.main.async {
+                
+                self.exportCVSButton.titleLabel?.text = "iCloud Backup"
+                self.exportCVSButton.setNeedsDisplay()
+            }
+            UserDefaults.standard.set(true, forKey: "iCloudBackupToggle")
+        }else {
+            DispatchQueue.main.async {
+                self.exportCVSButton.titleLabel?.text = "Backup Locally"
+                self.exportCVSButton.setNeedsDisplay()
+            }
+             UserDefaults.standard.set(false, forKey: "iCloudBackupToggle")
         }
     }
     
@@ -101,8 +130,12 @@ final class Settings_Backup_View_Controller: UIViewController {
     // on button press perform CVS export functions
     @IBAction func exportCVSButtonAction(_ sender: UIButton) {
         // run confirmation alert
- 
-      confirmationLocalAlert()
+        if (icloudToggleSwitch.isOn == true){
+            confirmationiCloudAlert()
+            
+        }else{
+            confirmationLocalAlert()
+        }
         
     }
     // on button press perform CVS import functions
@@ -167,16 +200,11 @@ final class Settings_Backup_View_Controller: UIViewController {
             csvText.append(newLine)
         }
         
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(fileName)
-            
-            do {
-                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                print("Team CSV File URL: ", fileURL)
-            } catch {
-                print("\(error)")
-            }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentReader(fileName: fileName, csvText: csvText)
+            iCloudDocumentReader(fileName: fileName)
+        }else{
+            localDocumentReader(fileName: fileName, csvText: csvText)
         }
     }
     // creats csv file for player info table
@@ -242,16 +270,11 @@ final class Settings_Backup_View_Controller: UIViewController {
             csvText.append(newLine)
         }
         
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(fileName)
-            
-            do {
-                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                print("Player Info CSV File URL: ", fileURL)
-            } catch {
-                print("\(error)")
-            }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentReader(fileName: fileName, csvText: csvText)
+            iCloudDocumentReader(fileName: fileName)
+        }else{
+            localDocumentReader(fileName: fileName, csvText: csvText)
         }
     }
     // creats csv file for new game table
@@ -323,16 +346,11 @@ final class Settings_Backup_View_Controller: UIViewController {
             csvText.append(newLine)
         }
         
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(fileName)
-            
-            do {
-                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                print("New Game Info CSV File URL: ", fileURL)
-            } catch {
-                print("\(error)")
-            }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentReader(fileName: fileName, csvText: csvText)
+            iCloudDocumentReader(fileName: fileName)
+        }else{
+            localDocumentReader(fileName: fileName, csvText: csvText)
         }
     }
     // creats csv file for goal marker table
@@ -427,16 +445,11 @@ final class Settings_Backup_View_Controller: UIViewController {
             csvText.append(newLine)
         }
         
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(fileName)
-            
-            do {
-                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                print("Goal Marker Table CSV File URL: ", fileURL)
-            } catch {
-                print("\(error)")
-            }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentReader(fileName: fileName, csvText: csvText)
+            iCloudDocumentReader(fileName: fileName)
+        }else{
+            localDocumentReader(fileName: fileName, csvText: csvText)
         }
     }
     // creats csv file for shot marker table
@@ -495,16 +508,11 @@ final class Settings_Backup_View_Controller: UIViewController {
             csvText.append(newLine)
         }
         
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(fileName)
-            
-            do {
-                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                print("Shot Marker Table CSV File URL: ", fileURL)
-            } catch {
-                print("\(error)")
-            }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentReader(fileName: fileName, csvText: csvText)
+            iCloudDocumentReader(fileName: fileName)
+        }else{
+            localDocumentReader(fileName: fileName, csvText: csvText)
         }
     }
     
@@ -559,17 +567,11 @@ final class Settings_Backup_View_Controller: UIViewController {
             }
             csvText.append(newLine)
         }
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(fileName)
-            
-            do {
-                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                print("Penalty Table CSV File URL: ", fileURL)
-            } catch {
-                print("\(error)")
-            }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentReader(fileName: fileName, csvText: csvText)
+            iCloudDocumentReader(fileName: fileName)
+        }else{
+            localDocumentReader(fileName: fileName, csvText: csvText)
         }
     }
     
@@ -677,11 +679,56 @@ final class Settings_Backup_View_Controller: UIViewController {
         
     }
     
+    func localDocumentReader(fileName: String, csvText: String){
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(fileName)
+            
+            do {
+                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
+                //print("Penalty Table CSV File URL: ", fileURL)
+            } catch {
+                print("\(error)")
+            }
+        }
+    }
+    
+    func iCloudDocumentReader(fileName: String){
+        
+        guard let localDocumentsURL = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: .userDomainMask).last else { return }
+        
+        let fileURL = localDocumentsURL.appendingPathComponent(fileName)
+        
+        guard let iCloudDocumentsURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").appendingPathComponent(fileName) else { return }
+        
+        var isDir:ObjCBool = false
+        
+        if FileManager.default.fileExists(atPath: iCloudDocumentsURL.path, isDirectory: &isDir) {
+            do {
+                try FileManager.default.removeItem(at: iCloudDocumentsURL)
+            }
+            catch {
+                //Error handling
+                print("Error in remove item")
+            }
+        }
+        
+        do {
+            try FileManager.default.copyItem(at: fileURL, to: iCloudDocumentsURL)
+        }
+        catch {
+            //Error handling
+            print("Error in copy item")
+        }
+    }
+    
+    
     
     func confirmationLocalAlert(){
         
         // create confirmation alert to save to local storage
-        let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to you Local Storage?", preferredStyle: UIAlertController.Style.alert)
+        let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to your Local Storage?", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
         exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
@@ -703,6 +750,33 @@ final class Settings_Backup_View_Controller: UIViewController {
         // show the alert
         self.present(exportAlert, animated: true, completion: nil)
         
+    }
+    
+    func confirmationiCloudAlert(){
+    
+    // create confirmation alert to save to local storage
+        let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to your iCloud Account?", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+        exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
+        self.oldCSVFileFinder()
+        self.createCSVTeamInfo()
+        self.createCSVPlayerInfo()
+        self.createCSVNewGameInfo()
+        self.createCSVGoalMarkerTable()
+        self.createCSVShotMarkerTable()
+        self.createCSVPenaltyTable()
+        // save last know backup to user defaults
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        let dateString = formatter.string(from: currentDateTime)
+        UserDefaults.standard.set(dateString, forKey: "lastBackup")
+        self.backupUpDateCheck()
+        }))
+        // show the alert
+        self.present(exportAlert, animated: true, completion: nil)
+    
     }
     
     // delay loop

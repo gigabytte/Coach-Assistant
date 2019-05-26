@@ -20,8 +20,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // check if user is new before redirecting to pefic page
         /* MARK  Uncomment for testing
-        UserDefaults.standard.set(nil, forKey: "newUser")
-        */
+       UserDefaults.standard.set(nil, forKey: "newUser")
+       */
+        if (icloudAccountCheck().isICloudContainerAvailable() == true){
+            if let iCloudDocumentsURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") {
+                if (!FileManager.default.fileExists(atPath: iCloudDocumentsURL.path, isDirectory: nil)) {
+                    do {
+                        try FileManager.default.createDirectory(at: iCloudDocumentsURL, withIntermediateDirectories: true, attributes: nil)
+                    }
+                    catch {
+                        //Error handling
+                        print("Error in creating doc")
+                    }
+                }
+            }
+        }else{
+            print("iCloud Conatiner could not be made!")
+        }
         if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
             deleteNewGameUserDefaults.deleteUserDefaults()
           
