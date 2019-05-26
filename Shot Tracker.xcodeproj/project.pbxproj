@@ -67,7 +67,6 @@
 		BEB0EB9822981CB500339641 /* Current Game Stats Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0EB9722981CB500339641 /* Current Game Stats Table.swift */; };
 		BEB71900220A192B00DA6399 /* Basic_Current_Stats_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */; };
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
-		BEBB0674227214FC001DDD61 /* GIF_Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0673227214FC001DDD61 /* GIF_Processing.swift */; };
 		BEBB0676227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */; };
 		BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */; };
 		BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED34AE7228863B200791B95 /* GoogleService-Info.plist */; };
@@ -179,7 +178,6 @@
 		BEB0EB9722981CB500339641 /* Current Game Stats Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current Game Stats Table.swift"; sourceTree = "<group>"; };
 		BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basic_Current_Stats_Page.swift; sourceTree = "<group>"; };
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
-		BEBB0673227214FC001DDD61 /* GIF_Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIF_Processing.swift; sourceTree = "<group>"; };
 		BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_More_Info_View_Controller.swift; sourceTree = "<group>"; };
 		BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help_Guide_View_Controller.swift; sourceTree = "<group>"; };
 		BED34AE7228863B200791B95 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -317,7 +315,6 @@
 				BE0C1F9B22887242000C2177 /* IAPService.swift */,
 				BE0C1F9D22887249000C2177 /* IAPProducts.swift */,
 				BE8F88B5227747260087ED88 /* varReference.swift */,
-				BEBB0673227214FC001DDD61 /* GIF_Processing.swift */,
 				BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */,
 				BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */,
 				BE12DE61228744B80071BC17 /* customSettingCell.swift */,
@@ -633,7 +630,6 @@
 				BE669DC9226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift in Sources */,
 				BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */,
 				BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */,
-				BEBB0674227214FC001DDD61 /* GIF_Processing.swift in Sources */,
 				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
 				BE92E0212274E1AB00B95209 /* Penalty_Popup_View_Controller.swift in Sources */,

@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import SwiftyGif
 
 class Initial_Setup_More_Info_View_Controller: UIViewController {
 
     @IBOutlet weak var addTeamPlayerView: UIView!
+    
+    var error: Error!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,13 +25,15 @@ class Initial_Setup_More_Info_View_Controller: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
+    
     func gifProcessing(){
+       
+            let gif = try! UIImage(gifName: universalValue().helpGuidePDFName)
+            let imageview = UIImageView(gifImage: gif, loopCount: -1) // Use -1 for infinite loop
+            imageview.frame = CGRect(x: 5, y: 5, width: self.addTeamPlayerView.frame.size.width - 10, height: self.addTeamPlayerView.frame.size.height - 10)
+            addTeamPlayerView.addSubview(imageview)
         
-        let jeremyGif = UIImage.gifImageWithName(universalValue().helpGuidePDFName)
-        let imageView = UIImageView(image: jeremyGif)
-        imageView.layer.cornerRadius = 10
-        imageView.frame = CGRect(x: 10, y: 10, width: self.addTeamPlayerView.frame.size.width - 20, height: self.addTeamPlayerView.frame.size.height - 20)
         
-        addTeamPlayerView.addSubview(imageView)
     }
 }

@@ -69,6 +69,7 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
                 // add team as default team
                 UserDefaults.standard.set(primaryTeamID, forKey: "defaultHomeTeamID")
                 succesfulTeamAdd(teamName: teamName.text!)
+                teamName.text = ""
             }
         }else{
             proceedArrow.isHidden = false
