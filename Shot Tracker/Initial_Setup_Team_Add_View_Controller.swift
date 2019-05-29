@@ -123,6 +123,7 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
             // set var vc as destination segue
             let vc = segue.destination as! Import_Pop_Up_View
             vc.setupPhaseBool = true
+            vc.importFromIcloudBool = false
         }
     }
     

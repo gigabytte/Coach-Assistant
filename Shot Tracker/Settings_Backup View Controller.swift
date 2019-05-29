@@ -26,6 +26,7 @@ final class Settings_Backup_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // check is icloud conatiner exsiss on user icloud account
         // if so icloud logged in and reachable within reaso
         
@@ -53,14 +54,15 @@ final class Settings_Backup_View_Controller: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //reloadView()
         
     }
     override func viewDidAppear(_ animated: Bool) {
-         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
             upgradeNowAlert()
         }
         reloadView()
-        
+        print("Back Up View Controller Appeared")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -69,7 +71,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         print("Back Up View Controller Called")
     }
     
-    func reloadView(){
+    public func reloadView(){
         
         icloudToggleSwitch.isOn = UserDefaults.standard.bool(forKey: "iCloudBackupToggle")
         
@@ -78,17 +80,17 @@ final class Settings_Backup_View_Controller: UIViewController {
                 if (icloudToggleSwitch.isOn == true){
                     
                     print("User can export to iCloud")
-                    DispatchQueue.main.async {
-                        self.exportCVSButton.titleLabel?.text = "iCloud Backup"
-                        self.exportCVSButton.setNeedsDisplay()
-                    }
+                    
+                    exportCVSButton.setTitle("iCloud Backup", for: .normal)
+                    importCVSButton.setTitle("Import iCloud Backup", for: .normal)
                     
                 }else{
                     print("User cannot export to iCLoud!")
-                    DispatchQueue.main.async {
-                        self.exportCVSButton.titleLabel?.text = "Backup Locally"
-                        self.exportCVSButton.setNeedsDisplay()
-                    }
+                    
+                    exportCVSButton.setTitle("Backup Locally", for: .normal)
+                    importCVSButton.setTitle("Import Locally", for: .normal)
+                    
+                    
                 }
             }else{
                 print("USernot logged in icloud")
@@ -107,18 +109,21 @@ final class Settings_Backup_View_Controller: UIViewController {
     @IBAction func icouldToggleSwitch(_ sender: Any) {
         
         if (icloudToggleSwitch.isOn == true){
-            DispatchQueue.main.async {
-                
-                self.exportCVSButton.titleLabel?.text = "iCloud Backup"
-                self.exportCVSButton.setNeedsDisplay()
-            }
+            
+            
+            exportCVSButton.setTitle( "iCloud Backup", for: .normal)
+            importCVSButton.setTitle("Import iCloud Backup", for: .normal)
+            
+            
+            
             UserDefaults.standard.set(true, forKey: "iCloudBackupToggle")
         }else {
-            DispatchQueue.main.async {
-                self.exportCVSButton.titleLabel?.text = "Backup Locally"
-                self.exportCVSButton.setNeedsDisplay()
-            }
-             UserDefaults.standard.set(false, forKey: "iCloudBackupToggle")
+            
+            exportCVSButton.setTitle("Backup Locally", for: .normal)
+            importCVSButton.setTitle("Import Locally", for: .normal)
+            
+            
+            UserDefaults.standard.set(false, forKey: "iCloudBackupToggle")
         }
     }
     
@@ -658,12 +663,12 @@ final class Settings_Backup_View_Controller: UIViewController {
     }
     
     func missingIcloudCredsAlert(){
-    
+        
         // create the alert
         let sucessfulExportAlert = UIAlertController(title: "iCloud Error", message: "In order to backup to iCLoud you must first be logged into and or have access to an iCloud account", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         sucessfulExportAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-    
+        
         // show the alert
         self.present(sucessfulExportAlert, animated: true, completion: nil)
     }
@@ -753,30 +758,30 @@ final class Settings_Backup_View_Controller: UIViewController {
     }
     
     func confirmationiCloudAlert(){
-    
-    // create confirmation alert to save to local storage
+        
+        // create confirmation alert to save to local storage
         let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to your iCloud Account?", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
         exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
-        self.oldCSVFileFinder()
-        self.createCSVTeamInfo()
-        self.createCSVPlayerInfo()
-        self.createCSVNewGameInfo()
-        self.createCSVGoalMarkerTable()
-        self.createCSVShotMarkerTable()
-        self.createCSVPenaltyTable()
-        // save last know backup to user defaults
-        let currentDateTime = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm"
-        let dateString = formatter.string(from: currentDateTime)
-        UserDefaults.standard.set(dateString, forKey: "lastBackup")
-        self.backupUpDateCheck()
+            self.oldCSVFileFinder()
+            self.createCSVTeamInfo()
+            self.createCSVPlayerInfo()
+            self.createCSVNewGameInfo()
+            self.createCSVGoalMarkerTable()
+            self.createCSVShotMarkerTable()
+            self.createCSVPenaltyTable()
+            // save last know backup to user defaults
+            let currentDateTime = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
+            let dateString = formatter.string(from: currentDateTime)
+            UserDefaults.standard.set(dateString, forKey: "lastBackup")
+            self.backupUpDateCheck()
         }))
         // show the alert
         self.present(exportAlert, animated: true, completion: nil)
-    
+        
     }
     
     // delay loop
@@ -784,4 +789,19 @@ final class Settings_Backup_View_Controller: UIViewController {
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check is appropriate segue is being used
+        if (segue.identifier == "importPopUpSegue"){
+            // set var vc as destination segue
+            let vc = segue.destination as! Import_Pop_Up_View
+            if (icloudToggleSwitch.isOn == true){
+                vc.importFromIcloudBool = true
+            }else{
+                vc.importFromIcloudBool = false
+            }
+            
+        }
+    }
+    
 }

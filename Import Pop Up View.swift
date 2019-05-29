@@ -1,6 +1,6 @@
 //
 //  Import Pop Up View.swift
-//  
+//
 //
 //  Created by Greg Brooks on 2019-03-05.
 //
@@ -17,11 +17,14 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var importButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noFilesFoundLabel: UILabel!
     
     var fileNamesArray: [String] = [String]()
     var selectedFileNamesArray: [String] = [String]()
     var limit: String = "6"
     var setupPhaseBool: Bool!
+    var importFromIcloudBool: Bool!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,47 +43,99 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         // Apply radius to Popupview
         Popupview.layer.cornerRadius = 10
         Popupview.layer.masksToBounds = true
-        fileCollection()
+        
+        if (fileCollection().isEmpty == true){
+            print("NO items present to Import")
+            noFilesFoundLabel.isHidden = false
+            importButton.alpha = 0.5
+            importButton.isUserInteractionEnabled = false
+            
+        }else{
+            print("Items Available to Import")
+            noFilesFoundLabel.isHidden = true
+            importButton.alpha = 1.0
+            importButton.isUserInteractionEnabled = true
+            
+        }
         
     }
     
     func importFromSetup(){
         /* sets button requirments based on if user as accessed this view from
-        the setup process */
+         the setup process */
         if (setupPhaseBool == true){
             print("Segue from setup")
             importButton.setTitle("Import and Finish Setup", for: .normal)
             cancelButton.setTitle("Back to Setup", for: .normal)
         }
-         
+        
     }
     
     // get all files in file app that start with Realm_ and place in array
     func fileCollection() -> [String]{
         
-        let fileManager = FileManager.default
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        let documentsPath = documentsUrl.path
-        
-        do {
-            if let documentPath = documentsPath
-            {
-                let fileNames = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
-                let csvFileNames = fileNames.filter{$0.contains("Realm_")}
-                for fileName in csvFileNames {
-                    
-                    if (fileName.hasSuffix(".csv"))
-                    {
-                        fileNamesArray.append(fileName)
+        if (importFromIcloudBool == false){
+            let fileManager = FileManager.default
+            let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
+            let documentsPath = documentsUrl.path
+            
+            do {
+                if let documentPath = documentsPath
+                {
+                    let fileNames = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
+                    let csvFileNames = fileNames.filter{$0.contains("Realm_")}
+                    for fileName in csvFileNames {
+                        
+                        if (fileName.hasSuffix(".csv"))
+                        {
+                            fileNamesArray.append(fileName)
+                        }
                     }
                 }
+                
+            } catch {
+                print("Could not find documents: \(error)")
             }
-            
-        } catch {
-            print("Could not find documents: \(error)")
+            return(fileNamesArray)
+        }else{
+            // Browse your icloud container to find the file you want
+            if let icloudFolderURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents"),
+                let urls = try? FileManager.default.contentsOfDirectory(at: icloudFolderURL, includingPropertiesForKeys: nil, options: []) {
+                
+                for x in 0..<urls.count{
+                    // Here select the file url you are interested in (for the exemple we take the first)
+                    let myURL = urls[x]
+                    // We have our url
+                    var lastPathComponent = myURL.lastPathComponent
+                    if lastPathComponent.contains("Realm_") {
+                        // Delete the "." which is at the beginning of the file name
+                        //lastPathComponent.removeFirst()
+                        let folderPath = myURL.deletingLastPathComponent().path
+                        let downloadedFilePath = lastPathComponent.replacingOccurrences(of: ".icloud", with: "")
+                        print("hi")
+                        fileNamesArray.append(lastPathComponent)
+                        
+                    }
+                    
+                }
+                
+            }
+            print("icloud \(fileNamesArray)")
+            return(fileNamesArray)
         }
-        return(fileNamesArray)
     }
+    
+    func documentURLProducer() -> URL{
+        if (importFromIcloudBool == true){
+            
+            let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            return(documentsUrl)
+        }else{
+            let documentsUrl = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+            return(documentsUrl!)
+        }
+    }
+    
     // converts string to date format, retuns date format
     func stringToDateFormatter(stringDate: String) -> Date{
         // string to date formatter
@@ -93,9 +148,9 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     // convert csv files to string then convert [[string]] to new game table in realm
     func csvStringToRealmNewGameTable() -> Bool{
         // get document path based on search for spefic file
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentsUrl = documentURLProducer()
         let firstDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_New_Game_Info_Table.csv")!])
-        
+        print(firstDocumentPath)
         var firstFileContentsParsed: [[String]] = [[String]]()
         // get contents of specfic csv file and place into array above
         do {
@@ -110,7 +165,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                 realm.delete(realm.objects(newGameTable.self))
                 print(realm.objects(newGameTable.self))
                 for i in 1..<firstFileContentsParsed.count - 1{
-                     if(firstFileContentsParsed[i].contains{$0 != ""}){
+                    if(firstFileContentsParsed[i].contains{$0 != ""}){
                         var primaryID: Int!
                         if (self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int? != nil){
                             primaryID = (self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int? ?? 0) + 1;
@@ -162,7 +217,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     // convert csv files to string then convert [[string]] to team table in realm
     func csvStringToRealmTeamTable() -> Bool{
         // get document path based on search for spefic file
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentsUrl = documentURLProducer()
         let sectDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Team_Info_Table.csv")!])
         
         var secFileContentsParsed: [[String]] = [[String]]()
@@ -172,10 +227,10 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         } catch {
             print("Error Finding Containts of File")
         }
-    
+        
         if (secFileContentsParsed[1].count == 2){
             try? realm.write ({
-            //delete contents of table in realm DB
+                //delete contents of table in realm DB
                 realm.delete(realm.objects(teamInfoTable.self))
                 
                 for i in 1..<secFileContentsParsed.count - 1{
@@ -196,7 +251,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                             let set = CharacterSet(charactersIn: "truefalse")
                             primaryTeamID?.activeState = Bool((secFileContentsParsed[i][count]).lowercased().components(separatedBy: set.inverted).joined())!; count += 1
                         }
-                     }else{
+                    }else{
                         incorrectDataFormat(fileType: "Team Info Table")
                         break
                     }
@@ -213,7 +268,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     // convert csv files to string then convert [[string]] to player info table in realm
     func csvStringToRealmPlayerTable() -> Bool{
         // get document path based on search for spefic file
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentsUrl = documentURLProducer()
         let thirdDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Player_Info_Table.csv")!])
         
         var thirdFileContentsParsed: [[String]] = [[String]]()
@@ -230,7 +285,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                 realm.delete(realm.objects(playerInfoTable.self))
                 
                 for i in 1..<thirdFileContentsParsed.count - 1{
-                      if(thirdFileContentsParsed[i].contains{$0 != ""}){
+                    if(thirdFileContentsParsed[i].contains{$0 != ""}){
                         var primaryID: Int!
                         if (self.realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
                             primaryID = (self.realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? ?? 0) + 1;
@@ -255,7 +310,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                             let set = CharacterSet(charactersIn: "truefalse")
                             primaryPlayerID?.activeState = Bool((thirdFileContentsParsed[i][count]).lowercased().components(separatedBy: set.inverted).joined())!; count += 1
                         }
-                     }else{
+                    }else{
                         incorrectDataFormat(fileType: "Player Info Table")
                         break
                     }
@@ -272,7 +327,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     // convert csv files to string then convert [[string]] to goal Marker table in realm
     func csvStringToRealmGoalMarkerTable() -> Bool{
         // get document path based on search for spefic file
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentsUrl = documentURLProducer()
         let fourthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Goal_Marker_Table.csv")!])
         
         var fourthFileContentsParsed: [[String]] = [[String]]()
@@ -289,7 +344,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                 realm.delete(realm.objects(goalMarkersTable.self))
                 
                 for i in 1..<fourthFileContentsParsed.count - 1{
-                      if(fourthFileContentsParsed[i].contains{$0 != ""}){
+                    if(fourthFileContentsParsed[i].contains{$0 != ""}){
                         var primaryID: Int!
                         if (self.realm.objects(goalMarkersTable.self).max(ofProperty: "cordSetID") as Int? != nil){
                             primaryID = (self.realm.objects(goalMarkersTable.self).max(ofProperty: "cordSetID") as Int? ?? 0) + 1;
@@ -321,7 +376,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                             let set = CharacterSet(charactersIn: "truefalse")
                             primaryMarkerID?.activeState = Bool((fourthFileContentsParsed[i][count]).lowercased().components(separatedBy: set.inverted).joined())!; count += 1
                         }
-                     }else{
+                    }else{
                         acceptedIncorrectDataFormat(fileType: "Goal Marker Table")
                         break
                     }
@@ -338,7 +393,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     // convert csv files to string then convert [[string]] to shot Marker table in realm
     func csvStringToRealmShotlMarkerTable() -> Bool{
         // get document path based on search for spefic file
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentsUrl = documentURLProducer()
         let fifthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Shot_Marker_Table.csv")!])
         
         var fifthFileContentsParsed: [[String]] = [[String]]()
@@ -355,7 +410,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                 realm.delete(realm.objects(shotMarkerTable.self))
                 
                 for i in 1..<fifthFileContentsParsed.count - 1{
-                      if(fifthFileContentsParsed[i].contains{$0 != ""}){
+                    if(fifthFileContentsParsed[i].contains{$0 != ""}){
                         var primaryID: Int!
                         if (self.realm.objects(shotMarkerTable.self).max(ofProperty: "cordSetID") as Int? != nil){
                             primaryID = (self.realm.objects(shotMarkerTable.self).max(ofProperty: "cordSetID") as Int? ?? 0) + 1;
@@ -378,11 +433,11 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                             let set = CharacterSet(charactersIn: "truefalse")
                             primaryMarkerID?.activeState = Bool((fifthFileContentsParsed[i][count]).lowercased().components(separatedBy: set.inverted).joined())!; count += 1
                         }
-                     }else{
+                    }else{
                         acceptedIncorrectDataFormat(fileType: "Shot Marker Table")
                         break
                     }
-  
+                    
                 }
             })
             print("Shot Marker Table Success")
@@ -396,7 +451,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     // convert csv files to string then convert [[string]] to penalty table in realm
     func csvStringToRealmPenaltyTable() -> Bool{
         // get document path based on search for spefic file
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentsUrl = documentURLProducer()
         let fifthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Penalty_Table.csv")!])
         
         var sixFileContentsParsed: [[String]] = [[String]]()
@@ -507,12 +562,12 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                     "No More than \(limit) File Selctions at a Time", preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
                     print(indexPath)
-                // deselect ectra row
-                tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
-                tableView.deselectRow(at: indexPath, animated: true)
-                // remove deselected file names
+                    // deselect ectra row
+                    tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    // remove deselected file names
                     self.selectedFileNamesArray = self.selectedFileNamesArray.filter(){$0 != self.fileNamesArray[indexPath.row]}
-    
+                    
                 }))
                 self.present(alertController, animated: true, completion: nil)
                 print("More than \(limit) items were selcted!")
@@ -546,5 +601,5 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         
         return cell
     }
-
+    
 }
