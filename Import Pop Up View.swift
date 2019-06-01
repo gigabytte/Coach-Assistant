@@ -28,6 +28,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Import from icloud bool \(importFromIcloudBool)")
         importFromSetup()
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -112,7 +113,6 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         //lastPathComponent.removeFirst()
                         let folderPath = myURL.deletingLastPathComponent().path
                         let downloadedFilePath = lastPathComponent.replacingOccurrences(of: ".icloud", with: "")
-                        print("hi")
                         fileNamesArray.append(lastPathComponent)
                         
                     }
@@ -126,8 +126,8 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func documentURLProducer() -> URL{
-        if (importFromIcloudBool == true){
-            
+        if (importFromIcloudBool == false){
+            print("Parsing Local")
             let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             return(documentsUrl)
         }else{
@@ -159,7 +159,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Contents of File")
         }
         
-        if (firstFileContentsParsed[0].count == 10){
+        if (firstFileContentsParsed[0].count == 11){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(newGameTable.self))
@@ -229,7 +229,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Containts of File")
         }
         
-        if (secFileContentsParsed[1].count == 2){
+        if (secFileContentsParsed[1].count == 3){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(teamInfoTable.self))
@@ -340,7 +340,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Containts of File")
         }
         
-        if (fourthFileContentsParsed[0].count == 17){
+        if (fourthFileContentsParsed[0].count == 13){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(goalMarkersTable.self))
@@ -525,25 +525,25 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                 for i in 1..<sevenFileContentsParsed.count - 1{
                     if(sevenFileContentsParsed[i].contains{$0 != ""}){
                         var primaryID: Int!
-                        if (self.realm.objects(overallStatsTable.self).max(ofProperty: "penaltyID") as Int? != nil){
-                            primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "penaltyID") as Int? ?? 0) + 1;
+                        if (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? != nil){
+                            primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? ?? 0) + 1;
                         }else{
-                            primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "penaltyID") as Int? ?? 0);
+                            primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? ?? 0);
                         }
-                        self.realm.create(overallStatsTable.self, value: ["penaltyID": primaryID])
-                        let primaryMarkerID = self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: primaryID)
+                        self.realm.create(overallStatsTable.self, value: ["overallStatsID": primaryID])
+                        let primaryOverallID = self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: primaryID)
                         var count = 0
-                        primaryMarkerID?.gameID = Int(sevenFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.playerID = Int(sevenFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.lineNum = Int(sevenFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.goalCount = Int(sevenFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.assistCount = Int(sevenFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.plusMinus = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryOverallID?.gameID = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryOverallID?.playerID = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryOverallID?.lineNum = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryOverallID?.goalCount = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryOverallID?.assistCount = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryOverallID?.plusMinus = Int(sevenFileContentsParsed[i][count])!; count += 1
                         if (Bool(sevenFileContentsParsed[i][count]) != nil && Bool(sevenFileContentsParsed[i][count])!){
-                            primaryMarkerID?.activeState = (Bool(sevenFileContentsParsed[i][count]))!; count += 1
+                            primaryOverallID?.activeState = (Bool(sevenFileContentsParsed[i][count]))!; count += 1
                         }else{
                             let set = CharacterSet(charactersIn: "truefalse")
-                            primaryMarkerID?.activeState = Bool((sevenFileContentsParsed[i][count]).lowercased().components(separatedBy: set.inverted).joined())!; count += 1
+                            primaryOverallID?.activeState = Bool((sevenFileContentsParsed[i][count]).lowercased().components(separatedBy: set.inverted).joined())!; count += 1
                         }
                     }else{
                         acceptedIncorrectDataFormat(fileType: "Overall Stats Table")

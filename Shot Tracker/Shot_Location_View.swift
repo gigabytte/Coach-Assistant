@@ -347,6 +347,7 @@ class Shot_Location_View: UIViewController {
     @IBAction func cancelShotLocationButtton(_ sender: UIButton) {
         currentArrayIndex = 0
         animateOut()
+        dismiss(animated: true, completion: nil)
         self.performSegue(withIdentifier: "cancelShotLocationSegue", sender: nil);
     }
     

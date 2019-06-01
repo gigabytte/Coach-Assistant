@@ -215,6 +215,12 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         }
         
     }
+    @IBAction func settingButton(_ sender: UIButton) {
+        if let mvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setting_View_Controller") as? Main_Settings_Page_View_Controller {
+            self.present(mvc, animated: true, completion: nil)
+        }
+        print("Setting_View_Controller Presented!")
+    }
     // if teams or players are not avaiable top be pulled alert error appears
     func dataReturnNilAlert(){
         

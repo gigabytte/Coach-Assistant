@@ -56,6 +56,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UserDefaults.standard.set(false, forKey: "oldStatsBool")
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)

@@ -217,6 +217,9 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
             
         }
     }
+    @IBAction func cancelButton(_ sender: UIButton) {
+        self.popupPenaltyView.removeFromSuperview()
+    }
     
     @IBAction func addPenaltyButton(_ sender: UIButton) {
         
@@ -242,6 +245,7 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
                 penaltyTableID?.activeState = true
                 
             }
+        self.popupPenaltyView.removeFromSuperview()
         
     }
     //----------------------------------------------------------------------------------------------------------

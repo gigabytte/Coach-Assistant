@@ -183,17 +183,28 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     @IBAction func optionsButton(_ sender: UIBarButtonItem) {
         
         if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
-            self.performSegue(withIdentifier: "analyticalSegue", sender: nil);
+            //self.performSegue(withIdentifier: "analyticalSegue", sender: nil);
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Analytical_View_Controller") as! Current_Stats_Ananlytical_View
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
             
+            present(popupVC, animated: true, completion: nil)
+            print("Analytical_View_Controller Presented!")
         }else{
             self.performSegue(withIdentifier: "oldStatsIceView", sender: nil);
+           
         }
     }
     
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         // check is user came from old stats or a liev game to determine segue
         if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
-             self.performSegue(withIdentifier: "liveGameStatsBack", sender: nil);
+            //self.performSegue(withIdentifier: "liveGameStatsBack", sender: nil);
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
             
         }else{
             // delete user defaults then exit old game stats view
