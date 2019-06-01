@@ -10,10 +10,10 @@ import Foundation
 import RealmSwift
 import Realm
 
-class currentStatsTable: Object {
+class overallStatsTable: Object {
     
-    @objc dynamic var currentStatID: Int = 0
-    @objc dynamic var teamID: Int = 0
+    @objc dynamic var overallStatsID: Int = 0
+    @objc dynamic var gameID: Int = 0
     @objc dynamic var playerID: Int = 0
     @objc dynamic var lineNum: Int = 0
     @objc dynamic var goalCount: Int = 0
@@ -23,7 +23,7 @@ class currentStatsTable: Object {
     
     //var returnID
     override class func primaryKey() -> String {
-        return "currentStatID";
+        return "overallStatsID";
     }
     
     

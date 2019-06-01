@@ -180,24 +180,28 @@ final class Settings_Backup_View_Controller: UIViewController {
         
         let TeamIDCount =  realm.objects(teamInfoTable.self).filter("teamID >= 0").count
         var tempTeamNameArray: [String] = [String]()
+        var tempSeasonYearArray: [String] = [String]()
         var tempActiveStateArray: [String] = [String]()
         // print(TeamIDCount)
         for i in 0..<TeamIDCount{
             
             let teamNameValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.nameOfTeam;
+            let seasonYearValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.seasonYear;
             let activeStateValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.activeState;
             tempTeamNameArray.append(teamNameValue)
+            tempSeasonYearArray.append(String(seasonYearValue))
             tempActiveStateArray.append(String(activeStateValue))
         }
         
         let fileName = "Realm_Team_Info_Table" + ".csv"
-        var csvText = "nameOfTeam,activeState\n"
+        var csvText = "nameOfTeam,seasonYear,activeState\n"
         for x in 0..<tempTeamNameArray.count {
             
             let teamNameVar = tempTeamNameArray[x]
+            let seaonYearVar = tempSeasonYearArray[x]
             let activeStateVar = tempActiveStateArray[x]
             
-            let newLine = teamNameVar + "," + activeStateVar + "\n"
+            let newLine = teamNameVar + "," + seaonYearVar + "," + activeStateVar + "\n"
             if(x == tempTeamNameArray.count){
                 newLine.dropLast()
                 newLine.dropLast()
@@ -298,6 +302,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         var tempLocation: [String] = [String]()
         var tempWiningTeam: [String] = [String]()
         var tempLosingTeam: [String] = [String]()
+        var tempSeasonYear: [String] = [String]()
         var tempTieBool: [String] = [String]()
         var tempActiveGameStatus: [String] = [String]()
         var tempActiveState: [String] = [String]()
@@ -311,6 +316,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             let locationValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameLocation;
             let winingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.winingTeamID;
             let losingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.losingTeamID;
+            let seasonYearValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.seasonYear;
             let tieBoolValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.tieGameBool;
             let activeGameStatusValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeGameStatus;
             let activeStateValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeState;
@@ -322,6 +328,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             tempLocation.append(locationValue)
             tempWiningTeam.append(String(winingTeamValue))
             tempLosingTeam.append(String(losingTeamValue))
+            tempSeasonYear.append(String(seasonYearValue))
             tempTieBool.append(String(tieBoolValue))
             tempActiveGameStatus.append(String(activeGameStatusValue))
             tempActiveState.append(String(activeStateValue))
@@ -329,7 +336,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         }
         
         let fileName = "Realm_New_Game_Info_Table" + ".csv"
-        var csvText = "dateGamePlayed,opposingTeamID,homeTeamID,gameType,gameLocation,winingTeamID,losingTeamID,tieBool,activeGameStatus,activeState\n"
+        var csvText = "dateGamePlayed,opposingTeamID,homeTeamID,gameType,gameLocation,winingTeamID,losingTeamID,seasonYear,tieBool,activeGameStatus,activeState\n"
         for x in 0..<newGameIDCount {
             
             let dateGamePlayerVar = tempDateGamePlayed[x]
@@ -339,11 +346,12 @@ final class Settings_Backup_View_Controller: UIViewController {
             let locationVar = tempLocation[x]
             let winingTeamVar = tempWiningTeam[x]
             let losingTeamVar = tempLosingTeam[x]
+            let seasonYearVar = tempSeasonYear[x]
             let tieBoolVar = tempTieBool[x]
             let activeGameStatusVar = tempActiveGameStatus[x]
             let activeStateVar = tempActiveState[x]
             
-            let newLine =  dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + locationVar + "," + winingTeamVar + "," + losingTeamVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
+            let newLine =  dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + locationVar + "," + winingTeamVar + "," + losingTeamVar + "," + seasonYearVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
             if(x == newGameIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
@@ -391,10 +399,6 @@ final class Settings_Backup_View_Controller: UIViewController {
             let goalPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalPlayerID
             let assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.assitantPlayerID
             let sec_assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.sec_assitantPlayerID
-            let againstFLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.againstFLine
-            let againstDLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.againstDLine
-            let forFLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.forFLine
-            let forDLineNum = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.forDLine
             let periodNumSet = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.periodNum
             let xCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.xCordGoal
             let yCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.yCordGoal
@@ -408,10 +412,6 @@ final class Settings_Backup_View_Controller: UIViewController {
             tempgoalPlayerID.append(String(goalPlayerID))
             tempassitantPlayerID.append(String(assitantPlayerID))
             tempsec_assitantPlayerID.append(String(sec_assitantPlayerID))
-            againstFLine.append(String(againstFLineNum))
-            againstDLine.append(String(againstDLineNum))
-            forFLine.append(String(forFLineNum))
-            forDLine.append(String(forDLineNum))
             tempperiodNumSet.append(String(periodNumSet))
             tempxCordGoal.append(String(xCordGoal))
             tempyCordGoal.append(String(yCordGoal))
@@ -421,7 +421,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         }
         
         let fileName = "Realm_Goal_Marker_Table" + ".csv"
-        var csvText = "gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,againstFLine,againstDLine,forFLine,forDLine,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        var csvText = "gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<goalMarkerIDCount{
             
             let gameIDVar = tempgameID[x]
@@ -442,7 +442,8 @@ final class Settings_Backup_View_Controller: UIViewController {
             let shotLocationVar = tempshotLocation[x]
             let activeStateVar = tempactiveState[x]
             
-            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar + "," + againstFLineVar + "," + againstDLineVar + "," + forFLineVar + "," + forDLineVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
+            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar +
+                "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
             if(x == goalMarkerIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
@@ -567,6 +568,66 @@ final class Settings_Backup_View_Controller: UIViewController {
             
             let newLine =  gameIDVar + "," + playerIDVar + "," + penaltyTypeVar + "," + timeOfOffenseVar + "," + xCordVar + "," + yCordVar + "," + activeStateVar + "\n"
             if(x == shotMarkerIDCount){
+                newLine.dropLast()
+                newLine.dropLast()
+            }
+            csvText.append(newLine)
+        }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentReader(fileName: fileName, csvText: csvText)
+            iCloudDocumentReader(fileName: fileName)
+        }else{
+            localDocumentReader(fileName: fileName, csvText: csvText)
+        }
+    }
+    
+    
+    // creats csv file for Overall stats table
+    func createCSVOverallStatsTable(){
+        
+        let overallIDCount =  realm.objects(overallStatsTable.self).filter("overallStatsID >= 0").count
+        var tempGameID: [String] = [String]()
+        var tempPlayerID: [String] = [String]()
+        var tempLineNum: [String] = [String]()
+        var tempGoalCount: [String] = [String]()
+        var tempAssistCount: [String] = [String]()
+        var tempPlusMinus: [String] = [String]()
+        var tempactiveState: [String] = [String]()
+        
+        
+        for i in 0..<overallIDCount{
+            
+            let gameID = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.gameID
+            let playerID = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.playerID
+            let lineNum = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.lineNum
+            let goalCount = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.goalCount
+            let assistCount = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.assistCount
+            let plusMinus = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.plusMinus
+            let activeState = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.activeState
+            tempGameID.append(String(gameID))
+            tempPlayerID.append(String(playerID))
+            tempLineNum.append(String(lineNum))
+            tempGoalCount.append(String(goalCount))
+            tempAssistCount.append(String(assistCount))
+            tempPlusMinus.append(String(plusMinus))
+            tempactiveState.append(String(activeState))
+            
+        }
+        
+        let fileName = "Realm_Overall_Stats_Table" + ".csv"
+        var csvText = "gameID,playerID,lineNum,goalCount,assistCount,plusMinus,activeState\n"
+        for x in 0..<overallIDCount{
+            
+            let gameIDVar = tempGameID[x]
+            let playerIDVar = tempPlayerID[x]
+            let lineNumVar = tempLineNum[x]
+            let goalCountVar = tempGoalCount[x]
+            let assistCountVar = tempAssistCount[x]
+            let plusMinusVar = tempPlusMinus[x]
+            let activeStateVar = tempactiveState[x]
+            
+            let newLine =  gameIDVar + "," + playerIDVar + "," + lineNumVar + "," + goalCountVar + "," + assistCountVar + "," + plusMinusVar + "," + activeStateVar + "\n"
+            if(x == overallIDCount){
                 newLine.dropLast()
                 newLine.dropLast()
             }
@@ -744,6 +805,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             self.createCSVGoalMarkerTable()
             self.createCSVShotMarkerTable()
             self.createCSVPenaltyTable()
+            self.createCSVOverallStatsTable()
             // save last know backup to user defaults
             let currentDateTime = Date()
             let formatter = DateFormatter()
@@ -771,6 +833,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             self.createCSVGoalMarkerTable()
             self.createCSVShotMarkerTable()
             self.createCSVPenaltyTable()
+            self.createCSVOverallStatsTable()
             // save last know backup to user defaults
             let currentDateTime = Date()
             let formatter = DateFormatter()

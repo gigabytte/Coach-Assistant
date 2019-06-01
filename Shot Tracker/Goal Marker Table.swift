@@ -14,7 +14,6 @@ class goalMarkersTable: Object {
     
     @objc dynamic var cordSetID: Int = 0
     @objc dynamic var gameID: Int = 0
-    
     @objc dynamic var  goalType: String = ""
     @objc dynamic var  powerPlay: Bool = false
     @objc dynamic var  TeamID: Int = 0
@@ -22,10 +21,6 @@ class goalMarkersTable: Object {
     @objc dynamic var  goalPlayerID: Int = 0
     @objc dynamic var  assitantPlayerID: Int = 0
     @objc dynamic var  sec_assitantPlayerID: Int = 0
-    @objc dynamic var  againstFLine: Int = 0
-    @objc dynamic var  againstDLine: Int = 0
-    @objc dynamic var  forFLine: Int = 0
-    @objc dynamic var  forDLine: Int = 0
     @objc dynamic var  periodNum: Int = 0
     @objc dynamic var  xCordGoal: Int = 0
     @objc dynamic var  yCordGoal: Int = 0
