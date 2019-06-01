@@ -258,11 +258,14 @@ class Current_Stats_Ananlytical_View: UIViewController {
     @IBAction func closeButton(_ sender: UIButton) {
         
         if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
-            
-            self.performSegue(withIdentifier: "cancelCurrentSats", sender: nil);
+            //self.popUpView.removeFromSuperview()
+            dismiss(animated: true, completion: nil)
+            //self.performSegue(withIdentifier: "cancelCurrentSats", sender: nil);
         }else{
-            
+            //self.popUpView.removeFromSuperview()
+            //dismiss(animated: true, completion: nil)
             self.performSegue(withIdentifier: "cancelOldStats", sender: nil);
+            
         }
         
     }

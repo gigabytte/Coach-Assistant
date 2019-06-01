@@ -48,7 +48,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     var periodNumSelected: Int = UserDefaults.standard.integer(forKey: "periodNumber")
     var tempGoalieSelectedID: Int!
     var fixedGoalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
-    var currentGameID: Int = UserDefaults.standard.integer(forKey: "gameID")
+    var currentGameID: Int!
     
     var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
     var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
@@ -67,7 +67,9 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-         
+        UserDefaults.standard.set((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?), forKey: "gameID")
+        currentGameID =  UserDefaults.standard.integer(forKey: "gameID")
+        
         newGameDetection()
         teamNameInitialize()
         navBarProcessing()
@@ -374,6 +376,11 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         
     }
     
+    @IBAction func gameStatsButton(_ sender: UIBarButtonItem) {
+        if let mvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "gameStatsVC") as? Main_Game_Stats_View_Controller {
+            self.present(mvc, animated: true, completion: nil)
+        }
+    }
     // action when clicking done button
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
         // Create you actionsheet - preferredStyle: .actionSheet

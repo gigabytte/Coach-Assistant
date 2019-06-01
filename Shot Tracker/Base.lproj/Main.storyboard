@@ -402,7 +402,7 @@
         <!--Old Game Ice View-->
         <scene sceneID="wEi-Ht-ZW2">
             <objects>
-                <viewController id="zHg-Yo-d0f" customClass="Old_Game_Ice_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Old_Stats_Ice_View_Controller" storyboardIdentifier="Old_Stats_Ice_View_Controller" id="zHg-Yo-d0f" customClass="Old_Game_Ice_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L10-OJ-NML">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -771,7 +771,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="gear"/>
                                 <connections>
-                                    <segue destination="BYV-5S-q4x" kind="presentation" id="RuC-Pi-VMU"/>
+                                    <action selector="settingButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pdg-5R-JQI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQZ-W1-2q7">
@@ -1561,7 +1561,7 @@
         <!--Main Settings Page View Controller-->
         <scene sceneID="wEP-oY-DDc">
             <objects>
-                <viewController id="BYV-5S-q4x" customClass="Main_Settings_Page_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Setting_View_Controller" storyboardIdentifier="Setting_View_Controller" id="BYV-5S-q4x" customClass="Main_Settings_Page_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fPg-bQ-rN6">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1576,7 +1576,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="3xM-DK-kiD">
                                             <color key="tintColor" red="0.19131854179999999" green="0.43933993580000003" blue="0.61570847029999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" id="Big-e3-Hx4"/>
+                                                <action selector="backButton:" destination="BYV-5S-q4x" id="04P-xj-qIh"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1644,6 +1644,7 @@
                     <connections>
                         <outlet property="containerView" destination="CTe-wJ-khw" id="Wwf-6M-mWd"/>
                         <outlet property="tableView" destination="b3C-zm-Z6d" id="Ivd-rI-nvs"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="backButtonSettings" id="HdW-UQ-Yng"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qZe-KT-7VT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2673,8 +2674,7 @@
                                         <barButtonItem key="rightBarButtonItem" title="Game Stats" id="DMz-Mm-1ca">
                                             <color key="tintColor" red="0.0049068285150000003" green="0.4474061728" blue="0.63255959750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <action selector="gameStatsButton:" destination="n6v-6v-um8" id="86y-0o-CgW"/>
-                                                <segue destination="YiU-MJ-9Xs" kind="presentation" identifier="gameStatsSegue" id="7ww-g9-iUT"/>
+                                                <action selector="gameStatsButton:" destination="n6v-6v-um8" id="H3c-rZ-vLC"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -3271,7 +3271,7 @@
         <!--Current Stats Ananlytical View-->
         <scene sceneID="aLZ-9B-EiJ">
             <objects>
-                <viewController id="H6E-KX-Ner" customClass="Current_Stats_Ananlytical_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Analytical_View_Controller" storyboardIdentifier="Analytical_View_Controller" id="H6E-KX-Ner" customClass="Current_Stats_Ananlytical_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zVy-Sy-AmM">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3465,6 +3465,7 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
+                                            <action selector="cancelButton:" destination="msY-p6-04Y" eventType="touchUpInside" id="WdI-6J-MCs"/>
                                             <segue destination="n6v-6v-um8" kind="presentation" identifier="cancelPenaltyPopup" id="xuE-4F-QZp"/>
                                         </connections>
                                     </button>
@@ -3582,7 +3583,7 @@
         <!--Main Game Stats View Controller-->
         <scene sceneID="8zs-HM-eh5">
             <objects>
-                <viewController id="YiU-MJ-9Xs" customClass="Main_Game_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="gameStatsVC" storyboardIdentifier="gameStatsVC" id="YiU-MJ-9Xs" customClass="Main_Game_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RQL-cI-ugr">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4191,7 +4192,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="about_icon" width="1200" height="1200"/>
+        <image name="about_icon" width="50" height="50"/>
         <image name="blank_goalie" width="897" height="535"/>
         <image name="coach_assitant_full_trans" width="250" height="167.5"/>
         <image name="coach_assitant_icon" width="76" height="76"/>
@@ -4201,19 +4202,19 @@
         <image name="ice" width="1300" height="975"/>
         <image name="ice_rink_image" width="1008" height="526"/>
         <image name="left_scroll_arrow" width="128" height="128"/>
-        <image name="premium_image" width="285" height="123"/>
+        <image name="premium_image" width="65" height="28"/>
         <image name="right_scroll_arrow" width="128" height="128"/>
         <image name="welcomearrow" width="218" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XF8-mz-HSq"/>
+        <segue reference="mFh-IL-lrN"/>
         <segue reference="pOz-SY-0TH"/>
-        <segue reference="Dru-ha-s6H"/>
-        <segue reference="jMX-vY-t9s"/>
-        <segue reference="qRB-fp-XSG"/>
+        <segue reference="3Is-IF-SeE"/>
+        <segue reference="YVz-TT-Imk"/>
+        <segue reference="RLO-IA-6Z6"/>
         <segue reference="CQV-MR-jeA"/>
-        <segue reference="3tR-ZW-gYG"/>
-        <segue reference="Big-e3-Hx4"/>
-        <segue reference="w5X-2C-weP"/>
+        <segue reference="nhd-cM-urx"/>
+        <segue reference="HdW-UQ-Yng"/>
+        <segue reference="B9O-nl-JB9"/>
     </inferredMetricsTieBreakers>
 </document>

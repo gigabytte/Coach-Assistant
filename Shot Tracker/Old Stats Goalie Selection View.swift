@@ -188,6 +188,7 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
     
     @IBAction func continueButton(_ sender: Any) {
         UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
+        self.popUpView.removeFromSuperview()
         self.performSegue(withIdentifier: "closeGoalieSelection", sender: nil);
     }
     // on animateIn display popUpview over top of New Game View

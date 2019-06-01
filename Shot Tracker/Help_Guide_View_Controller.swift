@@ -57,7 +57,7 @@ class Help_Guide_View_Controller: UIViewController {
     }
     
     @IBAction func closeButton(_ sender: UIButton) {
-        
+        pdfView.willRemoveSubview(pdfView)
         dismiss(animated: true, completion: nil)
         
     }

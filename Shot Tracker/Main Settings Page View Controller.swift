@@ -19,7 +19,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     
     // Data model: These strings will be the data for the table view cells
     let settingsName: [String] = ["Backup", "Defaults", "Subscriptions", "Legal", "About"]
-    let imageNames: [String] = ["backup.PNG", "defaults.PNG", "sub_icon", "legal_icon", "about_icon"]
+    lazy var imageNames: [String] = ["backup.PNG", "defaults.PNG", "sub_icon", "legal_icon", "about_icon"]
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -108,6 +108,14 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         setupView()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        imageNames = []
+        remove(asChildViewController: defaultsViewController)
+        remove(asChildViewController: aboutViewController)
+        remove(asChildViewController: legalViewController)
+        remove(asChildViewController: subscriptionsViewController)
+        remove(asChildViewController: backupViewController)
+    }
     // We are willing to become first responder to get shake motion
     override var canBecomeFirstResponder: Bool {
         get {
@@ -136,6 +144,10 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     
     // MARK: - View Methods
     
+    @IBAction func backButton(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        
+    }
     private func setupView() {
         updateView()
     }
