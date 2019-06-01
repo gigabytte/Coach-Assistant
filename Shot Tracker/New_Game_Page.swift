@@ -48,6 +48,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     var periodNumSelected: Int = UserDefaults.standard.integer(forKey: "periodNumber")
     var tempGoalieSelectedID: Int!
     var fixedGoalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
+    var currentGameID: Int = UserDefaults.standard.integer(forKey: "gameID")
     
     var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
     var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
@@ -66,9 +67,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        
-        UserDefaults.standard.set(false, forKey: "userPurchaseConf")
-        
+         
         newGameDetection()
         teamNameInitialize()
         navBarProcessing()
@@ -415,21 +414,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                     
                     
                 }
-                // update player info tabke based on stata from currrent stats table
-                let listOfPlayerID = (self.realm.objects(currentStatsTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-                
-                for i in 0..<listOfPlayerID.count{
-                    let playerObjc = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: listOfPlayerID[i]);
-                    let goalQuery = (self.realm.object(ofType: currentStatsTable.self, forPrimaryKey: listOfPlayerID[i]))?.goalCount
-                    let plusMinus = (self.realm.object(ofType: currentStatsTable.self, forPrimaryKey: listOfPlayerID[i]))?.plusMinus
-                    let assistCount = (self.realm.object(ofType: currentStatsTable.self, forPrimaryKey: listOfPlayerID[i]))?.plusMinus
-                    
-                    playerObjc?.goalCount += goalQuery!
-                    playerObjc?.plusMinus += plusMinus!
-                    playerObjc?.assitsCount += assistCount!
-                }
-                //delete contents currentStatsTable of DB
-                self.realm.delete(self.realm.objects(currentStatsTable.self))
+
               
             }
             // delete all user defaults generated from newgame

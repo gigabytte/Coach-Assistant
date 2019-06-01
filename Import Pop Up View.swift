@@ -21,7 +21,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     
     var fileNamesArray: [String] = [String]()
     var selectedFileNamesArray: [String] = [String]()
-    var limit: String = "6"
+    var limit: String = "7"
     var setupPhaseBool: Bool!
     var importFromIcloudBool: Bool!
     
@@ -182,6 +182,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         primaryGameID?.gameLocation = firstFileContentsParsed[i][count]; count += 1
                         primaryGameID?.winingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
                         primaryGameID?.losingTeamID = Int(firstFileContentsParsed[i][count])!; count += 1
+                        primaryGameID?.seasonYear = Int(firstFileContentsParsed[i][count])!; count += 1
                         if (Bool(firstFileContentsParsed[i][count]) != nil && Bool(firstFileContentsParsed[i][count])!){
                             primaryGameID?.tieGameBool = (Bool(firstFileContentsParsed[i][count]))!; count += 1
                         }else{
@@ -245,6 +246,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         let primaryTeamID = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: primaryID)
                         var count = 0
                         primaryTeamID?.nameOfTeam = secFileContentsParsed[i][count]; count += 1
+                        primaryTeamID?.seasonYear = Int(secFileContentsParsed[i][count])!; count += 1
                         if (Bool(secFileContentsParsed[i][count]) != nil && Bool(secFileContentsParsed[i][count])!){
                             primaryTeamID?.activeState = (Bool(secFileContentsParsed[i][count]))!; count += 1
                         }else{
@@ -362,10 +364,6 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         primaryMarkerID?.goalPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.assitantPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.sec_assitantPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.againstFLine = Int(fourthFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.againstDLine = Int(fourthFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.forFLine = Int(fourthFileContentsParsed[i][count])!; count += 1
-                        primaryMarkerID?.forDLine = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.periodNum = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.xCordGoal = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.yCordGoal = Int(fourthFileContentsParsed[i][count])!; count += 1
@@ -452,12 +450,12 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     func csvStringToRealmPenaltyTable() -> Bool{
         // get document path based on search for spefic file
         let documentsUrl = documentURLProducer()
-        let fifthDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Penalty_Table.csv")!])
+        let sixDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Penalty_Table.csv")!])
         
         var sixFileContentsParsed: [[String]] = [[String]]()
         // get contents of specfic csv file and place into array above
         do {
-            sixFileContentsParsed =  (try String(contentsOf: fifthDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+            sixFileContentsParsed =  (try String(contentsOf: sixDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
         } catch {
             print("Error Finding Containts of File")
         }
@@ -505,6 +503,63 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    // convert csv files to string then convert [[string]] to penalty table in realm
+    func csvStringToRealmOverallStatsTable() -> Bool{
+        // get document path based on search for spefic file
+        let documentsUrl = documentURLProducer()
+        let sevenDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_Overall_Stats_Table.csv")!])
+        
+        var sevenFileContentsParsed: [[String]] = [[String]]()
+        // get contents of specfic csv file and place into array above
+        do {
+            sevenFileContentsParsed =  (try String(contentsOf: sevenDocumentPath, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Containts of File")
+        }
+        
+        if (sevenFileContentsParsed[0].count == 7){
+            try? realm.write ({
+                //delete contents of table in realm DB
+                realm.delete(realm.objects(overallStatsTable.self))
+                
+                for i in 1..<sevenFileContentsParsed.count - 1{
+                    if(sevenFileContentsParsed[i].contains{$0 != ""}){
+                        var primaryID: Int!
+                        if (self.realm.objects(overallStatsTable.self).max(ofProperty: "penaltyID") as Int? != nil){
+                            primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "penaltyID") as Int? ?? 0) + 1;
+                        }else{
+                            primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "penaltyID") as Int? ?? 0);
+                        }
+                        self.realm.create(overallStatsTable.self, value: ["penaltyID": primaryID])
+                        let primaryMarkerID = self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: primaryID)
+                        var count = 0
+                        primaryMarkerID?.gameID = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.playerID = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.lineNum = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.goalCount = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.assistCount = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.plusMinus = Int(sevenFileContentsParsed[i][count])!; count += 1
+                        if (Bool(sevenFileContentsParsed[i][count]) != nil && Bool(sevenFileContentsParsed[i][count])!){
+                            primaryMarkerID?.activeState = (Bool(sevenFileContentsParsed[i][count]))!; count += 1
+                        }else{
+                            let set = CharacterSet(charactersIn: "truefalse")
+                            primaryMarkerID?.activeState = Bool((sevenFileContentsParsed[i][count]).lowercased().components(separatedBy: set.inverted).joined())!; count += 1
+                        }
+                    }else{
+                        acceptedIncorrectDataFormat(fileType: "Overall Stats Table")
+                        break
+                    }
+                    
+                }
+            })
+            print("Overall Stats Table Success")
+            return(true)
+        }else{
+            incorrectDataFormat(fileType: "Overall Stats Table")
+            return(false)
+        }
+    }
+    
     
     func incorrectDataFormat(fileType: String) -> Bool{
         
@@ -538,10 +593,10 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func importButton(_ sender: Any) {
         
-        if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && setupPhaseBool != true){
+        if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && csvStringToRealmPenaltyTable() != false && csvStringToRealmOverallStatsTable() != false && setupPhaseBool != true){
             print("Import Success")
             self.performSegue(withIdentifier: "importButtonSegue", sender: nil);
-        }else if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && setupPhaseBool == true){
+        }else if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && csvStringToRealmPenaltyTable() != false && csvStringToRealmOverallStatsTable() != false && setupPhaseBool == true){
             self.performSegue(withIdentifier: "fromImportFInish", sender: nil);
         }
     }

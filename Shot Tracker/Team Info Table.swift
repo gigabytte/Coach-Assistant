@@ -14,6 +14,7 @@ class teamInfoTable: Object {
     
     @objc dynamic var teamID: Int = 0
     @objc dynamic var nameOfTeam: String = ""
+    @objc dynamic var seasonYear: Int = 0
     @objc dynamic var activeState: Bool = true
     
     override class func primaryKey() -> String {

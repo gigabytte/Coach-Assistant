@@ -129,18 +129,17 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             
             //-------------------- goal count -----------------------
             // get number fos goals from player based oin looping player id
-            let nextPlayerCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], homeTeamID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
+            let nextPlayerCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).count
             // if number of goals is not 0 aka the player scorerd atleast once
             // ass goals to player stats if not set as zero
             homePlayerStatsArray[x].append("Goals: \(nextPlayerCount)")
             // ------------------ assits count -----------------------------
             // get number of assist from player based on looping player id
-            let nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], homeTeamID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
-            let sec_nextPlayerAssitCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "assitantPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], homeTeamID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})).count
+            let nextPlayerAssitCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "assitsCount") as! [Int]).compactMap({Int($0)})).first
             // if number of assits is not 0 aka the player did not get assist atleast once
             //  set assist num to 0
-            if (nextPlayerAssitCount != 0 || sec_nextPlayerAssitCount != 0){
-                homePlayerStatsArray[x].append("Assits: \(String(nextPlayerAssitCount + sec_nextPlayerAssitCount))")
+            if (nextPlayerAssitCount != 0){
+                homePlayerStatsArray[x].append("Assits: \(String(nextPlayerAssitCount!))")
             }else{
                 homePlayerStatsArray[x].append("Assits: 0")
             }
@@ -151,6 +150,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             // ------------------ player's line minus count -----------------------------
             // add all plus/minus from all member of the current player ids line for the overall line plus minus
             let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
+            
             let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum[0], String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             var totalPlusMinus: Int = 0
             for i in 0..<allPlayersOnLine.count{
