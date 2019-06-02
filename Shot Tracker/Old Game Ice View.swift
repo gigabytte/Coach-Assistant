@@ -12,7 +12,9 @@ import RealmSwift
 import GoogleMobileAds
 
 class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelegate {
-
+    
+    @IBAction func unwindToOldStatsIce(segue: UIStoryboardSegue) {}
+    
     let realm = try! Realm()
     
     let homeTeamGoalMakerImage = UIImage(named: "home_team_goal.png");
@@ -36,10 +38,10 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     var goalMarkerimageView: UIImageView!
     var penaltyMarkerimageView: UIImageView!
     
-    var SeletedGame: Int = UserDefaults.standard.integer(forKey: "gameID")
-    var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
-    var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
-    var goalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
+    var SeletedGame: Int!
+    var homeTeam: Int!
+    var awayTeam: Int!
+    var goalieID:Int!
     var tagCounter: Int = 1
     
     override func viewDidLoad() {
@@ -48,14 +50,58 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         
         if (isKeyPresentInUserDefaults(key: "selectedGoalieID") != true){
             delay(0.5){
-                self.performSegue(withIdentifier: "goalieSelectionPopUp", sender: nil);
+                self.performSegue(withIdentifier: "goalieSelectionPopUp", sender: self)
             }
         }
+        // load data needed to display ice results on load
+        //onLoad()
+    }
+
+    // We are willing to become first responder to get shake motion
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        delay(0.5){
+            self.onLoad()
+        }
+    }
+    
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            /* let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+             self.present(newViewController, animated: true, completion: nil)*/
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+            
+            present(popupVC, animated: true, completion: nil)
+            print("Help Guide Presented!")
+        }
+    }
+    
+    func onLoad(){
+        
+        SeletedGame = UserDefaults.standard.integer(forKey: "gameID")
+        homeTeam = UserDefaults.standard.integer(forKey: "homeTeam")
+        awayTeam = UserDefaults.standard.integer(forKey: "awayTeam")
+        goalieID = UserDefaults.standard.integer(forKey: "selectedGoalieID")
+        
+        print("home \(homeTeam) \(awayTeam)")
         
         teamNameInitialize()
         teamIDProcessing()
         navBarProcessing()
-
+        
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
             
             if (realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last == nil){
@@ -83,11 +129,9 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         }else{
             print("Score and Shot Count Ran Failed at newGameTable gameID")
         }
-        // refrence to below functionns for loading first pv initial VC load
+        
         self.teamIDProcessing()
-        self.shot_markerProcessing()
-        self.goal_markerProcessing()
-        self.peanlty_markerProcessing()
+        
         self.home_markerPlacement(markerType: self.homeTeamShotMakerImage!)
         self.home_markerPlacement(markerType: self.homeTeamGoalMakerImage!)
         self.home_markerPlacement(markerType: self.homeTeamPenaltyMarkerImage!)
@@ -102,35 +146,9 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         
         let longLogoGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapLogo(_:)))
         coachAssitantLogoBtn.addGestureRecognizer(longLogoGesture)
-        print("golaie ID \(UserDefaults.standard.integer(forKey: "selectedGoalieID"))")
         
         bannerViewInitialize()
-    }
-    
-    // We are willing to become first responder to get shake motion
-    override var canBecomeFirstResponder: Bool {
-        get {
-            return true
-        }
-    }
-    
-    // Enable detection of shake motion
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            /* let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
-             self.present(newViewController, animated: true, completion: nil)*/
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
-            popupVC.modalPresentationStyle = .overCurrentContext
-            popupVC.modalTransitionStyle = .crossDissolve
-            let pVC = popupVC.popoverPresentationController
-            pVC?.permittedArrowDirections = .any
-            pVC?.delegate = self
-            
-            present(popupVC, animated: true, completion: nil)
-            print("Help Guide Presented!")
-        }
+        
     }
     
     func bannerViewInitialize(){
@@ -147,10 +165,14 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         }
     }
     
+    @IBAction func statsViewButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "Old_Stats_Main_Stats", sender: nil);
+        
+    }
     @IBAction func backbutton(_ sender: UIBarButtonItem) {
         // delete user defaults then exit old game stats view
         deleteNewGameUserDefaults.deleteUserDefaults()
-        self.performSegue(withIdentifier: "backToOldStatsSegue", sender: nil);
+        self.performSegue(withIdentifier: "Back_To_Old_Stats_Ice", sender: nil);
     }
     
     @objc func normalTapLogo(_ sender: UIGestureRecognizer){
@@ -161,7 +183,17 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     @objc func longTapLogo(_ sender: UIGestureRecognizer){
         // segue to ananlytics page on long press
         if sender.state == .began {
-            self.performSegue(withIdentifier: "oldStatsAnalyticsPopUp", sender: nil);
+            //self.performSegue(withIdentifier: "oldStatsAnalyticsPopUp", sender: nil);
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Analytical_View_Controller") as! Current_Stats_Ananlytical_View
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+            
+            present(popupVC, animated: true, completion: nil)
+            print("Analytical_View_Controller Presented!")
             
         }
     }
@@ -223,12 +255,11 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
 
     func shot_markerProcessing() -> (home_xCordsForPlacementShot: [String], home_yCordsForPlacementShot: [String], away_xCordsForPlacementShot: [String], away_yCordsForPlacementShot: [String]){
         
-        let newGameFilter = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.gameID)
-        
-        let home_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
-        let home_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
-        let away_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND TeamID == %i", newGameFilter!, UserDefaults.standard.integer(forKey: "selectedGoalieID"), awayTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
-        let away_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND TeamID == %i", newGameFilter!, UserDefaults.standard.integer(forKey: "selectedGoalieID"), awayTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
+
+        let home_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", SeletedGame, homeTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
+        let home_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", SeletedGame, homeTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
+        let away_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND TeamID == %i", SeletedGame, UserDefaults.standard.integer(forKey: "selectedGoalieID"), awayTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
+        let away_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND TeamID == %i", SeletedGame, UserDefaults.standard.integer(forKey: "selectedGoalieID"), awayTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
         
         let home_xCordsForPlacementShot = home_xCordsArray
         let home_yCordsForPlacementShot = home_yCordsArray
@@ -442,7 +473,9 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     func away_markerPlacement(markerType: UIImage){
         if (shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false || goal_markerProcessing().away_xCordsForPlacementGoal.isEmpty == false || peanlty_markerProcessing().away_xCordsForPlacementPenalty.isEmpty == false){
             // check markerType image value
+            print("away shot")
             if(markerType == awayTeamShotMarkerImage) {
+                
                 for i in 0..<shot_markerProcessing().away_xCordsForPlacementShot.count{
                     let imageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().away_xCordsForPlacementShot[i])! - universalValue().markerCenterX, y: Int(shot_markerProcessing().away_yCordsForPlacementShot[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
@@ -503,10 +536,9 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     func teamNameInitialize(){
         
         // query realm for team naames based on newest game
-        let newHomeGameFilter = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.homeTeamID)
-        let newAwayGameFilter = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.opposingTeamID)
-        let homeTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: newHomeGameFilter);
-        let awayTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: newAwayGameFilter);
+        
+        let homeTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam!);
+        let awayTeamNameString = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam!);
         // align text in text field as well assign text value to text field to team name
         homeTeamNameLabel.text = homeTeamNameString?.nameOfTeam
         homeTeamNameLabel.textAlignment = .center

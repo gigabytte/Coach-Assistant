@@ -158,8 +158,9 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
             }, completion: nil)
             print("Back Button is Now Animating")
         }else{
-             print("Old Stats Button was Pressed")
+            
             self.performSegue(withIdentifier: "oldStatsSegue", sender: nil);
+           
         }
     }
         
@@ -168,9 +169,12 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         let buttonTitle = sender.title(for: .normal)
         if  buttonTitle == "Continue"{
-            self.performSegue(withIdentifier: "overallPlayerStatsSegue", sender: nil);
-        }else{
+           
+            UserDefaults.standard.set(selectedTeamID, forKey: "overallStatsTeamID")
+             self.performSegue(withIdentifier: "overallPlayerStatsSegue", sender: nil);
             
+        }else{
+            dismiss(animated: true, completion: nil)
             self.performSegue(withIdentifier: "backToMainVC", sender: nil);
         }
         

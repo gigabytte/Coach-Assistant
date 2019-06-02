@@ -264,8 +264,8 @@ class Current_Stats_Ananlytical_View: UIViewController {
         }else{
             //self.popUpView.removeFromSuperview()
             //dismiss(animated: true, completion: nil)
-            self.performSegue(withIdentifier: "cancelOldStats", sender: nil);
-            
+            //self.performSegue(withIdentifier: "Back_To_Old_Stats_Analytical", sender: nil);
+            dismiss(animated: true, completion: nil)
         }
         
     }

@@ -145,7 +145,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     // MARK: - View Methods
     
     @IBAction func backButton(_ sender: Any) {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "Back_Home_Settings", sender: nil);
         
     }
     private func setupView() {

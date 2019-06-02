@@ -15,7 +15,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     @IBOutlet weak var oldStatsButton: UIButton!
     @IBOutlet weak var addTeamPlayerButton: UIButton!
     @IBOutlet weak var editTeamPlayerButton: UIButton!
-    
+    @IBAction func unwindToViewControllerA(segue: UIStoryboardSegue) {}
     
     let realm = try! Realm()
     // active status bool used to check if a game is ongoing
@@ -73,9 +73,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     // Enable detection of shake motion
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-           /* let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let newViewController = storyBoard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
-            self.present(newViewController, animated: true, completion: nil)*/
+           
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
             popupVC.modalPresentationStyle = .overCurrentContext
@@ -146,7 +144,10 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     }
     @IBAction func editTeamButton(_ sender: UIButton) {
         if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
-            self.performSegue(withIdentifier: "editTeamPlayerSegue", sender: nil);
+            
+            if let mvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Edit_Team_Player_View_Controller") as? Edit_Team_Info_Page {
+                self.present(mvc, animated: true, completion: nil)
+            }
             
         }else{
             // if teams or players are not avaiable top be pulled alert error appears
@@ -208,7 +209,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     @IBAction func oldStatsButton(_ sender: UIButton) {
         if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
             self.performSegue(withIdentifier: "oldStatsPopUpSegue", sender: nil);
-            
+           
         }else{
             // if teams or players are not avaiable top be pulled alert error appears
             dataReturnNilAlert()
@@ -216,9 +217,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         
     }
     @IBAction func settingButton(_ sender: UIButton) {
-        if let mvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setting_View_Controller") as? Main_Settings_Page_View_Controller {
-            self.present(mvc, animated: true, completion: nil)
-        }
+        self.performSegue(withIdentifier: "Home_To_Settings", sender: nil);
         print("Setting_View_Controller Presented!")
     }
     // if teams or players are not avaiable top be pulled alert error appears

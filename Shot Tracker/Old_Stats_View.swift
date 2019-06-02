@@ -11,6 +11,8 @@ import RealmSwift
 
 class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate{
     
+    @IBAction func unwindToOldSats(segue: UIStoryboardSegue) {}
+    
     let realm = try! Realm()
     //Create variable to hold Gamelist to pick from
     // Data model: These strings will be the data for the table view cells
@@ -69,6 +71,12 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
+        //presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "Back_To_Home", sender: self)
+    }
+    
+    
     func newGameDataProcessing() {
         
         
@@ -123,6 +131,7 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         UserDefaults.standard.set(Int(awayTeamID[indexPath.row]), forKey: "awayTeam")
         UserDefaults.standard.set(true, forKey: "oldStatsBool")
         self.performSegue(withIdentifier: "segueToOldSatsGameView", sender: nil);
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - Navigation

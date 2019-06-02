@@ -139,6 +139,10 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
+        
+         dismiss(animated: true, completion: nil)
+    }
     
     // if keyboard is out push whole view up half the height of the keyboard
     @objc func keyboardWillShow(notification: NSNotification) {

@@ -13,7 +13,7 @@
         <!--Edit Team Info Page-->
         <scene sceneID="GkS-kB-DfB">
             <objects>
-                <viewController id="Dy4-TQ-ADn" customClass="Edit_Team_Info_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Edit_Team_Player_View_Controller" storyboardIdentifier="Edit_Team_Player_View_Controller" id="Dy4-TQ-ADn" customClass="Edit_Team_Info_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aTa-a5-pRA">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,7 +39,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="SK2-RK-sVf">
                                             <color key="tintColor" red="0.0049068285150000003" green="0.4474061728" blue="0.63255959750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="backTeamEditSegue" id="Ggy-8a-rEU"/>
+                                                <action selector="backButton:" destination="Dy4-TQ-ADn" id="weo-Je-dNT"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -423,7 +423,7 @@
                                         <barButtonItem key="rightBarButtonItem" title="Stats View" id="Fmp-0A-iY8">
                                             <color key="tintColor" red="0.19131854179999999" green="0.43933993580000003" blue="0.61570847029999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <connections>
-                                                <segue destination="YiU-MJ-9Xs" kind="presentation" id="mFh-IL-lrN"/>
+                                                <action selector="statsViewButton:" destination="zHg-Yo-d0f" id="P1o-Ff-cPs"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -600,16 +600,19 @@
                         <segue destination="H6E-KX-Ner" kind="presentation" identifier="oldStatsAnalyticsPopUp" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="pOz-SY-0TH"/>
                         <segue destination="tO8-VR-M4z" kind="presentation" identifier="goalieSelectionPopUp" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="6SA-oY-Fmn"/>
                         <segue destination="2AB-wA-RRv" kind="presentation" identifier="backToOldStatsSegue" id="nhd-cM-urx"/>
+                        <segue destination="nSy-kI-Oy0" kind="unwind" identifier="Back_To_Old_Stats_Ice" unwindAction="unwindToOldSatsWithSegue:" id="HnJ-cC-hAm"/>
+                        <segue destination="nSy-kI-Oy0" kind="unwind" identifier="Old_Stats_Main_Stats" unwindAction="unwindToMainStatsWithSegue:" id="ODQ-dS-C1J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACA-Fc-UDp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="nSy-kI-Oy0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="593" y="1761"/>
         </scene>
         <!--Old Stats Goalie Selection View-->
         <scene sceneID="hkf-2k-HKK">
             <objects>
-                <viewController id="tO8-VR-M4z" customClass="Old_Stats_Goalie_Selection_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Old_Stats_Goalie_Selection_View" storyboardIdentifier="Old_Stats_Goalie_Selection_View" id="tO8-VR-M4z" customClass="Old_Stats_Goalie_Selection_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yXe-FU-cey">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -700,9 +703,11 @@
                         <outlet property="popUpView" destination="Rwm-8d-iK0" id="zhV-XV-vTa"/>
                         <outlet property="rightScrollArrowImage" destination="R6a-Lf-KeC" id="OrK-4x-aSb"/>
                         <segue destination="zHg-Yo-d0f" kind="presentation" identifier="closeGoalieSelection" modalTransitionStyle="crossDissolve" id="vMV-Fg-8jE"/>
+                        <segue destination="SYD-ic-FPP" kind="unwind" identifier="Back_To_Old_Stats_Ice" unwindAction="unwindToOldStatsIceWithSegue:" id="Wg1-fK-NF9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y41-eJ-X1D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="SYD-ic-FPP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="526.7578125" y="2958.59375"/>
         </scene>
@@ -829,16 +834,17 @@
                         <segue destination="Dy4-TQ-ADn" kind="presentation" identifier="editTeamPlayerSegue" id="jVU-KY-A3C"/>
                         <segue destination="RfZ-c4-UZR" kind="presentation" identifier="oldStatsPopUpSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="BkV-v9-ark"/>
                         <segue destination="bPx-PN-8g4" kind="presentation" identifier="defaultTeamSelection" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="UEu-dW-dyP"/>
+                        <segue destination="BYV-5S-q4x" kind="presentation" identifier="Home_To_Settings" modalTransitionStyle="crossDissolve" id="DbM-eD-pg2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-146.484375" y="32.8125"/>
+            <point key="canvasLocation" x="-146" y="61"/>
         </scene>
         <!--Overall Player Stats View-->
         <scene sceneID="fRr-qU-5PP">
             <objects>
-                <viewController id="JBG-4t-arR" customClass="Overall_Player_Stats_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Overall_Stats_View_Controller" storyboardIdentifier="Overall_Stats_View_Controller" id="JBG-4t-arR" customClass="Overall_Player_Stats_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qjU-t9-RfP">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -853,7 +859,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="Atq-hS-bjg">
                                             <color key="tintColor" red="0.19131854179999999" green="0.43933993580000003" blue="0.61570847029999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" id="oiw-l9-Ygs"/>
+                                                <action selector="backButton:" destination="JBG-4t-arR" id="2NB-E1-amj"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1105,16 +1111,18 @@
                         <outlet property="goalieStatsTable" destination="hiW-Nc-JOe" id="Vk4-tF-qTY"/>
                         <outlet property="playerSatsTable" destination="fCO-fg-1mZ" id="lrp-te-xDu"/>
                         <outlet property="teamRecordLabel" destination="Msk-FT-rbW" id="nez-p0-gLt"/>
+                        <segue destination="3Ao-hH-yjI" kind="unwind" identifier="Back_To_Home_Overalll" unwindAction="unwindToViewControllerAWithSegue:" id="eY2-3x-BbO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xt7-He-Qhb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="3Ao-hH-yjI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-894.14062499999989" y="801.5625"/>
         </scene>
         <!--Old Stats Type Pop Up-->
         <scene sceneID="ir0-6E-Css">
             <objects>
-                <viewController id="RfZ-c4-UZR" customClass="Old_Stats_Type_Pop_Up" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Old_Stats_Pop_Up_VC" storyboardIdentifier="Old_Stats_Pop_Up_VC" id="RfZ-c4-UZR" customClass="Old_Stats_Type_Pop_Up" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ant-xp-Lf6">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1213,7 +1221,7 @@
         <!--Old Stats View-->
         <scene sceneID="ToW-Nb-Ghv">
             <objects>
-                <viewController id="2AB-wA-RRv" customClass="Old_Stats_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Old_Game_Selection_VC" storyboardIdentifier="Old_Game_Selection_VC" id="2AB-wA-RRv" customClass="Old_Stats_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="irI-xe-S11">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1228,7 +1236,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="qNq-uE-dXA">
                                             <color key="tintColor" red="0.19131854179999999" green="0.43933993580000003" blue="0.61570847029999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="backOldStatsSegue" id="bI8-gU-cwQ"/>
+                                                <action selector="backButton:" destination="2AB-wA-RRv" id="g94-Ap-9LB"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1263,9 +1271,11 @@
                     <connections>
                         <outlet property="tableView" destination="uyc-Iw-tsS" id="1py-eh-qx3"/>
                         <segue destination="YiU-MJ-9Xs" kind="presentation" identifier="segueToOldSatsGameView" id="XF8-mz-HSq"/>
+                        <segue destination="hlj-Cs-npU" kind="unwind" identifier="Back_To_Home" unwindAction="unwindToViewControllerAWithSegue:" id="5pd-l0-h0x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3y7-lw-zrH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hlj-Cs-npU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="526.7578125" y="765.625"/>
         </scene>
@@ -1645,9 +1655,11 @@
                         <outlet property="containerView" destination="CTe-wJ-khw" id="Wwf-6M-mWd"/>
                         <outlet property="tableView" destination="b3C-zm-Z6d" id="Ivd-rI-nvs"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="backButtonSettings" id="HdW-UQ-Yng"/>
+                        <segue destination="kFr-KX-dNq" kind="unwind" identifier="Back_Home_Settings" unwindAction="unwindToViewControllerAWithSegue:" id="ACY-kW-nY8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qZe-KT-7VT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="kFr-KX-dNq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-881" y="61"/>
         </scene>
@@ -3670,12 +3682,13 @@
                         <outlet property="upgradeView" destination="iBY-ss-XyF" id="1R9-vB-1yk"/>
                         <outlet property="viewTypeSwitch" destination="x4E-fF-hCm" id="LXA-dy-RtQ"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="liveGameStatsBack" id="uyd-PZ-fI3"/>
-                        <segue destination="2AB-wA-RRv" kind="presentation" identifier="oldGameStatsBack" id="IlU-9U-sIV"/>
                         <segue destination="zHg-Yo-d0f" kind="presentation" identifier="oldStatsIceView" id="w5X-2C-weP"/>
                         <segue destination="H6E-KX-Ner" kind="presentation" identifier="analyticalSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="VdZ-aC-tCs"/>
+                        <segue destination="RQW-Qm-4Ve" kind="unwind" identifier="Back_To_Old_Stats_Game_Satst" unwindAction="unwindToOldSatsWithSegue:" id="ryn-1x-N8z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V1b-m4-IgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="RQW-Qm-4Ve" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1881.4453124999998" y="32.8125"/>
         </scene>
@@ -4207,14 +4220,15 @@
         <image name="welcomearrow" width="218" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mFh-IL-lrN"/>
+        <segue reference="6SA-oY-Fmn"/>
+        <segue reference="XF8-mz-HSq"/>
         <segue reference="pOz-SY-0TH"/>
-        <segue reference="3Is-IF-SeE"/>
+        <segue reference="uyd-PZ-fI3"/>
         <segue reference="YVz-TT-Imk"/>
-        <segue reference="RLO-IA-6Z6"/>
+        <segue reference="DbM-eD-pg2"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="nhd-cM-urx"/>
         <segue reference="HdW-UQ-Yng"/>
-        <segue reference="B9O-nl-JB9"/>
+        <segue reference="vMV-Fg-8jE"/>
     </inferredMetricsTieBreakers>
 </document>

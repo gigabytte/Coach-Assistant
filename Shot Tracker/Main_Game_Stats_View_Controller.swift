@@ -10,6 +10,7 @@ import UIKit
 
 class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
 
+    @IBAction func unwindToMainStats(segue: UIStoryboardSegue) {}
     
     @IBOutlet weak var upgradeView: UIView!
     @IBOutlet weak var navBar: UINavigationBar!
@@ -209,7 +210,7 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         }else{
             // delete user defaults then exit old game stats view
             deleteNewGameUserDefaults.deleteUserDefaults()
-            self.performSegue(withIdentifier: "oldGameStatsBack", sender: nil);
+            self.performSegue(withIdentifier: "Back_To_Old_Stats_Game_Satst", sender: nil);
         }
         
     }
