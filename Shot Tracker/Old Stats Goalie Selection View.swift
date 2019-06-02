@@ -61,6 +61,8 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
         
     }
     
+    
+    
     func goalieSelectionGesture() {
         
         // get array of Goalie Jersey Nunbers of Page Load
@@ -188,8 +190,8 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
     
     @IBAction func continueButton(_ sender: Any) {
         UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
-        self.popUpView.removeFromSuperview()
-        self.performSegue(withIdentifier: "closeGoalieSelection", sender: nil);
+        self.performSegue(withIdentifier: "Back_To_Old_Stats_Ice", sender: self)
+        
     }
     // on animateIn display popUpview over top of New Game View
     func animateIn(){

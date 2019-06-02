@@ -28,8 +28,8 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     var homePlayerIDs: [Int] = [Int]()
     var goalieIDArray: [Int] = [Int]()
     var lineIDArray: [Int] = [Int]()
-    var homeTeamID :Int!
-    
+    var homeTeamID :Int = UserDefaults.standard.integer(forKey: "overallStatsTeamID")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +58,12 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     }
     
   
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
+        UserDefaults.standard.removeObject(forKey: "overallStatsTeamID")
+        // remove all hireachy VC back to main page
+       // presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "Back_To_Home_Overalll", sender: self)
+    }
     
     func playerNameFetch(){
         if (homePlayerIDs.isEmpty != true){
@@ -224,6 +230,8 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
         }
         
     }
+    
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
         if (tableView == playerSatsTable){
