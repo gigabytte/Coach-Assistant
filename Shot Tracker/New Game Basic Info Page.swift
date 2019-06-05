@@ -309,9 +309,9 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func cancelButton(_ sender: Any) {
+        //segue back to ice surface
         
-        animateOut()
-        self.dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "backToIceBacibInfo", sender: nil)
     }
     
     @IBAction func continueButton(_ sender: Any) {
@@ -323,42 +323,15 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             UserDefaults.standard.set(false, forKey: "newGameStarted")
             
             let dictionary = ["key":"value"]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "passDataInView"), object: nil, userInfo: dictionary)
-            self.dismiss(animated: true, completion: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary)
+            
+            performSegue(withIdentifier: "backToIceBacibInfo", sender: nil)
             
         }else{
             // error out
             missingSelectionError()
             
         }
-    }
-    // on animateIn display popUpview over top of New Game View
-    func animateIn(){
-        
-        print("popUpView has been animated in")
-        self.view.addSubview(popUpView)
-        popUpView.center = self.view.center
-        
-        popUpView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-        popUpView.alpha = 0
-        
-        // set animation results
-        UIView.animate(withDuration: 0.4){
-            self.popUpView.alpha = 1
-            self.popUpView.transform = CGAffineTransform.identity
-        }
-    }
-    // on animateOut tear down popUpview over top of New Game View
-    func animateOut(){
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.popUpView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-            self.popUpView.alpha = 0
-            // omn sucess of popup tear down remove popUpView from super view
-        })  { (success: Bool) in
-            self.popUpView.removeFromSuperview()
-        }
-        print("popUpView has been Teared Down")
     }
     
     

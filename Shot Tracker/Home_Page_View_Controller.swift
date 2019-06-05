@@ -24,33 +24,10 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
+        // set listener for notification after goalie is selected
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
         
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        // check is usr has selected a a deafult team yet
-        if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
-            // check if deafult team has been selected on load
-            if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
-                  delay(0.5){
-                    self.performSegue(withIdentifier: "defaultTeamSelection", sender: nil);
-                }
-                }else{
-                    print("Default Home Team ID: \(UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)")
-            }
-        }else{
-            // if no default team has been selected on load and no teams present
-            // redirect to team add team page VC
-            delay(0.5){
-                print("No Teams Found on Start")
-                self.performSegue(withIdentifier: "addTeamSegueFromMain", sender: nil);
-            }
-        }
-        // run on going game funtion to dynamically chnage new game button text based on
-        // game status
-        delay(0.5){
-            self.onGoingGame()
-        }
-        
+        onLoad()
         /*----------------------------------------------------------------
          uncomment code block if changes to DB tables are made or merger error is stated,
          build app then comment code again and build app like normal*/
@@ -87,6 +64,40 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         }
     }
     
+    @objc func myMethod(notification: NSNotification){
+        onLoad()
+    }
+    
+    
+    func onLoad(){
+        // Do any additional setup after loading the view, typically from a nib.
+        // check is usr has selected a a deafult team yet
+        if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
+            // check if deafult team has been selected on load
+            if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
+                delay(0.5){
+                    self.performSegue(withIdentifier: "defaultTeamSelection", sender: nil);
+                }
+            }else{
+                print("Default Home Team ID: \(UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)")
+            }
+        }else{
+            // if no default team has been selected on load and no teams present
+            // redirect to team add team page VC
+            delay(0.5){
+                print("No Teams Found on Start")
+                self.performSegue(withIdentifier: "addTeamSegueFromMain", sender: nil);
+            }
+        }
+        // run on going game funtion to dynamically chnage new game button text based on
+        // game status
+        delay(0.5){
+            self.onGoingGame()
+        }
+        
+        
+    }
+    
     // cherck is game if currently running function
     func onGoingGame(){
         // based on activeStaus bool the New Game Button text chnages dynamically
@@ -96,6 +107,10 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         
             if (activeStatus == true){
                 newGameButton.setTitle("Ongoing Game", for: .normal)
+                newGameButton.setNeedsLayout()
+            }else{
+                newGameButton.setTitle("New Game", for: .normal)
+                newGameButton.setNeedsLayout()
             }
         }else{
             print("No New Game Data Yet")

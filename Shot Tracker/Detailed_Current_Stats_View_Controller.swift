@@ -47,9 +47,8 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+        // uu
+         UserDefaults.standard.set(true, forKey: "userPurchaseConf")
         
         // disable section for tableview to used as a excel like table only
         homePlayerStatsTableView.allowsSelection = false
