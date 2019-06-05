@@ -218,7 +218,7 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
         }
     }
     @IBAction func cancelButton(_ sender: UIButton) {
-        self.popupPenaltyView.removeFromSuperview()
+         performSegue(withIdentifier: "backToIcePenalty", sender: nil)
     }
     
     @IBAction func addPenaltyButton(_ sender: UIButton) {
@@ -245,7 +245,9 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
                 penaltyTableID?.activeState = true
                 
             }
-        self.popupPenaltyView.removeFromSuperview()
+        let dictionary = ["key":"value"]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary)
+        performSegue(withIdentifier: "backToIcePenalty", sender: nil)
         
     }
     //----------------------------------------------------------------------------------------------------------

@@ -69,6 +69,10 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let vc = Shot_Location_View.self as? UIViewController
+        vc?.dismiss(animated: true, completion: nil)
+        
         print("goalie id: ", goalieSelectedID)
         // set power play toggle to off by default
         powerPlayToggleSwitch.isOn = false
@@ -128,7 +132,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             if (self.mainPlayerPickerData.count <= 1){
                 let onePlayerAlert = UIAlertController(title: "Small Data Set Warning", message: "For Maximum Analytical Support we recommend Adding more than one Player to " + self.navBarProcessing(), preferredStyle: UIAlertController.Style.alert)
                 // add Ok action (button)
-                onePlayerAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
+                onePlayerAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(onePlayerAlert, animated: true, completion: nil)
             }
         }
@@ -221,10 +225,16 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             if(selectedMainPlayer == selectedAssitantPlayerOne || selectedMainPlayer == selectedAssitantPlayerTwo ){
                 let doubleEntry = UIAlertController(title: "Double Selection", message: "Please make sure you Goal scorer and your two Assitants are 3 diffrent players.", preferredStyle: UIAlertController.Style.alert)
                 // add Ok action (button)
-                doubleEntry.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
+                doubleEntry.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(doubleEntry, animated: true, completion: nil)
             }
         }
+        
+    }
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
+        let dictionary = ["key":"value"]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary)
+        performSegue(withIdentifier: "backToIceMarker", sender: nil)
         
     }
     
@@ -325,9 +335,14 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 assitPlayerUpdateID?.assitsCount += 1
                 assitTwoPlayerUpdateID?.assitsCount += 1
             }
+            let dictionary = ["key":"value"]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary)
+            self.performSegue(withIdentifier: "backToIceMarker", sender: nil)
         }))
         // show the alert
         self.present(saveButtonAlert, animated: true, completion: nil)
+        
+        
         
     }
 

@@ -72,14 +72,16 @@ class Shot_Location_View: UIViewController {
         view.addSubview(popUpView)
         view.addSubview(goalieNumberLabel)
         
-        tempGoalieSelectedID = fixedGoalieID
+        shotLocationPopUp.layer.cornerRadius = 10
+        tapLocationSelectionErrorLabel.isHidden = true
+        
+        print("marker type \(tempMarkerType)")
         if (tempMarkerType != true){
             print("You are placing a goal, passed bool is: ", tempMarkerType)
         }else{
             print("You are placing a shot, passed bool is: ", tempMarkerType)
         }
-        shotLocationPopUp.layer.cornerRadius = 10
-        tapLocationSelectionErrorLabel.isHidden = true
+        
         // Do any additional setup after loading the view.
         
         
@@ -346,9 +348,8 @@ class Shot_Location_View: UIViewController {
     
     @IBAction func cancelShotLocationButtton(_ sender: UIButton) {
         currentArrayIndex = 0
-        animateOut()
-        dismiss(animated: true, completion: nil)
-        self.performSegue(withIdentifier: "cancelShotLocationSegue", sender: nil);
+        performSegue(withIdentifier: "shotLocationBackIce", sender: nil)
+       
     }
     
     
@@ -360,13 +361,15 @@ class Shot_Location_View: UIViewController {
                 tempGoalieSelectedID = selectedGoalieIDArray[currentArrayIndex]
                 animateOut()
                 currentArrayIndex = 0
-                self.performSegue(withIdentifier: "markerInfoSegue", sender: (Any).self);
+        
+               performSegue(withIdentifier: "markerInfoSegue", sender: nil)
             }else if(shotLocationValueSelected == nil && hockeyNetImageView.image == hockeyNetAwayTeam){
                     tempGoalieSelectedID = selectedGoalieIDArray[currentArrayIndex]
                     shotLocationValueSelected = 0
-                    animateOut()
+                
                     currentArrayIndex = 0
-                    self.performSegue(withIdentifier: "markerInfoSegue", sender: (Any).self);
+        
+               performSegue(withIdentifier: "markerInfoSegue", sender: nil)
             }else{
                 missingSelectionError()
             }
@@ -379,15 +382,18 @@ class Shot_Location_View: UIViewController {
                 tempGoalieSelectedID = selectedGoalieIDArray[currentArrayIndex]
 
                 realmStatsAddShot()
-                animateOut()
-                self.performSegue(withIdentifier: "cancelShotLocationSegue", sender: nil);
+                let dictionary = ["key":"value"]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary)
+                performSegue(withIdentifier: "shotLocationBackIce", sender: nil)
             }else if(shotLocationValueSelected == nil && hockeyNetImageView.image == hockeyNetAwayTeam){
                 tempGoalieSelectedID = selectedGoalieIDArray[currentArrayIndex]
 
                 shotLocationValueSelected = 0
                 realmStatsAddShot()
-                animateOut()
-                self.performSegue(withIdentifier: "cancelShotLocationSegue", sender: nil);
+                let dictionary = ["key":"value"]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary)
+                performSegue(withIdentifier: "shotLocationBackIce", sender: nil)
+                
             }else{
                 print("Missing Feild Entry Error")
                 missingSelectionError()

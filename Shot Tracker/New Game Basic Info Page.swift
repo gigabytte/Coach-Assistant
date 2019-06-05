@@ -311,7 +311,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func cancelButton(_ sender: Any) {
         
         animateOut()
-        self.performSegue(withIdentifier: "cancelBasicInfoSegue", sender: nil);
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func continueButton(_ sender: Any) {
@@ -321,8 +321,11 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             UserDefaults.standard.set(setPeriodVar, forKey: "periodNumber")
             UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
             UserDefaults.standard.set(false, forKey: "newGameStarted")
-            animateOut()
-            self.performSegue(withIdentifier: "continueBasicInfoSegue", sender: nil);
+            
+            let dictionary = ["key":"value"]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "passDataInView"), object: nil, userInfo: dictionary)
+            self.dismiss(animated: true, completion: nil)
+            
         }else{
             // error out
             missingSelectionError()

@@ -393,9 +393,12 @@
                         <outlet property="teamSelectionPopUpView" destination="gwk-tY-52j" id="PvJ-sw-PbR"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="continueTeamSelectionSegue" id="Dru-ha-s6H"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="cancelTeamSelectionSegue" modalTransitionStyle="crossDissolve" id="2uF-ll-qm3"/>
+                        <segue destination="zFA-Lk-QP3" kind="unwind" identifier="Go_Back_Home_Segue" unwindAction="unwindToViewControllerAWithSegue:" id="4ym-fF-Z7V"/>
+                        <segue destination="zFA-Lk-QP3" kind="unwind" identifier="Segue_To_New_Game_Team_Selection" unwindAction="unWindToNewGameWithSegue:" id="bJ6-VM-taL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VVI-Pp-QWL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="zFA-Lk-QP3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="526.7578125" y="32.8125"/>
         </scene>
@@ -2242,7 +2245,7 @@
         <!--Marker Info Page-->
         <scene sceneID="PRo-az-7TP">
             <objects>
-                <viewController id="nMQ-Yn-Osb" customClass="Marker_Info_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Marker_Info_Page_VC" storyboardIdentifier="Marker_Info_Page_VC" id="nMQ-Yn-Osb" customClass="Marker_Info_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DNz-M4-no2">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2263,7 +2266,7 @@
                                         <barButtonItem key="rightBarButtonItem" title="Ice Surface" id="cnu-Zz-Sx4">
                                             <color key="tintColor" red="0.0049068285150000003" green="0.4474061728" blue="0.63255959750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="n6v-6v-um8" kind="presentation" identifier="backToIceSurfaceSegue" id="Fur-48-r3q"/>
+                                                <action selector="backButton:" destination="nMQ-Yn-Osb" id="0Qy-QT-JtO"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -2411,16 +2414,18 @@
                         <outlet property="powerPlayToggleSwitch" destination="eOY-fD-I1s" id="iFN-8n-OBG"/>
                         <outlet property="shot_goalPickerView" destination="HbF-vW-oyp" id="ET8-Ez-wpb"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="saveMarkerSeague" id="iwx-ea-EBk"/>
+                        <segue destination="ehN-ER-W7A" kind="unwind" identifier="backToIceMarker" unwindAction="unWindToNewGameWithSegue:" id="AAg-wU-1dp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6I-yR-9ZB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ehN-ER-W7A" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1158.984375" y="-1377.34375"/>
         </scene>
         <!--Shot Location View-->
         <scene sceneID="rc0-lA-XJQ">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="JOK-ut-mRn" customClass="Shot_Location_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Shot_Location_VC" storyboardIdentifier="Shot_Location_VC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="JOK-ut-mRn" customClass="Shot_Location_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="HbE-yC-3JJ">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2533,17 +2538,19 @@
                         <outlet property="shotLocationPopUp" destination="mIR-YF-Tf3" id="tlq-vK-x0U"/>
                         <outlet property="tapLocationSelectionErrorLabel" destination="Kyt-so-IXs" id="sgi-WP-aoA"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="cancelShotLocationSegue" modalTransitionStyle="crossDissolve" id="h0d-IT-99Q"/>
-                        <segue destination="nMQ-Yn-Osb" kind="presentation" identifier="markerInfoSegue" modalTransitionStyle="crossDissolve" id="8Uv-q2-pus"/>
+                        <segue destination="nMQ-Yn-Osb" kind="presentation" identifier="markerInfoSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="8Uv-q2-pus"/>
+                        <segue destination="f3A-2E-Wxc" kind="unwind" identifier="shotLocationBackIce" unwindAction="unWindToNewGameWithSegue:" id="4xk-Oo-zy1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="joV-In-yGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="f3A-2E-Wxc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1198" y="-677"/>
         </scene>
         <!--New Game Basic Info Page-->
         <scene sceneID="UCc-wQ-IfD">
             <objects>
-                <viewController id="gVv-Rk-J4I" customClass="New_Game_Basic_Info_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="New_Game_Basic_Info_VC" storyboardIdentifier="New_Game_Basic_Info_VC" id="gVv-Rk-J4I" customClass="New_Game_Basic_Info_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gR5-wK-Y8i">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2662,12 +2669,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0i-LH-ee5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1198" y="719"/>
+            <point key="canvasLocation" x="1185" y="930"/>
         </scene>
         <!--New Game Page-->
         <scene sceneID="4DF-eV-4kO">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" id="n6v-6v-um8" customClass="New_Game_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="New_Game_Page_VC" storyboardIdentifier="New_Game_Page_VC" modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" id="n6v-6v-um8" customClass="New_Game_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9gi-KV-32I">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2746,7 +2753,7 @@
                                             <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="gVv-Rk-J4I" kind="presentation" identifier="logoButtonSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="PfR-O9-IcG"/>
+                                            <action selector="logoButton:" destination="n6v-6v-um8" eventType="touchUpInside" id="JKX-Qv-gcI"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shots" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQl-y9-ipM" userLabel="Away Shots">
@@ -2869,9 +2876,11 @@
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="newGameSegue" modalTransitionStyle="crossDissolve" id="Qvi-1t-WK0"/>
                         <segue destination="JOK-ut-mRn" kind="presentation" identifier="popUpSegueView" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="7bj-jd-LWq"/>
                         <segue destination="msY-p6-04Y" kind="presentation" identifier="popUpPenaltyView" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Als-jc-kWj"/>
+                        <segue destination="Isg-cO-JDh" kind="unwind" identifier="backToMainNewGame" unwindAction="unwindToViewControllerAWithSegue:" id="ZHC-ua-v08"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhc-nL-LVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Isg-cO-JDh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1197.65625" y="32.8125"/>
         </scene>
@@ -3406,7 +3415,7 @@
         <!--Penalty Popup View Controller-->
         <scene sceneID="nua-JN-SEb">
             <objects>
-                <viewController id="msY-p6-04Y" customClass="Penalty_Popup_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Peanlty_Popup_VC" storyboardIdentifier="Peanlty_Popup_VC" id="msY-p6-04Y" customClass="Penalty_Popup_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P1x-Om-Z2R">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3586,9 +3595,11 @@
                         <outlet property="rightScrollImageView" destination="C9D-fd-PXk" id="gss-QM-Hl1"/>
                         <outlet property="teamNameLabel" destination="edq-xn-0nA" id="bIa-5L-y9s"/>
                         <outlet property="topLabel" destination="vyv-Q4-vm5" id="GTY-c1-rfF"/>
+                        <segue destination="LJT-Nh-Wjj" kind="unwind" identifier="backToIcePenalty" unwindAction="unWindToNewGameWithSegue:" id="9gx-2A-NtJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1lS-3n-dSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="LJT-Nh-Wjj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2095.8984375" y="1335.9375"/>
         </scene>
@@ -4220,15 +4231,15 @@
         <image name="welcomearrow" width="218" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6SA-oY-Fmn"/>
+        <segue reference="Als-jc-kWj"/>
         <segue reference="XF8-mz-HSq"/>
         <segue reference="pOz-SY-0TH"/>
-        <segue reference="uyd-PZ-fI3"/>
+        <segue reference="g22-jV-YxD"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="DbM-eD-pg2"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="nhd-cM-urx"/>
-        <segue reference="HdW-UQ-Yng"/>
-        <segue reference="vMV-Fg-8jE"/>
+        <segue reference="Qvi-1t-WK0"/>
+        <segue reference="B9O-nl-JB9"/>
     </inferredMetricsTieBreakers>
 </document>

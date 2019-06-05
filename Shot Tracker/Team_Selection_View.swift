@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Realm
 
-class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
+class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UIPopoverPresentationControllerDelegate {
     
     let realm = try! Realm()
     
@@ -260,7 +260,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBAction func cancelTeamSelectionButton(_ sender: UIButton) {
         animateOut()
-        self.performSegue(withIdentifier: "cancelTeamSelectionSegue", sender: nil);
+        self.performSegue(withIdentifier: "Go_Back_Home_Segue", sender: nil);
     }
     
     // on animateIn display popUpview over top of New Game View
@@ -390,8 +390,18 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         UserDefaults.standard.set(tempHomeTeamID, forKey: "homeTeam")
         UserDefaults.standard.set(tempAwayTeamID, forKey: "awayTeam")
         UserDefaults.standard.set(primaryNewGameKey, forKey: "gameID")
+       
+        
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "New_Game_Page_VC") as! New_Game_Page
+       
+        popupVC.modalTransitionStyle = .crossDissolve
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self as? UIPopoverPresentationControllerDelegate
+        
+        present(popupVC, animated: true, completion: nil)
         print("Segue to New Game Page")
-        self.performSegue(withIdentifier: "continueTeamSelectionSegue", sender: nil);
     }
     
 }
