@@ -218,20 +218,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     func newGameDetection(){
         delay(0.3){
             if (self.newGameStarted != false){
-                let vc = Team_Selection_View.self as? UIViewController
-                vc?.dismiss(animated: true, completion: nil)
-                
-                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let popupVC = storyboard.instantiateViewController(withIdentifier: "New_Game_Basic_Info_VC") as! New_Game_Basic_Info_Page
-                popupVC.modalPresentationStyle = .overCurrentContext
-                popupVC.modalTransitionStyle = .crossDissolve
-                let pVC = popupVC.popoverPresentationController
-                pVC?.permittedArrowDirections = .any
-                pVC?.delegate = self
-                
-                self.present(popupVC, animated: true, completion: nil)
-              
-                
+                self.performSegue(withIdentifier: "newGameBasicInfoSegue", sender: nil)
             }
     
         }
@@ -405,16 +392,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBAction func logoButton(_ sender: UIButton) {
         
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let popupVC = storyboard.instantiateViewController(withIdentifier: "New_Game_Basic_Info_VC") as! New_Game_Basic_Info_Page
-        popupVC.modalPresentationStyle = .overCurrentContext
-        popupVC.modalTransitionStyle = .crossDissolve
-        let pVC = popupVC.popoverPresentationController
-        pVC?.permittedArrowDirections = .any
-        pVC?.delegate = self
-        
-        present(popupVC, animated: true, completion: nil)
-        print("New_Game_Basic_Info_VC Presented!")
+        performSegue(withIdentifier: "newGameBasicInfoSegue", sender: nil)
         
     }
     
@@ -446,12 +424,14 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             // set activegame status to active or true based on user selection
             try! self.realm.write{
                 self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus = true
-            self.performSegue(withIdentifier: "backToMainNewGame", sender: nil)
+            
             }
             // delete all user defaults generated from newgame
             deleteNewGameUserDefaults.deleteUserDefaults()
              // segue back to home screen when done
-            self.performSegue(withIdentifier: "newGameSegue", sender: nil)
+            let dictionary = ["key":"value"]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
+            self.performSegue(withIdentifier: "backToMainNewGame", sender: nil)
         })
         // on save buttton press save newgame datas to realm
         let saveAction = UIAlertAction(title: "Save", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
@@ -476,13 +456,15 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                     
                     
                 }
-                self.performSegue(withIdentifier: "backToMainNewGame", sender: nil)
+               
               
             }
             // delete all user defaults generated from newgame
             deleteNewGameUserDefaults.deleteUserDefaults()
             // segue back to home screen when done
-            self.performSegue(withIdentifier: "newGameSegue", sender: nil)
+            let dictionary = ["key":"value"]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
+            self.performSegue(withIdentifier: "backToMainNewGame", sender: nil)
         })
         // tapp anywhere outside of popup alert controller
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in

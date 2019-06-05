@@ -2665,11 +2665,13 @@
                         <outlet property="rightScrollArrowImage" destination="Zkh-9d-AHl" id="iOa-gX-PX8"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="continueBasicInfoSegue" id="hOb-ku-mB8"/>
                         <segue destination="n6v-6v-um8" kind="presentation" identifier="cancelBasicInfoSegue" id="bar-I4-51P"/>
+                        <segue destination="JNF-Im-Xke" kind="unwind" identifier="backToIceBacibInfo" unwindAction="unWindToNewGameWithSegue:" id="yxD-N3-LdZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0i-LH-ee5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="JNF-Im-Xke" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1185" y="930"/>
+            <point key="canvasLocation" x="1213" y="931"/>
         </scene>
         <!--New Game Page-->
         <scene sceneID="4DF-eV-4kO">
@@ -2877,6 +2879,7 @@
                         <segue destination="JOK-ut-mRn" kind="presentation" identifier="popUpSegueView" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="7bj-jd-LWq"/>
                         <segue destination="msY-p6-04Y" kind="presentation" identifier="popUpPenaltyView" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Als-jc-kWj"/>
                         <segue destination="Isg-cO-JDh" kind="unwind" identifier="backToMainNewGame" unwindAction="unwindToViewControllerAWithSegue:" id="ZHC-ua-v08"/>
+                        <segue destination="gVv-Rk-J4I" kind="presentation" identifier="newGameBasicInfoSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Ui7-29-y9F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhc-nL-LVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4231,10 +4234,9 @@
         <image name="welcomearrow" width="218" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Als-jc-kWj"/>
         <segue reference="XF8-mz-HSq"/>
         <segue reference="pOz-SY-0TH"/>
-        <segue reference="g22-jV-YxD"/>
+        <segue reference="hOb-ku-mB8"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="DbM-eD-pg2"/>
         <segue reference="CQV-MR-jeA"/>

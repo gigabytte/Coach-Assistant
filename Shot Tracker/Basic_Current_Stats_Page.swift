@@ -43,6 +43,8 @@ class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("gameID \(gameID)")
+        
         self.homePlayerStatsTable.estimatedRowHeight = 75.0
         self.homePlayerStatsTable.rowHeight = UITableView.automaticDimension
         
