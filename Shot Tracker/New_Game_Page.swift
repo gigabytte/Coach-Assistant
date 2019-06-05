@@ -16,6 +16,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     let realm = try! Realm()
 
     @IBOutlet weak var iceRinkImage: UIImageView!
+    @IBAction func unWindToNewGame(segue: UIStoryboardSegue) {}
     
     // declare image view vars
     let homeTeamGoalMakerImage = UIImage(named: "home_team_goal.png");
@@ -45,13 +46,13 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     var markerType: Bool!
     var newGameStarted: Bool = UserDefaults.standard.bool(forKey: "newGameStarted")
-    var periodNumSelected: Int = UserDefaults.standard.integer(forKey: "periodNumber")
+    var periodNumSelected: Int!
     var tempGoalieSelectedID: Int!
-    var fixedGoalieID: Int = UserDefaults.standard.integer(forKey: "selectedGoalieID")
+    var fixedGoalieID: Int!
     var currentGameID: Int!
     
-    var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
-    var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
+    var homeTeam: Int!
+    var awayTeam: Int!
     
     // get location cords on user interaction with ice surface
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,12 +68,17 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
+        
+        
+        // set listener for notification after goalie is selected
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil)
+        
+        
         UserDefaults.standard.set((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?), forKey: "gameID")
         currentGameID =  UserDefaults.standard.integer(forKey: "gameID")
         
         newGameDetection()
-        teamNameInitialize()
-        navBarProcessing()
+        onLoad()
         // enable ice rink image user interaction
         iceRinkImage.isUserInteractionEnabled = true
         
@@ -100,40 +106,6 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         iceRinkImage.addGestureRecognizer(twoFingerTap)
         
         // run delay loop ever so after realm refreshes so you get the most current x and y cord placements
-        delay(0.5){
-            // call functions for stats page dynamic function
-            if (self.realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
-   
-                self.shot_markerProcessing()
-                self.goal_markerProcessing()
-                self.penalty_markerProcessing()
-                
-                if (self.realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last == nil){
-                // align text in text field as well assign text value to text field to team name
-                self.homeTeamNumGoals.text = String(0)
-                self.homeTeamNumGoals.textAlignment = .center
-                self.awayTeamNumGoals.text = String(0)
-                self.awayTeamNumGoals.textAlignment = .center
-                print("Goal Count Defaulted to 0")
-                }else{
-                    self.scoreInitialize()
-                    print("Goal Count Sucessfully Ran")
-                }
-                if (self.realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").last == nil){
-                // align text to center and assigned text field the value of homeScoreFilter query
-                self.homeTeamNumShots.text = String(0)
-                self.homeTeamNumShots.textAlignment = .center
-                self.awayTeamNumShots.text = String(0)
-                self.awayTeamNumShots.textAlignment = .center
-                print("Shot Count Defaulted to 0")
-                }else{
-                     self.numShotInitialize()
-                    print("Shot Count Sucessfully Ran")
-                }
-            }else{
-                print("Score and Shot Count Ran Failed at newGameTable gameID")
-            }
-        }
        
         bannerViewInitialize()
         
@@ -163,6 +135,58 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     }
 
     
+    @objc func myMethod(notification: NSNotification){
+        onLoad()
+    }
+    
+    func onLoad(){
+        print("UI UPDATED")
+        
+        periodNumSelected = UserDefaults.standard.integer(forKey: "periodNumber")
+        fixedGoalieID = UserDefaults.standard.integer(forKey: "selectedGoalieID")
+        homeTeam = UserDefaults.standard.integer(forKey: "homeTeam")
+        awayTeam = UserDefaults.standard.integer(forKey: "awayTeam")
+        
+        teamNameInitialize()
+        navBarProcessing()
+        delay(0.5){
+            // call functions for stats page dynamic function
+            if (self.realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
+                
+                self.shot_markerProcessing()
+                self.goal_markerProcessing()
+                self.penalty_markerProcessing()
+                
+                if (self.realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last == nil){
+                    // align text in text field as well assign text value to text field to team name
+                    self.homeTeamNumGoals.text = String(0)
+                    self.homeTeamNumGoals.textAlignment = .center
+                    self.awayTeamNumGoals.text = String(0)
+                    self.awayTeamNumGoals.textAlignment = .center
+                    print("Goal Count Defaulted to 0")
+                }else{
+                    self.scoreInitialize()
+                    print("Goal Count Sucessfully Ran")
+                }
+                if (self.realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").last == nil){
+                    // align text to center and assigned text field the value of homeScoreFilter query
+                    self.homeTeamNumShots.text = String(0)
+                    self.homeTeamNumShots.textAlignment = .center
+                    self.awayTeamNumShots.text = String(0)
+                    self.awayTeamNumShots.textAlignment = .center
+                    print("Shot Count Defaulted to 0")
+                }else{
+                    self.numShotInitialize()
+                    print("Shot Count Sucessfully Ran")
+                }
+            }else{
+                print("Score and Shot Count Ran Failed at newGameTable gameID")
+            }
+        }
+        // remove observer after game data load to prevent double ups for notification passing
+       // NotificationCenter.default.removeObserver(self)
+    }
+    
     func bannerViewInitialize(){
         
         
@@ -183,7 +207,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         if (periodNumSelected != nil && homeTeam != nil && awayTeam != nil){
             let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
             let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
-            navBar.topItem!.title = home_teamNameFilter! + " vs " + away_teamNameFilter! + " Period " + String(periodNumSelected)
+            navBar?.topItem?.title = home_teamNameFilter! + " vs " + away_teamNameFilter! + " Period " + String(periodNumSelected)
         }else{
             //nav bar textv defaults
             print("Error Unable to Gather Period Number Selection!")
@@ -194,9 +218,22 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     func newGameDetection(){
         delay(0.3){
             if (self.newGameStarted != false){
-                self.performSegue(withIdentifier: "logoButtonSegue", sender: nil);
+                let vc = Team_Selection_View.self as? UIViewController
+                vc?.dismiss(animated: true, completion: nil)
+                
+                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let popupVC = storyboard.instantiateViewController(withIdentifier: "New_Game_Basic_Info_VC") as! New_Game_Basic_Info_Page
+                popupVC.modalPresentationStyle = .overCurrentContext
+                popupVC.modalTransitionStyle = .crossDissolve
+                let pVC = popupVC.popoverPresentationController
+                pVC?.permittedArrowDirections = .any
+                pVC?.delegate = self
+                
+                self.present(popupVC, animated: true, completion: nil)
+              
+                
             }
-            
+    
         }
     }
     // func used to process shot X and Y cord info from realm based on team selection on new game page load
@@ -342,6 +379,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     @objc func singleTapped() {
         print("Single Tap Detected")
         markerType = true;
+       
         // display custom view controller alert alert
         // segue to maker info page goes here
         popUpSegue()
@@ -351,6 +389,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     @objc func longTapped() {
         print("Long Tap Detected")
         markerType = false;
+
         // display custom view controller alert alert
         popUpSegue()
     }
@@ -363,16 +402,31 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         popUpPenaltySegue()
         
     }
-    // segue to period and goalie selction popup
-    func popUpSegue(){
+    
+    @IBAction func logoButton(_ sender: UIButton) {
         
-        self.performSegue(withIdentifier: "popUpSegueView", sender: nil);
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "New_Game_Basic_Info_VC") as! New_Game_Basic_Info_Page
+        popupVC.modalPresentationStyle = .overCurrentContext
+        popupVC.modalTransitionStyle = .crossDissolve
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self
+        
+        present(popupVC, animated: true, completion: nil)
+        print("New_Game_Basic_Info_VC Presented!")
+        
+    }
+    
+    // segue to shot location popup
+    func popUpSegue(){
+        performSegue(withIdentifier: "popUpSegueView", sender: nil)
         
     }
     
     func popUpPenaltySegue(){
         
-         self.performSegue(withIdentifier: "popUpPenaltyView", sender: nil);
+       performSegue(withIdentifier: "popUpPenaltyView", sender: nil)
         
     }
     
@@ -392,6 +446,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             // set activegame status to active or true based on user selection
             try! self.realm.write{
                 self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus = true
+            self.performSegue(withIdentifier: "backToMainNewGame", sender: nil)
             }
             // delete all user defaults generated from newgame
             deleteNewGameUserDefaults.deleteUserDefaults()
@@ -421,7 +476,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                     
                     
                 }
-
+                self.performSegue(withIdentifier: "backToMainNewGame", sender: nil)
               
             }
             // delete all user defaults generated from newgame

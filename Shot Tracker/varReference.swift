@@ -133,7 +133,7 @@ class universalValue{
     
     // ads unit id used across app
     // new game ads
-    var newGameAdUnitID = "ca-app-pub-1292859049443143/2410528114"//"ca-app-pub-3940256099942544/2934735716"
+    var newGameAdUnitID = /*"ca-app-pub-1292859049443143/2410528114"*/"ca-app-pub-3940256099942544/2934735716"
     
     // Help Guide PDF file name
     var helpGuidePDFName:String = "help_guide_iPad"
