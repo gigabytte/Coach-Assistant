@@ -176,10 +176,11 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
             }
             // ------------------ plus minus count -----------------------------
             // get current looping player's plus minus
-            let plusMinus = ((realm.objects(overallStatsTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({String($0)})).first
+            
+            let plusMinus = ((realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true",gameID, homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({String($0)})).first
+            
             
             homePlayerStatsArray[x] = homePlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)"
-            
         }
     }
     
@@ -209,7 +210,7 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
             }
             // ------------------ plus minus count -----------------------------
             // get current looping player's plus minus
-            let plusMinus = ((realm.objects(overallStatsTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({String($0)})).first
+            let plusMinus = ((realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true",gameID, awayPlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({String($0)})).first
             
             awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)"
         }
@@ -223,16 +224,16 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
         for x in 0..<goalieIDArray.count{
             print("Goalie ID", goalieIDArray[x])
             //----------- goals against avg -------------------------
-            let numberOfHomeGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
-            let numberOfAwayGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "opposingTeamID == %i AND activeState == true", homeTeam)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
-            let numberOfGoalsAgainst = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", goalieIDArray[x], homeTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            let numberOfHomeGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i AND gameID == %i AND activeState == true", homeTeam, gameID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
+            let numberOfAwayGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "opposingTeamID == %i AND gameID == %i AND activeState == true", homeTeam, gameID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
+            let numberOfGoalsAgainst = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalieID == %i AND gameID == %i AND activeState == true", goalieIDArray[x], homeTeam, gameID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
             
             let GAA:Double = Double(numberOfGoalsAgainst) / Double(numberOfHomeGames + numberOfAwayGames)
             goalieStatsArray.append("Goals Against Average: \(String(format: "%.2f", GAA))\n")
             
             //-------------- save % overall ------------------
-            let homeGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", goalieIDArray[x])).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count
-            let homeGoalieGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", goalieIDArray[x])).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count
+            let homeGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND gameID == %i AND activeState == true", goalieIDArray[x], gameID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count
+            let homeGoalieGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalieID == %i AND gameID == %i AND activeState == true", goalieIDArray[x], gameID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count
             print(homeGoalieShots, homeGoalieGoals)
             if (homeGoalieShots != 0 && homeGoalieGoals != 0){
                 let homeGoalieTotal:Double = (Double(homeGoalieShots) / Double(homeGoalieGoals + homeGoalieShots))
@@ -241,11 +242,11 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
                 goalieStatsArray[x] = goalieStatsArray[x] + "Overall Save %: N/A\n"
             }
             // ----------- save % by shot location --------------------
-            let topLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", goalieIDArray[x], 1)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
-            let topRight = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", goalieIDArray[x], 2)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
-            let bottomLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", goalieIDArray[x], 3)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
-            let bottomRight = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", goalieIDArray[x], 4)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
-            let center = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", goalieIDArray[x], 5)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+            let topLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND gameID == %i AND activeState == true", goalieIDArray[x], 1, gameID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+            let topRight = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND gameID == %i AND activeState == true", goalieIDArray[x], 2, gameID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+            let bottomLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND gameID == %i AND activeState == true", goalieIDArray[x], 3, gameID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+            let bottomRight = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND gameID == %i AND activeState == true", goalieIDArray[x], 4, gameID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+            let center = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND gameID == %i AND activeState == true", goalieIDArray[x], 5, gameID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
             
             let totalShot:Double = topLeft + topRight + bottomLeft + bottomRight + center
             
@@ -275,7 +276,7 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
         teamStatsVar.append(String(shotsAgainst))
         // -------------------- SOG (Shots on goal for home team) -------------------------------------
         let shotsOnGoal = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID), awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
-        teamStatsVar.append(String(shotsOnGoal))
+        teamStatsVar.append("COMING SOON")
         // ------------------- PPG (Power Power Play Goals for home team) ------------------------
         let powerPlayGoals = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND powerPlay == true AND activeState == true", (gameID), homeTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
         teamStatsVar.append(String(powerPlayGoals))

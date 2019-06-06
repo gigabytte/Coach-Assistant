@@ -265,13 +265,13 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 
                 
                 // update current stats table with plus minus for each player
-                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: self.selectedMainPlayerID)?.plusMinus += 1
-                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: self.selectedAssitantPlayerOneID)?.plusMinus += 1
-                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: self.selectedAssitantPlayerTwoID)?.plusMinus += 1
+                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, self.selectedMainPlayerID)).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first)?.plusMinus += 1
+                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, self.selectedAssitantPlayerOneID)).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first)?.plusMinus += 1
+                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, self.selectedAssitantPlayerTwoID)).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first )?.plusMinus += 1
                  // update current stats table with awared goal or assit for each player
-                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: self.selectedMainPlayerID)?.goalCount += 1
-                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: self.selectedAssitantPlayerOneID)?.assistCount += 1
-                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: self.selectedAssitantPlayerTwoID)?.assistCount += 1
+                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID,  self.selectedMainPlayerID)).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first)?.goalCount += 1
+                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, self.selectedAssitantPlayerOneID)).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first )?.assistCount += 1
+                self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, self.selectedAssitantPlayerTwoID)).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first )?.assistCount += 1
                 
                 // update plus minus line stats for players on ice
                 let forForwardLinePlayers = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i  AND TeamID == %@ AND activeState == true", Int(self.selectedForForwardLine)!, String(self.scoringPassedTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
@@ -298,7 +298,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                         print("Must be the same D")
                         break
                     default:
-                        self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: forDefenseLinePlayers[i])?.plusMinus += 1
+                        self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, forDefenseLinePlayers[i])).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first )?.plusMinus += 1
                         break
                         
                     }
@@ -306,11 +306,11 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                 
                 let againstForwardLinePlayers = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i AND TeamID == %@ AND activeState == true", Int(self.selectedAgainstForwardLine)!, String(self.opposingTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                 for i in 0..<againstForwardLinePlayers.count{
-                    self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: againstForwardLinePlayers[i])?.plusMinus -= 1
+                    self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, againstForwardLinePlayers[i])).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first )?.plusMinus -= 1
                 }
                 let againsDefenseLinePlayers = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum == %i AND TeamID == %@ AND activeState == true", Int(self.selectedAgainstDefenseLine)! + 3, String(self.opposingTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                 for i in 0..<againsDefenseLinePlayers.count{
-                    self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: againsDefenseLinePlayers[i])?.plusMinus -= 1
+                    self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, againsDefenseLinePlayers[i])).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first )?.plusMinus -= 1
                 }
                 
                 
