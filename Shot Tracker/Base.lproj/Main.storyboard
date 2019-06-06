@@ -837,7 +837,7 @@
                         <segue destination="Dy4-TQ-ADn" kind="presentation" identifier="editTeamPlayerSegue" id="jVU-KY-A3C"/>
                         <segue destination="RfZ-c4-UZR" kind="presentation" identifier="oldStatsPopUpSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="BkV-v9-ark"/>
                         <segue destination="bPx-PN-8g4" kind="presentation" identifier="defaultTeamSelection" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="UEu-dW-dyP"/>
-                        <segue destination="BYV-5S-q4x" kind="presentation" identifier="Home_To_Settings" modalTransitionStyle="crossDissolve" id="DbM-eD-pg2"/>
+                        <segue destination="BYV-5S-q4x" kind="presentation" identifier="Home_To_Settings" id="DbM-eD-pg2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -4238,7 +4238,7 @@
         <segue reference="pOz-SY-0TH"/>
         <segue reference="hOb-ku-mB8"/>
         <segue reference="YVz-TT-Imk"/>
-        <segue reference="DbM-eD-pg2"/>
+        <segue reference="RLO-IA-6Z6"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="nhd-cM-urx"/>
         <segue reference="Qvi-1t-WK0"/>
