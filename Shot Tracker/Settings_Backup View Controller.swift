@@ -679,7 +679,7 @@ final class Settings_Backup_View_Controller: UIViewController {
                 //delete contents of DB
                 self.realm.deleteAll()
             })
-            UserDefaults.standard.set(nil, forKey: "defaultHomeTeamID")
+            UserDefaults.standard.removeObject(forKey: "defaultHomeTeamID")
         }))
         
         // show the alert

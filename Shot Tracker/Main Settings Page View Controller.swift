@@ -12,7 +12,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var containerView: UIView!
-    
+    @IBAction func unwindBackToMainSettings(segue: UIStoryboardSegue) {}
     
     var rowIndex: Int!
     
@@ -145,6 +145,8 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     // MARK: - View Methods
     
     @IBAction func backButton(_ sender: Any) {
+        let dictionary = ["key":"value"]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
         self.performSegue(withIdentifier: "Back_Home_Settings", sender: nil);
         
     }

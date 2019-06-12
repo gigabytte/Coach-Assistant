@@ -12,6 +12,8 @@ import RealmSwift
 
 class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource  {
     
+    @IBAction func unwindBackToSetup(segue: UIStoryboardSegue) {}
+    
     let realm = try! Realm()
         var pageControl = UIPageControl()
         
