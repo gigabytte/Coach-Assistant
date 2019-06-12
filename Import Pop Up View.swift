@@ -13,6 +13,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     
     let realm = try! Realm()
     
+    @IBOutlet weak var popUpTitle: UILabel!
     @IBOutlet weak var Popupview: UIView!
     @IBOutlet weak var importButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
@@ -29,6 +30,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Import from icloud bool \(importFromIcloudBool)")
+        
         importFromSetup()
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -583,22 +585,54 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         }))
     }
     
+    func errorShake(){
+        //produce shake animation on error of double home team
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.06
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.fromValue = CGPoint(x: Popupview.center.x - 10, y: Popupview.center.y)
+        animation.toValue = CGPoint(x: Popupview.center.x + 10, y: Popupview.center.y)
+        Popupview.layer.add(animation, forKey: "position")
+        popUpTitle.text = "Please Select \(limit) Files"
+        popUpTitle.textColor = UIColor.red
+    }
+    
+    func notEnoughFiles(fileCount: Int){
+        
+        let alertController = UIAlertController(title: "File Selection Error", message:
+            "Please select more than \(fileCount) and no more than \(limit) files!", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
+            print("No enough files selected!")
+        }))
+    }
+    
     @IBAction func cancelButton(_ sender: Any) {
         if (setupPhaseBool != true){
-            self.performSegue(withIdentifier: "defaultCancelButton", sender: nil);
+            self.performSegue(withIdentifier: "Back_To_Settings_Import", sender: nil);
         }else{
-            self.performSegue(withIdentifier: "setupStart", sender: nil);
+            self.performSegue(withIdentifier: "Back_To_Setup_Import", sender: nil);
         }
     }
     
-    @IBAction func importButton(_ sender: Any) {
+    @IBAction func importButton(_ sender: UIButton) {
+        if let sr = tableView.indexPathsForSelectedRows {
+            if (sr.count == Int(limit)!){
+                print("Enough files selected")
         
-        if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && csvStringToRealmPenaltyTable() != false && csvStringToRealmOverallStatsTable() != false && setupPhaseBool != true){
-            print("Import Success")
-            self.performSegue(withIdentifier: "importButtonSegue", sender: nil);
-        }else if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && csvStringToRealmPenaltyTable() != false && csvStringToRealmOverallStatsTable() != false && setupPhaseBool == true){
-            self.performSegue(withIdentifier: "fromImportFInish", sender: nil);
+                if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && csvStringToRealmPenaltyTable() != false && csvStringToRealmOverallStatsTable() != false && setupPhaseBool != true){
+                    print("Import Success")
+                    self.performSegue(withIdentifier: "Back_To_Settings_Import", sender: nil);
+                }else if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && csvStringToRealmPenaltyTable() != false && csvStringToRealmOverallStatsTable() != false && setupPhaseBool == true){
+                    self.performSegue(withIdentifier: "Back_To_Setup_Import", sender: nil);
+                }
+            }else{
+                errorShake()
+            }
+        }else{
+            errorShake()
         }
+        
     }
     // Returns count of items in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -655,6 +689,12 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         cell.textLabel?.text = fileNamesArray[indexPath.row]
         
         return cell
+    }
+    
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
     
 }

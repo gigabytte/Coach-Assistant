@@ -1457,7 +1457,7 @@
         <!--Import Pop Up View-->
         <scene sceneID="Ez8-Fx-7Ew">
             <objects>
-                <viewController id="oAD-on-ycU" customClass="Import_Pop_Up_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Import_Pop_Up_View_VC" storyboardIdentifier="Import_Pop_Up_View_VC" id="oAD-on-ycU" customClass="Import_Pop_Up_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gec-Le-bDI">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1560,14 +1560,18 @@
                         <outlet property="cancelButton" destination="8vf-Ta-qcs" id="h6F-Cd-VzG"/>
                         <outlet property="importButton" destination="XL1-Ko-7Tf" id="6o2-CG-GJK"/>
                         <outlet property="noFilesFoundLabel" destination="Nm0-Wb-O30" id="SPz-a8-emf"/>
+                        <outlet property="popUpTitle" destination="qrD-hQ-Exz" id="6Aj-9s-1bg"/>
                         <outlet property="tableView" destination="IVr-6o-m3G" id="yPN-yh-k2e"/>
                         <segue destination="BYV-5S-q4x" kind="presentation" identifier="importButtonSegue" id="qRB-fp-XSG"/>
                         <segue destination="8iu-rp-BmU" kind="presentation" identifier="fromImportFInish" id="7Ck-Zu-Lfh"/>
                         <segue destination="BYV-5S-q4x" kind="presentation" identifier="defaultCancelButton" id="9gt-uS-D9h"/>
                         <segue destination="sbU-vj-OV2" kind="presentation" identifier="setupStart" id="EST-ei-0IR"/>
+                        <segue destination="fBw-DN-6Ma" kind="unwind" identifier="Back_To_Settings_Import" unwindAction="unwindBackToMainSettingsWithSegue:" id="q1j-jo-zqr"/>
+                        <segue destination="fBw-DN-6Ma" kind="unwind" identifier="Back_To_Setup_Import" unwindAction="unwindBackToSetupWithSegue:" id="6UN-x4-7GR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laI-ir-5Sg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="fBw-DN-6Ma" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-2443" y="89"/>
         </scene>
@@ -4238,10 +4242,10 @@
         <segue reference="pOz-SY-0TH"/>
         <segue reference="hOb-ku-mB8"/>
         <segue reference="YVz-TT-Imk"/>
-        <segue reference="RLO-IA-6Z6"/>
+        <segue reference="9gt-uS-D9h"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="nhd-cM-urx"/>
-        <segue reference="Qvi-1t-WK0"/>
+        <segue reference="1iC-az-XYT"/>
         <segue reference="B9O-nl-JB9"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -19,10 +19,9 @@ class Initial_Setup_FInish_Page_ViewController: UIViewController {
 
     // on finish button click
      @IBAction func finishButton(_ sender: UIButton) {
-        // set new user as false and segue to main app page
+        // set new user as false and dismiss initial setup page
         UserDefaults.standard.set("false", forKey: "newUser")
-        self.performSegue(withIdentifier: "finishSetupSegue", sender: nil);
-        
+        self.dismiss(animated: true, completion: nil )
      }
     /*
      // MARK: - Navigation
