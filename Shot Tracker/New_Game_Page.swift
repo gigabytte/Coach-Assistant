@@ -136,6 +136,11 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
 
     
     @objc func myMethod(notification: NSNotification){
+        // remove all previous markers from ice before adding new ones onLoad func
+        if (goalMarkerimageView != nil && shotMarkerimageView != nil){
+            goalMarkerimageView.removeFromSuperview()
+            shotMarkerimageView.removeFromSuperview()
+        }
         onLoad()
     }
     

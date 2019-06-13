@@ -42,7 +42,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
     var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
     var goalieID:Int!
-    var tagCounter: Int = 1
+    var tagCounter: Int = 100
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,8 +111,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         
             onLoad()
         }
-        // load data needed to display ice results on load
-        //onLoad()
+        
     }
 
     // We are willing to become first responder to get shake motion
@@ -144,7 +143,15 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     @objc func myMethod(notification: NSNotification){
+       // remove all previous markers from ice before adding new ones onLoad func
+        for views in self.view.subviews{
+            if views.tag >= 100{
+                views.removeFromSuperview()
+            }
+        }
         onLoad()
+        print("reloading")
+        print("goalie \(goalieID)")
     }
     
     func onLoad(){
