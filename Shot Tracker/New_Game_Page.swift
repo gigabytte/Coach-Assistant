@@ -464,6 +464,9 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                
               
             }
+            // update player stats when leaving game
+            self.playerStatsUpdate()
+            
             // delete all user defaults generated from newgame
             deleteNewGameUserDefaults.deleteUserDefaults()
             // segue back to home screen when done
@@ -487,6 +490,29 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     }
     
+    func playerStatsUpdate(){
+         try! self.realm.write{
+            let homePlayerIDs = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(self.homeTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
+        
+            for home_playerID in homePlayerIDs{
+                
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.goalCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,home_playerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first!
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.assitsCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", currentGameID ,home_playerID)).value(forKeyPath: "assistCount") as! [Int]).compactMap({Int($0)})).first!
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.plusMinus += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,home_playerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
+                
+            }
+        
+            let awayPlayerIDs = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(self.awayTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
+        
+            for away_playerID in awayPlayerIDs{
+                
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.goalCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first!
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.assitsCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "assistCount") as! [Int]).compactMap({Int($0)})).first!
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.plusMinus += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
+                
+            }
+        }
+    }
 
 
     // func used to pass varables on segue
