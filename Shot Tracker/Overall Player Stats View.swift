@@ -154,6 +154,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             // ------------------ plus minus count -----------------------------
             // get current looping player's plus minus
             let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}).first
+            print(nextPlayerPlusMinus)
             homePlayerStatsArray[x].append("Overall Plus/Minus: \(String(nextPlayerPlusMinus!))")
             // ------------------ player's line minus count -----------------------------
             // add all plus/minus from all member of the current player ids line for the overall line plus minus
@@ -266,6 +267,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             cell.playerLineNumberLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
             cell.playerGoalCountLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
             cell.playerAssistCountLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
+            cell.playerPlusMinusLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
             if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             cell.playerLinePlusMinusLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
                 cell.playerLinePlusMinusImageView.isHidden = true
@@ -273,7 +275,6 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
                 count = count  + 1
                 cell.playerLinePlusMinusImageView.isHidden = false
             }
-            cell.playerPlusMinusLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
             if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             cell.playerPIMLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; //count = count  + 1
             cell.playerPIMIMageView.isHidden = true
@@ -286,8 +287,8 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
            
             let cell:customOverallStatsCell = self.goalieStatsTable.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customOverallStatsCell
             cell.goalieNameLabel!.text = homeGoalieNames[indexPath.row]
-            cell.goalieSavePerLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
             cell.goalieGoalsAGAVGLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
+            cell.goalieSavePerLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
             if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
                 cell.goalieSavePerTopLeftLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
                 cell.goalieSavePerTopRightLabel?.text = self.goalieStatsArray[indexPath.row][count]; count = count  + 1
