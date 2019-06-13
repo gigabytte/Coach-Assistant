@@ -33,6 +33,8 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("Team Selected is \(homeTeamID)")
+        
         self.playerSatsTable.estimatedRowHeight = 75.0
         self.playerSatsTable.rowHeight = UITableView.automaticDimension
         
@@ -99,9 +101,9 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     func recordLabelProcessing(){
         
         let teamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}))[0]
-        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
-        let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
-        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true AND activeGameStatus == false", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true AND activeGameStatus == false", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true AND activeGameStatus == false", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         
         teamRecordLabel.text = "\(teamName)'s Record W:\(String(homeTeamWinCount))-L:\(String(homeTeamLooseCount))-T:\(String(homeTeamTieCount))"
     }
@@ -135,10 +137,10 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             
             //-------------------- goal count -----------------------
             // get number fos goals from player based oin looping player id
-            let nextPlayerCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).count
+            let nextPlayerCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first
             // if number of goals is not 0 aka the player scorerd atleast once
             // ass goals to player stats if not set as zero
-            homePlayerStatsArray[x].append("Goals: \(nextPlayerCount)")
+            homePlayerStatsArray[x].append("Goals: \(nextPlayerCount!)")
             // ------------------ assits count -----------------------------
             // get number of assist from player based on looping player id
             let nextPlayerAssitCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "assitsCount") as! [Int]).compactMap({Int($0)})).first
@@ -151,17 +153,17 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             }
             // ------------------ plus minus count -----------------------------
             // get current looping player's plus minus
-            let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})
-            homePlayerStatsArray[x].append("Overall Plus/Minus: \(String(nextPlayerPlusMinus[0]))")
+            let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}).first
+            homePlayerStatsArray[x].append("Overall Plus/Minus: \(String(nextPlayerPlusMinus!))")
             // ------------------ player's line minus count -----------------------------
             // add all plus/minus from all member of the current player ids line for the overall line plus minus
-            let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
+            let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)}).first
             
-            let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum[0], String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum!, String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             var totalPlusMinus: Int = 0
             for i in 0..<allPlayersOnLine.count{
                 
-                totalPlusMinus = totalPlusMinus + ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", allPlayersOnLine[i])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}))[0]
+                totalPlusMinus = totalPlusMinus + ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", allPlayersOnLine[i])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
                 
             }
             homePlayerStatsArray[x].append("Overall Line Plus/Minus: \(String(totalPlusMinus))")

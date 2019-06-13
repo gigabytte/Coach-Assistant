@@ -14,6 +14,7 @@ import Charts
 
 class Current_Stats_Ananlytical_View: UIViewController {
     
+    @IBOutlet weak var premiumLogoImage: UIImageView!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var shotLocationPieChartView: PieChartView!
     @IBOutlet weak var popUpView: UIView!
@@ -45,6 +46,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -52,6 +54,9 @@ class Current_Stats_Ananlytical_View: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
+            
+        }
         
         // if accessed from old stats
             homeTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})[0]
@@ -62,6 +67,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
         
         // set defaults values on load
         oneHundredPerNote.isHidden = true
+        premiumLogoImage.isHidden = true
         savePerDataMissingLabel.isHidden = false
         popUpView.layer.cornerRadius = 10
         bottomRoundedCorners()
@@ -90,6 +96,12 @@ class Current_Stats_Ananlytical_View: UIViewController {
         shotLocationPieChartSettings()
         labelChecker()
         dataUnavailableWarning()
+        
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
+            premiumLogoImage.isHidden = false
+            savePerShotDataMissingLabel.isHidden = false
+            shotLocationPieChartView.isHidden = true
+        }
     }
     // is values cannot come to 100% set warning
     func dataUnavailableWarning(){
