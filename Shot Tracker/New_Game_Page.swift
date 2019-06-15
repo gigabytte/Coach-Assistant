@@ -137,8 +137,11 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @objc func myMethod(notification: NSNotification){
         // remove all previous markers from ice before adding new ones onLoad func
-        if (goalMarkerimageView != nil && shotMarkerimageView != nil){
+        if (goalMarkerimageView != nil){
             goalMarkerimageView.removeFromSuperview()
+            
+        }
+        if (shotMarkerimageView != nil){
             shotMarkerimageView.removeFromSuperview()
         }
         onLoad()
@@ -397,7 +400,43 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBAction func logoButton(_ sender: UIButton) {
         
-        performSegue(withIdentifier: "newGameBasicInfoSegue", sender: nil)
+        let actionSheet = UIAlertController(title: "Game Options", message: "", preferredStyle: .actionSheet)
+        
+        // Create your actions - take a look at different style attributes
+        //saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        let keepActiveAction = UIAlertAction(title: "Goalie / Period Change", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "newGameBasicInfoSegue", sender: nil)
+        })
+        // on save buttton press save newgame datas to realm
+        let saveAction = UIAlertAction(title: "Game Options", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "In Game Settings ViewController") as! In_Game_Settings_ViewController
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+            
+            self.present(popupVC, animated: true, completion: nil)
+            print("In Game Settings ViewController Presented!")
+        })
+        // tapp anywhere outside of popup alert controller
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+            print("didPress Cancel")
+        })
+        // Add the actions to your actionSheet
+        actionSheet.addAction(keepActiveAction)
+        actionSheet.addAction(saveAction)
+        actionSheet.addAction(cancelAction)
+        if let popoverController = actionSheet.popoverPresentationController {
+            
+            popoverController.sourceRect = CGRect(x: 50, y: logoButton.frame.minY, width: 0, height: logoButton.frame.minY)
+            popoverController.sourceView = logoButton
+        }
+        
+        // Present the controller
+        self.present(actionSheet, animated: true, completion: nil)
+        
         
     }
     

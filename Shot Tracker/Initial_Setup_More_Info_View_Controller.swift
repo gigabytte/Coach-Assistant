@@ -31,7 +31,10 @@ class Initial_Setup_More_Info_View_Controller: UIViewController {
        
             let gif = try! UIImage(gifName: universalValue().helpGuidePDFName)
             let imageview = UIImageView(gifImage: gif, loopCount: -1) // Use -1 for infinite loop
-            imageview.frame = CGRect(x: 5, y: 5, width: self.addTeamPlayerView.frame.size.width - 10, height: self.addTeamPlayerView.frame.size.height - 10)
+            imageview.frame = addTeamPlayerView.bounds//CGRect(x: addTeamPlayerView.frame.minX, y: addTeamPlayerView.frame.minY, width: self.addTeamPlayerView.frame.size.width, height: self.addTeamPlayerView.frame.size.height)
+            imageview.contentMode = .scaleToFill
+            imageview.clipsToBounds = true
+            imageview.layer.cornerRadius = 10
             addTeamPlayerView.addSubview(imageview)
         
         

@@ -27,7 +27,7 @@ class Help_Guide_View_Controller: UIViewController {
         view.addSubview(popUpView)
         
         popUpView.layer.cornerRadius = 10
-        bottomRoundedCorners()
+        roundedCorners().buttonBottomLeftRight(bottonViewType: closeButton)
         // Do any additional setup after loading the view.
     }
     
@@ -46,15 +46,7 @@ class Help_Guide_View_Controller: UIViewController {
         pdfView.document = PDFDocument(url: fileURL!)
     }
     
-    // round corners of close button
-    func bottomRoundedCorners(){
-        
-        // round bottom corners of button
-        let path = UIBezierPath(roundedRect:closeButton.bounds, byRoundingCorners:[.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-        closeButton.layer.mask = maskLayer
-    }
+
     
     @IBAction func closeButton(_ sender: UIButton) {
         pdfView.willRemoveSubview(pdfView)
