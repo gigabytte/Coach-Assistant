@@ -120,6 +120,7 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         // set the text from the data model
         cell.textLabel?.text = "\n\(gameType[0]) Game, \(homeTeamName[0]) vs \(awayTeamName[0]) on date \(String(self.newGameDates[indexPath.row]))\n"
         cell.textLabel!.numberOfLines = 0;
+        cell.textLabel?.textAlignment = .center
         return cell
     }
     

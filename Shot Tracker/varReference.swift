@@ -98,6 +98,20 @@ class roundedCorners{
         tableviewType.layer.cornerRadius = 10
         tableviewType.layer.maskedCorners = [.layerMaxXMinYCorner]
     }
+    func labelViewTopLeftRight(labelViewType: UILabel){
+        labelViewType.clipsToBounds = true
+        labelViewType.layer.cornerRadius = 10
+        labelViewType.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+    }
+
+    func buttonBottomLeftRight(bottonViewType: UIButton){
+        bottonViewType.clipsToBounds = true
+        bottonViewType.layer.cornerRadius = 10
+        bottonViewType.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        
+    }
+
     
 }
 
@@ -133,7 +147,7 @@ class universalValue{
     
     // ads unit id used across app
     // new game ads
-    var newGameAdUnitID = /*"ca-app-pub-1292859049443143/2410528114"*/"ca-app-pub-3940256099942544/2934735716"
+    var newGameAdUnitID = "ca-app-pub-1292859049443143/2410528114"//"ca-app-pub-3940256099942544/2934735716"
     
     // Help Guide PDF file name
     var helpGuidePDFName:String = "help_guide_iPad"
