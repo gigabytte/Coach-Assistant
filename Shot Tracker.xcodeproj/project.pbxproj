@@ -442,10 +442,12 @@
 					};
 					BE7D698721E3D74500C1745C = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = BE7D697321E3D74300C1745C;
 					};
 					BE7D699221E3D74500C1745C = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = BE7D697321E3D74300C1745C;
 					};
 				};
@@ -902,7 +904,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "greg.Shot-TrackerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shot Tracker.app/Shot Tracker";
 			};
@@ -923,7 +925,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "greg.Shot-TrackerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shot Tracker.app/Shot Tracker";
 			};
@@ -943,7 +945,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "greg.Shot-TrackerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Shot Tracker";
 			};
@@ -963,7 +965,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "greg.Shot-TrackerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Shot Tracker";
 			};
