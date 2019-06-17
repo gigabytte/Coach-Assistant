@@ -20,6 +20,7 @@ class Initial_Setup_FInish_Page_ViewController: UIViewController {
     // on finish button click
      @IBAction func finishButton(_ sender: UIButton) {
         // set new user as false and dismiss initial setup page
+        newGameUserDefaultGen().userDefaults()
         UserDefaults.standard.set("false", forKey: "newUser")
         self.dismiss(animated: true, completion: nil )
      }

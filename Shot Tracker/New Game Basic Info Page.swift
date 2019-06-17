@@ -74,6 +74,9 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         newGameStartedViewRender()
         goalieSelectionGesture()
         
+        // set in game user defaults
+        inGmaeUserDefaultGen().enable_userDefaults()
+        
     }
     // change constrints based on when the view appears
     func newGameStartedViewRender(){

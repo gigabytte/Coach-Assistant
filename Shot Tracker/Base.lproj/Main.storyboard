@@ -1987,6 +1987,9 @@
                                             <segment title="Minor"/>
                                             <segment title="Major"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="penaltySegCon:" destination="6WW-AT-OW6" eventType="valueChanged" id="dmX-ha-KqD"/>
+                                        </connections>
                                     </segmentedControl>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fyz-C8-xwB">
                                         <rect key="frame" x="190.5" y="504.5" width="367" height="70"/>
@@ -2902,411 +2905,6 @@
             </objects>
             <point key="canvasLocation" x="1197.65625" y="32.8125"/>
         </scene>
-        <!--Basic Current Stats Page-->
-        <scene sceneID="TS5-xQ-tWG">
-            <objects>
-                <viewController restorationIdentifier="Basic_Current_Stats_Page" storyboardIdentifier="Basic_Current_Stats_Page" id="WgI-Nk-gS3" customClass="Basic_Current_Stats_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Vtt-mS-Wyc">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SSZ-4w-m2E">
-                                <rect key="frame" x="112" y="45" width="400" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="PJB-6K-1I2"/>
-                                    <constraint firstAttribute="height" constant="34" id="mCh-8I-p15"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IId-Ic-KbT">
-                                <rect key="frame" x="662" y="99" width="100" height="150"/>
-                                <accessibility key="accessibilityConfiguration" label="Away_Team _Score_Label"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="M0G-CT-XAi"/>
-                                    <constraint firstAttribute="height" constant="150" id="inG-LG-n1y"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="166"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFq-z5-t9Y">
-                                <rect key="frame" x="262" y="99" width="100" height="150"/>
-                                <accessibility key="accessibilityConfiguration" label="Home_Team _Score_Label"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="2pz-Cc-n9x"/>
-                                    <constraint firstAttribute="width" constant="100" id="TjQ-eS-ZHU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="160"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l96-iq-BdI">
-                                <rect key="frame" x="512" y="45" width="400" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="d7G-He-MBZ"/>
-                                    <constraint firstAttribute="width" constant="400" id="rSU-hG-8dG"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Shots:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vb6-y2-AHe">
-                                <rect key="frame" x="212" y="274" width="200" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="Hfg-U4-wbE"/>
-                                    <constraint firstAttribute="height" constant="21" id="qk6-aD-W46"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Shots:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xl-lY-nge">
-                                <rect key="frame" x="612" y="274" width="200" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="U3U-qC-u1g"/>
-                                    <constraint firstAttribute="width" constant="200" id="VZL-pH-caM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Location:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1tW-ky-Tds">
-                                <rect key="frame" x="441.5" y="137" width="141" height="24"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZY0-KF-XJ5">
-                                <rect key="frame" x="70" y="320" width="442" height="448"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="3Af-xf-yZm" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="442" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Af-xf-yZm" id="Cvq-L0-T4u">
-                                            <rect key="frame" x="0.0" y="0.0" width="442" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Player Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrD-qr-HsA">
-                                                    <rect key="frame" x="25" y="0.0" width="116" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Will Go Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YI8-Bn-ol3">
-                                                    <rect key="frame" x="35" y="27" width="407" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="YI8-Bn-ol3" firstAttribute="leading" secondItem="zrD-qr-HsA" secondAttribute="leading" constant="10" id="DSY-r4-WpS"/>
-                                                <constraint firstItem="YI8-Bn-ol3" firstAttribute="top" secondItem="zrD-qr-HsA" secondAttribute="bottom" constant="10" id="Hsh-wz-DzX"/>
-                                                <constraint firstItem="YI8-Bn-ol3" firstAttribute="trailing" secondItem="Cvq-L0-T4u" secondAttribute="trailing" id="XvW-QK-hY2"/>
-                                                <constraint firstItem="YI8-Bn-ol3" firstAttribute="top" secondItem="zrD-qr-HsA" secondAttribute="bottom" constant="10" id="fTm-FM-tX9"/>
-                                                <constraint firstItem="zrD-qr-HsA" firstAttribute="top" secondItem="Cvq-L0-T4u" secondAttribute="top" constant="10" id="gk3-2d-x5v"/>
-                                                <constraint firstItem="zrD-qr-HsA" firstAttribute="leading" secondItem="Cvq-L0-T4u" secondAttribute="leading" constant="25" id="kBW-ZZ-FIM"/>
-                                                <constraint firstItem="YI8-Bn-ol3" firstAttribute="leading" secondItem="zrD-qr-HsA" secondAttribute="leading" constant="10" id="mHy-Vz-RDO"/>
-                                                <constraint firstItem="YI8-Bn-ol3" firstAttribute="bottom" secondItem="Cvq-L0-T4u" secondAttribute="bottom" constant="-15" id="vxf-NQ-o67"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="homePlayerNameLabel" destination="zrD-qr-HsA" id="HpS-8F-UXh"/>
-                                            <outlet property="homePlayerStatsLabel" destination="YI8-Bn-ol3" id="Lt1-jr-E3M"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HSX-SP-QVW">
-                                <rect key="frame" x="512" y="320" width="442" height="448"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="gFX-qi-fia" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="442" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gFX-qi-fia" id="vCC-yA-X8a">
-                                            <rect key="frame" x="0.0" y="0.0" width="442" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Player Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4WP-d2-8qk">
-                                                    <rect key="frame" x="25" y="0.0" width="116" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Will Go Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLr-cv-cIa">
-                                                    <rect key="frame" x="35" y="27" width="407" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="BLr-cv-cIa" firstAttribute="top" secondItem="4WP-d2-8qk" secondAttribute="bottom" constant="10" id="0tV-9Y-Idt"/>
-                                                <constraint firstItem="BLr-cv-cIa" firstAttribute="top" secondItem="4WP-d2-8qk" secondAttribute="bottom" constant="10" id="A1f-SO-ABP"/>
-                                                <constraint firstItem="4WP-d2-8qk" firstAttribute="top" secondItem="vCC-yA-X8a" secondAttribute="top" constant="10" id="CPI-2I-6dD"/>
-                                                <constraint firstItem="BLr-cv-cIa" firstAttribute="leading" secondItem="4WP-d2-8qk" secondAttribute="leading" constant="10" id="MQA-Ke-ueR"/>
-                                                <constraint firstItem="BLr-cv-cIa" firstAttribute="leading" secondItem="4WP-d2-8qk" secondAttribute="leading" constant="10" id="e2L-ri-sQs"/>
-                                                <constraint firstItem="BLr-cv-cIa" firstAttribute="trailing" secondItem="vCC-yA-X8a" secondAttribute="trailing" id="eQ1-0p-kZb"/>
-                                                <constraint firstItem="BLr-cv-cIa" firstAttribute="bottom" secondItem="vCC-yA-X8a" secondAttribute="bottom" constant="-15" id="jMD-ev-ekb"/>
-                                                <constraint firstItem="4WP-d2-8qk" firstAttribute="leading" secondItem="vCC-yA-X8a" secondAttribute="leading" constant="25" id="ntm-ee-zvZ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="awayPlayerNameLabel" destination="4WP-d2-8qk" id="nSY-fL-B42"/>
-                                            <outlet property="awayPlayerStatsLabel" destination="BLr-cv-cIa" id="h36-aI-27h"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="7xl-lY-nge" firstAttribute="top" secondItem="IId-Ic-KbT" secondAttribute="bottom" constant="25" id="5Kb-T7-loL"/>
-                            <constraint firstItem="Vb6-y2-AHe" firstAttribute="centerX" secondItem="zFq-z5-t9Y" secondAttribute="centerX" id="5RV-Bi-v8g"/>
-                            <constraint firstItem="l96-iq-BdI" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" constant="200" id="7aQ-hi-2Ai"/>
-                            <constraint firstItem="ZY0-KF-XJ5" firstAttribute="leading" secondItem="Vtt-mS-Wyc" secondAttribute="leading" constant="70" id="9NM-wQ-0dg"/>
-                            <constraint firstItem="1tW-ky-Tds" firstAttribute="centerY" secondItem="IId-Ic-KbT" secondAttribute="centerY" constant="-25" id="DfX-lP-7cI"/>
-                            <constraint firstItem="HSX-SP-QVW" firstAttribute="trailing" secondItem="Vtt-mS-Wyc" secondAttribute="trailing" constant="-70" id="EqU-zS-Jam"/>
-                            <constraint firstItem="zFq-z5-t9Y" firstAttribute="centerX" secondItem="SSZ-4w-m2E" secondAttribute="centerX" id="Gam-8f-VT1"/>
-                            <constraint firstItem="ZY0-KF-XJ5" firstAttribute="trailing" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" id="Gbs-5O-HA6"/>
-                            <constraint firstItem="Vb6-y2-AHe" firstAttribute="top" secondItem="zFq-z5-t9Y" secondAttribute="bottom" constant="25" id="Hq4-vF-jsM"/>
-                            <constraint firstItem="HSX-SP-QVW" firstAttribute="bottom" secondItem="Vtt-mS-Wyc" secondAttribute="bottom" id="Lck-QM-k0A"/>
-                            <constraint firstItem="SSZ-4w-m2E" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" constant="-200" id="Omc-fA-DP1"/>
-                            <constraint firstItem="HSX-SP-QVW" firstAttribute="leading" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" id="Qax-b4-09h"/>
-                            <constraint firstItem="SSZ-4w-m2E" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" constant="25" id="Tz6-EC-NSV"/>
-                            <constraint firstItem="IId-Ic-KbT" firstAttribute="centerX" secondItem="l96-iq-BdI" secondAttribute="centerX" id="YGG-cg-kae"/>
-                            <constraint firstItem="1tW-ky-Tds" firstAttribute="centerX" secondItem="Vtt-mS-Wyc" secondAttribute="centerX" id="Yv0-1F-fFj"/>
-                            <constraint firstItem="zFq-z5-t9Y" firstAttribute="top" secondItem="SSZ-4w-m2E" secondAttribute="bottom" constant="20" id="bbe-ny-hjh"/>
-                            <constraint firstItem="IId-Ic-KbT" firstAttribute="top" secondItem="l96-iq-BdI" secondAttribute="bottom" constant="20" id="fIO-7j-ngx"/>
-                            <constraint firstItem="ZY0-KF-XJ5" firstAttribute="bottom" secondItem="kVl-nJ-a0j" secondAttribute="bottom" id="lOT-xt-Ou8"/>
-                            <constraint firstItem="ZY0-KF-XJ5" firstAttribute="top" secondItem="Vb6-y2-AHe" secondAttribute="bottom" constant="25" id="qpN-Hf-fiO"/>
-                            <constraint firstItem="7xl-lY-nge" firstAttribute="centerX" secondItem="IId-Ic-KbT" secondAttribute="centerX" id="qpX-D3-1zz"/>
-                            <constraint firstItem="l96-iq-BdI" firstAttribute="top" secondItem="kVl-nJ-a0j" secondAttribute="top" constant="25" id="t6n-Rb-cFk"/>
-                            <constraint firstItem="HSX-SP-QVW" firstAttribute="top" secondItem="7xl-lY-nge" secondAttribute="bottom" constant="25" id="v8R-By-73h"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="kVl-nJ-a0j"/>
-                    </view>
-                    <connections>
-                        <outlet property="awayNumShotTextField" destination="7xl-lY-nge" id="KHU-dP-ztj"/>
-                        <outlet property="awayPlayerStatsTable" destination="HSX-SP-QVW" id="xtg-51-vUs"/>
-                        <outlet property="awayTeamNameTextField" destination="l96-iq-BdI" id="KPd-AC-k7P"/>
-                        <outlet property="awayTeamScoreTextField" destination="IId-Ic-KbT" id="A4a-2h-Srw"/>
-                        <outlet property="gameLocationLabel" destination="1tW-ky-Tds" id="QiG-iG-e78"/>
-                        <outlet property="homeNumShotTextField" destination="Vb6-y2-AHe" id="DSg-f6-X0C"/>
-                        <outlet property="homePlayerStatsTable" destination="ZY0-KF-XJ5" id="vet-Nd-Id5"/>
-                        <outlet property="homeTeamNameTextField" destination="SSZ-4w-m2E" id="8V9-hV-EV7"/>
-                        <outlet property="homeTeamScoreTextField" destination="zFq-z5-t9Y" id="9wH-ci-Kpa"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hNh-0e-uJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2524" y="-1046"/>
-        </scene>
-        <!--Detailed Current Stats View Controller-->
-        <scene sceneID="vxG-a9-ckh">
-            <objects>
-                <viewController restorationIdentifier="Detailed_Current_Stats_View_Controller" storyboardIdentifier="Detailed_Current_Stats_View_Controller" id="jOB-MY-00L" customClass="Detailed_Current_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DP8-yX-5u8">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rqH-Ox-1KX" userLabel="goalieStatsTableView">
-                                <rect key="frame" x="637" y="45" width="352" height="314"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="jwI-Cz-iHF" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="352" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jwI-Cz-iHF" id="oJB-Ef-0Ev">
-                                            <rect key="frame" x="0.0" y="0.0" width="352" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Goalie Name Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvE-QC-acH">
-                                                    <rect key="frame" x="25" y="0.0" width="148.5" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDw-O2-pkl">
-                                                    <rect key="frame" x="35" y="27" width="317" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="kvE-QC-acH" firstAttribute="leading" secondItem="oJB-Ef-0Ev" secondAttribute="leading" constant="25" id="CNJ-tX-RVD"/>
-                                                <constraint firstItem="sDw-O2-pkl" firstAttribute="leading" secondItem="kvE-QC-acH" secondAttribute="leading" constant="10" id="FEM-0P-Ofw"/>
-                                                <constraint firstItem="kvE-QC-acH" firstAttribute="top" secondItem="oJB-Ef-0Ev" secondAttribute="top" id="PLb-2b-qTT"/>
-                                                <constraint firstItem="sDw-O2-pkl" firstAttribute="trailing" secondItem="oJB-Ef-0Ev" secondAttribute="trailing" id="cd7-3v-s64"/>
-                                                <constraint firstItem="sDw-O2-pkl" firstAttribute="bottom" secondItem="oJB-Ef-0Ev" secondAttribute="bottom" constant="-15" id="duh-Na-WkM"/>
-                                                <constraint firstItem="sDw-O2-pkl" firstAttribute="top" secondItem="kvE-QC-acH" secondAttribute="bottom" constant="10" id="she-nr-aUz"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="detailedHomeGoalieNameLabel" destination="kvE-QC-acH" id="jVu-Dd-I7s"/>
-                                            <outlet property="detailedHomeGoalieStatsLabel" destination="sDw-O2-pkl" id="DBB-FH-jy5"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4NM-0H-hrt">
-                                <rect key="frame" x="35" y="45" width="287" height="723"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="TaP-s5-i6P" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="287" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TaP-s5-i6P" id="Gin-Ni-COz">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Home Player Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMZ-TB-9lV">
-                                                    <rect key="frame" x="25" y="0.0" width="174.5" height="5"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Record" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBK-D8-Dlp">
-                                                    <rect key="frame" x="35" y="15" width="252" height="44.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="zBK-D8-Dlp" firstAttribute="leading" secondItem="TMZ-TB-9lV" secondAttribute="leading" constant="10" id="FWv-nh-zxR"/>
-                                                <constraint firstItem="TMZ-TB-9lV" firstAttribute="top" secondItem="Gin-Ni-COz" secondAttribute="top" id="coL-t1-Pcz"/>
-                                                <constraint firstItem="zBK-D8-Dlp" firstAttribute="trailing" secondItem="Gin-Ni-COz" secondAttribute="trailing" id="dYF-Hm-McO"/>
-                                                <constraint firstItem="zBK-D8-Dlp" firstAttribute="top" secondItem="TMZ-TB-9lV" secondAttribute="bottom" constant="10" id="dYw-KV-GsO"/>
-                                                <constraint firstItem="zBK-D8-Dlp" firstAttribute="bottom" secondItem="Gin-Ni-COz" secondAttribute="bottom" constant="-15" id="vR8-CW-qyM"/>
-                                                <constraint firstItem="TMZ-TB-9lV" firstAttribute="leading" secondItem="Gin-Ni-COz" secondAttribute="leading" constant="25" id="vUF-yA-x4n"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="detailedHomePlayerNameLabel" destination="TMZ-TB-9lV" id="qnc-aH-ulo"/>
-                                            <outlet property="detailedHomePlayerStatsLabel" destination="zBK-D8-Dlp" id="GOd-RK-hjZ"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Hi-to-7lt">
-                                <rect key="frame" x="637" y="384" width="352" height="384"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="50" id="2GC-8B-Oxy" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="352" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2GC-8B-Oxy" id="7Ld-jA-3yr">
-                                            <rect key="frame" x="0.0" y="0.0" width="352" height="49.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Type" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWN-5C-j5O">
-                                                    <rect key="frame" x="25" y="0.0" width="97" height="49.5"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Record" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITf-a5-G8M">
-                                                    <rect key="frame" x="137" y="14.5" width="39" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="ITf-a5-G8M" firstAttribute="leading" secondItem="SWN-5C-j5O" secondAttribute="trailing" constant="15" id="1gP-ue-WFD"/>
-                                                <constraint firstItem="ITf-a5-G8M" firstAttribute="trailing" secondItem="7Ld-jA-3yr" secondAttribute="trailing" id="Im8-PQ-2at"/>
-                                                <constraint firstItem="SWN-5C-j5O" firstAttribute="leading" secondItem="7Ld-jA-3yr" secondAttribute="leading" constant="25" id="Lkm-Ie-mW9"/>
-                                                <constraint firstItem="ITf-a5-G8M" firstAttribute="centerY" secondItem="SWN-5C-j5O" secondAttribute="centerY" id="QM5-0r-uqC"/>
-                                                <constraint firstItem="ITf-a5-G8M" firstAttribute="centerY" secondItem="7Ld-jA-3yr" secondAttribute="centerY" id="Yob-ru-Xnl"/>
-                                                <constraint firstItem="SWN-5C-j5O" firstAttribute="top" secondItem="7Ld-jA-3yr" secondAttribute="top" id="lM4-Uc-fBr"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="teamStatNameLabel" destination="SWN-5C-j5O" id="fvS-tB-1mg"/>
-                                            <outlet property="teamStatValueLabel" destination="ITf-a5-G8M" id="Qyw-6a-iV2"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OWI-tl-pVd">
-                                <rect key="frame" x="322" y="45" width="290" height="723"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="2ic-tW-5QR" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="290" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2ic-tW-5QR" id="BgQ-NO-eFY">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Away Player Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDT-lC-iCG">
-                                                    <rect key="frame" x="25" y="0.0" width="170" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Record" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drm-0p-KUF">
-                                                    <rect key="frame" x="35" y="27" width="255" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="YDT-lC-iCG" firstAttribute="top" secondItem="BgQ-NO-eFY" secondAttribute="top" id="38K-aN-bSG"/>
-                                                <constraint firstItem="Drm-0p-KUF" firstAttribute="bottom" secondItem="BgQ-NO-eFY" secondAttribute="bottom" constant="-15" id="85A-X4-gR3"/>
-                                                <constraint firstItem="YDT-lC-iCG" firstAttribute="leading" secondItem="BgQ-NO-eFY" secondAttribute="leading" constant="25" id="EQs-ic-txH"/>
-                                                <constraint firstItem="Drm-0p-KUF" firstAttribute="top" secondItem="YDT-lC-iCG" secondAttribute="bottom" constant="10" id="XLs-2e-Qh1"/>
-                                                <constraint firstItem="Drm-0p-KUF" firstAttribute="trailing" secondItem="BgQ-NO-eFY" secondAttribute="trailing" id="mmS-HP-TVZ"/>
-                                                <constraint firstItem="Drm-0p-KUF" firstAttribute="leading" secondItem="YDT-lC-iCG" secondAttribute="leading" constant="10" id="sNs-db-TwJ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="detailedAwayPlayerNameLabel" destination="YDT-lC-iCG" id="V58-ds-hwk"/>
-                                            <outlet property="detailedAwayPlayerStatsLabel" destination="Drm-0p-KUF" id="jZF-Ew-u43"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="7Hi-to-7lt" firstAttribute="leading" secondItem="DP8-yX-5u8" secondAttribute="centerX" constant="125" id="3Li-sB-KLX"/>
-                            <constraint firstItem="7Hi-to-7lt" firstAttribute="bottom" secondItem="TNK-eT-3RD" secondAttribute="bottom" id="3lg-Fk-5Ys"/>
-                            <constraint firstItem="7Hi-to-7lt" firstAttribute="trailing" secondItem="DP8-yX-5u8" secondAttribute="trailing" constant="-35" id="5aQ-Ze-eha"/>
-                            <constraint firstItem="OWI-tl-pVd" firstAttribute="trailing" secondItem="rqH-Ox-1KX" secondAttribute="leading" constant="-25" id="7VT-eT-hxc"/>
-                            <constraint firstItem="OWI-tl-pVd" firstAttribute="leading" secondItem="4NM-0H-hrt" secondAttribute="trailing" id="82r-Ep-33P"/>
-                            <constraint firstItem="4NM-0H-hrt" firstAttribute="bottom" secondItem="TNK-eT-3RD" secondAttribute="bottom" id="Bxi-Dk-Qdg"/>
-                            <constraint firstItem="rqH-Ox-1KX" firstAttribute="leading" secondItem="DP8-yX-5u8" secondAttribute="centerX" constant="125" id="J4q-Aa-TKi"/>
-                            <constraint firstItem="rqH-Ox-1KX" firstAttribute="top" secondItem="TNK-eT-3RD" secondAttribute="top" constant="25" id="P1i-Gh-KUb"/>
-                            <constraint firstItem="4NM-0H-hrt" firstAttribute="top" secondItem="TNK-eT-3RD" secondAttribute="top" constant="25" id="WpE-l2-hGy"/>
-                            <constraint firstItem="rqH-Ox-1KX" firstAttribute="trailing" secondItem="DP8-yX-5u8" secondAttribute="trailing" constant="-35" id="Xl2-AN-NVQ"/>
-                            <constraint firstItem="OWI-tl-pVd" firstAttribute="bottom" secondItem="TNK-eT-3RD" secondAttribute="bottom" id="chL-fK-Rrc"/>
-                            <constraint firstItem="4NM-0H-hrt" firstAttribute="trailing" secondItem="DP8-yX-5u8" secondAttribute="centerX" constant="-190" id="eIJ-z3-1lv"/>
-                            <constraint firstItem="OWI-tl-pVd" firstAttribute="top" secondItem="TNK-eT-3RD" secondAttribute="top" constant="25" id="fBV-0g-BDC"/>
-                            <constraint firstItem="4NM-0H-hrt" firstAttribute="leading" secondItem="DP8-yX-5u8" secondAttribute="leading" constant="35" id="fNQ-vO-3vW"/>
-                            <constraint firstItem="7Hi-to-7lt" firstAttribute="top" secondItem="DP8-yX-5u8" secondAttribute="centerY" id="iKh-Em-guC"/>
-                            <constraint firstItem="rqH-Ox-1KX" firstAttribute="bottom" secondItem="DP8-yX-5u8" secondAttribute="centerY" constant="-25" id="zRt-hL-pHV"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="TNK-eT-3RD"/>
-                    </view>
-                    <connections>
-                        <outlet property="awayPlayerStatsTableView" destination="OWI-tl-pVd" id="6ag-7E-koD"/>
-                        <outlet property="goalieStatsTableView" destination="rqH-Ox-1KX" id="qct-Zc-xL6"/>
-                        <outlet property="homePlayerStatsTableView" destination="4NM-0H-hrt" id="MEs-7h-loj"/>
-                        <outlet property="teamStatsTableView" destination="7Hi-to-7lt" id="i7L-Ak-trG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bu8-vZ-ofL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3249.609375" y="-1046.09375"/>
-        </scene>
         <!--Current Stats Ananlytical View-->
         <scene sceneID="aLZ-9B-EiJ">
             <objects>
@@ -3457,6 +3055,9 @@
                                             <segment title="Minor"/>
                                             <segment title="Major"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="penaltyTypeSegCon:" destination="EMa-ZZ-m4d" eventType="valueChanged" id="BeS-yO-lj2"/>
+                                        </connections>
                                     </segmentedControl>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Lz-bx-z8t">
                                         <rect key="frame" x="112" y="426" width="400" height="100"/>
@@ -3538,7 +3139,7 @@
                                             <action selector="helpButon:" destination="EMa-ZZ-m4d" eventType="touchUpInside" id="7S7-ys-N2A"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rKY-Xa-ofj" userLabel="Coming Soon View">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rKY-Xa-ofj" userLabel="Coming Soon View">
                                         <rect key="frame" x="0.0" y="50" width="624" height="523"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXr-gk-21C">
@@ -3605,8 +3206,9 @@
                         <outlet property="goalSwitch" destination="XzQ-AM-jA1" id="Ksc-3Y-4Xl"/>
                         <outlet property="helpButton" destination="kk6-ON-plb" id="5bi-hp-bAu"/>
                         <outlet property="inGameLabel" destination="vK8-cP-UBf" id="KBW-wZ-j8W"/>
-                        <outlet property="panaltySwitch" destination="GhS-Ob-tBN" id="twq-iE-hDm"/>
                         <outlet property="penaltyLengthPicker" destination="1Lz-bx-z8t" id="nvj-hB-CQu"/>
+                        <outlet property="penaltySwitch" destination="GhS-Ob-tBN" id="0Pl-4C-4Mt"/>
+                        <outlet property="penaltyTypeSegCon" destination="DSz-jo-wJk" id="eej-pY-eFK"/>
                         <outlet property="popUpView" destination="YCz-ac-oDf" id="PGP-SS-PvY"/>
                         <outlet property="saveButton" destination="FhI-ey-ova" id="5Qg-ih-aYL"/>
                         <outlet property="shotSwitch" destination="E1P-uU-JBC" id="1iE-LH-8mn"/>
@@ -3848,8 +3450,17 @@
                                     <action selector="viewTypeSwitch:" destination="YiU-MJ-9Xs" eventType="valueChanged" id="dr9-dt-WiW"/>
                                 </connections>
                             </segmentedControl>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNe-sv-Sfc">
-                                <rect key="frame" x="0.0" y="123" width="1024" height="645"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gWz-bb-bZD">
+                                <rect key="frame" x="0.0" y="133" width="1024" height="635"/>
+                                <connections>
+                                    <segue destination="1An-mi-BGF" kind="embed" id="j98-G2-cZT"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NIq-I1-hou">
+                                <rect key="frame" x="0.0" y="133" width="1024" height="635"/>
+                                <connections>
+                                    <segue destination="FZq-I2-05c" kind="embed" id="JLA-RP-r4l"/>
+                                </connections>
                             </containerView>
                             <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBY-ss-XyF" userLabel="upgradeView">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -3871,28 +3482,33 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xNe-sv-Sfc" firstAttribute="bottom" secondItem="RQL-cI-ugr" secondAttribute="bottom" id="3jK-xH-5Cv"/>
+                            <constraint firstItem="NIq-I1-hou" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="1Nd-ey-ESn"/>
                             <constraint firstItem="x4E-fF-hCm" firstAttribute="centerX" secondItem="RQL-cI-ugr" secondAttribute="centerX" id="3wT-wO-eYF"/>
-                            <constraint firstItem="xNe-sv-Sfc" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="61b-tp-sYe"/>
                             <constraint firstItem="x4E-fF-hCm" firstAttribute="top" secondItem="ytE-Lf-Ruk" secondAttribute="bottom" constant="25" id="Acb-nZ-aVa"/>
                             <constraint firstItem="ZKH-ee-JSB" firstAttribute="bottom" secondItem="RQL-cI-ugr" secondAttribute="bottom" id="Aif-9e-Xoh"/>
                             <constraint firstItem="ZKH-ee-JSB" firstAttribute="top" secondItem="HyY-D2-QR7" secondAttribute="top" id="CiD-3a-Say"/>
                             <constraint firstItem="iBY-ss-XyF" firstAttribute="bottom" secondItem="RQL-cI-ugr" secondAttribute="bottom" id="Ctx-qi-euy"/>
-                            <constraint firstItem="xNe-sv-Sfc" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="FDk-G7-XyX"/>
+                            <constraint firstItem="gWz-bb-bZD" firstAttribute="bottom" secondItem="RQL-cI-ugr" secondAttribute="bottom" id="Deh-y7-DHI"/>
                             <constraint firstItem="ytE-Lf-Ruk" firstAttribute="top" secondItem="HyY-D2-QR7" secondAttribute="top" id="KHt-vo-wCm"/>
+                            <constraint firstItem="gWz-bb-bZD" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="OIE-JQ-h85"/>
                             <constraint firstItem="ZKH-ee-JSB" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="Qz9-We-vUU"/>
                             <constraint firstItem="iBY-ss-XyF" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="R99-Gf-otE"/>
-                            <constraint firstItem="xNe-sv-Sfc" firstAttribute="top" secondItem="x4E-fF-hCm" secondAttribute="bottom" id="d2S-7l-O8J"/>
+                            <constraint firstItem="NIq-I1-hou" firstAttribute="top" secondItem="x4E-fF-hCm" secondAttribute="bottom" constant="10" id="S1o-WA-NvO"/>
+                            <constraint firstItem="NIq-I1-hou" firstAttribute="bottom" secondItem="RQL-cI-ugr" secondAttribute="bottom" id="UeT-wh-wLG"/>
+                            <constraint firstItem="NIq-I1-hou" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="ZcB-gx-HXm"/>
                             <constraint firstItem="ZKH-ee-JSB" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="f6x-XY-PCU"/>
                             <constraint firstItem="iBY-ss-XyF" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="hTV-5j-c32"/>
                             <constraint firstItem="ytE-Lf-Ruk" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="ill-dZ-9Bp"/>
+                            <constraint firstItem="gWz-bb-bZD" firstAttribute="top" secondItem="x4E-fF-hCm" secondAttribute="bottom" constant="10" id="knh-jl-dfa"/>
                             <constraint firstItem="ytE-Lf-Ruk" firstAttribute="leading" secondItem="RQL-cI-ugr" secondAttribute="leading" id="tCy-Ik-A1Y"/>
                             <constraint firstItem="iBY-ss-XyF" firstAttribute="top" secondItem="RQL-cI-ugr" secondAttribute="top" id="uRE-X7-qZ0"/>
+                            <constraint firstItem="gWz-bb-bZD" firstAttribute="trailing" secondItem="RQL-cI-ugr" secondAttribute="trailing" id="vWl-Ta-nfD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HyY-D2-QR7"/>
                     </view>
                     <connections>
-                        <outlet property="containerView" destination="xNe-sv-Sfc" id="0LD-0z-2Jp"/>
+                        <outlet property="basic_containerView" destination="gWz-bb-bZD" id="mhM-2c-HzI"/>
+                        <outlet property="detailed_containerView" destination="NIq-I1-hou" id="KGK-uS-O0G"/>
                         <outlet property="navBar" destination="ytE-Lf-Ruk" id="GGQ-oy-LJg"/>
                         <outlet property="upgradeView" destination="iBY-ss-XyF" id="1R9-vB-1yk"/>
                         <outlet property="viewTypeSwitch" destination="x4E-fF-hCm" id="LXA-dy-RtQ"/>
@@ -4417,6 +4033,436 @@
             </objects>
             <point key="canvasLocation" x="-1668" y="2879"/>
         </scene>
+        <!--Basic Current Stats Page-->
+        <scene sceneID="Lc5-Mk-TsW">
+            <objects>
+                <viewController id="1An-mi-BGF" customClass="Basic_Current_Stats_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ayx-nO-BBX">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="635"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B7B-H1-Yx8">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="635"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s6x-0a-iwd">
+                                        <rect key="frame" x="112" y="45" width="400" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="8BZ-rL-cRv"/>
+                                            <constraint firstAttribute="width" constant="400" id="dVd-xt-bHf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fU0-q3-RiJ">
+                                        <rect key="frame" x="662" y="99" width="100" height="150"/>
+                                        <accessibility key="accessibilityConfiguration" label="Away_Team _Score_Label"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="Zoi-ZN-usj"/>
+                                            <constraint firstAttribute="height" constant="150" id="nPC-Pq-J95"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="166"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m06-Rs-7aU">
+                                        <rect key="frame" x="262" y="99" width="100" height="150"/>
+                                        <accessibility key="accessibilityConfiguration" label="Home_Team _Score_Label"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="5b5-G5-nPL"/>
+                                            <constraint firstAttribute="width" constant="100" id="MmF-dl-EfO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="160"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KF3-hk-raR">
+                                        <rect key="frame" x="512" y="45" width="400" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="TCD-he-HYG"/>
+                                            <constraint firstAttribute="width" constant="400" id="khW-dK-m8O"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Shots:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HY5-94-vbE">
+                                        <rect key="frame" x="212" y="274" width="200" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="LQz-7R-zf6"/>
+                                            <constraint firstAttribute="height" constant="21" id="Onk-W5-Qkf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Shots:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbC-cC-vQY">
+                                        <rect key="frame" x="612" y="274" width="200" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="QUT-Lz-gTW"/>
+                                            <constraint firstAttribute="width" constant="200" id="lGa-rv-AWb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Location:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XsQ-Ox-rXe">
+                                        <rect key="frame" x="441.5" y="137" width="141" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kW6-xD-K5r">
+                                        <rect key="frame" x="70" y="320" width="442" height="315"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="gcQ-jk-QJS" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="442" height="75"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gcQ-jk-QJS" id="YBd-oA-KVc">
+                                                    <rect key="frame" x="0.0" y="0.0" width="442" height="74.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Player Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gy6-Av-Pk2">
+                                                            <rect key="frame" x="25" y="0.0" width="116" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Will Go Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcN-nl-3mU">
+                                                            <rect key="frame" x="35" y="27" width="407" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="gcN-nl-3mU" firstAttribute="top" secondItem="Gy6-Av-Pk2" secondAttribute="bottom" constant="10" id="2R9-tg-RsZ"/>
+                                                        <constraint firstItem="gcN-nl-3mU" firstAttribute="leading" secondItem="Gy6-Av-Pk2" secondAttribute="leading" constant="10" id="35V-L5-kOP"/>
+                                                        <constraint firstItem="gcN-nl-3mU" firstAttribute="top" secondItem="Gy6-Av-Pk2" secondAttribute="bottom" constant="10" id="JxG-Cf-olT"/>
+                                                        <constraint firstItem="Gy6-Av-Pk2" firstAttribute="top" secondItem="YBd-oA-KVc" secondAttribute="top" constant="10" id="Ryc-Sv-c4E"/>
+                                                        <constraint firstItem="gcN-nl-3mU" firstAttribute="trailing" secondItem="YBd-oA-KVc" secondAttribute="trailing" id="enW-mG-rDU"/>
+                                                        <constraint firstItem="Gy6-Av-Pk2" firstAttribute="leading" secondItem="YBd-oA-KVc" secondAttribute="leading" constant="25" id="g49-qT-IfT"/>
+                                                        <constraint firstItem="gcN-nl-3mU" firstAttribute="bottom" secondItem="YBd-oA-KVc" secondAttribute="bottom" constant="-15" id="kFK-ld-0gy"/>
+                                                        <constraint firstItem="gcN-nl-3mU" firstAttribute="leading" secondItem="Gy6-Av-Pk2" secondAttribute="leading" constant="10" id="ymw-Mf-PCR"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="homePlayerNameLabel" destination="Gy6-Av-Pk2" id="tmi-e3-Fml"/>
+                                                    <outlet property="homePlayerStatsLabel" destination="gcN-nl-3mU" id="VAt-6f-Ogb"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ych-uG-ppZ">
+                                        <rect key="frame" x="512" y="320" width="442" height="315"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="OHW-mw-1X2" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="442" height="75"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OHW-mw-1X2" id="4q0-OL-K3J">
+                                                    <rect key="frame" x="0.0" y="0.0" width="442" height="74.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Player Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ysc-4n-B93">
+                                                            <rect key="frame" x="25" y="0.0" width="116" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Will Go Here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tg-0E-D00">
+                                                            <rect key="frame" x="35" y="27" width="407" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="8tg-0E-D00" firstAttribute="leading" secondItem="Ysc-4n-B93" secondAttribute="leading" constant="10" id="Ae9-Et-mYC"/>
+                                                        <constraint firstItem="Ysc-4n-B93" firstAttribute="top" secondItem="4q0-OL-K3J" secondAttribute="top" constant="10" id="Dgl-LT-vIi"/>
+                                                        <constraint firstItem="8tg-0E-D00" firstAttribute="trailing" secondItem="4q0-OL-K3J" secondAttribute="trailing" id="NIg-xe-Je6"/>
+                                                        <constraint firstItem="8tg-0E-D00" firstAttribute="leading" secondItem="Ysc-4n-B93" secondAttribute="leading" constant="10" id="ZSo-Ck-Q7z"/>
+                                                        <constraint firstItem="8tg-0E-D00" firstAttribute="bottom" secondItem="4q0-OL-K3J" secondAttribute="bottom" constant="-15" id="bDz-J7-51X"/>
+                                                        <constraint firstItem="8tg-0E-D00" firstAttribute="top" secondItem="Ysc-4n-B93" secondAttribute="bottom" constant="10" id="gOb-rv-IOa"/>
+                                                        <constraint firstItem="8tg-0E-D00" firstAttribute="top" secondItem="Ysc-4n-B93" secondAttribute="bottom" constant="10" id="nwP-Cf-mwM"/>
+                                                        <constraint firstItem="Ysc-4n-B93" firstAttribute="leading" secondItem="4q0-OL-K3J" secondAttribute="leading" constant="25" id="sic-75-Obi"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="awayPlayerNameLabel" destination="Ysc-4n-B93" id="EOx-6s-5Tb"/>
+                                                    <outlet property="awayPlayerStatsLabel" destination="8tg-0E-D00" id="Fi8-N5-MLs"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ych-uG-ppZ" firstAttribute="trailing" secondItem="Pgg-Y4-Phb" secondAttribute="trailing" constant="-70" id="4Qn-qc-ooh"/>
+                                    <constraint firstItem="kW6-xD-K5r" firstAttribute="trailing" secondItem="Pgg-Y4-Phb" secondAttribute="centerX" id="9NA-td-nue"/>
+                                    <constraint firstItem="ych-uG-ppZ" firstAttribute="bottom" secondItem="B7B-H1-Yx8" secondAttribute="bottom" id="9e3-3M-jUx"/>
+                                    <constraint firstItem="fU0-q3-RiJ" firstAttribute="top" secondItem="KF3-hk-raR" secondAttribute="bottom" constant="20" id="A6p-oX-W22"/>
+                                    <constraint firstItem="HY5-94-vbE" firstAttribute="top" secondItem="m06-Rs-7aU" secondAttribute="bottom" constant="25" id="Ama-gU-Xhg"/>
+                                    <constraint firstItem="vbC-cC-vQY" firstAttribute="top" secondItem="fU0-q3-RiJ" secondAttribute="bottom" constant="25" id="D8a-7s-34F"/>
+                                    <constraint firstItem="KF3-hk-raR" firstAttribute="centerX" secondItem="B7B-H1-Yx8" secondAttribute="centerX" constant="200" id="ExP-R4-evr"/>
+                                    <constraint firstItem="m06-Rs-7aU" firstAttribute="centerX" secondItem="s6x-0a-iwd" secondAttribute="centerX" id="HlR-VY-UO0"/>
+                                    <constraint firstItem="s6x-0a-iwd" firstAttribute="top" secondItem="Pgg-Y4-Phb" secondAttribute="top" constant="25" id="IMy-2g-ANQ"/>
+                                    <constraint firstItem="HY5-94-vbE" firstAttribute="centerX" secondItem="m06-Rs-7aU" secondAttribute="centerX" id="MuZ-Gg-qBo"/>
+                                    <constraint firstItem="kW6-xD-K5r" firstAttribute="leading" secondItem="Pgg-Y4-Phb" secondAttribute="leading" constant="70" id="PAS-88-bUZ"/>
+                                    <constraint firstItem="ych-uG-ppZ" firstAttribute="leading" secondItem="Pgg-Y4-Phb" secondAttribute="centerX" id="Q8L-zZ-OHu"/>
+                                    <constraint firstItem="ych-uG-ppZ" firstAttribute="top" secondItem="vbC-cC-vQY" secondAttribute="bottom" constant="25" id="UmI-LQ-3qy"/>
+                                    <constraint firstItem="kW6-xD-K5r" firstAttribute="top" secondItem="HY5-94-vbE" secondAttribute="bottom" constant="25" id="Ux3-ws-Bq0"/>
+                                    <constraint firstItem="XsQ-Ox-rXe" firstAttribute="centerX" secondItem="B7B-H1-Yx8" secondAttribute="centerX" id="Wvs-U8-xq1"/>
+                                    <constraint firstItem="XsQ-Ox-rXe" firstAttribute="centerY" secondItem="fU0-q3-RiJ" secondAttribute="centerY" constant="-25" id="XIG-Co-igd"/>
+                                    <constraint firstItem="fU0-q3-RiJ" firstAttribute="centerX" secondItem="KF3-hk-raR" secondAttribute="centerX" id="ZNe-56-fWv"/>
+                                    <constraint firstItem="KF3-hk-raR" firstAttribute="top" secondItem="Pgg-Y4-Phb" secondAttribute="top" constant="25" id="aj0-kf-oBX"/>
+                                    <constraint firstItem="m06-Rs-7aU" firstAttribute="top" secondItem="s6x-0a-iwd" secondAttribute="bottom" constant="20" id="hNY-aa-HVU"/>
+                                    <constraint firstItem="kW6-xD-K5r" firstAttribute="bottom" secondItem="Pgg-Y4-Phb" secondAttribute="bottom" id="i4l-j9-YKQ"/>
+                                    <constraint firstItem="s6x-0a-iwd" firstAttribute="centerX" secondItem="B7B-H1-Yx8" secondAttribute="centerX" constant="-200" id="kd2-RH-OP7"/>
+                                    <constraint firstItem="vbC-cC-vQY" firstAttribute="centerX" secondItem="fU0-q3-RiJ" secondAttribute="centerX" id="shv-gp-Tg8"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="Pgg-Y4-Phb"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="B7B-H1-Yx8" firstAttribute="trailing" secondItem="ayx-nO-BBX" secondAttribute="trailing" id="HGa-3C-Bsj"/>
+                            <constraint firstItem="B7B-H1-Yx8" firstAttribute="top" secondItem="ayx-nO-BBX" secondAttribute="top" id="Obz-dT-s8h"/>
+                            <constraint firstItem="B7B-H1-Yx8" firstAttribute="bottom" secondItem="ayx-nO-BBX" secondAttribute="bottom" id="sdy-MY-dn0"/>
+                            <constraint firstItem="B7B-H1-Yx8" firstAttribute="leading" secondItem="ayx-nO-BBX" secondAttribute="leading" id="xVl-Sp-pBK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Usc-jx-gkg"/>
+                    </view>
+                    <connections>
+                        <outlet property="awayNumShotTextField" destination="vbC-cC-vQY" id="bZG-po-Rwe"/>
+                        <outlet property="awayPlayerStatsTable" destination="ych-uG-ppZ" id="TTP-fg-klj"/>
+                        <outlet property="awayTeamNameTextField" destination="KF3-hk-raR" id="dVL-M1-zcP"/>
+                        <outlet property="awayTeamScoreTextField" destination="fU0-q3-RiJ" id="pYy-cA-jXU"/>
+                        <outlet property="gameLocationLabel" destination="XsQ-Ox-rXe" id="g26-xw-w4U"/>
+                        <outlet property="homeNumShotTextField" destination="HY5-94-vbE" id="Z5S-0H-RdA"/>
+                        <outlet property="homePlayerStatsTable" destination="kW6-xD-K5r" id="nWc-xQ-bSx"/>
+                        <outlet property="homeTeamNameTextField" destination="s6x-0a-iwd" id="G4w-o4-u7i"/>
+                        <outlet property="homeTeamScoreTextField" destination="m06-Rs-7aU" id="JR5-My-V2v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H3k-bB-zHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2570" y="-852"/>
+        </scene>
+        <!--Detailed Current Stats View Controller-->
+        <scene sceneID="8jp-fy-qJ0">
+            <objects>
+                <viewController id="FZq-I2-05c" customClass="Detailed_Current_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FQN-wO-YOU">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="635"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKH-CR-k3b">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="635"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0b4-Ko-MAX" userLabel="goalieStatsTableView">
+                                        <rect key="frame" x="637" y="45" width="352" height="247.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="Wr2-sJ-MHA" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="352" height="75"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wr2-sJ-MHA" id="PU1-l2-Osb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="352" height="74.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Goalie Name Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEE-7s-sFW">
+                                                            <rect key="frame" x="25" y="0.0" width="148.5" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsw-md-tRT">
+                                                            <rect key="frame" x="35" y="27" width="317" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="bsw-md-tRT" firstAttribute="top" secondItem="fEE-7s-sFW" secondAttribute="bottom" constant="10" id="9f4-cG-uB6"/>
+                                                        <constraint firstItem="bsw-md-tRT" firstAttribute="leading" secondItem="fEE-7s-sFW" secondAttribute="leading" constant="10" id="AfG-2m-jFg"/>
+                                                        <constraint firstItem="fEE-7s-sFW" firstAttribute="leading" secondItem="PU1-l2-Osb" secondAttribute="leading" constant="25" id="ERU-Wm-K7d"/>
+                                                        <constraint firstItem="bsw-md-tRT" firstAttribute="bottom" secondItem="PU1-l2-Osb" secondAttribute="bottom" constant="-15" id="b3s-HA-wlW"/>
+                                                        <constraint firstItem="bsw-md-tRT" firstAttribute="trailing" secondItem="PU1-l2-Osb" secondAttribute="trailing" id="dnQ-9e-Pex"/>
+                                                        <constraint firstItem="fEE-7s-sFW" firstAttribute="top" secondItem="PU1-l2-Osb" secondAttribute="top" id="qPk-TP-Gxp"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="detailedHomeGoalieNameLabel" destination="fEE-7s-sFW" id="r4B-gq-XXM"/>
+                                                    <outlet property="detailedHomeGoalieStatsLabel" destination="bsw-md-tRT" id="QrI-dj-lRF"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y6a-38-UD6">
+                                        <rect key="frame" x="35" y="45" width="287" height="590"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="amE-pp-rSH" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="287" height="75"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="amE-pp-rSH" id="jKm-7e-bnb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="74.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Home Player Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5f1-Dp-run">
+                                                            <rect key="frame" x="25" y="0.0" width="174.5" height="5"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Record" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoF-vd-eZ1">
+                                                            <rect key="frame" x="35" y="15" width="252" height="44.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="yoF-vd-eZ1" firstAttribute="bottom" secondItem="jKm-7e-bnb" secondAttribute="bottom" constant="-15" id="7Ne-We-Y2o"/>
+                                                        <constraint firstItem="5f1-Dp-run" firstAttribute="top" secondItem="jKm-7e-bnb" secondAttribute="top" id="CIy-n9-iyL"/>
+                                                        <constraint firstItem="5f1-Dp-run" firstAttribute="leading" secondItem="jKm-7e-bnb" secondAttribute="leading" constant="25" id="Pqz-zh-5e0"/>
+                                                        <constraint firstItem="yoF-vd-eZ1" firstAttribute="trailing" secondItem="jKm-7e-bnb" secondAttribute="trailing" id="RNi-RU-fWN"/>
+                                                        <constraint firstItem="yoF-vd-eZ1" firstAttribute="top" secondItem="5f1-Dp-run" secondAttribute="bottom" constant="10" id="dub-aN-jo9"/>
+                                                        <constraint firstItem="yoF-vd-eZ1" firstAttribute="leading" secondItem="5f1-Dp-run" secondAttribute="leading" constant="10" id="rEh-i6-sDo"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="detailedHomePlayerNameLabel" destination="5f1-Dp-run" id="qMp-1R-YCn"/>
+                                                    <outlet property="detailedHomePlayerStatsLabel" destination="yoF-vd-eZ1" id="d4x-TS-3um"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bMB-bj-Oxd">
+                                        <rect key="frame" x="637" y="317.5" width="352" height="317.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="50" id="19M-Pc-Oxh" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="352" height="50"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="19M-Pc-Oxh" id="OMv-Ur-WRg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="352" height="49.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stats Type" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1W-g4-R8g">
+                                                            <rect key="frame" x="25" y="0.0" width="97" height="49.5"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stats Record" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nF7-pa-lZq">
+                                                            <rect key="frame" x="203.5" y="0.0" width="98.5" height="49.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="v1W-g4-R8g" firstAttribute="bottom" secondItem="OMv-Ur-WRg" secondAttribute="bottom" id="Gzl-jE-SQh"/>
+                                                        <constraint firstItem="v1W-g4-R8g" firstAttribute="leading" secondItem="OMv-Ur-WRg" secondAttribute="leading" constant="25" id="I7m-w1-UeU"/>
+                                                        <constraint firstItem="nF7-pa-lZq" firstAttribute="bottom" secondItem="OMv-Ur-WRg" secondAttribute="bottom" id="Qf9-Cr-O8C"/>
+                                                        <constraint firstItem="v1W-g4-R8g" firstAttribute="top" secondItem="OMv-Ur-WRg" secondAttribute="top" id="XOV-pR-Uaz"/>
+                                                        <constraint firstItem="nF7-pa-lZq" firstAttribute="top" secondItem="OMv-Ur-WRg" secondAttribute="top" id="Z0Z-UQ-YlY"/>
+                                                        <constraint firstItem="nF7-pa-lZq" firstAttribute="trailing" secondItem="OMv-Ur-WRg" secondAttribute="trailing" constant="-50" id="frG-aQ-F5j"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="teamStatNameLabel" destination="v1W-g4-R8g" id="LzP-YU-koX"/>
+                                                    <outlet property="teamStatValueLabel" destination="nF7-pa-lZq" id="iTQ-mc-ag2"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IkA-13-A7F">
+                                        <rect key="frame" x="322" y="45" width="290" height="590"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="42X-A6-Fmn" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="290" height="75"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="42X-A6-Fmn" id="vJD-Ws-qi4">
+                                                    <rect key="frame" x="0.0" y="0.0" width="290" height="74.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Away Player Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ugj-a8-MGY">
+                                                            <rect key="frame" x="25" y="0.0" width="170" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Stats Record" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02S-0W-Yfz">
+                                                            <rect key="frame" x="35" y="27" width="255" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="02S-0W-Yfz" firstAttribute="top" secondItem="Ugj-a8-MGY" secondAttribute="bottom" constant="10" id="2BY-bE-rc5"/>
+                                                        <constraint firstItem="Ugj-a8-MGY" firstAttribute="leading" secondItem="vJD-Ws-qi4" secondAttribute="leading" constant="25" id="5su-fM-BEu"/>
+                                                        <constraint firstItem="Ugj-a8-MGY" firstAttribute="top" secondItem="vJD-Ws-qi4" secondAttribute="top" id="8Mj-d5-OMf"/>
+                                                        <constraint firstItem="02S-0W-Yfz" firstAttribute="leading" secondItem="Ugj-a8-MGY" secondAttribute="leading" constant="10" id="GbA-fK-vZg"/>
+                                                        <constraint firstItem="02S-0W-Yfz" firstAttribute="trailing" secondItem="vJD-Ws-qi4" secondAttribute="trailing" id="Vq2-U8-JwD"/>
+                                                        <constraint firstItem="02S-0W-Yfz" firstAttribute="bottom" secondItem="vJD-Ws-qi4" secondAttribute="bottom" constant="-15" id="bG9-X9-csx"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="detailedAwayPlayerNameLabel" destination="Ugj-a8-MGY" id="M8l-sA-Lp5"/>
+                                                    <outlet property="detailedAwayPlayerStatsLabel" destination="02S-0W-Yfz" id="3Eb-Ge-ngI"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="bMB-bj-Oxd" firstAttribute="leading" secondItem="bKH-CR-k3b" secondAttribute="centerX" constant="125" id="0KG-3z-1R8"/>
+                                    <constraint firstItem="IkA-13-A7F" firstAttribute="bottom" secondItem="N3b-KB-iie" secondAttribute="bottom" id="2xc-3M-CxW"/>
+                                    <constraint firstItem="IkA-13-A7F" firstAttribute="leading" secondItem="y6a-38-UD6" secondAttribute="trailing" id="7DO-EL-HHA"/>
+                                    <constraint firstItem="y6a-38-UD6" firstAttribute="trailing" secondItem="bKH-CR-k3b" secondAttribute="centerX" constant="-190" id="DR4-ch-Fbh"/>
+                                    <constraint firstItem="0b4-Ko-MAX" firstAttribute="top" secondItem="N3b-KB-iie" secondAttribute="top" constant="25" id="JIi-IS-s1Z"/>
+                                    <constraint firstItem="bMB-bj-Oxd" firstAttribute="top" secondItem="bKH-CR-k3b" secondAttribute="centerY" id="PsH-lC-teV"/>
+                                    <constraint firstItem="bMB-bj-Oxd" firstAttribute="trailing" secondItem="bKH-CR-k3b" secondAttribute="trailing" constant="-35" id="SYJ-2x-Qaz"/>
+                                    <constraint firstItem="IkA-13-A7F" firstAttribute="top" secondItem="N3b-KB-iie" secondAttribute="top" constant="25" id="SiV-4t-Auv"/>
+                                    <constraint firstItem="y6a-38-UD6" firstAttribute="top" secondItem="N3b-KB-iie" secondAttribute="top" constant="25" id="TiO-36-1NP"/>
+                                    <constraint firstItem="y6a-38-UD6" firstAttribute="bottom" secondItem="N3b-KB-iie" secondAttribute="bottom" id="UrL-Ah-UDh"/>
+                                    <constraint firstItem="0b4-Ko-MAX" firstAttribute="bottom" secondItem="bKH-CR-k3b" secondAttribute="centerY" constant="-25" id="Uvo-oX-Rxa"/>
+                                    <constraint firstItem="y6a-38-UD6" firstAttribute="leading" secondItem="bKH-CR-k3b" secondAttribute="leading" constant="35" id="j9K-Xf-DAo"/>
+                                    <constraint firstItem="0b4-Ko-MAX" firstAttribute="leading" secondItem="bKH-CR-k3b" secondAttribute="centerX" constant="125" id="jdi-3t-eg8"/>
+                                    <constraint firstItem="0b4-Ko-MAX" firstAttribute="trailing" secondItem="bKH-CR-k3b" secondAttribute="trailing" constant="-35" id="u7c-BA-DzL"/>
+                                    <constraint firstItem="IkA-13-A7F" firstAttribute="trailing" secondItem="0b4-Ko-MAX" secondAttribute="leading" constant="-25" id="vns-tl-dSt"/>
+                                    <constraint firstItem="bMB-bj-Oxd" firstAttribute="bottom" secondItem="N3b-KB-iie" secondAttribute="bottom" id="wLb-Lg-jDD"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="N3b-KB-iie"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bKH-CR-k3b" firstAttribute="trailing" secondItem="FQN-wO-YOU" secondAttribute="trailing" id="bsn-iw-kYz"/>
+                            <constraint firstItem="bKH-CR-k3b" firstAttribute="top" secondItem="FQN-wO-YOU" secondAttribute="top" id="dEh-tD-zWE"/>
+                            <constraint firstItem="bKH-CR-k3b" firstAttribute="leading" secondItem="FQN-wO-YOU" secondAttribute="leading" id="hgW-cu-gCo"/>
+                            <constraint firstItem="bKH-CR-k3b" firstAttribute="bottom" secondItem="FQN-wO-YOU" secondAttribute="bottom" id="n8M-wu-bnS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="awayPlayerStatsTableView" destination="IkA-13-A7F" id="G8m-Ea-jPE"/>
+                        <outlet property="goalieStatsTableView" destination="0b4-Ko-MAX" id="doy-J5-dSJ"/>
+                        <outlet property="homePlayerStatsTableView" destination="y6a-38-UD6" id="Bcu-zj-3g1"/>
+                        <outlet property="teamStatsTableView" destination="bMB-bj-Oxd" id="kXU-35-rD0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lDD-di-ZQJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3213" y="-852"/>
+        </scene>
     </scenes>
     <resources>
         <image name="about_icon" width="50" height="50"/>
@@ -4435,13 +4481,13 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="p9k-GG-4VP"/>
-        <segue reference="pOz-SY-0TH"/>
-        <segue reference="g22-jV-YxD"/>
+        <segue reference="VdZ-aC-tCs"/>
+        <segue reference="uyd-PZ-fI3"/>
         <segue reference="jMX-vY-t9s"/>
         <segue reference="9gt-uS-D9h"/>
         <segue reference="CQV-MR-jeA"/>
         <segue reference="nhd-cM-urx"/>
         <segue reference="S9b-VU-SC9"/>
-        <segue reference="B9O-nl-JB9"/>
+        <segue reference="w5X-2C-weP"/>
     </inferredMetricsTieBreakers>
 </document>

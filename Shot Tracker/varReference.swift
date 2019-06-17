@@ -29,6 +29,32 @@ class newGameUserDefaultGen{
 }
 
 /*
+ Set / delete user defaults for in game settings
+ Input: None
+ Output: None
+ */
+class inGmaeUserDefaultGen{
+    
+    func enable_userDefaults(){
+        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: "minorPenaltyLength"), forKey: "temp_minorPenaltyLength")
+        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: "majorPenaltyLength"), forKey: "temp_majorPenaltyLength")
+        UserDefaults.standard.set(true, forKey: "displayGoalBool")
+        UserDefaults.standard.set(true, forKey: "displayShotBool")
+        UserDefaults.standard.set(true, forKey: "displayPenaltyBool")
+        
+    }
+    
+    func delete_userDefaults(){
+        
+        UserDefaults.standard.removeObject(forKey: "temp_minorPenaltyLength")
+        UserDefaults.standard.removeObject(forKey: "temp_majorPenaltyLength")
+        UserDefaults.standard.removeObject(forKey: "displayGoalBool")
+        UserDefaults.standard.removeObject(forKey: "displayShotBool")
+        UserDefaults.standard.removeObject(forKey: "displayPenaltyBool")
+    }
+}
+
+/*
  Removes user defaults used on new game load
  Input: None
  Output: None
