@@ -15,45 +15,20 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     @IBOutlet weak var upgradeView: UIView!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var viewTypeSwitch: UISegmentedControl!
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var basic_containerView: UIView!
+    @IBOutlet weak var detailed_containerView: UIView!
     
     var rowIndex: Int = 0
     var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
     var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
-
-    private lazy var basicStatsView: Basic_Current_Stats_Page = {
-        // Load Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
-        // Instantiate View Controller
-        var viewController = storyboard.instantiateViewController(withIdentifier: "Basic_Current_Stats_Page") as! Basic_Current_Stats_Page
-        
-        // Add View Controller as Child View Controller
-        self.add(asChildViewController: viewController)
-        
-        return viewController
-    }()
-    
-    private lazy var detailedStatsView: Detailed_Current_Stats_View_Controller = {
-        // Load Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
-        // Instantiate View Controller
-        var viewController = storyboard.instantiateViewController(withIdentifier: "Detailed_Current_Stats_View_Controller") as! Detailed_Current_Stats_View_Controller
-        
-        // Add View Controller as Child View Controller
-        self.add(asChildViewController: viewController)
-        
-        return viewController
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
         //UserDefaults.standard.removeObject(forKey: "userTrialPeriod")
-        
+        basic_containerView.isHidden = false
+        detailed_containerView.isHidden = true
         navBarProcessing()
-        setupView()
         
         // Do any additional setup after loading the view.
     }
@@ -84,56 +59,6 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         }
     }
     
-    private func setupView() {
-        updateView()
-    }
-    
-    private func updateView() {
-        switch rowIndex{
-        case 0:
-            remove(asChildViewController: detailedStatsView)
-            add(asChildViewController: basicStatsView)
-        case 1:
-            remove(asChildViewController: basicStatsView)
-            add(asChildViewController: detailedStatsView)
-        default:
-            remove(asChildViewController: detailedStatsView)
-            add(asChildViewController: detailedStatsView)
-        }
-    }
-    // MARK: - Actions
-    
-    @objc func selectionDidChange(_ sender: UISegmentedControl) {
-        updateView()
-    }
-    
-    // MARK: - Helper Methods
-    
-    private func add(asChildViewController viewController: UIViewController) {
-        // Add Child View Controller
-        addChild(viewController)
-        
-        // Add Child View as Subview
-        containerView.addSubview(viewController.view)
-        
-        // Configure Child View
-        viewController.view.frame = view.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        // Notify Child View Controller
-        viewController.didMove(toParent: self)
-    }
-    
-    private func remove(asChildViewController viewController: UIViewController) {
-        // Notify Child View Controller
-        viewController.willMove(toParent: nil)
-        
-        // Remove Child View From Superview
-        viewController.view.removeFromSuperview()
-        
-        // Notify Child View Controller
-        viewController.removeFromParent()
-    }
     
     func navBarProcessing() {
         if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
@@ -149,11 +74,14 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
             switch viewTypeSwitch.selectedSegmentIndex {
             case 0:
                 rowIndex = 0
-                self.setupView()
+                basic_containerView.isHidden = false
+                detailed_containerView.isHidden = true
             case 1:
+                
                 if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
                     rowIndex = 1
-                    self.setupView()
+                    detailed_containerView.isHidden = false
+                    basic_containerView.isHidden = true
                 }else{
                      if (isKeyPresentInUserDefaults(key: "userTrialPeriod") != true){
                         print("Trail Stats Period")
@@ -164,12 +92,14 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
                             UserDefaults.standard.set(false, forKey: "userTrialPeriod")
                             self.viewTypeSwitch.selectedSegmentIndex = 0
                             self.rowIndex = 0
-                            self.setupView()
+                            self.basic_containerView.isHidden = true
+                            self.detailed_containerView.isHidden = false
                             self.upgradeView.isHidden = true
                             
                         }
                         rowIndex = 1
-                        self.setupView()
+                        basic_containerView.isHidden = true
+                        detailed_containerView.isHidden = false
                        
                      }else{
                         noUpgradeAlert()

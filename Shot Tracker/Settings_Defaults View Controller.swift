@@ -60,6 +60,9 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
             homeTeamPickerData = ["No Teams"]
             
         }
+        
+        // set picker position based on user default
+        penaltyLengthPicker.selectRow(UserDefaults.standard.integer(forKey: "minorPenaltyLength") - 1, inComponent: 0, animated: true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,6 +74,15 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
         super.viewWillDisappear(animated)
         
         print("Defaults View Controller Called")
+    }
+    @IBAction func penaltySegCon(_ sender: Any) {
+        if (penaltySegControl.selectedSegmentIndex == 0){
+            // set picker position based on user default
+            penaltyLengthPicker.selectRow(UserDefaults.standard.integer(forKey: "minorPenaltyLength") - 1, inComponent: 0, animated: true)
+        }else{
+            // set picker position based on user default
+            penaltyLengthPicker.selectRow(UserDefaults.standard.integer(forKey: "majorPenaltyLength") - 1, inComponent: 0, animated: true)
+        }
     }
     
     @IBAction func continueButton(_ sender: UIButton) {

@@ -50,6 +50,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     var tempGoalieSelectedID: Int!
     var fixedGoalieID: Int!
     var currentGameID: Int!
+    var tagCounter: Int = 100
     
     var homeTeam: Int!
     var awayTeam: Int!
@@ -137,12 +138,10 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @objc func myMethod(notification: NSNotification){
         // remove all previous markers from ice before adding new ones onLoad func
-        if (goalMarkerimageView != nil){
-            goalMarkerimageView.removeFromSuperview()
-            
-        }
-        if (shotMarkerimageView != nil){
-            shotMarkerimageView.removeFromSuperview()
+        for views in self.view.subviews{
+            if views.tag >= 100{
+                views.removeFromSuperview()
+            }
         }
         onLoad()
     }
@@ -160,11 +159,10 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         delay(0.5){
             // call functions for stats page dynamic function
             if (self.realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
-                
                 self.shot_markerProcessing()
                 self.goal_markerProcessing()
                 self.penalty_markerProcessing()
-                
+                    
                 if (self.realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").last == nil){
                     // align text in text field as well assign text value to text field to team name
                     self.homeTeamNumGoals.text = String(0)
@@ -240,25 +238,33 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         let home_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
         let away_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
         let away_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
-        // check to see if either array cords arrays are not empty
-        if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
-            // loop through the corresponding shot arrays for both x and y and place a imageview marker in said spot
-            for i in 0..<home_xCordsArray.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
-                    shotMarkerimageView.contentMode = .scaleAspectFill;
-                    shotMarkerimageView.image = homeTeamShotMakerImage;
-                    view.addSubview(shotMarkerimageView);
-            }
-            for i in 0..<away_xCordsArray.count{
-                    shotMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
-                    shotMarkerimageView.contentMode = .scaleAspectFill;
-                    shotMarkerimageView.image = awayTeamShotMarkerImage;
-                    view.addSubview(shotMarkerimageView);
+        if (UserDefaults.standard.bool(forKey: "displayShotBool") == true){
+            // check to see if either array cords arrays are not empty
+            if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false ){
+                // loop through the corresponding shot arrays for both x and y and place a imageview marker in said spot
+                for i in 0..<home_xCordsArray.count{
+                    let imageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
+                    imageView.contentMode = .scaleAspectFill;
+                    imageView.image = homeTeamShotMakerImage;
+                    view.addSubview(imageView);
+                    imageView.tag = tagCounter
+                    tagCounter += 1
+                }
+                for i in 0..<away_xCordsArray.count{
+                    let imageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
+                    imageView.contentMode = .scaleAspectFill;
+                    imageView.image = awayTeamShotMarkerImage;
+                    view.addSubview(imageView);
+                    imageView.tag = tagCounter
+                    tagCounter += 1
+                }
+            }else{
+                // print error id not cord data present in arrays
+                //should only error out if user hasnt submittte any marker data to realm
+                print("No Shot Marker Cords Found on Load")
             }
         }else{
-            // print error id not cord data present in arrays
-            //should only error out if user hasnt submittte any marker data to realm
-            print("No Shot Marker Cords Found on Load")
+            print("User has disabled shot markers")
         }
     }
     
@@ -272,26 +278,33 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         let home_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
         let away_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
         let away_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
-        
-        // log data grabbed from realm
-        if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
-            // check markerType image value
-            for i in 0..<home_xCordsArray.count{
-                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
-                goalMarkerimageView.contentMode = .scaleAspectFill;
-                goalMarkerimageView.image = homeTeamGoalMakerImage;
-                view.addSubview(goalMarkerimageView);
-            }
-            for i in 0..<away_xCordsArray.count{
-                goalMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
-                goalMarkerimageView.contentMode = .scaleAspectFill;
-                goalMarkerimageView.image = awayTeamGoalMarkerImage;
-                view.addSubview(goalMarkerimageView);
+        if (UserDefaults.standard.bool(forKey: "displayGoalBool") == true){
+            // log data grabbed from realm
+            if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false ){
+                // check markerType image value
+                for i in 0..<home_xCordsArray.count{
+                    let imageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
+                    imageView.contentMode = .scaleAspectFill;
+                    imageView.image = homeTeamGoalMakerImage;
+                    view.addSubview(imageView);
+                    imageView.tag = tagCounter
+                    tagCounter += 1
+                }
+                for i in 0..<away_xCordsArray.count{
+                    let imageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
+                    imageView.contentMode = .scaleAspectFill;
+                    imageView.image = awayTeamGoalMarkerImage;
+                    view.addSubview(imageView);
+                    imageView.tag = tagCounter
+                    tagCounter += 1
+                }
+            }else{
+                // print error id not cord data present in arrays
+                //should only error out if user hasnt submittte any marker data to realm
+                print("No Goal Marker Cords Found on Load")
             }
         }else{
-            // print error id not cord data present in arrays
-            //should only error out if user hasnt submittte any marker data to realm
-            print("No Goal Marker Cords Found on Load")
+            print("User has disabled goal markers")
         }
     }
     
@@ -305,26 +318,33 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         let home_yCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCord") as! [Int]).compactMap({String($0)})
         let away_xCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "xCord") as! [Int]).compactMap({String($0)})
         let away_yCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, awayTeam)).value(forKeyPath: "yCord") as! [Int]).compactMap({String($0)})
-        
-        // log data grabbed from realm
-        if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false){
-            // check markerType image value
-            for i in 0..<home_xCordsArray.count{
-                penaltyMarkerimageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
-                penaltyMarkerimageView.contentMode = .scaleAspectFill;
-                penaltyMarkerimageView.image = homeTeamPenaltyMarkerImage;
-                view.addSubview(penaltyMarkerimageView);
-            }
-            for i in 0..<away_xCordsArray.count{
-                penaltyMarkerimageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
-                penaltyMarkerimageView.contentMode = .scaleAspectFill;
-                penaltyMarkerimageView.image = awayTeamPenaltyMarkerImage;
-                view.addSubview(penaltyMarkerimageView);
+        if (UserDefaults.standard.bool(forKey: "displayPenaltyBool") == true){
+            // log data grabbed from realm
+            if (home_xCordsArray.isEmpty == false || away_xCordsArray.isEmpty == false ){
+                // check markerType image value
+                for i in 0..<home_xCordsArray.count{
+                    let imageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
+                    imageView.contentMode = .scaleAspectFill;
+                    imageView.image = homeTeamPenaltyMarkerImage;
+                    view.addSubview(imageView);
+                    imageView.tag = tagCounter
+                    tagCounter += 1
+                }
+                for i in 0..<away_xCordsArray.count{
+                    let imageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
+                    imageView.contentMode = .scaleAspectFill;
+                    imageView.image = awayTeamPenaltyMarkerImage;
+                    view.addSubview(imageView);
+                    imageView.tag = tagCounter
+                    tagCounter += 1
+                }
+            }else{
+                // print error id not cord data present in arrays
+                //should only error out if user hasnt submittte any marker data to realm
+                print("No Penalty Marker Cords Found on Load")
             }
         }else{
-            // print error id not cord data present in arrays
-            //should only error out if user hasnt submittte any marker data to realm
-            print("No Penalty Marker Cords Found on Load")
+            print("User has disabled penalty markers")
         }
     }
   
@@ -460,7 +480,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     // action when clicking done button
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
         // Create you actionsheet - preferredStyle: .actionSheet
-        let actionSheet = UIAlertController(title: "Current Game Save State", message: "Please select save state this game should be saved to.", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Current Game Save State", message: "Please select save state this game should be saved to.\n ie. Please note all in game settings will be forgotten regardless of selection, this will not delete your current game stats.", preferredStyle: .actionSheet)
         
         // Create your actions - take a look at different style attributes
         //saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
@@ -472,6 +492,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             }
             // delete all user defaults generated from newgame
             deleteNewGameUserDefaults.deleteUserDefaults()
+            inGmaeUserDefaultGen().delete_userDefaults()
              // segue back to home screen when done
             let dictionary = ["key":"value"]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
@@ -508,6 +529,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             
             // delete all user defaults generated from newgame
             deleteNewGameUserDefaults.deleteUserDefaults()
+            inGmaeUserDefaultGen().delete_userDefaults()
             // segue back to home screen when done
             let dictionary = ["key":"value"]
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
