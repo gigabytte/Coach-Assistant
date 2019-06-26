@@ -12,6 +12,7 @@ import RealmSwift
 class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate{
     
     @IBAction func unwindToOldSats(segue: UIStoryboardSegue) {}
+    @IBOutlet weak var noGameFoundLabel: UILabel!
     
     let realm = try! Realm()
     //Create variable to hold Gamelist to pick from
@@ -43,6 +44,14 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.layer.cornerRadius = 10
         tableView.delegate = self
         tableView.dataSource = self
+        
+        if newGameDates.isEmpty == true{
+            print("No Game Found on Load")
+            noGameFoundLabel.isHidden = false
+        }else{
+            noGameFoundLabel.isHidden = true
+        }
+        
     }
     
     // We are willing to become first responder to get shake motion

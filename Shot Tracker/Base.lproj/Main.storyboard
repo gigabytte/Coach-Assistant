@@ -1264,10 +1264,17 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Whoops! No Saved Game Found!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDh-I9-riA">
+                                <rect key="frame" x="303" y="367" width="418" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rrD-HG-UYh" firstAttribute="leading" secondItem="4bf-XD-Ueb" secondAttribute="leading" id="1ki-gB-Vha"/>
+                            <constraint firstItem="sDh-I9-riA" firstAttribute="centerY" secondItem="irI-xe-S11" secondAttribute="centerY" id="359-qm-fSp"/>
                             <constraint firstItem="rrD-HG-UYh" firstAttribute="trailing" secondItem="4bf-XD-Ueb" secondAttribute="trailing" id="5QB-Hw-fFK"/>
                             <constraint firstItem="h04-U2-oaN" firstAttribute="leading" secondItem="irI-xe-S11" secondAttribute="leading" id="9Hr-h4-Kws"/>
                             <constraint firstItem="uyc-Iw-tsS" firstAttribute="top" secondItem="rrD-HG-UYh" secondAttribute="bottom" constant="75" id="Gla-Qg-ame"/>
@@ -1275,6 +1282,7 @@
                             <constraint firstItem="rrD-HG-UYh" firstAttribute="top" secondItem="4bf-XD-Ueb" secondAttribute="top" id="LCP-WQ-NV2"/>
                             <constraint firstItem="rrD-HG-UYh" firstAttribute="centerX" secondItem="irI-xe-S11" secondAttribute="centerX" id="P6P-YO-Xwa"/>
                             <constraint firstItem="uyc-Iw-tsS" firstAttribute="bottom" secondItem="irI-xe-S11" secondAttribute="bottom" id="VTK-5J-ahi"/>
+                            <constraint firstItem="sDh-I9-riA" firstAttribute="centerX" secondItem="irI-xe-S11" secondAttribute="centerX" id="Vt5-3g-XS4"/>
                             <constraint firstItem="uyc-Iw-tsS" firstAttribute="trailing" secondItem="irI-xe-S11" secondAttribute="trailing" constant="-115" id="Y3F-Cw-ToJ"/>
                             <constraint firstItem="h04-U2-oaN" firstAttribute="top" secondItem="4bf-XD-Ueb" secondAttribute="top" id="bxU-gd-lm4"/>
                             <constraint firstItem="h04-U2-oaN" firstAttribute="trailing" secondItem="irI-xe-S11" secondAttribute="trailing" id="gZ3-GS-Zdw"/>
@@ -1283,6 +1291,7 @@
                         <viewLayoutGuide key="safeArea" id="4bf-XD-Ueb"/>
                     </view>
                     <connections>
+                        <outlet property="noGameFoundLabel" destination="sDh-I9-riA" id="L0W-9c-86s"/>
                         <outlet property="tableView" destination="uyc-Iw-tsS" id="1py-eh-qx3"/>
                         <segue destination="YiU-MJ-9Xs" kind="presentation" identifier="segueToOldSatsGameView" id="XF8-mz-HSq"/>
                         <segue destination="hlj-Cs-npU" kind="unwind" identifier="Back_To_Home" unwindAction="unwindToViewControllerAWithSegue:" id="5pd-l0-h0x"/>
@@ -4118,7 +4127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NUr-S3-uTJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2612" y="3619"/>
+            <point key="canvasLocation" x="2067" y="3880"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="JBW-bT-AQL">
@@ -4670,6 +4679,77 @@
             </objects>
             <point key="canvasLocation" x="3213" y="-852"/>
         </scene>
+        <!--Change Log View Controller-->
+        <scene sceneID="lij-x3-T0H">
+            <objects>
+                <viewController restorationIdentifier="Changelog_View_Controller" storyboardIdentifier="Changelog_View_Controller" id="449-1t-FON" customClass="Change_Log_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zaz-Z9-cL9">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7n-V5-9au">
+                                <rect key="frame" x="69" y="55" width="886" height="658"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYR-eP-F1H" userLabel="pdfView">
+                                        <rect key="frame" x="0.0" y="50" width="886" height="558"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOw-CM-vqy">
+                                        <rect key="frame" x="0.0" y="608" width="886" height="50"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="886" id="875-07-5Ay"/>
+                                            <constraint firstAttribute="height" constant="50" id="Ft1-y6-8GJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Close">
+                                            <color key="titleColor" red="0.19131854179999999" green="0.43933993580000003" blue="0.61570847029999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeButton:" destination="449-1t-FON" eventType="touchUpInside" id="PLR-Pi-YDh"/>
+                                            <action selector="closeButton:" destination="H6E-KX-Ner" eventType="touchUpInside" id="ccD-Hf-tET"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help Guide" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-Jx-aOI">
+                                        <rect key="frame" x="382.5" y="10" width="121" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="UUc-Jx-aOI" firstAttribute="centerX" secondItem="o7n-V5-9au" secondAttribute="centerX" id="0qD-IB-g9H"/>
+                                    <constraint firstItem="eYR-eP-F1H" firstAttribute="top" secondItem="o7n-V5-9au" secondAttribute="top" constant="50" id="Hmu-n2-V9a"/>
+                                    <constraint firstItem="nOw-CM-vqy" firstAttribute="leading" secondItem="o7n-V5-9au" secondAttribute="leading" id="IFh-8y-Jkr"/>
+                                    <constraint firstItem="eYR-eP-F1H" firstAttribute="bottom" secondItem="nOw-CM-vqy" secondAttribute="top" id="Jud-M6-bid"/>
+                                    <constraint firstAttribute="width" constant="886" id="KmE-NZ-KNa"/>
+                                    <constraint firstItem="eYR-eP-F1H" firstAttribute="leading" secondItem="o7n-V5-9au" secondAttribute="leading" id="OH0-ZV-hJ7"/>
+                                    <constraint firstAttribute="trailing" secondItem="nOw-CM-vqy" secondAttribute="trailing" id="Qf2-u2-QFY"/>
+                                    <constraint firstItem="nOw-CM-vqy" firstAttribute="centerX" secondItem="o7n-V5-9au" secondAttribute="centerX" id="RyK-BS-haa"/>
+                                    <constraint firstItem="eYR-eP-F1H" firstAttribute="trailing" secondItem="o7n-V5-9au" secondAttribute="trailing" id="oaM-X4-MX7"/>
+                                    <constraint firstAttribute="height" constant="658" id="pL9-3t-rpC"/>
+                                    <constraint firstItem="UUc-Jx-aOI" firstAttribute="top" secondItem="o7n-V5-9au" secondAttribute="top" constant="10" id="sL3-Ni-V02"/>
+                                    <constraint firstItem="nOw-CM-vqy" firstAttribute="bottom" secondItem="o7n-V5-9au" secondAttribute="bottom" id="wKV-0Z-Vzd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="o7n-V5-9au" firstAttribute="centerX" secondItem="zaz-Z9-cL9" secondAttribute="centerX" id="79y-3b-kXZ"/>
+                            <constraint firstItem="o7n-V5-9au" firstAttribute="centerY" secondItem="zaz-Z9-cL9" secondAttribute="centerY" id="iWv-zM-AEr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BMc-dn-KV8"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="nOw-CM-vqy" id="Ve9-46-Lsz"/>
+                        <outlet property="pdfView" destination="eYR-eP-F1H" id="Ycz-gn-Lq0"/>
+                        <outlet property="popUpView" destination="o7n-V5-9au" id="bLE-Xo-GpA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6O4-CL-plX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2795" y="3881"/>
+        </scene>
     </scenes>
     <resources>
         <image name="about_icon" width="50" height="50"/>
@@ -4687,7 +4767,7 @@
         <image name="welcomearrow" width="218" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="p9k-GG-4VP"/>
+        <segue reference="XF8-mz-HSq"/>
         <segue reference="VdZ-aC-tCs"/>
         <segue reference="Dru-ha-s6H"/>
         <segue reference="YVz-TT-Imk"/>

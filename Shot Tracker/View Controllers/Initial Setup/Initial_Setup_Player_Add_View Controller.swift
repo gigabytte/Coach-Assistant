@@ -33,6 +33,8 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     var selectPlayerLine: Int!
     var selectPosition: String!
     
+    var blurEffectView: UIVisualEffectView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -44,6 +46,15 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         
         playerNumberTextField.delegate = self
         playerNameTextField.delegate = self
+        
+        // add blur effect to view along with popUpView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.addSubview(warningLabel)
+        view.addSubview(proceedArrow)
         
         // MARK intialize ui elements on load so user cannot leave blank
         // ie. user must complete elements in order to save player successfully
@@ -74,6 +85,14 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     override func viewDidAppear(_ animated: Bool) {
         
         if (((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last != nil){
+            
+            UIView.animate(withDuration: 0.5) {
+                // hide warning label if user has added a team
+                self.warningLabel.isHidden = true
+                self.proceedArrow.isHidden = true
+                self.blurEffectView.alpha = 0
+            }
+            
             queryTeamID = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last
             // set View COntroller title based on users previous team add
             let queryTeamName = realm.object(ofType: teamInfoTable.self, forPrimaryKey: queryTeamID)?.nameOfTeam
@@ -83,21 +102,12 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             selectPosition = positionCodeData[0]
             selectPlayerLine = 1
             
-            // hide warning label if user has added a team
-            warningLabel.isHidden = true
+            
         }else{
             // show warning label / proceed arrow and blur VC if user has added a team
             warningLabel.isHidden = false
             proceedArrow.isHidden = false
-            // add blur effect to view along with popUpView
-            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.frame = view.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.addSubview(blurEffectView)
-            view.addSubview(warningLabel)
-            view.addSubview(proceedArrow)
-            
+            blurEffectView.isHidden = false
             // animate arrow spining to the back position
             let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
             rotationAnimation.fromValue = 0.0
@@ -110,6 +120,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             proceedArrow.transform = tr
             //self.proceedArrow.layer.
         }
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
