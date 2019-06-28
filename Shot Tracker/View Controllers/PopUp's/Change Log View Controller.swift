@@ -17,7 +17,6 @@ class Change_Log_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pdfIntegration()
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -31,25 +30,10 @@ class Change_Log_View_Controller: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func pdfIntegration(){
-        
-        // Add PDFView to view controller.
-        let pdfView = PDFView(frame: self.pdfView.bounds)
-        pdfView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.pdfView.addSubview(pdfView)
-        
-        // Fit content in PDFView.
-        pdfView.autoScales = true
-        
-        // Load Sample.pdf file from app bundle.
-        let fileURL = Bundle.main.url(forResource: universalValue().helpGuidePDFName, withExtension: "pdf")
-        pdfView.document = PDFDocument(url: fileURL!)
-    }
-    
-    
     
     @IBAction func closeButton(_ sender: UIButton) {
-        UserDefaults.standard.set(true, forKey: "")
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        UserDefaults.standard.set(version, forKey: "versionLogged")
         pdfView.willRemoveSubview(pdfView)
         dismiss(animated: true, completion: nil)
         
