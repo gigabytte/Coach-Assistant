@@ -80,18 +80,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
                 }
             }else{
                 print("Default Home Team ID: \(UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)")
-                if isKeyPresentInUserDefaults(key: "changeLogToggle") != true{
-                    let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let popupVC = storyboard.instantiateViewController(withIdentifier: "Changlog_View_Controller") as! Change_Log_View_Controller
-                    popupVC.modalPresentationStyle = .overCurrentContext
-                    popupVC.modalTransitionStyle = .crossDissolve
-                    let pVC = popupVC.popoverPresentationController
-                    pVC?.permittedArrowDirections = .any
-                    pVC?.delegate = self
-                    
-                    present(popupVC, animated: true, completion: nil)
-                    print("ChangeLog Presented!")
-                }
+                
             }
         }else{
             // if no default team has been selected on load and no teams present
@@ -169,6 +158,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
             return false
         }
     }
+    
     @IBAction func editTeamButton(_ sender: UIButton) {
         if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
             

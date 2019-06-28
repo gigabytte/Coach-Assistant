@@ -32,7 +32,6 @@
 		BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */; };
 		BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */; };
 		BE57ACDB228756F800AD2054 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE57ACDA228756F800AD2054 /* StoreKit.framework */; };
-		BE5AC39622C3B3100012C39C /* Change Log View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5AC39522C3B3100012C39C /* Change Log View Controller.swift */; };
 		BE5AC39822C42C920012C39C /* help_guide_iPad.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BE5AC39722C42C920012C39C /* help_guide_iPad.pdf */; };
 		BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */; };
 		BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */; };
@@ -140,7 +139,6 @@
 		BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Defaults View Controller.swift"; sourceTree = "<group>"; };
 		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
 		BE57ACDA228756F800AD2054 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		BE5AC39522C3B3100012C39C /* Change Log View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Change Log View Controller.swift"; sourceTree = "<group>"; };
 		BE5AC39722C42C920012C39C /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = help_guide_iPad.pdf; path = ../../../Documents/help_guide_iPad.pdf; sourceTree = "<group>"; };
 		BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Shot Tracker.entitlements"; sourceTree = "<group>"; };
 		BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Page_Controller.swift; sourceTree = "<group>"; };
@@ -265,7 +263,6 @@
 				BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */,
 				BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */,
 				BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */,
-				BE5AC39522C3B3100012C39C /* Change Log View Controller.swift */,
 			);
 			path = "PopUp's";
 			sourceTree = "<group>";
@@ -715,7 +712,6 @@
 				BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */,
 				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
 				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
-				BE5AC39622C3B3100012C39C /* Change Log View Controller.swift in Sources */,
 				BE7F8C13227538530093F629 /* Penalty Table.swift in Sources */,
 				BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */,
 				BE0C1F9C22887242000C2177 /* IAPService.swift in Sources */,
