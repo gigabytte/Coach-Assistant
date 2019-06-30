@@ -73,7 +73,6 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         let vc = Shot_Location_View.self as? UIViewController
         vc?.dismiss(animated: true, completion: nil)
         
-        print("goalie id: ", goalieSelectedID)
         // set power play toggle to off by default
         powerPlayToggleSwitch.isOn = false
         // call team data from realm
@@ -110,7 +109,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     func navBarProcessing() -> String {
-        if (homeTeam != nil && awayTeam != nil){
+        if (String(homeTeam) != "" && String(awayTeam) != ""){
             let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
             let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
             if (scoringPassedTeamID == homeTeam){
@@ -140,10 +139,9 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     
     func teamSelectedProcessing() -> ([String]){
        
-        print("Goalie Selected ID: ", goalieSelectedID)
         // Get teams based on user slection form shot location view generating a goal
         scoringPassedTeamID = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", goalieSelectedID!)).value(forKeyPath: "TeamID") as! [String]).compactMap({Int($0)})).first
-        print(scoringPassedTeamID)
+    
         if (scoringPassedTeamID == homeTeam){
             let teamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", goalieSelectedID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
             scoringPassedTeamID = awayTeam

@@ -94,7 +94,7 @@ class Initial_Setup_Team_Add_View_Controller: UIViewController {
     func missingFieldAlert(missingType: String){
         
         // create the alert
-        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have \(missingType) Name filled out before attemtping to add a new \(missingType).", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have \(missingType) Name filled before attemtping to add a new \(missingType).", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

@@ -153,7 +153,7 @@ class Faceoff_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerV
         case 5:
             titleLabel.text = "Bottom Right Circle Faceoff"
         default:
-            titleLabel.text = "Top Left Circle Faceoff"
+            titleLabel.text = "Generic Faceoff"
         }
     }
     
