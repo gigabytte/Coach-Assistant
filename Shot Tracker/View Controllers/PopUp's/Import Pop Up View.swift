@@ -29,7 +29,6 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Import from icloud bool \(importFromIcloudBool)")
         
         importFromSetup()
         // add blur effect to view along with popUpView
@@ -109,12 +108,12 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                     // Here select the file url you are interested in (for the exemple we take the first)
                     let myURL = urls[x]
                     // We have our url
-                    var lastPathComponent = myURL.lastPathComponent
+                    let lastPathComponent = myURL.lastPathComponent
                     if lastPathComponent.contains("Realm_") {
                         // Delete the "." which is at the beginning of the file name
                         //lastPathComponent.removeFirst()
-                        let folderPath = myURL.deletingLastPathComponent().path
-                        let downloadedFilePath = lastPathComponent.replacingOccurrences(of: ".icloud", with: "")
+                        myURL.deletingLastPathComponent().path
+                        lastPathComponent.replacingOccurrences(of: ".icloud", with: "")
                         fileNamesArray.append(lastPathComponent)
                         
                     }

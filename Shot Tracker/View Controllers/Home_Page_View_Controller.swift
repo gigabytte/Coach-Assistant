@@ -36,7 +36,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         /*________________________________________________________________*/
         
         // get Realm Databse file location
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
 
     }
     
@@ -204,7 +204,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
                     // create the alert
                     let misMatchedDefault = UIAlertController(title: "Deactive Default Team", message: "Your default team has been deactivated, please re-activate your orginal default team or close this game", preferredStyle: UIAlertController.Style.alert)
                     // add an action (button)
-                    misMatchedDefault.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                    misMatchedDefault.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                     // add an action (button)
                     misMatchedDefault.addAction(UIAlertAction(title: "Close Game", style: UIAlertAction.Style.destructive, handler: { action in
                         // set current game to not active

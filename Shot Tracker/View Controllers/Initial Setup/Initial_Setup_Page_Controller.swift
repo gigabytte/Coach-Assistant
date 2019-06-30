@@ -28,7 +28,7 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             super.viewDidLoad()
             
             // get Realm Databse file location
-            print(Realm.Configuration.defaultConfiguration.fileURL)
+            print(Realm.Configuration.defaultConfiguration.fileURL!)
             
             self.dataSource = self
             self.delegate = self
@@ -65,12 +65,12 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
         func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
             
             let pageContentViewController = pageViewController.viewControllers![0]
-            self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
+            self.pageControl.currentPage = orderedViewControllers.firstIndex(of: pageContentViewController)!
         }
         
         // MARK: Data source functions.
         func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
+            guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
                 return nil
             }
             
@@ -92,7 +92,7 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
         }
         
         func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
+            guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
                 return nil
             }
             var nextIndex: Int!

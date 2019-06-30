@@ -75,8 +75,12 @@ extension SKPaymentTransactionState {
         case .purchased:
             UserDefaults.standard.set(true, forKey: "userPurchaseConf")
             return "purchased"
-        case .purchasing: return "purchasing"
-        case .restored: return "restored"
+        case .purchasing:
+            return "purchasing"
+        case .restored:
+            return "restored"
+        default:
+            return "SKPAYMENTTRANSACTIONSTAT ERROR FATAL"
         }
         
     }

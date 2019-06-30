@@ -79,11 +79,10 @@ class Shot_Location_View: UIViewController {
         roundedCorners().buttonBottomLeft(bottonViewType: cancelButton)
         roundedCorners().buttonBottomRight(bottonViewType: saveButton)
         
-        print("marker type \(tempMarkerType)")
         if (tempMarkerType != true){
-            print("You are placing a goal, passed bool is: ", tempMarkerType)
+            print("You are placing a goal, passed bool is: ", tempMarkerType!)
         }else{
-            print("You are placing a shot, passed bool is: ", tempMarkerType)
+            print("You are placing a shot, passed bool is: ", tempMarkerType!)
         }
         
         // Do any additional setup after loading the view.

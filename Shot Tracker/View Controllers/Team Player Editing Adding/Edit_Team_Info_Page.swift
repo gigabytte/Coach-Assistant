@@ -363,7 +363,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 UserDefaults.standard.set(nil, forKey: "defaultHomeTeamID")
                 print("Default Team Reset")
             }else{
-                print("Default Team \(newTeam?.nameOfTeam) remains the same")
+                print("Default Team \(String(describing: newTeam?.nameOfTeam)) remains the same")
             }
             try! realm.write{
                 newTeam!.activeState = false
@@ -376,7 +376,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 UserDefaults.standard.set(nil, forKey: "defaultHomeTeamID")
                 print("Default Team Reset")
             }else{
-                print("Default Team \(newTeam?.nameOfTeam) remains the same")
+                print("Default Team \(String(describing: newTeam?.nameOfTeam)) remains the same")
             }
                 try! realm.write{
                     newTeam!.activeState = false

@@ -142,12 +142,12 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
                     // get selected goalie id based on user selection
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
-                    print("goalie id: ", tempgoalieSelectedID)
+                
                 }else{
                     // get selected goalie id based on user selection
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
-                    print("goalie id: ", tempgoalieSelectedID)
+                
                 }
             case UISwipeGestureRecognizer.Direction.right:
                 print("Right Swipe Detected")
@@ -169,12 +169,12 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
                     // get selected goalie id based on user selection
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
-                    print("goalie id: ", tempgoalieSelectedID)
+                 
                 }else{
                     // get selected goalie id based on user selection
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
-                    print("goalie id: ", tempgoalieSelectedID)
+                 
                 }
             default:
                 break

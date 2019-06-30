@@ -70,9 +70,6 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let vc = Shot_Location_View.self as? UIViewController
-        vc?.dismiss(animated: true, completion: nil)
-        
         // set power play toggle to off by default
         powerPlayToggleSwitch.isOn = false
         // call team data from realm

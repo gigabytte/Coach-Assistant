@@ -266,11 +266,11 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                 // get selected goalie id based on user selection
                 let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                 tempgoalieSelectedID = selectedGoalieID[0]
-                print("goalie id: ", tempgoalieSelectedID)
+           
                 }else{
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[0])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
-                    print("goalie id: ", tempgoalieSelectedID)
+             
                 }
                 // below code is copy of above but opposite interms of right swipe
             case UISwipeGestureRecognizer.Direction.right:
@@ -293,11 +293,11 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[currentArrayIndex])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
                     
-                    print("goalie id: ", tempgoalieSelectedID)
+           
                 }else{
                     let selectedGoalieID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND positionType == %@", String(homeTeamID),Int(goalieNumberArray[0])!, "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
                     tempgoalieSelectedID = selectedGoalieID[0]
-                    print("goalie id: ", tempgoalieSelectedID)
+         
                 }
             default:
                  print("Error user selection could not be dictated")
@@ -320,7 +320,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func continueButton(_ sender: Any) {
         // redfine valuye for poeriod selected based on user interaction with view
         if(setPeriodVar != nil){
-            print("Golaie ID", tempgoalieSelectedID)
+           
             UserDefaults.standard.set(setPeriodVar, forKey: "periodNumber")
             UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
             UserDefaults.standard.set(false, forKey: "newGameStarted")
