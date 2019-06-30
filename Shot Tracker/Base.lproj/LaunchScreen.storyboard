@@ -40,15 +40,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="p4C-i4-sY4" firstAttribute="bottom" secondItem="GGn-L9-un1" secondAttribute="bottom" id="0df-Ww-m7b"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="bottom" secondItem="zcq-50-W1x" secondAttribute="bottom" id="0df-Ww-m7b"/>
                             <constraint firstItem="6gH-x9-kSN" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="82B-YK-Btg"/>
-                            <constraint firstItem="p4C-i4-sY4" firstAttribute="leading" secondItem="GGn-L9-un1" secondAttribute="leading" id="B1t-RN-JxR"/>
-                            <constraint firstItem="p4C-i4-sY4" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="N0d-ml-czC"/>
-                            <constraint firstItem="p4C-i4-sY4" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" id="VAh-Lb-glb"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="leading" secondItem="zcq-50-W1x" secondAttribute="leading" id="B1t-RN-JxR"/>
                             <constraint firstItem="6is-on-S4e" firstAttribute="bottom" secondItem="GGn-L9-un1" secondAttribute="bottom" constant="-10" id="W4s-GX-wQJ"/>
                             <constraint firstItem="6gH-x9-kSN" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" constant="150" id="cb2-ES-zKD"/>
-                            <constraint firstItem="p4C-i4-sY4" firstAttribute="trailing" secondItem="GGn-L9-un1" secondAttribute="trailing" id="fbD-AF-vXx"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="trailing" secondItem="zcq-50-W1x" secondAttribute="trailing" id="fbD-AF-vXx"/>
                             <constraint firstItem="6is-on-S4e" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="kSa-Wq-jxs"/>
+                            <constraint firstItem="p4C-i4-sY4" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" id="zat-h0-xme"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGn-L9-un1"/>
                     </view>
@@ -60,6 +59,6 @@
     </scenes>
     <resources>
         <image name="coach_assitant_full_trans" width="250" height="167.5"/>
-        <image name="ice" width="1300" height="975"/>
+        <image name="ice" width="1300" height="967"/>
     </resources>
 </document>

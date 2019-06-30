@@ -38,9 +38,12 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
         self.playerSatsTable.estimatedRowHeight = 75.0
         self.playerSatsTable.rowHeight = UITableView.automaticDimension
         
-        homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == true", String(homeTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         goalieIDArray = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID), "G")).value(forKeyPath: "playerID")
             as! [Int]).compactMap({Int($0)})
+        
+        print(homePlayerIDs)
+        print(homePlayerNames)
         
         playerNameFetch()
         goalieNameFetch()
@@ -75,6 +78,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
                 let queryPlayerNumber = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})).first
                 
                 let playerFormatter = "\(queryPlayerName!) #\(queryPlayerNumber!)"
+                print(playerFormatter)
                 homePlayerNames.append(playerFormatter)
             }
         }else{
@@ -249,9 +253,9 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (tableView == playerSatsTable){
-            return((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count)
+            return(homePlayerIDs.count)
         }else {
-            return((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == true", String(homeTeamID), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count)
+            return(goalieIDArray.count)
         }
     }
     //Assign values for tableView
