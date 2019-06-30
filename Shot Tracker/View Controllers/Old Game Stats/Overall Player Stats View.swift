@@ -93,7 +93,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
                 
                 let queryGoalieName = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND positionType == %@ AND activeState == true", goalieIDArray[x], "G")).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})).first
                 let queryGoalieNumber = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND positionType == %@ AND activeState == true", goalieIDArray[x], "G")).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})).first
-                print("\(queryGoalieNumber) \(queryGoalieName)")
+             
                 let goalieFormatter = "\(queryGoalieName!) #\(queryGoalieNumber!)"
                 homeGoalieNames.append(goalieFormatter)
             }
@@ -158,7 +158,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             // ------------------ plus minus count -----------------------------
             // get current looping player's plus minus
             let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}).first
-            print(nextPlayerPlusMinus)
+   
             homePlayerStatsArray[x].append("Overall Plus/Minus: \(String(nextPlayerPlusMinus!))")
             // ------------------ player's line minus count -----------------------------
             // add all plus/minus from all member of the current player ids line for the overall line plus minus

@@ -311,7 +311,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     func missingFieldAlert(missingFieldType: String){
         
         // create the alert
-        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have the \(missingFieldType) field filled out first before saving a player.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have the \(missingFieldType) field filled first before saving a player.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

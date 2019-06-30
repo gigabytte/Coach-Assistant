@@ -251,7 +251,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 
             }
         }else{
-            doubleHomeTeamAlert(errorMessage: "Please make sure both teams have a player and goalie")
+            doubleHomeTeamAlert(errorMessage: "Please make sure both teams have a player and goalie minimum")
             self.teamSelectionErrorText.isHidden = false
             self.teamSelectionErrorText.textAlignment = .center
             self.teamSelectionErrorText.textColor = UIColor.red

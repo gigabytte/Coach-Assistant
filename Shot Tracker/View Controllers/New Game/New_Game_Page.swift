@@ -208,11 +208,13 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
             adView.heightAnchor.constraint(equalToConstant: 0.0).isActive = true
         }else{
+            print("Ad is displayed")
             adView.adUnitID = universalValue().newGameAdUnitID
             adView.rootViewController = self
             adView.load(GADRequest())
             adView.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
             adView.backgroundColor = UIColor.lightGray
+            adView.isHidden = false
         }
     }
     

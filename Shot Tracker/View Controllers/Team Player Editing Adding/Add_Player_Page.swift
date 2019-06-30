@@ -95,7 +95,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     @IBAction func visitWebsiteButton(_ sender: Any) {
         
-        let actionSheet = UIAlertController(title: "Did you Know?", message: "Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you cqn get started!", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Did you Know?", message: "Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!", preferredStyle: .actionSheet)
         
         
         let openAction = UIAlertAction(title: "Open", style: .default, handler: { (alert: UIAlertAction!) -> Void in
@@ -360,7 +360,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     func missingFieldAlert(){
         
         // create the alert
-        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Player Name and Number filled out before attemtping to add a new player.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Player Name and Number filled before attemtping to add a new player.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
@@ -400,11 +400,10 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     func doubleJerseyNumCheck(selectedTeamID: Int) -> Bool {
         
         if ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND activeState == true", String(selectedTeamID), Int(playerNumber.text!)!)).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).isEmpty == false){
-            
+            print("Jersey Double up Failed Test")
             return true
         }else{
-            print((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND jerseyNum == %i AND activeState == true", String(selectedTeamID), Int(playerNumber.text!)!)).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).first)
-            print("passed test")
+            print("Jersey Double up Passed Test")
             return false
         }
         

@@ -68,7 +68,7 @@ class In_Game_Settings_ViewController: UIViewController, UIPickerViewDelegate, U
     }
     
     @IBAction func helpButon(_ sender: UIButton) {
-        let actionSheet = UIAlertController(title: "Need Some Help?", message: "In Game Settings allow for the disabling / enabling of elements residing on the Ice Surface of your current game along with this game attributes such as penalty minutes and more. These attributes do not reflect your global settings.", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Need Some Help?", message: "In Game Settings allows for the disabling / enabling of elements residing on the Ice Surface of your current game along with live game attributes such as penalty minutes and more. These attributes do not reflect your global settings.", preferredStyle: .actionSheet)
         
         // tapp anywhere outside of popup alert controller
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in

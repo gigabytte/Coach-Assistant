@@ -126,9 +126,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     // Enable detection of shake motion
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            /* let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
-             self.present(newViewController, animated: true, completion: nil)*/
+    
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
             popupVC.modalPresentationStyle = .overCurrentContext
@@ -151,7 +149,6 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         }
         onLoad()
         print("reloading")
-        print("goalie \(goalieID)")
     }
     
     func onLoad(){
@@ -259,7 +256,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     func navBarProcessing() {
-        if (homeTeam != nil && awayTeam != nil){
+        if (String(homeTeam) != "" && String(awayTeam) != ""){
             let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
             let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
             
@@ -359,7 +356,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             let shotLocation = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
             let goalieID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
             let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID.first)?.playerName;
-             print("Goalie ID \(goalieID.first) \(goalieName)")
+            
             let teamID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
             let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
             

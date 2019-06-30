@@ -596,7 +596,6 @@
 		226C513561F57E9FE9F5BABFFA333117 /* FIRInstanceIDTokenInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDTokenInfo.m; path = Firebase/InstanceID/FIRInstanceIDTokenInfo.m; sourceTree = "<group>"; };
 		2482A1DF2F9AFE26A2DDCB4C02049C33 /* XAxisRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxisRenderer.swift; path = Source/Charts/Renderers/XAxisRenderer.swift; sourceTree = "<group>"; };
 		24B9125C239E925F993FF5BD3A005868 /* DataApproximator+N.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DataApproximator+N.swift"; path = "Source/Charts/Filters/DataApproximator+N.swift"; sourceTree = "<group>"; };
-		2509D06504F1640591E924BDBB1D9C66 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		254C999A730776544160EDD2D72258A3 /* Pods-Shot TrackerTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Shot TrackerTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2594F7A1498B4B8CF50D54F2A22D1DEB /* FIRComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRComponent.m; path = Firebase/Core/FIRComponent.m; sourceTree = "<group>"; };
 		26188D017F5AAE16446BE6B20D647FCC /* BarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/BarChartDataSet.swift; sourceTree = "<group>"; };
@@ -765,6 +764,7 @@
 		9791FDFAE77C27EA80BC475FAD592E5C /* FirebaseCore-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FirebaseCore-dummy.m"; sourceTree = "<group>"; };
 		99D20A1F3585D6C429834A486F71AF26 /* DataApproximator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataApproximator.swift; path = Source/Charts/Filters/DataApproximator.swift; sourceTree = "<group>"; };
 		99F2197AD050E7A5E468CEC790BAFA7D /* RadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/RadarChartDataSet.swift; sourceTree = "<group>"; };
+		9ADE294BB318CD10A2F7BC053F4E1B15 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.framework"; sourceTree = "<group>"; };
 		9B79B7538296626EEFFA6FBF22A47A99 /* NSError+FIRInstanceID.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSError+FIRInstanceID.h"; path = "Firebase/InstanceID/NSError+FIRInstanceID.h"; sourceTree = "<group>"; };
 		9C578697ED68CB99504882503257B8F8 /* HorizontalBarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarChartView.swift; path = Source/Charts/Charts/HorizontalBarChartView.swift; sourceTree = "<group>"; };
 		9C7C8CD6B17915F7ECCAEFE211A237B0 /* Legend.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Legend.swift; path = Source/Charts/Components/Legend.swift; sourceTree = "<group>"; };
@@ -1503,7 +1503,7 @@
 		862E230B882C312200569A5D7E8B964B /* Google-Mobile-Ads-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				BFEF553EEC8071EE19AD08049AE32A57 /* Frameworks */,
+				A53007084F79C4ACC2C1661ACCBD9E2E /* Frameworks */,
 				C6A09AB537F1AE83A4AA87025E15A997 /* Support Files */,
 			);
 			name = "Google-Mobile-Ads-SDK";
@@ -1553,6 +1553,14 @@
 			children = (
 			);
 			name = decode;
+			sourceTree = "<group>";
+		};
+		A53007084F79C4ACC2C1661ACCBD9E2E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9ADE294BB318CD10A2F7BC053F4E1B15 /* GoogleMobileAds.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A70CDA79D19708241F7CD1A24B10C8D2 /* Reachability */ = {
@@ -1660,14 +1668,6 @@
 			);
 			name = FirebaseInstanceID;
 			path = FirebaseInstanceID;
-			sourceTree = "<group>";
-		};
-		BFEF553EEC8071EE19AD08049AE32A57 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2509D06504F1640591E924BDBB1D9C66 /* GoogleMobileAds.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C329BA3A43B7491A68E8ED352BFD772A /* Environment */ = {

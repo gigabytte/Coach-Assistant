@@ -167,7 +167,7 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     func missingFieldAlert(){
             
         // create the alert
-        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled out before attemtping to add a new team.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled before attemtping to add a new team.", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
