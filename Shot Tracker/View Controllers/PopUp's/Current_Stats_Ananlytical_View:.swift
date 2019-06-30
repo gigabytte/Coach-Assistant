@@ -132,7 +132,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
         let chartData = PieChartData(dataSet: chartDataSet)
         // set visual aspect of pie chart iuncluding colours and animations
         let colours = [UIColor.green, UIColor.blue]
-        chartDataSet.colors = colours as! [NSUIColor]
+        chartDataSet.colors = colours 
         pieChartView.data = chartData
         pieChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
         
@@ -164,7 +164,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
         let chartData = PieChartData(dataSet: chartDataSet)
         // set visual aspect of pie chart iuncluding colours and animations
         let colours = [UIColor.green, UIColor.blue, UIColor.red, UIColor.purple, UIColor.orange, UIColor.yellow]
-        chartDataSet.colors = colours as! [NSUIColor]
+        chartDataSet.colors = colours
         shotLocationPieChartView.data = chartData
         shotLocationPieChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
         

@@ -202,10 +202,6 @@ final class Settings_Backup_View_Controller: UIViewController {
             let activeStateVar = tempActiveStateArray[x]
             
             let newLine = teamNameVar + "," + seaonYearVar + "," + activeStateVar + "\n"
-            if(x == tempTeamNameArray.count){
-                newLine.dropLast()
-                newLine.dropLast()
-            }
             csvText.append(newLine)
         }
         
@@ -272,10 +268,6 @@ final class Settings_Backup_View_Controller: UIViewController {
             let playerActiveStateVar = tempActiveState[x]
             
             let newLine =  playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerActiveStateVar + "\n"
-            if(x == tempPlayerNameArray.count){
-                newLine.dropLast()
-                newLine.dropLast()
-            }
             csvText.append(newLine)
         }
         
@@ -352,10 +344,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             let activeStateVar = tempActiveState[x]
             
             let newLine =  dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + locationVar + "," + winingTeamVar + "," + losingTeamVar + "," + seasonYearVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
-            if(x == newGameIDCount){
-                newLine.dropLast()
-                newLine.dropLast()
-            }
+ 
             csvText.append(newLine)
         }
         
@@ -436,10 +425,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             
             let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar +
                 "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
-            if(x == goalMarkerIDCount){
-                newLine.dropLast()
-                newLine.dropLast()
-            }
+ 
             csvText.append(newLine)
         }
         
@@ -499,10 +485,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             let activeStateVar = tempactiveState[x]
             
             let newLine =  gameIDVar + "," + teamIDVar + "," + goalieIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
-            if(x == shotMarkerIDCount){
-                newLine.dropLast()
-                newLine.dropLast()
-            }
+      
             csvText.append(newLine)
         }
         
@@ -559,10 +542,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             let activeStateVar = tempactiveState[x]
             
             let newLine =  gameIDVar + "," + playerIDVar + "," + penaltyTypeVar + "," + timeOfOffenseVar + "," + xCordVar + "," + yCordVar + "," + activeStateVar + "\n"
-            if(x == shotMarkerIDCount){
-                newLine.dropLast()
-                newLine.dropLast()
-            }
+
             csvText.append(newLine)
         }
         if (icloudToggleSwitch.isOn == true){
@@ -619,10 +599,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             let activeStateVar = tempactiveState[x]
             
             let newLine =  gameIDVar + "," + playerIDVar + "," + lineNumVar + "," + goalCountVar + "," + assistCountVar + "," + plusMinusVar + "," + activeStateVar + "\n"
-            if(x == overallIDCount){
-                newLine.dropLast()
-                newLine.dropLast()
-            }
+ 
             csvText.append(newLine)
         }
         if (icloudToggleSwitch.isOn == true){
@@ -674,10 +651,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             let activeStateVar = tempactiveState[x]
             
             let newLine =  gameIDVar + "," + winingPlayerIDVar + "," + losingPlayerIDVar + "," + periodNumVar + "," + faceoffLocationCodeVar + "," + activeStateVar + "\n"
-            if(x == overallIDCount){
-                newLine.dropLast()
-                newLine.dropLast()
-            }
+    
             csvText.append(newLine)
         }
         if (icloudToggleSwitch.isOn == true){

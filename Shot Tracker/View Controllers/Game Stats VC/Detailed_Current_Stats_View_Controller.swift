@@ -274,9 +274,9 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
         // --------------------  SA (Shots against for home team) -------------------------------
         let shotsAgainst = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID), awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
         teamStatsVar.append(String(shotsAgainst))
-        // -------------------- SOG (Shots on goal for home team) -------------------------------------
+        /* -------------------- SOG (Shots on goal for home team) -------------------------------------
         let shotsOnGoal = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", (gameID), awayTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
-        teamStatsVar.append("COMING SOON")
+        */teamStatsVar.append("COMING SOON")
         // ------------------- PPG (Power Power Play Goals for home team) ------------------------
         let powerPlayGoals = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND powerPlay == true AND activeState == true", (gameID), homeTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
         teamStatsVar.append(String(powerPlayGoals))
