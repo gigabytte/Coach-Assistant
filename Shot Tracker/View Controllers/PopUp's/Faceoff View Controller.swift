@@ -63,6 +63,7 @@ class Faceoff_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerV
         roundedCorners().labelViewTopLeftRight(labelViewType: titleLabel)
         
         swipeGestureInitializer()
+        titleProcessing()
         
         selectedTeamID = teamIdArray.first
         
@@ -136,6 +137,24 @@ class Faceoff_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerV
             return(teamIdArray[0])
         }
     
+    }
+    
+    func titleProcessing(){
+        
+        switch faceoffLocation {
+        case 1:
+            titleLabel.text = "Top Left Circle Faceoff"
+        case 2:
+            titleLabel.text = "Top Right Circle Faceoff"
+        case 3:
+            titleLabel.text = "Center Ice Faceoff"
+        case 4:
+            titleLabel.text = "Bottom Left Circle Faceoff"
+        case 5:
+            titleLabel.text = "Bottom Right Circle Faceoff"
+        default:
+            titleLabel.text = "Top Left Circle Faceoff"
+        }
     }
     
     func swipeGestureInitializer() {

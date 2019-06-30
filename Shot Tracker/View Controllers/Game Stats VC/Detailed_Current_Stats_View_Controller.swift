@@ -154,7 +154,7 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
     
     func home_playerStatsProcessing(){
         
-        homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(homeTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        homePlayerIDs = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == true", String(homeTeam), "G")).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         
         for x in 0..<homePlayerIDs.count{
             //-------------------- goal count -----------------------
@@ -350,7 +350,7 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
             
             return("Goalie Stats for \(homeTeamName!)")
         }else{
-            return("Current Game Stats for \(homeTeamName!)")
+                return("Current Game Stats for \(homeTeamName!)")
         }
     }
     
