@@ -9,7 +9,7 @@
 import UIKit
 import Realm
 import RealmSwift
-import MessageUI
+import SwiftyStoreKit
 
 final class Settings_Backup_View_Controller: UIViewController {
     
@@ -23,10 +23,11 @@ final class Settings_Backup_View_Controller: UIViewController {
     
     var realm = try! Realm()
     var successImport: Bool!
+    var productID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        productID = universalValue().coachAssistantProID
         // check is icloud conatiner exsiss on user icloud account
         // if so icloud logged in and reachable within reaso
         
@@ -46,6 +47,8 @@ final class Settings_Backup_View_Controller: UIViewController {
         
         backupUpDateCheck()
         promptMessage()
+        productRetrieve()
+        
         // check icloud exprt criteria
         reloadView()
         print("Back Up View Controller Called")
@@ -734,9 +737,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
         // add an action (button)
         notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
-            IAPService.shared.getProducts()
-            IAPService.shared.purchase(product: .nonConsumable)
-            
+            self.productPurchase()
         }))
         // show the alert
         self.present(notPro, animated: true, completion: nil)
@@ -747,7 +748,7 @@ final class Settings_Backup_View_Controller: UIViewController {
     func missingIcloudCredsAlert(){
         
         // create the alert
-        let sucessfulExportAlert = UIAlertController(title: "iCloud Error", message: "In order to backup to iCLoud you must first be logged into and or have access to an iCloud account", preferredStyle: UIAlertController.Style.alert)
+        let sucessfulExportAlert = UIAlertController(title: "iCloud Error", message: "In order to backup to iCloud you must first be logged into and or have access to an iCloud account", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         sucessfulExportAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
@@ -868,6 +869,75 @@ final class Settings_Backup_View_Controller: UIViewController {
         // show the alert
         self.present(exportAlert, animated: true, completion: nil)
         
+    }
+    
+    
+    func productRetrieve(){
+        
+        SwiftyStoreKit.retrieveProductsInfo([productID]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = product.localizedPrice!
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+            }
+            else if let invalidProductId = result.invalidProductIDs.first {
+                print("Invalid product identifier: \(invalidProductId)")
+            }
+            else {
+                print("Error: \(result.error)")
+                self.purchaseErrorAlert(alertMsg: "An upgrade cannot be found an unknown error occured. Please contact support.")
+            }
+        }
+    }
+    
+    func productPurchase(){
+        
+        SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
+            switch result {
+            case .success(let purchase):
+                print("Purchase Success: \(purchase.productId)")
+                UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+                
+            case .error(let error):
+                switch error.code {
+                case .unknown:
+                    print("Unknown error. Please contact support")
+                    self.purchaseErrorAlert(alertMsg: "Unknown error. Please contact support")
+                case .clientInvalid:
+                    print("Not allowed to make the payment")
+                case .paymentCancelled:
+                    break
+                case .paymentInvalid:
+                    print("The purchase identifier was invalid")
+                case .paymentNotAllowed:
+                    print("The device is not allowed to make the payment")
+                    self.purchaseErrorAlert(alertMsg: "The device is not allowed to make the payment")
+                case .storeProductNotAvailable:
+                    print("The product is not available in the current storefront")
+                    self.purchaseErrorAlert(alertMsg: "The product is not available in the current storefront")
+                case .cloudServicePermissionDenied:
+                    print("Access to cloud service information is not allowed")
+                case .cloudServiceNetworkConnectionFailed:
+                    print("Could not connect to the network")
+                    self.purchaseErrorAlert(alertMsg: "Could not connect to the network, please make sure your are connected to the internet")
+                case .cloudServiceRevoked:
+                    print("User has revoked permission to use this cloud service")
+                    self.purchaseErrorAlert(alertMsg: "Please update your account premisions or call Apple for furthur assitance regarding your cloud premissions")
+                default:
+                    print((error as NSError).localizedDescription)
+                }
+            }
+        }
+        
+    }
+    
+    
+    func purchaseErrorAlert(alertMsg: String){
+        // create the alert
+        let alreadyProAlert = UIAlertController(title: "Whoops!", message: alertMsg, preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(alreadyProAlert, animated: true, completion: nil)
     }
     
     // delay loop

@@ -253,9 +253,8 @@ class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableVi
     // Returns count of items in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: gameID);
         if (tableView == homePlayerStatsTable){
-            //print("table view count", (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(newGameFilter!.homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({String($0)}).count)
+            
             return(homePlayerIDs.count)
         }else{
             return(awayPlayerIDs.count)
