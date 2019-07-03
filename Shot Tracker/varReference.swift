@@ -197,5 +197,8 @@ class universalValue{
     // website url for mutipl,e team / player adding
     var websiteURLHelp: String = "https://tinysquaremail.wixsite.com/coachassistant/csv-file-importing"
     
+    // In app purchase SKU ID for Coach Assistant Pro
+    var coachAssistantProID: String = "com.tinysquare.coachassistant.pro"
+    
     
 }

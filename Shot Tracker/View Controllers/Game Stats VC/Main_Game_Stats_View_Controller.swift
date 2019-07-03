@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyStoreKit
 
 class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
 
@@ -22,6 +23,7 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     var rowIndex: Int = 0
     var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
     var awayTeam: Int = UserDefaults.standard.integer(forKey: "awayTeam")
+    var productID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,9 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         /* Un coomment for testing trial period
         UserDefaults.standard.removeObject(forKey: "userTrialPeriod")
         */
+        productID = universalValue().coachAssistantProID
+        productRetrieve()
+        
         basic_containerView.isHidden = false
         detailed_containerView.isHidden = true
         navBarProcessing()
@@ -163,9 +168,8 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
         // add an action (button)
         notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
-            IAPService.shared.getProducts()
-            IAPService.shared.purchase(product: .nonConsumable)
             
+            self.productPurchase()
         }))
         // show the alert
         self.present(notPro, animated: true, completion: nil)
@@ -174,6 +178,74 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+    func productRetrieve(){
+        
+        SwiftyStoreKit.retrieveProductsInfo([productID]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = product.localizedPrice!
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+            }
+            else if let invalidProductId = result.invalidProductIDs.first {
+                print("Invalid product identifier: \(invalidProductId)")
+            }
+            else {
+                print("Error: \(result.error)")
+                self.purchaseErrorAlert(alertMsg: "An upgrade cannot be found an unknown error occured. Please contact support.")
+            }
+        }
+    }
+    
+    func productPurchase(){
+        
+        SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
+            switch result {
+            case .success(let purchase):
+                print("Purchase Success: \(purchase.productId)")
+                UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+                
+            case .error(let error):
+                switch error.code {
+                case .unknown:
+                    print("Unknown error. Please contact support")
+                    self.purchaseErrorAlert(alertMsg: "Unknown error. Please contact support")
+                case .clientInvalid:
+                    print("Not allowed to make the payment")
+                case .paymentCancelled:
+                    break
+                case .paymentInvalid:
+                    print("The purchase identifier was invalid")
+                case .paymentNotAllowed:
+                    print("The device is not allowed to make the payment")
+                    self.purchaseErrorAlert(alertMsg: "The device is not allowed to make the payment")
+                case .storeProductNotAvailable:
+                    print("The product is not available in the current storefront")
+                    self.purchaseErrorAlert(alertMsg: "The product is not available in the current storefront")
+                case .cloudServicePermissionDenied:
+                    print("Access to cloud service information is not allowed")
+                case .cloudServiceNetworkConnectionFailed:
+                    print("Could not connect to the network")
+                    self.purchaseErrorAlert(alertMsg: "Could not connect to the network, please make sure your are connected to the internet")
+                case .cloudServiceRevoked:
+                    print("User has revoked permission to use this cloud service")
+                    self.purchaseErrorAlert(alertMsg: "Please update your account premisions or call Apple for furthur assitance regarding your cloud premissions")
+                default:
+                    print((error as NSError).localizedDescription)
+                }
+            }
+        }
+        
+    }
+    
+    
+    func purchaseErrorAlert(alertMsg: String){
+        // create the alert
+        let alreadyProAlert = UIAlertController(title: "Whoops!", message: alertMsg, preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(alreadyProAlert, animated: true, completion: nil)
     }
     
     // delay loop
