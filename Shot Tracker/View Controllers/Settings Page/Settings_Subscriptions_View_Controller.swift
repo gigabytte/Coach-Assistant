@@ -30,39 +30,17 @@ class Settings_Subscriptions_View_Controller: UIViewController {
         upgradeButton.layer.cornerRadius = 10
         restoreButton.layer.cornerRadius = 10
         
-        
+        uiCheck()
         
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //super.viewDidLoad()
-        view.alpha = 1.0
-        loadingIndicator.isHidden = true
-        loadingIndicator.stopAnimating()
         
+       uiCheck()
         
-        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
-            
-            upgradeButton.alpha = 0.5
-            //upgradeButton.isUserInteractionEnabled = false
-            print("User Bought Pro")
-            
-        }else{
-            upgradeButton.alpha = 1.0
-            print("User DOES NOT HAVE Pro")
-            
-            
-            
-        }
-        
-        loadingIndicator.stopAnimating()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        loadingIndicator.stopAnimating()
-    }
-   
     @IBAction func restoreButton(_ sender: UIButton) {
         
         print("Lets Restore!")
@@ -72,11 +50,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
     @IBAction func upgradeButton(_ sender: UIButton) {
         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
             print("Upgrading Now!")
-            loadingIndicator.startAnimating()
-            view.backgroundColor = UIColor.darkGray
-            view.alpha = 0.7
-            upgradeButton.isUserInteractionEnabled = false
-            restoreButton.isUserInteractionEnabled = false
+            uiLoading()
             productPurchase()
         }else{
             // create the alert
@@ -100,7 +74,6 @@ class Settings_Subscriptions_View_Controller: UIViewController {
                 print("Invalid product identifier: \(invalidProductId)")
             }
             else {
-                print("Error: \(result.error)")
                 self.purchaseErrorAlert(alertMsg: "An upgrade cannot be found an unknown error occured. Please contact support.")
             }
         }
@@ -158,6 +131,16 @@ class Settings_Subscriptions_View_Controller: UIViewController {
         
     }
     
+    func uiLoading(){
+        
+        loadingIndicator.startAnimating()
+        view.backgroundColor = UIColor.darkGray
+        view.alpha = 0.7
+        upgradeButton.isUserInteractionEnabled = false
+        restoreButton.isUserInteractionEnabled = false
+        
+    }
+    
     func uiSuccess(){
         
         loadingIndicator.stopAnimating()
@@ -167,7 +150,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
         self.upgradeButton.isUserInteractionEnabled = true
         self.restoreButton.isUserInteractionEnabled = true
         self.loadingIndicator.stopAnimating()
-        self.restoreButton.alpha = 0.5
+        self.upgradeButton.alpha = 0.5
         
     }
     
@@ -179,19 +162,39 @@ class Settings_Subscriptions_View_Controller: UIViewController {
         self.restoreButton.isUserInteractionEnabled = true
     }
     
+    func uiCheck(){
+        
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+            
+            upgradeButton.alpha = 0.5
+            upgradeButton.isUserInteractionEnabled = true
+            restoreButton.isUserInteractionEnabled = true
+            print("User Bought Pro")
+            
+        }else{
+            upgradeButton.alpha = 1.0
+            restoreButton.alpha = 1.0
+            restoreButton.isUserInteractionEnabled = true
+            upgradeButton.isUserInteractionEnabled = true
+            print("User DOES NOT HAVE Pro")
+            
+        }
+        
+    }
+    
     
     func productRestore(){
         
         SwiftyStoreKit.restorePurchases(atomically: true) { results in
             if results.restoreFailedPurchases.count > 0 {
                 print("Restore Failed: \(results.restoreFailedPurchases)")
+                self.uiCancel()
             }
             else if results.restoredPurchases.count > 0 {
                 print("Restore Success: \(results.restoredPurchases)")
                 self.restoreConfAlert()
                 UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-                self.restoreButton.alpha = 0.5
-                self.restoreButton.isUserInteractionEnabled = false
+                self.uiSuccess()
             }
             else {
                 print("Nothing to Restore")

@@ -55,11 +55,6 @@ final class Settings_Backup_View_Controller: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //reloadView()
-        
-    }
     override func viewDidAppear(_ animated: Bool) {
         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
             upgradeNowAlert()
@@ -68,13 +63,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         print("Back Up View Controller Appeared")
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        print("Back Up View Controller Called")
-    }
-    
-    public func reloadView(){
+    func reloadView(){
         
         icloudToggleSwitch.isOn = UserDefaults.standard.bool(forKey: "iCloudBackupToggle")
         
@@ -96,7 +85,7 @@ final class Settings_Backup_View_Controller: UIViewController {
                     
                 }
             }else{
-                print("USernot logged in icloud")
+                print("USer not logged in icloud")
                 missingIcloudCredsAlert()
             }
         }else{
@@ -111,17 +100,16 @@ final class Settings_Backup_View_Controller: UIViewController {
     
     @IBAction func icouldToggleSwitch(_ sender: Any) {
         
-        if (icloudToggleSwitch.isOn == true){
+        if (icloudToggleSwitch.isOn == true && icloudAccountCheck().isICloudContainerAvailable() == true){
             
             
             exportCVSButton.setTitle( "iCloud Backup", for: .normal)
             importCVSButton.setTitle("Import iCloud Backup", for: .normal)
-            
-            
-            
+        
             UserDefaults.standard.set(true, forKey: "iCloudBackupToggle")
         }else {
-            
+            icloudToggleSwitch.isOn = false
+            missingIcloudCredsAlert()
             exportCVSButton.setTitle("Backup Locally", for: .normal)
             importCVSButton.setTitle("Import Locally", for: .normal)
             
@@ -767,6 +755,19 @@ final class Settings_Backup_View_Controller: UIViewController {
         
     }
     
+    func reloadAppAlert(){
+        
+        // create the alert
+        let reloadAppAlert = UIAlertController(title: "Restart App", message: "Please Exit and Close app In order to gain full pro feature set.", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        reloadAppAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+            self.reloadView()
+        }))
+        
+        // show the alert
+        self.present(reloadAppAlert, animated: true, completion: nil)
+    }
+    
     func localDocumentReader(fileName: String, csvText: String){
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -896,6 +897,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             case .success(let purchase):
                 print("Purchase Success: \(purchase.productId)")
                 UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+                self.reloadAppAlert()
                 
             case .error(let error):
                 switch error.code {

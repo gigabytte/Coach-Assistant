@@ -191,7 +191,6 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
                 print("Invalid product identifier: \(invalidProductId)")
             }
             else {
-                print("Error: \(result.error)")
                 self.purchaseErrorAlert(alertMsg: "An upgrade cannot be found an unknown error occured. Please contact support.")
             }
         }
