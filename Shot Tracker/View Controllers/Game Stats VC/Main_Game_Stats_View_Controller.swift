@@ -13,12 +13,12 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
 
     @IBAction func unwindToMainStats(segue: UIStoryboardSegue) {}
     
+    @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var upgradeView: UIView!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var viewTypeSwitch: UISegmentedControl!
     @IBOutlet weak var basic_containerView: UIView!
     @IBOutlet weak var detailed_containerView: UIView!
-    
     // defaults
     var rowIndex: Int = 0
     var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
@@ -245,6 +245,24 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
         self.present(alreadyProAlert, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func helpButon(_ sender: UIButton) {
+        let actionSheet = UIAlertController(title: "Need Some Help?", message: "Stats Types\n GF = Goals For\n SF = Shots For\n GA = Goals Against\n SA = Shots Against\n PPG = Power Play Goals\n PIM = Penalties in Minutes", preferredStyle: .actionSheet)
+        
+        // tapp anywhere outside of popup alert controller
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+            print("didPress Cancel")
+        })
+        // Add the actions to your actionSheet
+        actionSheet.addAction(cancelAction)
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.helpButton
+            
+        }
+        // Present the controller
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     // delay loop

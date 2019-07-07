@@ -180,7 +180,20 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
             let plusMinus = ((realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true",gameID, homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({String($0)})).first
             
             
-            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)"
+            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)\n"
+            
+            // -------------------------------- Faceoff Win % -------------------------------
+            let numberOfFaceoffTaken = ((realm.objects(faceOffInfoTable.self).filter(NSPredicate(format: "winingPlayerID == %i AND losingPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x],homePlayerIDs[x], gameID)).value(forKeyPath: "faceoffID") as! [Int]).compactMap({Int($0)})).count
+            let numberOfFaceoffWon = ((realm.objects(faceOffInfoTable.self).filter(NSPredicate(format: "winingPlayerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], gameID)).value(forKeyPath: "faceoffID") as! [Int]).compactMap({Int($0)})).count
+            
+            if (numberOfFaceoffTaken != 0){
+                let faceoffWinPerCalc = numberOfFaceoffWon / numberOfFaceoffTaken
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Faceoff Win Percentage: \(String(faceoffWinPerCalc))"
+            }else{
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "Faceoff Win Percentage: 0"
+            }
+            // -------------------------------------------------------------------------------
+            
         }
     }
     
@@ -212,7 +225,20 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
             // get current looping player's plus minus
             let plusMinus = ((realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true",gameID, awayPlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({String($0)})).first
             
-            awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)"
+            awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)\n"
+            
+            // -------------------------------- Faceoff Win % -------------------------------
+            let numberOfFaceoffTaken = ((realm.objects(faceOffInfoTable.self).filter(NSPredicate(format: "winingPlayerID == %i OR losingPlayerID == %i AND gameID == %i AND activeState == true", awayPlayerIDs[x],awayPlayerIDs[x], gameID)).value(forKeyPath: "faceoffID") as! [Int]).compactMap({Int($0)})).count
+            let numberOfFaceoffWon = ((realm.objects(faceOffInfoTable.self).filter(NSPredicate(format: "winingPlayerID == %i AND gameID == %i AND activeState == true", awayPlayerIDs[x], gameID)).value(forKeyPath: "faceoffID") as! [Int]).compactMap({Int($0)})).count
+            
+            if (numberOfFaceoffTaken != 0){
+                let faceoffWinPerCalc = numberOfFaceoffWon / numberOfFaceoffTaken
+                awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "Faceoff Win Percentage: \(String(faceoffWinPerCalc))"
+            }else{
+                awayPlayerStatsArray[x] = awayPlayerStatsArray[x] + "Faceoff Win Percentage: 0"
+            }
+            // -------------------------------------------------------------------------------
+            
         }
         
     }
