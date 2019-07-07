@@ -154,6 +154,39 @@ class roundedCorners{
     
 }
 
+class tutorialCircle{
+    
+    func createOverlay(frame: CGRect, xOffset: CGFloat, yOffset: CGFloat, radius: CGFloat) -> UIView {
+
+        let overlayView = UIView(frame: frame)
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+
+        let path = CGMutablePath()
+        path.addArc(center: CGPoint(x: xOffset, y: yOffset),
+                    radius: radius,
+                    startAngle: 0.0,
+                    endAngle: 2.0 * .pi,
+                    clockwise: false)
+        path.addRect(CGRect(origin: .zero, size: overlayView.frame.size))
+      
+        let maskLayer = CAShapeLayer()
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.path = path
+  
+        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+       
+        maskLayer.fillRule = .evenOdd
+        
+        overlayView.layer.mask = maskLayer
+        overlayView.clipsToBounds = true
+        // tag used to identify uiview layer
+        overlayView.tag = 1000
+        
+        return overlayView
+    }
+
+}
+
 /*
 Check to see if icloud account logged in
 */
@@ -173,7 +206,7 @@ class icloudAccountCheck{
  Stores Varaiables used accorss the app
  */
 class universalValue{
-  
+    
     // used for markers placed on ice surface
     var markerCenterX: Int = 16
     var markerCenterY:Int = 16
@@ -186,7 +219,7 @@ class universalValue{
     
     // ads unit id used across app
     // new game ads
-    var newGameAdUnitID = "ca-app-pub-1292859049443143/2410528114"//"ca-app-pub-3940256099942544/2934735716"
+    var newGameAdUnitID = /*"ca-app-pub-1292859049443143/2410528114"*/"ca-app-pub-3940256099942544/2934735716"
     
     // Help Guide PDF file name
     var helpGuidePDFName:String = "help_guide_iPad"

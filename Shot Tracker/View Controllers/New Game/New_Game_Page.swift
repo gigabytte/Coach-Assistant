@@ -56,11 +56,16 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     var homeTeam: Int!
     var awayTeam: Int!
     var faceoffLocation: Int!
+    var tutorialIndex: Int!
     
     var topLeft: CGRect?
+    var topLeftBlue: CGRect?
     var topRight: CGRect?
+    var topRightBlue: CGRect?
     var bottomLeft: CGRect?
+    var bottomLeftBlue: CGRect?
     var bottomRight: CGRect?
+    var bottomRightBlue: CGRect?
     var middleCenter: CGRect?
     
     // get location cords on user interaction with ice surface
@@ -151,6 +156,13 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         }
         onLoad()
         iceSurfaceImageViewBoundaries()
+        
+        // check if this is the first time the user has started using new game
+        if (isKeyPresentInUserDefaults(key: "newgametutorial") != true && UserDefaults.standard.bool(forKey: "newgametutorial") == false){
+            print("User has not gone through Tutorial Yet")
+            tutorialIndex = 0
+
+        }
     }
     
     func onLoad(){
@@ -247,13 +259,19 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         let screenWidth = iceSufaceImageView.frame.width
         let screenHeight = iceSufaceImageView.frame.height
         
-        print("width \(screenWidth) height \(screenHeight)")
+        let screenWidthHalf = screenWidth / 2
         
-        topLeft = CGRect(x: iceSufaceImageView.frame.minX, y: iceSufaceImageView.frame.minY,  width: screenWidth / 3,  height: screenHeight / 2)
-        topRight = CGRect(x: (screenWidth / 3) * 2 , y: iceSufaceImageView.frame.minY,  width: (screenWidth / 3) * 2,  height: screenHeight / 2)
-        bottomLeft = CGRect(x: iceSufaceImageView.frame.minX, y: iceSufaceImageView.frame.midY,  width: screenWidth / 3,  height: screenHeight / 2 )
-        bottomRight = CGRect(x: (screenWidth / 3) * 2, y: iceSufaceImageView.frame.midY,  width: screenWidth / 3,  height: screenHeight / 2)
-        middleCenter = CGRect(x: screenWidth / 3, y: iceSufaceImageView.frame.minY,  width: screenWidth / 3,  height: screenHeight)
+        // Major circles CGRect definntions
+        topLeft = CGRect(x: iceSufaceImageView.frame.minX, y: iceSufaceImageView.frame.minY,  width: (screenWidthHalf / 3) * 1.75,  height: screenHeight / 2)
+        topRight = CGRect(x: (screenWidth / 3) * 2.15 , y: iceSufaceImageView.frame.minY,  width: (screenWidth / 3) * 2,  height: screenHeight / 2)
+        bottomLeft = CGRect(x: iceSufaceImageView.frame.minX, y: iceSufaceImageView.frame.midY,  width: (screenWidthHalf / 3) * 1.75,  height: screenHeight / 2 )
+        bottomRight = CGRect(x: (screenWidth / 3) * 2.15, y: iceSufaceImageView.frame.midY,  width: screenWidth / 3,  height: screenHeight / 2)
+        middleCenter = CGRect(x: (screenWidth / 3)  * 1.25, y: iceSufaceImageView.frame.minY,  width: (screenWidthHalf / 3),  height: screenHeight)
+        // blue line CGRect definition
+        topLeftBlue = CGRect(x: topLeft!.maxX, y: topLeft!.minY,  width: (middleCenter!.minX - topLeft!.maxX),  height: screenHeight / 2)
+        bottomLeftBlue = CGRect(x: bottomLeft!.maxX, y: bottomLeft!.minY,  width: (middleCenter!.minX - topLeft!.maxX),  height: screenHeight / 2)
+        topRightBlue = CGRect(x: middleCenter!.maxX, y: middleCenter!.minY,  width: (topRight!.minX - middleCenter!.maxX),  height: screenHeight / 2)
+        bottomRightBlue = CGRect(x: topRight!.minX - topRightBlue!.width, y: topRight!.maxY,  width: (topRight!.minX - middleCenter!.maxX),  height: screenHeight / 2)
         
         // check Tap gestuires for a single tap
         let faceOffTap = UILongPressGestureRecognizer(target: self, action: #selector(twoFingerIceSurfaceSelector));
@@ -292,6 +310,26 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             if bottomRight!.contains(tapPosition) {
                 print("Bottom Right Faceoff Detected")
                 faceoffLocation = 5
+                performSegue(withIdentifier: "faceoff_segue", sender: nil)
+            }
+            if topLeftBlue!.contains(tapPosition) {
+                print("Top Left Blue Line Faceoff Detected")
+                faceoffLocation = 6
+                performSegue(withIdentifier: "faceoff_segue", sender: nil)
+            }
+            if bottomLeftBlue!.contains(tapPosition) {
+                print("Bottom Left Blue Line Faceoff Detected")
+                faceoffLocation = 7
+                performSegue(withIdentifier: "faceoff_segue", sender: nil)
+            }
+            if topRightBlue!.contains(tapPosition) {
+                print("Top Right Blue Line Faceoff Detected")
+                faceoffLocation = 8
+                performSegue(withIdentifier: "faceoff_segue", sender: nil)
+            }
+            if bottomRightBlue!.contains(tapPosition) {
+                print("Bottom Right Blue Line Faceoff Detected")
+                faceoffLocation = 9
                 performSegue(withIdentifier: "faceoff_segue", sender: nil)
             }
         }
@@ -644,7 +682,10 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         }
     }
 
-
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
     // func used to pass varables on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
