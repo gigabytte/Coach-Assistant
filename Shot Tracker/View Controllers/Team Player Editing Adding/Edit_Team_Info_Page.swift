@@ -257,25 +257,32 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
                 positionPicker.reloadAllComponents()
+                selectPosition = "LW"
                
             }else if(pickerData[row] == "Forward 2"){
                 selectLine = 2
                 positionPicker.reloadAllComponents()
+                selectPosition = "LW"
             }else if(pickerData[row] == "Forward 3"){
                 selectLine = 3
                  positionPicker.reloadAllComponents()
+                selectPosition = "LW"
             }else if(pickerData[row] == "Defense 1"){
                 selectLine = 4
                  positionPicker.reloadAllComponents()
+                selectPosition = "LD"
             }else if(pickerData[row] == "Defense 2"){
                 selectLine = 5
                  positionPicker.reloadAllComponents()
+                selectPosition = "LD"
             }else if(pickerData[row] == "Defense 3"){
                 selectLine = 6
                  positionPicker.reloadAllComponents()
+                selectPosition = "LD"
             }else{
                 selectLine = 0
                  positionPicker.reloadAllComponents()
+                selectPosition = "G"
             }
         }else if(pickerView == positionPicker){
             switch selectLine{
@@ -286,12 +293,14 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             default :
                 selectPosition = positionCodeData[positionCodeData.count - 1]
             }
+            
         }else{
             selectedMainPlayer = mainPlayerPickerData[row]
             selectedMainPlayerID = mainPlayerPickerDataID[row]
             activePlayerBoolFunc(index: row)
         
         }
+        print("Select Position \(selectPosition)")
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

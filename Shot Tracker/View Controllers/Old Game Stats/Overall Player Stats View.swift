@@ -179,6 +179,17 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             
            let totalMinutes = (penaltyMinutesAgainstMinor * UserDefaults.standard.integer(forKey: "minorPenaltyLength")) + (penaltyMinutesAgainstMajor * UserDefaults.standard.integer(forKey: "majorPenaltyLength"))
             homePlayerStatsArray[x].append("PIM: \(String(totalMinutes))")
+            // -------------------------------- Faceoff Win % -------------------------------
+            let numberOfFaceoffTaken = ((realm.objects(faceOffInfoTable.self).filter(NSPredicate(format: "winingPlayerID == %i OR losingPlayerID == %i AND activeState == true", homePlayerIDs[x],homePlayerIDs[x])).value(forKeyPath: "faceoffID") as! [Int]).compactMap({Int($0)})).count
+            let numberOfFaceoffWon = ((realm.objects(faceOffInfoTable.self).filter(NSPredicate(format: "winingPlayerID == %i AND activeState == true", homePlayerIDs[x])).value(forKeyPath: "faceoffID") as! [Int]).compactMap({Int($0)})).count
+            
+            if (numberOfFaceoffTaken != 0){
+                let faceoffWinPerCalc = numberOfFaceoffWon / numberOfFaceoffTaken
+                homePlayerStatsArray[x].append("Faceoff Win Percentage: \(String(faceoffWinPerCalc))")
+            }else{
+                homePlayerStatsArray[x].append("Faceoff Win Percentage: 0")
+            }
+            // -------------------------------------------------------------------------------
             
             /* -------------------------- GMG Game Wining Goals for the Season ----------------
             let countOfGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i OR opposingTeamID == %i AND activeState == true", homeTeamID, homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
@@ -280,11 +291,13 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
                 cell.playerLinePlusMinusImageView.isHidden = false
             }
             if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
-            cell.playerPIMLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; //count = count  + 1
+            cell.playerPIMLabel?.text = self.homePlayerStatsArray[indexPath.row][count]; count = count  + 1
             cell.playerPIMIMageView.isHidden = true
             }else{
+                count = count  + 1
                 cell.playerPIMIMageView.isHidden = false
             }
+             cell.faceoffWinPer?.text = self.homePlayerStatsArray[indexPath.row][count];
             return cell
             
         }else {
