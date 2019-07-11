@@ -57,6 +57,8 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     var awayTeam: Int!
     var faceoffLocation: Int!
     var tutorialIndex: Int!
+    var homePlayerIDs: [Int] = [Int]()
+    var awayPlayerIDs: [Int] = [Int]()
     
     var topLeft: CGRect?
     var topLeftBlue: CGRect?
@@ -93,6 +95,12 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         
         newGameDetection()
         onLoad()
+        
+        homePlayerIDs = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(self.homeTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
+        awayPlayerIDs = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(self.awayTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
+        
+        overallStatsTableDoubleCheck()
+        
         // enable ice rink image user interaction
         iceRinkImage.isUserInteractionEnabled = true
         
@@ -157,12 +165,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         onLoad()
         iceSurfaceImageViewBoundaries()
         
-        // check if this is the first time the user has started using new game
-        if (isKeyPresentInUserDefaults(key: "newgametutorial") != true && UserDefaults.standard.bool(forKey: "newgametutorial") == false){
-            print("User has not gone through Tutorial Yet")
-            tutorialIndex = 0
-
-        }
+        
     }
     
     func onLoad(){
@@ -211,6 +214,58 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         // remove observer after game data load to prevent double ups for notification passing
        // NotificationCenter.default.removeObserver(self)
         
+    }
+    
+    // func comapres old overatst table to new stats table to detect newly added players while game is open
+    func overallStatsTableDoubleCheck(){
+        
+        for homePlayerID in homePlayerIDs{
+            print("plyaer id \(homePlayerID)")
+            let overallStatsPlayerConf = ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", currentGameID, homePlayerID)).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({String($0)})).count
+            print("overall \(overallStatsPlayerConf)")
+            // if player is from home team is not found in overall stats table add to table
+            if overallStatsPlayerConf == 0{
+                try! realm.write() {
+                    var primaryID: Int!
+                    if (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? != nil){
+                        primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? ?? 0) + 1;
+                    }else{
+                        primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? ?? 0);
+                    }
+                    
+                    self.realm.create(overallStatsTable.self, value: ["overallStatsID": primaryID])
+                    let primaryCurrentStatID = self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: primaryID)
+                    
+                    primaryCurrentStatID?.gameID = currentGameID
+                    primaryCurrentStatID?.playerID = homePlayerID
+                    primaryCurrentStatID?.lineNum = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homePlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})).first!
+                    primaryCurrentStatID?.activeState = true
+                }
+            }
+        }
+        for awayPlayerID in awayPlayerIDs{
+            print("plyaer id \(awayPlayerID)")
+            let overallStatsPlayerConf = ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", currentGameID, awayPlayerID)).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({String($0)})).count
+            // if player is from home team is not found in overall stats table add to table
+            if overallStatsPlayerConf == 0{
+                try! realm.write() {
+                    var primaryID: Int!
+                    if (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? != nil){
+                        primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? ?? 0) + 1;
+                    }else{
+                        primaryID = (self.realm.objects(overallStatsTable.self).max(ofProperty: "overallStatsID") as Int? ?? 0);
+                    }
+                    
+                    self.realm.create(overallStatsTable.self, value: ["overallStatsID": primaryID])
+                    let primaryCurrentStatID = self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: primaryID)
+                    
+                    primaryCurrentStatID?.gameID = currentGameID
+                    primaryCurrentStatID?.playerID = awayPlayerID
+                    primaryCurrentStatID?.lineNum = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayPlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})).first!
+                    primaryCurrentStatID?.activeState = true
+                }
+            }
+        }
     }
     
     func bannerViewInitialize(){
@@ -660,7 +715,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     func playerStatsUpdate(){
          try! self.realm.write{
-            let homePlayerIDs = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(self.homeTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
+            
         
             for home_playerID in homePlayerIDs{
                 

@@ -281,7 +281,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
                 playerNumber.text = ""
                 self.teamPicker.reloadAllComponents()
                 self.linePicker.reloadAllComponents()
-
+                succesfulPlayerAdd(playerName: nameOfPlayer)
             }else{
                 missingFieldAlert()
             }

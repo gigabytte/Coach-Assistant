@@ -210,7 +210,6 @@ class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableVi
            
             let plusMinus = ((realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true",gameID, homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({String($0)})).first
             
-            
             homePlayerStatsArray[x] = homePlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)"
             
         }

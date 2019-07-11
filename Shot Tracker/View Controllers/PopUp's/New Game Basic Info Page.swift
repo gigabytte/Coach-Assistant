@@ -337,6 +337,5 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    
 }
 
