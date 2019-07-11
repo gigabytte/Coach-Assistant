@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/gregbrooks/Desktop/Coach-Assistant/Shot Tracker/Localizable.strings">
+   </FileRef>
+   <FileRef
       location = "group:Shot Tracker.xcodeproj">
    </FileRef>
    <FileRef

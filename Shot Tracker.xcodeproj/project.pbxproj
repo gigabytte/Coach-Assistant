@@ -134,6 +134,10 @@
 		BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Backup View Controller.swift"; sourceTree = "<group>"; };
 		BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Defaults View Controller.swift"; sourceTree = "<group>"; };
 		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
+		BE5646BD22D2C7A600373499 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Main.strings"; sourceTree = "<group>"; };
+		BE5646BE22D2C7A600373499 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		BE5646C022D2CB4B00373499 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BE5646C222D2CB5600373499 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BE57ACDA228756F800AD2054 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BE5AC39722C42C920012C39C /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = help_guide_iPad.pdf; path = ../../../Documents/help_guide_iPad.pdf; sourceTree = "<group>"; };
 		BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Shot Tracker.entitlements"; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 		BE83904921F663A600D02C0B /* Team Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Team Info Table.swift"; sourceTree = "<group>"; };
 		BE83904B21F663BA00D02C0B /* Player Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player Info Table.swift"; sourceTree = "<group>"; };
 		BE83904F21F6715400D02C0B /* Goal Marker Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal Marker Table.swift"; sourceTree = "<group>"; };
+		BE85CB3622D419D000365699 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		BE8F88B5227747260087ED88 /* varReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = varReference.swift; sourceTree = "<group>"; };
 		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
 		BE9016B522469E45006ECE5B /* Default Team Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Default Team Selection View.swift"; sourceTree = "<group>"; };
@@ -399,6 +404,7 @@
 				BE089F4B22BFE2E900FAED6F /* View Controllers */,
 				BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */,
 				BE7D697721E3D74300C1745C /* AppDelegate.swift */,
+				BE5646C122D2CB4B00373499 /* Localizable.strings */,
 				BE7D697B21E3D74300C1745C /* Main.storyboard */,
 				BE7D697E21E3D74500C1745C /* Assets.xcassets */,
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
@@ -536,6 +542,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"fr-CA",
 			);
 			mainGroup = BE7D696B21E3D74300C1745C;
 			productRefGroup = BE7D697521E3D74300C1745C /* Products */;
@@ -771,10 +778,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		BE5646C122D2CB4B00373499 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE5646C022D2CB4B00373499 /* en */,
+				BE5646C222D2CB5600373499 /* fr-CA */,
+			);
+			name = Localizable.strings;
+			path = "/Users/gregbrooks/Desktop/Coach-Assistant/Shot Tracker";
+			sourceTree = "<absolute>";
+		};
 		BE7D697B21E3D74300C1745C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BE7D697C21E3D74300C1745C /* Base */,
+				BE5646BD22D2C7A600373499 /* fr-CA */,
+				BE85CB3622D419D000365699 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -783,6 +802,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				BE7D698121E3D74500C1745C /* Base */,
+				BE5646BE22D2C7A600373499 /* fr-CA */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -794,6 +814,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -855,6 +876,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
