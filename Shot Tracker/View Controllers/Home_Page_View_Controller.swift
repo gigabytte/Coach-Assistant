@@ -107,7 +107,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
             activeStatus = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus)!
         
             if (activeStatus == true){
-                newGameButton.setTitle("Ongoing Game", for: .normal)
+                newGameButton.setTitle(localizedString().localized(value: "Ongoing Game"), for: .normal)
                 newGameButton.setNeedsLayout()
             }else{
                 newGameButton.setTitle("New Game", for: .normal)
@@ -241,7 +241,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     func dataReturnNilAlert(){
         
         // create the alert
-        let nilAlert = UIAlertController(title: "Data Error", message: "Please add atleast two teams, one player and one goalie for each corresponding team.", preferredStyle: UIAlertController.Style.alert)
+        let nilAlert = UIAlertController(title: localizedString().localized(value:"Data Error"), message: localizedString().localized(value:"Please add atleast two teams, one player and one goalie for each corresponding team."), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         nilAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

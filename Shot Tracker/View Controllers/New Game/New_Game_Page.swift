@@ -582,15 +582,15 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBAction func logoButton(_ sender: UIButton) {
         
-        let actionSheet = UIAlertController(title: "Game Options", message: "Change the way your Ice Surface is dispalyed.", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Game Options"), message: localizedString().localized(value:"Change the way your Ice Surface is dispalyed."), preferredStyle: .actionSheet)
         
         // Create your actions - take a look at different style attributes
         //saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-        let keepActiveAction = UIAlertAction(title: "Goalie / Period Change", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let keepActiveAction = UIAlertAction(title: localizedString().localized(value:"Goalie / Period Change"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.performSegue(withIdentifier: "newGameBasicInfoSegue", sender: nil)
         })
         // on save buttton press save newgame datas to realm
-        let saveAction = UIAlertAction(title: "Game Options", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let saveAction = UIAlertAction(title: localizedString().localized(value:"Game Options"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let popupVC = storyboard.instantiateViewController(withIdentifier: "In Game Settings ViewController") as! In_Game_Settings_ViewController
             popupVC.modalPresentationStyle = .overCurrentContext
@@ -603,7 +603,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             print("In Game Settings ViewController Presented!")
         })
         // tapp anywhere outside of popup alert controller
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+        let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
             print("didPress Cancel")
         })
         // Add the actions to your actionSheet
@@ -642,11 +642,11 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     // action when clicking done button
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
         // Create you actionsheet - preferredStyle: .actionSheet
-        let actionSheet = UIAlertController(title: "Current Game Save State", message: "Please select save state this game should be saved to.\n ie. Please note all in game settings will be forgotten regardless of selection, this will not delete your current game stats.", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Current Game Save State"), message: localizedString().localized(value:"Please select save state this game should be saved to.\n ie. Please note all in game settings will be forgotten regardless of selection, this will not delete your current game stats."), preferredStyle: .actionSheet)
         
         // Create your actions - take a look at different style attributes
         //saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-        let keepActiveAction = UIAlertAction(title: "Keep Active", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let keepActiveAction = UIAlertAction(title: localizedString().localized(value:"Keep Active"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             // set activegame status to active or true based on user selection
             try! self.realm.write{
                 self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus = true
@@ -661,7 +661,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             self.performSegue(withIdentifier: "backToMainNewGame", sender: nil)
         })
         // on save buttton press save newgame datas to realm
-        let saveAction = UIAlertAction(title: "Save", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
+        let saveAction = UIAlertAction(title: localizedString().localized(value:"Save"), style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
            // write to realm the resulting winnewr and loser of the game currently played and save to cold storage as closed
             try! self.realm.write{
                 self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus = false

@@ -106,6 +106,14 @@ class dateToString{
     
     
 }
+
+class localizedString{
+    
+    func localized(value: String = "") -> String {
+        return NSLocalizedString(value, comment: "")
+    }
+}
+
 /*
  Takes in View type and rounders corners baseed onn function parameters
  INPUT: View Type

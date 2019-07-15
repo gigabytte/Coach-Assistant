@@ -417,7 +417,7 @@
                                 <rect key="frame" x="0.0" y="653" width="1024" height="75"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Goal's" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="msE-to-shc">
-                                        <rect key="frame" x="37" y="25.5" width="185" height="24"/>
+                                        <rect key="frame" x="39" y="25.5" width="185" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="SLa-lH-lCd"/>
                                             <constraint firstAttribute="width" constant="185" id="dWW-ws-Tsi"/>
@@ -427,7 +427,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvF-AF-f7k" userLabel="homeTeamNumGoals">
-                                        <rect key="frame" x="232" y="-8" width="75" height="91"/>
+                                        <rect key="frame" x="234" y="-8" width="75" height="91"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="91" id="LcM-Cx-glK"/>
@@ -438,9 +438,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5E-b3-Nc2" userLabel="Home Shots">
-                                        <rect key="frame" x="332" y="26.5" width="50" height="22"/>
+                                        <rect key="frame" x="334" y="26.5" width="48" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="1QE-b1-29f"/>
                                             <constraint firstAttribute="height" constant="22" id="Ana-v2-lgB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -473,17 +472,16 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBF-bG-X9S" userLabel="Away Shots">
-                                        <rect key="frame" x="577" y="26.5" width="50" height="22"/>
+                                        <rect key="frame" x="577" y="26.5" width="48" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="sNG-ym-qJT"/>
-                                            <constraint firstAttribute="width" constant="50" id="xXB-Jf-AhH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaR-Fm-KsZ" userLabel="awayTeamNumShots">
-                                        <rect key="frame" x="642" y="-2.5" width="75" height="80"/>
+                                        <rect key="frame" x="640" y="-2.5" width="75" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="mnL-pO-Kcx"/>
@@ -494,7 +492,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Goal's" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uu4-7c-OyM">
-                                        <rect key="frame" x="717" y="25.5" width="185" height="24"/>
+                                        <rect key="frame" x="715" y="25.5" width="185" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="DgV-bW-re4"/>
                                             <constraint firstAttribute="width" constant="185" id="xUK-qZ-TNj"/>
@@ -504,7 +502,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLf-4f-aUZ" userLabel="awayTeamNumGoals">
-                                        <rect key="frame" x="917" y="-8" width="75" height="91"/>
+                                        <rect key="frame" x="915" y="-8" width="75" height="91"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="Diy-fL-1Z2"/>
@@ -1489,11 +1487,11 @@
             <objects>
                 <viewController restorationIdentifier="Import_Pop_Up_View_VC" storyboardIdentifier="Import_Pop_Up_View_VC" id="oAD-on-ycU" customClass="Import_Pop_Up_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gec-Le-bDI">
-                        <rect key="frame" x="0.0" y="0.0" width="745" height="698"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1HR-Ps-CyD" userLabel="Pop Up Import View">
-                                <rect key="frame" x="127" y="77" width="491" height="544"/>
+                                <rect key="frame" x="266.5" y="112" width="491" height="544"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Select Files to be Imported" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrD-hQ-Exz">
                                         <rect key="frame" x="91.5" y="10" width="308" height="24"/>
@@ -2432,7 +2430,6 @@
                                 <rect key="frame" x="818" y="115" width="92" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Ohv-MK-SUN"/>
-                                    <constraint firstAttribute="width" constant="92" id="idR-aK-80d"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -2653,8 +2650,8 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="hockey_net_period_basic" translatesAutoresizingMaskIntoConstraints="NO" id="q4E-eF-ZSk">
                                         <rect key="frame" x="0.0" y="0.0" width="484" height="325"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Period Selection!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-V8-5Pg">
-                                        <rect key="frame" x="100.5" y="40" width="283" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make Period Selection!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-V8-5Pg">
+                                        <rect key="frame" x="108.5" y="40" width="267.5" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <color key="textColor" red="1" green="0.33415259050000001" blue="0.1809930394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2776,7 +2773,7 @@
                                 <items>
                                     <navigationItem title="New Game" id="SdH-QQ-SuC">
                                         <barButtonItem key="backBarButtonItem" title="Dashboard" id="1dz-Zp-RCW"/>
-                                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="jwz-7K-znR">
+                                        <barButtonItem key="leftBarButtonItem" title="Done" id="jwz-7K-znR">
                                             <color key="tintColor" red="0.0049068285150000003" green="0.4474061728" blue="0.63255959750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <action selector="doneButton:" destination="n6v-6v-um8" id="8as-0N-GJ2"/>
@@ -2795,7 +2792,7 @@
                                 <rect key="frame" x="0.0" y="653" width="1024" height="75"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Team Goal's" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZC3-Yy-Eek">
-                                        <rect key="frame" x="37" y="25.5" width="185" height="24"/>
+                                        <rect key="frame" x="39" y="25.5" width="185" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="kFu-t6-rxH"/>
                                             <constraint firstAttribute="width" constant="185" id="q25-VF-WsC"/>
@@ -2805,7 +2802,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3x-rs-0Xe" userLabel="homeTeamNumGoals">
-                                        <rect key="frame" x="232" y="-8" width="75" height="91"/>
+                                        <rect key="frame" x="234" y="-8" width="75" height="91"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="91" id="TGz-P3-Ow6"/>
@@ -2816,9 +2813,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Woh-Gi-GoY" userLabel="Home Shots">
-                                        <rect key="frame" x="332" y="26.5" width="50" height="22"/>
+                                        <rect key="frame" x="334" y="26.5" width="48" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="fHI-C4-wRz"/>
                                             <constraint firstAttribute="height" constant="22" id="h94-LX-3hs"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -2851,9 +2847,8 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQl-y9-ipM" userLabel="Away Shots">
-                                        <rect key="frame" x="577" y="26.5" width="50" height="22"/>
+                                        <rect key="frame" x="577" y="26.5" width="48" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="HFm-mw-XNP"/>
                                             <constraint firstAttribute="height" constant="22" id="SEF-3Y-s7k"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -2861,7 +2856,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NK6-Nn-Vf6" userLabel="awayTeamNumShots">
-                                        <rect key="frame" x="642" y="-2.5" width="75" height="80"/>
+                                        <rect key="frame" x="640" y="-2.5" width="75" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="DWt-2m-P85"/>
@@ -2872,7 +2867,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Away Team Goal's" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lh5-nb-Yko">
-                                        <rect key="frame" x="717" y="25.5" width="185" height="24"/>
+                                        <rect key="frame" x="715" y="25.5" width="185" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="4mr-lH-ia8"/>
                                             <constraint firstAttribute="width" constant="185" id="C8m-B3-aQQ"/>
@@ -2882,7 +2877,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irK-kw-NvH" userLabel="awayTeamNumGoals">
-                                        <rect key="frame" x="917" y="-8" width="75" height="91"/>
+                                        <rect key="frame" x="915" y="-8" width="75" height="91"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="91" id="EgJ-CU-Vdo"/>
@@ -4058,11 +4053,11 @@
             <objects>
                 <viewController storyboardIdentifier="fifth" id="8iu-rp-BmU" customClass="Initial_Setup_FInish_Page_ViewController" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5s6-XA-goL">
-                        <rect key="frame" x="0.0" y="0.0" width="745" height="698"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AY2-HX-CNW">
-                                <rect key="frame" x="293" y="325.5" width="159" height="47"/>
+                                <rect key="frame" x="432.5" y="360.5" width="159" height="47"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="29"/>
                                 <state key="normal" title="Finish Setup">
                                     <color key="titleColor" red="0.0049068285150000003" green="0.4474061728" blue="0.63255959750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4731,12 +4726,12 @@
         <image name="welcomearrow" width="218" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XF8-mz-HSq"/>
+        <segue reference="p9k-GG-4VP"/>
         <segue reference="VdZ-aC-tCs"/>
-        <segue reference="3Is-IF-SeE"/>
+        <segue reference="uyd-PZ-fI3"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="DbM-eD-pg2"/>
-        <segue reference="CQV-MR-jeA"/>
+        <segue reference="Rea-8q-XFp"/>
         <segue reference="nhd-cM-urx"/>
         <segue reference="Qvi-1t-WK0"/>
         <segue reference="w5X-2C-weP"/>

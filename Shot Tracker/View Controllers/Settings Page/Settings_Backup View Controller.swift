@@ -687,10 +687,10 @@ final class Settings_Backup_View_Controller: UIViewController {
     func deleteDataPrompt(){
         
         // create the alert
-        let dataDelete = UIAlertController(title: "App Data Deletion", message: "Would you like to wipe all data stored locally on this device?", preferredStyle: UIAlertController.Style.alert)
-        dataDelete.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        let dataDelete = UIAlertController(title: localizedString().localized(value: "App Data Deletion"), message: localizedString().localized(value: "Would you like to wipe all data stored locally on this device?"), preferredStyle: UIAlertController.Style.alert)
+        dataDelete.addAction(UIAlertAction(title: localizedString().localized(value: "Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
         // add an action (button)
-        dataDelete.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.destructive, handler: {action in
+        dataDelete.addAction(UIAlertAction(title: localizedString().localized(value: "Yes"), style: UIAlertAction.Style.destructive, handler: {action in
             try? self.realm.write ({
                 //delete contents of DB
                 self.realm.deleteAll()
@@ -706,9 +706,9 @@ final class Settings_Backup_View_Controller: UIViewController {
     func successLocalAlert(){
         
         // create the alert
-        let sucessfulExportAlert = UIAlertController(title: "Succesful Export", message: "All App Data was Succesfully Exported Locally", preferredStyle: UIAlertController.Style.alert)
+        let sucessfulExportAlert = UIAlertController(title: localizedString().localized(value: "Succesful Export"), message: localizedString().localized(value: "All App Data was Succesfully Exported Locally"), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
-        sucessfulExportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+        sucessfulExportAlert.addAction(UIAlertAction(title: localizedString().localized(value: "Cancel"), style: UIAlertAction.Style.default, handler: nil))
         
         // show the alert
         self.present(sucessfulExportAlert, animated: true, completion: nil)
@@ -718,13 +718,15 @@ final class Settings_Backup_View_Controller: UIViewController {
     // upgrade alert used to display the use cases for upgrading to pro
     func upgradeNowAlert(){
         
+        
+        
         // create the alert
-        let notPro = UIAlertController(title: "You're Missing Out!", message: "Upgrade now and unlock the ability to backup your teams stats to cloud! Coach Assistant Pro memebers get iCloud backup and import access across all devices with PRO!.", preferredStyle: UIAlertController.Style.alert)
+        let notPro = UIAlertController(title: localizedString().localized(value: "You're Missing Out!"), message: localizedString().localized(value: "Upgrade now and unlock the ability to backup your teams stats to cloud! Coach Assistant Pro memebers get iCloud backup and import access across all devices with PRO!."), preferredStyle: UIAlertController.Style.alert)
         
         // add an action (button)
-        notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
+        notPro.addAction(UIAlertAction(title: localizedString().localized(value:"No Thanks"), style: UIAlertAction.Style.default, handler: nil))
         // add an action (button)
-        notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
+        notPro.addAction(UIAlertAction(title: localizedString().localized(value:"Upgrade Now!"), style: UIAlertAction.Style.destructive, handler: { action in
             self.productPurchase()
         }))
         // show the alert
@@ -736,7 +738,7 @@ final class Settings_Backup_View_Controller: UIViewController {
     func missingIcloudCredsAlert(){
         
         // create the alert
-        let sucessfulExportAlert = UIAlertController(title: "iCloud Error", message: "In order to backup to iCloud you must first be logged into and or have access to an iCloud account", preferredStyle: UIAlertController.Style.alert)
+        let sucessfulExportAlert = UIAlertController(title: localizedString().localized(value:"iCloud Error"), message: localizedString().localized(value:"In order to backup to iCloud you must first be logged into and or have access to an iCloud account"), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         sucessfulExportAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
@@ -746,7 +748,7 @@ final class Settings_Backup_View_Controller: UIViewController {
     
     func icloudOnAlert(){
         // create the alert
-        let icloudOnALert = UIAlertController(title: "iCloud Backup On", message: "Backups and Imports will now be made in conjuntion with iCloud, to export / import locally on this device please toggle off 'Backup to iCloud'", preferredStyle: UIAlertController.Style.alert)
+        let icloudOnALert = UIAlertController(title: localizedString().localized(value:"iCloud Backup On"), message: localizedString().localized(value:"Backups and Imports will now be made in conjuntion with iCloud, to export / import locally on this device please toggle off 'Backup to iCloud'"), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         icloudOnALert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
@@ -758,7 +760,7 @@ final class Settings_Backup_View_Controller: UIViewController {
     func reloadAppAlert(){
         
         // create the alert
-        let reloadAppAlert = UIAlertController(title: "Restart App", message: "Please Exit and Close app In order to gain full pro feature set.", preferredStyle: UIAlertController.Style.alert)
+        let reloadAppAlert = UIAlertController(title: localizedString().localized(value:"Restart App"), message: localizedString().localized(value:"Please Exit and Close app In order to gain full pro feature set."), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         reloadAppAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
             self.reloadView()
@@ -817,10 +819,10 @@ final class Settings_Backup_View_Controller: UIViewController {
     func confirmationLocalAlert(){
         
         // create confirmation alert to save to local storage
-        let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to your Local Storage?", preferredStyle: UIAlertController.Style.alert)
+        let exportAlert = UIAlertController(title: localizedString().localized(value:"Confirmation Alert"), message: localizedString().localized(value:"Are you sure you would like to export all App Data to your Local Storage?"), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
-        exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-        exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
+        exportAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Cancel"), style: UIAlertAction.Style.default, handler: nil))
+        exportAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Continue"), style: UIAlertAction.Style.default, handler: { action in
             self.oldCSVFileFinder()
             self.createCSVTeamInfo()
             self.createCSVPlayerInfo()
@@ -846,10 +848,10 @@ final class Settings_Backup_View_Controller: UIViewController {
     func confirmationiCloudAlert(){
         
         // create confirmation alert to save to local storage
-        let exportAlert = UIAlertController(title: "Confirmation Alert", message: "Are you sure you would like to export all App Data to your iCloud Account?", preferredStyle: UIAlertController.Style.alert)
+        let exportAlert = UIAlertController(title: localizedString().localized(value:"Confirmation Alert"), message: localizedString().localized(value:"Are you sure you would like to export all App Data to your iCloud Account?"), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
-        exportAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-        exportAlert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
+        exportAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Cancel"), style: UIAlertAction.Style.default, handler: nil))
+        exportAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Continue"), style: UIAlertAction.Style.default, handler: { action in
             self.oldCSVFileFinder()
             self.createCSVTeamInfo()
             self.createCSVPlayerInfo()
