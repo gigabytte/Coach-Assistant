@@ -49,6 +49,8 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         // default team id for no touch picker view selection
         selectedTeamID = homeTeamValueSelected[0].teamID;
         
+        oldStatsButton.tag = 10
+        playerStatsButton.tag = 10
         teamPickerView.alpha = 0.0
         popUpView.layer.cornerRadius = 10
         bottomRoundedCorners()
@@ -84,7 +86,6 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
                 self.playerButtonCon!.isActive = false
                 self.oldStatsButtonCon!.isActive = false
                 self.playerStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
-                self.oldStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
                 self.oldStatsButton.widthAnchor.constraint(equalToConstant: 242.0).isActive = true
                 self.view.layoutIfNeeded()
                 //self.buttonBorder(updateBool: false)
@@ -133,12 +134,14 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func playerStatsButtonPress(_ sender: UIButton) {
-        let buttonTitle = sender.title(for: .normal)
-        if  buttonTitle == "Player Stats"{
+       
+        if  playerStatsButton.tag == 10 {
             animationOnButtonCLick(reverseAnimateBool: false)
             playerStatsButton.setTitle("Please Select Team", for: UIControl.State.normal)
             cancelButton.setTitle("Continue", for: UIControl.State.normal)
             oldStatsButton.setTitle("Back", for: UIControl.State.normal)
+            oldStatsButton.tag = 20
+            playerStatsButton.tag = 20
             UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                 self.teamPickerView.alpha = 1.0
             }, completion: nil)
@@ -147,12 +150,14 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func oldStatsButton(_ sender: UIButton) {
-        let buttonTitle = sender.title(for: .normal)
-        if  buttonTitle == "Back"{
+        
+        if  oldStatsButton.tag == 20 {
             animationOnButtonCLick(reverseAnimateBool: true)
             playerStatsButton.setTitle("Player Stats", for: UIControl.State.normal)
             oldStatsButton.setTitle("Old Game Stats", for: UIControl.State.normal)
             cancelButton.setTitle("Cancel", for: UIControl.State.normal)
+            oldStatsButton.tag = 10
+            playerStatsButton.tag = 10
             UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                 self.teamPickerView.alpha = 0.0
             }, completion: nil)

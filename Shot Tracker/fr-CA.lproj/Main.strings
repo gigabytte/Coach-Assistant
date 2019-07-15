@@ -1,6 +1,12 @@
+/*
+ 
+ French Canada Localization strings
+ 
+*/
+
 
 /* Class = "UILabel"; text = "Stats Record"; ObjectID = "02S-0W-Yfz"; */
-"02S-0W-Yfz.text" = "Stats Record";
+"02S-0W-Yfz.text" = "Statistiques Enregistrer";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "09p-ZQ-77O"; */
 "09p-ZQ-77O.title" = "Retour";
@@ -27,7 +33,7 @@
 "3xM-DK-kiD.title" = "Retour";
 
 /* Class = "UITextField"; placeholder = "Enter player's new number"; ObjectID = "492-Rt-q8J"; */
-"492-Rt-q8J.placeholder" = "Enter player's new number";
+"492-Rt-q8J.placeholder" = "Entrez le nouveau numéro du joueur";
 
 /* Class = "UILabel"; text = "Make Inactive"; ObjectID = "4z2-KT-sk2"; */
 "4z2-KT-sk2.text" = "Rendre Inactif";
@@ -36,7 +42,7 @@
 "5I3-s7-CwR.text" = "Label";
 
 /* Class = "UILabel"; text = "Home Player Name"; ObjectID = "5f1-Dp-run"; */
-"5f1-Dp-run.text" = "Home Player Name";
+"5f1-Dp-run.text" = "Nom du joueur d'équipe Locale";
 
 /* Class = "UIButton"; normalTitle = "Save Player"; ObjectID = "6eM-MW-8Fp"; */
 "6eM-MW-8Fp.normalTitle" = "Enregistrer le Joueur";
@@ -54,7 +60,7 @@
 "87c-zf-Xjq.text" = "Ajouter une équipe";
 
 /* Class = "UILabel"; text = "Save % Top Left:"; ObjectID = "8Ip-cL-6ay"; */
-"8Ip-cL-6ay.text" = "Save % Top Left:";
+"8Ip-cL-6ay.text" = "% d'arrêts en haut à gauche:";
 
 /* Class = "UILabel"; text = "Stats Will Go Here"; ObjectID = "8tg-0E-D00"; */
 "8tg-0E-D00.text" = "Stats Will Go Here";
@@ -69,7 +75,7 @@
 "8vf-Ta-qcs.normalTitle" = "Annuler";
 
 /* Class = "UITextField"; placeholder = "Player Number ..."; ObjectID = "90h-iM-PXQ"; */
-"90h-iM-PXQ.placeholder" = "Player Number ...";
+"90h-iM-PXQ.placeholder" = "Numéro de Joueur ...";
 
 /* Class = "UIButton"; normalTitle = "Edit Player"; ObjectID = "920-Yf-EdP"; */
 "920-Yf-EdP.normalTitle" = "Modifier Joueur";
@@ -78,7 +84,7 @@
 "9OA-Qn-euu.normalTitle" = "Annuler";
 
 /* Class = "UILabel"; text = "Goalie Name"; ObjectID = "ASR-TY-XYj"; */
-"ASR-TY-XYj.text" = "Goalie Name";
+"ASR-TY-XYj.text" = "Nom du Gardien";
 
 /* Class = "UIButton"; normalTitle = "Finish Setup"; ObjectID = "AY2-HX-CNW"; */
 "AY2-HX-CNW.normalTitle" = "Terminer Installer";
@@ -90,7 +96,7 @@
 "C0b-zN-UMb.text" = "Les Données sont Indisponibles";
 
 /* Class = "UILabel"; text = "Away Team:"; ObjectID = "CHi-DB-y3W"; */
-"CHi-DB-y3W.text" = "Away Team:";
+"CHi-DB-y3W.text" = "équipe visiteurs:";
 
 /* Class = "UILabel"; text = "Backup to iCloud"; ObjectID = "CPw-7d-EOH"; */
 "CPw-7d-EOH.text" = "Sauvegarde a iCloud";
@@ -129,7 +135,7 @@
 "Fmp-0A-iY8.title" = "Vue Statistiques";
 
 /* Class = "UILabel"; text = "In Case You Need a Hand ..."; ObjectID = "G00-km-d4t"; */
-"G00-km-d4t.text" = "In Case You Need a Hand ...";
+"G00-km-d4t.text" = "Si vous avez besoin d'un coup de main ...";
 
 /* Class = "UINavigationItem"; title = "Ice Surafce View of Home Vs Away"; ObjectID = "GgQ-19-nwf"; */
 "GgQ-19-nwf.title" = "Ice Surafce View of Home Vs Away";
@@ -141,7 +147,7 @@
 "Guo-Th-gga.normalTitle" = "Modifier les informations sur l'équipe ou le Joueur";
 
 /* Class = "UILabel"; text = "Player Name"; ObjectID = "Gy6-Av-Pk2"; */
-"Gy6-Av-Pk2.text" = "Player Name";
+"Gy6-Av-Pk2.text" = "Nom du joueur";
 
 /* Class = "UIButton"; normalTitle = "Add Penalty"; ObjectID = "HFM-es-bR2"; */
 "HFM-es-bR2.normalTitle" = "Ajouter une Pénalité";
@@ -156,40 +162,40 @@
 "Hg3-QB-gtK.text" = "Assitants";
 
 /* Class = "UILabel"; text = "Player's Line"; ObjectID = "I3j-8Y-GoV"; */
-"I3j-8Y-GoV.text" = "Player's Line";
+"I3j-8Y-GoV.text" = "Ligne de Joueur";
 
 /* Class = "UILabel"; text = "Shots"; ObjectID = "I5E-b3-Nc2"; */
 "I5E-b3-Nc2.text" = "Coups";
 
 /* Class = "UIButton"; normalTitle = "Restore Purchases"; ObjectID = "IGm-u7-xTk"; */
-"IGm-u7-xTk.normalTitle" = "Restore Purchases";
+"IGm-u7-xTk.normalTitle" = "Restaurer les achats";
 
 /* Class = "UIButton"; normalTitle = "Import From Backup"; ObjectID = "JQi-ni-6tU"; */
-"JQi-ni-6tU.normalTitle" = "Import From Backup";
+"JQi-ni-6tU.normalTitle" = "Importer de la sauvegarde";
 
 /* Class = "UILabel"; text = "Faceoff Winner"; ObjectID = "JRd-N0-k7f"; */
 "JRd-N0-k7f.text" = "Ajouter Mise au Jeu perdant Gagnant";
 
 /* Class = "UILabel"; text = "Data is Unavailable"; ObjectID = "Jsf-vV-ljs"; */
-"Jsf-vV-ljs.text" = "Data is Unavailable";
+"Jsf-vV-ljs.text" = "Les données sont indisponibles";
 
 /* Class = "UIButton"; normalTitle = "Close"; ObjectID = "JxM-xx-ywa"; */
 "JxM-xx-ywa.normalTitle" = "Fermer";
 
 /* Class = "UILabel"; text = "Away Team Name"; ObjectID = "KF3-hk-raR"; */
-"KF3-hk-raR.text" = "Away Team Name";
+"KF3-hk-raR.text" = "Nom d'équipe visiteurs";
 
 /* Class = "UILabel"; text = "Please Select Shot Location"; ObjectID = "Kyt-so-IXs"; */
 "Kyt-so-IXs.text" = "S'il vous plaît sélectionnez emplacement";
 
 /* Class = "UILabel"; text = "Please Select Goalie"; ObjectID = "L2A-PN-h54"; */
-"L2A-PN-h54.text" = "Please Select Goalie";
+"L2A-PN-h54.text" = "Sélectionnez gardien de but";
 
 /* Class = "UILabel"; text = "Save % by Shot Location on Net"; ObjectID = "MLA-UP-BAN"; */
 "MLA-UP-BAN.text" = "Save % by Shot Location on Net";
 
 /* Class = "UILabel"; text = "Beta Build"; ObjectID = "MTh-bx-uZU"; */
-"MTh-bx-uZU.text" = "Beta Build";
+"MTh-bx-uZU.text" = "Version Bêta";
 
 /* Class = "UILabel"; text = "Add New Team"; ObjectID = "MTr-6M-lXy"; */
 "MTr-6M-lXy.text" = "Ajouter un Nouveau Équipe";
@@ -219,67 +225,67 @@
 "O92-6r-yYJ.text" = "Légal";
 
 /* Class = "UILabel"; text = "Save % Between Each Goalie"; ObjectID = "OQI-Xe-p0w"; */
-"OQI-Xe-p0w.text" = "Save % Between Each Goalie";
+"OQI-Xe-p0w.text" = "% de Sauver Entre chaque gardien";
 
 /* Class = "UILabel"; text = "Pick the Player's Line"; ObjectID = "Oz8-RO-dEN"; */
-"Oz8-RO-dEN.text" = "Pick the Player's Line";
+"Oz8-RO-dEN.text" = "Choisissez la ligne du joueur";
 
 /* Class = "UILabel"; text = "Select Player to Edit"; ObjectID = "P0Q-hC-f9f"; */
 "P0Q-hC-f9f.text" = "Choisir une Joueur de Modifier";
 
 /* Class = "UILabel"; text = "# Goals:"; ObjectID = "PIo-T0-l8E"; */
-"PIo-T0-l8E.text" = "# Goals:";
+"PIo-T0-l8E.text" = "# But, Filet:";
 
 /* Class = "UIButton"; normalTitle = "New Game"; ObjectID = "PQZ-W1-2q7"; */
 "PQZ-W1-2q7.normalTitle" = "Nouveau Game";
 
 /* Class = "UILabel"; text = "Pick the Player's Position"; ObjectID = "Pl0-gf-YfY"; */
-"Pl0-gf-YfY.text" = "Pick the Player's Position";
+"Pl0-gf-YfY.text" = "Choisissez la position du joueur";
 
 /* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "Puw-r5-cEH"; */
 "Puw-r5-cEH.normalTitle" = "Continuer";
 
 /* Class = "UIButton"; normalTitle = "Save Default Team"; ObjectID = "QP5-7p-El3"; */
-"QP5-7p-El3.normalTitle" = "Save Default Team";
+"QP5-7p-El3.normalTitle" = "Enregistrer";
 
 /* Class = "UILabel"; text = "Goal Maker's Name"; ObjectID = "QRi-cL-59M"; */
 "QRi-cL-59M.text" = "Goal Maker's Name";
 
 /* Class = "UILabel"; text = "Please Period Selection!"; ObjectID = "QoR-V8-5Pg"; */
-"QoR-V8-5Pg.text" = "Please Period Selection!";
+"QoR-V8-5Pg.text" = "Sélectionner une période";
 
 /* Class = "UILabel"; text = "About"; ObjectID = "RJD-PR-gnS"; */
-"RJD-PR-gnS.text" = "About";
+"RJD-PR-gnS.text" = "Infos Sur";
 
 /* Class = "UILabel"; text = "Upgrade Now to Unlock!"; ObjectID = "RYN-Vz-ncW"; */
-"RYN-Vz-ncW.text" = "Upgrade Now to Unlock!";
+"RYN-Vz-ncW.text" = "Mettre à Niveau Maintenant pour Déverrouiller!";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "SK2-RK-sVf"; */
 "SK2-RK-sVf.title" = "Retour";
 
 /* Class = "UILabel"; text = "Display Shots"; ObjectID = "SS4-0Y-aKJ"; */
-"SS4-0Y-aKJ.text" = "Display Shots";
+"SS4-0Y-aKJ.text" = "Afficher des Coups";
 
 /* Class = "UINavigationItem"; title = "New Game"; ObjectID = "SdH-QQ-SuC"; */
-"SdH-QQ-SuC.title" = "New Game";
+"SdH-QQ-SuC.title" = "Nouveau Jeu";
 
 /* Class = "UILabel"; text = "Save % Bottom Left:"; ObjectID = "Sis-AX-G6G"; */
 "Sis-AX-G6G.text" = "Save % Bottom Left:";
 
 /* Class = "UINavigationItem"; title = "Current Game Stats"; ObjectID = "SqQ-F4-7H3"; */
-"SqQ-F4-7H3.title" = "Current Game Stats";
+"SqQ-F4-7H3.title" = "Statistiques de jeu actuelles";
 
 /* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "StA-ju-Dxm"; */
 "StA-ju-Dxm.normalTitle" = "Continuer";
 
 /* Class = "UIButton"; normalTitle = "Wipe Local Data"; ObjectID = "U94-Qa-rZ2"; */
-"U94-Qa-rZ2.normalTitle" = "Wipe Local Data";
+"U94-Qa-rZ2.normalTitle" = "Effacer les Données Locales";
 
 /* Class = "UILabel"; text = "Away Player Name"; ObjectID = "Ugj-a8-MGY"; */
-"Ugj-a8-MGY.text" = "Away Player Name";
+"Ugj-a8-MGY.text" = "Nom du joueur d'équipe Visiteurs";
 
 /* Class = "UILabel"; text = "Away Team Goal's"; ObjectID = "Uu4-7c-OyM"; */
-"Uu4-7c-OyM.text" = "Away Team Goal's";
+"Uu4-7c-OyM.text" = "But, filet d'équipe Visiteurs";
 
 /* Class = "UILabel"; text = "# Assists:"; ObjectID = "VS6-S4-Odx"; */
 "VS6-S4-Odx.text" = "# Assists:";
@@ -288,10 +294,10 @@
 "WG1-OV-ykQ.normalTitle" = "Fermer";
 
 /* Class = "UIButton"; normalTitle = "Set Penalty Length"; ObjectID = "WeX-51-mzW"; */
-"WeX-51-mzW.normalTitle" = "Set Penalty Length";
+"WeX-51-mzW.normalTitle" = "Enregistrer";
 
 /* Class = "UIButton"; normalTitle = "Add Player"; ObjectID = "WhV-fT-Hwx"; */
-"WhV-fT-Hwx.normalTitle" = "Add Player";
+"WhV-fT-Hwx.normalTitle" = "Ajouter un Joueur";
 
 /* Class = "UILabel"; text = "Shots"; ObjectID = "Woh-Gi-GoY"; */
 "Woh-Gi-GoY.text" = "Coups";
@@ -300,13 +306,13 @@
 "XHz-Fu-qjp.title" = "Enregistrer";
 
 /* Class = "UIButton"; normalTitle = "Import"; ObjectID = "XL1-Ko-7Tf"; */
-"XL1-Ko-7Tf.normalTitle" = "Import";
+"XL1-Ko-7Tf.normalTitle" = "Importer";
 
 /* Class = "UILabel"; text = "Time of Offense"; ObjectID = "XZo-C4-i15"; */
-"XZo-C4-i15.text" = "Time of Offense";
+"XZo-C4-i15.text" = "Moment de l'infraction";
 
 /* Class = "UILabel"; text = "Game Location:"; ObjectID = "XsQ-Ox-rXe"; */
-"XsQ-Ox-rXe.text" = "Game Location:";
+"XsQ-Ox-rXe.text" = "Emplacement du jeu:";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "XuH-Od-A5D"; */
 "XuH-Od-A5D.normalTitle" = "Annuler";
@@ -315,37 +321,37 @@
 "YNc-D6-AFf.text" = "Rendre Inactif";
 
 /* Class = "UILabel"; text = "Player Name"; ObjectID = "Ysc-4n-B93"; */
-"Ysc-4n-B93.text" = "Player Name";
+"Ysc-4n-B93.text" = "Nom de Joueur";
 
 /* Class = "UINavigationItem"; title = "Your Team's Performance"; ObjectID = "YyN-1O-BOr"; */
-"YyN-1O-BOr.title" = "Your Team's Performance";
+"YyN-1O-BOr.title" = "La performance de votre équipe";
 
 /* Class = "UILabel"; text = "Home Team Goal's"; ObjectID = "ZC3-Yy-Eek"; */
-"ZC3-Yy-Eek.text" = "Home Team Goal's";
+"ZC3-Yy-Eek.text" = "But de l'équipe Locale";
 
 /* Class = "UIButton"; normalTitle = "Add Team"; ObjectID = "ZEy-o9-QtI"; */
-"ZEy-o9-QtI.normalTitle" = "Add Team";
+"ZEy-o9-QtI.normalTitle" = "Ajouter une équipe";
 
 /* Class = "UILabel"; text = "Default Team vs"; ObjectID = "ZGg-Jz-AJ0"; */
 "ZGg-Jz-AJ0.text" = "Default Team vs";
 
 /* Class = "UILabel"; text = "Player Name"; ObjectID = "aOZ-nY-DvA"; */
-"aOZ-nY-DvA.text" = "Player Name";
+"aOZ-nY-DvA.text" = "Nom de Joueur";
 
 /* Class = "UILabel"; text = "Penalty Type"; ObjectID = "aPg-l2-5n5"; */
-"aPg-l2-5n5.text" = "Penalty Type";
+"aPg-l2-5n5.text" = "Type de pénalité";
 
 /* Class = "UILabel"; text = "Display Penalty's"; ObjectID = "aRO-Id-oZx"; */
-"aRO-Id-oZx.text" = "Display Penalty's";
+"aRO-Id-oZx.text" = "Afficher la pénalité";
 
 /* Class = "UIButton"; normalTitle = "Backup Locally"; ObjectID = "b3b-5s-nbl"; */
-"b3b-5s-nbl.normalTitle" = "Backup Locally";
+"b3b-5s-nbl.normalTitle" = "Sauvegarde locale";
 
 /* Class = "UILabel"; text = "Penalty Length Defaults"; ObjectID = "bNA-xF-DlK"; */
-"bNA-xF-DlK.text" = "Penalty Length Defaults";
+"bNA-xF-DlK.text" = "Longueur de pénalité par défaut";
 
 /* Class = "UIButton"; normalTitle = "Import Data Locally"; ObjectID = "bSw-yw-dBJ"; */
-"bSw-yw-dBJ.normalTitle" = "Import Data Locally";
+"bSw-yw-dBJ.normalTitle" = "Importer localement";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "be8-JX-QsB"; */
 "be8-JX-QsB.normalTitle" = "Annuler";
@@ -360,13 +366,13 @@
 "cJm-Qr-Erm.text" = "PIM:";
 
 /* Class = "UILabel"; text = "Help Guide"; ObjectID = "che-5X-bxD"; */
-"che-5X-bxD.text" = "Help Guide";
+"che-5X-bxD.text" = "Guide d'aide";
 
 /* Class = "UIBarButtonItem"; title = "Ice Surface"; ObjectID = "cnu-Zz-Sx4"; */
 "cnu-Zz-Sx4.title" = "Ice Surface";
 
 /* Class = "UILabel"; text = "Penalty Lengths"; ObjectID = "cph-Bk-x2t"; */
-"cph-Bk-x2t.text" = "Penalty Lengths";
+"cph-Bk-x2t.text" = "Longueurs de pénalité";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "dCQ-D6-7cY"; */
 "dCQ-D6-7cY.normalTitle" = "Annuler";
@@ -375,19 +381,19 @@
 "dJo-F6-AXh.text" = "Sucessful Import / Export Label";
 
 /* Class = "UILabel"; text = "Please note both goalies have a save % of 100%"; ObjectID = "dOi-sL-7my"; */
-"dOi-sL-7my.text" = "Please note both goalies have a save % of 100%";
+"dOi-sL-7my.text" = "Noter les deux gardiens ont une % de sauver de 100%";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "dce-Rg-TwA"; */
 "dce-Rg-TwA.title" = "Retour";
 
 /* Class = "UILabel"; text = "Team Name"; ObjectID = "e4R-Of-OzA"; */
-"e4R-Of-OzA.text" = "Team Name";
+"e4R-Of-OzA.text" = "Nom de l'équipe";
 
 /* Class = "UILabel"; text = "Team Name"; ObjectID = "edq-xn-0nA"; */
-"edq-xn-0nA.text" = "Team Name";
+"edq-xn-0nA.text" = "Nom de l'équipe";
 
 /* Class = "UILabel"; text = "Please Select Period and Goalie"; ObjectID = "eyf-Vz-B7r"; */
-"eyf-Vz-B7r.text" = "Please Select Period and Goalie";
+"eyf-Vz-B7r.text" = "Sélectionnez la période et le gardien de but";
 
 /* Class = "UILabel"; text = "Shots"; ObjectID = "fBF-bG-X9S"; */
 "fBF-bG-X9S.text" = "Coups";
@@ -396,7 +402,7 @@
 "fEE-7s-sFW.text" = "Goalie Name Label";
 
 /* Class = "UILabel"; text = "Backup Date"; ObjectID = "fL4-9Y-O65"; */
-"fL4-9Y-O65.text" = "Backup Date";
+"fL4-9Y-O65.text" = "Date de Sauvegarde";
 
 /* Class = "UILabel"; accessibilityLabel = "Away_Team _Score_Label"; ObjectID = "fU0-q3-RiJ"; */
 "fU0-q3-RiJ.accessibilityLabel" = "Away_Team _Score_Label";
@@ -405,13 +411,13 @@
 "fU0-q3-RiJ.text" = "0";
 
 /* Class = "UILabel"; text = "Goal Type"; ObjectID = "fU4-p8-c6j"; */
-"fU4-p8-c6j.text" = "Goal Type";
+"fU4-p8-c6j.text" = "Le genre de But, filet";
 
 /* Class = "UITextField"; placeholder = "Enter Player Last Name"; ObjectID = "fUE-CS-N0M"; */
-"fUE-CS-N0M.placeholder" = "Enter Player Last Name";
+"fUE-CS-N0M.placeholder" = "Nom de Famille du Joueur";
 
 /* Class = "UITextField"; placeholder = "Game Location..."; ObjectID = "fyl-o8-rXI"; */
-"fyl-o8-rXI.placeholder" = "Game Location...";
+"fyl-o8-rXI.placeholder" = "Emplacement du jeu ...";
 
 /* Class = "UILabel"; text = "Save % Center:"; ObjectID = "g8G-ob-TVZ"; */
 "g8G-ob-TVZ.text" = "Save % Center:";
@@ -420,7 +426,7 @@
 "gcN-nl-3mU.text" = "Stats Will Go Here";
 
 /* Class = "UILabel"; text = "Player Name"; ObjectID = "gfd-58-v4O"; */
-"gfd-58-v4O.text" = "Player Name";
+"gfd-58-v4O.text" = "Nom de Joueur";
 
 /* Class = "UILabel"; text = "sec"; ObjectID = "gvZ-Df-pU2"; */
 "gvZ-Df-pU2.text" = "sec";
@@ -462,13 +468,13 @@
 "kU2-iz-yi2.normalTitle" = "Annuler";
 
 /* Class = "UILabel"; text = "In App Subscriptions"; ObjectID = "kwn-OG-Ctz"; */
-"kwn-OG-Ctz.text" = "In App Subscriptions";
+"kwn-OG-Ctz.text" = "Abonnements In App";
 
 /* Class = "UILabel"; text = "Tiny Sqaure Studios© 2019"; ObjectID = "l8E-Ig-NKg"; */
 "l8E-Ig-NKg.text" = "Tiny Sqaure Studios© 2019";
 
 /* Class = "UILabel"; text = "Away Team Goal's"; ObjectID = "lh5-nb-Yko"; */
-"lh5-nb-Yko.text" = "Away Team Goal's";
+"lh5-nb-Yko.text" = "But, filet d'équipe Visiteurs";
 
 /* Class = "UILabel"; accessibilityLabel = "Home_Team _Score_Label"; ObjectID = "m06-Rs-7aU"; */
 "m06-Rs-7aU.accessibilityLabel" = "Home_Team _Score_Label";
@@ -480,37 +486,40 @@
 "mO1-xH-SfF.text" = "Ajouter Mise au Jeu perdant";
 
 /* Class = "UIBarButtonItem"; title = "Analytical View"; ObjectID = "meS-li-P1Y"; */
-"meS-li-P1Y.title" = "Analytical View";
+"meS-li-P1Y.title" = "Vue Analytique";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "jwz-7K-znR"; */
+"jwz-7K-znR.title" = "Terminé";
 
 /* Class = "UIBarButtonItem"; title = "Add Player"; ObjectID = "mgI-fB-mJf"; */
-"mgI-fB-mJf.title" = "Add Player";
+"mgI-fB-mJf.title" = "Ajouter un Joueur";
 
 /* Class = "UILabel"; text = "Home Team Goal's"; ObjectID = "msE-to-shc"; */
-"msE-to-shc.text" = "Home Team Goal's";
+"msE-to-shc.text" = "But de l'équipe Locale";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "n7j-t7-pia"; */
 "n7j-t7-pia.normalTitle" = "Annuler";
 
 /* Class = "UITextField"; placeholder = "New Team Name"; ObjectID = "nEK-Jw-f5R"; */
-"nEK-Jw-f5R.placeholder" = "New Team Name";
+"nEK-Jw-f5R.placeholder" = "Nouveau nom de l'équipe";
 
 /* Class = "UILabel"; text = "Stats Record"; ObjectID = "nF7-pa-lZq"; */
 "nF7-pa-lZq.text" = "Stats Record";
 
 /* Class = "UISegmentedControl"; nS9-lu-zCr.segmentTitles[0] = "Minor"; ObjectID = "nS9-lu-zCr"; */
-"nS9-lu-zCr.segmentTitles[0]" = "Minor";
+"nS9-lu-zCr.segmentTitles[0]" = "Pénalité Mineure";
 
 /* Class = "UISegmentedControl"; nS9-lu-zCr.segmentTitles[1] = "Major"; ObjectID = "nS9-lu-zCr"; */
-"nS9-lu-zCr.segmentTitles[1]" = "Major";
+"nS9-lu-zCr.segmentTitles[1]" = "Pénalité Majeure";
 
 /* Class = "UINavigationItem"; title = "Edit Team or Players"; ObjectID = "njM-Sn-4Ay"; */
-"njM-Sn-4Ay.title" = "Edit Team or Players";
+"njM-Sn-4Ay.title" = "Modifier l'équipe ou les joueurs";
 
 /* Class = "UILabel"; text = "Player Name"; ObjectID = "oPM-Xi-0Tn"; */
-"oPM-Xi-0Tn.text" = "Player Name";
+"oPM-Xi-0Tn.text" = "Nom de Joueur";
 
 /* Class = "UITextField"; placeholder = "Enter player's new last name"; ObjectID = "pRv-Mw-n8n"; */
-"pRv-Mw-n8n.placeholder" = "Enter player's new last name";
+"pRv-Mw-n8n.placeholder" = "Nouveau nom du joueur";
 
 /* Class = "UILabel"; text = "Save % Top Right:"; ObjectID = "prA-IY-aUi"; */
 "prA-IY-aUi.text" = "Save % Top Right:";
@@ -519,16 +528,16 @@
 "qNq-uE-dXA.title" = "Retour";
 
 /* Class = "UIButton"; normalTitle = "Upgrade to Pro!"; ObjectID = "qUp-DH-IzP"; */
-"qUp-DH-IzP.normalTitle" = "Upgrade to Pro!";
+"qUp-DH-IzP.normalTitle" = "Améliorer a Pro";
 
 /* Class = "UILabel"; text = "Please Select Files to be Imported"; ObjectID = "qrD-hQ-Exz"; */
-"qrD-hQ-Exz.text" = "Please Select Files to be Imported";
+"qrD-hQ-Exz.text" = "Sélectionnez les fichiers à importer";
 
 /* Class = "UILabel"; text = "Home Team Name"; ObjectID = "s6x-0a-iwd"; */
 "s6x-0a-iwd.text" = "Home Team Name";
 
 /* Class = "UILabel"; text = "Whoops! No Saved Game Found!"; ObjectID = "sDh-I9-riA"; */
-"sDh-I9-riA.text" = "Whoops! No Saved Game Found!";
+"sDh-I9-riA.text" = "Whoops! Aucune partie sauvegardée trouvée!";
 
 /* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "sj0-HZ-nsp"; */
 "sj0-HZ-nsp.normalTitle" = "Continuer";
@@ -537,58 +546,58 @@
 "sna-p3-JOb.text" = "Position:";
 
 /* Class = "UINavigationItem"; title = "Add Team"; ObjectID = "tBX-Oc-MbK"; */
-"tBX-Oc-MbK.title" = "Add Team";
+"tBX-Oc-MbK.title" = "Ajouter une équipe";
 
 /* Class = "UITextField"; placeholder = "Team Name ..."; ObjectID = "tIW-sU-Lkc"; */
-"tIW-sU-Lkc.placeholder" = "Team Name ...";
+"tIW-sU-Lkc.placeholder" = "Nom d'equipe ...";
 
 /* Class = "UILabel"; text = "Game Type"; ObjectID = "tKD-Db-K0y"; */
-"tKD-Db-K0y.text" = "Game Type";
+"tKD-Db-K0y.text" = "Type de Jeu";
 
 /* Class = "UITextField"; placeholder = "Player Name ..."; ObjectID = "tR8-mk-DiY"; */
-"tR8-mk-DiY.placeholder" = "Player Name ...";
+"tR8-mk-DiY.placeholder" = "Nom de Joueur ...";
 
 /* Class = "UILabel"; text = "Offline Ad Here"; ObjectID = "tY5-hq-bLJ"; */
 "tY5-hq-bLJ.text" = "Offline Ad Here";
 
 /* Class = "UIButton"; normalTitle = "Add Team or Player"; ObjectID = "us1-ey-YFn"; */
-"us1-ey-YFn.normalTitle" = "Add Team or Player";
+"us1-ey-YFn.normalTitle" = "Ajouter une équipe ou un joueur";
 
 /* Class = "UILabel"; text = "Stats Type"; ObjectID = "v1W-g4-R8g"; */
 "v1W-g4-R8g.text" = "Stats Type";
 
 /* Class = "UILabel"; text = "In Game Settings"; ObjectID = "vK8-cP-UBf"; */
-"vK8-cP-UBf.text" = "In Game Settings";
+"vK8-cP-UBf.text" = "Réglages En Jeu";
 
 /* Class = "UILabel"; text = "Record.  Analyse.  Perform."; ObjectID = "vQg-ce-W9j"; */
-"vQg-ce-W9j.text" = "Record.  Analyse.  Perform.";
+"vQg-ce-W9j.text" = "Record.  Analyser.  Exécuter.";
 
 /* Class = "UILabel"; text = "Number of Shots:"; ObjectID = "vbC-cC-vQY"; */
-"vbC-cC-vQY.text" = "Nombre of coups:";
+"vbC-cC-vQY.text" = "Nombre de Coups:";
 
 /* Class = "UILabel"; text = "Add Penalty"; ObjectID = "vyv-Q4-vm5"; */
-"vyv-Q4-vm5.text" = "Add Penalty";
+"vyv-Q4-vm5.text" = "Ajouter une pénalité";
 
 /* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "w5x-lg-rDd"; */
 "w5x-lg-rDd.normalTitle" = "Continuer";
 
 /* Class = "UILabel"; text = "Backup Settings"; ObjectID = "w7C-V1-XrN"; */
-"w7C-V1-XrN.text" = "Backup Settings";
+"w7C-V1-XrN.text" = "Paramètres de sauvegarde";
 
 /* Class = "UIBarButtonItem"; title = "Add Team"; ObjectID = "wcN-8I-1sx"; */
-"wcN-8I-1sx.title" = "Add Team";
+"wcN-8I-1sx.title" = "Ajouter une équipe";
 
 /* Class = "UILabel"; text = "Beta Build"; ObjectID = "wum-1F-afJ"; */
-"wum-1F-afJ.text" = "Beta Build";
+"wum-1F-afJ.text" = "Version Bêta";
 
 /* Class = "UISegmentedControl"; x4E-fF-hCm.segmentTitles[0] = "Basic View"; ObjectID = "x4E-fF-hCm"; */
-"x4E-fF-hCm.segmentTitles[0]" = "Basic View";
+"x4E-fF-hCm.segmentTitles[0]" = "Vue de base";
 
 /* Class = "UISegmentedControl"; x4E-fF-hCm.segmentTitles[1] = "Detailed View"; ObjectID = "x4E-fF-hCm"; */
-"x4E-fF-hCm.segmentTitles[1]" = "Detailed View";
+"x4E-fF-hCm.segmentTitles[1]" = "Vue Détaillé";
 
 /* Class = "UILabel"; text = "Default Team Selection"; ObjectID = "x7I-Fc-Ok4"; */
-"x7I-Fc-Ok4.text" = "Default Team Selection";
+"x7I-Fc-Ok4.text" = "Sélection par défaut de l'équipe";
 
 /* Class = "UILabel"; text = "Faceoff Win %:"; ObjectID = "xYk-bY-fzr"; */
 "xYk-bY-fzr.text" = "Ajouter Mise au Jeu perdant % gagner:";
@@ -597,7 +606,7 @@
 "xrK-fb-muw.text" = "Rendre Inactif";
 
 /* Class = "UILabel"; text = "Please select two DIFFERENT teams."; ObjectID = "xse-xV-C8h"; */
-"xse-xV-C8h.text" = "Please select two DIFFERENT teams.";
+"xse-xV-C8h.text" = "S'il vous plaît sélectionner deux équipes différentes.";
 
 /* Class = "UIButton"; normalTitle = "Add Team"; ObjectID = "yKR-o2-RQ6"; */
 "yKR-o2-RQ6.normalTitle" = "Ajouter une équipe";
@@ -615,13 +624,13 @@
 "yoF-vd-eZ1.text" = "Stats Record";
 
 /* Class = "UINavigationItem"; title = "Old Game Stats"; ObjectID = "yph-zC-Tm7"; */
-"yph-zC-Tm7.title" = "Old Game Stats";
+"yph-zC-Tm7.title" = "Vieux jeu Stats";
 
 /* Class = "UILabel"; text = "For / Against Defense Line"; ObjectID = "z6b-pZ-kNf"; */
 "z6b-pZ-kNf.text" = "Pour / Contre Ligne Défenseur";
 
 /* Class = "UILabel"; text = "Add Player to team Default"; ObjectID = "zA9-sD-T8t"; */
-"zA9-sD-T8t.text" = "Add Player to team Default";
+"zA9-sD-T8t.text" = "Ajouter un joueur à l'équipe";
 
 /* Class = "UILabel"; text = "Player's Position"; ObjectID = "zxZ-Vn-Sch"; */
-"zxZ-Vn-Sch.text" = "Player's Position";
+"zxZ-Vn-Sch.text" = "Position du joueur";

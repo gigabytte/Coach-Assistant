@@ -54,11 +54,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
             productPurchase()
         }else{
             // create the alert
-            let alreadyProAlert = UIAlertController(title: "Already a Pro!", message: "Looks like you have already purchased Coach Assistant: Ice Hockey PRO, if you have questions regarding your subscription visit the app store.", preferredStyle: UIAlertController.Style.alert)
-            // add an action (button)
-            alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            // show the alert
-            self.present(alreadyProAlert, animated: true, completion: nil)
+            restoreConfAlert()
         }
         
     }
@@ -204,7 +200,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
     
     func restoreConfAlert(){
         // create the alert
-        let alreadyProAlert = UIAlertController(title: "Already a Pro!", message: "We have restored your Coach Assistant: Ice Hockey 'Pro' Membership, thank you again for your previous purchase :)", preferredStyle: UIAlertController.Style.alert)
+        let alreadyProAlert = UIAlertController(title: localizedString().localized(value:"Already a Pro!"), message: localizedString().localized(value:"We have restored your Coach Assistant: Ice Hockey 'Pro' Membership, thank you again for your previous purchase :)"), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
