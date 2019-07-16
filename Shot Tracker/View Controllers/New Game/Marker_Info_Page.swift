@@ -126,7 +126,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     func lowDataWarning(){
         delay(0.5){
             if (self.mainPlayerPickerData.count <= 1){
-                let onePlayerAlert = UIAlertController(title: "Small Data Set Warning", message: "For Maximum Analytical Support we recommend Adding more than one Player to " + self.navBarProcessing(), preferredStyle: UIAlertController.Style.alert)
+                let onePlayerAlert = UIAlertController(title: localizedString().localized(value: "Small Data Set Warning"), message: localizedString().localized(value: "For Maximum Analytical Support we recommend Adding more than one Player to ") + self.navBarProcessing(), preferredStyle: UIAlertController.Style.alert)
                 // add Ok action (button)
                 onePlayerAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(onePlayerAlert, animated: true, completion: nil)
@@ -218,7 +218,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             print("All Selections Passed the Test and are safe to be saved")
         }else{
             if(selectedMainPlayer == selectedAssitantPlayerOne || selectedMainPlayer == selectedAssitantPlayerTwo ){
-                let doubleEntry = UIAlertController(title: "Double Selection", message: "Please make sure you Goal scorer and your two Assitants are 3 diffrent players.", preferredStyle: UIAlertController.Style.alert)
+                let doubleEntry = UIAlertController(title: localizedString().localized(value:"Double Selection"), message: localizedString().localized(value:"Please make sure you Goal scorer and your two Assitants are 3 diffrent players."), preferredStyle: UIAlertController.Style.alert)
                 // add Ok action (button)
                 doubleEntry.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(doubleEntry, animated: true, completion: nil)
@@ -236,12 +236,12 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     @IBAction func saveMarkerDataButton(_ sender: UIBarButtonItem) {
         savingErrorChecking()
         // create the alert
-        let saveButtonAlert = UIAlertController(title: "Back to Ice Surafce", message: "Would you like this info to be saved?", preferredStyle: UIAlertController.Style.alert)
+        let saveButtonAlert = UIAlertController(title: localizedString().localized(value:"Back to Ice Surafce"), message: localizedString().localized(value:"Would you like this info to be saved?"), preferredStyle: UIAlertController.Style.alert)
         // add Cancel action (button)
-        saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        saveButtonAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
         // add Save action (button)
         // redirect to dashboard on button click
-        saveButtonAlert.addAction(UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: {action in self.performSegue(withIdentifier: "saveMarkerSeague", sender: nil);
+        saveButtonAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Save"), style: UIAlertAction.Style.default, handler: {action in self.performSegue(withIdentifier: "saveMarkerSeague", sender: nil);
             // save marker data to realm
             try! self.realm.write{
                 // check if it's a shot or goal and update appropriate table

@@ -360,7 +360,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             let teamID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
             let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
             
-            let actionSheet = UIAlertController(title: "Shot Marker Details", message: "Shot Location: \(shotLocationConversion(shotLocationInt: shotLocation[0])) \n Goalie Shot on: \(goalieName!) \n Shot by team: \(teamName!)", preferredStyle: .actionSheet)
+            let actionSheet = UIAlertController(title: localizedString().localized(value:"Shot Details"), message: "Shot Location: \(shotLocationConversion(shotLocationInt: shotLocation[0])) \n Goalie Shot on: \(goalieName!) \n Shot by team: \(teamName!)", preferredStyle: .actionSheet)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
                 // observe it in the buttons block, what button has been pressed
                 print("didPress Ok - Goal")
@@ -388,7 +388,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             let scoringPlayerID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})
             let scoringPlayerName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: scoringPlayerID[0])?.playerName;
             
-            let actionSheet = UIAlertController(title: "Goal Marker Details", message: "Goal Location: \(shotLocationConversion(shotLocationInt: shotLocation[0])) \n Goalie Shot on: \(goalieName!) \n Scored by team: \(teamName!) \n Player Scored: \(scoringPlayerName!)", preferredStyle: .actionSheet)
+            let actionSheet = UIAlertController(title: localizedString().localized(value:"Goal Details"), message: "Goal Location: \(shotLocationConversion(shotLocationInt: shotLocation[0])) \n Goalie Shot on: \(goalieName!) \n Scored by team: \(teamName!) \n Player Scored: \(scoringPlayerName!)", preferredStyle: .actionSheet)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
                 // observe it in the buttons block, what button has been pressed
                 print("didPress Ok - Penalty")
@@ -413,7 +413,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             let convertedTime = dateToString.dateToStringFormatter(unformattedDate: timeOfPenalty!)
             let typeOfOffense = (self.realm.objects(penaltyTable.self).filter(NSPredicate(format: "xCord == %i AND yCord == %i AND gameID == %i AND activeState == true", xMarkerCord,yMarkerCord ,self.SeletedGame)).value(forKeyPath: "penaltyType") as! [String]).compactMap({String($0)}).first
             
-            let actionSheet = UIAlertController(title: "Penalty Details", message: "Offense Made By: \(playerOffenderName!)\n Time of Offense: \(convertedTime)\n Offense Type: \(typeOfOffense!)\n ", preferredStyle: .actionSheet)
+            let actionSheet = UIAlertController(title: localizedString().localized(value:"Penalty Details"), message: "Offense Made By: \(playerOffenderName!)\n Time of Offense: \(convertedTime)\n Offense Type: \(typeOfOffense!)\n ", preferredStyle: .actionSheet)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
                 // observe it in the buttons block, what button has been pressed
                 print("didPress Ok - Penalty")
