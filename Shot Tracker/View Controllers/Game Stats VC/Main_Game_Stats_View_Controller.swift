@@ -162,12 +162,12 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     func noUpgradeAlert(){
         
         // create the alert
-        let notPro = UIAlertController(title: "You're Missing Out", message: "Upgrade now and unlock an in depth look into your teams performance. A break down of all your plays along with your goalies stats and most importantly your team as a whole.", preferredStyle: UIAlertController.Style.alert)
+        let notPro = UIAlertController(title: localizedString().localized(value:"You're Missing Out"), message: localizedString().localized(value:"Upgrade now and unlock an in depth look into your teams performance. A break down of all your plays along with your goalies stats and most importantly your team as a whole."), preferredStyle: UIAlertController.Style.alert)
         
         // add an action (button)
-        notPro.addAction(UIAlertAction(title: "No Thanks", style: UIAlertAction.Style.default, handler: nil))
+        notPro.addAction(UIAlertAction(title: localizedString().localized(value:"No Thanks"), style: UIAlertAction.Style.default, handler: nil))
         // add an action (button)
-        notPro.addAction(UIAlertAction(title: "Upgrade Now!", style: UIAlertAction.Style.destructive, handler: { action in
+        notPro.addAction(UIAlertAction(title: localizedString().localized(value:"Upgrade Now!"), style: UIAlertAction.Style.destructive, handler: { action in
             
             self.productPurchase()
         }))
@@ -249,10 +249,10 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     
     
     @IBAction func helpButon(_ sender: UIButton) {
-        let actionSheet = UIAlertController(title: "Need Some Help?", message: "Stats Types\n GF = Goals For\n SF = Shots For\n GA = Goals Against\n SA = Shots Against\n PPG = Power Play Goals\n PIM = Penalties in Minutes", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Need Some Help?"), message: localizedString().localized(value:"Stats Types\n GF = Goals For\n SF = Shots For\n GA = Goals Against\n SA = Shots Against\n PPG = Power Play Goals\n PIM = Penalties in Minutes"), preferredStyle: .actionSheet)
         
         // tapp anywhere outside of popup alert controller
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+        let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
             print("didPress Cancel")
         })
         // Add the actions to your actionSheet

@@ -161,7 +161,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func visitWebsiteButton(_ sender: Any) {
         
-        let actionSheet = UIAlertController(title: "Did you Know?", message: "Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Did you Know?"), message: localizedString().localized(value:"Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!"), preferredStyle: .actionSheet)
         
         
         let openAction = UIAlertAction(title: "Open", style: .default, handler: { (alert: UIAlertAction!) -> Void in
@@ -403,6 +403,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             try! realm.write{
                 newTeam!.activeState = true
                 succesfulTeamAdd(teamName: selectTeam)
+                newTeamName.text = ""
                 
             }
         
@@ -496,7 +497,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
    
     func succesfulTeamAdd(teamName: String){
         
-        let successfulQuery = UIAlertController(title: "Team \(teamName) has been updated.", message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: localizedString().localized(value:"Team \(teamName) has been updated."), message: "", preferredStyle: UIAlertController.Style.alert)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
         self.present(successfulQuery, animated: true, completion: nil)
@@ -518,15 +519,5 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
         self.present(missingField, animated: true, completion: nil)
-    }
-    func misMatchAlert(){
-        
-        // create the alert
-        let missingField = UIAlertController(title: "Mismatch of Position/Line Error", message: "Select the appropriate line for the appropriate position.", preferredStyle: UIAlertController.Style.alert)
-        // add an action (button)
-        missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        // show the alert
-        self.present(missingField, animated: true, completion: nil)
-        
     }
 }

@@ -23,7 +23,9 @@
 
 
 "You're Missing Out!" = "Vous manquez!";
-"Upgrade now and unlock the ability to backup your teams stats to cloud! Coach Assistant Pro memebers get iCloud backup and import access across all devices with PRO!." = "Mettez à niveau maintenant et débloquez la possibilité de sauvegarder les statistiques de vos équipes sur le cloud! Les membres de Coach Assistant Pro bénéficient d’une sauvegarde iCloud et d’un accès à l’importation sur tous les appareils avec PRO!";
+"Upgrade now and unlock an in depth look into your teams performance. A break down of all your plays along with your goalies stats and most importantly your team as a whole." = "Mettez à niveau maintenant et débloquez la possibilité de sauvegarder les statistiques de vos équipes sur le cloud! Les membres de Coach Assistant Pro bénéficient d’une sauvegarde iCloud et d’un accès à l’importation sur tous les appareils avec PRO!";
+
+"Mettez à niveau maintenant et découvrez en profondeur les performances de vos équipes. Une décomposition de tous vos jeux avec les statistiques de vos gardiens et surtout de votre équipe dans son ensemble.";
 
 "iCloud Error" = "Erreur iCloud";
 "In order to backup to iCloud you must first be logged into and or have access to an iCloud account" = "Pour pouvoir sauvegarder sur iCloud, vous devez d'abord être connecté et / ou avoir accès à un compte iCloud.";
@@ -52,3 +54,26 @@
 "Current Game Save State" = "État actuel de la sauvegarde de la partie";
 "Please select save state this game should be saved to.\n ie. Please note all in game settings will be forgotten regardless of selection, this will not delete your current game stats." = "Veuillez sélectionner l’état de sauvegarde dans lequel ce jeu doit être sauvegardé. \n. Veuillez noter que tous les paramètres de jeu seront oubliés, quelle que soit la sélection effectuée. Les statistiques de jeu actuelles ne seront pas effacées.";
 "Keep Active" = "Reste actif";
+
+"Double Selection" = "Double sélection";
+"Please make sure you Goal scorer and your two Assitants are 3 diffrent players." = "S'il vous plaît assurez-vous que votre buteur et vos deux assistants sont 3 joueurs différents.";
+
+"Back to Ice Surafce" = "Retour à la surface de la glace";
+
+"Small Data Set Warning" = "Avertissement relatif au petit ensemble de données";
+"For Maximum Analytical Support we recommend Adding more than one Player to " = "Pour un support analytique maximal, nous vous recommandons d'ajouter plusieurs lecteurs à ";
+
+"Shot Details" = "Détails du coup";
+"Goal Details" = "Détails du but";
+"Penalty Details" = "Détails de la pénalité";
+
+"Need Some Help?" = "Besoin d'aide?";
+"Stats Types\n GF = Goals For\n SF = Shots For\n GA = Goals Against\n SA = Shots Against\n PPG = Power Play Goals\n PIM = Penalties in Minutes" = "Types de statistiques \ GF = Buts pour \ n SF = Coups pour \ n GA = Buts contre \ n SA = Coups contre \ n PPG = Buts en avantage numérique \ n PIM = Pénalités en minutes";
+
+"Did you Know?" = "Le saviez-vous?";
+"Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!" = "Fatigué d'ajouter vos joueurs un par un? Coach Assistant vous permet d'ajouter plusieurs utilisateurs avec notre fonction d'importation / sauvegarde très pratique. Nous avons un tutoriel en ligne facile à suivre et rapide pour vous permettre de démarrer!";
+
+"Team \(teamName) has been updated." = "Équipe \(teamName) a été mis à jour.";
+
+
+
