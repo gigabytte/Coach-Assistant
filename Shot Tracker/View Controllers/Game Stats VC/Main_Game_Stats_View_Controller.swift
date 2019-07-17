@@ -32,8 +32,7 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         UserDefaults.standard.removeObject(forKey: "userTrialPeriod")
         */
         productID = universalValue().coachAssistantProID
-        productRetrieve()
-        
+      
         basic_containerView.isHidden = false
         detailed_containerView.isHidden = true
         navBarProcessing()
@@ -168,7 +167,7 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         notPro.addAction(UIAlertAction(title: localizedString().localized(value:"No Thanks"), style: UIAlertAction.Style.default, handler: nil))
         // add an action (button)
         notPro.addAction(UIAlertAction(title: localizedString().localized(value:"Upgrade Now!"), style: UIAlertAction.Style.destructive, handler: { action in
-            
+            self.productRetrieve()
             self.productPurchase()
         }))
         // show the alert

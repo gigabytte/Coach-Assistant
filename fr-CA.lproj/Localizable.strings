@@ -20,6 +20,7 @@
 "Upgrade Now!" = "Mettre à jour maintenant!";
 "Continue" = "Continuer";
 "Save" = "Sauver";
+"Settings" = "Réglages";
 
 
 "You're Missing Out!" = "Vous manquez!";
@@ -73,7 +74,32 @@
 "Did you Know?" = "Le saviez-vous?";
 "Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!" = "Fatigué d'ajouter vos joueurs un par un? Coach Assistant vous permet d'ajouter plusieurs utilisateurs avec notre fonction d'importation / sauvegarde très pratique. Nous avons un tutoriel en ligne facile à suivre et rapide pour vous permettre de démarrer!";
 
-"Team \(teamName) has been updated." = "Équipe \(teamName) a été mis à jour.";
+"Team %@ has been updated." = "Équipe %@ a été mis à jour.";
+"Player %@ has been updated." = "Le joueur %@ a été mis à jour";
 
+"Missing Field Error" = "Erreur de champ manquant";
+"Please have 'Team Name' filled out before attempting to change the team name" = "S'il vous plaît avoir 'Nom de l'équipe' rempli avant d'essayer de changer un nouveau nom d'équipe";
+"Please have Player Name and Number filled before attemtping to add a new player." = "Merci de renseigner le nom et le numéro du joueur avant de tenter d'ajouter un nouveau joueur.";
 
+"New to the App?" = "Nouveau sur l'App?";
+"Please add at least one team before adding a default team or import a team from settings." = "Merci d'ajouter au moins une équipe avant d'ajouter une équipe par défaut ou d'importer une équipe depuis les paramètres.";
 
+"Team %@ was Added Successfully" = "L'équipe% @ a été ajoutée avec succès";
+"Please add a team before attempting to add players." = "S'il vous plaît ajouter une équipe avant d'essayer d'ajouter des joueurs.";
+
+"Double Up!" = "Doubler!";
+"Please make sure each memeber of your team as a unique jersey number" = "Assurez-vous que chaque membre de votre équipe porte un numéro de maillot unique";
+
+"%@ Added Successfully" = "%@ Ajouté avec succès";
+
+"Backup" = "Sauvegarde";
+"Defaults" = "Défauts";
+"Subscriptions" = "Les Souscription";
+"Legal" = "Légal";
+
+"%@ has been successfully updated to %@" = "%@ a été mis à jour avec succès pour %@";
+
+"Data Error" = "Erreur de donnée";
+"Please add atleast one team before attempting to change your default team." = "S'il vous plaît ajoutez au moins une équipe avant d'essayer de changer votre équipe par défaut.";
+
+"An upgrade cannot be found an unknown error occured. Please contact support." = "Une mise à niveau est introuvable. Une erreur inconnue s'est produite. Veuillez contacter le support.";

@@ -25,7 +25,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         productID = universalValue().coachAssistantProID
-        productRetrieve()
+      
         
         upgradeButton.layer.cornerRadius = 10
         restoreButton.layer.cornerRadius = 10
@@ -50,6 +50,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
     @IBAction func upgradeButton(_ sender: UIButton) {
         if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
             print("Upgrading Now!")
+            productRetrieve()
             uiLoading()
             productPurchase()
         }else{
@@ -70,7 +71,7 @@ class Settings_Subscriptions_View_Controller: UIViewController {
                 print("Invalid product identifier: \(invalidProductId)")
             }
             else {
-                self.purchaseErrorAlert(alertMsg: "An upgrade cannot be found an unknown error occured. Please contact support.")
+                self.purchaseErrorAlert(alertMsg: localizedString().localized(value: "An upgrade cannot be found an unknown error occured. Please contact support."))
             }
         }
     }
