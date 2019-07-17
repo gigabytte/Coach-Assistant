@@ -47,7 +47,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         
         backupUpDateCheck()
         promptMessage()
-        productRetrieve()
+    
         
         // check icloud exprt criteria
         reloadView()
@@ -727,6 +727,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         notPro.addAction(UIAlertAction(title: localizedString().localized(value:"No Thanks"), style: UIAlertAction.Style.default, handler: nil))
         // add an action (button)
         notPro.addAction(UIAlertAction(title: localizedString().localized(value:"Upgrade Now!"), style: UIAlertAction.Style.destructive, handler: { action in
+            self.productRetrieve()
             self.productPurchase()
         }))
         // show the alert

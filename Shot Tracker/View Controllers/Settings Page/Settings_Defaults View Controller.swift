@@ -123,7 +123,7 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
     func noTeamAlert(){
         
         // create the alert
-        let noTeamsAlert = UIAlertController(title: "Data Error", message: "Please add atleast one team before attempting to change your default team.", preferredStyle: UIAlertController.Style.alert)
+        let noTeamsAlert = UIAlertController(title: localizedString().localized(value:"Data Error"), message: localizedString().localized(value:"Please add atleast one team before attempting to change your default team."), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         noTeamsAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
@@ -177,9 +177,9 @@ final class Settings_Defaults_View_Controller: UIViewController, UIPickerViewDel
     }
     
     func updateAlert(varTypeUpdated: String, varupdatedTo: String){
-        
+
         // create the alert
-        let updateAlert = UIAlertController(title: "\(varTypeUpdated) has been successfully updated to \(varupdatedTo)", message: "", preferredStyle: UIAlertController.Style.alert)
+        let updateAlert = UIAlertController(title: String(format: localizedString().localized(value:"%@ has been successfully updated to %@"), varTypeUpdated, varupdatedTo), message: "", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         updateAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

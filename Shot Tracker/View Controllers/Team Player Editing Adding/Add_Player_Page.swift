@@ -100,15 +100,15 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     @IBAction func visitWebsiteButton(_ sender: Any) {
         
-        let actionSheet = UIAlertController(title: "Did you Know?", message: "Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Did you Know?"), message: localizedString().localized(value:"Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!"), preferredStyle: .actionSheet)
         
         
-        let openAction = UIAlertAction(title: "Open", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let openAction = UIAlertAction(title: localizedString().localized(value:"Open"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             guard let url = URL(string: universalValue().websiteURLHelp) else { return }
             UIApplication.shared.open(url)
         })
         // tapp anywhere outside of popup alert controller
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+        let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
             print("didPress Cancel")
         })
         // Add the actions to your actionSheet
@@ -287,7 +287,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             }
         }else{
             // double jersey number alrt
-            let doubleJersey = UIAlertController(title: "Double Up!", message: "Please make sure each memeber of your team as a unique jersey number", preferredStyle: UIAlertController.Style.alert)
+            let doubleJersey = UIAlertController(title: localizedString().localized(value:"Double Up!"), message: localizedString().localized(value:"Please make sure each memeber of your team as a unique jersey number"), preferredStyle: UIAlertController.Style.alert)
             // add an action (button)
             doubleJersey.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             // show the alert
@@ -299,7 +299,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     func missingFieldAlert(){
         
         // create the alert
-        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Player Name and Number filled before attemtping to add a new player.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: localizedString().localized(value:"Missing Field Error"), message: localizedString().localized(value:"Please have Player Name and Number filled before attemtping to add a new player."), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
@@ -310,7 +310,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     func succesfulPlayerAdd(playerName: String){
         
         // create the alert
-        let successfulQuery = UIAlertController(title: "\(playerName) Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"%@ Added Successfully"), playerName), message: "", preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

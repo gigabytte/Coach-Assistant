@@ -30,11 +30,11 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             delay(0.5){
                 
                 // create the alert
-                let noTeams = UIAlertController(title: "New to the App?", message: "Please add at least one team before adding a default team or import a team from settings.", preferredStyle: UIAlertController.Style.alert)
+                let noTeams = UIAlertController(title: localizedString().localized(value:"New to the App?"), message: localizedString().localized(value:"Please add at least one team before adding a default team or import a team from settings."), preferredStyle: UIAlertController.Style.alert)
                 // add an action (button)
                 noTeams.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                 // add an action (button)
-                noTeams.addAction(UIAlertAction(title: "Settings", style: UIAlertAction.Style.destructive,  handler: {action in
+                noTeams.addAction(UIAlertAction(title: localizedString().localized(value:"Settings"), style: UIAlertAction.Style.destructive,  handler: {action in
                     self.performSegue(withIdentifier: "noTeamSettingsSegue", sender: nil);
                 }))
                 // show the alert
@@ -81,15 +81,15 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     }
     @IBAction func visitWebsiteButton(_ sender: Any) {
         
-        let actionSheet = UIAlertController(title: "Did you Know?", message: "Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Did you Know?"), message: localizedString().localized(value:"Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!"), preferredStyle: .actionSheet)
         
         
-        let openAction = UIAlertAction(title: "Open", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let openAction = UIAlertAction(title: localizedString().localized(value:"Open"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             guard let url = URL(string: universalValue().websiteURLHelp) else { return }
             UIApplication.shared.open(url)
         })
         // tapp anywhere outside of popup alert controller
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+        let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
             print("didPress Cancel")
         })
         // Add the actions to your actionSheet
@@ -156,7 +156,7 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     func succesfulTeamAdd(teamName: String){
         
         // creating a variable to hold alert controller with attached message and also the style of the alert controller
-        let successfulQuery = UIAlertController(title: "Team \(teamName) was Added Successfully", message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Team %@ was Added Successfully"), teamName), message: "", preferredStyle: UIAlertController.Style.alert)
         //adds action button to alert
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
@@ -167,7 +167,7 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     func missingFieldAlert(){
             
         // create the alert
-        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled before attemtping to add a new team.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: localizedString().localized(value:"Missing Field Error"), message: localizedString().localized(value:"Please have 'Team Name' filled out before attempting to change the team name."), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
@@ -177,7 +177,7 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     func noTeamAlert(){
         
         // create the alert
-        let noTeamAlert = UIAlertController(title: "Whoops!", message: "Please add a team before attempting to add players.", preferredStyle: UIAlertController.Style.alert)
+        let noTeamAlert = UIAlertController(title: "Whoops!", message: localizedString().localized(value:"Please add a team before attempting to add players."), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         noTeamAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

@@ -398,18 +398,20 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                     teamPicker.reloadAllComponents()
                     
                 }
+            
         }else if (newName == "" && activeStateTeamSwitch.isOn == true){
             
             try! realm.write{
                 newTeam!.activeState = true
                 succesfulTeamAdd(teamName: selectTeam)
-                newTeamName.text = ""
+                
                 
             }
         
         }else{
             missingFieldAlert()
             }
+        newTeamName.text = ""
     }
     
     func mainPlayerReterival(){
@@ -497,7 +499,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
    
     func succesfulTeamAdd(teamName: String){
         
-        let successfulQuery = UIAlertController(title: localizedString().localized(value:"Team \(teamName) has been updated."), message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Team %@ has been updated."), teamName), message: "", preferredStyle: UIAlertController.Style.alert)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
         self.present(successfulQuery, animated: true, completion: nil)
@@ -505,7 +507,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     func succesfulPlayerAdd(playerName: String){
         
-        let successfulQuery = UIAlertController(title: "Player \(playerName) has been updated.", message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Player %@ has been updated."), playerName), message: "", preferredStyle: UIAlertController.Style.alert)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         
         self.present(successfulQuery, animated: true, completion: nil)
@@ -514,7 +516,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func missingFieldAlert(){
         
         // create the alert
-        let missingField = UIAlertController(title: "Missing Field Error", message: "Please have Team Name filled out before attemtping to change a new team name.", preferredStyle: UIAlertController.Style.alert)
+        let missingField = UIAlertController(title: localizedString().localized(value:"Missing Field Error"), message: localizedString().localized(value:"Please have 'Team Name' filled out before attempting to change the team name"), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         missingField.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
