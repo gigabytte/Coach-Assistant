@@ -257,7 +257,8 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         // Add the actions to your actionSheet
         actionSheet.addAction(cancelAction)
         if let popoverController = actionSheet.popoverPresentationController {
-            popoverController.sourceView = self.helpButton
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: helpButton.frame.origin.x, y: helpButton.frame.origin.y, width: helpButton.frame.width / 2, height: helpButton.frame.height)
             
         }
         // Present the controller

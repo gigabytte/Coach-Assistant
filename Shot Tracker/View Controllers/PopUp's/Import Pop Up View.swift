@@ -26,7 +26,6 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     var setupPhaseBool: Bool!
     var importFromIcloudBool: Bool!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -676,10 +675,14 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                 print("Enough files selected")
         
                 if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && csvStringToRealmPenaltyTable() != false && csvStringToRealmOverallStatsTable() != false && csvStringToRealmFaceoffStatsTable() != false && setupPhaseBool != true){
+                    
                     print("Import Success")
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "backupSettingsPageRefresh"), object: nil, userInfo: ["key":"value"])
                     self.performSegue(withIdentifier: "Back_To_Settings_Import", sender: nil);
+                    
                 }else if (csvStringToRealmNewGameTable() != false && csvStringToRealmTeamTable() != false && csvStringToRealmPlayerTable() != false && csvStringToRealmGoalMarkerTable() != false && csvStringToRealmShotlMarkerTable() != false && csvStringToRealmPenaltyTable() != false && csvStringToRealmOverallStatsTable() != false && csvStringToRealmFaceoffStatsTable() != false && setupPhaseBool == true){
                     self.performSegue(withIdentifier: "Back_To_Setup_Import", sender: nil);
+                    
                 }
             }else{
                 errorShake()
@@ -751,5 +754,4 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
-    
 }

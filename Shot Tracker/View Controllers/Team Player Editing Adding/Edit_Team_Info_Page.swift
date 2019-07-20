@@ -176,7 +176,9 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         actionSheet.addAction(openAction)
         actionSheet.addAction(cancelAction)
         if let popoverController = actionSheet.popoverPresentationController {
-            popoverController.sourceView = self.visitWebsiteButton
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: visitWebsiteButton.frame.origin.x, y: visitWebsiteButton.frame.origin.y, width: visitWebsiteButton.frame.width / 2, height: visitWebsiteButton.frame.height)
+            
             
         }
         // Present the controller

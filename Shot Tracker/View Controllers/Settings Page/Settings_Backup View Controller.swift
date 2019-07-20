@@ -27,6 +27,9 @@ final class Settings_Backup_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "backupSettingsPageRefresh"), object: nil)
+        
         productID = universalValue().coachAssistantProID
         // check is icloud conatiner exsiss on user icloud account
         // if so icloud logged in and reachable within reaso
@@ -46,7 +49,6 @@ final class Settings_Backup_View_Controller: UIViewController {
         importCVSButton.layer.cornerRadius = 10
         
         backupUpDateCheck()
-        promptMessage()
     
         
         // check icloud exprt criteria
@@ -96,6 +98,14 @@ final class Settings_Backup_View_Controller: UIViewController {
             
         }
     }
+    
+    @objc func myMethod(notification: NSNotification){
+     
+        delay(0.5){
+            self.importAlert(message: localizedString().localized(value: "Your data was Successfully Imported!"))
+        }
+    }
+    
     
     
     @IBAction func icouldToggleSwitch(_ sender: Any) {
@@ -148,23 +158,6 @@ final class Settings_Backup_View_Controller: UIViewController {
         }
         
     }
-    
-    func promptMessage(){
-        if (successImport != nil){
-            if (successImport != true){
-                self.sucessProcessText.text = "Please Try Importing Again"
-                self.sucessProcessText.textAlignment = .center
-                self.sucessProcessText.textColor = UIColor.red
-            }else{
-                self.sucessProcessText.text = "Import was Successful"
-                self.sucessProcessText.textAlignment = .center
-                self.sucessProcessText.textColor = UIColor.red
-            }
-        }else{
-            self.sucessProcessText.isHidden = true
-        }
-    }
-    
     
     // creats csv file for  team info table
     func createCSVTeamInfo(){
@@ -680,6 +673,17 @@ final class Settings_Backup_View_Controller: UIViewController {
         } catch {
             print("Could not clear temp folder: \(error)")
         }
+    }
+    
+    func importAlert(message: String){
+        
+        // create the alert
+        let importAlert = UIAlertController(title: localizedString().localized(value: message), message: "", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        importAlert.addAction(UIAlertAction(title: localizedString().localized(value: "OK"), style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(importAlert, animated: true, completion: nil)
     }
     
     

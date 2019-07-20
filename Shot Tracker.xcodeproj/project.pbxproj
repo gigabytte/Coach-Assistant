@@ -21,6 +21,11 @@
 		BE1F4D2E2278D96F00D8B4F3 /* customCurrentStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */; };
 		BE1F4D302278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2F2278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift */; };
 		BE1F4D322278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D312278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift */; };
+		BE235BD722E37802002BFDC2 /* Main New Game Tutorial ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BD622E37802002BFDC2 /* Main New Game Tutorial ViewController.swift */; };
+		BE235BDA22E37970002BFDC2 /* New Game Tutorial Shot View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BD922E37970002BFDC2 /* New Game Tutorial Shot View Controller.swift */; };
+		BE235BDC22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDB22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift */; };
+		BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */; };
+		BE235BE022E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */; };
 		BE341F2322BB16D200F8D2A3 /* Faceoff View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */; };
 		BE3EF902229A45EF00CCBB2A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3EF901229A45EF00CCBB2A /* CloudKit.framework */; };
 		BE4047D1229AF80A009C9171 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE4047D0229AF80A009C9171 /* help_guide_iPad.gif */; };
@@ -128,6 +133,11 @@
 		BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customCurrentStatsCell.swift; sourceTree = "<group>"; };
 		BE1F4D2F2278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_Game_Stats_View_Controller.swift; sourceTree = "<group>"; };
 		BE1F4D312278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detailed_Current_Stats_View_Controller.swift; sourceTree = "<group>"; };
+		BE235BD622E37802002BFDC2 /* Main New Game Tutorial ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Main New Game Tutorial ViewController.swift"; path = "Shot Tracker/View Controllers/New Game Setup VC/Main New Game Tutorial ViewController.swift"; sourceTree = SOURCE_ROOT; };
+		BE235BD922E37970002BFDC2 /* New Game Tutorial Shot View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Shot View Controller.swift"; sourceTree = "<group>"; };
+		BE235BDB22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Goal View Controller.swift"; sourceTree = "<group>"; };
+		BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Penalty View Controller.swift"; sourceTree = "<group>"; };
+		BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Faceoff View Controller.swift"; sourceTree = "<group>"; };
 		BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Faceoff View Controller.swift"; sourceTree = "<group>"; };
 		BE3EF901229A45EF00CCBB2A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		BE4047D0229AF80A009C9171 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = help_guide_iPad.gif; path = ../../../Documents/help_guide_iPad.gif; sourceTree = "<group>"; };
@@ -288,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				BE7D697921E3D74300C1745C /* Home_Page_View_Controller.swift */,
+				BE235BD822E37934002BFDC2 /* New Game Setup VC */,
 				BE089F5522BFE46000FAED6F /* New Game */,
 				BE089F5422BFE42200FAED6F /* Old Game Stats */,
 				BE089F5322BFE40000FAED6F /* Game Stats VC */,
@@ -373,6 +384,18 @@
 				BE12DE61228744B80071BC17 /* customSettingCell.swift */,
 			);
 			path = "Custom Classes";
+			sourceTree = "<group>";
+		};
+		BE235BD822E37934002BFDC2 /* New Game Setup VC */ = {
+			isa = PBXGroup;
+			children = (
+				BE235BD622E37802002BFDC2 /* Main New Game Tutorial ViewController.swift */,
+				BE235BD922E37970002BFDC2 /* New Game Tutorial Shot View Controller.swift */,
+				BE235BDB22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift */,
+				BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */,
+				BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */,
+			);
+			path = "New Game Setup VC";
 			sourceTree = "<group>";
 		};
 		BE7D696B21E3D74300C1745C = {
@@ -702,6 +725,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE1F4D302278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift in Sources */,
+				BE235BDC22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift in Sources */,
 				BEB71900220A192B00DA6399 /* Basic_Current_Stats_Page.swift in Sources */,
 				BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */,
 				BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */,
@@ -709,6 +733,7 @@
 				BE9016B622469E45006ECE5B /* Default Team Selection View.swift in Sources */,
 				BE341F2322BB16D200F8D2A3 /* Faceoff View Controller.swift in Sources */,
 				BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */,
+				BE235BD722E37802002BFDC2 /* Main New Game Tutorial ViewController.swift in Sources */,
 				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
 				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
 				BE7F8C13227538530093F629 /* Penalty Table.swift in Sources */,
@@ -724,10 +749,13 @@
 				BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */,
 				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
 				BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */,
+				BE235BE022E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift in Sources */,
+				BE235BDA22E37970002BFDC2 /* New Game Tutorial Shot View Controller.swift in Sources */,
 				BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */,
 				BE669DC9226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift in Sources */,
 				BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */,
 				BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */,
+				BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */,
 				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
 				BE92E0212274E1AB00B95209 /* Penalty_Popup_View_Controller.swift in Sources */,

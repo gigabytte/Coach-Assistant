@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import Realm
+import StoreKit
 
 class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
     
@@ -94,6 +95,14 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         // game status
         delay(0.5){
             self.onGoingGame()
+        }
+        
+        // check the number of games the user has createrd and ask for a review
+        if(((realm.objects(newGameTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)})).count >= 3 && UserDefaults.standard.bool(forKey: "userReviewBool") != true) {
+            
+            UserDefaults.standard.set(true, forKey: "userReviewBool")
+            SKStoreReviewController.requestReview()
+            
         }
         
         

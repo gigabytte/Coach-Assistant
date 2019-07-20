@@ -14,6 +14,8 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     let realm = try! Realm()
     
+    
+    
     @IBOutlet weak var linePicker: UIPickerView!
     @IBOutlet weak var teamPicker: UIPickerView!
     @IBOutlet weak var positionPicker: UIPickerView!
@@ -115,7 +117,8 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         actionSheet.addAction(openAction)
         actionSheet.addAction(cancelAction)
         if let popoverController = actionSheet.popoverPresentationController {
-            popoverController.sourceView = self.visitWebsiteButton
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: visitWebsiteButton.frame.origin.x, y: visitWebsiteButton.frame.origin.y, width: visitWebsiteButton.frame.width / 2, height: visitWebsiteButton.frame.height)
             
         }
         // Present the controller
@@ -294,6 +297,13 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             self.present(doubleJersey, animated: true, completion: nil)
             
         }
+    }
+    @IBAction func addTeamButton(_ sender: Any) {
+        performSegue(withIdentifier: "closeAddPlayerSegue", sender: nil)
+    }
+    @IBAction func backButton(_ sender: Any) {
+        
+        performSegue(withIdentifier: "backtoHomeSegueAddPlayer", sender: nil)
     }
     // if player name or player number is missing create alert notifying user
     func missingFieldAlert(){

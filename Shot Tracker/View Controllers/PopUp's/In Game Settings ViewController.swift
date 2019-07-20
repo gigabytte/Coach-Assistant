@@ -77,7 +77,8 @@ class In_Game_Settings_ViewController: UIViewController, UIPickerViewDelegate, U
         // Add the actions to your actionSheet
         actionSheet.addAction(cancelAction)
         if let popoverController = actionSheet.popoverPresentationController {
-            popoverController.sourceView = self.helpButton
+            popoverController.sourceView = self.popUpView
+            popoverController.sourceRect = CGRect(x: helpButton.frame.origin.x, y: helpButton.frame.origin.y, width: helpButton.frame.width / 2, height: helpButton.frame.height)
             
         }
         // Present the controller
