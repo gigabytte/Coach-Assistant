@@ -103,3 +103,5 @@
 "Please add atleast one team before attempting to change your default team." = "S'il vous plaît ajoutez au moins une équipe avant d'essayer de changer votre équipe par défaut.";
 
 "An upgrade cannot be found an unknown error occured. Please contact support." = "Une mise à niveau est introuvable. Une erreur inconnue s'est produite. Veuillez contacter le support.";
+
+"Your data was Successfully Imported!" = "Vos données ont été importées avec succès!";

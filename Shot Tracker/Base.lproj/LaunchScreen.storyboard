@@ -22,13 +22,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="6gH-x9-kSN">
-                                <rect key="frame" x="287" y="150" width="450" height="285"/>
+                                <rect key="frame" x="294.5" y="150" width="435.5" height="350"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="450" id="Y4s-jY-8Eb"/>
-                                    <constraint firstAttribute="height" constant="285" id="byu-Vg-tDw"/>
+                                    <constraint firstAttribute="width" constant="435.5" id="WgN-8e-Nio"/>
+                                    <constraint firstAttribute="height" constant="350" id="oHK-bo-qdR"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiny Square Studios© 2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6is-on-S4e">
@@ -58,7 +58,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="coach_assitant_full_trans" width="250" height="167.5"/>
+        <image name="coach_assitant_full_trans" width="235.5" height="171.5"/>
         <image name="ice" width="1300" height="967"/>
     </resources>
 </document>

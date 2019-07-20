@@ -22,6 +22,8 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var inActiveTeamToggle: UISwitch!
     @IBOutlet weak var visitWebsiteButton: UIButton!
     
+    @IBAction func unwindToAddTeam(segue: UIStoryboardSegue) {}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
@@ -96,7 +98,8 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         actionSheet.addAction(openAction)
         actionSheet.addAction(cancelAction)
         if let popoverController = actionSheet.popoverPresentationController {
-            popoverController.sourceView = self.visitWebsiteButton
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: visitWebsiteButton.frame.origin.x, y: visitWebsiteButton.frame.origin.y, width: visitWebsiteButton.frame.width / 2, height: visitWebsiteButton.frame.height)
            
         }
         // Present the controller
@@ -152,6 +155,7 @@ class Add_Team_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         }
     }
     
+   
     //func for succesful team add alert
     func succesfulTeamAdd(teamName: String){
         

@@ -37,6 +37,9 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var awayTeamNameLabel: UILabel!
     @IBOutlet weak var awayTeamNumGoals: UILabel!
     @IBOutlet weak var iceSufaceImageView: UIImageView!
+    @IBOutlet weak var tutorialConatiner: UIView!
+    @IBOutlet weak var closeTutorialBtn: UIButton!
+    
     
     var yLocationCords: Int = 0
     var xLocationCords: Int = 0
@@ -70,6 +73,10 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     var bottomRightBlue: CGRect?
     var middleCenter: CGRect?
     
+    var tutorialView: UIView!
+    var tutorialTopLabel: UILabel!
+    var tutorialMiddleLabel: UILabel!
+    
     // get location cords on user interaction with ice surface
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
@@ -93,6 +100,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         UserDefaults.standard.set((realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?), forKey: "gameID")
         currentGameID =  UserDefaults.standard.integer(forKey: "gameID")
         
+        //turtorialLoad()
         newGameDetection()
         onLoad()
         
@@ -128,6 +136,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         iceRinkImage.addGestureRecognizer(twoFingerTap)
         
         bannerViewInitialize()
+        
         
     }
     // We are willing to become first responder to get shake motion
@@ -211,8 +220,28 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                 print("Score and Shot Count Ran Failed at newGameTable gameID")
             }
         }
-        // remove observer after game data load to prevent double ups for notification passing
-       // NotificationCenter.default.removeObserver(self)
+        
+        if (UserDefaults.standard.bool(forKey: "firstGameBool") == false ){
+            tutorialConatiner.layer.cornerRadius = 10
+            tutorialConatiner.isHidden = false
+            closeTutorialBtn.isHidden = false
+           // add blur effect to view along with popUpView
+            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            blurEffectView.tag = 500
+            view.addSubview(blurEffectView)
+            view.addSubview(tutorialConatiner)
+            view.addSubview(closeTutorialBtn)
+            tutorialConatiner.centerXAnchor.constraint(equalTo: blurEffectView.centerXAnchor).isActive = true
+            tutorialConatiner.centerYAnchor.constraint(equalTo: blurEffectView.centerYAnchor).isActive = true
+            closeTutorialBtn.trailingAnchor.constraint(equalTo: tutorialConatiner.trailingAnchor).isActive = true
+            closeTutorialBtn.topAnchor.constraint(equalTo: tutorialConatiner.topAnchor).isActive = true
+        }else{
+            print("Not first game")
+            tutorialConatiner.removeFromSuperview()
+        }
         
     }
     
@@ -267,6 +296,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             }
         }
     }
+    
     
     func bannerViewInitialize(){
         
@@ -736,7 +766,20 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             }
         }
     }
-
+    // x iconto close tutorial button
+    @IBAction func closeTutorialBtn(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.tutorialConatiner.alpha = 0.0
+            self.closeTutorialBtn.alpha = 0.0
+        }, completion: nil)
+        // dimiss conatiner view
+        tutorialConatiner.removeFromSuperview()
+        closeTutorialBtn.removeFromSuperview()
+        //remove blur from view
+        view.viewWithTag(500)?.removeFromSuperview()
+    }
+    
+    
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
     }

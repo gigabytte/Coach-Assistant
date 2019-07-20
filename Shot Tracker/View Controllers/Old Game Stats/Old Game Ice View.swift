@@ -364,10 +364,12 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
                 // observe it in the buttons block, what button has been pressed
                 print("didPress Ok - Goal")
+                
             })
             actionSheet.addAction(okAction)
             if let popoverController = actionSheet.popoverPresentationController {
-                popoverController.sourceView = selectedShotMarker!
+                popoverController.sourceRect = CGRect(x: (selectedShotMarker?.frame.origin.x)!, y: selectedShotMarker!.frame.origin.y, width: (selectedShotMarker?.frame.width)! / 2, height: (selectedShotMarker?.frame.height)! / 2)
+                popoverController.sourceView = self.view
             }
             // Present the controller
             self.present(actionSheet, animated: true, completion: nil)
@@ -395,7 +397,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             })
             actionSheet.addAction(okAction)
             if let popoverController = actionSheet.popoverPresentationController {
-                popoverController.sourceView = selectedGoalMarker
+                popoverController.sourceRect = CGRect(x: (selectedGoalMarker?.frame.origin.x)!, y: selectedGoalMarker!.frame.origin.y, width: (selectedGoalMarker?.frame.width)! / 2, height: (selectedGoalMarker?.frame.height)! / 2)
+                popoverController.sourceView = self.view
             }
             // Present the controller
             self.present(actionSheet, animated: true, completion: nil)
@@ -420,7 +423,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             })
             actionSheet.addAction(okAction)
             if let popoverController = actionSheet.popoverPresentationController {
-                popoverController.sourceView = selectedPeanltyMarker
+                popoverController.sourceRect = CGRect(x: (selectedPeanltyMarker?.frame.origin.x)!, y: selectedPeanltyMarker!.frame.origin.y, width: (selectedPeanltyMarker?.frame.width)! / 2, height: (selectedPeanltyMarker?.frame.height)! / 2)
+                popoverController.sourceView = self.view
             }
             // Present the controller
             self.present(actionSheet, animated: true, completion: nil)
