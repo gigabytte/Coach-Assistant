@@ -10,69 +10,101 @@ import UIKit
 import Realm
 import RealmSwift
 
-class Main_New_Game_Tutorial_ViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class Main_New_Game_Tutorial_ViewController: UIPageViewController {
     
-    let realm = try! Realm()
-    var pageControl = UIPageControl()
+    weak var tutorialDelegate: TutorialPageViewControllerDelegate?
     
-    // MARK: UIPageViewControllerDataSource
-    
-    lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newVc(viewController: "first_newgame"),
-                self.newVc(viewController: "second_newgame"), self.newVc(viewController: "third_newgame"), self.newVc(viewController: "fourth_newgame")]
+    private(set) lazy var orderedViewControllers: [UIViewController] = {
+        // The view controllers will be shown in this order
+        return [self.newViewController("first_newgame"),
+                self.newViewController("second_newgame"),
+                self.newViewController("third_newgame"), self.newViewController("fourth_newgame")]
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataSource = self as UIPageViewControllerDataSource
+        delegate = self as UIPageViewControllerDelegate
         
-        self.dataSource = self
-        self.delegate = self
-        
-        newVc(viewController: "first_newgame").view.frame(forAlignmentRect: self.view.frame)
-        newVc(viewController: "second_newgame").view.frame(forAlignmentRect: self.view.frame)
-        newVc(viewController: "third_newgame").view.frame(forAlignmentRect: self.view.frame)
-        newVc(viewController: "fourth_newgame").view.frame(forAlignmentRect: self.view.frame)
-        
-        // This sets up the first view that will show up on our page control
-        if let firstViewController = orderedViewControllers.first {
-            setViewControllers([firstViewController],
-                               direction: .forward,
-                               animated: true,
-                               completion: nil)
+        if let initialViewController = orderedViewControllers.first {
+            scrollToViewController(viewController: initialViewController)
         }
         
-        configurePageControl()
-        
+        tutorialDelegate?.tutorialPageViewController(tutorialPageViewController: self, didUpdatePageCount: orderedViewControllers.count)
     }
     
-    func configurePageControl() {
-        // The total number of pages that are available is based on how many available colors we have.
-        pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.width / 2,width: UIScreen.main.bounds.width,height: 50))
-        self.pageControl.numberOfPages = orderedViewControllers.count
-        self.pageControl.currentPage = 0
-        self.pageControl.tintColor = UIColor.black
-        self.pageControl.pageIndicatorTintColor = UIColor.lightGray
-        self.pageControl.currentPageIndicatorTintColor = UIColor.black
-        self.view.addSubview(pageControl)
+    /**
+     Scrolls to the next view controller.
+     */
+    func scrollToNextViewController() {
+        if let visibleViewController = viewControllers?.first,
+            let nextViewController = pageViewController(self, viewControllerAfter: visibleViewController) {
+            scrollToViewController(viewController: nextViewController)
+        }
+        print("hi")
     }
     
-    func newVc(viewController: String) -> UIViewController {
+    /**
+     Scrolls to the view controller at the given index. Automatically calculates
+     the direction.
+     
+     - parameter newIndex: the new index to scroll to
+     */
+    func scrollToViewController(index newIndex: Int) {
+        if let firstViewController = viewControllers?.first,
+            let currentIndex = orderedViewControllers.firstIndex(of: firstViewController) {
+            let direction: UIPageViewController.NavigationDirection = newIndex >= currentIndex ? .forward : .reverse
+            let nextViewController = orderedViewControllers[newIndex]
+            scrollToViewController(viewController: nextViewController, direction: direction)
+            print("hi")
+        }
+    }
     
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: viewController)
+    func newViewController(_ type: String) -> UIViewController {
+        return UIStoryboard(name: "Main", bundle: nil) .
+            instantiateViewController(withIdentifier: "\(type)")
+    }
+    
+    /**
+     Scrolls to the given 'viewController' page.
+     
+     - parameter viewController: the view controller to show.
+     */
+    private func scrollToViewController(viewController: UIViewController,
+                                        direction: UIPageViewController.NavigationDirection = .forward) {
+        setViewControllers([viewController],
+                           direction: direction,
+                           animated: true,
+                           completion: { (finished) -> Void in
+                            // Setting the view controller programmatically does not fire
+                            // any delegate methods, so we have to manually notify the
+                            // 'tutorialDelegate' of the new index.
+                            self.notifyTutorialDelegateOfNewIndex()
+        })
+    }
+    
+    /**
+     Notifies '_tutorialDelegate' that the current page index was updated.
+     */
+    private func notifyTutorialDelegateOfNewIndex() {
+        if let firstViewController = viewControllers?.first,
+            let index = orderedViewControllers.firstIndex(of: firstViewController) {
+            tutorialDelegate?.tutorialPageViewController(tutorialPageViewController: self, didUpdatePageIndex: index)
+        }
     }
     
     
-    // MARK: Delegate methords
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
-        let pageContentViewController = pageViewController.viewControllers![0]
-        self.pageControl.currentPage = orderedViewControllers.firstIndex(of: pageContentViewController)!
-    }
+}
+
+// MARK: UIPageViewControllerDataSource
+
+extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDataSource {
     
-    // MARK: Data source functions.
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
+            print("hi")
             return nil
         }
         
@@ -81,48 +113,64 @@ class Main_New_Game_Tutorial_ViewController: UIPageViewController, UIPageViewCon
         // User is on the first view controller and swiped left to loop to
         // the last view controller.
         guard previousIndex >= 0 else {
-            //return orderedViewControllers.last
-            // Uncommment the line below, remove the line above if you don't want the page control to loop.
+            let previousIndex = previousIndex - 1
             return nil
         }
         
         guard orderedViewControllers.count > previousIndex else {
+         
             return nil
         }
         
         return orderedViewControllers[previousIndex]
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
             return nil
         }
-        var nextIndex: Int!
-        var orderedViewControllersCount: Int!
-        // check if user has added a player to the app
-        nextIndex = viewControllerIndex + 1
-        orderedViewControllersCount = orderedViewControllers.count
         
+        let nextIndex = viewControllerIndex + 1
+        let orderedViewControllersCount = orderedViewControllers.count
         
         // User is on the last view controller and swiped right to loop to
         // the first view controller.
         guard orderedViewControllersCount != nextIndex else {
-            //return orderedViewControllers.first
-            // Uncommment the line below, remove the line above if you don't want the page control to loop.
+            let nextIndex = nextIndex - 1
             return nil
         }
         
         guard orderedViewControllersCount > nextIndex else {
+            
             return nil
         }
-        let className = String(describing: New_Game_Tutorial_Shot_View_Controller.self)
-        print(className)
-        //if (className == "Initial_Setup_Team_Add_View_Controlle"{
-        //  return orderedViewControllers[viewControllerIndex]
-        //}else{
+        
         return orderedViewControllers[nextIndex]
-        //}
     }
     
+}
+
+extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDelegate {
     
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
+        notifyTutorialDelegateOfNewIndex()
+    }
+    
+}
+
+protocol TutorialPageViewControllerDelegate: class {
+    
+
+    
+     func tutorialPageViewController(tutorialPageViewController: Main_New_Game_Tutorial_ViewController,
+     didUpdatePageCount count: Int)
+    
+
+     func tutorialPageViewController(tutorialPageViewController: Main_New_Game_Tutorial_ViewController,
+     didUpdatePageIndex index: Int)
+ 
 }

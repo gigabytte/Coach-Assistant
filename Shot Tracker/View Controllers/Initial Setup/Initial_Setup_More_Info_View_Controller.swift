@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwiftyGif
+import Gifu
 
 class Initial_Setup_More_Info_View_Controller: UIViewController {
 
@@ -17,25 +17,24 @@ class Initial_Setup_More_Info_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTeamPlayerView.layer.cornerRadius = 10
-        
-        // gif processing func called
-        gifProcessing()
         
         // Do any additional setup after loading the view.
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        gifProcessing()
+        
+    }
     
     
     func gifProcessing(){
-       
-            let gif = try! UIImage(gifName: universalValue().helpGuidePDFName)
-            let imageview = UIImageView(gifImage: gif, loopCount: -1) // Use -1 for infinite loop
-            imageview.frame = addTeamPlayerView.bounds
-            imageview.contentMode = .scaleToFill
-            imageview.clipsToBounds = true
-            imageview.layer.cornerRadius = 10
-            addTeamPlayerView.addSubview(imageview)
+        
+        let imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.addTeamPlayerView.frame.width, height: self.addTeamPlayerView.frame.height))
+        imageView.layer.cornerRadius = 10
+        imageView.animate(withGIFNamed: universalValue().helpGuidePDFName) {
+            print("It's animating!")
+        }
+        
+        addTeamPlayerView.addSubview(imageView)
         
         
     }

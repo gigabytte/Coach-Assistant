@@ -41,9 +41,17 @@ class Help_Guide_View_Controller: UIViewController {
         // Fit content in PDFView.
         pdfView.autoScales = true
         
-        // Load Sample.pdf file from app bundle.
-        let fileURL = Bundle.main.url(forResource: universalValue().helpGuidePDFName, withExtension: "pdf")
-        pdfView.document = PDFDocument(url: fileURL!)
+        // Load pdf file from app bundle based on system language
+        let langCode = Locale.current.languageCode
+        if (langCode == "fr"){
+            let fileURL = Bundle.main.url(forResource: universalValue().helpGuidePDFName, withExtension: "pdf")
+            pdfView.document = PDFDocument(url: fileURL!)
+            
+        }else{
+            // default ot english if french is not the system language
+            let fileURL = Bundle.main.url(forResource: universalValue().helpGuidePDFName, withExtension: "pdf")
+            pdfView.document = PDFDocument(url: fileURL!)
+        }
     }
     
 
