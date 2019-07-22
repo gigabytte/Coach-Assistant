@@ -260,8 +260,12 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             
         }else{
             print("Not first game")
-            pageControl.removeFromSuperview()
-            tutorialConatiner.removeFromSuperview()
+            if (pageControl != nil){
+                pageControl.removeFromSuperview()
+            }
+            if (tutorialConatiner != nil){
+                tutorialConatiner.removeFromSuperview()
+            }
         }
         
     }
@@ -793,9 +797,10 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             self.tutorialConatiner.alpha = 0.0
             self.closeTutorialBtn.alpha = 0.0
         }, completion: nil)
-        // dimiss conatiner view
+        // dimiss conatiner view and associated views
         tutorialConatiner.removeFromSuperview()
         closeTutorialBtn.removeFromSuperview()
+        pageControl.removeFromSuperview()
         //remove blur from view
         view.viewWithTag(500)?.removeFromSuperview()
         UserDefaults.standard.set(true, forKey: "firstGameBool")

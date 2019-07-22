@@ -93,7 +93,7 @@
 "Atq-hS-bjg.title" = "Retour";
 
 /* Class = "UILabel"; text = "Data is Unavailable"; ObjectID = "C0b-zN-UMb"; */
-"C0b-zN-UMb.text" = "Les Données sont Indisponibles";
+"C0b-zN-UMb.text" = "Pas de données";
 
 /* Class = "UILabel"; text = "Away Team:"; ObjectID = "CHi-DB-y3W"; */
 "CHi-DB-y3W.text" = "équipe visiteurs:";
@@ -177,7 +177,7 @@
 "JRd-N0-k7f.text" = "Ajouter Mise au Jeu perdant Gagnant";
 
 /* Class = "UILabel"; text = "Data is Unavailable"; ObjectID = "Jsf-vV-ljs"; */
-"Jsf-vV-ljs.text" = "Les données sont indisponibles";
+"Jsf-vV-ljs.text" = "Pas de données";
 
 /* Class = "UIButton"; normalTitle = "Close"; ObjectID = "JxM-xx-ywa"; */
 "JxM-xx-ywa.normalTitle" = "Fermer";
@@ -634,3 +634,21 @@
 
 /* Class = "UILabel"; text = "Player's Position"; ObjectID = "zxZ-Vn-Sch"; */
 "zxZ-Vn-Sch.text" = "Position du joueur";
+
+"dn9-QG-DOX.text" = "Votre premier jeu";
+
+"wX0-x6-0dR.text" = "Placez un coup!";
+
+"PAG-5m-cFL.text" = "Un seul robinet n'importe où sur la surface glacée";
+
+"Ncm-JE-w6X.text" = "Placez un objectif!";
+
+"A4F-UX-TzO.text" = "Touchez et maintenez n'importe où sur la surface de la glace";
+
+"nmn-5X-hrm.text" = "Placez une pénalité!";
+
+"oKp-6Q-uzu.text" = "Deux doigts doigt n'importe où sur la surface de glace";
+
+"EWU-TO-mSm.text" = "Enregistrer une victoire faceoff!";
+
+"xvD-jq-6A2.text" = "Deux doigts et maintenez sur n'importe quelle zone de mise au jeu";
