@@ -26,9 +26,9 @@
 		BE235BDC22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDB22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift */; };
 		BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */; };
 		BE235BE022E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */; };
+		BE235BEA22E50D6C002BFDC2 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */; };
 		BE341F2322BB16D200F8D2A3 /* Faceoff View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */; };
 		BE3EF902229A45EF00CCBB2A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3EF901229A45EF00CCBB2A /* CloudKit.framework */; };
-		BE4047D1229AF80A009C9171 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE4047D0229AF80A009C9171 /* help_guide_iPad.gif */; };
 		BE4E8E70226CEDC20046D710 /* Settings_Legal_View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */; };
 		BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */; };
 		BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */; };
@@ -37,7 +37,6 @@
 		BE57ACDB228756F800AD2054 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE57ACDA228756F800AD2054 /* StoreKit.framework */; };
 		BE57F26822DB7281001A81F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE57F26A22DB7281001A81F9 /* Localizable.strings */; };
 		BE57F26D22DB728B001A81F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE57F26C22DB7287001A81F9 /* Localizable.strings */; };
-		BE5AC39822C42C920012C39C /* help_guide_iPad.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BE5AC39722C42C920012C39C /* help_guide_iPad.pdf */; };
 		BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */; };
 		BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */; };
 		BE669DC9226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift */; };
@@ -69,7 +68,6 @@
 		BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */; };
 		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
 		BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */; };
-		BEABCF9822975B8E0061D280 /* Coach_Assistant_Legal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */; };
 		BEB0EB9822981CB500339641 /* Overall Stats Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0EB9722981CB500339641 /* Overall Stats Table.swift */; };
 		BEB30DED22BC6DC800EE8C7C /* Faceoff Info Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB30DEC22BC6DC800EE8C7C /* Faceoff Info Table.swift */; };
 		BEB3E53D22B4746F00AC7035 /* In Game Settings ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB3E53C22B4746F00AC7035 /* In Game Settings ViewController.swift */; };
@@ -79,6 +77,8 @@
 		BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */; };
 		BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED34AE7228863B200791B95 /* GoogleService-Info.plist */; };
 		BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */; };
+		BEF2A28C22E543180031901D /* Coach_Assistant_Legal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEF2A28B22E543180031901D /* Coach_Assistant_Legal.pdf */; };
+		BEF2A29022E543870031901D /* help_guide_iPad.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEF2A28F22E543870031901D /* help_guide_iPad.pdf */; };
 		CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -138,9 +138,9 @@
 		BE235BDB22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Goal View Controller.swift"; sourceTree = "<group>"; };
 		BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Penalty View Controller.swift"; sourceTree = "<group>"; };
 		BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Faceoff View Controller.swift"; sourceTree = "<group>"; };
+		BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = help_guide_iPad.gif; sourceTree = "<group>"; };
 		BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Faceoff View Controller.swift"; sourceTree = "<group>"; };
 		BE3EF901229A45EF00CCBB2A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		BE4047D0229AF80A009C9171 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = help_guide_iPad.gif; path = ../../../Documents/help_guide_iPad.gif; sourceTree = "<group>"; };
 		BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Legal_View Controller.swift"; sourceTree = "<group>"; };
 		BE52370B226A5BB8009D9254 /* Main Settings Page View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Settings Page View Controller.swift"; sourceTree = "<group>"; };
 		BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Backup View Controller.swift"; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 		BE57F26422DB7224001A81F9 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		BE57F26922DB7281001A81F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE57F26B22DB7287001A81F9 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		BE5AC39722C42C920012C39C /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = help_guide_iPad.pdf; path = ../../../Documents/help_guide_iPad.pdf; sourceTree = "<group>"; };
 		BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Shot Tracker.entitlements"; sourceTree = "<group>"; };
 		BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Page_Controller.swift; sourceTree = "<group>"; };
 		BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_FInish_Page_ViewController.swift; sourceTree = "<group>"; };
@@ -192,7 +191,6 @@
 		BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Team_Page.swift; sourceTree = "<group>"; };
 		BEA08C962215F05200B6D73B /* Add_Player_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Player_Page.swift; sourceTree = "<group>"; };
 		BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Goalie Selection View.swift"; sourceTree = "<group>"; };
-		BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Coach_Assistant_Legal.pdf; path = ../../../Documents/Coach_Assistant_Legal.pdf; sourceTree = "<group>"; };
 		BEB0EB9722981CB500339641 /* Overall Stats Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Overall Stats Table.swift"; sourceTree = "<group>"; };
 		BEB30DEC22BC6DC800EE8C7C /* Faceoff Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Faceoff Info Table.swift"; sourceTree = "<group>"; };
 		BEB3E53C22B4746F00AC7035 /* In Game Settings ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "In Game Settings ViewController.swift"; sourceTree = "<group>"; };
@@ -202,6 +200,8 @@
 		BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help_Guide_View_Controller.swift; sourceTree = "<group>"; };
 		BED34AE7228863B200791B95 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker_Info_Page.swift; sourceTree = "<group>"; };
+		BEF2A28B22E543180031901D /* Coach_Assistant_Legal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Coach_Assistant_Legal.pdf; path = ../../../Documents/Coach_Assistant_Legal.pdf; sourceTree = "<group>"; };
+		BEF2A28F22E543870031901D /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = help_guide_iPad.pdf; path = ../../../Documents/help_guide_iPad.pdf; sourceTree = "<group>"; };
 		C8567FABF079141DA35EAF50 /* Pods-Shot Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -297,6 +297,7 @@
 		BE089F4B22BFE2E900FAED6F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BE7D697721E3D74300C1745C /* AppDelegate.swift */,
 				BE7D697921E3D74300C1745C /* Home_Page_View_Controller.swift */,
 				BE235BD822E37934002BFDC2 /* New Game Setup VC */,
 				BE089F5522BFE46000FAED6F /* New Game */,
@@ -429,7 +430,6 @@
 				BE089F4D22BFE35900FAED6F /* Realm Objc */,
 				BE089F4B22BFE2E900FAED6F /* View Controllers */,
 				BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */,
-				BE7D697721E3D74300C1745C /* AppDelegate.swift */,
 				BE57F26A22DB7281001A81F9 /* Localizable.strings */,
 				BE57F26C22DB7287001A81F9 /* Localizable.strings */,
 				BE7D697B21E3D74300C1745C /* Main.storyboard */,
@@ -437,10 +437,10 @@
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
+				BEF2A28B22E543180031901D /* Coach_Assistant_Legal.pdf */,
+				BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */,
+				BEF2A28F22E543870031901D /* help_guide_iPad.pdf */,
 				BE8F88B5227747260087ED88 /* varReference.swift */,
-				BE4047D0229AF80A009C9171 /* help_guide_iPad.gif */,
-				BE5AC39722C42C920012C39C /* help_guide_iPad.pdf */,
-				BEABCF9722975B8E0061D280 /* Coach_Assistant_Legal.pdf */,
 			);
 			path = "Shot Tracker";
 			sourceTree = "<group>";
@@ -588,13 +588,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEF2A28C22E543180031901D /* Coach_Assistant_Legal.pdf in Resources */,
+				BE235BEA22E50D6C002BFDC2 /* help_guide_iPad.gif in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
-				BE5AC39822C42C920012C39C /* help_guide_iPad.pdf in Resources */,
-				BEABCF9822975B8E0061D280 /* Coach_Assistant_Legal.pdf in Resources */,
-				BE4047D1229AF80A009C9171 /* help_guide_iPad.gif in Resources */,
 				BE57F26D22DB728B001A81F9 /* Localizable.strings in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
 				BE57F26822DB7281001A81F9 /* Localizable.strings in Resources */,
+				BEF2A29022E543870031901D /* help_guide_iPad.pdf in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
 				BE7D697D21E3D74300C1745C /* Main.storyboard in Resources */,
 			);

@@ -17,6 +17,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var iceRinkImage: UIImageView!
     @IBAction func unWindToNewGame(segue: UIStoryboardSegue) {}
+    @IBOutlet weak var pageControl: UIPageControl!
     
     // declare image view vars
     let homeTeamGoalMakerImage = UIImage(named: "home_team_goal.png");
@@ -77,6 +78,14 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     var tutorialTopLabel: UILabel!
     var tutorialMiddleLabel: UILabel!
     
+    
+    var tutorialPageViewController: Main_New_Game_Tutorial_ViewController? {
+        didSet {
+            tutorialPageViewController?.tutorialDelegate = self
+        }
+    }
+    
+    
     // get location cords on user interaction with ice surface
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
@@ -91,7 +100,9 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
+        UserDefaults.standard.set(false, forKey: "firstGameBool")
         
+        pageControl.addTarget(self, action: Selector("didChangePageControlValue"), for: .valueChanged)
         
         // set listener for notification after goalie is selected
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil)
@@ -177,6 +188,9 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         
     }
     
+    
+    
+    
     func onLoad(){
         print("UI UPDATED")
         
@@ -221,25 +235,32 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             }
         }
         
-        if (UserDefaults.standard.bool(forKey: "firstGameBool") == false ){
+        
+        if (UserDefaults.standard.bool(forKey: "firstGameBool") == false && isKeyPresentInUserDefaults(key: "selectedGoalieID") == true){
+           print("tuorial")
             tutorialConatiner.layer.cornerRadius = 10
             tutorialConatiner.isHidden = false
             closeTutorialBtn.isHidden = false
+            pageControl.isHidden = false
            // add blur effect to view along with popUpView
             let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
             blurEffectView.frame = view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             blurEffectView.tag = 500
+            
             view.addSubview(blurEffectView)
             view.addSubview(tutorialConatiner)
             view.addSubview(closeTutorialBtn)
-            tutorialConatiner.centerXAnchor.constraint(equalTo: blurEffectView.centerXAnchor).isActive = true
-            tutorialConatiner.centerYAnchor.constraint(equalTo: blurEffectView.centerYAnchor).isActive = true
-            closeTutorialBtn.trailingAnchor.constraint(equalTo: tutorialConatiner.trailingAnchor).isActive = true
-            closeTutorialBtn.topAnchor.constraint(equalTo: tutorialConatiner.topAnchor).isActive = true
+            view.addSubview(pageControl)
+        }else if (isKeyPresentInUserDefaults(key: "selectedGoalieID") == false){
+            tutorialConatiner.isHidden = true
+            pageControl.isHidden = true
+            closeTutorialBtn.isHidden = true
+            
         }else{
             print("Not first game")
+            pageControl.removeFromSuperview()
             tutorialConatiner.removeFromSuperview()
         }
         
@@ -777,6 +798,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         closeTutorialBtn.removeFromSuperview()
         //remove blur from view
         view.viewWithTag(500)?.removeFromSuperview()
+        UserDefaults.standard.set(true, forKey: "firstGameBool")
     }
     
     
@@ -805,11 +827,28 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             vc.tempYCords = yLocationCords
             vc.faceoffLocation = faceoffLocation
         }
+        if let tutorialPageViewController = segue.destination as? Main_New_Game_Tutorial_ViewController {
+            self.tutorialPageViewController = tutorialPageViewController
+        }
     }
     // delay loop
     func delay(_ delay:Double, closure:@escaping ()->()) {
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
+    
+    func didChangePageControlValue() {
+        tutorialPageViewController?.scrollToViewController(index: pageControl.currentPage)
+    }
+}
+
+extension New_Game_Page: TutorialPageViewControllerDelegate {
+    func tutorialPageViewController(tutorialPageViewController: Main_New_Game_Tutorial_ViewController, didUpdatePageCount count: Int) {
+        pageControl.numberOfPages = count
+    }
+    
+    func tutorialPageViewController(tutorialPageViewController: Main_New_Game_Tutorial_ViewController, didUpdatePageIndex index: Int) {
+        pageControl.currentPage = index
     }
     
 }

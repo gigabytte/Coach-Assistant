@@ -324,9 +324,17 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             UserDefaults.standard.set(setPeriodVar, forKey: "periodNumber")
             UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
             UserDefaults.standard.set(false, forKey: "newGameStarted")
-            
-            let dictionary = ["key":"value"]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary)
+            if (isKeyPresentInUserDefaults(key: "firstGameBool") == false || UserDefaults.standard.bool(forKey: "firstGameBool") == false){
+                print("sent notification")
+                let dictionary = ["key":"value"]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newGameSetupNotification"), object: nil, userInfo: dictionary)
+                let dictionary2 = ["key":"value"]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary2)
+                
+            }else{
+                let dictionary = ["key":"value"]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil, userInfo: dictionary)
+            }
             
             performSegue(withIdentifier: "backToIceBacibInfo", sender: nil)
             
@@ -335,6 +343,10 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
             missingSelectionError()
             
         }
+    }
+    
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
     }
     
 }

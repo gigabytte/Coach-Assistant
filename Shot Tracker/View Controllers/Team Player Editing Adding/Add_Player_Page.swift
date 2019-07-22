@@ -241,7 +241,6 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             default :
                 selectPosition = positionCodeData[positionCodeData.count - 1]
             }
-            print("Select Position \(selectPosition)")
         }
     }
     

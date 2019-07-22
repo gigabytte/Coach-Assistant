@@ -7,24 +7,37 @@
 //
 
 import UIKit
+import Gifu
 
 class New_Game_Tutorial_Faceoff_View_Controller: UIViewController {
 
+    @IBOutlet weak var gifView: UIView!
+    var toggle: Bool!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+      
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidAppear(_ animated: Bool) {
+        if toggle != true{
+            gifProcessing()
+            toggle = true
+        }
+        
     }
-    */
+    
+    func gifProcessing(){
+        
+        let imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.gifView.frame.width, height: self.gifView.frame.height))
+        imageView.animate(withGIFNamed: universalValue().helpGuidePDFName) {
+            
+        }
+        imageView.layer.cornerRadius = 10
+        gifView.addSubview(imageView)
+        
+    }
 
 }

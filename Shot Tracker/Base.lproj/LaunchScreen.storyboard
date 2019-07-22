@@ -21,32 +21,29 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ice" translatesAutoresizingMaskIntoConstraints="NO" id="p4C-i4-sY4">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="6gH-x9-kSN">
-                                <rect key="frame" x="294.5" y="150" width="435.5" height="350"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="435.5" id="WgN-8e-Nio"/>
-                                    <constraint firstAttribute="height" constant="350" id="oHK-bo-qdR"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiny Square Studios© 2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6is-on-S4e">
                                 <rect key="frame" x="403" y="737.5" width="218.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coach_assitant_full_trans" translatesAutoresizingMaskIntoConstraints="NO" id="QJA-cU-EjW">
+                                <rect key="frame" x="294.5" y="150" width="435.5" height="371.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="371.5" id="LqZ-Eh-Exw"/>
+                                    <constraint firstAttribute="width" constant="435.5" id="zMU-k3-Wv2"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="bottom" secondItem="zcq-50-W1x" secondAttribute="bottom" id="0df-Ww-m7b"/>
-                            <constraint firstItem="6gH-x9-kSN" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="82B-YK-Btg"/>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="leading" secondItem="zcq-50-W1x" secondAttribute="leading" id="B1t-RN-JxR"/>
+                            <constraint firstItem="QJA-cU-EjW" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" constant="150" id="S4k-wy-rjg"/>
                             <constraint firstItem="6is-on-S4e" firstAttribute="bottom" secondItem="GGn-L9-un1" secondAttribute="bottom" constant="-10" id="W4s-GX-wQJ"/>
-                            <constraint firstItem="6gH-x9-kSN" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" constant="150" id="cb2-ES-zKD"/>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="trailing" secondItem="zcq-50-W1x" secondAttribute="trailing" id="fbD-AF-vXx"/>
                             <constraint firstItem="6is-on-S4e" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="kSa-Wq-jxs"/>
+                            <constraint firstItem="QJA-cU-EjW" firstAttribute="centerX" secondItem="zcq-50-W1x" secondAttribute="centerX" id="nrs-Ls-jKD"/>
                             <constraint firstItem="p4C-i4-sY4" firstAttribute="top" secondItem="zcq-50-W1x" secondAttribute="top" id="zat-h0-xme"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGn-L9-un1"/>
