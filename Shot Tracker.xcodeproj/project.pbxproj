@@ -27,6 +27,10 @@
 		BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */; };
 		BE235BE022E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */; };
 		BE235BEA22E50D6C002BFDC2 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */; };
+		BE27918122E6790300CE40EC /* goal_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918022E6790300CE40EC /* goal_gif.gif */; };
+		BE27918322E6790800CE40EC /* shot_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918222E6790800CE40EC /* shot_gif.gif */; };
+		BE27918522E6790D00CE40EC /* penalty_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918422E6790D00CE40EC /* penalty_gif.gif */; };
+		BE27918722E6791200CE40EC /* faceoff_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918622E6791200CE40EC /* faceoff_gif.gif */; };
 		BE341F2322BB16D200F8D2A3 /* Faceoff View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */; };
 		BE3EF902229A45EF00CCBB2A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3EF901229A45EF00CCBB2A /* CloudKit.framework */; };
 		BE4E8E70226CEDC20046D710 /* Settings_Legal_View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */; };
@@ -139,6 +143,10 @@
 		BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Penalty View Controller.swift"; sourceTree = "<group>"; };
 		BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Faceoff View Controller.swift"; sourceTree = "<group>"; };
 		BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = help_guide_iPad.gif; sourceTree = "<group>"; };
+		BE27918022E6790300CE40EC /* goal_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = goal_gif.gif; sourceTree = "<group>"; };
+		BE27918222E6790800CE40EC /* shot_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = shot_gif.gif; sourceTree = "<group>"; };
+		BE27918422E6790D00CE40EC /* penalty_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = penalty_gif.gif; sourceTree = "<group>"; };
+		BE27918622E6791200CE40EC /* faceoff_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = faceoff_gif.gif; sourceTree = "<group>"; };
 		BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Faceoff View Controller.swift"; sourceTree = "<group>"; };
 		BE3EF901229A45EF00CCBB2A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		BE4E8E6F226CEDC20046D710 /* Settings_Legal_View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Legal_View Controller.swift"; sourceTree = "<group>"; };
@@ -439,6 +447,10 @@
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
 				BEF2A28B22E543180031901D /* Coach_Assistant_Legal.pdf */,
 				BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */,
+				BE27918622E6791200CE40EC /* faceoff_gif.gif */,
+				BE27918422E6790D00CE40EC /* penalty_gif.gif */,
+				BE27918222E6790800CE40EC /* shot_gif.gif */,
+				BE27918022E6790300CE40EC /* goal_gif.gif */,
 				BEF2A28F22E543870031901D /* help_guide_iPad.pdf */,
 				BE8F88B5227747260087ED88 /* varReference.swift */,
 			);
@@ -588,6 +600,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE27918122E6790300CE40EC /* goal_gif.gif in Resources */,
+				BE27918722E6791200CE40EC /* faceoff_gif.gif in Resources */,
 				BEF2A28C22E543180031901D /* Coach_Assistant_Legal.pdf in Resources */,
 				BE235BEA22E50D6C002BFDC2 /* help_guide_iPad.gif in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
@@ -596,7 +610,9 @@
 				BE57F26822DB7281001A81F9 /* Localizable.strings in Resources */,
 				BEF2A29022E543870031901D /* help_guide_iPad.pdf in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
+				BE27918522E6790D00CE40EC /* penalty_gif.gif in Resources */,
 				BE7D697D21E3D74300C1745C /* Main.storyboard in Resources */,
+				BE27918322E6790800CE40EC /* shot_gif.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

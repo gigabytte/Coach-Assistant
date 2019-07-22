@@ -119,7 +119,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
                 newGameButton.setTitle(localizedString().localized(value: "Ongoing Game"), for: .normal)
                 newGameButton.setNeedsLayout()
             }else{
-                newGameButton.setTitle("New Game", for: .normal)
+                newGameButton.setTitle(localizedString().localized(value:"New Game"), for: .normal)
                 newGameButton.setNeedsLayout()
             }
         }else{

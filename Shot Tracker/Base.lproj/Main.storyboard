@@ -2938,6 +2938,7 @@
                                     <constraint firstAttribute="width" constant="39" id="6gp-Br-MQ6"/>
                                     <constraint firstAttribute="height" constant="37" id="eRe-9Y-ws0"/>
                                 </constraints>
+                                <color key="pageIndicatorTintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pageControl>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAt-IU-RrL">
@@ -3071,7 +3072,7 @@
                                             <constraint firstAttribute="height" constant="365" id="UOK-Fg-wO1"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data is Unavailable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jsf-vV-ljs">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data is Unavailable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jsf-vV-ljs">
                                         <rect key="frame" x="112.5" y="317" width="175" height="24"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3697,8 +3698,8 @@
                                     <constraint firstAttribute="width" secondItem="CoG-vj-NqK" secondAttribute="height" multiplier="4:2.75" id="0K2-Ys-zYp"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Two FInger Tap and Hold on Any Major Faceoff Area" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvD-jq-6A2">
-                                <rect key="frame" x="314" y="621.5" width="396" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Two Finger Tap and Hold on Any Major Faceoff Area" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvD-jq-6A2">
+                                <rect key="frame" x="314.5" y="621.5" width="395" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -4988,6 +4989,6 @@
         <segue reference="CQV-MR-jeA"/>
         <segue reference="nhd-cM-urx"/>
         <segue reference="Qvi-1t-WK0"/>
-        <segue reference="w5X-2C-weP"/>
+        <segue reference="B9O-nl-JB9"/>
     </inferredMetricsTieBreakers>
 </document>
