@@ -16,6 +16,7 @@ class goalMarkersTable: Object {
     @objc dynamic var gameID: Int = 0
     @objc dynamic var  goalType: String = ""
     @objc dynamic var  powerPlay: Bool = false
+    @objc dynamic var  powerPlayID: Int = 0
     @objc dynamic var  TeamID: Int = 0
     @objc dynamic var  goalieID: Int = 0
     @objc dynamic var  goalPlayerID: Int = 0

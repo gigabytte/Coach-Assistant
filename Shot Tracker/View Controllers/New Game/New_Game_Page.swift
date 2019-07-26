@@ -100,9 +100,9 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        UserDefaults.standard.set(false, forKey: "firstGameBool")
+        //UserDefaults.standard.set(false, forKey: "firstGameBool")
         
-        pageControl.addTarget(self, action: Selector("didChangePageControlValue"), for: .valueChanged)
+        pageControl.addTarget(self, action: Selector(("didChangePageControlValue")), for: .valueChanged)
         
         // set listener for notification after goalie is selected
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "shotLocationRefresh"), object: nil)
@@ -262,6 +262,9 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             print("Not first game")
             if (pageControl != nil){
                 pageControl.removeFromSuperview()
+            }
+            if (tutorialConatiner != nil){
+                tutorialConatiner.removeFromSuperview()
             }
             if (tutorialConatiner != nil){
                 tutorialConatiner.removeFromSuperview()

@@ -11,6 +11,9 @@ import RealmSwift
 import Realm
 
 class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    @IBAction func unwindToMarkerInfo(segue: UIStoryboardSegue) {}
+    
     // connection refrence to shot goal picker view
     @IBOutlet weak var shot_goalPickerView: UIPickerView!
     @IBOutlet weak var assitantsPickerView: UIPickerView!
@@ -59,6 +62,8 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     var selectedForDefenseLine: String = ""
     var selectedAgainstDefenseLine: String = ""
     
+    var selectedPenaltyID: Int = 0
+    
     // get X, Y cords from New_Game_Page View controller
     var xCords: Int = 0
     var yCords: Int = 0
@@ -102,6 +107,8 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         self.defenseLinePicker.delegate = self
         self.defenseLinePicker.dataSource = self
         
+        // set listener for notification after goalie is selected
+        NotificationCenter.default.addObserver(self, selector: #selector(myCancelMethod(notification:)), name: NSNotification.Name(rawValue: "noPenaltyToggle"), object: nil)
         
     }
     
@@ -308,12 +315,14 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
                     self.realm.object(ofType: overallStatsTable.self, forPrimaryKey: ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID, againsDefenseLinePlayers[i])).value(forKeyPath: "overallStatsID") as! [Int]).compactMap({Int($0)})).first )?.plusMinus -= 1
                 }
                 
+                print("Penaty id \(self.selectedPenaltyID)")
                 
-                
-                if (self.powerPlayToggleSwitch.isOn){
+                if (self.powerPlayToggleSwitch.isOn == true){
                     goalMarkerTableID?.powerPlay = true
+                    goalMarkerTableID?.powerPlayID = self.selectedPenaltyID
                 }else{
                     goalMarkerTableID?.powerPlay = false
+                    goalMarkerTableID?.powerPlayID = 0
                 }
                 goalMarkerTableID?.activeState = true
                 goalMarkerTableID?.goalType = self.selectedGoalType
@@ -341,7 +350,34 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
     }
 
+    @IBAction func powerPlayToggle(_ sender: Any) {
+        if powerPlayToggleSwitch.isOn == true{
+           // self.performSegue(withIdentifier: "PenaltyInfoPopUp", sender: nil)
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Penalty_Popup_Info_VC") as! Penalty_Info_View_Controller
+            
+           
+            
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self as! UIPopoverPresentationControllerDelegate
+            
+             popupVC.againstTeamID = opposingTeamID
+            
+            present(popupVC, animated: true, completion: nil)
+            print("Help Guide Presented!")
+        }
+        
+    }
     
+    @objc func myCancelMethod(notification: NSNotification){
+        // toggle off power play switch if marker info page is notified that user has cancelled request
+        powerPlayToggleSwitch.isOn = false
+        
+    }
+
 //----------------------------------------------------------------------------------------------------------
     // Picker View Functions for Main Player and Assitant Picking
     // Number of columns of data

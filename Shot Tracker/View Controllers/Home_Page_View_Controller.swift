@@ -18,7 +18,6 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     @IBOutlet weak var editTeamPlayerButton: UIButton!
     @IBAction func unwindToViewControllerA(segue: UIStoryboardSegue) {}
     
-    let realm = try! Realm()
     // active status bool used to check if a game is ongoing
     var activeStatus: Bool!
     
@@ -71,6 +70,8 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     
     
     func onLoad(){
+        
+        let realm = try! Realm()
         // Do any additional setup after loading the view, typically from a nib.
         // check is usr has selected a a deafult team yet
         if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
@@ -110,10 +111,11 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     
     // cherck is game if currently running function
     func onGoingGame(){
+        let realm = try! Realm()
         // based on activeStaus bool the New Game Button text chnages dynamically
         if((realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).first != nil){
         // get lastest new game active status
-            activeStatus = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus)!
+            activeStatus = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.activeGameStatus)!
         
             if (activeStatus == true){
                 newGameButton.setTitle(localizedString().localized(value: "Ongoing Game"), for: .normal)
@@ -128,6 +130,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     }
     // func checks if there is atleast one goalie from each team to prevent new game errors; returns bool
     func goalieChecker() -> Bool{
+        let realm = try! Realm()
         
         let goalieOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType == %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         let goalieTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType == %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
@@ -142,6 +145,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     
     // func checks if there is atleast one player from each team to prevent new game errors; returns bool
     func playerChecker() -> Bool{
+        let realm = try! Realm()
         
         let playerOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType != %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         let playerTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType != %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
@@ -156,7 +160,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     
     // func checks if there is atleast two teams prevent new game errors; returns bool
     func teamChecker() -> Bool{
-        
+        let realm = try! Realm()
         // get first an last team entered in DB
         let teamOne = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
         let teamTwo = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
@@ -182,7 +186,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     }
     
     @IBAction func newGameButton(_ sender: UIButton) {
-       
+        let realm = try! Realm()
             // check if team one returns nil and that team one isnt team two
             // check for only one team entered and or no team entered
             if (activeStatus != true){
@@ -196,10 +200,10 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
                 }
             }else{
                 // check if user has chnaged the default team while a game is ongoing or if this a new game all together
-                if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int) == (realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID))?.teamID || (realm.object(ofType: newGameTable.self, forPrimaryKey: (self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus) == false){
+                if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int) == (realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID))?.teamID || (realm.object(ofType: newGameTable.self, forPrimaryKey: (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus) == false){
                     if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
-                        let tempHomeTeamID  = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID)!
-                        let tempAwayTeamID  = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID)!
+                        let tempHomeTeamID  = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID)!
+                        let tempAwayTeamID  = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID)!
                         UserDefaults.standard.set(tempHomeTeamID, forKey: "homeTeam")
                         UserDefaults.standard.set(tempAwayTeamID, forKey: "awayTeam")
                         UserDefaults.standard.set(true, forKey: "newGameStarted")
@@ -217,8 +221,8 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
                     // add an action (button)
                     misMatchedDefault.addAction(UIAlertAction(title: "Close Game", style: UIAlertAction.Style.destructive, handler: { action in
                         // set current game to not active
-                        try! self.realm.write{
-                            self.realm.object(ofType: newGameTable.self, forPrimaryKey: (self.realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus = false
+                        try! realm.write{
+                            realm.object(ofType: newGameTable.self, forPrimaryKey: (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus = false
                         }
                         // change defaults based on user selection to close game
                         self.newGameButton.setTitle("New Game", for: .normal)

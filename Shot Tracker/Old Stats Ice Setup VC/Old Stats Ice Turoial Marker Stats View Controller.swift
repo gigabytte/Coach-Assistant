@@ -1,16 +1,16 @@
 //
-//  New Game Tutorial Penalty View Controller.swift
+//  Old Stats Ice Turoial Marker Stats View Controller.swift
 //  Shot Tracker
 //
-//  Created by Greg Brooks on 2019-07-20.
+//  Created by Greg Brooks on 2019-07-24.
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
 
 import UIKit
 import Gifu
 
-class New_Game_Tutorial_Penalty_View_Controller: UIViewController {
-
+class Old_Stats_Ice_Turoial_Marker_Stats_View_Controller: UIViewController {
+    
     @IBOutlet weak var gifView: UIView!
     
     var imageView: GIFImageView!
@@ -18,9 +18,12 @@ class New_Game_Tutorial_Penalty_View_Controller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
+        
+        
+        
+        // Do any additional setup after loading the view.
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         if toggle != true{
             gifProcessing()
@@ -40,18 +43,16 @@ class New_Game_Tutorial_Penalty_View_Controller: UIViewController {
         }
     }
     
-    
     func gifProcessing(){
         
-        
         imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.gifView.frame.width, height: self.gifView.frame.height))
-        imageView.animate(withGIFNamed: universalValue().penaltyGif) {
+        imageView.animate(withGIFNamed: universalValue().goalGif) {
             
         }
         imageView.layer.cornerRadius = 10
         gifView.addSubview(imageView)
         imageView.startAnimating()
         
-        
     }
+    
 }

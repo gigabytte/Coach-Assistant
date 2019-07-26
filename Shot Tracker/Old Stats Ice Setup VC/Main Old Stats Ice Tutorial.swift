@@ -1,24 +1,23 @@
 //
-//  Main New Game Tutorial ViewController.swift
+//  Main Old Stats Ice Tutorial.swift
 //  Shot Tracker
 //
-//  Created by Greg Brooks on 2019-07-20.
+//  Created by Greg Brooks on 2019-07-24.
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
 
 import UIKit
 
-class Main_New_Game_Tutorial_ViewController: UIPageViewController {
-    
-    weak var tutorialDelegate: TutorialPageViewControllerDelegate?
+
+class Main_Old_Stats_Ice_Tutorial: UIPageViewController {
+
+    weak var tutorialDelegate: OldIceTutorialPageViewControllerDelegate?
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         // The view controllers will be shown in this order
-        return [self.newViewController("first_newgame"),
-                self.newViewController("second_newgame"),
-                self.newViewController("third_newgame"),
-                self.newViewController("fourth_newgame"),
-                self.newViewController("fifth_newgame")]
+        return [self.newViewController("first_oldstatsice"),
+                self.newViewController("second_oldstatsice"),
+                self.newViewController("third_oldstatsice")]
     }()
     
     override func viewDidLoad() {
@@ -99,7 +98,7 @@ class Main_New_Game_Tutorial_ViewController: UIPageViewController {
 
 // MARK: UIPageViewControllerDataSource
 
-extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDataSource {
+extension Main_Old_Stats_Ice_Tutorial: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -118,7 +117,7 @@ extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDataSource 
         }
         
         guard orderedViewControllers.count > previousIndex else {
-         
+            
             return nil
         }
         
@@ -151,7 +150,7 @@ extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDataSource 
     
 }
 
-extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDelegate {
+extension Main_Old_Stats_Ice_Tutorial: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
@@ -162,15 +161,16 @@ extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDelegate {
     
 }
 
-protocol TutorialPageViewControllerDelegate: class {
+protocol OldIceTutorialPageViewControllerDelegate: class {
     
-
     
-     func tutorialPageViewController(tutorialPageViewController: Main_New_Game_Tutorial_ViewController,
-     didUpdatePageCount count: Int)
     
-
-     func tutorialPageViewController(tutorialPageViewController: Main_New_Game_Tutorial_ViewController,
-     didUpdatePageIndex index: Int)
- 
+    func tutorialPageViewController(tutorialPageViewController: Main_Old_Stats_Ice_Tutorial,
+                                    didUpdatePageCount count: Int)
+    
+    
+    func tutorialPageViewController(tutorialPageViewController: Main_Old_Stats_Ice_Tutorial,
+                                    didUpdatePageIndex index: Int)
+    
 }
+

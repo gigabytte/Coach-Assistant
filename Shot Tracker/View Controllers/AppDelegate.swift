@@ -16,15 +16,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    
   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        // Override point for customization after application launch.
-        // check if user is new before redirecting to pefic page
+
         /* MARK  Uncomment for testing
         UserDefaults.standard.set(nil, forKey: "newUser")
-        UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-         */
+        //UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+        */
+        let config = Realm.Configuration(
+            // Set the new schema version. This must be greater than the previously used
+            // version (if you've never set a schema version before, the version is 0).
+            schemaVersion: universalValue().realmSchemeValue,
+            
+            // Set the block which will be called automatically when opening a Realm with
+            // a schema version lower than the one set above
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < universalValue().realmSchemeValue) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
         
+        // Tell Realm to use this new configuration object for the default Realm
+        Realm.Configuration.defaultConfiguration = config
+
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             for purchase in purchases {
                 switch purchase.transaction.transactionState {
@@ -55,6 +73,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }else{
             print("iCloud Conatiner could not be made!")
         }
+        
+        // Override point for customization after application launch.
+        // check if user is new before redirecting to pefic page
         if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
             deleteNewGameUserDefaults.deleteUserDefaults()
           

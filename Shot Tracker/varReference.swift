@@ -253,8 +253,8 @@ class universalValue{
     // In app purchase SKU ID for Coach Assistant Pro
     var coachAssistantProID: String = "com.tinysquare.coachassistant.pro"
     
-    // in app new game tutorial text
-    var gesturesText = "Coach Assistant uses quick and easy learn gestures to navigate and input hockey stats in our app.\n 1. A Single Tap anywhere on the ice suraface creates a shot.\n 2. A single tap and hold anywhere on the ice surface produces a goal\n 3. A two finger tap anywhere on the ice suraface produces a penalty\n 4. A two finger tap and hold on any of the major faceoff areas produces a faceoff."
+    // current scheme value for realm db
+    var realmSchemeValue: UInt64 = 1
     
     
 }
