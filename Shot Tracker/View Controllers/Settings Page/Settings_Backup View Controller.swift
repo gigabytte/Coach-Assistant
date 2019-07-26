@@ -725,7 +725,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         
         
         // create the alert
-        let notPro = UIAlertController(title: localizedString().localized(value: "You're Missing Out!"), message: localizedString().localized(value: "Upgrade now and unlock the ability to backup your teams stats to cloud! Coach Assistant Pro memebers get iCloud backup and import access across all devices with PRO!."), preferredStyle: UIAlertController.Style.alert)
+        let notPro = UIAlertController(title: localizedString().localized(value: "You're Missing Out!"), message: localizedString().localized(value: "Upgrade now and unlock the ability to backup your teams stats to the Cloud! Coach Assistant Pro memebers get iCloud backup and import access across all devices with PRO!"), preferredStyle: UIAlertController.Style.alert)
         
         // add an action (button)
         notPro.addAction(UIAlertAction(title: localizedString().localized(value:"No Thanks"), style: UIAlertAction.Style.default, handler: nil))

@@ -1,18 +1,16 @@
 //
-//  New Game Tutorial Shot View Controller.swift
+//  Old Stats Ice Turoial Change Golaie View Controller.swift
 //  Shot Tracker
 //
-//  Created by Greg Brooks on 2019-07-20.
+//  Created by Greg Brooks on 2019-07-24.
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
 
 import UIKit
 import Gifu
 
+class Old_Stats_Ice_Turoial_Change_Golaie_View_Controller: UIViewController {
 
-class New_Game_Tutorial_Shot_View_Controller: UIViewController {
-
-    
     @IBOutlet weak var gifView: UIView!
     
     var imageView: GIFImageView!
@@ -22,7 +20,7 @@ class New_Game_Tutorial_Shot_View_Controller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // set listener for notification after goalie is selected
-        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "newGameSetupNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "oldStatsGoalieSelection"), object: nil)
         
     }
     
@@ -59,13 +57,13 @@ class New_Game_Tutorial_Shot_View_Controller: UIViewController {
         
         imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.gifView.frame.width, height: self.gifView.frame.height))
         imageView.animate(withGIFNamed: universalValue().shotGif) {
-           
+            
         }
         //imageView.layer.cornerRadius = 10
         gifView.addSubview(imageView)
         gifView.layoutIfNeeded()
         imageView.startAnimating()
-       
+        
         
     }
     

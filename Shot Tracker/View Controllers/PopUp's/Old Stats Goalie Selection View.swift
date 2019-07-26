@@ -192,6 +192,8 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
        
         let dictionary = ["key":"value"]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "passDataInView"), object: nil, userInfo: dictionary)
+
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "oldStatsGoalieSelection"), object: nil, userInfo: ["key":"value"])
         dismiss(animated: true, completion: nil)
         //self.performSegue(withIdentifier: "Back_To_Old_Stats_Ice", sender: self)
         

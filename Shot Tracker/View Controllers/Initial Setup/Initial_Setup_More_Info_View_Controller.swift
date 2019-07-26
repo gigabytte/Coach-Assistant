@@ -12,26 +12,38 @@ import Gifu
 class Initial_Setup_More_Info_View_Controller: UIViewController {
 
     @IBOutlet weak var addTeamPlayerView: UIView!
+    var imageView: GIFImageView!
     
-    var error: Error!
+    var toggleBool: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        toggleBool = false
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
-        gifProcessing()
+        if (toggleBool == false){
+            gifProcessing()
+            toggleBool = true
+        }
+        if imageView.isAnimatingGIF == false{
+            imageView.startAnimating()
+        }
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if (imageView.isAnimatingGIF == false){
+            imageView.stopAnimating()
+        }
     }
     
     
     func gifProcessing(){
         
-        let imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.addTeamPlayerView.frame.width, height: self.addTeamPlayerView.frame.height))
+        imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.addTeamPlayerView.frame.width, height: self.addTeamPlayerView.frame.height))
         imageView.layer.cornerRadius = 10
         imageView.animate(withGIFNamed: universalValue().helpGuidePDFName) {
-            print("It's animating!")
         }
         
         addTeamPlayerView.addSubview(imageView)

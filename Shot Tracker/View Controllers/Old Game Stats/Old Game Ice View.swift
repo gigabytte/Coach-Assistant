@@ -13,7 +13,10 @@ import GoogleMobileAds
 
 class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelegate {
     
+    @IBOutlet weak var pageControl: UIPageControl!
     @IBAction func unwindToOldStatsIce(segue: UIStoryboardSegue) {}
+    @IBOutlet weak var tutorialContainer: UIView!
+    @IBOutlet weak var closeButton: UIButton!
     
     let realm = try! Realm()
     
@@ -44,11 +47,26 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     var goalieID:Int!
     var tagCounter: Int = 100
     
+    var tutorialPageViewController: Main_Old_Stats_Ice_Tutorial? {
+        didSet {
+            tutorialPageViewController?.tutorialDelegate = self
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
         // set listener for notification after goalie is selected
+        
+        tutorialContainer.isHidden = true
+        closeButton.isHidden = true
+        pageControl.isHidden = true
+        
+        //UserDefaults.standard.set(false, forKey: "firstOldStatsBool")
+        
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "passDataInView"), object: nil)
+        
+        pageControl.addTarget(self, action: Selector(("didChangePageControlValue")), for: .valueChanged)
         
         let singleLogoGesture = UITapGestureRecognizer(target: self, action: #selector(normalTapLogo(_:)))
         singleLogoGesture.numberOfTapsRequired = 1
@@ -95,6 +113,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         
         
         if (isKeyPresentInUserDefaults(key: "selectedGoalieID") != true){
+           
             delay(0.5){
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let popupVC = storyboard.instantiateViewController(withIdentifier: "Old_Stats_Goalie_Selection_View") as! Old_Stats_Goalie_Selection_View
@@ -161,6 +180,38 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         self.away_markerPlacement(markerType: self.awayTeamShotMarkerImage!)
         self.away_markerPlacement(markerType: self.awayTeamGoalMarkerImage!)
         self.away_markerPlacement(markerType: self.awayTeamPenaltyMarkerImage!)
+        
+        if (UserDefaults.standard.bool(forKey: "firstOldStatsBool") == false && isKeyPresentInUserDefaults(key: "selectedGoalieID") == true){
+            print("tuorial")
+            tutorialContainer.layer.cornerRadius = 10
+            tutorialContainer.isHidden = false
+            closeButton.isHidden = false
+            pageControl.isHidden = false
+            // add blur effect to view along with popUpView
+            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            blurEffectView.tag = 500
+            
+            view.addSubview(blurEffectView)
+            view.addSubview(tutorialContainer)
+            view.addSubview(closeButton)
+            view.addSubview(pageControl)
+        }else if (isKeyPresentInUserDefaults(key: "selectedGoalieID") == false){
+            tutorialContainer.isHidden = true
+            pageControl.isHidden = true
+            closeButton.isHidden = true
+            
+        }else{
+            print("Not first game")
+            if (pageControl != nil){
+                pageControl.removeFromSuperview()
+            }
+            if (tutorialContainer != nil){
+                tutorialContainer.removeFromSuperview()
+            }
+        }
         
     }
     
@@ -231,6 +282,21 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         tappedMarker(markerType: 2, markerTag: newView!.tag)
     }
     
+    @IBAction func closeButton(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.tutorialContainer.alpha = 0.0
+            self.closeButton.alpha = 0.0
+        }, completion: nil)
+        // dimiss conatiner view and associated views
+        tutorialContainer.removeFromSuperview()
+        closeButton.removeFromSuperview()
+        pageControl.removeFromSuperview()
+        //remove blur from view
+        view.viewWithTag(500)?.removeFromSuperview()
+        UserDefaults.standard.set(true, forKey: "firstOldStatsBool")
+        
+    }
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
     }
@@ -585,5 +651,26 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
+    
+    func didChangePageControlValue() {
+        tutorialPageViewController?.scrollToViewController(index: pageControl.currentPage)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let tutorialPageViewController = segue.destination as? Main_Old_Stats_Ice_Tutorial {
+            self.tutorialPageViewController = tutorialPageViewController
+        }
+    }
 
 }
+extension Old_Game_Ice_View: OldIceTutorialPageViewControllerDelegate {
+    func tutorialPageViewController(tutorialPageViewController: Main_Old_Stats_Ice_Tutorial, didUpdatePageCount count: Int) {
+        pageControl.numberOfPages = count
+    }
+    
+    func tutorialPageViewController(tutorialPageViewController: Main_Old_Stats_Ice_Tutorial, didUpdatePageIndex index: Int) {
+        pageControl.currentPage = index
+    }
+    
+}
+

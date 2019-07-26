@@ -35,9 +35,12 @@ class New_Game_Tutorial_Faceoff_View_Controller: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        if imageView.isAnimatingGIF == true{
-            imageView.stopAnimating()
+        if (imageView != nil){
+            if imageView.isAnimatingGIF == true{
+                imageView.stopAnimating()
+            }
         }
+    
     }
     
     

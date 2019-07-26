@@ -155,6 +155,7 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
             // and refresh player name picker view
             playerNameArray = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "activeState == %@ AND TeamID == %@", NSNumber(value: true), String(awayTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)}))
             playerIdArray = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "activeState == %@ AND TeamID == %@", NSNumber(value: true), String(awayTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
+            selectedPlayerID = playerIdArray.first
             self.playerNamePicker.reloadAllComponents()
             
         }else if (self.teamNameArray[self.currentArrayIndex] == self.teamNameArray.first){
@@ -169,6 +170,7 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
              // and refresh player name picker view
             playerNameArray = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "activeState == %@ AND TeamID == %@", NSNumber(value: true), String(homeTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)}))
             playerIdArray = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "activeState == %@ AND TeamID == %@", NSNumber(value: true), String(homeTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
+            selectedPlayerID = playerIdArray.first
             self.playerNamePicker.reloadAllComponents()
         }
     }
@@ -314,7 +316,7 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
                 
             }
             gluedTime = "00:\(selectedFirstMinuteValue!)\(selectedSecMinuteValue!):\(selectedFirstSecondsValue!)0"
-            print("Glueed TIme", gluedTime)
+            print("Glued TIme", gluedTime)
         }
     }
    

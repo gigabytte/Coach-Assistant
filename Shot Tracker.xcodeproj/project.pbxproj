@@ -26,7 +26,6 @@
 		BE235BDC22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDB22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift */; };
 		BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */; };
 		BE235BE022E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */; };
-		BE235BEA22E50D6C002BFDC2 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */; };
 		BE27918122E6790300CE40EC /* goal_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918022E6790300CE40EC /* goal_gif.gif */; };
 		BE27918322E6790800CE40EC /* shot_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918222E6790800CE40EC /* shot_gif.gif */; };
 		BE27918522E6790D00CE40EC /* penalty_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918422E6790D00CE40EC /* penalty_gif.gif */; };
@@ -41,6 +40,8 @@
 		BE57ACDB228756F800AD2054 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE57ACDA228756F800AD2054 /* StoreKit.framework */; };
 		BE57F26822DB7281001A81F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE57F26A22DB7281001A81F9 /* Localizable.strings */; };
 		BE57F26D22DB728B001A81F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE57F26C22DB7287001A81F9 /* Localizable.strings */; };
+		BE5E88F222E691000003B11C /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE5E88F122E691000003B11C /* help_guide_iPad.gif */; };
+		BE6163F422EB3EAD00C61BA8 /* Penalty Info View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6163F322EB3EAD00C61BA8 /* Penalty Info View Controller.swift */; };
 		BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */; };
 		BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */; };
 		BE669DC9226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift */; };
@@ -80,6 +81,11 @@
 		BEBB0676227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */; };
 		BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */; };
 		BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED34AE7228863B200791B95 /* GoogleService-Info.plist */; };
+		BED5478F22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5478E22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift */; };
+		BED5479222E89FF4002AA13B /* Main Old Stats Ice Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5479122E89FF4002AA13B /* Main Old Stats Ice Tutorial.swift */; };
+		BED5479422E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5479322E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift */; };
+		BED5479622E8A0E3002AA13B /* Old Stats Ice Turoial View Analytical View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5479522E8A0E3002AA13B /* Old Stats Ice Turoial View Analytical View Controller.swift */; };
+		BED5479822E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5479722E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift */; };
 		BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */; };
 		BEF2A28C22E543180031901D /* Coach_Assistant_Legal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEF2A28B22E543180031901D /* Coach_Assistant_Legal.pdf */; };
 		BEF2A29022E543870031901D /* help_guide_iPad.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEF2A28F22E543870031901D /* help_guide_iPad.pdf */; };
@@ -142,7 +148,6 @@
 		BE235BDB22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Goal View Controller.swift"; sourceTree = "<group>"; };
 		BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Penalty View Controller.swift"; sourceTree = "<group>"; };
 		BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Faceoff View Controller.swift"; sourceTree = "<group>"; };
-		BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = help_guide_iPad.gif; sourceTree = "<group>"; };
 		BE27918022E6790300CE40EC /* goal_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = goal_gif.gif; sourceTree = "<group>"; };
 		BE27918222E6790800CE40EC /* shot_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = shot_gif.gif; sourceTree = "<group>"; };
 		BE27918422E6790D00CE40EC /* penalty_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = penalty_gif.gif; sourceTree = "<group>"; };
@@ -161,6 +166,8 @@
 		BE57F26422DB7224001A81F9 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		BE57F26922DB7281001A81F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE57F26B22DB7287001A81F9 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		BE5E88F122E691000003B11C /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = help_guide_iPad.gif; path = ../../../Documents/help_guide_iPad.gif; sourceTree = "<group>"; };
+		BE6163F322EB3EAD00C61BA8 /* Penalty Info View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Penalty Info View Controller.swift"; sourceTree = "<group>"; };
 		BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Shot Tracker.entitlements"; sourceTree = "<group>"; };
 		BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Page_Controller.swift; sourceTree = "<group>"; };
 		BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_FInish_Page_ViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +214,11 @@
 		BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_More_Info_View_Controller.swift; sourceTree = "<group>"; };
 		BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help_Guide_View_Controller.swift; sourceTree = "<group>"; };
 		BED34AE7228863B200791B95 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BED5478E22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Menu Options View Controller.swift"; sourceTree = "<group>"; };
+		BED5479122E89FF4002AA13B /* Main Old Stats Ice Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Old Stats Ice Tutorial.swift"; sourceTree = "<group>"; };
+		BED5479322E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Ice Turoial Change Golaie View Controller.swift"; sourceTree = "<group>"; };
+		BED5479522E8A0E3002AA13B /* Old Stats Ice Turoial View Analytical View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Ice Turoial View Analytical View Controller.swift"; sourceTree = "<group>"; };
+		BED5479722E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Ice Turoial Marker Stats View Controller.swift"; sourceTree = "<group>"; };
 		BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker_Info_Page.swift; sourceTree = "<group>"; };
 		BEF2A28B22E543180031901D /* Coach_Assistant_Legal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Coach_Assistant_Legal.pdf; path = ../../../Documents/Coach_Assistant_Legal.pdf; sourceTree = "<group>"; };
 		BEF2A28F22E543870031901D /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = help_guide_iPad.pdf; path = ../../../Documents/help_guide_iPad.pdf; sourceTree = "<group>"; };
@@ -273,6 +285,7 @@
 		BE089F4922BFE2C000FAED6F /* PopUp's */ = {
 			isa = PBXGroup;
 			children = (
+				BE6163F322EB3EAD00C61BA8 /* Penalty Info View Controller.swift */,
 				BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */,
 				BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */,
 				BEB3E53C22B4746F00AC7035 /* In Game Settings ViewController.swift */,
@@ -403,6 +416,7 @@
 				BE235BDB22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift */,
 				BE235BDD22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift */,
 				BE235BDF22E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift */,
+				BED5478E22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift */,
 			);
 			path = "New Game Setup VC";
 			sourceTree = "<group>";
@@ -436,6 +450,7 @@
 			children = (
 				BE089F5622BFE47100FAED6F /* Custom Classes */,
 				BE089F4D22BFE35900FAED6F /* Realm Objc */,
+				BED5479022E89FB4002AA13B /* Old Stats Ice Setup VC */,
 				BE089F4B22BFE2E900FAED6F /* View Controllers */,
 				BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */,
 				BE57F26A22DB7281001A81F9 /* Localizable.strings */,
@@ -446,7 +461,7 @@
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
 				BEF2A28B22E543180031901D /* Coach_Assistant_Legal.pdf */,
-				BE235BE722E50D6B002BFDC2 /* help_guide_iPad.gif */,
+				BE5E88F122E691000003B11C /* help_guide_iPad.gif */,
 				BE27918622E6791200CE40EC /* faceoff_gif.gif */,
 				BE27918422E6790D00CE40EC /* penalty_gif.gif */,
 				BE27918222E6790800CE40EC /* shot_gif.gif */,
@@ -473,6 +488,17 @@
 				BE7D699921E3D74500C1745C /* Info.plist */,
 			);
 			path = "Shot TrackerUITests";
+			sourceTree = "<group>";
+		};
+		BED5479022E89FB4002AA13B /* Old Stats Ice Setup VC */ = {
+			isa = PBXGroup;
+			children = (
+				BED5479122E89FF4002AA13B /* Main Old Stats Ice Tutorial.swift */,
+				BED5479322E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift */,
+				BED5479522E8A0E3002AA13B /* Old Stats Ice Turoial View Analytical View Controller.swift */,
+				BED5479722E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift */,
+			);
+			path = "Old Stats Ice Setup VC";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -603,11 +629,11 @@
 				BE27918122E6790300CE40EC /* goal_gif.gif in Resources */,
 				BE27918722E6791200CE40EC /* faceoff_gif.gif in Resources */,
 				BEF2A28C22E543180031901D /* Coach_Assistant_Legal.pdf in Resources */,
-				BE235BEA22E50D6C002BFDC2 /* help_guide_iPad.gif in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
 				BE57F26D22DB728B001A81F9 /* Localizable.strings in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
 				BE57F26822DB7281001A81F9 /* Localizable.strings in Resources */,
+				BE5E88F222E691000003B11C /* help_guide_iPad.gif in Resources */,
 				BEF2A29022E543870031901D /* help_guide_iPad.pdf in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
 				BE27918522E6790D00CE40EC /* penalty_gif.gif in Resources */,
@@ -742,6 +768,7 @@
 			files = (
 				BE1F4D302278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift in Sources */,
 				BE235BDC22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift in Sources */,
+				BE6163F422EB3EAD00C61BA8 /* Penalty Info View Controller.swift in Sources */,
 				BEB71900220A192B00DA6399 /* Basic_Current_Stats_Page.swift in Sources */,
 				BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */,
 				BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */,
@@ -762,15 +789,19 @@
 				BE1F4D322278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift in Sources */,
 				BE669DCB226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift in Sources */,
 				BE1F4D2E2278D96F00D8B4F3 /* customCurrentStatsCell.swift in Sources */,
+				BED5479222E89FF4002AA13B /* Main Old Stats Ice Tutorial.swift in Sources */,
 				BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */,
 				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
 				BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */,
+				BED5479622E8A0E3002AA13B /* Old Stats Ice Turoial View Analytical View Controller.swift in Sources */,
 				BE235BE022E379AE002BFDC2 /* New Game Tutorial Faceoff View Controller.swift in Sources */,
+				BED5479822E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift in Sources */,
 				BE235BDA22E37970002BFDC2 /* New Game Tutorial Shot View Controller.swift in Sources */,
 				BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */,
 				BE669DC9226E6B3F00E2C5E7 /* Initial_Setup_Team_Add_View_Controller.swift in Sources */,
 				BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */,
 				BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */,
+				BED5478F22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift in Sources */,
 				BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */,
 				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
@@ -787,6 +818,7 @@
 				BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */,
 				BEB3E53D22B4746F00AC7035 /* In Game Settings ViewController.swift in Sources */,
 				BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */,
+				BED5479422E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift in Sources */,
 				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
 				BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */,
 				BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */,
