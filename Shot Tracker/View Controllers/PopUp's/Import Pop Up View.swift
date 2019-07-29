@@ -340,7 +340,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             print("Error Finding Containts of File")
         }
         
-        if (fourthFileContentsParsed[0].count == 13){
+        if (fourthFileContentsParsed[0].count == 14){
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(goalMarkersTable.self))
@@ -359,6 +359,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
                         primaryMarkerID?.gameID = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.goalType = fourthFileContentsParsed[i][count]; count += 1
                         primaryMarkerID?.powerPlay = Bool(fourthFileContentsParsed[i][count])!; count += 1
+                        primaryMarkerID?.powerPlayID = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.TeamID = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.goalieID = Int(fourthFileContentsParsed[i][count])!; count += 1
                         primaryMarkerID?.goalPlayerID = Int(fourthFileContentsParsed[i][count])!; count += 1

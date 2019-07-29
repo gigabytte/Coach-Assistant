@@ -22,7 +22,7 @@ class New_Game_Tutorial_Menu_Options_View_Controller: UIViewController {
         
         
     }
-    /*
+    
     override func viewDidAppear(_ animated: Bool) {
         if (imageView != nil){
             if toggle != true{
@@ -49,13 +49,13 @@ class New_Game_Tutorial_Menu_Options_View_Controller: UIViewController {
     func gifProcessing(){
      
         imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.gifView.frame.width, height: self.gifView.frame.height))
-        imageView.animate(withGIFNamed: universalValue().faceoffGif) {
+        imageView.animate(withGIFNamed: universalValue().newGameSettingsGif) {
             
         }
         imageView.layer.cornerRadius = 10
         gifView.addSubview(imageView)
         imageView.startAnimating()
  
-    }*/
+    }
  
 }
