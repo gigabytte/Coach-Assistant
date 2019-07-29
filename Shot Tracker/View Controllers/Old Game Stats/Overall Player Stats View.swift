@@ -19,6 +19,8 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var playerSatsTable: UITableView!
     @IBOutlet weak var goalieStatsTable: UITableView!
     @IBOutlet weak var teamRecordLabel: UILabel!
+    @IBOutlet weak var teamStatTableView: UITableView!
+    @IBOutlet weak var helpButton: UIButton!
     
     var homePlayerStatsArray: [[String]] = [[String]]()
     var homePlayerNames: [String] = [String]()
@@ -28,7 +30,13 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     var homePlayerIDs: [Int] = [Int]()
     var goalieIDArray: [Int] = [Int]()
     var lineIDArray: [Int] = [Int]()
+    var teamStatsArray: [String] = [String]()
+    var teamStatsAvgArray: [[Int]] = [[], [], [], [], [],[]]
+    var gameIDArray: [Int] = [Int]()
+    var lastGoalArray: [String] = [String]()
+    
     var homeTeamID :Int = UserDefaults.standard.integer(forKey: "overallStatsTeamID")
+    var teamName: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,16 +56,21 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
         playerNameFetch()
         goalieNameFetch()
         recordLabelProcessing()
+        teamStatsProcessing()
         playerStatsProcessing()
         goalieStatsProcessing()
         
         playerSatsTable.layer.cornerRadius = 10
         goalieStatsTable.layer.cornerRadius = 10
-       
+        teamStatTableView.layer.cornerRadius = 10
+        
+        //  table view delegate linker
         playerSatsTable.dataSource = self
         playerSatsTable.delegate = self
         goalieStatsTable.dataSource = self
         goalieStatsTable.delegate = self
+        teamStatTableView.dataSource = self
+        teamStatTableView.delegate = self
         
      
     }
@@ -104,13 +117,97 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
     
     func recordLabelProcessing(){
         
-        let teamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}))[0]
+        teamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", homeTeamID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}))[0]
         let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true AND activeGameStatus == false", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true AND activeGameStatus == false", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true AND activeGameStatus == false", homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         
-        teamRecordLabel.text = "\(teamName)'s Record W:\(String(homeTeamWinCount))-L:\(String(homeTeamLooseCount))-T:\(String(homeTeamTieCount))"
+        teamRecordLabel.text = "\(teamName!)'s Record W:\(String(homeTeamWinCount))-L:\(String(homeTeamLooseCount))-T:\(String(homeTeamTieCount))"
     }
+    
+    func teamStatsProcessing(){
+        
+        gameIDArray = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i OR opposingTeamID == %i AND activeState == true", homeTeamID, homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}))
+        
+        for x in 0..<gameIDArray.count{
+            
+            // --------------------- GFA (Goals FOr home team) -----------------------------------
+            let goalsFor = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", gameIDArray[x], homeTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[0].append(goalsFor)
+            
+            // -------------------- SFA (Shots for home team) ------------------------------------
+            let shotsFor =  ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", gameIDArray[x], homeTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[1].append(shotsFor)
+            // --------------------  GAA (Goals against for home team) -------------------------------
+            let goalsAgainst = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID != %i AND activeState == true", gameIDArray[x], homeTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[2].append(goalsAgainst)
+            // --------------------  SAA (Shots against for home team) -------------------------------
+            let shotsAgainst = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID != %i AND activeState == true", gameIDArray[x], homeTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[3].append(shotsAgainst)
+            // ------------------- PPGA (Power Power Play Goals for home team) ------------------------
+            let powerPlayGoals = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND powerPlay == true AND activeState == true", gameIDArray[x], homeTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[4].append(powerPlayGoals)
+            
+            // ------------------- PPP (Power Power Play Goals for home team) ------------------------
+            let numPowerPlays = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID != %i AND activeState == true", gameIDArray[x], homeTeamID)).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
+            
+            let powerPlayPer = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND powerPlay == true AND activeState == true", gameIDArray[x], homeTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            if (powerPlayPer != 0){
+                let powerPlayAVG = numPowerPlays / powerPlayPer
+                teamStatsAvgArray[5].append(powerPlayAVG)
+            }else{
+                teamStatsAvgArray[5].append(0)
+            }
+            
+            
+        }
+        // computer avg based on data set in 2d teamStatsAvgArray arrary
+        // PPP STATS GEN
+        let pppAVG = teamStatsAvgArray[5].reduce(.zero, +)
+        if pppAVG != 0 {
+            teamStatsArray.append("PPP: " + String(pppAVG / teamStatsAvgArray[5].count) + "%")
+        }else{
+            teamStatsArray.append("PPP: 0%")
+        }
+        // PPGA STATS GEN
+        let ppgaAVG = teamStatsAvgArray[4].reduce(.zero, +)
+        if ppgaAVG != 0{
+            teamStatsArray.append("PPGA: " + String(ppgaAVG / teamStatsAvgArray[4].count) + "%")
+        }else{
+            teamStatsArray.append("PPGA: 0%")
+        }
+        // GFA STATS GEN
+        let gfaAVG = teamStatsAvgArray[0].reduce(.zero, +)
+        if gfaAVG != 0{
+            teamStatsArray.append("GFA: " + String(gfaAVG / teamStatsAvgArray[0].count) + "%")
+        }else{
+            teamStatsArray.append("GFA: 0%")
+        }
+        // SFA STATS GEN
+        let sfaAVG = teamStatsAvgArray[1].reduce(.zero, +)
+        if sfaAVG != 0{
+            teamStatsArray.append("SFA: " + String(sfaAVG / teamStatsAvgArray[1].count) + "%")
+        }else{
+            teamStatsArray.append("SFA: 0%")
+        }
+        // GAA STATS GEN
+        let gaaAVG = teamStatsAvgArray[2].reduce(.zero, +)
+        if gaaAVG != 0{
+            teamStatsArray.append("GAA: " + String(gaaAVG / teamStatsAvgArray[2].count) + "%")
+        }else{
+            teamStatsArray.append("GAA: 0%")
+        }
+        // SAA STATS GEN
+        let saaAVG = teamStatsAvgArray[3].reduce(.zero, +)
+        if saaAVG != 0{
+            teamStatsArray.append("SAA: " + String(saaAVG / teamStatsAvgArray[3].count) + "%")
+        }else{
+            teamStatsArray.append("SAA: 0%")
+        }
+       
+        
+    }
+    
     
     func playerStatsProcessing(){
         
@@ -185,19 +282,23 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             
             if (numberOfFaceoffTaken != 0){
                 let faceoffWinPerCalc = numberOfFaceoffWon / numberOfFaceoffTaken
-                homePlayerStatsArray[x].append("Faceoff Win Percentage: \(String(faceoffWinPerCalc))")
+                homePlayerStatsArray[x].append("Faceoff Win Percentage: \(String(faceoffWinPerCalc))%")
             }else{
-                homePlayerStatsArray[x].append("Faceoff Win Percentage: 0")
+                homePlayerStatsArray[x].append("Faceoff Win Percentage: 0%")
             }
             // -------------------------------------------------------------------------------
             
-            /* -------------------------- GMG Game Wining Goals for the Season ----------------
-            let countOfGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i OR opposingTeamID == %i AND activeState == true", homeTeamID, homeTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
-           for y in 0..<countOfGames{
-            
-             let penaltyMinutesAgainstMinor = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "playerID == %i AND gameID == %i AND activeState == true", homePlayerIDs[x], )).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            // -------------------------- GMG Game Wining Goals for the Season ----------------
+            for ID in gameIDArray{
+                lastGoalArray.append(((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", ID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)})).last!)
             }
-            */
+            let count = lastGoalArray.filter({ $0.contains(String(homePlayerIDs[x]))}).count
+            if (count != 0){
+                homePlayerStatsArray[x].append("GMG: " + String(Int(count) / lastGoalArray.count) + "%")
+            }else{
+                homePlayerStatsArray[x].append("GMG: 0%")
+            }
+            
         }
     }
     
@@ -249,15 +350,34 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    @IBAction func helpButton(_ sender: UIButton) {
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Need Some Help?"), message: localizedString().localized(value:"Stats Types\n PPP = PowePlay Percent Sucessful For\n PPGA = PowerPlay Goals Avg For\n GFA = Goals for Avg\n SFA = Shots For Avg\n GAA = Goals Against Avg\n SAA = Shot Against Avg\n GMG = Game Winning Goal %"), preferredStyle: .actionSheet)
+        
+        // tapp anywhere outside of popup alert controller
+        let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+            print("didPress Cancel")
+        })
+        // Add the actions to your actionSheet
+        actionSheet.addAction(cancelAction)
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: helpButton.frame.origin.x, y: helpButton.frame.origin.y, width: helpButton.frame.width / 2, height: helpButton.frame.height)
+            
+        }
+        // Present the controller
+        self.present(actionSheet, animated: true, completion: nil)
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
         if (tableView == playerSatsTable){
             
             return("Overall Player Stats")
-        }else{
+        }else if (tableView == goalieStatsTable){
             
             return("Overall Goalie Stats")
+        }else{
+            return("Overall Team Stats")
         }
     }
     // Returns count of items in tableView
@@ -265,8 +385,10 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
         
         if (tableView == playerSatsTable){
             return(homePlayerIDs.count)
-        }else {
+        }else if (tableView == goalieStatsTable){
             return(goalieIDArray.count)
+        }else{
+            return(1)
         }
     }
     //Assign values for tableView
@@ -297,10 +419,17 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
                 count = count  + 1
                 cell.playerPIMIMageView.isHidden = false
             }
-             cell.faceoffWinPer?.text = self.homePlayerStatsArray[indexPath.row][count];
+             cell.faceoffWinPer?.text = self.homePlayerStatsArray[indexPath.row][count];count = count  + 1
+            if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+                cell.gmgLabel?.text = self.homePlayerStatsArray[indexPath.row][count];
+                cell.gmgProLabel.isHidden = true
+            }else{
+                cell.gmgProLabel.isHidden = false
+            }
+            
             return cell
             
-        }else {
+        }else if (tableView == goalieStatsTable){
            
             let cell:customOverallStatsCell = self.goalieStatsTable.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customOverallStatsCell
             cell.goalieNameLabel!.text = homeGoalieNames[indexPath.row]
@@ -316,6 +445,24 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             }
             return cell
             
+        }else{
+            let cell:customTeamStatsCell = self.teamStatTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customTeamStatsCell
+            cell.teamNameLabel!.text = "\(teamName!)'s stats"
+            if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+                cell.pppLabel!.text = teamStatsArray[0]
+                cell.ppgaLabel!.text = teamStatsArray[1]
+                cell.pppProImage.isHidden = true
+                cell.ppgaProImage.isHidden = true
+            }else{
+                cell.pppProImage.isHidden = false
+                cell.ppgaProImage.isHidden = false
+            }
+            cell.gfaLabel!.text = teamStatsArray[2]
+            cell.sfaLabel!.text = teamStatsArray[3]
+            cell.gaaLabel!.text = teamStatsArray[4]
+            cell.saaLabel!.text = teamStatsArray[5]
+            
+            return cell
         }
     }
     

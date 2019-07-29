@@ -22,6 +22,7 @@ class customOverallStatsCell: UITableViewCell {
     @IBOutlet weak var goalieSavePerBottomLeftLabel: UILabel!
     @IBOutlet weak var goalieSavePerBottomRightLabel: UILabel!
     @IBOutlet weak var goalieSavePerCenterLabel: UILabel!
+    @IBOutlet weak var gmgLabel: UILabel!
     
     // refrence to labels used for goalie stats
     @IBOutlet weak var playerGoalCountLabel: UILabel!
@@ -35,6 +36,7 @@ class customOverallStatsCell: UITableViewCell {
     @IBOutlet weak var playerPIMIMageView: UIImageView!
     @IBOutlet weak var goalieLocationSavePerImageView: UIImageView!
     @IBOutlet weak var faceoffWinPer: UILabel!
+    @IBOutlet weak var gmgProLabel: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

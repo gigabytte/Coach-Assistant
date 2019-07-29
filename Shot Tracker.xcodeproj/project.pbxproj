@@ -83,6 +83,7 @@
 		BEB71900220A192B00DA6399 /* Basic_Current_Stats_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */; };
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
 		BEBB0676227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */; };
+		BECD070922EF9200004A808D /* customTeamStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECD070822EF9200004A808D /* customTeamStatsCell.swift */; };
 		BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */; };
 		BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BED34AE7228863B200791B95 /* GoogleService-Info.plist */; };
 		BED5478F22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5478E22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift */; };
@@ -220,6 +221,7 @@
 		BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basic_Current_Stats_Page.swift; sourceTree = "<group>"; };
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
 		BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_More_Info_View_Controller.swift; sourceTree = "<group>"; };
+		BECD070822EF9200004A808D /* customTeamStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTeamStatsCell.swift; sourceTree = "<group>"; };
 		BECF547B2288F08400710519 /* Help_Guide_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help_Guide_View_Controller.swift; sourceTree = "<group>"; };
 		BED34AE7228863B200791B95 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BED5478E22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Tutorial Menu Options View Controller.swift"; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 			children = (
 				BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */,
 				BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */,
+				BECD070822EF9200004A808D /* customTeamStatsCell.swift */,
 				BE12DE61228744B80071BC17 /* customSettingCell.swift */,
 			);
 			path = "Custom Classes";
@@ -819,6 +822,7 @@
 				BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */,
 				BED5478F22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift in Sources */,
 				BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */,
+				BECD070922EF9200004A808D /* customTeamStatsCell.swift in Sources */,
 				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE83904821F660DB00D02C0B /* New Game Table.swift in Sources */,
 				BE92E0212274E1AB00B95209 /* Penalty_Popup_View_Controller.swift in Sources */,
