@@ -356,8 +356,6 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let popupVC = storyboard.instantiateViewController(withIdentifier: "Penalty_Popup_Info_VC") as! Penalty_Info_View_Controller
             
-           
-            
             popupVC.modalPresentationStyle = .overCurrentContext
             popupVC.modalTransitionStyle = .crossDissolve
             let pVC = popupVC.popoverPresentationController
@@ -367,7 +365,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
              popupVC.againstTeamID = opposingTeamID
             
             present(popupVC, animated: true, completion: nil)
-            print("Help Guide Presented!")
+            print("Penalty Info VC Presented!")
         }
         
     }

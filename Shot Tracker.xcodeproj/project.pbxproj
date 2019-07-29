@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		6A41063EAC8E5809883AFEAF /* Pods_Shot_TrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */; };
 		94591E74093479D23B50C5C9 /* Pods_Shot_TrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */; };
+		BE059DB822EF451B00AEC3C4 /* new_game_settings_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE059DB722EF451B00AEC3C4 /* new_game_settings_gif.gif */; };
+		BE059DBA22EF452400AEC3C4 /* old_stats_analytical_view_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE059DB922EF452400AEC3C4 /* old_stats_analytical_view_gif.gif */; };
+		BE059DBC22EF452B00AEC3C4 /* old_stats_change_goalie_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE059DBB22EF452A00AEC3C4 /* old_stats_change_goalie_gif.gif */; };
+		BE059DBE22EF453000AEC3C4 /* old_stats_marker_details_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE059DBD22EF453000AEC3C4 /* old_stats_marker_details_gif.gif */; };
 		BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */; };
 		BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */; };
 		BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B752201576B0018E434 /* Team_Selection_View.swift */; };
@@ -133,6 +137,10 @@
 		8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shot_TrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shot_TrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66ACACA2323B38B3C25CBEE /* Pods-Shot TrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerUITests.release.xcconfig"; path = "Target Support Files/Pods-Shot TrackerUITests/Pods-Shot TrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BE059DB722EF451B00AEC3C4 /* new_game_settings_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = new_game_settings_gif.gif; sourceTree = "<group>"; };
+		BE059DB922EF452400AEC3C4 /* old_stats_analytical_view_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = old_stats_analytical_view_gif.gif; sourceTree = "<group>"; };
+		BE059DBB22EF452A00AEC3C4 /* old_stats_change_goalie_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = old_stats_change_goalie_gif.gif; sourceTree = "<group>"; };
+		BE059DBD22EF453000AEC3C4 /* old_stats_marker_details_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = old_stats_marker_details_gif.gif; sourceTree = "<group>"; };
 		BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_Subscriptions_View_Controller.swift; sourceTree = "<group>"; };
 		BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_Team_Info_Page.swift; sourceTree = "<group>"; };
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
@@ -461,6 +469,10 @@
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
 				BEF2A28B22E543180031901D /* Coach_Assistant_Legal.pdf */,
+				BE059DBD22EF453000AEC3C4 /* old_stats_marker_details_gif.gif */,
+				BE059DBB22EF452A00AEC3C4 /* old_stats_change_goalie_gif.gif */,
+				BE059DB922EF452400AEC3C4 /* old_stats_analytical_view_gif.gif */,
+				BE059DB722EF451B00AEC3C4 /* new_game_settings_gif.gif */,
 				BE5E88F122E691000003B11C /* help_guide_iPad.gif */,
 				BE27918622E6791200CE40EC /* faceoff_gif.gif */,
 				BE27918422E6790D00CE40EC /* penalty_gif.gif */,
@@ -627,8 +639,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE27918122E6790300CE40EC /* goal_gif.gif in Resources */,
+				BE059DBE22EF453000AEC3C4 /* old_stats_marker_details_gif.gif in Resources */,
 				BE27918722E6791200CE40EC /* faceoff_gif.gif in Resources */,
 				BEF2A28C22E543180031901D /* Coach_Assistant_Legal.pdf in Resources */,
+				BE059DBA22EF452400AEC3C4 /* old_stats_analytical_view_gif.gif in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
 				BE57F26D22DB728B001A81F9 /* Localizable.strings in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
@@ -637,7 +651,9 @@
 				BEF2A29022E543870031901D /* help_guide_iPad.pdf in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
 				BE27918522E6790D00CE40EC /* penalty_gif.gif in Resources */,
+				BE059DB822EF451B00AEC3C4 /* new_game_settings_gif.gif in Resources */,
 				BE7D697D21E3D74300C1745C /* Main.storyboard in Resources */,
+				BE059DBC22EF452B00AEC3C4 /* old_stats_change_goalie_gif.gif in Resources */,
 				BE27918322E6790800CE40EC /* shot_gif.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

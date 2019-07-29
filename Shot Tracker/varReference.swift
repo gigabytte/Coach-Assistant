@@ -247,6 +247,18 @@ class universalValue{
     // goal tutorial string
     var penaltyGif: String = "penalty_gif.gif"
     
+    // goal tutorial string
+    var oldStatsChangeGoalieGif: String = "old_stats_change_goalie_gif.gif"
+    
+    // goal tutorial string
+    var oldStatsMarkerDetailsGif: String = "old_stats_marker_details_gif.gif"
+    
+    // goal tutorial string
+    var oldStatsAnalyticalViewGif: String = "old_stats_analytical_view_gif.gif"
+    
+    // goal tutorial string
+    var newGameSettingsGif: String = "new_game_settings_gif.gif"
+    
     // website url for mutipl,e team / player adding
     var websiteURLHelp: String = "https://tinysquaremail.wixsite.com/coachassistant/csv-file-importing"
     

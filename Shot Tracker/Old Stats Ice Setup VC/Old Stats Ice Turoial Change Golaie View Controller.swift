@@ -56,7 +56,7 @@ class Old_Stats_Ice_Turoial_Change_Golaie_View_Controller: UIViewController {
     func gifProcessing(){
         
         imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.gifView.frame.width, height: self.gifView.frame.height))
-        imageView.animate(withGIFNamed: universalValue().shotGif) {
+        imageView.animate(withGIFNamed: universalValue().oldStatsChangeGoalieGif) {
             
         }
         //imageView.layer.cornerRadius = 10

@@ -346,6 +346,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         var tempgameID: [String] = [String]()
         var tempgoalType: [String] = [String]()
         var temppowerPlay: [String] = [String]()
+        var temppowerPlayID: [String] = [String]()
         var tempTeamID: [String] = [String]()
         var tempgoalieID: [String] = [String]()
         var tempgoalPlayerID: [String] = [String]()
@@ -363,6 +364,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             let gameID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.gameID
             let goalType = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalType
             let powerPlay = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.powerPlay
+            let powerPlayID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.powerPlayID
             let TeamID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.TeamID
             let goalieID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalieID
             let goalPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalPlayerID
@@ -376,6 +378,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             tempgameID.append(String(gameID))
             tempgoalType.append(goalType)
             temppowerPlay.append(String(powerPlay))
+            temppowerPlayID.append(String(powerPlayID))
             tempTeamID.append(String(TeamID))
             tempgoalieID.append(String(goalieID))
             tempgoalPlayerID.append(String(goalPlayerID))
@@ -390,12 +393,13 @@ final class Settings_Backup_View_Controller: UIViewController {
         }
         
         let fileName = "Realm_Goal_Marker_Table" + ".csv"
-        var csvText = "gameID,goalType,powerPlay,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        var csvText = "gameID,goalType,powerPlay,powerPlayID,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<goalMarkerIDCount{
             
             let gameIDVar = tempgameID[x]
             let goalTypeVar = tempgoalType[x]
             let powerPlayVar = temppowerPlay[x]
+            let powerPlayIDVar = temppowerPlayID[x]
             let teamIDVar = tempTeamID[x]
             let goalieIDVar = tempgoalieID[x]
             let goalPlayerIDVar = tempgoalPlayerID[x]
@@ -407,7 +411,7 @@ final class Settings_Backup_View_Controller: UIViewController {
             let shotLocationVar = tempshotLocation[x]
             let activeStateVar = tempactiveState[x]
             
-            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar +
+            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + powerPlayIDVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar +
                 "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
  
             csvText.append(newLine)

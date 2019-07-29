@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 class customSettingCell: UITableViewCell {
     
     @IBOutlet weak var settingsLabel: UILabel?

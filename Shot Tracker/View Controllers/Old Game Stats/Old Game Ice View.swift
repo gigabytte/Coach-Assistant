@@ -497,105 +497,59 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         }
     }
     func home_markerPlacement(markerType: UIImage){
-        if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false || goal_markerProcessing().away_xCordsForPlacementGoal.isEmpty == false || peanlty_markerProcessing().home_xCordsForPlacementPenalty.isEmpty == false){
+        if (shot_markerProcessing().home_xCordsForPlacementShot.isEmpty == false){
             // check markerType image value
-            if(markerType == homeTeamShotMakerImage) {
-                for i in 0..<shot_markerProcessing().home_xCordsForPlacementShot.count{
-                    let imageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().home_xCordsForPlacementShot[i])! - universalValue().markerCenterX, y: Int(shot_markerProcessing().home_yCordsForPlacementShot[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
-                    imageView.contentMode = .scaleAspectFill;
-                    imageView.image = markerType;
-                    view.addSubview(imageView);
-                    imageView.tag = tagCounter
-                    imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
-                    // check Tap gestuires for a single tap
-                    let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped(sender:)));
-                    // number of taps require 1
-                    singleShotTap.numberOfTapsRequired = 1
-                    imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleShotTap)
-                    tagCounter += 1
-                    print("home marker placved")
+                if(markerType == homeTeamShotMakerImage) {
+                    
+                    for i in 0..<shot_markerProcessing().home_xCordsForPlacementShot.count{
+                        let imageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().home_xCordsForPlacementShot[i])! - universalValue().markerCenterX, y: Int(shot_markerProcessing().home_yCordsForPlacementShot[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
+                        imageView.contentMode = .scaleAspectFill;
+                        imageView.image = markerType;
+                        view.addSubview(imageView);
+                        imageView.tag = tagCounter
+                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        // check Tap gestuires for a single tap
+                        let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped(sender:)));
+                        // number of taps require 1
+                        singleShotTap.numberOfTapsRequired = 1
+                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleShotTap)
+                        tagCounter += 1
+                        
+                    }
                 }
+            }else{
+                print("No Home Shot Marker Cords Found on Load")
+                
             }
-            if(markerType == homeTeamGoalMakerImage) {
-                for i in 0..<goal_markerProcessing().home_xCordsForPlacementGoal.count{
-                    let imageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().home_xCordsForPlacementGoal[i])! - universalValue().markerCenterX, y: Int(goal_markerProcessing().home_yCordsForPlacementGoal[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
-                    imageView.contentMode = .scaleAspectFill;
-                    imageView.image = markerType;
-                    view.addSubview(imageView);
-                    imageView.tag = tagCounter
-                    imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
-                    // check Tap gestuires for a single tap
-                    let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped(sender:)));
-                    // number of taps require 1
-                    singleGoalTap.numberOfTapsRequired = 1
-                    imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleGoalTap)
-                    tagCounter += 1
+            if goal_markerProcessing().home_xCordsForPlacementGoal.isEmpty == false {
+                if(markerType == homeTeamGoalMakerImage) {
+                    
+                    for i in 0..<goal_markerProcessing().home_xCordsForPlacementGoal.count{
+                        
+                        let imageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().home_xCordsForPlacementGoal[i])! - universalValue().markerCenterX, y: Int(goal_markerProcessing().home_yCordsForPlacementGoal[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
+                        imageView.contentMode = .scaleAspectFill;
+                        imageView.image = markerType;
+                        view.addSubview(imageView);
+                        imageView.tag = tagCounter
+                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        // check Tap gestuires for a single tap
+                        let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped(sender:)));
+                        // number of taps require 1
+                        singleGoalTap.numberOfTapsRequired = 1
+                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleGoalTap)
+                        tagCounter += 1
+                    }
                 }
+            }else{
+                print("No Home Goal Marker Cords Found on Load")
+                
             }
+        if peanlty_markerProcessing().home_xCordsForPlacementPenalty.isEmpty == false {
             // placement of home penalty marker
             if(markerType == homeTeamPenaltyMarkerImage) {
+                
                 for i in 0..<peanlty_markerProcessing().home_xCordsForPlacementPenalty.count{
                     let imageView = UIImageView(frame: CGRect(x: Int(peanlty_markerProcessing().home_xCordsForPlacementPenalty[i])! - universalValue().markerCenterX, y: Int(peanlty_markerProcessing().home_yCordsForPlacementPenalty[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
-                    imageView.contentMode = .scaleAspectFill;
-                    imageView.image = markerType;
-                    view.addSubview(imageView);
-                    imageView.tag = tagCounter
-                    imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
-                    // check Tap gestuires for a single tap
-                    let singlePeanltyTap = UITapGestureRecognizer(target: self, action: #selector(singlePenaltyMarkerTapped(sender:)));
-                    // number of taps require 1
-                    singlePeanltyTap.numberOfTapsRequired = 1
-                    imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singlePeanltyTap)
-                    tagCounter += 1
-                }
-            }
-        }else{
-            // print error id not cord data present in arrays
-            //should only error out if user hasnt submittte any marker data to realm
-            print("No Home Marker Cords Found on Load")
-        }
-    }
-    func away_markerPlacement(markerType: UIImage){
-        if (shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false || goal_markerProcessing().away_xCordsForPlacementGoal.isEmpty == false || peanlty_markerProcessing().away_xCordsForPlacementPenalty.isEmpty == false){
-            // check markerType image value
-            print("away shot")
-            if(markerType == awayTeamShotMarkerImage) {
-                
-                for i in 0..<shot_markerProcessing().away_xCordsForPlacementShot.count{
-                    let imageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().away_xCordsForPlacementShot[i])! - universalValue().markerCenterX, y: Int(shot_markerProcessing().away_yCordsForPlacementShot[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
-                    imageView.contentMode = .scaleAspectFill;
-                    imageView.image = markerType;
-                    view.addSubview(imageView);
-                    imageView.tag = tagCounter
-                    imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
-                    // check Tap gestuires for a single tap
-                    let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped(sender:)));
-                    // number of taps require 1
-                    singleShotTap.numberOfTapsRequired = 1
-                    imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleShotTap)
-                    tagCounter += 1
-                }
-            }
-            if(markerType == awayTeamGoalMarkerImage) {
-                for i in 0..<goal_markerProcessing().away_xCordsForPlacementGoal.count{
-                    let imageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().away_xCordsForPlacementGoal[i])! - universalValue().markerCenterX, y: Int(goal_markerProcessing().away_yCordsForPlacementGoal[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
-                    imageView.contentMode = .scaleAspectFill;
-                    imageView.image = markerType;
-                    view.addSubview(imageView);
-                    imageView.tag = tagCounter
-                    imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
-                    // check Tap gestuires for a single tap
-                    let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped(sender:)));
-                    // number of taps require 1
-                    singleGoalTap.numberOfTapsRequired = 1
-                    imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleGoalTap)
-                    tagCounter += 1
-                }
-            }
-            // placement of home penalty marker
-            if(markerType == awayTeamPenaltyMarkerImage) {
-                for i in 0..<peanlty_markerProcessing().away_xCordsForPlacementPenalty.count{
-                    let imageView = UIImageView(frame: CGRect(x: Int(peanlty_markerProcessing().away_xCordsForPlacementPenalty[i])! - universalValue().markerCenterX, y: Int(peanlty_markerProcessing().away_yCordsForPlacementPenalty[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
                     imageView.image = markerType;
                     view.addSubview(imageView);
@@ -613,7 +567,77 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         }else{
             // print error id not cord data present in arrays
             //should only error out if user hasnt submittte any marker data to realm
-            print("No Away Marker Cords Found on Load")
+            print("No Home Penalty Marker Cords Found on Load")
+        }
+    }
+    func away_markerPlacement(markerType: UIImage){
+        if shot_markerProcessing().away_xCordsForPlacementShot.isEmpty == false {
+            // check markerType image value
+            print("away shot")
+                if(markerType == awayTeamShotMarkerImage) {
+                    
+                    for i in 0..<shot_markerProcessing().away_xCordsForPlacementShot.count{
+                        let imageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().away_xCordsForPlacementShot[i])! - universalValue().markerCenterX, y: Int(shot_markerProcessing().away_yCordsForPlacementShot[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
+                        imageView.contentMode = .scaleAspectFill;
+                        imageView.image = markerType;
+                        view.addSubview(imageView);
+                        imageView.tag = tagCounter
+                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        // check Tap gestuires for a single tap
+                        let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped(sender:)));
+                        // number of taps require 1
+                        singleShotTap.numberOfTapsRequired = 1
+                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleShotTap)
+                        tagCounter += 1
+                    }
+                }
+            }else{
+                print("No Away Shot Marker Cords Found on Load")
+            }
+            if goal_markerProcessing().away_xCordsForPlacementGoal.isEmpty == false  {
+                if(markerType == awayTeamGoalMarkerImage) {
+                    for i in 0..<goal_markerProcessing().away_xCordsForPlacementGoal.count{
+                        let imageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().away_xCordsForPlacementGoal[i])! - universalValue().markerCenterX, y: Int(goal_markerProcessing().away_yCordsForPlacementGoal[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
+                        imageView.contentMode = .scaleAspectFill;
+                        imageView.image = markerType;
+                        view.addSubview(imageView);
+                        imageView.tag = tagCounter
+                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        // check Tap gestuires for a single tap
+                        let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped(sender:)));
+                        // number of taps require 1
+                        singleGoalTap.numberOfTapsRequired = 1
+                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleGoalTap)
+                        tagCounter += 1
+                    }
+                }
+            }else{
+                print("No Away Goal Marker Cords Found on Load")
+                
+            }
+            if peanlty_markerProcessing().away_xCordsForPlacementPenalty.isEmpty == false {
+            // placement of home penalty marker
+                if(markerType == awayTeamPenaltyMarkerImage) {
+                    for i in 0..<peanlty_markerProcessing().away_xCordsForPlacementPenalty.count{
+                        let imageView = UIImageView(frame: CGRect(x: Int(peanlty_markerProcessing().away_xCordsForPlacementPenalty[i])! - universalValue().markerCenterX, y: Int(peanlty_markerProcessing().away_yCordsForPlacementPenalty[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
+                        imageView.contentMode = .scaleAspectFill;
+                        imageView.image = markerType;
+                        view.addSubview(imageView);
+                        imageView.tag = tagCounter
+                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        // check Tap gestuires for a single tap
+                        let singlePeanltyTap = UITapGestureRecognizer(target: self, action: #selector(singlePenaltyMarkerTapped(sender:)));
+                        // number of taps require 1
+                        singlePeanltyTap.numberOfTapsRequired = 1
+                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singlePeanltyTap)
+                        tagCounter += 1
+                    }
+                }
+            
+        }else{
+            // print error id not cord data present in arrays
+            //should only error out if user hasnt submittte any marker data to realm
+            print("No Away PEnalty Marker Cords Found on Load")
         }
     }
     

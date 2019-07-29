@@ -118,7 +118,7 @@ class Penalty_Info_View_Controller: UIViewController, UIPickerViewDelegate, UIPi
     
     
     //-------------------------------------------------------------------------------
-    // Picker View Functions for Home and Away Team Picking
+    // Picker View Functions for Penalty Event Picking
     // Number of columns of data
     func numberOfComponents(in homeTeamPickerView: UIPickerView) -> Int  {
         return 1;
