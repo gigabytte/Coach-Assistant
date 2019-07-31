@@ -258,6 +258,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             pageControl.isHidden = true
             closeTutorialBtn.isHidden = true
             
+            
         }else{
             print("Not first game")
             if (pageControl != nil){
@@ -266,9 +267,10 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             if (tutorialConatiner != nil){
                 tutorialConatiner.removeFromSuperview()
             }
-            if (tutorialConatiner != nil){
-                tutorialConatiner.removeFromSuperview()
+            if (closeTutorialBtn != nil){
+                closeTutorialBtn.removeFromSuperview()
             }
+            //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closeGif"), object: nil, userInfo: ["key":"value"])
         }
         
     }
@@ -807,6 +809,8 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         //remove blur from view
         view.viewWithTag(500)?.removeFromSuperview()
         UserDefaults.standard.set(true, forKey: "firstGameBool")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closeGif"), object: nil, userInfo: ["key":"value"])
+        //dismiss(animated: true, completion: nil)
     }
     
     

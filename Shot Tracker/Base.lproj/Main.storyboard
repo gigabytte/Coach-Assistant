@@ -4028,18 +4028,8 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jT-vG-Wz6">
                                 <rect key="frame" x="205" y="189" width="614" height="422.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GIF COMING SOON!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S31-uk-d5m">
-                                        <rect key="frame" x="172.5" y="193" width="269" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="S31-uk-d5m" firstAttribute="centerX" secondItem="6jT-vG-Wz6" secondAttribute="centerX" id="7UT-TU-8Oo"/>
-                                    <constraint firstItem="S31-uk-d5m" firstAttribute="centerY" secondItem="6jT-vG-Wz6" secondAttribute="centerY" id="L9Z-VU-Rbg"/>
                                     <constraint firstAttribute="width" secondItem="6jT-vG-Wz6" secondAttribute="height" multiplier="4:2.75" id="YQ5-QI-IJL"/>
                                 </constraints>
                             </view>
@@ -4064,7 +4054,7 @@
                         <viewLayoutGuide key="safeArea" id="evH-cA-ZMF"/>
                     </view>
                     <connections>
-                        <outlet property="gifView" destination="6jT-vG-Wz6" id="jyq-cw-XZ5"/>
+                        <outlet property="gifView" destination="6jT-vG-Wz6" id="YRg-bS-Bki"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rno-HN-agv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5490,7 +5480,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="p9k-GG-4VP"/>
         <segue reference="VdZ-aC-tCs"/>
-        <segue reference="uyd-PZ-fI3"/>
+        <segue reference="3Is-IF-SeE"/>
         <segue reference="YVz-TT-Imk"/>
         <segue reference="DbM-eD-pg2"/>
         <segue reference="CQV-MR-jeA"/>

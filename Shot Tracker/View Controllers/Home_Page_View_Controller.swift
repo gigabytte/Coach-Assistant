@@ -37,8 +37,6 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         
         // get Realm Databse file location
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        
-        print("Bundle \(Bundle.main.infoDictionary?["CFBundleIdentifier"])")
 
     }
     

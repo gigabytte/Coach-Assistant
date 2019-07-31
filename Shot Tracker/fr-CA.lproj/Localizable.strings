@@ -1,10 +1,10 @@
-/* 
-  Localizable.strings
-  
-
-  Created by Greg Brooks on 2019-07-14.
-  
-*/
+/*
+ Localizable.strings
+ 
+ 
+ Created by Greg Brooks on 2019-07-14.
+ 
+ */
 "Ongoing Game" = "Jeu en Cours";
 
 "App Data Deletion" = "Suppression des données de l'application";
@@ -21,6 +21,7 @@
 "Continue" = "Continuer";
 "Save" = "Sauver";
 "Settings" = "Réglages";
+"About" = "Information";
 
 
 "You're Missing Out!" = "Vous manquez!";

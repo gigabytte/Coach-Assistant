@@ -164,6 +164,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         if(pickerView == playerLinePicker){
             if(pickerData[row] == "Forward 1"){
                 selectPlayerLine = 1
+                selectPosition = positionCodeData[1]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -172,6 +173,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 
             }else if(pickerData[row] == "Forward 2"){
                 selectPlayerLine = 2
+                selectPosition = positionCodeData[1]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -179,6 +181,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 }, completion: nil)
             }else if(pickerData[row] == "Forward 3"){
                 selectPlayerLine = 3
+                selectPosition = positionCodeData[1]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -186,6 +189,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 }, completion: nil)
             }else if(pickerData[row] == "Defense 1"){
                 selectPlayerLine = 4
+                selectPosition = positionCodeData[3]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -193,6 +197,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 }, completion: nil)
             }else if(pickerData[row] == "Defense 2"){
                 selectPlayerLine = 5
+                selectPosition = positionCodeData[3]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -200,6 +205,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 }, completion: nil)
             }else if(pickerData[row] == "Defense 3"){
                 selectPlayerLine = 6
+                selectPosition = positionCodeData[3]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -207,6 +213,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 }, completion: nil)
             }else{
                 selectPlayerLine = 0
+                selectPosition = positionCodeData[5]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {

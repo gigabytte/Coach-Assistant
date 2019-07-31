@@ -2,7 +2,7 @@
  
  French Canada Localization strings
  
-*/
+ */
 
 
 /* Class = "UILabel"; text = "Stats Record"; ObjectID = "02S-0W-Yfz"; */
@@ -237,7 +237,7 @@
 "PIo-T0-l8E.text" = "# But, Filet:";
 
 /* Class = "UIButton"; normalTitle = "New Game"; ObjectID = "PQZ-W1-2q7"; */
-"PQZ-W1-2q7.normalTitle" = "Nouveau Game";
+"PQZ-W1-2q7.normalTitle" = "Nouveau Jeu";
 
 /* Class = "UILabel"; text = "Pick the Player's Position"; ObjectID = "Pl0-gf-YfY"; */
 "Pl0-gf-YfY.text" = "Choisissez la position du joueur";
@@ -656,6 +656,18 @@
 "1Ul-pj-uY8.text" = "Sélection de gardien de but";
 
 "JPU-Fm-LxN.text" = "Appuyez sur le logo de l’entraîneur adjoint pour changer le gardien de but sélectionné";
+
+"6BN-tv-9D8.text" = "Basculer la vue analytique";
+
+"L1O-4u-iks.text" = "Appuyez longuement sur le logo de Coach Assistant pour afficher la ventilation analytique";
+
+"mjv-NT-fF8.text" = "Plongez plus profondément dans vos statistiques";
+
+"al4-Px-1ck.text" = "Appuyez sur l'un des marqueurs pour plus d'informations sur la lecture suivante";
+
+"1Ul-pj-uY8.text" = "Sélection de gardien de but";
+
+"JPU-Fm-LxN.text" = "Appuyez sur le logo de Coach Assistant pour changer le gardien de but sélectionné";
 
 "6BN-tv-9D8.text" = "Basculer la vue analytique";
 

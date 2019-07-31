@@ -21,7 +21,8 @@ class Settings_About_View_Controller: UIViewController {
         }
         AppUpdater.shared.showUpdate(withConfirmation: false)
         
-        self.appStoreVersionNumberLabel.text = "Version #\(UserDefaults.standard.string(forKey: "versionNumber")!)"
+        //self.appStoreVersionNumberLabel.text = "Version #\(UserDefaults.standard.string(forKey: "versionNumber")!)"
+        appStoreVersionNumberLabel.isHidden = true
         
         
     }
@@ -72,6 +73,7 @@ class Settings_About_View_Controller: UIViewController {
         private func getAppInfo(completion: @escaping (AppInfo?, Error?) -> Void) -> URLSessionDataTask? {
             guard let identifier = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String,
                 let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(identifier)") else {
+                    
                     DispatchQueue.main.async {
                         completion(nil, VersionError.invalidBundleInfo)
                     }
@@ -89,9 +91,12 @@ class Settings_About_View_Controller: UIViewController {
                     completion(nil, error)
                 }
             }
+            print(url)
             task.resume()
             return task
+            
         }
+        
     }
     
     
