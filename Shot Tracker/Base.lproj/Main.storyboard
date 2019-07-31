@@ -4997,6 +4997,12 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version #" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeL-9T-zf3">
+                                        <rect key="frame" x="310" y="195" width="125" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -5005,6 +5011,8 @@
                                     <constraint firstItem="jiQ-V2-aTT" firstAttribute="top" secondItem="RJD-PR-gnS" secondAttribute="bottom" constant="50" id="hDZ-dc-0Mp"/>
                                     <constraint firstItem="RJD-PR-gnS" firstAttribute="top" secondItem="UOt-Z5-BIh" secondAttribute="top" constant="25" id="iEW-Ww-JHV"/>
                                     <constraint firstItem="l8E-Ig-NKg" firstAttribute="bottom" secondItem="UOt-Z5-BIh" secondAttribute="bottom" constant="-5" id="k1R-K7-Dop"/>
+                                    <constraint firstItem="JeL-9T-zf3" firstAttribute="centerX" secondItem="UOt-Z5-BIh" secondAttribute="centerX" id="uAC-I5-Ss1"/>
+                                    <constraint firstItem="JeL-9T-zf3" firstAttribute="top" secondItem="jiQ-V2-aTT" secondAttribute="bottom" constant="30" id="y0W-zj-uO3"/>
                                     <constraint firstItem="jiQ-V2-aTT" firstAttribute="centerX" secondItem="UOt-Z5-BIh" secondAttribute="centerX" id="zMq-pj-d4T"/>
                                 </constraints>
                             </view>
@@ -5023,7 +5031,8 @@
                         <viewLayoutGuide key="safeArea" id="F5U-DD-Dqp"/>
                     </view>
                     <connections>
-                        <outlet property="versionNumberLabel" destination="jiQ-V2-aTT" id="HCy-NG-XFq"/>
+                        <outlet property="appStoreVersionNumberLabel" destination="jiQ-V2-aTT" id="82h-HV-RHW"/>
+                        <outlet property="internalVersionNumberLabel" destination="JeL-9T-zf3" id="Ep8-HR-cpL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P9A-Q2-lhx" userLabel="First Responder" sceneMemberID="firstResponder"/>
