@@ -329,10 +329,10 @@
 			children = (
 				BE7D697721E3D74300C1745C /* AppDelegate.swift */,
 				BE7D697921E3D74300C1745C /* Home_Page_View_Controller.swift */,
-				BED5479022E89FB4002AA13B /* Old Stats Ice Setup VC */,
 				BE235BD822E37934002BFDC2 /* New Game Setup VC */,
 				BE089F5522BFE46000FAED6F /* New Game */,
 				BE089F5422BFE42200FAED6F /* Old Game Stats */,
+				BED5479022E89FB4002AA13B /* Old Stats Ice Setup VC */,
 				BE089F5322BFE40000FAED6F /* Game Stats VC */,
 				BE089F5222BFE3BD00FAED6F /* Team Player Editing Adding */,
 				BE089F4C22BFE30200FAED6F /* Initial Setup */,

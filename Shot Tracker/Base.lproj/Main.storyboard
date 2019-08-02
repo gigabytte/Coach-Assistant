@@ -2015,6 +2015,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4t-eZ-cww">
+                                        <rect key="frame" x="521.5" y="280.5" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="pue-SB-sJB"/>
+                                            <constraint firstAttribute="width" constant="25" id="uVj-4W-cQj"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="about_icon"/>
+                                        <connections>
+                                            <action selector="visitWebsiteButton:" destination="Wvb-9Q-V4V" eventType="touchUpInside" id="LHN-Od-I6S"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2024,7 +2035,9 @@
                                     <constraint firstItem="U94-Qa-rZ2" firstAttribute="top" secondItem="bSw-yw-dBJ" secondAttribute="bottom" constant="100" id="EcB-k7-r2y"/>
                                     <constraint firstItem="jHW-qb-WnI" firstAttribute="top" secondItem="w7C-V1-XrN" secondAttribute="bottom" id="HuO-Va-p6V"/>
                                     <constraint firstItem="CPw-7d-EOH" firstAttribute="trailing" secondItem="jHW-qb-WnI" secondAttribute="leading" constant="-10" id="KUB-QZ-CnY"/>
+                                    <constraint firstItem="D4t-eZ-cww" firstAttribute="centerY" secondItem="bSw-yw-dBJ" secondAttribute="centerY" id="OUk-Y5-wG9"/>
                                     <constraint firstItem="w7C-V1-XrN" firstAttribute="leading" secondItem="5sh-6F-l2X" secondAttribute="leading" constant="50" id="PAd-IE-r97"/>
+                                    <constraint firstItem="D4t-eZ-cww" firstAttribute="leading" secondItem="bSw-yw-dBJ" secondAttribute="trailing" constant="10" id="Zdi-T0-5FY"/>
                                     <constraint firstItem="bSw-yw-dBJ" firstAttribute="centerX" secondItem="5sh-6F-l2X" secondAttribute="centerX" id="g4A-6W-Xbr"/>
                                     <constraint firstItem="jHW-qb-WnI" firstAttribute="trailing" secondItem="5sh-6F-l2X" secondAttribute="trailing" constant="-25" id="kTo-Nv-H9t"/>
                                     <constraint firstItem="b3b-5s-nbl" firstAttribute="top" secondItem="5sh-6F-l2X" secondAttribute="top" constant="150" id="mau-hZ-AUa"/>
@@ -2054,6 +2067,7 @@
                         <outlet property="icloudExportLabel" destination="CPw-7d-EOH" id="ixT-ZG-5Zp"/>
                         <outlet property="icloudToggleSwitch" destination="jHW-qb-WnI" id="hTp-Qi-kFt"/>
                         <outlet property="importCVSButton" destination="bSw-yw-dBJ" id="XlV-4X-WUe"/>
+                        <outlet property="visitWebsiteButton" destination="D4t-eZ-cww" id="LaH-z1-Cai"/>
                         <outlet property="wipeDataButton" destination="U94-Qa-rZ2" id="3zw-8R-SI1"/>
                         <segue destination="oAD-on-ycU" kind="presentation" identifier="importPopUpSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="CQV-MR-jeA"/>
                     </connections>
@@ -4770,7 +4784,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIngle Tap on the Coach Assistant Logo to Change the Selected Goalie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPU-Fm-LxN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Single Tap on the Coach Assistant Logo to Change the Selected Goalie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPU-Fm-LxN">
                                 <rect key="frame" x="242" y="630.5" width="540" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -4866,7 +4880,7 @@
                                     <constraint firstAttribute="width" secondItem="ppV-ef-mLl" secondAttribute="height" multiplier="4:2.75" id="xoF-am-v3b"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on any of the Markers for More Info on the Following Play" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="al4-Px-1ck">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on any of the Markers for More Info on the Following Play" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="al4-Px-1ck">
                                 <rect key="frame" x="279" y="630.5" width="466" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -4922,7 +4936,7 @@
                                     <constraint firstAttribute="height" constant="248" id="sqa-3J-hq5"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beta Build" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wum-1F-afJ">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beta Build" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wum-1F-afJ">
                                 <rect key="frame" x="908" y="25" width="96" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -89,7 +89,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         // default home team and away team selection
         let homeTeamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == %@", selectedHomeTeamKey, NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})).first
-        defaultHomeTeamLabel.text = "\(homeTeamName!) Vs"
+        defaultHomeTeamLabel.text = "\(homeTeamName!) vs"
         selectedAwayTeam = awayTeamPickerData[0]
         selectedAwayTeamKey = awayTeamPickerDataID[0]
         //hide team selectionn error by default

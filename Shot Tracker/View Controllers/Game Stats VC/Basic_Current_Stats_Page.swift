@@ -209,8 +209,12 @@ class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableVi
             // get current looping player's plus minus
            
             let plusMinus = ((realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true",gameID, homePlayerIDs[x])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({String($0)})).first
+            if plusMinus != nil{
             
-            homePlayerStatsArray[x] = homePlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)"
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "In Game Plus/Minus: \(plusMinus!)"
+            }else{
+                homePlayerStatsArray[x] = homePlayerStatsArray[x] + "In Game Plus/Minus: 0"
+            }
             
         }
     }

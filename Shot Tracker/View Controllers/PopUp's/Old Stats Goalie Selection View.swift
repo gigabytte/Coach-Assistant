@@ -191,9 +191,7 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
         UserDefaults.standard.set(tempgoalieSelectedID, forKey: "selectedGoalieID")
        
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "passDataInView"), object: nil, userInfo: ["key":"value"])
-
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "oldStatsGoalieSelection"), object: nil, userInfo: ["key":"value"])
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closeOldGif"), object: nil, userInfo: ["key":"value"])
         
         self.dismiss(animated: true, completion: nil)
         

@@ -80,6 +80,7 @@ class deleteNewGameUserDefaults{
 class stringToDate{
     
     class func stringToDateFormatter(unformattedString: String) -> Date {
+        print()
         let dateString = unformattedString
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm:ss"
@@ -227,7 +228,7 @@ class universalValue{
     
     // ads unit id used across app
     // new game ads
-    var newGameAdUnitID = /*"ca-app-pub-1292859049443143/2410528114"*/"ca-app-pub-3940256099942544/2934735716"
+    var newGameAdUnitID = "ca-app-pub-1292859049443143/2410528114"//"ca-app-pub-3940256099942544/2934735716"
     
     // Help Guide PDF file name
     var helpGuidePDFName:String = "help_guide_iPad"
@@ -261,6 +262,8 @@ class universalValue{
     
     // website url for mutipl,e team / player adding
     var websiteURLHelp: String = "https://tinysquaremail.wixsite.com/coachassistant/csv-file-importing"
+    
+    var legacyWebsiteURLHelp: String = "https://tinysquaremail.wixsite.com/coachassistant/legacy-importing"
     
     // In app purchase SKU ID for Coach Assistant Pro
     var coachAssistantProID: String = "com.tinysquare.coachassistant.pro"

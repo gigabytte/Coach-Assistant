@@ -19,7 +19,7 @@ class Settings_About_View_Controller: UIViewController {
         if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
              self.internalVersionNumberLabel.text = "Internal Version #\(versionNumber)"
         }
-        AppUpdater.shared.showUpdate(withConfirmation: false)
+        //AppUpdater.shared.showUpdate(withConfirmation: false)
         
         //self.appStoreVersionNumberLabel.text = "Version #\(UserDefaults.standard.string(forKey: "versionNumber")!)"
         appStoreVersionNumberLabel.isHidden = true

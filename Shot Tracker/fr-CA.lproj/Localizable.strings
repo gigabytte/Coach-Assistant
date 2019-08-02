@@ -110,3 +110,6 @@
 "Your data was Successfully Imported!" = "Vos données ont été importées avec succès!";
 
 "New Game" = "Nouveau Jeu";
+
+"Import Troubles?" = "Problèmes d'importation?";
+"Exported your teams stats before you updated Coach Assistant? You might have a legacy stats template! Dont worry you won't loose all your stats. We have a easy to use guide, check it out!" = "Exporté les statistiques de vos équipes avant de mettre à jour Coach Assistant? Vous pourriez avoir un modèle de statistiques hérité! Ne vous inquiétez pas, vous ne perdrez pas toutes vos statistiques. Nous avons un guide facile à utiliser, consultez-le!";
