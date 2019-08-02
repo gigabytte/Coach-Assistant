@@ -294,6 +294,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         pageControl.removeFromSuperview()
         //remove blur from view
         view.viewWithTag(500)?.removeFromSuperview()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closeOldGif"), object: nil, userInfo: ["key":"value"])
         UserDefaults.standard.set(true, forKey: "firstOldStatsBool")
         
     }

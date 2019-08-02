@@ -41,6 +41,7 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         
+        tableView.rowHeight = 75
         tableView.layer.cornerRadius = 10
         tableView.delegate = self
         tableView.dataSource = self

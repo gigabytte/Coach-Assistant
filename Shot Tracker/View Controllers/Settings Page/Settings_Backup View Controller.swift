@@ -21,6 +21,7 @@ final class Settings_Backup_View_Controller: UIViewController {
     @IBOutlet weak var backupDateLabel: UILabel!
     @IBOutlet weak var wipeDataButton: UIButton!
     
+    @IBOutlet weak var visitWebsiteButton: UIButton!
     var realm = try! Realm()
     var successImport: Bool!
     var productID: String!
@@ -156,6 +157,32 @@ final class Settings_Backup_View_Controller: UIViewController {
         }else{
             backupDateLabel.isHidden = true
         }
+        
+    }
+    
+    @IBAction func visitWebsiteButton(_ sender: Any) {
+        
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Import Troubles?"), message: localizedString().localized(value:"Exported your teams stats before you updated Coach Assistant? You might have a legacy stats template! Dont worry you won't loose all your stats. We have a easy to use guide, check it out!"), preferredStyle: .actionSheet)
+        
+        
+        let openAction = UIAlertAction(title: localizedString().localized(value:"open"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            guard let url = URL(string: universalValue().legacyWebsiteURLHelp) else { return }
+            UIApplication.shared.open(url)
+        })
+        // tapp anywhere outside of popup alert controller
+        let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+            print("didPress Cancel")
+        })
+        // Add the actions to your actionSheet
+        actionSheet.addAction(openAction)
+        actionSheet.addAction(cancelAction)
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: visitWebsiteButton.frame.origin.x, y: visitWebsiteButton.frame.origin.y, width: visitWebsiteButton.frame.width / 2, height: visitWebsiteButton.frame.height)
+            
+        }
+        // Present the controller
+        self.present(actionSheet, animated: true, completion: nil)
         
     }
     

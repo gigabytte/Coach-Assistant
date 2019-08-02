@@ -1,5 +1,5 @@
 //
-//  Old Stats Ice Turoial View Analytical View Controller.swift
+//  Old Stats Ice Turoial Marker Stats View Controller.swift
 //  Shot Tracker
 //
 //  Created by Greg Brooks on 2019-07-24.
@@ -9,8 +9,8 @@
 import UIKit
 import Gifu
 
-class Old_Stats_Ice_Turoial_View_Analytical_View_Controller: UIViewController {
-
+class Old_Stats_Ice_Turoial_Marker_Stats_View_Controller: UIViewController {
+    
     @IBOutlet weak var gifView: UIView!
     
     var imageView: GIFImageView!
@@ -20,7 +20,8 @@ class Old_Stats_Ice_Turoial_View_Analytical_View_Controller: UIViewController {
         super.viewDidLoad()
         
         
-        
+        // set listener for notification after goalie is selected
+        NotificationCenter.default.addObserver(self, selector: #selector(myCloseMethod(notification:)), name: NSNotification.Name(rawValue: "closeOldGif"), object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -46,13 +47,18 @@ class Old_Stats_Ice_Turoial_View_Analytical_View_Controller: UIViewController {
     func gifProcessing(){
         
         imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.gifView.frame.width, height: self.gifView.frame.height))
-        imageView.animate(withGIFNamed: universalValue().oldStatsAnalyticalViewGif) {
+        imageView.animate(withGIFNamed: universalValue().oldStatsMarkerDetailsGif) {
             
         }
         imageView.layer.cornerRadius = 10
         gifView.addSubview(imageView)
         imageView.startAnimating()
         
+    }
+    
+    @objc func myCloseMethod(notification: NSNotification){
+        
+        imageView.removeFromSuperview()
     }
     
 }

@@ -80,8 +80,12 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
         self.penaltyTimePicker.delegate = self
         self.penaltyTimePicker.dataSource = self
 
+        let secondsArray = Array(0...59).compactMap({String($0)})
+        
         // values are broken down into a 2D matrix with corresponding values ranging from minutes to seconds
-        timePickerValues = [/*FIrst Row Minute values*/["0", "1", "2", "3", "4", "5", "6", "7", "8"], /*Sec Row Minute values*/["0", "1", "2", "3", "4", "5", "6", "7", "8"], /*Sec values*/["0", "1", "2", "3", "4", "5", "6", "7", "8"]]
+        timePickerValues = [/*FIrst Row Minute values*/["0", "1", "2", "3", "4", "5"], /*Sec Row Minute values*/["0", "1", "2", "3", "4", "5"]]
+        timePickerValues.append(secondsArray)
+        print(timePickerValues[2])
         penaltyType = ["Minor", "Major"]
         // set default player names for home team to be used in picker
         playerNameArray = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "activeState == %@ AND TeamID == %@", NSNumber(value: true), String(homeTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)}))
@@ -273,6 +277,12 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
             
         }else if (pickerView == playerNamePicker){
             return playerNameArray.count
+        }else if (pickerView == penaltyTimePicker){
+            if component == 2 {
+                return timePickerValues[2].count
+            }else{
+                return timePickerValues[0].count
+            }
         }else{
             return timePickerValues[0].count
         }
@@ -315,7 +325,7 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
                 selectedFirstSecondsValue = timePickerValues[2][row]
                 
             }
-            gluedTime = "00:\(selectedFirstMinuteValue!)\(selectedSecMinuteValue!):\(selectedFirstSecondsValue!)0"
+            gluedTime = "00:\(selectedFirstMinuteValue!)\(selectedSecMinuteValue!):\(selectedFirstSecondsValue!)"
             print("Glued TIme", gluedTime)
         }
     }

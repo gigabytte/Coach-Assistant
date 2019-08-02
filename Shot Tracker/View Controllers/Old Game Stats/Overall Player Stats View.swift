@@ -290,7 +290,10 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             
             // -------------------------- GMG Game Wining Goals for the Season ----------------
             for ID in gameIDArray{
-                lastGoalArray.append(((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", ID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)})).last!)
+                let lastGoalID = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", ID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({String($0)}))
+                if (!lastGoalID.isEmpty && lastGoalID.last! != ""){
+                    lastGoalArray.append(lastGoalID.last!)
+                }
             }
             let count = lastGoalArray.filter({ $0.contains(String(homePlayerIDs[x]))}).count
             if (count != 0){

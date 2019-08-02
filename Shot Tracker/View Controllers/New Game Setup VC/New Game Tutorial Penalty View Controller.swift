@@ -19,7 +19,8 @@ class New_Game_Tutorial_Penalty_View_Controller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
+        // set listener for notification after goalie is selected
+        NotificationCenter.default.addObserver(self, selector: #selector(myCloseMethod(notification:)), name: NSNotification.Name(rawValue: "closeGif"), object: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
         if toggle != true{
@@ -36,6 +37,7 @@ class New_Game_Tutorial_Penalty_View_Controller: UIViewController {
         if (imageView != nil){
             if imageView.isAnimatingGIF == true{
                 imageView.stopAnimating()
+                print("View Disppered")
             }
         }
     }
@@ -53,5 +55,10 @@ class New_Game_Tutorial_Penalty_View_Controller: UIViewController {
         imageView.startAnimating()
         
         
+    }
+    
+    @objc func myCloseMethod(notification: NSNotification){
+        
+        imageView.removeFromSuperview()
     }
 }

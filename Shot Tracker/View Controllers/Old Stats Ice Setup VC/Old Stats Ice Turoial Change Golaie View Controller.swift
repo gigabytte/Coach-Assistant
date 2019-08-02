@@ -22,6 +22,9 @@ class Old_Stats_Ice_Turoial_Change_Golaie_View_Controller: UIViewController {
         // set listener for notification after goalie is selected
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "oldStatsGoalieSelection"), object: nil)
         
+        // set listener for notification after goalie is selected
+        NotificationCenter.default.addObserver(self, selector: #selector(myCloseMethod(notification:)), name: NSNotification.Name(rawValue: "closeOldGif"), object: nil)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,6 +43,7 @@ class Old_Stats_Ice_Turoial_Change_Golaie_View_Controller: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        print("disappered")
         if (imageView != nil){
             if imageView.isAnimatingGIF == true{
                 imageView.stopAnimating()
@@ -51,6 +55,11 @@ class Old_Stats_Ice_Turoial_Change_Golaie_View_Controller: UIViewController {
         
         gifProcessing()
         print("heard")
+    }
+    
+    @objc func myCloseMethod(notification: NSNotification){
+        
+        imageView.removeFromSuperview()
     }
     
     func gifProcessing(){
@@ -66,6 +75,8 @@ class Old_Stats_Ice_Turoial_Change_Golaie_View_Controller: UIViewController {
         
         
     }
+    
+   
     
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {

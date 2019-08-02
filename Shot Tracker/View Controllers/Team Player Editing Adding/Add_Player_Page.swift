@@ -105,7 +105,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         let actionSheet = UIAlertController(title: localizedString().localized(value:"Did you Know?"), message: localizedString().localized(value:"Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!"), preferredStyle: .actionSheet)
         
         
-        let openAction = UIAlertAction(title: localizedString().localized(value:"Open"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let openAction = UIAlertAction(title: localizedString().localized(value:"open"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             guard let url = URL(string: universalValue().websiteURLHelp) else { return }
             UIApplication.shared.open(url)
         })
