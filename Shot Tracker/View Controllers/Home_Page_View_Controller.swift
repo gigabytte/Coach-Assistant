@@ -77,7 +77,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
             // check if deafult team has been selected on load
             if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
-                delay(0.5){
+                delay(0.3){
                     self.performSegue(withIdentifier: "defaultTeamSelection", sender: nil);
                 }
             }else{
