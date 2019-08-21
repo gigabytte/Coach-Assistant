@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import RealmSwift
+import Fabric
 import SwiftyStoreKit
 
 @UIApplicationMain
@@ -20,10 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 
-        /* MARK  Uncomment for testing
-        UserDefaults.standard.set(nil, forKey: "newUser")
-        //UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-        */
+        // Use Firebase library to configure APIs.
+        FirebaseApp.configure()
+        // Initialize the Google Mobile Ads SDK.
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        // Initialize the Fabric Crashlytics SDK.
+        Fabric.sharedSDK().debug = true
+        
         let config = Realm.Configuration(
             // Set the new schema version. This must be greater than the previously used
             // version (if you've never set a schema version before, the version is 0).
@@ -81,10 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main")
             
-            // Use Firebase library to configure APIs.
-            FirebaseApp.configure()
-            // Initialize the Google Mobile Ads SDK.
-            GADMobileAds.sharedInstance().start(completionHandler: nil)
             
             
             return true

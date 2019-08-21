@@ -10,20 +10,21 @@ import UIKit
 
 final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate{
 
+    @IBOutlet weak var apperanceConatiner: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backupContainer: UIView!
     @IBOutlet weak var defaultConatiner: UIView!
     @IBOutlet weak var subConatiner: UIView!
     @IBOutlet weak var legalConatiner: UIView!
     @IBOutlet weak var aboutContainer: UIView!
-    @IBAction func unwindBackToMainSettings(segue: UIStoryboardSegue) {}
+    //@IBAction func unwindBackToMainSettings(segue: UIStoryboardSegue) {}
     
     var rowIndex: Int!
     
     
     // Data model: These strings will be the data for the table view cells
-    let settingsName: [String] = [localizedString().localized(value:"Backup"), localizedString().localized(value:"Defaults"), localizedString().localized(value:"Subscriptions"), localizedString().localized(value:"Legal"), localizedString().localized(value:"About")]
-    lazy var imageNames: [String] = ["backup.PNG", "defaults.PNG", "sub_icon", "legal_icon", "about_icon"]
+    let settingsName: [String] = [localizedString().localized(value:"Backup"), localizedString().localized(value:"Defaults"), localizedString().localized(value:"Apperance"),localizedString().localized(value:"Subscriptions"), localizedString().localized(value:"Legal"), localizedString().localized(value:"About")]
+    lazy var imageNames: [String] = ["backup.PNG", "defaults.PNG", "apperance_icon", "sub_icon","legal_icon", "about_icon", ""]
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -86,7 +87,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     @IBAction func backButton(_ sender: Any) {
         let dictionary = ["key":"value"]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
-        self.performSegue(withIdentifier: "Back_Home_Settings", sender: nil);
+        self.performSegue(withIdentifier: "backtoHome_Settings", sender: nil);
         
     }
     
@@ -95,6 +96,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         case 0:
             backupContainer.isHidden = false
             defaultConatiner.isHidden = true
+            apperanceConatiner.isHidden = true
             subConatiner.isHidden = true
             legalConatiner.isHidden = true
             aboutContainer.isHidden = true
@@ -102,6 +104,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         case 1:
             backupContainer.isHidden = true
             defaultConatiner.isHidden = false
+            apperanceConatiner.isHidden = true
             subConatiner.isHidden = true
             legalConatiner.isHidden = true
             aboutContainer.isHidden = true
@@ -109,20 +112,31 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         case 2:
             backupContainer.isHidden = true
             defaultConatiner.isHidden = true
-            subConatiner.isHidden = false
+            apperanceConatiner.isHidden = false
+            subConatiner.isHidden = true
             legalConatiner.isHidden = true
             aboutContainer.isHidden = true
             
         case 3:
             backupContainer.isHidden = true
             defaultConatiner.isHidden = true
-            subConatiner.isHidden = true
-            legalConatiner.isHidden = false
+            apperanceConatiner.isHidden = true
+            subConatiner.isHidden = false
+            legalConatiner.isHidden = true
             aboutContainer.isHidden = true
            
         case 4:
             backupContainer.isHidden = true
             defaultConatiner.isHidden = true
+            apperanceConatiner.isHidden = true
+            subConatiner.isHidden = true
+            legalConatiner.isHidden = false
+            aboutContainer.isHidden = true
+            
+        case 5:
+            backupContainer.isHidden = true
+            defaultConatiner.isHidden = true
+            apperanceConatiner.isHidden = true
             subConatiner.isHidden = true
             legalConatiner.isHidden = true
             aboutContainer.isHidden = false
@@ -130,6 +144,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         default:
             backupContainer.isHidden = false
             defaultConatiner.isHidden = true
+            apperanceConatiner.isHidden = true
             subConatiner.isHidden = true
             legalConatiner.isHidden = true
             aboutContainer.isHidden = true

@@ -22,6 +22,7 @@ class Initial_Setup_FInish_Page_ViewController: UIViewController {
         // set new user as false and dismiss initial setup page
         newGameUserDefaultGen().userDefaults()
         UserDefaults.standard.set("false", forKey: "newUser")
+        UserDefaults.standard.set(false,forKey: "darkModeBool")
         self.dismiss(animated: true, completion: nil )
      }
     /*

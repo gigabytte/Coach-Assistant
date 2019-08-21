@@ -1,18 +1,18 @@
 //
-//  Old_Stats_View.swift
+//  Locker Room Old Stats View Controller.swift
 //  Shot Tracker
 //
-//  Created by Greg Brooks on 2019-01-31.
+//  Created by Greg Brooks on 2019-08-19.
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
+
 import UIKit
-import Realm
 import RealmSwift
 
-class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate{
+class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     
-    @IBAction func unwindToOldSats(segue: UIStoryboardSegue) {}
     @IBOutlet weak var noGameFoundLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     let realm = try! Realm()
     //Create variable to hold Gamelist to pick from
@@ -28,30 +28,17 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
-    
-    // don't forget to hook this up from the storyboard
-    @IBOutlet weak var tableView: UITableView!
-    
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
         
-        newGameDataProcessing()
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
+        
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         
-        tableView.rowHeight = 75
-        tableView.layer.cornerRadius = 10
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        if newGameDates.isEmpty == true{
-            print("No Game Found on Load")
-            noGameFoundLabel.isHidden = false
-        }else{
-            noGameFoundLabel.isHidden = true
-        }
+       onLoad()
         
     }
     
@@ -82,11 +69,26 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func backButton(_ sender: UIBarButtonItem) {
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+        //presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         self.performSegue(withIdentifier: "Back_To_Home", sender: self)
     }
     
+    func onLoad(){
+        
+        newGameDataProcessing()
+        
+        tableView.rowHeight = 75
+        tableView.layer.cornerRadius = 10
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        if newGameDates.isEmpty == true{
+            print("No Game Found on Load")
+            noGameFoundLabel.isHidden = false
+        }else{
+            noGameFoundLabel.isHidden = true
+        }
+    }
     
     func newGameDataProcessing() {
         
@@ -117,6 +119,10 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.newGameIDs.count
+    }
+    
+    @objc func myMethod(notification: NSNotification){
+        onLoad()
     }
     
     // create a cell for each table view row
@@ -152,20 +158,6 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // MARK: - Navigation
-
+    
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
