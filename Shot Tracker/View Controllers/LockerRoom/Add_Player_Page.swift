@@ -14,10 +14,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     let realm = try! Realm()
     
-    
-    
     @IBOutlet weak var linePicker: UIPickerView!
-    @IBOutlet weak var teamPicker: UIPickerView!
     @IBOutlet weak var positionPicker: UIPickerView!
     @IBOutlet weak var playerNumber: UITextField!
     @IBOutlet weak var playerName: UITextField!
@@ -28,7 +25,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     var positionData:[String] = [String]()
     var positionCodeData:[String] = [String]()
     var selectLine:Int!
-    var selectTeamKey: String!
+    var selectedTeamID: Int!
     var selectPosition:String!
     var primaryPlayerID: Int!
     var forwardPositionData: [String] = [String]()
@@ -46,8 +43,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        self.teamPicker.delegate = self
-        self.teamPicker.dataSource = self
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
         
         self.linePicker.delegate = self
         self.linePicker.dataSource = self
@@ -57,21 +53,25 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         playerNumber.delegate = self
        
+        onLoad()
+    
+       
+    }
+    
+    func onLoad(){
+        
+        selectedTeamID = UserDefaults.standard.integer(forKey: "defaultHomeTeamID")
+        
         // Do any additional setup after loading the view.
         pickerData = ["Forward 1", "Forward 2","Forward 3","Defense 1","Defense 2","Defense 3","Goalie"]
         forwardPositionData = ["Left Wing", "Center", "Right Wing"]
         defensePositionData = ["Left Defence", "Right Defence"]
         goaliePositionData = ["Goalie"]
         positionCodeData = ["LW", "C", "RW", "LD", "RD", "G"]
-        teamPickerData = (self.realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
-        teamIDPickerData = (self.realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})
-        print(teamIDPickerData)
-        
-        //Sets selected team ID and position is set to position zero
-        //of the arrays. Set selected line to 1(forward line 1)
-        selectTeamKey = teamIDPickerData[0]
-        selectPosition = positionCodeData[0]
+      
         selectLine = 1
+        selectPosition = positionCodeData.first
+        
     }
     
     // We are willing to become first responder to get shake motion
@@ -98,6 +98,10 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             present(popupVC, animated: true, completion: nil)
             print("Help Guide Presented!")
         }
+    }
+    
+    @objc func myMethod(notification: NSNotification){
+        onLoad()
     }
     
     @IBAction func visitWebsiteButton(_ sender: Any) {
@@ -161,8 +165,6 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
-        case teamPicker:
-            return teamPickerData.count
         case linePicker:
             return pickerData.count
 
@@ -179,9 +181,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         }
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if(pickerView == teamPicker){
-            return teamPickerData[row]
-        }else if(pickerView == positionPicker){
+       if(pickerView == positionPicker){
             switch selectLine{
             case  1,2,3:
                 return forwardPositionData[row]
@@ -197,10 +197,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
  
-        if(pickerView == teamPicker){
-            selectTeamKey = teamIDPickerData[row]
-            
-        }else if(pickerView == linePicker){
+        if(pickerView == linePicker){
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
                 positionPicker.reloadAllComponents()
@@ -251,7 +248,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         let number = Int(playerNumber.text!)
         let line = selectLine
         let position = selectPosition
-        let teamID = selectTeamKey!
+
         let newPlayer = playerInfoTable()
         
         if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
@@ -261,7 +258,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
             
         }
-        if (doubleJerseyNumCheck(selectedTeamID: Int(selectTeamKey)!) == false){
+        if (doubleJerseyNumCheck(selectedTeamID: selectedTeamID) == false){
             
             // check to see if fields are filled out properly
             // write info to realm and reset all fields
@@ -274,14 +271,13 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
                     newPlayer.jerseyNum = number!
                     newPlayer.lineNum = line!
                     newPlayer.positionType = position!
-                    newPlayer.TeamID = teamID
+                    newPlayer.TeamID = String(selectedTeamID)
              
                 }
                 
                 
                 playerName.text = ""
                 playerNumber.text = ""
-                self.teamPicker.reloadAllComponents()
                 self.linePicker.reloadAllComponents()
                 succesfulPlayerAdd(playerName: nameOfPlayer)
             }else{

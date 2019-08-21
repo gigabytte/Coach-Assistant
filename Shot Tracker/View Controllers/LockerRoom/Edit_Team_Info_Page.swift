@@ -12,7 +12,6 @@ import Realm
 
 class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet weak var teamPicker: UIPickerView!
     @IBOutlet weak var playersPicker: UIPickerView!
     @IBOutlet weak var linePicker: UIPickerView!
     @IBOutlet weak var positionPicker: UIPickerView!
@@ -26,10 +25,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var activeStatePLayerLabel: UILabel!
     @IBOutlet weak var visitWebsiteButton: UIButton!
     
-    var selectTeamKey:Int = 0
-    var homeTeam: Int?
-    var scoringPassedTeamID: [Int] = [Int]()
-    var selectedTeamID: Int!
+
     
     //variables for player data retrival from realm
     var mainPlayerPickerData: [String] = [String]()
@@ -38,13 +34,10 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     var selectedMainPlayer: String = ""
     var selectedMainPlayerID: Int!
     
-    //team data retrival from realm
-    var teamPickerData:Results<teamInfoTable>!
-    var teamPickerSelect:[teamInfoTable] = []
-    
-    var selectTeam: String = ""
+    var teamNameString: String!
     var selectPosition:String = ""
     var selectLine:Int = 0
+    var selectedTeamID: Int!
     
     var pickerData:[String] = [String]()
     var forwardPositionData:[String] = [String]()
@@ -63,11 +56,10 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
+        
         activeStateTeamSwitch.addTarget(self, action: #selector(self.switchValueDidChange), for: .valueChanged)
         activeStatePlayerSwitch.addTarget(self, action: #selector(self.switchValueDidChange), for: .valueChanged)
-        
-        self.teamPicker.delegate = self
-        self.teamPicker.dataSource = self
         
         self.playersPicker.delegate = self
         self.playersPicker.dataSource = self
@@ -78,34 +70,41 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         self.positionPicker.delegate = self
         self.positionPicker.dataSource = self
         
-        self.teamPickerData = realm.objects(teamInfoTable.self)
-        self.teamPickerSelect = Array(self.teamPickerData)
+       
+        onLoad()
+    
+      
+    }
+    
+    func onLoad(){
         
-        scoringPassedTeamID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true OR activeState == false")).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
-        mainPlayerPickerData = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(scoringPassedTeamID[0]))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
-        mainPlayerPickerDataID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(scoringPassedTeamID[0]))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        selectedMainPlayerID = mainPlayerPickerDataID[0]
+        selectedTeamID =  UserDefaults.standard.integer(forKey: "defaultHomeTeamID")
+        
+        let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)
+        
+        teamNameString = teamObjc?.nameOfTeam
+        
+        mainPlayerReterival()
         
         pickerData = ["Forward 1", "Forward 2","Forward 3","Defense 1","Defense 2","Defense 3","Goalie"]
         forwardPositionData = ["Left Wing", "Center", "Right Wing"]
         defensePositionData = ["Left Defence", "Right Defence"]
         goaliePositionData = ["Goalie"]
         positionCodeData = ["LW", "C", "RW", "LD", "RD", "G"]
-        selectTeam = teamPickerSelect[0].nameOfTeam
-        selectedTeamID = teamPickerSelect[0].teamID
+
         selectPosition = positionCodeData[0]
         selectedMainPlayer = mainPlayerPickerData[0]
         selectLine = 1
+        selectedMainPlayerID = mainPlayerPickerDataID[0]
+        
         activeTeamBool = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true OR activeState == false")).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
-        activePlayerBool = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(scoringPassedTeamID[0]))).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
         
         activeStateTeamSwitch.isOn = Bool(activeTeamBool[0])!
         if (activeStateTeamSwitch.isOn == true) {activeStateTeamLabel.text =
-            "Enable " + teamPickerData[0].nameOfTeam;}else{activeStateTeamLabel.text = "Disable " + teamPickerData[0].nameOfTeam;}
+            "Enable " + teamObjc!.nameOfTeam;}else{activeStateTeamLabel.text = "Disable " + teamObjc!.nameOfTeam;}
         activeStatePlayerSwitch.isOn = Bool(activePlayerBool[0])!
         if (activeStatePlayerSwitch.isOn == true) {activeStatePLayerLabel.text = "Enable \(mainPlayerPickerData[0])"}else{activeStatePLayerLabel.text = "Disable \(mainPlayerPickerData[0])"}
-
-      
+        
     }
     
     // We are willing to become first responder to get shake motion
@@ -138,10 +137,9 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
         super.didReceiveMemoryWarning()
     }
     
-    
-    @IBAction func backButton(_ sender: UIBarButtonItem) {
-        
-         dismiss(animated: true, completion: nil)
+    @objc func myMethod(notification: NSNotification){
+        print("reloading")
+        onLoad()
     }
     
     // if keyboard is out push whole view up half the height of the keyboard
@@ -191,9 +189,9 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     @objc func switchValueDidChange(sender: UISwitch){
         
         if(activeStateTeamSwitch.isOn == true){
-            activeStateTeamLabel.text = "Enable \(selectTeam)"
+            activeStateTeamLabel.text = "Enable \(teamNameString!)"
         }else{
-            activeStateTeamLabel.text = "Disable \(selectTeam)"
+            activeStateTeamLabel.text = "Disable \(teamNameString!)"
         }
         if(activeStatePlayerSwitch.isOn == true){
             activeStatePLayerLabel.text = "Enable \(selectedMainPlayer)"
@@ -208,8 +206,6 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
-        case teamPicker:
-            return teamPickerData.count
         case linePicker:
              return pickerData.count
         case positionPicker:
@@ -228,9 +224,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if(pickerView == teamPicker){
-            return teamPickerSelect[row].nameOfTeam
-        }else if(pickerView == positionPicker){
+        if(pickerView == positionPicker){
             switch selectLine{
             case  1,2,3:
                 return forwardPositionData[row]
@@ -248,14 +242,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if(pickerView == teamPicker){
-            selectTeam = teamPickerSelect[row].nameOfTeam
-            selectedTeamID = teamPickerSelect[row].teamID
-            mainPlayerReterival()
-            playersPicker.reloadAllComponents()
-           activeTeamBoolFunc()
-           
-        }else if(pickerView == linePicker){
+        if(pickerView == linePicker){
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
                 positionPicker.reloadAllComponents()
@@ -317,11 +304,11 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func activeTeamBoolFunc(){
         if(activeTeamBool[selectedTeamID] == "true"){
             activeStateTeamSwitch.isOn = true
-            activeStateTeamLabel.text = "Enable \(selectTeam)"
+            activeStateTeamLabel.text = "Enable \(teamNameString!)"
             activeTeamBool = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true OR activeState == false")).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
         }else{
             activeStateTeamSwitch.isOn = false
-            activeStateTeamLabel.text = "Disable \(selectTeam)"
+            activeStateTeamLabel.text = "Disable \(teamNameString!)"
             activeTeamBool = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true OR activeState == false")).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
         }
         activeStateTeamSwitch.reloadInputViews()
@@ -354,7 +341,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func newTeamName(_ sender: UIButton) {
         let newName = newTeamName.text!
-        let newTeam = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID!);
+        let newTeam = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID);
         
         if (newName != "" && activeStateTeamSwitch.isOn == true){
             
@@ -362,10 +349,6 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 newTeam!.activeState = true
                 newTeam!.nameOfTeam = newName
                 succesfulTeamAdd(teamName: newName)
-                self.teamPickerData = realm.objects(teamInfoTable.self)
-                self.teamPickerSelect = Array(self.teamPickerData)
-                teamPicker.reloadAllComponents()
-                selectTeam = teamPickerSelect[selectedTeamID].nameOfTeam
                 activeTeamBoolFunc()
                 
             }
@@ -378,7 +361,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             }
             try! realm.write{
                 newTeam!.activeState = false
-                succesfulTeamAdd(teamName: selectTeam)
+                succesfulTeamAdd(teamName: teamNameString)
             }
             
                 
@@ -393,11 +376,8 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                     newTeam!.activeState = false
                     newTeam!.nameOfTeam = newName
                     succesfulTeamAdd(teamName: newName)
-                    self.teamPickerData = realm.objects(teamInfoTable.self)
-                    self.teamPickerSelect = Array(self.teamPickerData)
                     activeTeamBoolFunc()
-                    selectTeam = teamPickerSelect[selectedTeamID].nameOfTeam
-                    teamPicker.reloadAllComponents()
+
                     
                 }
             
@@ -405,7 +385,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
             
             try! realm.write{
                 newTeam!.activeState = true
-                succesfulTeamAdd(teamName: selectTeam)
+                succesfulTeamAdd(teamName: teamNameString)
                 
                 
             }
@@ -417,30 +397,39 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     func mainPlayerReterival(){
-        if(((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(selectedTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})).count != 0){
+        
+        if(((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(selectedTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})).count != 0){
              playersPicker.isUserInteractionEnabled = true
             editPlayerButton.alpha = 1.0
-            editPlayerButton.isUserInteractionEnabled = false
+            playersPicker.alpha = 1.0
+            editPlayerButton.isUserInteractionEnabled = true
             // Get main Home players on view controller load
             mainPlayerPickerData = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(selectedTeamID))).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)})
             activePlayerBool = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(selectedTeamID))).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
             mainPlayerPickerDataID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@", String(selectedTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+            activePlayerBool = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true OR activeState == false", String(selectedTeamID))).value(forKeyPath: "activeState") as! [Bool]).compactMap({String($0)})
         }else{
             
-            let missingPlayers = UIAlertController(title: "Team \(selectTeam) has no players, please add some.", message: "", preferredStyle: UIAlertController.Style.alert)
+            let missingPlayers = UIAlertController(title: "Team \(teamNameString) has no players, please add some.", message: "", preferredStyle: UIAlertController.Style.alert)
             missingPlayers.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             
             self.present(missingPlayers, animated: true, completion: nil)
              playersPicker.isUserInteractionEnabled = false
             editPlayerButton.alpha = 0.5
             editPlayerButton.isUserInteractionEnabled = false
+            playersPicker.alpha = 0.5
             mainPlayerPickerData = ["Default Player"]
            
         }
+        DispatchQueue.main.async {
+            self.playersPicker.reloadAllComponents()
+        }
+       
         
     }
     
     @IBAction func saveEditedPlayer(_ sender: UIButton) {
+        print("hi")
         let playerLine = selectLine
         let playerPosition = selectPosition
         let playerName = newPlayerName.text!
@@ -462,6 +451,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 selectedMainPlayer = mainPlayerPickerData[selectedMainPlayerID]
                 activePlayerBoolFunc(index: (mainPlayerPickerData.firstIndex(of: selectedMainPlayer)!))
             }
+            succesfulPlayerAdd(playerName: playerName)
         }else if(playerName != "" && newPlayerNumber.text! == ""){
             
             try! realm.write {
@@ -475,6 +465,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 selectedMainPlayer = mainPlayerPickerData[selectedMainPlayerID]
                 activePlayerBoolFunc(index: (mainPlayerPickerData.firstIndex(of: selectedMainPlayer)!))
             }
+            succesfulPlayerAdd(playerName: playerName)
         }else if(playerName == "" && newPlayerNumber.text! != ""){
             
             try! realm.write {
@@ -486,6 +477,7 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 selectedMainPlayer = mainPlayerPickerData[selectedMainPlayerID]
                 activePlayerBoolFunc(index: (mainPlayerPickerData.firstIndex(of: selectedMainPlayer)!))
             }
+            succesfulPlayerAdd(playerName: playerName)
         }else{
             print("player postion",playerPosition)
             try! realm.write {
@@ -496,13 +488,19 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
                 selectedMainPlayer = mainPlayerPickerData[selectedMainPlayerID]
                 activePlayerBoolFunc(index: (mainPlayerPickerData.firstIndex(of: selectedMainPlayer)!))
             }
+            succesfulPlayerAdd(playerName: playerName)
         }
     }
    
     func succesfulTeamAdd(teamName: String){
         
         let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Team %@ has been updated."), teamName), message: "", preferredStyle: UIAlertController.Style.alert)
-        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+            
+            self.newTeamName.text = ""
+            
+            
+        }))
         
         self.present(successfulQuery, animated: true, completion: nil)
     }
@@ -510,7 +508,13 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     func succesfulPlayerAdd(playerName: String){
         
         let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Player %@ has been updated."), playerName), message: "", preferredStyle: UIAlertController.Style.alert)
-        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+            
+            self.newPlayerName.text = ""
+            self.newPlayerNumber.text = ""
+            
+            
+        }))
         
         self.present(successfulQuery, animated: true, completion: nil)
     }

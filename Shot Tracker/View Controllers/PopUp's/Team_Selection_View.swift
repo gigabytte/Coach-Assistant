@@ -35,6 +35,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var rightScrollArrowImage: UIImageView!
     @IBOutlet weak var gameTypeLabel: UILabel!
     @IBOutlet weak var popUpView: UIView!
+    
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var gameLocationTextField: UITextField!
@@ -53,18 +54,27 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        onLoad()
+        
+    }
+    
+    func onLoad(){
+    
         selectedHomeTeamKey = (UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)
         
-        bottomRoundedCorners(buttonName: cancelButton)
-        bottomRoundedCorners(buttonName: continueButton)
+        // riund corners of buttons and view
+        roundedCorners().buttonBottomRight(bottonViewType: continueButton)
+        roundedCorners().buttonBottomLeft(bottonViewType: cancelButton)
+        teamSelectionPopUpView.layer.cornerRadius = 10
+        
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
-        view.addSubview(popUpView)       
- 
+        view.addSubview(popUpView)
+        
         gameTypeGesture()
         
         // increment primary ID of each type based on new game initialization
@@ -83,9 +93,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         awayTeamPickerData = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
         awayTeamPickerDataID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
-        
-        //round corners with a radius of 10 for popup view so my eyes dont bleed!
-        teamSelectionPopUpView.layer.cornerRadius = 10
+       
         
         // default home team and away team selection
         let homeTeamName = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == %@", selectedHomeTeamKey, NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})).first
@@ -94,7 +102,6 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         selectedAwayTeamKey = awayTeamPickerDataID[0]
         //hide team selectionn error by default
         teamSelectionErrorText.isHidden = true
-        
     }
     
     // if keyboard is out push whole view up half the height of the keyboard
@@ -111,22 +118,6 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
            // self.popUpView.frame.origin.y = 0
-        }
-    }
-    
-    func bottomRoundedCorners(buttonName: UIButton){
-        if(buttonName == cancelButton){
-            // round bottom corners of button
-            let path = UIBezierPath(roundedRect:buttonName.bounds, byRoundingCorners:[.bottomLeft], cornerRadii: CGSize(width: 10, height: 10))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            buttonName.layer.mask = maskLayer
-        }else{
-            let path = UIBezierPath(roundedRect:buttonName.bounds, byRoundingCorners:[.bottomRight], cornerRadii: CGSize(width: 10, height: 10))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            buttonName.layer.mask = maskLayer
-            
         }
     }
     
@@ -260,10 +251,12 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
     }
     
-    @IBAction func cancelTeamSelectionButton(_ sender: UIButton) {
-        animateOut()
-        self.performSegue(withIdentifier: "Go_Back_Home_Segue", sender: nil);
+    @IBAction func cancelButton(_ sender: UIButton) {
+        
+        self.performSegue(withIdentifier: "Go_Back_Home_Segue", sender: nil)
     }
+    
+    
     
     // on animateIn display popUpview over top of New Game View
     func animateIn(){

@@ -11,6 +11,8 @@ target 'Shot Tracker' do
   pod 'Firebase/AdMob'
   pod 'Gifu'
   pod 'SwiftyStoreKit'
+  pod 'Fabric', '~> 1.10.2'
+  pod 'Crashlytics', '~> 3.13.4'
   target 'Shot TrackerTests' do
     inherit! :search_paths
     # Pods for testing

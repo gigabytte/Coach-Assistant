@@ -701,6 +701,8 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     }
     // action when clicking done button
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
+        
+        let dictionary = ["key":"value"]
         // Create you actionsheet - preferredStyle: .actionSheet
         let actionSheet = UIAlertController(title: localizedString().localized(value:"Current Game Save State"), message: localizedString().localized(value:"Please select save state this game should be saved to.\n ie. Please note all in game settings will be forgotten regardless of selection, this will not delete your current game stats."), preferredStyle: .actionSheet)
         
@@ -716,7 +718,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             deleteNewGameUserDefaults.deleteUserDefaults()
             inGmaeUserDefaultGen().delete_userDefaults()
              // segue back to home screen when done
-            let dictionary = ["key":"value"]
+            
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
             self.performSegue(withIdentifier: "backToMainNewGame", sender: nil)
         })
@@ -743,6 +745,8 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                     
                     
                 }
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
                
               
             }

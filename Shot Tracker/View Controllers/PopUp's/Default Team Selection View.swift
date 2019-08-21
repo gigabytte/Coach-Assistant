@@ -62,7 +62,8 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
     @IBAction func continueButton(_ sender: UIButton) {
       
         UserDefaults.standard.set(selectedHomeTeamKey, forKey: "defaultHomeTeamID")
-        self.performSegue(withIdentifier: "backToHomeDefaultTeam", sender: nil);
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+        self.dismiss(animated: true, completion: nil)
       
     }
     //-------------------------------------------------------------------------------

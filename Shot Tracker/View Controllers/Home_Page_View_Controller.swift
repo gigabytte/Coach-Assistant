@@ -12,11 +12,24 @@ import StoreKit
 
 class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
     
+    @IBOutlet weak var coachAssistantLogo: UIImageView!
+    @IBOutlet weak var newGameConatinerView: UIView!
+    @IBOutlet weak var lockerRoomContainerView: UIView!
+    @IBOutlet weak var newGameView: UIView!
+    @IBOutlet weak var lockerRoomView: UIView!
     @IBOutlet weak var newGameButton: UIButton!
-    @IBOutlet weak var oldStatsButton: UIButton!
-    @IBOutlet weak var addTeamPlayerButton: UIButton!
-    @IBOutlet weak var editTeamPlayerButton: UIButton!
-    @IBAction func unwindToViewControllerA(segue: UIStoryboardSegue) {}
+    @IBOutlet weak var lockerRoomButton: UIButton!
+    @IBAction func unwindHomePage(segue: UIStoryboardSegue) {}
+    
+    
+    var lockerRoomViewStandardCon: NSLayoutConstraint!
+    var newGameViewStandardCon: NSLayoutConstraint!
+    var lockerRoomViewShrunkCon: NSLayoutConstraint!
+    var newGameViewShrunkCon: NSLayoutConstraint!
+    var lockerRoomViewExtendedCon: NSLayoutConstraint!
+    var newGameViewExtendedCon: NSLayoutConstraint!
+    var caLogoStandardCon: NSLayoutConstraint!
+    var caLogoShrunkCon: NSLayoutConstraint!
     
     // active status bool used to check if a game is ongoing
     var activeStatus: Bool!
@@ -37,6 +50,9 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         
         // get Realm Databse file location
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+       
+        viewContraintsGen(firstLoad: true)
+        
 
     }
     
@@ -69,6 +85,31 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
     }
     
     
+    func viewContraintsGen(firstLoad: Bool){
+       
+        // standard view constraints both views are the same size
+        newGameViewStandardCon = newGameView.widthAnchor.constraint(equalToConstant: self.view.frame.width / 2)
+        lockerRoomViewStandardCon = lockerRoomView.widthAnchor.constraint(equalToConstant: self.view.frame.width / 2)
+    
+        // standard view constraints both views are the same size
+        newGameViewExtendedCon = newGameView.widthAnchor.constraint(equalToConstant: (self.view.frame.width / 4) * 3)
+        lockerRoomViewExtendedCon = lockerRoomView.widthAnchor.constraint(equalToConstant: (self.view.frame.width / 4) * 3)
+        
+        // standard view constraints both views are the same size
+        newGameViewShrunkCon = newGameView.widthAnchor.constraint(equalToConstant: self.view.frame.width / 4)
+        lockerRoomViewShrunkCon = lockerRoomView.widthAnchor.constraint(equalToConstant: self.view.frame.width / 4)
+        
+        
+        
+        if firstLoad == true{
+            newGameViewStandardCon.isActive = true
+            lockerRoomViewStandardCon.isActive = true
+            newGameButton.tag = 10
+            lockerRoomButton.tag = 10
+        }
+
+    }
+    
     func onLoad(){
         
         let realm = try! Realm()
@@ -81,7 +122,6 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
                     self.performSegue(withIdentifier: "defaultTeamSelection", sender: nil);
                 }
             }else{
-                print("Default Home Team ID: \(UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)")
                 
             }
         }else{
@@ -107,6 +147,16 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         }
         
         
+    }
+    
+    func containerIntializer(storyBoardID: String, containerView: UIView, VC: UIViewController){
+       
+        
+        
+        let controller = storyboard!.instantiateViewController(withIdentifier: storyBoardID)
+        addChild(controller)
+        //controller.view.translatesAutoresizingMaskIntoConstraints = true
+        containerView.addSubview(controller.view)
     }
     
     // cherck is game if currently running function
@@ -172,6 +222,145 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         }
     }
     
+    func newGameConatinerViewInializer(){
+        
+        newGameConatinerView.centerXAnchor.constraint(equalTo: newGameView.centerXAnchor).isActive = true
+        newGameConatinerView.centerYAnchor.constraint(equalTo: newGameView.centerYAnchor).isActive = true
+        
+        newGameConatinerView.heightAnchor.constraint(equalTo: newGameConatinerView.widthAnchor, multiplier: 1.0/2.0).isActive = true
+        
+        view.addSubview(newGameConatinerView)
+        
+    }
+    
+    @IBAction func newGameButton(_ sender: UIButton) {
+       
+       
+            
+            switch self.newGameButton.tag {
+            case 10:
+                if (newGameRequirmentsChecker() == true){
+                    self.lockerRoomButton.setTitle("Back", for: .normal)
+                    self.newGameButton.setTitle("New Game", for: .normal)
+                    
+                    self.newGameViewExtendedCon.isActive = true
+                    self.newGameViewStandardCon.isActive = false
+                    self.newGameViewShrunkCon.isActive = false
+                    self.lockerRoomViewStandardCon.isActive = false
+                    self.lockerRoomViewExtendedCon.isActive = false
+                    self.lockerRoomViewShrunkCon.isActive = true
+                    
+                    self.newGameConatinerView.isHidden = false
+                    self.lockerRoomContainerView.isHidden = true
+                    
+                   
+                    
+                    UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                         self.newGameConatinerView.alpha = 1.0
+                         self.view.layoutIfNeeded()
+                    }, completion: { _ in
+                        
+                    })
+                 
+                    self.newGameButton.tag = 20
+                    self.lockerRoomButton.tag = 30
+                    // check is user is eligable to run a new game
+                }
+                break
+            case 20:
+                break
+            default:
+                self.lockerRoomButton.setTitle("LockerRoom", for: .normal)
+                self.newGameButton.setTitle("New Game", for: .normal)
+                
+                self.newGameViewExtendedCon.isActive = false
+                self.newGameViewStandardCon.isActive = true
+                self.newGameViewShrunkCon.isActive = false
+                self.lockerRoomViewStandardCon.isActive = true
+                self.lockerRoomViewExtendedCon.isActive = false
+                self.lockerRoomViewShrunkCon.isActive = false
+
+                
+                UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                    self.lockerRoomContainerView.alpha = 0.0
+                    
+                    self.view.layoutIfNeeded()
+                }, completion: { _ in
+                    
+                    self.lockerRoomContainerView.isHidden = true
+                })
+                
+                self.newGameButton.tag = 10
+                self.lockerRoomButton.tag = 10
+                break
+            }
+        
+        
+        
+        
+    }
+    
+    @IBAction func lockerRoomButton(_ sender: UIButton) {
+        
+        switch self.lockerRoomButton.tag {
+        case 10:
+            self.lockerRoomButton.setTitle("Locker Room", for: .normal)
+            self.newGameButton.setTitle("Back", for: .normal)
+            
+            self.newGameViewExtendedCon.isActive = false
+            self.newGameViewStandardCon.isActive = false
+            self.newGameViewShrunkCon.isActive = true
+            self.lockerRoomViewStandardCon.isActive = false
+            self.lockerRoomViewExtendedCon.isActive = true
+            self.lockerRoomViewShrunkCon.isActive = false
+            
+            self.lockerRoomContainerView.isHidden = false
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                self.view.layoutIfNeeded()
+                self.newGameConatinerView.alpha = 0.0
+                self.lockerRoomContainerView.alpha = 1.0
+            }, completion: { _ in
+                self.newGameConatinerView.isHidden = true
+            })
+            
+            self.newGameButton.tag = 30
+            self.lockerRoomButton.tag = 20
+            break
+        case 20:
+            break
+        default:
+            self.lockerRoomButton.setTitle("LockerRoom", for: .normal)
+            self.newGameButton.setTitle("New Game", for: .normal)
+            
+            self.newGameViewExtendedCon.isActive = false
+            self.newGameViewStandardCon.isActive = true
+            self.newGameViewShrunkCon.isActive = false
+            self.lockerRoomViewStandardCon.isActive = true
+            self.lockerRoomViewExtendedCon.isActive = false
+            self.lockerRoomViewShrunkCon.isActive = false
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                self.newGameConatinerView.alpha = 0.0
+                self.lockerRoomContainerView.alpha = 0.0
+                 self.view.layoutIfNeeded()
+               
+            }, completion: { _ in
+                
+                self.newGameConatinerView.isHidden = true
+                 self.lockerRoomContainerView.isHidden = true
+            })
+            
+            //self.newGameConatinerView.isHidden = true
+            
+            self.newGameButton.tag = 10
+            self.lockerRoomButton.tag = 10
+            break
+        }
+        
+        
+    }
+    
     @IBAction func editTeamButton(_ sender: UIButton) {
         if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
             
@@ -185,18 +374,20 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
         }
     }
     
-    @IBAction func newGameButton(_ sender: UIButton) {
+    func newGameRequirmentsChecker() -> Bool {
         let realm = try! Realm()
             // check if team one returns nil and that team one isnt team two
             // check for only one team entered and or no team entered
             if (activeStatus != true){
                 if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
                     UserDefaults.standard.set(true, forKey: "newGameStarted")
-                    self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
+                    // display conatiner view with new game view in it
+                    
                     
                 }else{
                     // if teams or players are not avaiable top be pulled alert error appears
                     dataReturnNilAlert()
+                    return false
                 }
             }else{
                 // check if user has chnaged the default team while a game is ongoing or if this a new game all together
@@ -211,6 +402,7 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
                     }else{
                         // if teams or players are not avaiable top be pulled alert error appears
                         dataReturnNilAlert()
+                        return false
                     }
                 }else{
                     // present a alert controller if default team has been chnaged while a game is ongoing
@@ -232,9 +424,12 @@ class Home_Page_View_Controller: UIViewController, UIPopoverPresentationControll
                     self.present(misMatchedDefault, animated: true, completion: nil)
                     
                     print("user has changed default team and cannot procceed with current on going game!")
+                    return false
             }
         }
-         //self.onGoingGame()
+        
+        self.onGoingGame()
+        return true
     }
     @IBAction func oldStatsButton(_ sender: UIButton) {
         if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
