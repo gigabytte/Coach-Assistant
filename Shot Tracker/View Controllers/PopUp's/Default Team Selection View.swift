@@ -49,7 +49,15 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         selectedHomeTeamKey = homeTeamPickerDataID[0]
         //round corners with a radius of 10 for popup view so my eyes dont bleed!
         popUpView.layer.cornerRadius = 10
+        
+        viewColour()
     }
+    
+    func viewColour(){
+        
+        self.popUpView.backgroundColor = systemColour().viewColor()
+    }
+    
     func bottomRoundedCorners(buttonName: UIButton){
     
         let path = UIBezierPath(roundedRect:buttonName.bounds, byRoundingCorners:[.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 10, height: 10))

@@ -40,7 +40,8 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var iceSufaceImageView: UIImageView!
     @IBOutlet weak var tutorialConatiner: UIView!
     @IBOutlet weak var closeTutorialBtn: UIButton!
-    
+    @IBOutlet weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var statsButton: UIBarButtonItem!
     
     var yLocationCords: Int = 0
     var xLocationCords: Int = 0
@@ -272,7 +273,21 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
             }
             //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closeGif"), object: nil, userInfo: ["key":"value"])
         }
+        viewColour()
         
+    }
+    
+    func viewColour(){
+        
+        self.view.backgroundColor = systemColour().viewColor()
+        navBar.barTintColor = systemColour().navBarColor()
+        doneButton.tintColor = systemColour().navBarButton()
+        statsButton.tintColor = systemColour().navBarButton()
+        
+        // set nav bar propeeties based on prameters layout
+        let barView = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))
+        barView.backgroundColor = navBar.barTintColor
+        view.addSubview(barView)
     }
     
     // func comapres old overatst table to new stats table to detect newly added players while game is open

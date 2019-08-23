@@ -11,53 +11,32 @@ import RealmSwift
 import Realm
 import SwiftyStoreKit
 
-class Settings_Subscriptions_View_Controller: UIViewController {
+class Settings_Subscriptions_View_Controller: UITableViewController {
 
     
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var upgradeButton: UIButton!
-    @IBOutlet weak var subView: UIView!
-    
-    @IBOutlet weak var restoreButton: UIButton!
+    @IBOutlet var subTableView: UITableView!
+  
     
     var productID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "darModeToggle"), object: nil)
         productID = universalValue().coachAssistantProID
       
-        
-        upgradeButton.layer.cornerRadius = 10
-        restoreButton.layer.cornerRadius = 10
-        
-        uiCheck()
-        
+        tableView.tableFooterView = UIView()
+        viewColour()
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    func viewColour(){
         
-       uiCheck()
-        
+        self.tableView.backgroundColor = systemColour().tableViewColor()
     }
     
-    @IBAction func restoreButton(_ sender: UIButton) {
-        
-        print("Lets Restore!")
-        productRestore()
-    }
-    
-    @IBAction func upgradeButton(_ sender: UIButton) {
-        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
-            print("Upgrading Now!")
-            productRetrieve()
-            uiLoading()
-            productPurchase()
-        }else{
-            // create the alert
-            restoreConfAlert()
-        }
-        
+    @objc func myMethod(notification: NSNotification){
+        viewColour()
     }
     
     func productRetrieve(){
@@ -71,112 +50,90 @@ class Settings_Subscriptions_View_Controller: UIViewController {
                 print("Invalid product identifier: \(invalidProductId)")
             }
             else {
-                self.purchaseErrorAlert(alertMsg: localizedString().localized(value: "An upgrade cannot be found an unknown error occured. Please contact support."))
+                self.purchaseErrorAlert(localizedString().localized(value: "An upgrade cannot be found an unknown error occured. Please contact support."))
             }
         }
     }
     
+  
     func productPurchase(){
         
         SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
             switch result {
             case .success(let purchase):
                 print("Purchase Success: \(purchase.productId)")
+                self.view.viewWithTag(100)?.removeFromSuperview()
+                self.view.viewWithTag(200)?.removeFromSuperview()
                 UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-                self.uiSuccess()
                 
             case .error(let error):
                 switch error.code {
                 case .unknown:
                     print("Unknown error. Please contact support")
-                    self.purchaseErrorAlert(alertMsg: "Unknown error. Please contact support")
-                    self.uiCancel()
+                    self.purchaseErrorAlert("Unknown error. Please contact support")
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
                 case .clientInvalid:
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
                     print("Not allowed to make the payment")
-                    self.uiCancel()
                 case .paymentCancelled:
-                    self.uiCancel()
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
                     break
                 case .paymentInvalid:
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
                     print("The purchase identifier was invalid")
-                    self.uiCancel()
                 case .paymentNotAllowed:
                     print("The device is not allowed to make the payment")
-                    self.purchaseErrorAlert(alertMsg: "The device is not allowed to make the payment")
-                    self.uiCancel()
+                    self.purchaseErrorAlert("The device is not allowed to make the payment")
                 case .storeProductNotAvailable:
                     print("The product is not available in the current storefront")
-                    self.purchaseErrorAlert(alertMsg: "The product is not available in the current storefront")
-                    self.uiCancel()
+                    self.purchaseErrorAlert("The product is not available in the current storefront")
                 case .cloudServicePermissionDenied:
                     print("Access to cloud service information is not allowed")
-                    self.uiCancel()
                 case .cloudServiceNetworkConnectionFailed:
                     print("Could not connect to the network")
-                    self.purchaseErrorAlert(alertMsg: "Could not connect to the network, please make sure your are connected to the internet")
-                    self.uiCancel()
+                    self.purchaseErrorAlert("Could not connect to the network, please make sure your are connected to the internet")
                 case .cloudServiceRevoked:
                     print("User has revoked permission to use this cloud service")
-                    self.purchaseErrorAlert(alertMsg: "Please update your account premisions or call Apple for furthur assitance regarding your cloud premissions")
-                    self.uiCancel()
+                    self.purchaseErrorAlert("Please update your account premisions or call Apple for furthur assitance regarding your cloud premissions")
                 default:
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
                     print((error as NSError).localizedDescription)
-                    self.uiCancel()
                 }
             }
         }
         
     }
     
-    func uiLoading(){
-        
-        loadingIndicator.startAnimating()
-        view.backgroundColor = UIColor.darkGray
-        view.alpha = 0.7
-        upgradeButton.isUserInteractionEnabled = false
-        restoreButton.isUserInteractionEnabled = false
-        
-    }
-    
-    func uiSuccess(){
-        
-        loadingIndicator.stopAnimating()
-        self.view.backgroundColor = UIColor.clear
-        self.view.alpha = 1.0
-        
-        self.upgradeButton.isUserInteractionEnabled = true
-        self.restoreButton.isUserInteractionEnabled = true
-        self.loadingIndicator.stopAnimating()
-        self.upgradeButton.alpha = 0.5
-        
-    }
-    
-    func uiCancel(){
-        loadingIndicator.stopAnimating()
-        self.view.backgroundColor = UIColor.clear
-        self.view.alpha = 1.0
-        self.upgradeButton.isUserInteractionEnabled = true
-        self.restoreButton.isUserInteractionEnabled = true
-    }
-    
-    func uiCheck(){
-        
-        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") == true){
+    func loadingView(addOrRemoveBool: Bool){
+        if addOrRemoveBool == true{
+            let loadingView = UIView()
+            loadingView.backgroundColor = UIColor.lightGray
+            loadingView.alpha = 0.5
+            loadingView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height)
+            loadingView.tag = 100
             
-            upgradeButton.alpha = 0.5
-            upgradeButton.isUserInteractionEnabled = true
-            restoreButton.isUserInteractionEnabled = true
-            print("User Bought Pro")
+            let loadingIndicator = UIActivityIndicatorView()
+            loadingIndicator.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: 0, height: 0)
+            loadingIndicator.startAnimating()
+            loadingIndicator.tag = 200
             
+            self.view.addSubview(loadingView)
+            self.view.addSubview(loadingIndicator)
         }else{
-            upgradeButton.alpha = 1.0
-            restoreButton.alpha = 1.0
-            restoreButton.isUserInteractionEnabled = true
-            upgradeButton.isUserInteractionEnabled = true
-            print("User DOES NOT HAVE Pro")
             
+            if self.view.viewWithTag(100) != nil{
+                self.view.viewWithTag(100)?.removeFromSuperview()
+                
+            }
+            if self.view.viewWithTag(200) != nil{
+                self.view.viewWithTag(200)?.removeFromSuperview()
+            }
         }
-        
     }
     
     
@@ -185,16 +142,17 @@ class Settings_Subscriptions_View_Controller: UIViewController {
         SwiftyStoreKit.restorePurchases(atomically: true) { results in
             if results.restoreFailedPurchases.count > 0 {
                 print("Restore Failed: \(results.restoreFailedPurchases)")
-                self.uiCancel()
+                self.loadingView(addOrRemoveBool: false)
             }
             else if results.restoredPurchases.count > 0 {
                 print("Restore Success: \(results.restoredPurchases)")
-                self.restoreConfAlert()
-                UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-                self.uiSuccess()
+                self.loadingView(addOrRemoveBool: false)
+                UserDefaults.standard.set(true, forKey: "proUser")
+                
             }
             else {
                 print("Nothing to Restore")
+                self.loadingView(addOrRemoveBool: false)
             }
         }
     }
@@ -209,13 +167,50 @@ class Settings_Subscriptions_View_Controller: UIViewController {
         
     }
     
-    func purchaseErrorAlert(alertMsg: String){
+    func purchaseErrorAlert(_ alertMsg: String){
         // create the alert
         let alreadyProAlert = UIAlertController(title: "Whoops!", message: alertMsg, preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
         self.present(alreadyProAlert, animated: true, completion: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You selected cell #\(indexPath.row)!")
+        switch indexPath.row {
+        case 0:
+            // present upgrade IAP
+            if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
+                print("Upgrading Now!")
+                loadingView(addOrRemoveBool: true)
+                productRetrieve()
+                productPurchase()
+            }else{
+                restoreConfAlert()
+            }
+            break
+        case 1:
+            // present upgrade IAP
+            if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
+                // create the alert
+                loadingView(addOrRemoveBool: true)
+                productRetrieve()
+                productRestore()
+            }else{
+                restoreConfAlert()
+            }
+            break
+        default:
+            self.purchaseErrorAlert("Unknown error. Please contact support")
+            break
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     // delay loop

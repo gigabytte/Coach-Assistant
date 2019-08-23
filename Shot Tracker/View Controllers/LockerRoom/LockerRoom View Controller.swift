@@ -102,6 +102,19 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
             SKStoreReviewController.requestReview()
             
         }
+        
+        viewColour()
+    }
+    
+    func viewColour(){
+        
+        self.view.backgroundColor = systemColour().viewColor()
+        navBar.barTintColor = systemColour().navBarColor()
+        
+        // set nav bar propeeties based on prameters layout
+        let barView = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))
+        barView.backgroundColor = navBar.barTintColor
+        view.addSubview(barView)
     }
     
     // cherck is game if currently running function

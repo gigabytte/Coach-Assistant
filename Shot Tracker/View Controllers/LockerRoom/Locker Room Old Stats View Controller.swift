@@ -88,6 +88,14 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
         }else{
             noGameFoundLabel.isHidden = true
         }
+        
+        viewColour()
+    }
+    
+    func viewColour(){
+        
+        tableView.backgroundColor = systemColour().tableViewColor()
+        tableView.tableFooterView = UIView()
     }
     
     func newGameDataProcessing() {
@@ -143,6 +151,8 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
         cell.textLabel?.text = "\n\(gameType[0]) Game, \(homeTeamName[0]) vs \(awayTeamName[0]) on date \(String(self.newGameDates[indexPath.row])), \(homeTeamScore) - \(awayTeamScore)\n"
         cell.textLabel!.numberOfLines = 0;
         cell.textLabel?.textAlignment = .center
+        cell.backgroundColor = UIColor.clear
+        cell.contentView.backgroundColor = UIColor.clear
         return cell
     }
     

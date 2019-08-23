@@ -7,43 +7,66 @@
 //
 
 import UIKit
-import PDFKit
+import SafariServices
 
-class Settings_Legal_View_Controller: UIViewController {
+class Settings_Legal_View_Controller: UITableViewController, SFSafariViewControllerDelegate {
 
-    @IBOutlet weak var pdfView: UIView!
+    @IBOutlet var legalTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pdfView.layer.cornerRadius = 10
-        pdfIntegration()
-        // Do any additional setup after loading the view.
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-        print("Legal View Controller Called")
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "darModeToggle"), object: nil)
+        tableView.tableFooterView = UIView()
+        
+        viewColour()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    func viewColour(){
         
-        print("Legal View Controller Called")
+        self.tableView.backgroundColor = systemColour().tableViewColor()
     }
-
-    func pdfIntegration(){
-        
-        // Add PDFView to view controller.
-        let pdfView = PDFView(frame: self.pdfView.bounds)
-        pdfView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.pdfView.addSubview(pdfView)
-        
-        // Fit content in PDFView.
-        pdfView.autoScales = true
-        
-        // Load legal pdf file from app bundle.
-        let fileURL = Bundle.main.url(forResource: universalValue().appLegalPDF, withExtension: "pdf")
-        pdfView.document = PDFDocument(url: fileURL!)
+    
+    @objc func myMethod(notification: NSNotification){
+        viewColour()
     }
-
+    
+    func safarieView(urlString: String){
+        let safariVC = SFSafariViewController(url: URL(string: urlString)!)
+        present(safariVC, animated: true, completion: nil)
+        
+        safariVC.delegate = self
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+   
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You selected cell #\(indexPath.row)!")
+        switch indexPath.row {
+        case 0:
+            //guard let url = URL(string: universalValue().legalSupportURL) else { return }
+            //UIApplication.shared.open(url)
+            safarieView(urlString: universalValue().legalSupportURL)
+            break
+        case 1:
+            //guard let url = URL(string: universalValue().helpAndSupportURL) else { return }
+            //UIApplication.shared.open(url)
+            safarieView(urlString: universalValue().helpAndSupportURL)
+            break
+        default:
+           
+            break
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    
 }

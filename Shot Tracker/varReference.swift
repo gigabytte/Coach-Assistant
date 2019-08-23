@@ -265,11 +265,88 @@ class universalValue{
     
     var legacyWebsiteURLHelp: String = "https://tinysquaremail.wixsite.com/coachassistant/legacy-importing"
     
+    var helpAndSupportURL: String = "https://tinysquaremail.wixsite.com/coachassistant/user-guide"
+    
+    var legalSupportURL: String = "https://tinysquaremail.wixsite.com/coachassistant/privacy-legal"
+    
     // In app purchase SKU ID for Coach Assistant Pro
     var coachAssistantProID: String = "com.tinysquare.coachassistant.pro"
     
     // current scheme value for realm db
-    var realmSchemeValue: UInt64 = 1
+    var realmSchemeValue: UInt64 = 2
+    
+    var dayTimeViewColour:UIColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9568627451, alpha: 1)
+    var nightTimeViewColour: UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    
+    var dayTimeNavBarColour: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    var nightTimeNavBarColour: UIColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+    
+    var dayTimeTableViewColour: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    var nightTimeTableViewColour: UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    
+    var dayTimeNavBarButtonColour: UIColor = #colorLiteral(red: 0.01488990802, green: 0.4462006688, blue: 0.6317400932, alpha: 1)
+    var nightTimeNavBarButtonColour: UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    
+    var dayTimeTextViewColour: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    var nightTimeTextViewColour: UIColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+    
+    var dayTimeButtonColour: UIColor = #colorLiteral(red: 0.01488990802, green: 0.4462006688, blue: 0.6317400932, alpha: 1)
+    var nightTimeButtonColour: UIColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+    
+}
+
+class systemColour{
+    
+    func viewColor() -> UIColor{
+        // return colour of view based ion system func
+        if (UserDefaults.standard.bool(forKey: "darkModeBool") != true){
+            return universalValue().dayTimeViewColour
+        }else{
+            return universalValue().nightTimeViewColour
+        }
+        
+        
+    }
+    
+    func navBarColor() -> UIColor{
+        // return colour of nav bar based ion system func
+        if (UserDefaults.standard.bool(forKey: "darkModeBool") != true){
+            return universalValue().dayTimeNavBarColour
+        }else{
+            return universalValue().nightTimeNavBarColour
+        }
+        
+    }
+    
+    func tableViewColor() -> UIColor{
+        // return colour of tableview based ion system func
+        if (UserDefaults.standard.bool(forKey: "darkModeBool") != true){
+            return universalValue().dayTimeTableViewColour
+        }else{
+            return universalValue().nightTimeTableViewColour
+        }
+        
+    }
+    
+    func navBarButton() -> UIColor{
+        // return colour of tableview based ion system func
+        if (UserDefaults.standard.bool(forKey: "darkModeBool") != true){
+            return universalValue().dayTimeNavBarButtonColour
+        }else{
+            return universalValue().nightTimeNavBarButtonColour
+        }
+        
+    }
+    
+    func uiTextField() -> UIColor{
+        // return colour of tableview based ion system func
+        if (UserDefaults.standard.bool(forKey: "darkModeBool") != true){
+            return universalValue().dayTimeTextViewColour
+        }else{
+            return universalValue().nightTimeTextViewColour
+        }
+        
+    }
     
     
 }

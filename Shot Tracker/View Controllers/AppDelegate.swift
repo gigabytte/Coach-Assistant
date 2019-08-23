@@ -89,6 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             return true
         }else{
+            
+            creatImportantDirectories()
             // redicrt to setup process if user is new
             deleteNewGameUserDefaults.deleteUserDefaults()
             UserDefaults.standard.set(false, forKey: "userPurchaseConf")
@@ -96,6 +98,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             return true
         }
+    }
+    
+    func creatImportantDirectories(){
+
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let docURL = URL(string: documentsDirectory)!
+        let teamlogo_dataPath = docURL.appendingPathComponent("TeamLogo")
+        let playerlogo_dataPath = docURL.appendingPathComponent("PlayerImages")
+        // check and creat apporate directories for images
+        if !FileManager.default.fileExists(atPath: teamlogo_dataPath.absoluteString) {
+            do {
+                try FileManager.default.createDirectory(atPath: teamlogo_dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription);
+            }
+        }
+        if !FileManager.default.fileExists(atPath: playerlogo_dataPath.absoluteString) {
+            do {
+                try FileManager.default.createDirectory(atPath: playerlogo_dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription);
+            }
+        }
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

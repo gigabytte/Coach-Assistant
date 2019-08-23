@@ -5,7 +5,6 @@
 //  Created by Greg Brooks on 2019-06-20.
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
-
 import Foundation
 import RealmSwift
 
@@ -25,4 +24,3 @@ class faceOffInfoTable: Object {
     }
     
 }
-

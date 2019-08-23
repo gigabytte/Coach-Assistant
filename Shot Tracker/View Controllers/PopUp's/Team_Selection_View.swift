@@ -102,6 +102,8 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
         selectedAwayTeamKey = awayTeamPickerDataID[0]
         //hide team selectionn error by default
         teamSelectionErrorText.isHidden = true
+        
+        viewColour()
     }
     
     // if keyboard is out push whole view up half the height of the keyboard
@@ -119,6 +121,10 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
             self.view.frame.origin.y = 0
            // self.popUpView.frame.origin.y = 0
         }
+    }
+    func viewColour(){
+        
+        self.popUpView.backgroundColor = systemColour().viewColor()
     }
     
     func gameTypeProcessing(){

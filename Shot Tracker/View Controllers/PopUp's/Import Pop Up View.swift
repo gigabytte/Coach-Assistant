@@ -664,6 +664,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func cancelButton(_ sender: Any) {
         if (setupPhaseBool != true){
+            print("back")
             self.performSegue(withIdentifier: "Back_To_Settings_Import", sender: nil);
         }else{
             self.performSegue(withIdentifier: "Back_To_Setup_Import", sender: nil);

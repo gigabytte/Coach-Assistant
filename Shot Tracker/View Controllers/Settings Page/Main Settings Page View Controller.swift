@@ -9,7 +9,7 @@
 import UIKit
 
 final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate{
-
+    @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var apperanceConatiner: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backupContainer: UIView!
@@ -17,7 +17,7 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     @IBOutlet weak var subConatiner: UIView!
     @IBOutlet weak var legalConatiner: UIView!
     @IBOutlet weak var aboutContainer: UIView!
-    //@IBAction func unwindBackToMainSettings(segue: UIStoryboardSegue) {}
+    @IBAction func unwindBackToMainSettings(segue: UIStoryboardSegue) {}
     
     var rowIndex: Int!
     
@@ -37,25 +37,30 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
         
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "darModeToggle"), object: nil)
         
         self.tableView.rowHeight = 75.0
+        tableView.tableFooterView = UIView()
         
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
         tableView.dataSource = self
         rowIndex = 0
         updateView()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        imageNames = []
-        backupContainer.removeFromSuperview()
-        defaultConatiner.removeFromSuperview()
-        subConatiner.removeFromSuperview()
-        legalConatiner.removeFromSuperview()
-        aboutContainer.removeFromSuperview()
+        viewColour()
         
     }
+    
+    func viewColour(){
+        
+        tableView.backgroundColor = systemColour().tableViewColor()
+        backButton.tintColor = systemColour().navBarButton()
+        
+    }
+    @objc func myMethod(notification: NSNotification){
+        viewColour()
+    }
+    
     // We are willing to become first responder to get shake motion
     override var canBecomeFirstResponder: Bool {
         get {
@@ -85,9 +90,16 @@ final class Main_Settings_Page_View_Controller: UIViewController, UITableViewDel
     // MARK: - View Methods
     
     @IBAction func backButton(_ sender: Any) {
+        imageNames = []
+        backupContainer.removeFromSuperview()
+        defaultConatiner.removeFromSuperview()
+        subConatiner.removeFromSuperview()
+        legalConatiner.removeFromSuperview()
+        aboutContainer.removeFromSuperview()
+        
         let dictionary = ["key":"value"]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: dictionary)
-        self.performSegue(withIdentifier: "backtoHome_Settings", sender: nil);
+        //self.performSegue(withIdentifier: "backtoHome_Settings", sender: nil);
         
     }
     
