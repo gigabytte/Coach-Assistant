@@ -12,6 +12,10 @@ import Charts
 
 class Team_About_Popup_View_Controller: UIViewController {
 
+    @IBOutlet weak var teamToggleSwitch: UISwitch!
+    @IBOutlet weak var teamIsActiveLabel: UILabel!
+    @IBOutlet weak var seasonEditTextField: UITextField!
+    @IBOutlet weak var teamNameEditTextField: UITextField!
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var teamLogoImageView: UIImageView!
     @IBOutlet weak var teamNameLabel: UILabel!
@@ -71,26 +75,46 @@ class Team_About_Popup_View_Controller: UIViewController {
         
         if let URL = teamObjc?.teamLogoURL{
             if URL != ""{
-                let readerResult = imageReader(fileName: teamObjc!.teamLogoURL)
+                let readerResult = imageReader(fileName: teamObjc!.teamLogoURL) as? UIImage
                 if readerResult != nil{
-                    teamLogoImageView.image = readerResult as? UIImage
+                    teamLogoImageView.image = readerResult
                 }else{
-                    //teamLogoImageView.image = reader.
+                    // default image goes here
                 }
             }
         }
         
-        teamLogoImageView.layer.masksToBounds = true
-        teamLogoImageView.layer.borderWidth = 3
-        teamLogoImageView.layer.borderColor = UIColor.black.cgColor
-        teamLogoImageView.layer.cornerRadius = teamLogoImageView.bounds.width / 2
-        
-        
-        DispatchQueue.main.async {
-            self.teamLogoImageView.reloadInputViews()
-        }
-    
+        teamToggleSwitch.isOn = teamObjc!.activeState
+  
+        switchState()
         recordLabelProcessing()
+        viewColour()
+    }
+    
+    func viewColour(){
+        
+        popUpView.layer.cornerRadius = 10
+        
+        teamLogoImageView.heightAnchor.constraint(equalToConstant: teamLogoImageView.frame.height).isActive = true
+        teamLogoImageView.setRounded()
+    }
+    
+    func switchState(){
+        let realm = try! Realm()
+        let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)
+        
+        switch teamToggleSwitch.isOn {
+        case true:
+            teamIsActiveLabel.text = "\((teamObjc?.nameOfTeam)!) is Enabled"
+            break
+        case false:
+            teamIsActiveLabel.text = "\((teamObjc?.nameOfTeam)!) is Disabled"
+            break
+        default:
+            teamIsActiveLabel.text = "\((teamObjc?.nameOfTeam)!) is Enabled"
+            break
+        }
+        
     }
     
     func recordLabelProcessing(){
@@ -161,6 +185,160 @@ class Team_About_Popup_View_Controller: UIViewController {
         self.present(mediaAlert, animated: true, completion: nil)
     }
     
+    func succesfulTeamEdit(teamName: String){
+        
+        let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Team %@ has been updated."), teamName), message: "", preferredStyle: UIAlertController.Style.alert)
+        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+            
+            self.teamNameEditTextField.text = ""
+            self.seasonEditTextField.text = ""
+            
+        }))
+        
+        self.present(successfulQuery, animated: true, completion: nil)
+    }
+    
+    func saveTeamInfo(){
+        
+        let realm = try! Realm()
+        
+        let newName = teamNameEditTextField.text!
+        let seasonNumber = seasonEditTextField.text!
+        let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID);
+        
+        if (newName != "" && seasonNumber != ""){
+            
+            try! realm.write{
+                teamObjc!.activeState = teamToggleSwitch.isOn
+                teamObjc!.nameOfTeam = newName
+                teamObjc?.seasonYear = Int(seasonNumber)!
+                
+            }
+            succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
+        }else if (newName == "" && seasonNumber != ""){
+    
+            try! realm.write{
+                teamObjc!.activeState = teamToggleSwitch.isOn
+                teamObjc?.seasonYear = Int(seasonNumber)!
+                
+            }
+            succesfulTeamEdit(teamName: newName)
+            
+        }else if (newName == "" && seasonNumber == ""){
+          
+            try! realm.write{
+                teamObjc!.activeState = teamToggleSwitch.isOn
+            }
+            succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
+        }
+        if (teamToggleSwitch.isOn == false){
+            UserDefaults.standard.set(nil, forKey: "defaultHomeTeamID")
+            print("Default Team Reset")
+        }
+
+    }
+    
+    func isEditingFields(boolType: Bool){
+        
+        switch boolType {
+        case true:
+            
+            teamNameLabel.isHidden = false
+            seasonNumberLabel.isHidden = false
+            recordLabel.isHidden = false
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                self.teamNameLabel.alpha = 1.0
+                self.seasonNumberLabel.alpha = 1.0
+                self.recordLabel.alpha = 1.0
+                
+                self.teamNameEditTextField.alpha = 0.0
+                self.seasonEditTextField.alpha = 0.0
+                self.teamToggleSwitch.alpha = 0.0
+                self.teamIsActiveLabel.alpha = 0.0
+                
+                self.view.layoutIfNeeded()
+                
+            }, completion: { _ in
+                self.teamNameEditTextField.isHidden = true
+                self.seasonEditTextField.isHidden = true
+                self.teamToggleSwitch.isHidden = true
+                self.teamIsActiveLabel.isHidden = true
+            })
+            
+            break
+        case false:
+            
+            self.teamNameEditTextField.isHidden = false
+            self.seasonEditTextField.isHidden = false
+            self.teamToggleSwitch.isHidden = false
+            self.teamIsActiveLabel.isHidden = false
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                
+                self.teamNameLabel.alpha = 0.0
+                self.seasonNumberLabel.alpha = 0.0
+                self.recordLabel.alpha = 0.0
+                
+                self.teamNameEditTextField.alpha = 1.0
+                self.seasonEditTextField.alpha = 1.0
+                self.teamToggleSwitch.alpha = 1.0
+                self.teamIsActiveLabel.alpha = 1.0
+                
+                self.view.layoutIfNeeded()
+            }, completion: { _ in
+                
+                self.teamNameLabel.isHidden = true
+                self.seasonNumberLabel.isHidden = true
+                self.recordLabel.isHidden = true
+            })
+            break
+        default:
+            
+            self.teamNameEditTextField.isHidden = false
+            self.seasonEditTextField.isHidden = false
+            self.teamToggleSwitch.isHidden = false
+            self.teamIsActiveLabel.isHidden = false
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                
+                self.teamNameLabel.alpha = 0.0
+                self.seasonNumberLabel.alpha = 0.0
+                self.recordLabel.alpha = 0.0
+                
+                self.teamNameEditTextField.alpha = 1.0
+                self.seasonEditTextField.alpha = 1.0
+                self.teamToggleSwitch.alpha = 1.0
+                self.teamIsActiveLabel.alpha = 1.0
+                
+                self.view.layoutIfNeeded()
+            }, completion: { _ in
+                
+                self.teamNameLabel.isHidden = true
+                self.seasonNumberLabel.isHidden = true
+                self.recordLabel.isHidden = true
+            })
+            break
+        }
+    }
+    
+    @IBAction func editTeamInfoButton(_ sender: UIButton) {
+        
+        let realm = try! Realm()
+        let editedTeam = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID);
+        // is player label is already hidden reverse the process
+        if teamNameLabel.isHidden == true{
+            // write new player inffo to realm
+            // update UI
+            saveTeamInfo()
+            isEditingFields(boolType: true)
+            onLoad()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+        }else{
+            
+            isEditingFields(boolType: false)
+        }
+    }
     
     @IBAction func closeButton(_ sender: Any) {
         
@@ -173,6 +351,9 @@ class Team_About_Popup_View_Controller: UIViewController {
         print("Opening Photo Selection Method")
         mediaTypeSlectionAlert()
         
+    }
+    @IBAction func teamToggleSwitch(_ sender: UISwitch) {
+        switchState()
     }
     
     
@@ -191,7 +372,7 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         
-        imageWriter(fileName: "\((teamObjc?.nameOfTeam)!)_team_logo", imageName: selectedImage)
+        imageWriter(fileName: "\((teamObjc?.nameOfTeam)!)_ID_\((teamObjc?.teamID)!)_team_logo", imageName: selectedImage)
         onLoad()
         
         
@@ -227,7 +408,7 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
         }
     }
     
-    func imageReader(fileName: String) -> Any{
+    func imageReader(fileName: String) -> UIImage{
         
         var retreivedImage: UIImage!
     
@@ -244,10 +425,13 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
             } catch {
                 print("Team logo read error")
                 fatalErrorAlert("An error has occured while attempting to retrieve your team logo. Please contact support!")
-                return(retreivedImage)
                
             }
         }
-        return(retreivedImage)
+        if retreivedImage != nil{
+            return(retreivedImage)
+        }else{
+            return(UIImage(named: "temp_profile_pic_icon")!)
+        }
     }
 }

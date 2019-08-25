@@ -15,7 +15,6 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     @IBOutlet weak var newGameBarButton: UIBarButtonItem!
     @IBOutlet weak var addPlayerButton: UIButton!
     @IBOutlet weak var oldStatsButton: UIButton!
-    @IBOutlet weak var editTeamButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var navBar: UINavigationBar!
@@ -285,10 +284,6 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "menuBtnPress"), object: nil, userInfo: ["btnNumber":1])
     }
     
-    @IBAction func editButton(_ sender: UIButton) {
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "menuBtnPress"), object: nil, userInfo: ["btnNumber":2])
-    }
     @IBAction func addButton(_ sender: UIButton) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "menuBtnPress"), object: nil, userInfo: ["btnNumber":3])
     }
@@ -334,27 +329,18 @@ extension LockerRoom_View_Controller: LockerRoomPageViewControllerDelegate {
         case 0:
             statsButton.alpha = 1.0
             oldStatsButton.alpha = 0.5
-            editTeamButton.alpha = 0.5
             addPlayerButton.alpha = 0.5
         case 1:
             statsButton.alpha = 0.5
             oldStatsButton.alpha = 1.0
-            editTeamButton.alpha = 0.5
             addPlayerButton.alpha = 0.5
         case 2:
             statsButton.alpha = 0.5
             oldStatsButton.alpha = 0.5
-            editTeamButton.alpha = 1.0
-            addPlayerButton.alpha = 0.5
-        case 3:
-            statsButton.alpha = 0.5
-            oldStatsButton.alpha = 0.5
-            editTeamButton.alpha = 0.5
             addPlayerButton.alpha = 1.0
         default:
             statsButton.alpha = 1.0
             oldStatsButton.alpha = 0.5
-            editTeamButton.alpha = 0.5
             addPlayerButton.alpha = 0.5
         }
         

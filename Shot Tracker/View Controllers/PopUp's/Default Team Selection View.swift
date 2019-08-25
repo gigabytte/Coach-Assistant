@@ -41,8 +41,8 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         self.homeTeamPicker.delegate = self
         self.homeTeamPicker.dataSource = self
         
-        homeTeamPickerData = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
-        homeTeamPickerDataID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
+        homeTeamPickerData = (realm.objects(teamInfoTable.self).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
+        homeTeamPickerDataID = (realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
         
         // default home team and away team selection
         selectedHomeTeam = homeTeamPickerData[0]

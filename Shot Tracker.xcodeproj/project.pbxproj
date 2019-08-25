@@ -77,6 +77,7 @@
 		BEB3E53D22B4746F00AC7035 /* In Game Settings ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB3E53C22B4746F00AC7035 /* In Game Settings ViewController.swift */; };
 		BEB71900220A192B00DA6399 /* Basic_Current_Stats_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */; };
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
+		BEB84DCB23118696002CBF54 /* customLockerRoomStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB84DCA23118696002CBF54 /* customLockerRoomStatsCell.swift */; };
 		BEBB0676227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */; };
 		BEBCC1B623105D5E00AEAE71 /* New Game Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBCC1B523105D5E00AEAE71 /* New Game Table.swift */; };
 		BEBCC1B823105D8800AEAE71 /* Faceoff Info Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBCC1B723105D8800AEAE71 /* Faceoff Info Table.swift */; };
@@ -223,6 +224,7 @@
 		BEB3E53C22B4746F00AC7035 /* In Game Settings ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "In Game Settings ViewController.swift"; sourceTree = "<group>"; };
 		BEB718FF220A192B00DA6399 /* Basic_Current_Stats_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basic_Current_Stats_Page.swift; sourceTree = "<group>"; };
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
+		BEB84DCA23118696002CBF54 /* customLockerRoomStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customLockerRoomStatsCell.swift; sourceTree = "<group>"; };
 		BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_More_Info_View_Controller.swift; sourceTree = "<group>"; };
 		BEBCC1B523105D5E00AEAE71 /* New Game Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Table.swift"; sourceTree = "<group>"; };
 		BEBCC1B723105D8800AEAE71 /* Faceoff Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Faceoff Info Table.swift"; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */,
 				BECD070822EF9200004A808D /* customTeamStatsCell.swift */,
 				BE12DE61228744B80071BC17 /* customSettingCell.swift */,
+				BEB84DCA23118696002CBF54 /* customLockerRoomStatsCell.swift */,
 			);
 			path = "Custom Classes";
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */,
 				BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */,
 				BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */,
+				BEB84DCB23118696002CBF54 /* customLockerRoomStatsCell.swift in Sources */,
 				BEBCC1BA23105D9E00AEAE71 /* Goal Marker Table.swift in Sources */,
 				BEB3E53D22B4746F00AC7035 /* In Game Settings ViewController.swift in Sources */,
 				BEE5D49C2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift in Sources */,

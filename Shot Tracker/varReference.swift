@@ -133,6 +133,13 @@ class roundedCorners{
         tableviewType.layer.cornerRadius = 10
         tableviewType.layer.maskedCorners = [.layerMaxXMinYCorner]
     }
+    
+    func tableViewTopLeftRight(tableviewType: UITableView){
+        
+        tableviewType.clipsToBounds = true
+        tableviewType.layer.cornerRadius = 10
+        tableviewType.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
     func labelViewTopLeftRight(labelViewType: UILabel){
         labelViewType.clipsToBounds = true
         labelViewType.layer.cornerRadius = 10
@@ -344,6 +351,76 @@ class systemColour{
             return universalValue().dayTimeTextViewColour
         }else{
             return universalValue().nightTimeTextViewColour
+        }
+        
+    }
+    
+    
+}
+
+class playerPositionConverter{
+    
+    func realmInpuToString(rawInput: String) -> String {
+        
+        switch rawInput {
+        case "LW":
+            return "Left Wing"
+            break
+        case "RW":
+            return "Right Wing"
+            break
+        case "C":
+            return "Center"
+            break
+        case "LD":
+            return "Left Defense"
+            break
+        case "RD":
+            return "Right Defense"
+            break
+        case "G":
+            return "Goalie"
+            break
+        default:
+            return "Unknown"
+            break
+        }
+        
+    }
+    
+    
+}
+
+class playerLinePositionConverter{
+    
+    func realmInpuToString(rawInput: Int) -> String {
+        
+        switch rawInput {
+       
+        case 1:
+            return "F Line 1"
+            break
+        case 2:
+            return "F Line 2"
+            break
+        case 3:
+            return "D Line 3"
+            break
+        case 4:
+            return "D Line 1"
+            break
+        case 5:
+            return "D Line 2"
+            break
+        case 6:
+            return "D Line 3"
+            break
+        case 0:
+            return "Goalie"
+            break
+        default:
+            return "F Line 1"
+            break
         }
         
     }
