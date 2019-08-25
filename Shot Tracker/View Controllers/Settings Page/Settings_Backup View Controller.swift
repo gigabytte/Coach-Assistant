@@ -11,50 +11,38 @@ import Realm
 import RealmSwift
 import SwiftyStoreKit
 
-final class Settings_Backup_View_Controller: UIViewController {
+final class Settings_Backup_View_Controller: UITableViewController {
     
-    @IBOutlet weak var icloudExportLabel: UILabel!
+    @IBOutlet weak var backToiClkoudLabel: UILabel!
+    @IBOutlet var backupTableView: UITableView!
     @IBOutlet weak var icloudToggleSwitch: UISwitch!
-    @IBOutlet weak var exportCVSButton: UIButton!
-    @IBOutlet weak var importCVSButton: UIButton!
-    @IBOutlet weak var sucessProcessText: UILabel!
     @IBOutlet weak var backupDateLabel: UILabel!
-    @IBOutlet weak var wipeDataButton: UIButton!
+    @IBOutlet weak var backupLabel: UILabel!
+    @IBOutlet weak var importLabel: UILabel!
     
-    @IBOutlet weak var visitWebsiteButton: UIButton!
+    
+    
     var realm = try! Realm()
     var successImport: Bool!
     var productID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = UIView()
         
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "backupSettingsPageRefresh"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myColorMethod(notification:)), name: NSNotification.Name(rawValue: "darModeToggle"), object: nil)
         
         productID = universalValue().coachAssistantProID
         // check is icloud conatiner exsiss on user icloud account
-        // if so icloud logged in and reachable within reaso
-        
-        // set visual effects on buttonin settings
-        wipeDataButton.backgroundColor = .clear
-        wipeDataButton.layer.cornerRadius = 5
-        wipeDataButton.layer.borderWidth = 1
-        wipeDataButton.layer.borderColor = UIColor.black.cgColor
-        exportCVSButton.layer.cornerRadius = 5
-        importCVSButton.layer.cornerRadius = 5
-        
-        // Do any additional setup after loading the view.
-        
-        // round corners of export and import buttons
-        exportCVSButton.layer.cornerRadius = 10
-        importCVSButton.layer.cornerRadius = 10
-        
+
         backupUpDateCheck()
     
         
         // check icloud exprt criteria
         reloadView()
         print("Back Up View Controller Called")
+        viewColour()
         
     }
     
@@ -66,6 +54,15 @@ final class Settings_Backup_View_Controller: UIViewController {
         print("Back Up View Controller Appeared")
     }
     
+    func viewColour(){
+        
+        self.tableView.backgroundColor = systemColour().tableViewColor()
+    }
+    
+    @objc func myColorMethod(notification: NSNotification){
+        viewColour()
+    }
+    
     func reloadView(){
         
         icloudToggleSwitch.isOn = UserDefaults.standard.bool(forKey: "iCloudBackupToggle")
@@ -75,16 +72,15 @@ final class Settings_Backup_View_Controller: UIViewController {
                 if (icloudToggleSwitch.isOn == true){
                     
                     print("User can export to iCloud")
+                    backupLabel.text = "iCloud Backup"
+                    importLabel.text = "Import iCloud Backup"
                     
-                    exportCVSButton.setTitle("iCloud Backup", for: .normal)
-                    importCVSButton.setTitle("Import iCloud Backup", for: .normal)
                     
                 }else{
                     print("User cannot export to iCLoud!")
                     
-                    exportCVSButton.setTitle("Backup Locally", for: .normal)
-                    importCVSButton.setTitle("Import Locally", for: .normal)
-                    
+                    backupLabel.text = "Backup Locally"
+                    importLabel.text = "Import Backup Locally"
                     
                 }
             }else{
@@ -95,8 +91,8 @@ final class Settings_Backup_View_Controller: UIViewController {
             print("User is not PRO yet cannot use iCloud")
             icloudToggleSwitch.isUserInteractionEnabled = false
             icloudToggleSwitch.alpha = 0.5
-            icloudExportLabel.alpha = 0.5
-            
+            backToiClkoudLabel.alpha = 0.5
+          
         }
     }
     
@@ -114,15 +110,15 @@ final class Settings_Backup_View_Controller: UIViewController {
         if (icloudToggleSwitch.isOn == true && icloudAccountCheck().isICloudContainerAvailable() == true){
             
             
-            exportCVSButton.setTitle( "iCloud Backup", for: .normal)
-            importCVSButton.setTitle("Import iCloud Backup", for: .normal)
+            backupLabel.text = "iCloud Backup"
+            importLabel.text = "Import iCloud Backup"
         
             UserDefaults.standard.set(true, forKey: "iCloudBackupToggle")
         }else {
             icloudToggleSwitch.isOn = false
             missingIcloudCredsAlert()
-            exportCVSButton.setTitle("Backup Locally", for: .normal)
-            importCVSButton.setTitle("Import Locally", for: .normal)
+            backupLabel.text = "Backup Locally"
+            importLabel.text = "Import Backup Locally"
             
             
             UserDefaults.standard.set(false, forKey: "iCloudBackupToggle")
@@ -155,12 +151,12 @@ final class Settings_Backup_View_Controller: UIViewController {
         if(UserDefaults.standard.object(forKey: "lastBackup") != nil){
             backupDateLabel.text = "Last Known Backup: \(UserDefaults.standard.object(forKey: "lastBackup") as! String)"
         }else{
-            backupDateLabel.isHidden = true
+            backupDateLabel.text = "Backup has not been Performed!"
         }
         
     }
     
-    @IBAction func visitWebsiteButton(_ sender: Any) {
+    /*@IBAction func visitWebsiteButton(_ sender: Any) {
         
         let actionSheet = UIAlertController(title: localizedString().localized(value:"Import Troubles?"), message: localizedString().localized(value:"Exported your teams stats before you updated Coach Assistant? You might have a legacy stats template! Dont worry you won't loose all your stats. We have a easy to use guide, check it out!"), preferredStyle: .actionSheet)
         
@@ -184,7 +180,7 @@ final class Settings_Backup_View_Controller: UIViewController {
         // Present the controller
         self.present(actionSheet, animated: true, completion: nil)
         
-    }
+    }*/
     
     // creats csv file for  team info table
     func createCSVTeamInfo(){
@@ -978,6 +974,48 @@ final class Settings_Backup_View_Controller: UIViewController {
         alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
         self.present(alreadyProAlert, animated: true, completion: nil)
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You selected cell #\(indexPath.row)!")
+        switch indexPath.section {
+        case 1:
+            switch indexPath.row{
+            case 0:
+                if (icloudToggleSwitch.isOn == true){
+                    confirmationiCloudAlert()
+                    
+                }else{
+                    confirmationLocalAlert()
+                }
+                break
+
+            default:
+                print("FATAL CELL SELECTION ERROR")
+                break
+            }
+        case 2:
+            switch indexPath.row{
+            case 0:
+                self.performSegue(withIdentifier: "importPopUpSegue", sender: nil);
+                break
+            default:
+                break
+            }
+        case 3:
+            print("Asking User to delete app data")
+            deleteDataPrompt()
+            break
+        default:
+            break
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     // delay loop

@@ -41,15 +41,23 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         self.homeTeamPicker.delegate = self
         self.homeTeamPicker.dataSource = self
         
-        homeTeamPickerData = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
-        homeTeamPickerDataID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
+        homeTeamPickerData = (realm.objects(teamInfoTable.self).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
+        homeTeamPickerDataID = (realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
         
         // default home team and away team selection
         selectedHomeTeam = homeTeamPickerData[0]
         selectedHomeTeamKey = homeTeamPickerDataID[0]
         //round corners with a radius of 10 for popup view so my eyes dont bleed!
         popUpView.layer.cornerRadius = 10
+        
+        viewColour()
     }
+    
+    func viewColour(){
+        
+        self.popUpView.backgroundColor = systemColour().viewColor()
+    }
+    
     func bottomRoundedCorners(buttonName: UIButton){
     
         let path = UIBezierPath(roundedRect:buttonName.bounds, byRoundingCorners:[.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 10, height: 10))

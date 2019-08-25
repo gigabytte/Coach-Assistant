@@ -95,12 +95,22 @@ class Basic_Current_Stats_Page: UIViewController, UITableViewDelegate, UITableVi
             
         }
         
+       viewColour()
+        
+    }
+    
+    func viewColour(){
+        
+        homePlayerStatsTable.backgroundColor = systemColour().tableViewColor()
+        awayPlayerStatsTable.backgroundColor = systemColour().tableViewColor()
         // round corner of table views
         roundedCorners().tableViewTopLeft(tableviewType: homePlayerStatsTable)
         roundedCorners().tableViewTopRight(tableviewType: awayPlayerStatsTable)
         
+        homePlayerStatsTable.tableFooterView = UIView()
+        awayPlayerStatsTable.tableFooterView = UIView()
+       
     }
-    
     
     func playerNameFetch(){
         if (homePlayerIDs.isEmpty != true){

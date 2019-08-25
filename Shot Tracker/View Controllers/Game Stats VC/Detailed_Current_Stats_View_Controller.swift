@@ -99,10 +99,27 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
         // rounding of corners for tableview
         goalieStatsTableView.layer.cornerRadius = 10
         teamStatsTableView.layer.cornerRadius = 10
-        roundedCorners().tableViewTopLeft(tableviewType: homePlayerStatsTableView)
-        roundedCorners().tableViewTopRight(tableviewType: awayPlayerStatsTableView)
+        
+        viewColour()
     }
     
+    func viewColour(){
+        
+        homePlayerStatsTableView.backgroundColor = systemColour().tableViewColor()
+        awayPlayerStatsTableView.backgroundColor = systemColour().tableViewColor()
+        goalieStatsTableView.backgroundColor = systemColour().tableViewColor()
+        teamStatsTableView.backgroundColor = systemColour().tableViewColor()
+        
+        // round corner of table views
+        roundedCorners().tableViewTopLeft(tableviewType: homePlayerStatsTableView)
+        roundedCorners().tableViewTopRight(tableviewType: awayPlayerStatsTableView)
+        
+        homePlayerStatsTableView.tableFooterView = UIView()
+        awayPlayerStatsTableView.tableFooterView = UIView()
+        goalieStatsTableView.tableFooterView = UIView()
+        teamStatsTableView.tableFooterView = UIView()
+        
+    }
     
     
     func playerNameFetch(){

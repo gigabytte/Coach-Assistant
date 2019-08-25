@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Please allow access to your photo libary to allow caputuring of a team logo. No Info is shared outside the app.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access to the camera to allow caputuring of a team logo. No Info is shared outside the app.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

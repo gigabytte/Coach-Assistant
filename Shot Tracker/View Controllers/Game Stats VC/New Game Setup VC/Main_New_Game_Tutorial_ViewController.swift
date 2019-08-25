@@ -1,28 +1,27 @@
-//
-//  Locker Room UIPageController.swift
+
+//  Main New Game Tutorial ViewController.swift
 //  Shot Tracker
 //
-//  Created by Greg Brooks on 2019-08-19.
+//  Created by Greg Brooks on 2019-07-20.
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
-
 import UIKit
 
-class Locker_Room_UIPageController: UIPageViewController {
-
-    weak var tutorialDelegate: LockerRoomPageViewControllerDelegate?
+class Main_New_Game_Tutorial_ViewController: UIPageViewController {
+    
+    weak var tutorialDelegate: TutorialPageViewControllerDelegate?
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         // The view controllers will be shown in this order
-        return [self.newViewController("lockerroom_stats_VC"),
-                self.newViewController("lockerroom_old_stats_VC"),
-                self.newViewController("lockerroom_add_VC")]
+        return [self.newViewController("first_newgame"),
+                self.newViewController("second_newgame"),
+                self.newViewController("third_newgame"),
+                self.newViewController("fourth_newgame"),
+                self.newViewController("fifth_newgame")]
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // listen for notification to chnage page by button press
-        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "menuBtnPress"), object: nil)
         
         dataSource = self as UIPageViewControllerDataSource
         delegate = self as UIPageViewControllerDelegate
@@ -34,40 +33,15 @@ class Locker_Room_UIPageController: UIPageViewController {
         tutorialDelegate?.tutorialPageViewController(tutorialPageViewController: self, didUpdatePageCount: orderedViewControllers.count)
     }
     
-    @objc func myMethod(notification: NSNotification){
-        
-        // set page controler index based on lisener value heard
-        switch notification.userInfo?["btnNumber"] as? Int {
-        case 0:
-            print("Turned to Stats")
-            self.setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)
-            self.notifyTutorialDelegateOfNewIndex()
-        case 1:
-            print("Turned to Old Stats")
-            self.setViewControllers([orderedViewControllers[1]], direction: .forward, animated: true, completion: nil)
-            self.notifyTutorialDelegateOfNewIndex()
-        case 2:
-            print("Turned to Add Player")
-            self.setViewControllers([orderedViewControllers[3]], direction: .forward, animated: true, completion: nil)
-            self.notifyTutorialDelegateOfNewIndex()
-        default:
-            self.setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)
-            self.notifyTutorialDelegateOfNewIndex()
-            print("Turned to Stats")
-        }
-    
-    }
-    
     /**
      Scrolls to the next view controller.
      */
     func scrollToNextViewController() {
         if let visibleViewController = viewControllers?.first,
             let nextViewController = pageViewController(self, viewControllerAfter: visibleViewController) {
-            print("hi")
             scrollToViewController(viewController: nextViewController)
         }
-       
+        print("hi")
     }
     
     /**
@@ -77,13 +51,12 @@ class Locker_Room_UIPageController: UIPageViewController {
      - parameter newIndex: the new index to scroll to
      */
     func scrollToViewController(index newIndex: Int) {
-        print("hi")
         if let firstViewController = viewControllers?.first,
             let currentIndex = orderedViewControllers.firstIndex(of: firstViewController) {
             let direction: UIPageViewController.NavigationDirection = newIndex >= currentIndex ? .forward : .reverse
             let nextViewController = orderedViewControllers[newIndex]
             scrollToViewController(viewController: nextViewController, direction: direction)
-           
+            print("hi")
         }
     }
     
@@ -103,7 +76,9 @@ class Locker_Room_UIPageController: UIPageViewController {
                            direction: direction,
                            animated: true,
                            completion: { (finished) -> Void in
-                            
+                            // Setting the view controller programmatically does not fire
+                            // any delegate methods, so we have to manually notify the
+                            // 'tutorialDelegate' of the new index.
                             self.notifyTutorialDelegateOfNewIndex()
         })
     }
@@ -122,14 +97,12 @@ class Locker_Room_UIPageController: UIPageViewController {
 }
 
 // MARK: UIPageViewControllerDataSource
-
-extension Locker_Room_UIPageController: UIPageViewControllerDataSource {
+extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
-            
+            print("hi")
             return nil
         }
         
@@ -146,7 +119,7 @@ extension Locker_Room_UIPageController: UIPageViewControllerDataSource {
             
             return nil
         }
-        print("backward")
+        
         return orderedViewControllers[previousIndex]
     }
     
@@ -170,13 +143,13 @@ extension Locker_Room_UIPageController: UIPageViewControllerDataSource {
             
             return nil
         }
-         print("forward")
+        
         return orderedViewControllers[nextIndex]
     }
     
 }
 
-extension Locker_Room_UIPageController: UIPageViewControllerDelegate {
+extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
@@ -187,16 +160,15 @@ extension Locker_Room_UIPageController: UIPageViewControllerDelegate {
     
 }
 
-protocol LockerRoomPageViewControllerDelegate: class {
+protocol TutorialPageViewControllerDelegate: class {
     
     
     
-    func tutorialPageViewController(tutorialPageViewController: Locker_Room_UIPageController,
+    func tutorialPageViewController(tutorialPageViewController: Main_New_Game_Tutorial_ViewController,
                                     didUpdatePageCount count: Int)
     
     
-    func tutorialPageViewController(tutorialPageViewController: Locker_Room_UIPageController,
+    func tutorialPageViewController(tutorialPageViewController: Main_New_Game_Tutorial_ViewController,
                                     didUpdatePageIndex index: Int)
     
 }
-

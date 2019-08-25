@@ -5,7 +5,6 @@
 //  Created by Greg Brooks on 2019-05-24.
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
-
 import Foundation
 import RealmSwift
 import Realm

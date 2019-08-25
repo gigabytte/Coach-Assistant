@@ -19,6 +19,10 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     @IBOutlet weak var viewTypeSwitch: UISegmentedControl!
     @IBOutlet weak var basic_containerView: UIView!
     @IBOutlet weak var detailed_containerView: UIView!
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var analyticalButton: UIBarButtonItem!
+    
+    
     // defaults
     var rowIndex: Int = 0
     var homeTeam: Int = UserDefaults.standard.integer(forKey: "homeTeam")
@@ -28,14 +32,17 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        /* Un coomment for testing trial period
+        /* Uncomment for testing trial period
         UserDefaults.standard.removeObject(forKey: "userTrialPeriod")
         */
+        
+        UserDefaults.standard.set(true, forKey: "userPurchaseConf")
         productID = universalValue().coachAssistantProID
       
         basic_containerView.isHidden = false
         detailed_containerView.isHidden = true
         navBarProcessing()
+        viewColour()
         
         // Do any additional setup after loading the view.
     }
@@ -64,6 +71,19 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
             present(popupVC, animated: true, completion: nil)
             print("Help Guide Presented!")
         }
+    }
+    
+    func viewColour(){
+        
+        self.view.backgroundColor = systemColour().viewColor()
+        navBar.barTintColor = systemColour().navBarColor()
+        backButton.tintColor = systemColour().navBarButton()
+        analyticalButton.tintColor = systemColour().navBarButton()
+        
+        // set nav bar propeeties based on prameters layout
+        let barView = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))
+        barView.backgroundColor = navBar.barTintColor
+        view.addSubview(barView)
     }
     
     

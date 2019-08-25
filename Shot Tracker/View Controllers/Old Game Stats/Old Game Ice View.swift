@@ -36,6 +36,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     @IBOutlet weak var awayTeamNumGoals: UILabel!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var coachAssitantLogoBtn: UIButton!
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var gameStatsButton: UIBarButtonItem!
     
     var shotMarkerimageView: UIImageView!
     var goalMarkerimageView: UIImageView!
@@ -213,6 +215,21 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             }
         }
         
+        viewColour()
+        
+    }
+    
+    func viewColour(){
+        
+        self.view.backgroundColor = systemColour().viewColor()
+        navBar.barTintColor = systemColour().navBarColor()
+        backButton.tintColor = systemColour().navBarButton()
+        gameStatsButton.tintColor = systemColour().navBarButton()
+        
+        // set nav bar propeeties based on prameters layout
+        let barView = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))
+        barView.backgroundColor = navBar.barTintColor
+        view.addSubview(barView)
     }
     
     func bannerViewInitialize(){
