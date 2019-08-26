@@ -394,7 +394,7 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
         }
     }
     //Assign values for tableView
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+   /* func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var count: Int = 0
         
@@ -466,8 +466,9 @@ class Overall_Player_Stats_View: UIViewController, UITableViewDelegate, UITableV
             
             return cell
         }
+        return cell
     }
     
-    
+    */
 
 }

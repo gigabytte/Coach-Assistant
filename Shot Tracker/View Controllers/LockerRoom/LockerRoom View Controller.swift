@@ -285,7 +285,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     }
     
     @IBAction func addButton(_ sender: UIButton) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "menuBtnPress"), object: nil, userInfo: ["btnNumber":3])
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "menuBtnPress"), object: nil, userInfo: ["btnNumber":2])
     }
     @IBAction func changeTeamBtn(_ sender: UIButton) {
        defaultTeamSelection()

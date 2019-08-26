@@ -20,7 +20,6 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
     
     var selectedTeamID: Int!
     var gameIDArray: [Int] = [Int]()
-    var teamStatsAvgArray: [[Int]] = [[], [], [], [], [],[]]
     var teamStatsArray: [String] = [String]()
     var homePlayerIDs: [Int] = [Int]()
     var homePlayerNames: [String] = [String]()
@@ -78,6 +77,8 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         roundedCorners().tableViewTopLeftRight(tableviewType: playerInfoTableView)
         teamLogoImageView.heightAnchor.constraint(equalToConstant: teamLogoImageView.frame.height).isActive = true
         teamLogoImageView.setRounded()
+        
+        playerInfoTableView.backgroundColor = systemColour().tableViewColor()
 
     }
     
@@ -104,8 +105,10 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         
         if let URL = teamObjc?.teamLogoURL{
             if URL != ""{
-                let readerResult = imageReader(fileName: ("\((teamObjc?.nameOfTeam)!)_ID_\((teamObjc?.teamID)!)_team_logo"))
+                let readerResult = imageReader(fileName: teamObjc!.teamLogoURL)
                 teamLogoImageView.image = readerResult
+            }else{
+                teamLogoImageView.image = UIImage(named: "temp_profile_pic_icon")
             }
         }
         
@@ -166,7 +169,7 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
             do {
                 let readData = try Data(contentsOf: newURL)
                 retreivedImage = UIImage(data: readData)
-                
+                print("imag")
             } catch {
                 print("Team logo read error")
                
@@ -241,91 +244,7 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         
     }
     
-    
-    func teamStatsProcessing(){
-        
-        let realm = try! Realm()
-        
-        gameIDArray = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i OR opposingTeamID == %i AND activeState == true", selectedTeamID, selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}))
-        
-        for x in 0..<gameIDArray.count{
-            
-            // --------------------- GFA (Goals FOr home team) -----------------------------------
-            let goalsFor = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
-            teamStatsAvgArray[0].append(goalsFor)
-            
-            // -------------------- SFA (Shots for home team) ------------------------------------
-            let shotsFor =  ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
-            teamStatsAvgArray[1].append(shotsFor)
-            // --------------------  GAA (Goals against for home team) -------------------------------
-            let goalsAgainst = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID != %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
-            teamStatsAvgArray[2].append(goalsAgainst)
-            // --------------------  SAA (Shots against for home team) -------------------------------
-            let shotsAgainst = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID != %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
-            teamStatsAvgArray[3].append(shotsAgainst)
-            // ------------------- PPGA (Power Power Play Goals for home team) ------------------------
-            let powerPlayGoals = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND powerPlay == true AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
-            teamStatsAvgArray[4].append(powerPlayGoals)
-            
-            // ------------------- PPP (Power Power Play Goals for home team) ------------------------
-            let numPowerPlays = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID != %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
-            
-            let powerPlayPer = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND powerPlay == true AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
-            if (powerPlayPer != 0){
-                let powerPlayAVG = numPowerPlays / powerPlayPer
-                teamStatsAvgArray[5].append(powerPlayAVG)
-            }else{
-                teamStatsAvgArray[5].append(0)
-            }
-            
-            
-        }
-        // computer avg based on data set in 2d teamStatsAvgArray arrary
-        // PPP STATS GEN
-        let pppAVG = teamStatsAvgArray[5].reduce(.zero, +)
-        if pppAVG != 0 {
-            teamStatsArray.append("PPP: " + String(pppAVG / teamStatsAvgArray[5].count) + "%")
-        }else{
-            teamStatsArray.append("PPP: 0%")
-        }
-        // PPGA STATS GEN
-        let ppgaAVG = teamStatsAvgArray[4].reduce(.zero, +)
-        if ppgaAVG != 0{
-            teamStatsArray.append("PPGA: " + String(ppgaAVG / teamStatsAvgArray[4].count) + "%")
-        }else{
-            teamStatsArray.append("PPGA: 0%")
-        }
-        // GFA STATS GEN
-        let gfaAVG = teamStatsAvgArray[0].reduce(.zero, +)
-        if gfaAVG != 0{
-            teamStatsArray.append("GFA: " + String(gfaAVG / teamStatsAvgArray[0].count) + "%")
-        }else{
-            teamStatsArray.append("GFA: 0%")
-        }
-        // SFA STATS GEN
-        let sfaAVG = teamStatsAvgArray[1].reduce(.zero, +)
-        if sfaAVG != 0{
-            teamStatsArray.append("SFA: " + String(sfaAVG / teamStatsAvgArray[1].count) + "%")
-        }else{
-            teamStatsArray.append("SFA: 0%")
-        }
-        // GAA STATS GEN
-        let gaaAVG = teamStatsAvgArray[2].reduce(.zero, +)
-        if gaaAVG != 0{
-            teamStatsArray.append("GAA: " + String(gaaAVG / teamStatsAvgArray[2].count) + "%")
-        }else{
-            teamStatsArray.append("GAA: 0%")
-        }
-        // SAA STATS GEN
-        let saaAVG = teamStatsAvgArray[3].reduce(.zero, +)
-        if saaAVG != 0{
-            teamStatsArray.append("SAA: " + String(saaAVG / teamStatsAvgArray[3].count) + "%")
-        }else{
-            teamStatsArray.append("SAA: 0%")
-        }
-        
-        
-    }
+
     
     
     @objc func myMethod(notification: NSNotification){

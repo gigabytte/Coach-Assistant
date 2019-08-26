@@ -189,8 +189,8 @@ class Old_Stats_Type_Pop_Up: UIViewController, UIPickerViewDelegate, UIPickerVie
         // check is appropriate segue is being used
         if (segue.identifier == "overallPlayerStatsSegue"){
             // set var vc as destination segue
-            let vc = segue.destination as! Overall_Player_Stats_View
-            vc.homeTeamID = selectedTeamID
+            //let vc = segue.destination as! Overall_Player_Stats_View
+           // vc.homeTeamID = selectedTeamID
             
         }
     }

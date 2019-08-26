@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Charts
 
-class Team_About_Popup_View_Controller: UIViewController {
+class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var teamToggleSwitch: UISwitch!
     @IBOutlet weak var teamIsActiveLabel: UILabel!
@@ -24,9 +24,18 @@ class Team_About_Popup_View_Controller: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var teamBarChartView: BarChartView!
     
+    @IBOutlet weak var teamStatsTableView: UITableView!
+    
+    // cell reuse id (cells that scroll out of view can be reused)
+    let cellReuseIdentifier = "cell"
+    
     var imagePickerController : UIImagePickerController!
     
     var selectedTeamID: Int!
+    
+    var gameIDArray: [Int] = [Int]()
+    var teamStatsAvgArray: [[Int]] = [[], [], [], [], [],[]]
+    var teamStatsCalc: [String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +54,8 @@ class Team_About_Popup_View_Controller: UIViewController {
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
         
+        teamStatsTableView.dataSource = self
+        teamStatsTableView.delegate = self
         
         onLoad()
         // Do any additional setup after loading the view.
@@ -72,15 +83,13 @@ class Team_About_Popup_View_Controller: UIViewController {
             }
         }
         
-        
         if let URL = teamObjc?.teamLogoURL{
             if URL != ""{
-                let readerResult = imageReader(fileName: teamObjc!.teamLogoURL) as? UIImage
-                if readerResult != nil{
-                    teamLogoImageView.image = readerResult
-                }else{
-                    // default image goes here
-                }
+                let readerResult = imageReader(fileName: teamObjc!.teamLogoURL)
+                teamLogoImageView.image = readerResult
+            }else{
+                // default image goes here
+                teamLogoImageView.image = UIImage(named: "temp_profile_pic_icon")
             }
         }
         
@@ -88,6 +97,7 @@ class Team_About_Popup_View_Controller: UIViewController {
   
         switchState()
         recordLabelProcessing()
+        teamStatsProcessing()
         viewColour()
     }
     
@@ -97,6 +107,12 @@ class Team_About_Popup_View_Controller: UIViewController {
         
         teamLogoImageView.heightAnchor.constraint(equalToConstant: teamLogoImageView.frame.height).isActive = true
         teamLogoImageView.setRounded()
+        
+        roundedCorners().tableViewTopLeftRight(tableviewType: teamStatsTableView)
+        teamStatsTableView.tableFooterView = UIView()
+        
+        teamStatsTableView.backgroundColor = systemColour().tableViewColor()
+        self.popUpView.backgroundColor = systemColour().viewColor()
     }
     
     func switchState(){
@@ -126,6 +142,91 @@ class Team_About_Popup_View_Controller: UIViewController {
         let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         
         recordLabel.text = "W:\(String(homeTeamWinCount))-L:\(String(homeTeamLooseCount))-T:\(String(homeTeamTieCount))"
+    }
+    
+    func teamStatsProcessing(){
+        
+        let realm = try! Realm()
+        
+        gameIDArray = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i OR opposingTeamID == %i AND activeState == true", selectedTeamID, selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}))
+        
+        for x in 0..<gameIDArray.count{
+            
+            // --------------------- GFA (Goals FOr home team) -----------------------------------
+            let goalsFor = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[0].append(goalsFor)
+            
+            // -------------------- SFA (Shots for home team) ------------------------------------
+            let shotsFor =  ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[1].append(shotsFor)
+            // --------------------  GAA (Goals against for home team) -------------------------------
+            let goalsAgainst = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID != %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[2].append(goalsAgainst)
+            // --------------------  SAA (Shots against for home team) -------------------------------
+            let shotsAgainst = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID != %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[3].append(shotsAgainst)
+            // ------------------- PPGA (Power Power Play Goals for home team) ------------------------
+            let powerPlayGoals = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND powerPlay == true AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            teamStatsAvgArray[4].append(powerPlayGoals)
+            
+            // ------------------- PPP (Power Power Play Goals for home team) ------------------------
+            let numPowerPlays = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID != %i AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
+            
+            let powerPlayPer = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND powerPlay == true AND activeState == true", gameIDArray[x], selectedTeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+            if (powerPlayPer != 0){
+                let powerPlayAVG = numPowerPlays / powerPlayPer
+                teamStatsAvgArray[5].append(powerPlayAVG)
+            }else{
+                teamStatsAvgArray[5].append(0)
+            }
+            
+            
+        }
+        // computer avg based on data set in 2d teamStatsAvgArray arrary
+        // PPP STATS GEN
+        let pppAVG = teamStatsAvgArray[5].reduce(.zero, +)
+        if pppAVG != 0 {
+            teamStatsCalc.append("PPP: " + String(pppAVG / teamStatsAvgArray[5].count) + "%")
+        }else{
+            teamStatsCalc.append("PPP: 0%")
+        }
+        // PPGA STATS GEN
+        let ppgaAVG = teamStatsAvgArray[4].reduce(.zero, +)
+        if ppgaAVG != 0{
+            teamStatsCalc.append("PPGA: " + String(ppgaAVG / teamStatsAvgArray[4].count) + "%")
+        }else{
+            teamStatsCalc.append("PPGA: 0%")
+        }
+        // GFA STATS GEN
+        let gfaAVG = teamStatsAvgArray[0].reduce(.zero, +)
+        if gfaAVG != 0{
+            teamStatsCalc.append("GFA: " + String(gfaAVG / teamStatsAvgArray[0].count) + "%")
+        }else{
+            teamStatsCalc.append("GFA: 0%")
+        }
+        // SFA STATS GEN
+        let sfaAVG = teamStatsAvgArray[1].reduce(.zero, +)
+        if sfaAVG != 0{
+            teamStatsCalc.append("SFA: " + String(sfaAVG / teamStatsAvgArray[1].count) + "%")
+        }else{
+            teamStatsCalc.append("SFA: 0%")
+        }
+        // GAA STATS GEN
+        let gaaAVG = teamStatsAvgArray[2].reduce(.zero, +)
+        if gaaAVG != 0{
+            teamStatsCalc.append("GAA: " + String(gaaAVG / teamStatsAvgArray[2].count) + "%")
+        }else{
+            teamStatsCalc.append("GAA: 0%")
+        }
+        // SAA STATS GEN
+        let saaAVG = teamStatsAvgArray[3].reduce(.zero, +)
+        if saaAVG != 0{
+            teamStatsCalc.append("SAA: " + String(saaAVG / teamStatsAvgArray[3].count) + "%")
+        }else{
+            teamStatsCalc.append("SAA: 0%")
+        }
+        
+        
     }
     
     func realmLogoRefrence(fileURL: String){
@@ -356,7 +457,54 @@ class Team_About_Popup_View_Controller: UIViewController {
         switchState()
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+      
+        return("Team Stats")
+   
+    }
+    // Returns count of items in tableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+
+        return(6)
     
+    }
+    //Assign values for tableView
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        let cell:customTeamStatsCell = self.teamStatsTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customTeamStatsCell
+        
+        if (tableView == teamStatsTableView){
+            print("pro user\(UserDefaults.standard.bool(forKey: "userPurchaseConf"))")
+            switch indexPath.row {
+                case 0:
+                    if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                        cell.proStateLogoImageView.isHidden = false
+                        cell.statsLabel!.text = "PPP:"
+                    }else{
+                         cell.statsLabel!.text = teamStatsCalc[indexPath.row]
+                    }
+                break
+                case 1:
+                    if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                        cell.proStateLogoImageView.isHidden = false
+                        cell.statsLabel!.text = "PPGA:"
+                    }else{
+                        cell.statsLabel!.text = teamStatsCalc[indexPath.row]
+                    }
+                break
+                default:
+                    
+                    cell.proStateLogoImageView.isHidden = true
+                    cell.statsLabel!.text = teamStatsCalc[indexPath.row]
+                break
+            }
+            
+            
+        }
+        return cell
+    }
   
 
 }
@@ -387,6 +535,9 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
     
     func imageWriter(fileName: String, imageName: UIImage){
         
+        let realm = try! Realm()
+        let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)
+        
         let imageData = imageName.pngData()!
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -399,7 +550,7 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
             do {
                 try imageData.write(to: fileURL, options: .atomicWrite)
                 // send realm the location of the logo in DD
-                realmLogoRefrence(fileURL: "\(fileName)")
+                realmLogoRefrence(fileURL: "\((teamObjc?.nameOfTeam)!)_ID_\((teamObjc?.teamID)!)_team_logo")
                 
             } catch {
                 print("Team logo write error")

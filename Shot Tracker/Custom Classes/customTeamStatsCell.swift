@@ -11,15 +11,12 @@ import UIKit
 // class is used for custom tableviuew cells in over team stats
 class customTeamStatsCell: UITableViewCell {
 
-    @IBOutlet weak var pppLabel: UILabel!
-    @IBOutlet weak var gfaLabel: UILabel!
-    @IBOutlet weak var gaaLabel: UILabel!
-    @IBOutlet weak var sfaLabel: UILabel!
-    @IBOutlet weak var saaLabel: UILabel!
-    @IBOutlet weak var ppgaLabel: UILabel!
-    @IBOutlet weak var teamNameLabel: UILabel!
-    @IBOutlet weak var ppgaProImage: UIImageView!
-    @IBOutlet weak var pppProImage: UIImageView!
+    @IBOutlet weak var statsLabel: UILabel!
+    @IBOutlet weak var proStateLogoImageView: UIImageView!
+    
+    @IBOutlet weak var playerStatsLabel: UILabel!
+    @IBOutlet weak var player_proStateLogoIMageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
