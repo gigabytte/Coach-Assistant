@@ -48,7 +48,7 @@ class Locker_Room_UIPageController: UIPageViewController {
             self.notifyTutorialDelegateOfNewIndex()
         case 2:
             print("Turned to Add Player")
-            self.setViewControllers([orderedViewControllers[3]], direction: .forward, animated: true, completion: nil)
+            self.setViewControllers([orderedViewControllers[2]], direction: .forward, animated: true, completion: nil)
             self.notifyTutorialDelegateOfNewIndex()
         default:
             self.setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)

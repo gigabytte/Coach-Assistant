@@ -416,7 +416,7 @@ class playerLinePositionConverter{
             return "D Line 3"
             break
         case 0:
-            return "Goalie"
+            return "G Line 1"
             break
         default:
             return "F Line 1"

@@ -10,8 +10,9 @@ import UIKit
 import RealmSwift
 import Charts
 
-class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var playerStatsTableView: UITableView!
     @IBOutlet weak var playerActiveSwitch: UISwitch!
     @IBOutlet weak var playerIsActiveLabel: UILabel!
     @IBOutlet weak var playerProfileImageView: UIImageView!
@@ -40,6 +41,13 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     var defensePositionData:[String] = [String]()
     var goaliePositionData:[String] = [String]()
     var positionCodeData:[String] = [String]()
+    var homePlayerStatsArray: [String] = [String]()
+    var goalieStatsArray: [String] = [String]()
+    var gameIDArray: [Int] = [Int]()
+    var lastGoalArray: [String] = [String]()
+    
+    // cell reuse id (cells that scroll out of view can be reused)
+    let cellReuseIdentifier = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,11 +72,20 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         self.positionTypePicker.delegate = self
         self.positionTypePicker.dataSource = self
         
+        playerInfoTableView.dataSource = self
+        playerInfoTableView.delegate = self
+        
         onLoad()
     }
     
     func onLoad(){
         
+        statsProcessing()
+        // set view colour attributes
+        viewColour()
+    }
+    
+    func statsProcessing(){
         let realm = try! Realm()
         let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
         
@@ -105,16 +122,13 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             }
         }
         
-        
         if let URL = playerObjc?.playerLogoURL{
             if URL != ""{
-                let readerResult = imageReader(fileName: playerObjc!.playerLogoURL) as? UIImage
-                if readerResult != nil {
-                    playerProfileImageView.image = readerResult
-                }else{
-                    // default image goes here
-                    
-                }
+                let readerResult = imageReader(fileName: playerObjc!.playerLogoURL)
+                playerProfileImageView.image = readerResult
+            }else{
+                // default image goes here
+                playerProfileImageView.image = UIImage(named: "temp_profile_pic_icon")
             }
         }
         
@@ -130,8 +144,13 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         
         playerActiveSwitch.isOn = playerObjc!.activeState
         switchState()
-        // set view colour attributes
-        viewColour()
+        
+        if playerObjc?.positionType != "G"{
+            playerStatsProcessing()
+        }else{
+            goalieStatsProcessing()
+        }
+        
     }
     
     func viewColour(){
@@ -140,6 +159,12 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         
         playerProfileImageView.heightAnchor.constraint(equalToConstant: playerProfileImageView.frame.height).isActive = true
         playerProfileImageView.setRounded()
+        
+        roundedCorners().tableViewTopLeftRight(tableviewType: playerStatsTableView)
+        playerStatsTableView.tableFooterView = UIView()
+        
+        playerStatsTableView.backgroundColor = systemColour().tableViewColor()
+        self.popUpView.backgroundColor = systemColour().viewColor()
         
     }
     
@@ -482,6 +507,156 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         print("Select Position \(selectPosition)")
     }
     
+    func playerStatsProcessing(){
+        
+        homePlayerStatsArray.removeAll()
+        
+        let realm = try! Realm()
+        let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
+    
+        // ------------------ player position -----------------------
+        let playerPosition = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "positionType") as! [String]).compactMap({String($0)})
+        homePlayerStatsArray.append("Position: \(playerPosition.first!)")
+        // ------------------ player line -----------------------
+        let playerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
+        switch playerLineNum[0]{
+        case 0:
+            homePlayerStatsArray.append("Line Number: G")
+        case 1:
+            homePlayerStatsArray.append("Line Number: F1")
+        case 2:
+            homePlayerStatsArray.append("Line Number: F2")
+        case 3:
+            homePlayerStatsArray.append("Line Number: F3")
+        case 4:
+            homePlayerStatsArray.append("Line Number: D1")
+        case 5:
+            homePlayerStatsArray.append("Line Number: D2")
+        case 6:
+            homePlayerStatsArray.append("Line Number: D3")
+        default:
+            homePlayerStatsArray.append("Line Number: N/A")
+        }
+        
+        //-------------------- goal count -----------------------
+        // get number fos goals from player based oin looping player id
+        let nextPlayerCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first
+        // if number of goals is not 0 aka the player scorerd atleast once
+        // ass goals to player stats if not set as zero
+        homePlayerStatsArray.append("Goals: \(nextPlayerCount!)")
+        // ------------------ assits count -----------------------------
+        // get number of assist from player based on looping player id
+        let nextPlayerAssitCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "assitsCount") as! [Int]).compactMap({Int($0)})).first
+        // if number of assits is not 0 aka the player did not get assist atleast once
+        //  set assist num to 0
+        if (nextPlayerAssitCount != 0){
+            homePlayerStatsArray.append("Assits: \(String(nextPlayerAssitCount!))")
+        }else{
+            homePlayerStatsArray.append("Assits: 0")
+        }
+        // ------------------ plus minus count -----------------------------
+        // get current looping player's plus minus
+        let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", passedPlayerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}).first
+        
+        homePlayerStatsArray.append("Overall Plus/Minus: \(String(nextPlayerPlusMinus!))")
+        // ------------------ player's line minus count -----------------------------
+        // add all plus/minus from all member of the current player ids line for the overall line plus minus
+        let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", passedPlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)}).first
+        
+        let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum!, String(playerObjc!.TeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        var totalPlusMinus: Int = 0
+        for i in 0..<allPlayersOnLine.count{
+            
+            totalPlusMinus = totalPlusMinus + ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", allPlayersOnLine[i])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
+            
+        }
+        homePlayerStatsArray.append("Overall Line Plus/Minus: \(String(totalPlusMinus))")
+        
+        // -------------------- PIM (Penalty in minutes for season against player -----------------------------
+        let penaltyMinutesAgainstMinor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "playerID == %i AND penaltyType == %@ AND activeState == true", passedPlayerID, "Minor")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
+        let penaltyMinutesAgainstMajor = ((realm.objects(penaltyTable.self).filter(NSPredicate(format: "playerID == %i AND penaltyType == %@ AND activeState == true", passedPlayerID, "Major")).value(forKeyPath: "penaltyID") as! [Int]).compactMap({Int($0)})).count
+        
+        let totalMinutes = (penaltyMinutesAgainstMinor * UserDefaults.standard.integer(forKey: "minorPenaltyLength")) + (penaltyMinutesAgainstMajor * UserDefaults.standard.integer(forKey: "majorPenaltyLength"))
+        homePlayerStatsArray.append("PIM: \(String(totalMinutes))")
+        // -------------------------------- Faceoff Win % -------------------------------
+        let numberOfFaceoffTaken = ((realm.objects(faceOffInfoTable.self).filter(NSPredicate(format: "winingPlayerID == %i OR losingPlayerID == %i AND activeState == true", passedPlayerID,passedPlayerID)).value(forKeyPath: "faceoffID") as! [Int]).compactMap({Int($0)})).count
+        let numberOfFaceoffWon = ((realm.objects(faceOffInfoTable.self).filter(NSPredicate(format: "winingPlayerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "faceoffID") as! [Int]).compactMap({Int($0)})).count
+        
+        if (numberOfFaceoffTaken != 0){
+            let faceoffWinPerCalc = numberOfFaceoffWon / numberOfFaceoffTaken
+            homePlayerStatsArray.append("Faceoff Win Percentage: \(String(faceoffWinPerCalc))%")
+        }else{
+            homePlayerStatsArray.append("Faceoff Win Percentage: 0%")
+        }
+        // -------------------------------------------------------------------------------
+        
+        // -------------------------- GMG Game Wining Goals for the Season ----------------
+        for ID in gameIDArray{
+            let lastGoalID = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", ID)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({String($0)}))
+            if (!lastGoalID.isEmpty && lastGoalID.last! != ""){
+                lastGoalArray.append(lastGoalID.last!)
+            }
+        }
+        let count = lastGoalArray.filter({ $0.contains(String(passedPlayerID))}).count
+        if (count != 0){
+            homePlayerStatsArray.append("GMG: " + String(Int(count) / lastGoalArray.count) + "%")
+        }else{
+            homePlayerStatsArray.append("GMG: 0%")
+        }
+            
+
+    }
+    
+    func goalieStatsProcessing(){
+        
+        goalieStatsArray.removeAll()
+        
+         let realm = try! Realm()
+            let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
+            
+        //----------- goals against avg -------------------------
+        let numberOfHomeGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "homeTeamID == %i AND activeState == true", playerObjc!.TeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
+        let numberOfAwayGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "opposingTeamID == %i AND activeState == true", playerObjc!.TeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
+        let numberOfGoalsAgainst = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", passedPlayerID, playerObjc!.TeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+        
+        let GAA:Double = Double(numberOfGoalsAgainst) / Double(numberOfHomeGames + numberOfAwayGames)
+        goalieStatsArray.append("Goals Against Average: \(String(format: "%.2f", GAA))")
+        
+        //-------------- save % overall ------------------
+        let homeGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count
+        let homeGoalieGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count
+        print(homeGoalieShots, homeGoalieGoals)
+        if (homeGoalieShots != 0 && homeGoalieGoals != 0){
+            let homeGoalieTotal:Double = (Double(homeGoalieShots) / Double(homeGoalieGoals + homeGoalieShots))
+            goalieStatsArray.append("Overall Save %: \(String(format: "%.2f", homeGoalieTotal))")
+        }else{
+            goalieStatsArray.append("Overall Save %: N/A")
+        }
+        // ----------- save % by shot location --------------------
+        let topLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 1)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let topRight = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 2)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let bottomLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 3)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let bottomRight = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 4)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        let center = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 5)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        
+        let totalShot:Double = topLeft + topRight + bottomLeft + bottomRight + center
+        
+        if (totalShot != 0.0){
+            goalieStatsArray.append("Top Left Save %: \(String(format: "%.2f",(topLeft/totalShot)))")
+            goalieStatsArray.append("Top Right Save %: \(String(format: "%.2f",(topRight/totalShot)))")
+            goalieStatsArray.append("Bottom Left Save %: \(String(format: "%.2f", (bottomLeft/totalShot)))")
+            goalieStatsArray.append("Bottom Right Save %: \(String(format: "%.2f",(bottomRight/totalShot)))")
+            goalieStatsArray.append("Five Hole Save %: \(String(format: "%.2f",(center/totalShot)))")
+        }else{
+            goalieStatsArray.append("Top Left Save %: N/A")
+            goalieStatsArray.append("Top Right Save %: N/A")
+            goalieStatsArray.append("Bottom Left Save %: N/A")
+            goalieStatsArray.append("Bottom Right Save %: N/A")
+            goalieStatsArray.append("Five Hole Save %: N/A")
+        }
+        
+    }
+    
     @IBAction func closeButton(_ sender: UIButton) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
         self.dismiss(animated: true, completion: nil)
@@ -498,7 +673,8 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             succesfulPlayerAdd(playerName: editedPlayer!.playerName)
             isEditingFields(boolType: true)
             onLoad()
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+            playerInfoTableView.reloadData()
+            //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
         }else{
            
             isEditingFields(boolType: false)
@@ -514,6 +690,114 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     
     @IBAction func playerToggleSwitch(_ sender: UISwitch) {
         switchState()
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+        
+        return("Team Stats")
+        
+    }
+    // Returns count of items in tableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let realm = try! Realm()
+        let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
+        
+        if playerObjc?.positionType == "G"{
+            return goalieStatsArray.count
+        }else{
+            return homePlayerStatsArray.count
+        }
+
+        
+    }
+    //Assign values for tableView
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        let cell:customTeamStatsCell = self.playerInfoTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customTeamStatsCell
+        let realm = try! Realm()
+        let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
+        
+        if playerObjc?.positionType == "G"{
+                
+            switch indexPath.row {
+            case 2:
+                if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                    cell.player_proStateLogoIMageView.isHidden = false
+                    cell.playerStatsLabel!.text = "Save % Top Left:"
+                }else{
+                    cell.playerStatsLabel!.text = goalieStatsArray[indexPath.row]
+                }
+                
+            case 3:
+                if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                    cell.player_proStateLogoIMageView.isHidden = false
+                    cell.playerStatsLabel!.text = "Save % Top Right:"
+                }else{
+                    cell.playerStatsLabel!.text = goalieStatsArray[indexPath.row]
+                }
+                
+            case 4:
+                if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                    cell.player_proStateLogoIMageView.isHidden = false
+                    cell.playerStatsLabel!.text = "Save % Bottom Left:"
+                }else{
+                    cell.playerStatsLabel!.text = goalieStatsArray[indexPath.row]
+                }
+                
+            case 5:
+                if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                    cell.player_proStateLogoIMageView.isHidden = false
+                    cell.playerStatsLabel!.text = "Save % Bottom Right:"
+                }else{
+                    cell.playerStatsLabel!.text = goalieStatsArray[indexPath.row]
+                }
+                
+            case 6:
+                if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                    cell.player_proStateLogoIMageView.isHidden = false
+                    cell.playerStatsLabel!.text = "Save % Five Hole:"
+                }else{
+                    cell.playerStatsLabel!.text = goalieStatsArray[indexPath.row]
+                }
+                
+            default:
+                cell.player_proStateLogoIMageView.isHidden = true
+                cell.playerStatsLabel!.text = goalieStatsArray[indexPath.row]
+            }
+       
+        }else{
+            switch indexPath.row {
+            case 4:
+                if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                    cell.player_proStateLogoIMageView.isHidden = false
+                    cell.playerStatsLabel!.text = "Line Plus / Minus:"
+                }else{
+                    cell.playerStatsLabel!.text = homePlayerStatsArray[indexPath.row]
+                }
+            case 6:
+                if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                    cell.player_proStateLogoIMageView.isHidden = false
+                    cell.playerStatsLabel!.text = "PIM:"
+                }else{
+                    cell.playerStatsLabel!.text = homePlayerStatsArray[indexPath.row]
+                }
+                
+            case 8:
+                if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+                    cell.player_proStateLogoIMageView.isHidden = false
+                    cell.playerStatsLabel!.text = "GMG:"
+                }else{
+                    cell.playerStatsLabel!.text = homePlayerStatsArray[indexPath.row]
+                }
+                
+            default:
+                cell.player_proStateLogoIMageView.isHidden = true
+                cell.playerStatsLabel!.text = homePlayerStatsArray[indexPath.row]
+            }
+        }
+        return cell
     }
     
 
@@ -545,6 +829,9 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
     
     func imageWriter(fileName: String, imageName: UIImage){
         
+        let realm = try! Realm()
+        let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
+        
         let imageData = imageName.pngData()!
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -557,7 +844,7 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
             do {
                 try imageData.write(to: fileURL, options: .atomicWrite)
                 // send realm the location of the logo in DD
-                realmLogoRefrence(fileURL: "\(fileName)")
+                realmLogoRefrence(fileURL: "\((playerObjc?.playerName)!)_ID_\((playerObjc?.playerID)!)_player_logo")
                 
             } catch {
                 print("Player logo write error")

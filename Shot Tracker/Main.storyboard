@@ -675,20 +675,6 @@
                                             <constraint firstAttribute="width" secondItem="aES-5u-KXQ" secondAttribute="height" multiplier="1:0.02" id="utQ-uM-Vjg"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VRg-rg-lrg">
-                                        <rect key="frame" x="0.0" y="198.5" width="358" height="245.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="t6Q-3t-lNI">
-                                                <rect key="frame" x="0.0" y="28" width="358" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t6Q-3t-lNI" id="3VO-OF-fwo">
-                                                    <rect key="frame" x="0.0" y="0.0" width="358" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </tableViewCellContentView>
-                                            </tableViewCell>
-                                        </prototypes>
-                                    </tableView>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is Active" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRk-qP-zfr">
                                         <rect key="frame" x="293.5" y="144.5" width="86" height="27"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
@@ -701,6 +687,45 @@
                                             <action selector="teamToggleSwitch:" destination="tdt-gr-W6R" eventType="valueChanged" id="bTa-Hp-wga"/>
                                         </connections>
                                     </switch>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VRg-rg-lrg">
+                                        <rect key="frame" x="0.0" y="198.5" width="358" height="245.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="t6Q-3t-lNI" customClass="customTeamStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="358" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t6Q-3t-lNI" id="3VO-OF-fwo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="358" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stat Label:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uq2-NV-yk0">
+                                                            <rect key="frame" x="10" y="10" width="98" height="23.5"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premium_image" translatesAutoresizingMaskIntoConstraints="NO" id="u76-rg-nRq">
+                                                            <rect key="frame" x="278" y="8" width="65" height="28"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="u76-rg-nRq" firstAttribute="centerY" secondItem="3VO-OF-fwo" secondAttribute="centerY" id="36H-bP-wHf"/>
+                                                        <constraint firstItem="Uq2-NV-yk0" firstAttribute="bottom" secondItem="3VO-OF-fwo" secondAttribute="bottom" constant="-10" id="Bpx-u1-c5Q"/>
+                                                        <constraint firstItem="Uq2-NV-yk0" firstAttribute="leading" secondItem="3VO-OF-fwo" secondAttribute="leading" constant="10" id="K8R-Xj-3LZ"/>
+                                                        <constraint firstItem="u76-rg-nRq" firstAttribute="trailing" secondItem="3VO-OF-fwo" secondAttribute="trailing" constant="-15" id="UZZ-br-Vge"/>
+                                                        <constraint firstItem="Uq2-NV-yk0" firstAttribute="top" secondItem="3VO-OF-fwo" secondAttribute="top" constant="10" id="bfH-j4-Vni"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <outlet property="proStateLogoImageView" destination="u76-rg-nRq" id="VRs-5P-ktp"/>
+                                                    <outlet property="statsLabel" destination="Uq2-NV-yk0" id="4fw-nA-ACT"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <sections/>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -767,6 +792,7 @@
                         <outlet property="teamLogoImageView" destination="OIh-3o-a7r" id="ljV-3p-2Wn"/>
                         <outlet property="teamNameEditTextField" destination="bfT-3N-hGI" id="9EI-VK-ehA"/>
                         <outlet property="teamNameLabel" destination="r6W-pl-bhT" id="ImA-kK-lP3"/>
+                        <outlet property="teamStatsTableView" destination="VRg-rg-lrg" id="5Oz-vN-icU"/>
                         <outlet property="teamToggleSwitch" destination="7jx-a6-Hhy" id="mvN-Xm-TKx"/>
                     </connections>
                 </viewController>
@@ -828,13 +854,38 @@
                                         <rect key="frame" x="0.0" y="154" width="358" height="290"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="427-jA-w76">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="427-jA-w76" customClass="customTeamStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="358" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="427-jA-w76" id="CuZ-vx-QFa">
                                                     <rect key="frame" x="0.0" y="0.0" width="358" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premium_image" translatesAutoresizingMaskIntoConstraints="NO" id="xND-Jh-DEi">
+                                                            <rect key="frame" x="278" y="8" width="65" height="28"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PlayerStats:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTy-dN-0fA">
+                                                            <rect key="frame" x="15" y="10" width="111" height="23.5"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="hTy-dN-0fA" firstAttribute="leading" secondItem="CuZ-vx-QFa" secondAttribute="leading" constant="15" id="4h8-vd-enE"/>
+                                                        <constraint firstItem="hTy-dN-0fA" firstAttribute="bottom" secondItem="CuZ-vx-QFa" secondAttribute="bottom" constant="-10" id="InY-nM-8Lz"/>
+                                                        <constraint firstItem="hTy-dN-0fA" firstAttribute="top" secondItem="CuZ-vx-QFa" secondAttribute="top" constant="10" id="WuB-ln-jfY"/>
+                                                        <constraint firstItem="xND-Jh-DEi" firstAttribute="trailing" secondItem="CuZ-vx-QFa" secondAttribute="trailing" constant="-15" id="f6i-2V-dKz"/>
+                                                        <constraint firstItem="xND-Jh-DEi" firstAttribute="centerY" secondItem="CuZ-vx-QFa" secondAttribute="centerY" id="qCS-Dr-bJ8"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <outlet property="playerStatsLabel" destination="hTy-dN-0fA" id="zCR-eh-ylM"/>
+                                                    <outlet property="player_proStateLogoIMageView" destination="xND-Jh-DEi" id="MRz-S7-aL0"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -960,6 +1011,7 @@
                         <outlet property="playerNumberLabel" destination="Pwq-e4-lGd" id="qlm-KP-G43"/>
                         <outlet property="playerPositionLabel" destination="oAH-Yi-SjA" id="Kct-9l-BNM"/>
                         <outlet property="playerProfileImageView" destination="TbE-1p-1YG" id="oeY-fo-U8q"/>
+                        <outlet property="playerStatsTableView" destination="sHH-Hq-Kbu" id="m2i-Hy-fqm"/>
                         <outlet property="popUpView" destination="edb-0P-K9I" id="xTI-Uv-Fc4"/>
                         <outlet property="positionTypePicker" destination="E3a-ty-PSM" id="h9G-B0-9f8"/>
                     </connections>
@@ -1043,6 +1095,7 @@
                                                     <rect key="frame" x="472.5" y="12" width="55" height="19.5"/>
                                                 </imageView>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="aZq-AW-oO0" firstAttribute="centerY" secondItem="MJa-Yu-xoK" secondAttribute="centerY" id="7FF-hm-fOv"/>
                                                 <constraint firstItem="MJa-Yu-xoK" firstAttribute="centerY" secondItem="Day-eg-hw5" secondAttribute="centerY" id="G9r-7b-NJK"/>
@@ -1057,6 +1110,7 @@
                                                 <constraint firstItem="aZq-AW-oO0" firstAttribute="trailing" secondItem="Day-eg-hw5" secondAttribute="trailing" constant="-10" id="tbM-eL-YJp"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="deletedPlayerIcon" destination="aZq-AW-oO0" id="zuT-YV-FPp"/>
                                             <outlet property="playerNameLabel" destination="Avj-jl-KBp" id="qNY-31-4IA"/>
@@ -1316,10 +1370,10 @@
             </objects>
             <point key="canvasLocation" x="-190" y="33"/>
         </scene>
-        <!--Overall Player Stats View-->
+        <!--View Controller-->
         <scene sceneID="fRr-qU-5PP">
             <objects>
-                <viewController restorationIdentifier="Overall_Stats_View_Controller" storyboardIdentifier="Overall_Stats_View_Controller" id="JBG-4t-arR" customClass="Overall_Player_Stats_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Overall_Stats_View_Controller" storyboardIdentifier="Overall_Stats_View_Controller" id="JBG-4t-arR" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qjU-t9-RfP">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3582,7 +3636,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premium_image" translatesAutoresizingMaskIntoConstraints="NO" id="H9a-Ix-MHf">
-                                        <rect key="frame" x="778.5" y="315" width="65" height="28"/>
+                                        <rect key="frame" x="778.5" y="321" width="16" height="16"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5823,7 +5877,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="9mO-XH-g0d"/>
         <segue reference="VdZ-aC-tCs"/>
-        <segue reference="djc-Z0-gWf"/>
+        <segue reference="Dru-ha-s6H"/>
         <segue reference="WTt-WG-gLn"/>
         <segue reference="uKM-e6-KT4"/>
         <segue reference="uPm-8V-vDH"/>

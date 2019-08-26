@@ -62,7 +62,6 @@
 		BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */; };
 		BE9016B622469E45006ECE5B /* Default Team Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9016B522469E45006ECE5B /* Default Team Selection View.swift */; };
 		BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */; };
-		BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25D223C300300228621 /* Overall Player Stats View.swift */; };
 		BE913A482233740500080081 /* Old Game Ice View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE913A472233740500080081 /* Old Game Ice View.swift */; };
 		BE92E0212274E1AB00B95209 /* Penalty_Popup_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE92E0202274E1AB00B95209 /* Penalty_Popup_View_Controller.swift */; };
 		BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */; };
@@ -209,7 +208,6 @@
 		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
 		BE9016B522469E45006ECE5B /* Default Team Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Default Team Selection View.swift"; sourceTree = "<group>"; };
 		BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Type Pop Up.swift"; sourceTree = "<group>"; };
-		BE90D25D223C300300228621 /* Overall Player Stats View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Overall Player Stats View.swift"; sourceTree = "<group>"; };
 		BE913A472233740500080081 /* Old Game Ice View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Game Ice View.swift"; sourceTree = "<group>"; };
 		BE92E0202274E1AB00B95209 /* Penalty_Popup_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Penalty_Popup_View_Controller.swift; sourceTree = "<group>"; };
 		BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Import Pop Up View.swift"; sourceTree = "<group>"; };
@@ -417,7 +415,6 @@
 			children = (
 				BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */,
 				BE913A472233740500080081 /* Old Game Ice View.swift */,
-				BE90D25D223C300300228621 /* Overall Player Stats View.swift */,
 			);
 			path = "Old Game Stats";
 			sourceTree = "<group>";
@@ -906,7 +903,6 @@
 				BED5479422E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift in Sources */,
 				BEAD9B20230B59380040AFE2 /* Player Stats View Controller.swift in Sources */,
 				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
-				BE90D25E223C300300228621 /* Overall Player Stats View.swift in Sources */,
 				BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */,
 				BE8F88B6227747260087ED88 /* varReference.swift in Sources */,
 				BE913A482233740500080081 /* Old Game Ice View.swift in Sources */,
