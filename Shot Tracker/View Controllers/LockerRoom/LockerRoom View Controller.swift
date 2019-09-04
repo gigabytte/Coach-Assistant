@@ -34,8 +34,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder()
-        
-         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
+    
 
         onLoad()
         
@@ -304,16 +303,18 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let tutorialPageViewController = segue.destination as? Locker_Room_UIPageController {
-            self.tutorialPageViewController = tutorialPageViewController
-        }
-    }
+    
     
     // delay loop
     func delay(_ delay:Double, closure:@escaping ()->()) {
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let tutorialPageViewController = segue.destination as? Locker_Room_UIPageController {
+            self.tutorialPageViewController = tutorialPageViewController
+        }
     }
 }
 extension LockerRoom_View_Controller: LockerRoomPageViewControllerDelegate {

@@ -261,7 +261,7 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
             print("Accesing Camera")
             if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
                 self.imagePickerController = UIImagePickerController()
-                self.imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+                self.imagePickerController.delegate = self
                 self.imagePickerController.sourceType = .camera
                 self.imagePickerController.allowsEditing = true
                 self.present(self.imagePickerController, animated: true, completion: nil)
@@ -269,11 +269,11 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
             
         }))
         // add an action (button)
-        mediaAlert.addAction(UIAlertAction(title: "Libary", style: UIAlertAction.Style.default, handler: { action in
+        mediaAlert.addAction(UIAlertAction(title: "Photo Library", style: UIAlertAction.Style.default, handler: { action in
             print("Accesing Libary")
             
             self.imagePickerController = UIImagePickerController()
-            self.imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            self.imagePickerController.delegate = self
             self.imagePickerController.sourceType = .photoLibrary
             self.imagePickerController.allowsEditing = true
             self.present(self.imagePickerController, animated: true, completion: nil)
@@ -538,7 +538,8 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
         let realm = try! Realm()
         let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)
         
-        let imageData = imageName.pngData()!
+        let imageData = imageName.jpegData(compressionQuality: 0.25)
+        
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
@@ -548,7 +549,7 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
             print(fileURL)
             
             do {
-                try imageData.write(to: fileURL, options: .atomicWrite)
+                try imageData!.write(to: fileURL, options: .atomicWrite)
                 // send realm the location of the logo in DD
                 realmLogoRefrence(fileURL: "\((teamObjc?.nameOfTeam)!)_ID_\((teamObjc?.teamID)!)_team_logo")
                 

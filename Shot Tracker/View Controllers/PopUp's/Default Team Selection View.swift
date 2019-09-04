@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Realm
 
-class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverPresentationControllerDelegate {
    
     let realm = try! Realm()
     
@@ -21,6 +21,7 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
     var selectedHomeTeamKey:Int = 0;
     var newGameLoad: Bool!
     
+    @IBOutlet weak var addNewTeamButon: UIButton!
     @IBOutlet weak var homeTeamPicker: UIPickerView!
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var popUpView: UIView!
@@ -56,6 +57,7 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
     func viewColour(){
         
         self.popUpView.backgroundColor = systemColour().viewColor()
+    
     }
     
     func bottomRoundedCorners(buttonName: UIButton){
@@ -66,6 +68,19 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         buttonName.layer.mask = maskLayer
         
     }
+    
+    func openNewTeamAdd(){
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "Add_New_Team_Popup_View_Controller") as! Add_New_Team_Popup_View_Controller
+        popupVC.modalPresentationStyle = .overCurrentContext
+        popupVC.modalTransitionStyle = .crossDissolve
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self
+        
+        present(popupVC, animated: true, completion: nil)
+        print("Add New Team  Presented!")
+    }
 
     @IBAction func continueButton(_ sender: UIButton) {
       
@@ -73,6 +88,11 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
         self.dismiss(animated: true, completion: nil)
       
+    }
+    
+    @IBAction func addNewTeamName(_ sender: UIButton) {
+        openNewTeamAdd()
+        
     }
     //-------------------------------------------------------------------------------
     // Picker View Functions for Home and Away Team Picking

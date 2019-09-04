@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-
+        
+        //UserDefaults.standard.set(true, forKey: "newUser")
+        
         // Use Firebase library to configure APIs.
         FirebaseApp.configure()
         // Initialize the Google Mobile Ads SDK.
@@ -70,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     catch {
                         //Error handling
-                        print("Error in creating doc")
+                        print("Error in creating iCloud Doc folder")
                     }
                 }
             }
@@ -107,7 +109,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let docURL = URL(string: documentsDirectory)!
         let teamlogo_dataPath = docURL.appendingPathComponent("TeamLogo")
         let playerlogo_dataPath = docURL.appendingPathComponent("PlayerImages")
-        // check and creat apporate directories for images
+        let gamesaves_dataPath = docURL.appendingPathComponent("GameSaves")
+        // check and creat apporate directories for team logo images
         if !FileManager.default.fileExists(atPath: teamlogo_dataPath.absoluteString) {
             do {
                 try FileManager.default.createDirectory(atPath: teamlogo_dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
@@ -118,6 +121,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !FileManager.default.fileExists(atPath: playerlogo_dataPath.absoluteString) {
             do {
                 try FileManager.default.createDirectory(atPath: playerlogo_dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription);
+            }
+        }
+        if !FileManager.default.fileExists(atPath: gamesaves_dataPath.absoluteString) {
+            do {
+                try FileManager.default.createDirectory(atPath: gamesaves_dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
             } catch {
                 print(error.localizedDescription);
             }
