@@ -7,10 +7,17 @@
 //
 
 import UIKit
+import Charts
 import RealmSwift
 
 class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var needProWarningImage: UIImageView!
+    @IBOutlet weak var dataWarningTeamLineChart: UILabel!
+    @IBOutlet weak var dataWarningTeamPieChart: UILabel!
+    @IBOutlet weak var graphsView: UIView!
+    @IBOutlet weak var teamStatsLineChart: LineChartView!
+    @IBOutlet weak var teamStatsPieChart: PieChartView!
     @IBOutlet weak var playerInfoTableView: UITableView!
     @IBOutlet weak var teamLogoImageView: UIImageView!
     @IBOutlet weak var teamNameLabel: UILabel!
@@ -27,6 +34,16 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
     var homePlayerPosition: [String] = [String]()
     var homePlayerBool: [Bool] = [Bool]()
     
+    var homeTeamWinCount: Int!
+    var homeTeamTieCount: Int!
+    var homeTeamLooseCount: Int!
+    
+    var teamWinsDataEntry = PieChartDataEntry(value: 0)
+    var teamLosesDataEntry = PieChartDataEntry(value: 0)
+    var teamTiesDataEntry = PieChartDataEntry(value: 0)
+    
+    var teamGoalsDataEntry: [ChartDataEntry] = []
+    var teamShotsDataEntry: [ChartDataEntry] = []
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -34,7 +51,7 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
+       NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
         
         playerInfoTableView.dataSource = self
         playerInfoTableView.delegate = self
@@ -64,10 +81,19 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         recordLabelProcessing()
         playerNameInfo()
         teamInfoGrabber()
+        teamPieChartSettings()
+        teamPieChartValues()
+        if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+
+            teamStatsLineChart.isHidden = true
+        }else{
+            teamLineChartValues()
+            teamStatsLineChart.isHidden = false
+        }
+ 
+        
         viewColour()
     }
-    
-    
     
     func viewColour(){
         
@@ -79,8 +105,111 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         teamLogoImageView.setRounded()
         
         playerInfoTableView.backgroundColor = systemColour().tableViewColor()
-
+        
+        roundedCorners().uiViewTopLeftRight(labelViewType: graphsView)
+        graphsView.backgroundColor = systemColour().tableViewColor()
+        
     }
+    
+    
+    func teamPieChartSettings(){
+     
+        let teamRecordCriteria = [teamWinsDataEntry, teamLosesDataEntry, teamTiesDataEntry]
+        let chartDataSet = PieChartDataSet(entries: teamRecordCriteria, label: nil)
+        let chartData = PieChartData(dataSet: chartDataSet)
+        chartDataSet.drawValuesEnabled = false
+        // set visual aspect of pie chart iuncluding colours and animations
+        let colours = [UIColor.green, UIColor.red, UIColor.blue]
+        chartDataSet.colors = colours
+        teamStatsPieChart.data = chartData
+        teamStatsPieChart.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
+        teamStatsPieChart.drawEntryLabelsEnabled = false
+        teamStatsPieChart.holeColor = NSUIColor.init(cgColor: UIColor.clear.cgColor)
+      
+    }
+    
+    func teamPieChartValues(){
+        
+        teamWinsDataEntry.label = "# of Wins"
+        teamLosesDataEntry.label = "# of Loses"
+        teamTiesDataEntry.label = "# of Ties"
+        
+        let totalGames = homeTeamWinCount + homeTeamLooseCount + homeTeamTieCount
+        if totalGames != 0{
+            teamWinsDataEntry.value = Double(homeTeamWinCount) / Double(totalGames)
+            teamLosesDataEntry.value = Double(homeTeamLooseCount) / Double(totalGames)
+            teamTiesDataEntry.value = Double(homeTeamTieCount) / Double(totalGames)
+
+            
+        }else{
+            // if total games will be divisable by 0 then default is even desperment error
+            teamWinsDataEntry.value = 0.0
+            teamLosesDataEntry.value = 0.0
+            teamTiesDataEntry.value = 0.0
+            // shaw data warning
+            teamStatsPieChart.isHidden = true
+            dataWarningTeamPieChart.isHidden = true
+        }
+    }
+    
+    func teamLineChartValues(){
+        
+        let realm = try! Realm()
+    
+        var goal_dataSets: [ChartDataEntry] = [ChartDataEntry]()
+        var shot_dataSets: [ChartDataEntry] = [ChartDataEntry]()
+        
+        var total_dataSets: [LineChartDataSet] = [LineChartDataSet]()
+        
+        let gameIDs = (realm.objects(newGameTable.self).filter(NSPredicate(format: "activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})
+        if gameIDs.count != 0 {
+            dataWarningTeamLineChart.isHidden = true
+            needProWarningImage.isHidden = true
+            for x in 0..<gameIDs.count{
+                
+                let numberOfGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", gameIDs[x], selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+                let numberOfShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", gameIDs[x], selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+                
+                let goal_dataEntry = ChartDataEntry(x: Double(gameIDs[x]), y: Double(numberOfGoals))
+                let shot_dataEntry = ChartDataEntry(x: Double(gameIDs[x]), y: Double(numberOfShots))
+                
+                print(numberOfGoals)
+                print(numberOfShots)
+                
+                teamGoalsDataEntry.append(goal_dataEntry)
+                teamShotsDataEntry.append(shot_dataEntry)
+                
+                let goal_dataSet = ChartDataEntry(x: Double(gameIDs[x]), y: Double(numberOfGoals), data: Double.self)
+                goal_dataSets.append(goal_dataSet)
+                
+                let shot_dataSet = ChartDataEntry(x: Double(gameIDs[x]), y: Double(numberOfShots), data: Double.self)
+                shot_dataSets.append(shot_dataSet)
+                
+            }
+        }else{
+            teamStatsLineChart.isHidden = true
+            needProWarningImage.isHidden = true
+            dataWarningTeamLineChart.text = "InSufficent Data"
+        }
+        let set1 = LineChartDataSet(entries: goal_dataSets, label: "# of Goals per Game")
+        set1.colors = [UIColor.blue]
+        let set2 = LineChartDataSet(entries: shot_dataSets, label: "# of Shots per Game")
+        set2.colors = [UIColor.green]
+        
+        total_dataSets.append(set1)
+        total_dataSets.append(set2)
+        
+        let chartData = LineChartData(dataSets: total_dataSets)
+        
+        teamStatsLineChart.data = chartData
+       
+        teamStatsLineChart.xAxis.drawGridLinesEnabled = false
+        teamStatsLineChart.rightAxis.drawGridLinesEnabled = false
+        teamStatsLineChart.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
+        teamStatsLineChart.borderColor = UIColor.clear
+        teamStatsLineChart.gridBackgroundColor = NSUIColor.clear
+    }
+    
     
     func teamInfoGrabber(){
         let realm = try! Realm()
@@ -120,9 +249,9 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         
         let realm = try! Realm()
     
-        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
-        let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
-        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         
         teamSeasonRecordLabel.text = "W:\(String(homeTeamWinCount))-L:\(String(homeTeamLooseCount))-T:\(String(homeTeamTieCount))"
     }
@@ -238,7 +367,7 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
                 homePlayerPosition.append(playerPositionConverter().realmInpuToString(rawInput: queryPlayerPosition!))
             }
         }else{
-            homePlayerNames[0] = "No Players Found"
+           // homePlayerNames[0] = "No Players Found"
             
         }
         
@@ -257,10 +386,16 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         
         playerNameInfo()
         teamInfoGrabber()
+        teamPieChartSettings()
+        teamPieChartValues()
+        if UserDefaults.standard.bool(forKey: "userPurchaseConf") == false{
+            teamLineChartValues()
+            teamStatsLineChart.isHidden = true
+        }
        
         DispatchQueue.main.async {
             self.playerInfoTableView.reloadData()
-          
+            self.teamStatsPieChart.reloadInputViews()
         }
         
     }

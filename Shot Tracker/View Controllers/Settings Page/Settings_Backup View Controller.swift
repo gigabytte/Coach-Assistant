@@ -10,8 +10,9 @@ import UIKit
 import Realm
 import RealmSwift
 import SwiftyStoreKit
+import MobileCoreServices
 
-final class Settings_Backup_View_Controller: UITableViewController {
+final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPresentationControllerDelegate{
     
     @IBOutlet weak var backToiClkoudLabel: UILabel!
     @IBOutlet var backupTableView: UITableView!
@@ -20,11 +21,36 @@ final class Settings_Backup_View_Controller: UITableViewController {
     @IBOutlet weak var backupLabel: UILabel!
     @IBOutlet weak var importLabel: UILabel!
     
-    
-    
-    var realm = try! Realm()
     var successImport: Bool!
     var productID: String!
+    var runOnceBool: Bool = false
+    var importPlayersBool: Bool!
+    
+    var csvText_newGameTable: String!
+    var csvText_faceoffTable: String!
+    var csvText_goalMarkerTable: String!
+    var csvText_overallStatsTable: String!
+    var csvText_penaltyInfoTable: String!
+    var csvText_playerInfoTable: String!
+    var csvText_shotMarkerTable: String!
+    var csvText_teamInfoTable: String!
+    
+    var teamInfoTableFileName: String = "Realm_Team_Info_Table.csv"
+    var playerInfoTableFileName: String = "Realm_Player_Info_Table.csv"
+    var newGameTableFileName: String = "Realm_New_Game_Info_Table.csv"
+    var goalMarkerTableFileName: String = "Realm_Goal_Marker_Table.csv"
+    var shotMarkerTableFileName: String = "Realm_Shot_Marker_Table.csv"
+    var penaltyInfoTableFileName: String = "Realm_Penalty_Table.csv"
+    var overallStatsTableFileName: String = "Realm_Overall_Stats_Table.csv"
+    var faceoffInfoTableFileName: String = "Realm_Faceoff_Stats_Table.csv"
+    
+    var playerNamesFromCSV: [String] = [String]()
+    var playerJerseyNumFromCSV: [Int] = [Int]()
+    var playerLineNumFromCSV: [Int] = [Int]()
+    var playerLineTypeFromCSV: [String] = [String]()
+    
+    var teamNameFromCSV: [String] = [String]()
+    var teamSeasonYearFromCSV: [Int] = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +58,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "backupSettingsPageRefresh"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(myColorMethod(notification:)), name: NSNotification.Name(rawValue: "darModeToggle"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myResetMethod(notification:)), name: NSNotification.Name(rawValue: "deleteOldValues"), object: nil)
         
         productID = universalValue().coachAssistantProID
         // check is icloud conatiner exsiss on user icloud account
@@ -47,8 +74,9 @@ final class Settings_Backup_View_Controller: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
+        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true && runOnceBool == false){
             upgradeNowAlert()
+            runOnceBool = true
         }
         reloadView()
         print("Back Up View Controller Appeared")
@@ -63,6 +91,13 @@ final class Settings_Backup_View_Controller: UITableViewController {
         viewColour()
     }
     
+    @objc func myResetMethod(notification: NSNotification){
+        playerLineNumFromCSV.removeAll()
+        playerLineTypeFromCSV.removeAll()
+        playerNamesFromCSV.removeAll()
+        playerJerseyNumFromCSV.removeAll()
+    }
+    
     func reloadView(){
         
         icloudToggleSwitch.isOn = UserDefaults.standard.bool(forKey: "iCloudBackupToggle")
@@ -73,14 +108,14 @@ final class Settings_Backup_View_Controller: UITableViewController {
                     
                     print("User can export to iCloud")
                     backupLabel.text = "iCloud Backup"
-                    importLabel.text = "Import iCloud Backup"
+                    importLabel.text = "Import Game Saves from iCloud"
                     
                     
                 }else{
                     print("User cannot export to iCLoud!")
                     
                     backupLabel.text = "Backup Locally"
-                    importLabel.text = "Import Backup Locally"
+                    importLabel.text = "Import Backup Game Saves Locally"
                     
                 }
             }else{
@@ -98,7 +133,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
     
     @objc func myMethod(notification: NSNotification){
      
-        delay(0.5){
+        delayClass().delay(0.5){
             self.importAlert(message: localizedString().localized(value: "Your data was Successfully Imported!"))
         }
     }
@@ -155,72 +190,54 @@ final class Settings_Backup_View_Controller: UITableViewController {
         }
         
     }
-    
-    /*@IBAction func visitWebsiteButton(_ sender: Any) {
-        
-        let actionSheet = UIAlertController(title: localizedString().localized(value:"Import Troubles?"), message: localizedString().localized(value:"Exported your teams stats before you updated Coach Assistant? You might have a legacy stats template! Dont worry you won't loose all your stats. We have a easy to use guide, check it out!"), preferredStyle: .actionSheet)
-        
-        
-        let openAction = UIAlertAction(title: localizedString().localized(value:"open"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            guard let url = URL(string: universalValue().legacyWebsiteURLHelp) else { return }
-            UIApplication.shared.open(url)
-        })
-        // tapp anywhere outside of popup alert controller
-        let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
-            print("didPress Cancel")
-        })
-        // Add the actions to your actionSheet
-        actionSheet.addAction(openAction)
-        actionSheet.addAction(cancelAction)
-        if let popoverController = actionSheet.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: visitWebsiteButton.frame.origin.x, y: visitWebsiteButton.frame.origin.y, width: visitWebsiteButton.frame.width / 2, height: visitWebsiteButton.frame.height)
-            
-        }
-        // Present the controller
-        self.present(actionSheet, animated: true, completion: nil)
-        
-    }*/
-    
+  
     // creats csv file for  team info table
     func createCSVTeamInfo(){
+        
+        let realm = try! Realm()
         
         let TeamIDCount =  realm.objects(teamInfoTable.self).filter("teamID >= 0").count
         var tempTeamNameArray: [String] = [String]()
         var tempSeasonYearArray: [String] = [String]()
+        var tempTeamLogoURLArray: [String] = [String]()
         var tempActiveStateArray: [String] = [String]()
         // print(TeamIDCount)
         for i in 0..<TeamIDCount{
             
             let teamNameValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.nameOfTeam;
             let seasonYearValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.seasonYear;
+            let teamLogoURL = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.teamLogoURL;
             let activeStateValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.activeState;
             tempTeamNameArray.append(teamNameValue)
             tempSeasonYearArray.append(String(seasonYearValue))
+            tempTeamLogoURLArray.append(String(teamLogoURL))
             tempActiveStateArray.append(String(activeStateValue))
         }
         
-        let fileName = "Realm_Team_Info_Table" + ".csv"
-        var csvText = "nameOfTeam,seasonYear,activeState\n"
+        csvText_teamInfoTable = "nameOfTeam,seasonYear,teamLogoURL,activeState\n"
         for x in 0..<tempTeamNameArray.count {
             
             let teamNameVar = tempTeamNameArray[x]
             let seaonYearVar = tempSeasonYearArray[x]
+            let teamLogoURLVar = tempTeamLogoURLArray[x]
             let activeStateVar = tempActiveStateArray[x]
             
-            let newLine = teamNameVar + "," + seaonYearVar + "," + activeStateVar + "\n"
-            csvText.append(newLine)
+            let newLine = teamNameVar + "," + seaonYearVar + "," + teamLogoURLVar + "," + activeStateVar + "\n"
+            csvText_teamInfoTable.append(newLine)
+        }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentWriter(fileName: teamInfoTableFileName, csvText: csvText_teamInfoTable)
+            iCloudDocumentReader(fileName: teamInfoTableFileName)
+        }else{
+            localDocumentWriter(fileName: teamInfoTableFileName, csvText: csvText_teamInfoTable)
         }
         
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentReader(fileName: fileName, csvText: csvText)
-            iCloudDocumentReader(fileName: fileName)
-        }else{
-            localDocumentReader(fileName: fileName, csvText: csvText)
-        }
+       
     }
     // creats csv file for player info table
     func createCSVPlayerInfo(){
+        
+         let realm = try! Realm()
         
         let playerIDCount =  realm.objects(playerInfoTable.self).filter("playerID >= 0").count
         var tempPlayerNameArray: [String] = [String]()
@@ -232,6 +249,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
         var tempAssitsCount: [String] = [String]()
         var tempShotCount: [String] = [String]()
         var tempPlusMinus: [String] = [String]()
+        var tempPlayerLogoURL: [String] = [String]()
         var tempActiveState: [String] = [String]()
         
         for i in 0..<playerIDCount{
@@ -245,6 +263,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
             let assitsCount = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.assitsCount;
             let shotCount = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.shotCount;
             let plusMinus = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.plusMinus;
+            let playerLogoURL = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.playerLogoURL
             let activeState = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.activeState;
             tempPlayerNameArray.append(playerNameValue)
             tempjerseyNum.append(String(jerseyNum))
@@ -255,12 +274,12 @@ final class Settings_Backup_View_Controller: UITableViewController {
             tempAssitsCount.append(String(assitsCount))
             tempShotCount.append(String(shotCount))
             tempPlusMinus.append(String(plusMinus))
+            tempPlayerLogoURL.append(String(playerLogoURL))
             tempActiveState.append(String(activeState))
             
         }
         
-        let fileName = "Realm_Player_Info_Table" + ".csv"
-        var csvText = "playerName,jerseyNum,positionType,TeamID,lineNum,goalCount,assitsCount,shotCount,plusMinus,activeState\n"
+        csvText_playerInfoTable = "playerName,jerseyNum,positionType,TeamID,lineNum,goalCount,assitsCount,shotCount,plusMinus,playerLogoURL,activeState\n"
         for x in 0..<tempPlayerNameArray.count {
             
             let playerNameVar = tempPlayerNameArray[x]
@@ -272,26 +291,29 @@ final class Settings_Backup_View_Controller: UITableViewController {
             let playerAssitsCountVar = tempAssitsCount[x]
             let playerShotCountVar = tempShotCount[x]
             let playerPlusMinusVar = tempPlusMinus[x]
+            let playerLogoURLVar = tempPlayerLogoURL[x]
             let playerActiveStateVar = tempActiveState[x]
             
-            let newLine =  playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerActiveStateVar + "\n"
-            csvText.append(newLine)
+            let newLine =  playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerLogoURLVar + "," + playerActiveStateVar + "\n"
+            csvText_playerInfoTable.append(newLine)
         }
-        
         if (icloudToggleSwitch.isOn == true){
-            localDocumentReader(fileName: fileName, csvText: csvText)
-            iCloudDocumentReader(fileName: fileName)
+            localDocumentWriter(fileName: playerInfoTableFileName, csvText: csvText_playerInfoTable)
+            iCloudDocumentReader(fileName: playerInfoTableFileName)
         }else{
-            localDocumentReader(fileName: fileName, csvText: csvText)
+            localDocumentWriter(fileName: playerInfoTableFileName, csvText: csvText_playerInfoTable)
         }
+       
     }
     // creats csv file for new game table
     func createCSVNewGameInfo(){
         
+         let realm = try! Realm()
+        
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        let dateString = formatter.string(from: date)
+        _ = formatter.string(from: date)
         
         let newGameIDCount =  realm.objects(newGameTable.self).filter("gameID >= 0").count
         var tempDateGamePlayed: [String] = [String]()
@@ -334,8 +356,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
         }
         
-        let fileName = "Realm_New_Game_Info_Table" + ".csv"
-        var csvText = "dateGamePlayed,opposingTeamID,homeTeamID,gameType,gameLocation,winingTeamID,losingTeamID,seasonYear,tieBool,activeGameStatus,activeState\n"
+        csvText_newGameTable = "dateGamePlayed,opposingTeamID,homeTeamID,gameType,gameLocation,winingTeamID,losingTeamID,seasonYear,tieBool,activeGameStatus,activeState\n"
         for x in 0..<newGameIDCount {
             
             let dateGamePlayerVar = tempDateGamePlayed[x]
@@ -352,18 +373,20 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
             let newLine =  dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + locationVar + "," + winingTeamVar + "," + losingTeamVar + "," + seasonYearVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
  
-            csvText.append(newLine)
+            csvText_newGameTable.append(newLine)
         }
-        
         if (icloudToggleSwitch.isOn == true){
-            localDocumentReader(fileName: fileName, csvText: csvText)
-            iCloudDocumentReader(fileName: fileName)
+            localDocumentWriter(fileName: newGameTableFileName, csvText: csvText_newGameTable)
+            iCloudDocumentReader(fileName: newGameTableFileName)
         }else{
-            localDocumentReader(fileName: fileName, csvText: csvText)
+            localDocumentWriter(fileName: newGameTableFileName, csvText: csvText_newGameTable)
         }
+       
     }
     // creats csv file for goal marker table
     func createCSVGoalMarkerTable(){
+        
+         let realm = try! Realm()
         
         let goalMarkerIDCount =  realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").count
         var tempgameID: [String] = [String]()
@@ -415,8 +438,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
         }
         
-        let fileName = "Realm_Goal_Marker_Table" + ".csv"
-        var csvText = "gameID,goalType,powerPlay,powerPlayID,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        csvText_goalMarkerTable = "gameID,goalType,powerPlay,powerPlayID,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<goalMarkerIDCount{
             
             let gameIDVar = tempgameID[x]
@@ -437,18 +459,21 @@ final class Settings_Backup_View_Controller: UITableViewController {
             let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + powerPlayIDVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar +
                 "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
  
-            csvText.append(newLine)
+            csvText_goalMarkerTable.append(newLine)
+        }
+        if (icloudToggleSwitch.isOn == true){
+            localDocumentWriter(fileName: goalMarkerTableFileName, csvText: csvText_goalMarkerTable)
+            iCloudDocumentReader(fileName: goalMarkerTableFileName)
+        }else{
+            localDocumentWriter(fileName: goalMarkerTableFileName, csvText: csvText_goalMarkerTable)
         }
         
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentReader(fileName: fileName, csvText: csvText)
-            iCloudDocumentReader(fileName: fileName)
-        }else{
-            localDocumentReader(fileName: fileName, csvText: csvText)
-        }
+       
     }
     // creats csv file for shot marker table
     func createCSVShotMarkerTable(){
+        
+        let realm = try! Realm()
         
         let shotMarkerIDCount =  realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").count
         var tempgameID: [String] = [String]()
@@ -482,8 +507,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
         }
         
-        let fileName = "Realm_Shot_Marker_Table" + ".csv"
-        var csvText = "gameID,TeamID,goalieID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
+        csvText_shotMarkerTable = "gameID,TeamID,goalieID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
         for x in 0..<shotMarkerIDCount{
             
             let gameIDVar = tempgameID[x]
@@ -497,19 +521,21 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
             let newLine =  gameIDVar + "," + teamIDVar + "," + goalieIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
       
-            csvText.append(newLine)
+            csvText_shotMarkerTable.append(newLine)
         }
-        
         if (icloudToggleSwitch.isOn == true){
-            localDocumentReader(fileName: fileName, csvText: csvText)
-            iCloudDocumentReader(fileName: fileName)
+            localDocumentWriter(fileName: shotMarkerTableFileName, csvText: csvText_shotMarkerTable)
+            iCloudDocumentReader(fileName: shotMarkerTableFileName)
         }else{
-            localDocumentReader(fileName: fileName, csvText: csvText)
+            localDocumentWriter(fileName: shotMarkerTableFileName, csvText: csvText_shotMarkerTable)
         }
+       
     }
     
     // creats csv file for penalty table
     func createCSVPenaltyTable(){
+        
+        let realm = try! Realm()
         
         let shotMarkerIDCount =  realm.objects(penaltyTable.self).filter("penaltyID >= 0").count
         var tempGameID: [String] = [String]()
@@ -540,8 +566,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
         }
         
-        let fileName = "Realm_Penalty_Table" + ".csv"
-        var csvText = "gameID,playerID,penaltyType,timeOfOffense,xCord,yCord,activeState\n"
+        csvText_penaltyInfoTable = "gameID,playerID,penaltyType,timeOfOffense,xCord,yCord,activeState\n"
         for x in 0..<shotMarkerIDCount{
             
             let gameIDVar = tempGameID[x]
@@ -554,19 +579,23 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
             let newLine =  gameIDVar + "," + playerIDVar + "," + penaltyTypeVar + "," + timeOfOffenseVar + "," + xCordVar + "," + yCordVar + "," + activeStateVar + "\n"
 
-            csvText.append(newLine)
+            csvText_penaltyInfoTable.append(newLine)
         }
+        
         if (icloudToggleSwitch.isOn == true){
-            localDocumentReader(fileName: fileName, csvText: csvText)
-            iCloudDocumentReader(fileName: fileName)
+            localDocumentWriter(fileName: penaltyInfoTableFileName, csvText: csvText_penaltyInfoTable)
+            iCloudDocumentReader(fileName: penaltyInfoTableFileName)
         }else{
-            localDocumentReader(fileName: fileName, csvText: csvText)
+            localDocumentWriter(fileName: penaltyInfoTableFileName, csvText: csvText_penaltyInfoTable)
         }
+        
     }
     
     
     // creats csv file for Overall stats table
     func createCSVOverallStatsTable(){
+        
+        let realm = try! Realm()
         
         let overallIDCount =  realm.objects(overallStatsTable.self).filter("overallStatsID >= 0").count
         var tempGameID: [String] = [String]()
@@ -597,8 +626,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
         }
         
-        let fileName = "Realm_Overall_Stats_Table" + ".csv"
-        var csvText = "gameID,playerID,lineNum,goalCount,assistCount,plusMinus,activeState\n"
+        csvText_overallStatsTable = "gameID,playerID,lineNum,goalCount,assistCount,plusMinus,activeState\n"
         for x in 0..<overallIDCount{
             
             let gameIDVar = tempGameID[x]
@@ -611,18 +639,22 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
             let newLine =  gameIDVar + "," + playerIDVar + "," + lineNumVar + "," + goalCountVar + "," + assistCountVar + "," + plusMinusVar + "," + activeStateVar + "\n"
  
-            csvText.append(newLine)
+            csvText_overallStatsTable.append(newLine)
         }
+        
         if (icloudToggleSwitch.isOn == true){
-            localDocumentReader(fileName: fileName, csvText: csvText)
-            iCloudDocumentReader(fileName: fileName)
+            localDocumentWriter(fileName: overallStatsTableFileName, csvText: csvText_overallStatsTable)
+            iCloudDocumentReader(fileName: overallStatsTableFileName)
         }else{
-            localDocumentReader(fileName: fileName, csvText: csvText)
+            localDocumentWriter(fileName: overallStatsTableFileName, csvText: csvText_overallStatsTable)
         }
+        
     }
     
     // creats csv file for Overall stats table
     func createCSVFaceoffStatsTable(){
+        
+        let realm = try! Realm()
         
         let overallIDCount =  realm.objects(faceOffInfoTable.self).filter("faceoffID >= 0").count
         var tempGameID: [String] = [String]()
@@ -650,8 +682,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
         }
         
-        let fileName = "Realm_Faceoff_Stats_Table" + ".csv"
-        var csvText = "gameID,winingPlayerID,losingPlayerID,periodNum,faceoffLocationCode,activeState\n"
+        csvText_faceoffTable = "gameID,winingPlayerID,losingPlayerID,periodNum,faceoffLocationCode,activeState\n"
         for x in 0..<overallIDCount{
             
             let gameIDVar = tempGameID[x]
@@ -663,15 +694,199 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
             let newLine =  gameIDVar + "," + winingPlayerIDVar + "," + losingPlayerIDVar + "," + periodNumVar + "," + faceoffLocationCodeVar + "," + activeStateVar + "\n"
     
-            csvText.append(newLine)
+            csvText_faceoffTable.append(newLine)
         }
+        
         if (icloudToggleSwitch.isOn == true){
-            localDocumentReader(fileName: fileName, csvText: csvText)
-            iCloudDocumentReader(fileName: fileName)
+            localDocumentWriter(fileName: faceoffInfoTableFileName, csvText: csvText_faceoffTable)
+            iCloudDocumentReader(fileName: faceoffInfoTableFileName)
         }else{
-            localDocumentReader(fileName: fileName, csvText: csvText)
+            localDocumentWriter(fileName: faceoffInfoTableFileName, csvText: csvText_faceoffTable)
+        }
+        
+    }
+    
+    func lineTypeFormatChecker(lineType: String) -> Bool{
+        switch lineType.trimmingCharacters(in: .whitespacesAndNewlines) {
+        case "LW":
+            return true
+        case "RW":
+            return true
+        case "LD":
+            return true
+        case "RD":
+            return true
+        case "G":
+            return true
+        default:
+            return false
         }
     }
+    
+    func lineNumeFormatChecker(lineNum: Int) -> Bool{
+        if lineNum <= 6 && lineNum >= 0 {
+            return true
+        }
+        return false
+    }
+    
+    func importPlayersFormatChecker(fileName: URL) -> Bool{
+        
+        var firstFileContentsParsed: [[String]] = [[String]]()
+        var playerInfoMultiArray = [[String]]()
+        
+        do {
+            firstFileContentsParsed =  (try String(contentsOf: fileName, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Contents of File")
+            fatalErrorAlert("Error Attempting to Find Contents of File has failed. Please make sure you are importing a compatible file")
+            
+        }
+        
+         if firstFileContentsParsed[0].count == 4 {
+            // copy contents of old array into newly formatted array
+            for x in 1..<firstFileContentsParsed.count{
+                if firstFileContentsParsed[x][0] != "" && firstFileContentsParsed[x][0] != "\r" && firstFileContentsParsed[x][0] != "\n"{
+                   
+                    playerInfoMultiArray.append(firstFileContentsParsed[x])
+                 
+                }
+            }
+     
+            // start at second row ignore first one
+            for x in 0..<playerInfoMultiArray.count{
+                if playerInfoMultiArray[x].count == 4 {
+                    // check to see if player name is filled in
+                    if playerInfoMultiArray[x][0] == ""{
+                         fatalErrorAlert("Player Name Error ocuured attempting to parse the player file imported, please refer to the CSV file format on coachassistant.ca")
+                        return false
+                        
+                    }else{
+                        
+                        // append player name if format right
+                        playerNamesFromCSV.append(playerInfoMultiArray[x][0])
+                        // check to see if the player name has a jersey number
+                        if playerInfoMultiArray[x][1] == "" && canCast().clastToInt(valueToCast: playerInfoMultiArray[x][1]) == false {
+                            fatalErrorAlert("Jersey Number Error ocuured attempting to parse the player file imported, please refer to the CSV file format on coachassistant.ca")
+                            return false
+                        }else{
+                       
+                            // append jersey number if format right
+                            playerJerseyNumFromCSV.append(Int(playerInfoMultiArray[x][1])!)
+                        
+                            // check to see if the player name has a line number
+                            if playerInfoMultiArray[x][2] == "" && canCast().clastToInt(valueToCast: playerInfoMultiArray[x][2]) == false{
+                                fatalErrorAlert("Line Number Error ocuured attempting to parse the player file imported, please refer to the CSV file format on coachassistant.ca")
+                                return false
+                            }else{
+                                if lineNumeFormatChecker(lineNum: Int(playerInfoMultiArray[x][2])!) == true{
+                                    // append line number if format right
+                                    playerLineNumFromCSV.append(Int(playerInfoMultiArray[x][2])!)
+                                    // check to see if the player name has a line type
+                                    if playerInfoMultiArray[x][3] == "" && lineTypeFormatChecker(lineType: playerInfoMultiArray[x][3]) == false{
+                                        fatalErrorAlert("Line Type Error ocuured attempting to parse the player file imported, please refer to the CSV file format on coachassistant.ca")
+                                        return false
+                                    }else{
+                                        // append line type if format right
+                                        playerLineTypeFromCSV.append((playerInfoMultiArray[x][3]).trimmingCharacters(in: .whitespacesAndNewlines))
+                                        
+                                    }
+                                }else{
+                                    fatalErrorAlert("Line Number Error ocuured attempting to parse the player file imported, please refer to the CSV file format on coachassistant.ca")
+                                    return false
+                                }
+                               
+                            }
+                        }
+                    }
+                }else{
+                    fatalErrorAlert("ERROR, Attempting to parse the player file imported, please refer to the CSV file format on coachassistant.ca")
+                    return false
+                }
+            }
+            return true
+        }else{
+            fatalErrorAlert("ERROR, Attempting to parse the player file imported, please refer to the CSV file format on coachassistant.ca")
+            return false
+        }
+    }
+
+    
+    // convert csv files to string then convert [[string]] to team table in realm
+    func csvStringToRealmTeamTable(fileName: URL) -> Bool{
+
+        var firstFileContentsParsed: [[String]] = [[String]]()
+        var teamInfoMultiArray = [[String]]()
+        // get contents of specfic csv file and place into array above
+        do {
+            firstFileContentsParsed =  (try String(contentsOf: fileName, encoding: .utf8)).components(separatedBy: "\n").map{ $0.components(separatedBy: ",") }
+        } catch {
+            print("Error Finding Containts of File")
+            fatalErrorAlert("ERROR, attempting to find contents of file has failed. Please make sure you are importing a compatible file")
+        }
+    
+        var rowIndexCount: Int = 0
+        
+        // copy contents of old array into newly formatted array
+        for x in 1..<firstFileContentsParsed.count{
+            
+            if firstFileContentsParsed[x].indices.contains(0) {
+                if firstFileContentsParsed[x][0] != "" && firstFileContentsParsed[x][0] != "\r" && firstFileContentsParsed[x][0] != "\n"{
+                
+                    // check to see if 2d row is already created
+                    if !teamInfoMultiArray.indices.contains(rowIndexCount){
+                        teamInfoMultiArray.append(["", ""])
+                    }
+                   
+                    // add team name to array
+                    teamInfoMultiArray[rowIndexCount][0] = (firstFileContentsParsed[x][0])
+                    
+                }
+            }
+            if firstFileContentsParsed[x].indices.contains(1) {
+                if firstFileContentsParsed[x][1] != "" && firstFileContentsParsed[x][1] != "\r" && firstFileContentsParsed[x][1] != "\n"{
+                
+                    // check to see if 2d row is already created
+                    if !teamInfoMultiArray.indices.contains(rowIndexCount){
+                        teamInfoMultiArray.append(["", ""])
+                    }
+                    // add team name to array
+                    teamInfoMultiArray[rowIndexCount][1] = (firstFileContentsParsed[x][1])
+                }
+            }
+            rowIndexCount = rowIndexCount + 1
+        }
+        
+            for x in 0..<teamInfoMultiArray.count{
+                if (teamInfoMultiArray[x].count == 2){
+                    if teamInfoMultiArray[x][0] == ""{
+                        print("Error Finding Containts of File team name")
+                        fatalErrorAlert("Team Name ERROR ocuured attempting to parse the player file imported, please refer to the CSV file format on coachassistant.ca")
+                        return false
+                    }else{
+                        teamNameFromCSV.append(teamInfoMultiArray[x][0])
+                        if teamInfoMultiArray[x][1] != "" {
+                            let value = (teamInfoMultiArray[x][1]).trimmingCharacters(in: .whitespacesAndNewlines)
+                            if canCast().clastToInt(valueToCast: value) == true && Int(value)! >= 1990 {
+                                teamSeasonYearFromCSV.append(Int(value)!)
+                            }else{
+                                teamSeasonYearFromCSV.append(getDate().getYear())
+                            }
+                
+                        }else{
+                            teamSeasonYearFromCSV.append(getDate().getYear())
+                        }
+                    }
+                }else{
+                    fatalErrorAlert("ERROR, Attempting to parse the team file imported, please refer to the CSV file format on coachassistant.ca")
+                    return false
+                    
+                }
+            }
+
+            return true
+    }
+
     
     // func used to delete old CSV files stored in file manager app
     func oldCSVFileFinder(){
@@ -702,126 +917,31 @@ final class Settings_Backup_View_Controller: UITableViewController {
         }
     }
     
-    func importAlert(message: String){
-        
-        // create the alert
-        let importAlert = UIAlertController(title: localizedString().localized(value: message), message: "", preferredStyle: UIAlertController.Style.alert)
-        // add an action (button)
-        importAlert.addAction(UIAlertAction(title: localizedString().localized(value: "OK"), style: UIAlertAction.Style.default, handler: nil))
-        
-        // show the alert
-        self.present(importAlert, animated: true, completion: nil)
-    }
     
     
-    // display prompt before excuting realm deletion
-    func deleteDataPrompt(){
-        
-        // create the alert
-        let dataDelete = UIAlertController(title: localizedString().localized(value: "App Data Deletion"), message: localizedString().localized(value: "Would you like to wipe all data stored locally on this device?"), preferredStyle: UIAlertController.Style.alert)
-        dataDelete.addAction(UIAlertAction(title: localizedString().localized(value: "Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
-        // add an action (button)
-        dataDelete.addAction(UIAlertAction(title: localizedString().localized(value: "Yes"), style: UIAlertAction.Style.destructive, handler: {action in
-            try? self.realm.write ({
-                //delete contents of DB
-                self.realm.deleteAll()
-            })
-            UserDefaults.standard.removeObject(forKey: "defaultHomeTeamID")
-        }))
-        
-        // show the alert
-        self.present(dataDelete, animated: true, completion: nil)
-        
-    }
-    // display success alert if export succesful
-    func successLocalAlert(){
-        
-        // create the alert
-        let sucessfulExportAlert = UIAlertController(title: localizedString().localized(value: "Succesful Export"), message: localizedString().localized(value: "All App Data was Succesfully Exported Locally"), preferredStyle: UIAlertController.Style.alert)
-        // add an action (button)
-        sucessfulExportAlert.addAction(UIAlertAction(title: localizedString().localized(value: "Cancel"), style: UIAlertAction.Style.default, handler: nil))
-        
-        // show the alert
-        self.present(sucessfulExportAlert, animated: true, completion: nil)
-        
-    }
-    
-    // upgrade alert used to display the use cases for upgrading to pro
-    func upgradeNowAlert(){
-        
-        
-        
-        // create the alert
-        let notPro = UIAlertController(title: localizedString().localized(value: "You're Missing Out!"), message: localizedString().localized(value: "Upgrade now and unlock the ability to backup your teams stats to the Cloud! Coach Assistant Pro memebers get iCloud backup and import access across all devices with PRO!"), preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        notPro.addAction(UIAlertAction(title: localizedString().localized(value:"No Thanks"), style: UIAlertAction.Style.default, handler: nil))
-        // add an action (button)
-        notPro.addAction(UIAlertAction(title: localizedString().localized(value:"Upgrade Now!"), style: UIAlertAction.Style.destructive, handler: { action in
-            self.productRetrieve()
-            self.productPurchase()
-        }))
-        // show the alert
-        self.present(notPro, animated: true, completion: nil)
-        
-        
-    }
-    
-    func missingIcloudCredsAlert(){
-        
-        // create the alert
-        let sucessfulExportAlert = UIAlertController(title: localizedString().localized(value:"iCloud Error"), message: localizedString().localized(value:"In order to backup to iCloud you must first be logged into and or have access to an iCloud account"), preferredStyle: UIAlertController.Style.alert)
-        // add an action (button)
-        sucessfulExportAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        
-        // show the alert
-        self.present(sucessfulExportAlert, animated: true, completion: nil)
-    }
-    
-    func icloudOnAlert(){
-        // create the alert
-        let icloudOnALert = UIAlertController(title: localizedString().localized(value:"iCloud Backup On"), message: localizedString().localized(value:"Backups and Imports will now be made in conjuntion with iCloud, to export / import locally on this device please toggle off 'Backup to iCloud'"), preferredStyle: UIAlertController.Style.alert)
-        // add an action (button)
-        icloudOnALert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        
-        // show the alert
-        self.present(icloudOnALert, animated: true, completion: nil)
-        
-    }
-    
-    func reloadAppAlert(){
-        
-        // create the alert
-        let reloadAppAlert = UIAlertController(title: localizedString().localized(value:"Restart App"), message: localizedString().localized(value:"Please Exit and Close app In order to gain full pro feature set."), preferredStyle: UIAlertController.Style.alert)
-        // add an action (button)
-        reloadAppAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
-            self.reloadView()
-        }))
-        
-        // show the alert
-        self.present(reloadAppAlert, animated: true, completion: nil)
-    }
-    
-    func localDocumentReader(fileName: String, csvText: String){
+    func localDocumentWriter(fileName: String, csvText: String){
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
-            let fileURL = dir.appendingPathComponent(fileName)
+            let tempUrl = dir.appendingPathComponent("GameSaves")
+            let fileURL = tempUrl.appendingPathComponent(fileName)
             
             do {
                 try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
                 //print("Penalty Table CSV File URL: ", fileURL)
             } catch {
                 print("\(error)")
+                purchaseErrorAlert(alertMsg: "Error in writing game save files to local directory, please contact support")
             }
         }
     }
     
     func iCloudDocumentReader(fileName: String){
         
-        guard let localDocumentsURL = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: .userDomainMask).last else { return }
+        guard let dir = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: .userDomainMask).last else { return }
         
-        let fileURL = localDocumentsURL.appendingPathComponent(fileName)
+        let tempUrl = dir.appendingPathComponent("GameSaves")
+        let fileURL = tempUrl.appendingPathComponent(fileName)
         
         guard let iCloudDocumentsURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").appendingPathComponent(fileName) else { return }
         
@@ -833,7 +953,8 @@ final class Settings_Backup_View_Controller: UITableViewController {
             }
             catch {
                 //Error handling
-                print("Error in remove item")
+                print("Error in removing item from icloud container")
+                purchaseErrorAlert(alertMsg: "Error in removing old files from iCloud container, please contact support")
             }
         }
         
@@ -842,11 +963,107 @@ final class Settings_Backup_View_Controller: UITableViewController {
         }
         catch {
             //Error handling
-            print("Error in copy item")
+            print("Error in coping item from local directory to icloud container")
+            purchaseErrorAlert(alertMsg: "Error in coping item from local directory to icloud container, please contact support")
         }
     }
     
+    func showUIDocumentController(){
+        
+        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText)], in: .import)
+        importMenu.delegate = self
+        importMenu.modalPresentationStyle = .formSheet
+        self.present(importMenu, animated: true, completion: nil)
+    }
     
+   
+    
+    // -------------------------------------------------------- swifty store kit stuffss ------------------------------------------------------
+    func productRetrieve(){
+        
+        SwiftyStoreKit.retrieveProductsInfo([productID]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = product.localizedPrice!
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+            }
+            else if let invalidProductId = result.invalidProductIDs.first {
+                print("Invalid product identifier: \(invalidProductId)")
+            }
+            else {
+                print("Error: \(String(describing: result.error))")
+                self.purchaseErrorAlert(alertMsg: "An upgrade cannot be found an unknown error occured. Please contact support.")
+            }
+        }
+    }
+    
+    func productPurchase(){
+        
+        SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
+            switch result {
+            case .success(let purchase):
+                print("Purchase Success: \(purchase.productId)")
+                UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+                self.reloadAppAlert()
+                
+            case .error(let error):
+                switch error.code {
+                case .unknown:
+                    print("Unknown error. Please contact support")
+                    self.purchaseErrorAlert(alertMsg: "Unknown error. Please contact support")
+                case .clientInvalid:
+                    print("Not allowed to make the payment")
+                case .paymentCancelled:
+                    break
+                case .paymentInvalid:
+                    print("The purchase identifier was invalid")
+                case .paymentNotAllowed:
+                    print("The device is not allowed to make the payment")
+                    self.purchaseErrorAlert(alertMsg: "The device is not allowed to make the payment")
+                case .storeProductNotAvailable:
+                    print("The product is not available in the current storefront")
+                    self.purchaseErrorAlert(alertMsg: "The product is not available in the current storefront")
+                case .cloudServicePermissionDenied:
+                    print("Access to cloud service information is not allowed")
+                case .cloudServiceNetworkConnectionFailed:
+                    print("Could not connect to the network")
+                    self.purchaseErrorAlert(alertMsg: "Could not connect to the network, please make sure your are connected to the internet")
+                case .cloudServiceRevoked:
+                    print("User has revoked permission to use this cloud service")
+                    self.purchaseErrorAlert(alertMsg: "Please update your account premisions or call Apple for furthur assitance regarding your cloud premissions")
+                default:
+                    print((error as NSError).localizedDescription)
+                }
+            }
+        }
+        
+    }
+    // ---------------------------------------------- popup viewcontroller stuffssssss --------------------------
+    // popup default team selection view
+    func popupPlayerAssignmentVC(){
+        
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "Settings_Assign_Players_View_Controller") as! Settings_Assign_Players_View_Controller
+        popupVC.modalPresentationStyle = .overCurrentContext
+        popupVC.modalTransitionStyle = .crossDissolve
+        
+        popupVC.playerNameArray = playerNamesFromCSV
+        popupVC.playerJerseyNumArray = playerJerseyNumFromCSV
+        popupVC.playerLineNumArray = playerLineNumFromCSV
+        popupVC.playerLineTypeArray = playerLineTypeFromCSV
+        
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self
+        
+        present(popupVC, animated: true, completion: nil)
+        print("popupPlayerAssignmentVC is presentd")
+        
+        print(playerJerseyNumFromCSV)
+    }
+    // -------------------------------------------------------------------------------------------------------
+    
+    // --------------------------------------------------------------------------------------------------------------------------------
+    // ----------------------------------------------- popup alerts -------------------------------------------------------------------
     
     func confirmationLocalAlert(){
         
@@ -906,67 +1123,6 @@ final class Settings_Backup_View_Controller: UITableViewController {
         
     }
     
-    
-    func productRetrieve(){
-        
-        SwiftyStoreKit.retrieveProductsInfo([productID]) { result in
-            if let product = result.retrievedProducts.first {
-                let priceString = product.localizedPrice!
-                print("Product: \(product.localizedDescription), price: \(priceString)")
-            }
-            else if let invalidProductId = result.invalidProductIDs.first {
-                print("Invalid product identifier: \(invalidProductId)")
-            }
-            else {
-                print("Error: \(result.error)")
-                self.purchaseErrorAlert(alertMsg: "An upgrade cannot be found an unknown error occured. Please contact support.")
-            }
-        }
-    }
-    
-    func productPurchase(){
-        
-        SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
-            switch result {
-            case .success(let purchase):
-                print("Purchase Success: \(purchase.productId)")
-                UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-                self.reloadAppAlert()
-                
-            case .error(let error):
-                switch error.code {
-                case .unknown:
-                    print("Unknown error. Please contact support")
-                    self.purchaseErrorAlert(alertMsg: "Unknown error. Please contact support")
-                case .clientInvalid:
-                    print("Not allowed to make the payment")
-                case .paymentCancelled:
-                    break
-                case .paymentInvalid:
-                    print("The purchase identifier was invalid")
-                case .paymentNotAllowed:
-                    print("The device is not allowed to make the payment")
-                    self.purchaseErrorAlert(alertMsg: "The device is not allowed to make the payment")
-                case .storeProductNotAvailable:
-                    print("The product is not available in the current storefront")
-                    self.purchaseErrorAlert(alertMsg: "The product is not available in the current storefront")
-                case .cloudServicePermissionDenied:
-                    print("Access to cloud service information is not allowed")
-                case .cloudServiceNetworkConnectionFailed:
-                    print("Could not connect to the network")
-                    self.purchaseErrorAlert(alertMsg: "Could not connect to the network, please make sure your are connected to the internet")
-                case .cloudServiceRevoked:
-                    print("User has revoked permission to use this cloud service")
-                    self.purchaseErrorAlert(alertMsg: "Please update your account premisions or call Apple for furthur assitance regarding your cloud premissions")
-                default:
-                    print((error as NSError).localizedDescription)
-                }
-            }
-        }
-        
-    }
-    
-    
     func purchaseErrorAlert(alertMsg: String){
         // create the alert
         let alreadyProAlert = UIAlertController(title: "Whoops!", message: alertMsg, preferredStyle: UIAlertController.Style.alert)
@@ -976,7 +1132,138 @@ final class Settings_Backup_View_Controller: UITableViewController {
         self.present(alreadyProAlert, animated: true, completion: nil)
     }
     
+    func importAlert(message: String){
+        
+        // create the alert
+        let importAlert = UIAlertController(title: localizedString().localized(value: message), message: "", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        importAlert.addAction(UIAlertAction(title: localizedString().localized(value: "OK"), style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(importAlert, animated: true, completion: nil)
+    }
     
+    
+    // display prompt before excuting realm deletion
+    func deleteDataPrompt(){
+        let realm = try! Realm()
+        // create the alert
+        let dataDelete = UIAlertController(title: localizedString().localized(value: "App Data Deletion"), message: localizedString().localized(value: "Would you like to wipe all data stored locally on this device?"), preferredStyle: UIAlertController.Style.alert)
+        dataDelete.addAction(UIAlertAction(title: localizedString().localized(value: "Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
+        // add an action (button)
+        dataDelete.addAction(UIAlertAction(title: localizedString().localized(value: "Yes"), style: UIAlertAction.Style.destructive, handler: {action in
+            try? realm.write ({
+                //delete contents of DB
+                realm.deleteAll()
+            })
+            UserDefaults.standard.removeObject(forKey: "defaultHomeTeamID")
+        }))
+        
+        // show the alert
+        self.present(dataDelete, animated: true, completion: nil)
+        
+    }
+    // display success alert if export succesful
+    func successLocalAlert(){
+        
+        // create the alert
+        let sucessfulExportAlert = UIAlertController(title: localizedString().localized(value: "Succesful Export"), message: localizedString().localized(value: "All App Data was Succesfully Exported Locally"), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        sucessfulExportAlert.addAction(UIAlertAction(title: localizedString().localized(value: "Cancel"), style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(sucessfulExportAlert, animated: true, completion: nil)
+        
+    }
+    
+    // upgrade alert used to display the use cases for upgrading to pro
+    func upgradeNowAlert(){
+     
+        // create the alert
+        let notPro = UIAlertController(title: localizedString().localized(value: "You're Missing Out!"), message: localizedString().localized(value: "Upgrade now and unlock the ability to backup your teams stats to the Cloud! Coach Assistant Pro memebers get iCloud backup and import access across all devices with PRO!"), preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        notPro.addAction(UIAlertAction(title: localizedString().localized(value:"No Thanks"), style: UIAlertAction.Style.default, handler: nil))
+        // add an action (button)
+        notPro.addAction(UIAlertAction(title: localizedString().localized(value:"Upgrade Now!"), style: UIAlertAction.Style.destructive, handler: { action in
+            self.productRetrieve()
+            self.productPurchase()
+        }))
+        // show the alert
+        self.present(notPro, animated: true, completion: nil)
+        
+        
+    }
+    
+    func missingIcloudCredsAlert(){
+        
+        // create the alert
+        let sucessfulExportAlert = UIAlertController(title: localizedString().localized(value:"iCloud Error"), message: localizedString().localized(value:"In order to backup to iCloud you must first be logged into and or have access to an iCloud account"), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        sucessfulExportAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(sucessfulExportAlert, animated: true, completion: nil)
+    }
+    
+    func icloudOnAlert(){
+        // create the alert
+        let icloudOnALert = UIAlertController(title: localizedString().localized(value:"iCloud Backup On"), message: localizedString().localized(value:"Backups and Imports will now be made in conjuntion with iCloud, to export / import locally on this device please toggle off 'Backup to iCloud'"), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        icloudOnALert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(icloudOnALert, animated: true, completion: nil)
+        
+    }
+    
+    func reloadAppAlert(){
+        
+        // create the alert
+        let reloadAppAlert = UIAlertController(title: localizedString().localized(value:"Restart App"), message: localizedString().localized(value:"Please Exit and Close app In order to gain full pro feature set."), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        reloadAppAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+            self.reloadView()
+        }))
+        
+        // show the alert
+        self.present(reloadAppAlert, animated: true, completion: nil)
+    }
+    
+    func fatalErrorAlert(_ msg: String){
+        
+        let errorAlert = UIAlertController(title: localizedString().localized(value:"Whoops!"), message: localizedString().localized(value:"\(msg)"), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(errorAlert, animated: true, completion: nil)
+        
+    }
+    
+    func importPlayersTeamTypeAlert(){
+        
+        let errorAlert = UIAlertController(title: localizedString().localized(value:"Import File Type"), message: localizedString().localized(value: "Would you like to Import Players or Teams"), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        errorAlert.addAction(UIAlertAction(title: "Import Players", style: UIAlertAction.Style.default, handler: { action in
+            self.importPlayersBool = true
+            self.showUIDocumentController()
+        }))
+        // add an action (button)
+        errorAlert.addAction(UIAlertAction(title: "Import Teams", style: UIAlertAction.Style.default, handler: { action in
+            self.importPlayersBool = false
+            self.showUIDocumentController()
+        }))
+        // add an action (button)
+        errorAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        // show the alert
+        self.present(errorAlert, animated: true, completion: nil)
+        
+    }
+    
+    
+    // -------------------------------------------------------------------------------------------------------------------------------------
+    
+    // ----------------------------------------------- tableview stuffssss -------------------------------------------------------------
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.row)!")
         switch indexPath.section {
@@ -1000,7 +1287,12 @@ final class Settings_Backup_View_Controller: UITableViewController {
             case 0:
                 self.performSegue(withIdentifier: "importPopUpSegue", sender: nil);
                 break
+            case 1:
+                importPlayersTeamTypeAlert()
+                
+                break
             default:
+                print("FATAL CELL SELECTION ERROR")
                 break
             }
         case 3:
@@ -1008,6 +1300,7 @@ final class Settings_Backup_View_Controller: UITableViewController {
             deleteDataPrompt()
             break
         default:
+            print("FATAL CELL SELECTION ERROR")
             break
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -1018,12 +1311,8 @@ final class Settings_Backup_View_Controller: UITableViewController {
         return 60
     }
     
-    // delay loop
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        DispatchQueue.main.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-    }
-    
+    // ---------------------------------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------- segeu stuffsss ----------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check is appropriate segue is being used
         if (segue.identifier == "importPopUpSegue"){
@@ -1037,5 +1326,86 @@ final class Settings_Backup_View_Controller: UITableViewController {
             
         }
     }
+    
+}
+// --------------------------------------------------------------------------------------------------------------------------------
+extension Settings_Backup_View_Controller: UIDocumentPickerDelegate,UINavigationControllerDelegate{
+    
+    func genRealmPrimaryID() -> Int{
+        
+        let realm = try! Realm()
+        
+        if (realm.objects(teamInfoTable.self).max(ofProperty: "teamID") as Int? != nil){
+            return (realm.objects(teamInfoTable.self).max(ofProperty: "teamID") as Int? ?? 0) + 1;
+        }else{
+            return (realm.objects(teamInfoTable.self).max(ofProperty: "teamID") as Int? ?? 0);
+            
+        }
+    }
+    
+    func documentPicker(_ documentPicker: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if  importPlayersBool == true {
+            if  urls.count > 1 {
+                fatalErrorAlert("No more than one file can be selected please select a player CSV file.")
+            }else {
+                // passed multi file selection checker
+                
+                // check to see if player csv file format is correct
+                if importPlayersFormatChecker(fileName: urls.first!) == true{
+                    popupPlayerAssignmentVC()
+                    importPlayersBool = nil
+                }
+                
+                return
+                
+            }
+            
+        }else{
+            if  urls.count > 1 {
+                fatalErrorAlert("No more than one file can be selected please select a team CSV file.")
+            }else {
+                // passed multi file selection checker
+                if csvStringToRealmTeamTable(fileName: urls.first!) == true{
+                    
+                    let realm = try! Realm()
+                   
+                    print(teamNameFromCSV)
+                    
+                    for x in 0..<teamNameFromCSV.count{
+                        let newTeam = teamInfoTable()
+                        newTeam.teamID = genRealmPrimaryID()
+                        
+                        try! realm.write{
+                            newTeam.nameOfTeam = teamNameFromCSV[x]
+                            newTeam.seasonYear = teamSeasonYearFromCSV[x]
+                            newTeam.activeState = true
+                            realm.add(newTeam, update: true)
+                        }
+                    }
+                    importAlert(message: "All Teams Imported Suyccessfully!")
+                    importPlayersBool = nil
+                }
+                
+                return
+                
+            }
+        }
+
+    }
+    
+    
+    func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
+        
+        documentPicker.delegate = self
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        print("document Picker Was Cancelled")
+        controller.dismiss(animated: true, completion: nil)
+    }
+        
+    
     
 }

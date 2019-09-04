@@ -26,9 +26,20 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var lineNumberPicker: UIPickerView!
     @IBOutlet weak var positionTypePicker: UIPickerView!
     @IBOutlet weak var playerInfoTableView: UITableView!
+    @IBOutlet weak var dataWarningLabel: UILabel!
     
     @IBOutlet weak var playerInfoPieChartView: PieChartView!
     @IBOutlet weak var popUpView: UIView!
+    
+    var playerGoalDataEntry = PieChartDataEntry(value: 0)
+    var playerAssistDataEntry = PieChartDataEntry(value: 0)
+    var playerPowerPlayGoalDataEntry = PieChartDataEntry(value: 0)
+    
+    var tlShotValue = PieChartDataEntry(value: 0)
+    var trShotValue = PieChartDataEntry(value: 0)
+    var blShotValue = PieChartDataEntry(value: 0)
+    var brShotValue = PieChartDataEntry(value: 0)
+    var cShotValue = PieChartDataEntry(value: 0)
     
     var passedPlayerID: Int!
     var selectPosition: String!
@@ -45,6 +56,14 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     var goalieStatsArray: [String] = [String]()
     var gameIDArray: [Int] = [Int]()
     var lastGoalArray: [String] = [String]()
+    var playerGoalCount: Int!
+    var playerAssitCount: Int!
+    
+    var topLeft: Int!
+    var topRight: Int!
+    var bottomLeft: Int!
+    var bottomRight: Int!
+    var center: Int!
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -81,9 +100,121 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     func onLoad(){
         
         statsProcessing()
+        playerPieChartValues()
+        playerPieChartSettings()
+        
         // set view colour attributes
         viewColour()
     }
+    
+    func playerPieChartSettings(){
+        
+        let realm = try! Realm()
+        let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
+        
+        var teamRecordCriteria: [PieChartDataEntry] = [PieChartDataEntry]()
+        
+        if playerObjc?.positionType != "G"{
+            teamRecordCriteria = [playerGoalDataEntry, playerAssistDataEntry, playerPowerPlayGoalDataEntry]
+        }else{
+            teamRecordCriteria = [tlShotValue, trShotValue, blShotValue, brShotValue, cShotValue]
+        }
+        let chartDataSet = PieChartDataSet(entries: teamRecordCriteria, label: nil)
+        let chartData = PieChartData(dataSet: chartDataSet)
+        chartDataSet.drawValuesEnabled = false
+        // set visual aspect of pie chart iuncluding colours and animations
+        let colours = [UIColor.green, UIColor.blue, UIColor.red, UIColor.purple, UIColor.orange, UIColor.yellow]
+        chartDataSet.colors = colours
+        playerInfoPieChartView.data = chartData
+        playerInfoPieChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
+        playerInfoPieChartView.drawEntryLabelsEnabled = false
+        playerInfoPieChartView.holeColor = NSUIColor.init(cgColor: UIColor.clear.cgColor)
+        
+    }
+    
+    func playerPieChartValues(){
+        
+        let realm = try! Realm()
+        let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
+        
+        let powerPlayGoalCount = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalPlayerID == %i AND powerPlay == true AND activeState == true", passedPlayerID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+        
+        if playerObjc?.positionType != "G"{
+        
+            playerGoalDataEntry.label = "# of Goals"
+            playerAssistDataEntry.label = "# of Shots"
+            playerPowerPlayGoalDataEntry.label = "# of PowerPlay Goals"
+            
+            let totalPoints = playerAssitCount + playerGoalCount + powerPlayGoalCount
+            if totalPoints != 0{
+                playerGoalDataEntry.value = Double(playerGoalCount) / Double(totalPoints)
+                playerAssistDataEntry.value = Double(playerAssitCount) / Double(totalPoints)
+                playerPowerPlayGoalDataEntry.value = Double(powerPlayGoalCount) / Double(totalPoints)
+                
+            }else{
+                // if total games will be divisable by 0 then default is even desperment error
+                playerGoalDataEntry.value = 0.0
+                playerAssistDataEntry.value = 0.0
+                playerPowerPlayGoalDataEntry.value = 0.0
+               
+                // shaw data warning
+                playerInfoPieChartView.isHidden = true
+                //dataWarningTeamPieChart.isHidden = true
+            }
+        }else{
+            
+            tlShotValue.label = "Top Left"
+            trShotValue.label = "Top Right"
+            blShotValue.label = "Bottom Left"
+            brShotValue.label = "Bottom Right"
+            cShotValue.label = "Five Hole"
+            
+            let overalShotTotalArray: [Int] = [topLeft, topRight, bottomRight, bottomLeft, center]
+            let overalShotTotal = Double(overalShotTotalArray.reduce(0, +))
+            print("shots \(overalShotTotal)")
+            // set shot location pie chart values based on % calc above;  total number of shot type / total number of shots
+            if (overalShotTotal != 0){
+                tlShotValue.value = (Double(topLeft)/overalShotTotal) * 1.00
+            }else{
+                tlShotValue.value = 0.0
+            }
+            if (overalShotTotal != 0){
+                trShotValue.value = (Double(topRight)/overalShotTotal) * 1.00
+            }else{
+                trShotValue.value = 0.0
+            }
+            if (overalShotTotal != 0){
+                blShotValue.value = (Double(bottomLeft)/overalShotTotal) * 1.00
+            }else{
+                blShotValue.value = 0.0
+            }
+            if (overalShotTotal != 0){
+                brShotValue.value = (Double(bottomRight)/overalShotTotal) * 1.00
+            }else{
+                brShotValue.value = 0.0
+            }
+            if (overalShotTotal != 0){
+                cShotValue.value = (Double(center)/overalShotTotal)  * 1.00
+            }else{
+                cShotValue.value = 0.0
+            }
+            dataUnavailableWarning()
+        }
+        
+    }
+    
+    func dataUnavailableWarning(){
+        // display place holder message if data missing for pie charts
+        // ran on page load
+        if (tlShotValue.value == 0.0 && trShotValue.value == 0.0 && blShotValue.value == 0.0 && brShotValue.value == 0.0 && cShotValue.value == 0.0){
+            dataWarningLabel.isHidden = false
+            
+        }else{
+            dataWarningLabel.isHidden = true
+        }
+        
+    }
+   
     
     func statsProcessing(){
         let realm = try! Realm()
@@ -106,12 +237,11 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             }
         }
         
-        if let lineNumber = playerObjc?.lineNum{
-            if lineNumber != 0{
-                playerLineNumberLabel.text = playerLinePositionConverter().realmInpuToString(rawInput: lineNumber)
-            }else{
-                playerLineNumberLabel.text = "Unknown"
-            }
+
+        if playerObjc?.lineNum != nil{
+            playerLineNumberLabel.text = playerLinePositionConverter().realmInpuToString(rawInput: playerObjc!.lineNum)
+        }else{
+            playerLineNumberLabel.text = "Unknown"
         }
         
         if let positionType = playerObjc?.positionType{
@@ -311,7 +441,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             print("Accesing Camera")
             if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
                 self.imagePickerController = UIImagePickerController()
-                self.imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+                self.imagePickerController.delegate = self
                 self.imagePickerController.sourceType = .camera
                 self.imagePickerController.allowsEditing = true
                 self.present(self.imagePickerController, animated: true, completion: nil)
@@ -319,11 +449,11 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             
         }))
         // add an action (button)
-        mediaAlert.addAction(UIAlertAction(title: "Libary", style: UIAlertAction.Style.default, handler: { action in
+        mediaAlert.addAction(UIAlertAction(title: "Photo Library", style: UIAlertAction.Style.default, handler: { action in
             print("Accesing Libary")
             
             self.imagePickerController = UIImagePickerController()
-            self.imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            self.imagePickerController.delegate = self
             self.imagePickerController.sourceType = .photoLibrary
             self.imagePickerController.allowsEditing = true
             self.present(self.imagePickerController, animated: true, completion: nil)
@@ -504,7 +634,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             }
         }
         
-        print("Select Position \(selectPosition)")
+    
     }
     
     func playerStatsProcessing(){
@@ -515,10 +645,10 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
     
         // ------------------ player position -----------------------
-        let playerPosition = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "positionType") as! [String]).compactMap({String($0)})
+        let playerPosition = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", passedPlayerID)).value(forKeyPath: "positionType") as! [String]).compactMap({String($0)})
         homePlayerStatsArray.append("Position: \(playerPosition.first!)")
         // ------------------ player line -----------------------
-        let playerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
+        let playerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", passedPlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)})
         switch playerLineNum[0]{
         case 0:
             homePlayerStatsArray.append("Line Number: G")
@@ -540,34 +670,34 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         
         //-------------------- goal count -----------------------
         // get number fos goals from player based oin looping player id
-        let nextPlayerCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first
+        playerGoalCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", passedPlayerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first
         // if number of goals is not 0 aka the player scorerd atleast once
         // ass goals to player stats if not set as zero
-        homePlayerStatsArray.append("Goals: \(nextPlayerCount!)")
+        homePlayerStatsArray.append("Goals: \(playerGoalCount!)")
         // ------------------ assits count -----------------------------
         // get number of assist from player based on looping player id
-        let nextPlayerAssitCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "assitsCount") as! [Int]).compactMap({Int($0)})).first
+        playerAssitCount = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", passedPlayerID)).value(forKeyPath: "assitsCount") as! [Int]).compactMap({Int($0)})).first
         // if number of assits is not 0 aka the player did not get assist atleast once
         //  set assist num to 0
-        if (nextPlayerAssitCount != 0){
-            homePlayerStatsArray.append("Assits: \(String(nextPlayerAssitCount!))")
+        if (playerAssitCount != 0){
+            homePlayerStatsArray.append("Assits: \(String(playerAssitCount!))")
         }else{
             homePlayerStatsArray.append("Assits: 0")
         }
         // ------------------ plus minus count -----------------------------
         // get current looping player's plus minus
-        let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", passedPlayerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}).first
+        let nextPlayerPlusMinus = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i", passedPlayerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)}).first
         
         homePlayerStatsArray.append("Overall Plus/Minus: \(String(nextPlayerPlusMinus!))")
         // ------------------ player's line minus count -----------------------------
         // add all plus/minus from all member of the current player ids line for the overall line plus minus
-        let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", passedPlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)}).first
+        let nextPlayerLineNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i", passedPlayerID)).value(forKeyPath: "lineNum") as! [Int]).compactMap({Int($0)}).first
         
-        let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@ AND activeState == true", nextPlayerLineNum!, String(playerObjc!.TeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        let allPlayersOnLine = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "lineNum = %i AND TeamID == %@", nextPlayerLineNum!, String(playerObjc!.TeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
         var totalPlusMinus: Int = 0
         for i in 0..<allPlayersOnLine.count{
             
-            totalPlusMinus = totalPlusMinus + ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i AND activeState == true", allPlayersOnLine[i])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
+            totalPlusMinus = totalPlusMinus + ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID = %i", allPlayersOnLine[i])).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
             
         }
         homePlayerStatsArray.append("Overall Line Plus/Minus: \(String(totalPlusMinus))")
@@ -633,20 +763,21 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             goalieStatsArray.append("Overall Save %: N/A")
         }
         // ----------- save % by shot location --------------------
-        let topLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 1)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
-        let topRight = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 2)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
-        let bottomLeft = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 3)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
-        let bottomRight = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 4)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
-        let center = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 5)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
+        topLeft = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 1)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+        topRight = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 2)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+        bottomLeft = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 3)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+        bottomRight = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 4)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
+        center = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 5)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
         
-        let totalShot:Double = topLeft + topRight + bottomLeft + bottomRight + center
+        var totalShotArray: [Int] = [topLeft, topRight, bottomLeft, bottomRight, center]
+        let totalShot = Double(totalShotArray.reduce(0, +))
         
         if (totalShot != 0.0){
-            goalieStatsArray.append("Top Left Save %: \(String(format: "%.2f",(topLeft/totalShot)))")
-            goalieStatsArray.append("Top Right Save %: \(String(format: "%.2f",(topRight/totalShot)))")
-            goalieStatsArray.append("Bottom Left Save %: \(String(format: "%.2f", (bottomLeft/totalShot)))")
-            goalieStatsArray.append("Bottom Right Save %: \(String(format: "%.2f",(bottomRight/totalShot)))")
-            goalieStatsArray.append("Five Hole Save %: \(String(format: "%.2f",(center/totalShot)))")
+            goalieStatsArray.append("Top Left Save %: \(String(format: "%.2f",(Double(topLeft)/totalShot)))")
+            goalieStatsArray.append("Top Right Save %: \(String(format: "%.2f",(Double(topRight)/totalShot)))")
+            goalieStatsArray.append("Bottom Left Save %: \(String(format: "%.2f", (Double(bottomLeft)/totalShot)))")
+            goalieStatsArray.append("Bottom Right Save %: \(String(format: "%.2f",(Double(bottomRight)/totalShot)))")
+            goalieStatsArray.append("Five Hole Save %: \(String(format: "%.2f",(Double(center)/totalShot)))")
         }else{
             goalieStatsArray.append("Top Left Save %: N/A")
             goalieStatsArray.append("Top Right Save %: N/A")
@@ -674,12 +805,12 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             isEditingFields(boolType: true)
             onLoad()
             playerInfoTableView.reloadData()
-            //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+            playerInfoPieChartView.reloadInputViews()
         }else{
            
             isEditingFields(boolType: false)
         }
-        
+        dataWarningLabel.isHidden = true
     }
     
     @objc func playerProfileImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -832,7 +963,7 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
         let realm = try! Realm()
         let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
         
-        let imageData = imageName.pngData()!
+        let imageData = imageName.jpegData(compressionQuality: 0.25)
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
@@ -842,7 +973,7 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
             print(fileURL)
             
             do {
-                try imageData.write(to: fileURL, options: .atomicWrite)
+                try imageData!.write(to: fileURL, options: .atomicWrite)
                 // send realm the location of the logo in DD
                 realmLogoRefrence(fileURL: "\((playerObjc?.playerName)!)_ID_\((playerObjc?.playerID)!)_player_logo")
                 

@@ -166,7 +166,12 @@ class roundedCorners{
         bottonViewType.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
     }
-
+    func uiViewTopLeftRight(labelViewType: UIView){
+        labelViewType.clipsToBounds = true
+        labelViewType.layer.cornerRadius = 10
+        labelViewType.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+    }
     
 }
 
@@ -365,25 +370,25 @@ class playerPositionConverter{
         switch rawInput {
         case "LW":
             return "Left Wing"
-            break
+            
         case "RW":
             return "Right Wing"
-            break
+            
         case "C":
             return "Center"
-            break
+            
         case "LD":
             return "Left Defense"
-            break
+            
         case "RD":
             return "Right Defense"
-            break
+            
         case "G":
             return "Goalie"
-            break
+            
         default:
             return "Unknown"
-            break
+            
         }
         
     }
@@ -426,4 +431,50 @@ class playerLinePositionConverter{
     }
     
     
+}
+
+class delayClass{
+    
+    // delay loop
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
+}
+
+class canCast{
+    func clastToInt(valueToCast: String) -> Bool{
+        if Int(valueToCast as String) != nil{
+            return true
+        }
+        return false
+    }
+    
+}
+
+class getDate{
+
+    func getYear() -> Int{
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        return components.year!
+    }
+    
+    func getMonth() -> Int{
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        return components.month!
+    }
+    
+    func getDay() -> Int{
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        return components.day!
+    }
 }

@@ -130,11 +130,14 @@ class Current_Stats_Ananlytical_View: UIViewController {
         let numberOfShots = [homeTeamGoalie, awayTeamGoalie]
         let chartDataSet = PieChartDataSet(entries: numberOfShots, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
+        chartDataSet.drawValuesEnabled = false
         // set visual aspect of pie chart iuncluding colours and animations
         let colours = [UIColor.green, UIColor.blue]
         chartDataSet.colors = colours 
         pieChartView.data = chartData
         pieChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
+        pieChartView.drawEntryLabelsEnabled = false
+        pieChartView.holeColor = NSUIColor.init(cgColor: UIColor.clear.cgColor)
         
     }
     // if any values in shot location save % are zero set label to nothing
@@ -162,11 +165,14 @@ class Current_Stats_Ananlytical_View: UIViewController {
         let numberOfShots = [tlShotValue, trShotValue, blShotValue, brShotValue, cShotValue]
         let chartDataSet = PieChartDataSet(entries: numberOfShots, label: nil)
         let chartData = PieChartData(dataSet: chartDataSet)
+        chartDataSet.drawValuesEnabled = false
         // set visual aspect of pie chart iuncluding colours and animations
         let colours = [UIColor.green, UIColor.blue, UIColor.red, UIColor.purple, UIColor.orange, UIColor.yellow]
         chartDataSet.colors = colours
         shotLocationPieChartView.data = chartData
         shotLocationPieChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
+        shotLocationPieChartView.drawEntryLabelsEnabled = false
+        shotLocationPieChartView.holeColor = NSUIColor.init(cgColor: UIColor.clear.cgColor)
         
     }
     // calc save % based on shot location on net

@@ -150,7 +150,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
         // get document path based on search for spefic file
         let documentsUrl = documentURLProducer()
         let firstDocumentPath = documentsUrl.appendingPathComponent(fileCollection()[fileCollection().firstIndex(of: "Realm_New_Game_Info_Table.csv")!])
-        print(firstDocumentPath)
+
         var firstFileContentsParsed: [[String]] = [[String]]()
         // get contents of specfic csv file and place into array above
         do {
@@ -163,7 +163,7 @@ class Import_Pop_Up_View: UIViewController, UITableViewDelegate, UITableViewData
             try? realm.write ({
                 //delete contents of table in realm DB
                 realm.delete(realm.objects(newGameTable.self))
-                print(realm.objects(newGameTable.self))
+                
                 for i in 1..<firstFileContentsParsed.count - 1{
                     if(firstFileContentsParsed[i].contains{$0 != ""}){
                         var primaryID: Int!

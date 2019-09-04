@@ -14,35 +14,20 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
     
     @IBAction func unwindBackToSetup(segue: UIStoryboardSegue) {}
     
-    let config = Realm.Configuration(
-        // Set the new schema version. This must be greater than the previously used
-        // version (if you've never set a schema version before, the version is 0).
-        schemaVersion: 1,
-        
-        // Set the block which will be called automatically when opening a Realm with
-        // a schema version lower than the one set above
-        migrationBlock: { migration, oldSchemaVersion in
-            // We haven’t migrated anything yet, so oldSchemaVersion == 0
-            if (oldSchemaVersion < 1) {
-                // Nothing to do!
-                // Realm will automatically detect new properties and removed properties
-                // And will update the schema on disk automatically
-            }
-            print("Hi")
-    })
-    
-    
     var pageControl = UIPageControl()
         
         // MARK: UIPageViewControllerDataSource
         
         lazy var orderedViewControllers: [UIViewController] = {
-            return [self.newVc(viewController: "first"),
-                    self.newVc(viewController: "second"), self.newVc(viewController: "third"), self.newVc(viewController: "fourth"), self.newVc(viewController: "fifth")]
+            return [self.newVc(viewController: "welcomePage_InitialSetupVC"),
+                    self.newVc(viewController: "addHomeTeam_InitialSetupVC"), self.newVc(viewController: "addAwayTeam_InitialSetupVC"), self.newVc(viewController: "addPlayers_InitialSetupVC"), self.newVc(viewController: "helpGuide_InitialSetupVC"),
+                        self.newVc(viewController: "finishSetup_InitialSetupVC")]
         }()
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            
+             NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "initialSetupPageMover"), object: nil)
             
             // get Realm Databse file location
             print(Realm.Configuration.defaultConfiguration.fileURL!)
@@ -59,6 +44,40 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             }
             
             configurePageControl()
+            
+        }
+    
+        @objc func myMethod(notification: NSNotification){
+            print("hi")
+            
+            // set page controler index based on lisener value heard
+            switch notification.userInfo?["sideNumber"] as? Int {
+            case 2:
+                print("Turned to Add Away Team")
+                self.setViewControllers([orderedViewControllers[2]], direction: .forward, animated: true, completion: nil)
+                pageControl.currentPage = 2
+                break
+            case 3:
+                print("Turned to Add Players Page")
+                self.setViewControllers([orderedViewControllers[3]], direction: .forward, animated: true, completion: nil)
+               pageControl.currentPage = 3
+                break
+            case 4:
+                print("Turned to Help Guide Gif Page")
+                self.setViewControllers([orderedViewControllers[4]], direction: .forward, animated: true, completion: nil)
+               pageControl.currentPage = 4
+                break
+            case 5:
+                print("Turned to FInish Page")
+                self.setViewControllers([orderedViewControllers[5]], direction: .forward, animated: true, completion: nil)
+                pageControl.currentPage = 1
+                break
+            default:
+                print("Page turning error retudred to start")
+                self.setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)
+                pageControl.currentPage = 0
+                break
+            }
             
         }
         
@@ -130,13 +149,9 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             guard orderedViewControllersCount > nextIndex else {
                 return nil
             }
-            let className = String(describing: Initial_Setup_Team_Add_View_Controller.self)
-            print(className)
-            //if (className == "Initial_Setup_Team_Add_View_Controlle"{
-              //  return orderedViewControllers[viewControllerIndex]
-                //}else{
-                return orderedViewControllers[nextIndex]
-            //}
+            
+            return orderedViewControllers[nextIndex]
+
         }
         
         
