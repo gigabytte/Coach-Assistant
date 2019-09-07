@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        //UserDefaults.standard.set(true, forKey: "newUser")
+        UserDefaults.standard.set(false, forKey: "newUser")
         
         // Use Firebase library to configure APIs.
         FirebaseApp.configure()
@@ -85,6 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
             deleteNewGameUserDefaults.deleteUserDefaults()
           
+             createImportantDirectories()
+            
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main")
             
             
@@ -92,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }else{
             
-            creatImportantDirectories()
+            createImportantDirectories()
             // redicrt to setup process if user is new
             deleteNewGameUserDefaults.deleteUserDefaults()
             UserDefaults.standard.set(false, forKey: "userPurchaseConf")
@@ -102,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func creatImportantDirectories(){
+    func createImportantDirectories(){
 
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
@@ -110,6 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let teamlogo_dataPath = docURL.appendingPathComponent("TeamLogo")
         let playerlogo_dataPath = docURL.appendingPathComponent("PlayerImages")
         let gamesaves_dataPath = docURL.appendingPathComponent("GameSaves")
+        let drawboardsaves_dataPath = docURL.appendingPathComponent("DrawboardSaves")
         // check and creat apporate directories for team logo images
         if !FileManager.default.fileExists(atPath: teamlogo_dataPath.absoluteString) {
             do {
@@ -126,6 +129,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         if !FileManager.default.fileExists(atPath: gamesaves_dataPath.absoluteString) {
+            do {
+                try FileManager.default.createDirectory(atPath: gamesaves_dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription);
+            }
+        }
+        
+        if !FileManager.default.fileExists(atPath: drawboardsaves_dataPath.absoluteString) {
             do {
                 try FileManager.default.createDirectory(atPath: gamesaves_dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
             } catch {

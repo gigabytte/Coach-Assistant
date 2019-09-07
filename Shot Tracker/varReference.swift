@@ -285,7 +285,7 @@ class universalValue{
     var coachAssistantProID: String = "com.tinysquare.coachassistant.pro"
     
     // current scheme value for realm db
-    var realmSchemeValue: UInt64 = 2
+    var realmSchemeValue: UInt64 = 3
     
     var dayTimeViewColour:UIColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9568627451, alpha: 1)
     var nightTimeViewColour: UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
