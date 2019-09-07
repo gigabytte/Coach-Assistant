@@ -24,6 +24,7 @@ class newGameTable: Object {
     @objc dynamic var activeGameStatus: Bool = true
     @objc dynamic var activeState: Bool = true
     
+    let drawboardURL = List<String>()
     
     override class func primaryKey() -> String {
         return "gameID"

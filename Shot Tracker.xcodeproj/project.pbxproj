@@ -22,6 +22,7 @@
 		BE12DE60228740C10071BC17 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5E228740C10071BC17 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE12DE62228744B80071BC17 /* customSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE12DE61228744B80071BC17 /* customSettingCell.swift */; };
 		BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */; };
+		BE1C03622324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1C03612324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift */; };
 		BE1F4D2E2278D96F00D8B4F3 /* customCurrentStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */; };
 		BE1F4D302278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D2F2278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift */; };
 		BE1F4D322278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1F4D312278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift */; };
@@ -76,6 +77,7 @@
 		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
 		BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */; };
 		BEA611152301B9C300161FC2 /* help_guide_iPad.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEA611142301B9C300161FC2 /* help_guide_iPad.pdf */; };
+		BEAB49202321EB6F005FF256 /* Drawboard View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB491F2321EB6F005FF256 /* Drawboard View Controller.swift */; };
 		BEAD9B1E230B41810040AFE2 /* LockerRoom View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD9B1D230B41810040AFE2 /* LockerRoom View Controller.swift */; };
 		BEAD9B20230B59380040AFE2 /* Player Stats View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD9B1F230B59380040AFE2 /* Player Stats View Controller.swift */; };
 		BEAD9B22230B59540040AFE2 /* Locker Room Old Stats View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD9B21230B59540040AFE2 /* Locker Room Old Stats View Controller.swift */; };
@@ -169,6 +171,7 @@
 		BE12DE5E228740C10071BC17 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		BE12DE61228744B80071BC17 /* customSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSettingCell.swift; sourceTree = "<group>"; };
 		BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customOverallStatsCell.swift; sourceTree = "<group>"; };
+		BE1C03612324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Drawboard Gallery View Controller.swift"; sourceTree = "<group>"; };
 		BE1F4D2D2278D96F00D8B4F3 /* customCurrentStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customCurrentStatsCell.swift; sourceTree = "<group>"; };
 		BE1F4D2F2278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_Game_Stats_View_Controller.swift; sourceTree = "<group>"; };
 		BE1F4D312278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detailed_Current_Stats_View_Controller.swift; sourceTree = "<group>"; };
@@ -231,6 +234,7 @@
 		BEA08C962215F05200B6D73B /* Add_Player_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Player_Page.swift; sourceTree = "<group>"; };
 		BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Goalie Selection View.swift"; sourceTree = "<group>"; };
 		BEA611142301B9C300161FC2 /* help_guide_iPad.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = help_guide_iPad.pdf; path = "../../../Documents/Coach Assistant Icons/help_guide_iPad.pdf"; sourceTree = "<group>"; };
+		BEAB491F2321EB6F005FF256 /* Drawboard View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drawboard View Controller.swift"; sourceTree = "<group>"; };
 		BEAD9B1D230B41810040AFE2 /* LockerRoom View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LockerRoom View Controller.swift"; sourceTree = "<group>"; };
 		BEAD9B1F230B59380040AFE2 /* Player Stats View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player Stats View Controller.swift"; sourceTree = "<group>"; };
 		BEAD9B21230B59540040AFE2 /* Locker Room Old Stats View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locker Room Old Stats View Controller.swift"; sourceTree = "<group>"; };
@@ -437,6 +441,7 @@
 			children = (
 				BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */,
 				BE913A472233740500080081 /* Old Game Ice View.swift */,
+				BE1C03612324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift */,
 			);
 			path = "Old Game Stats";
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 			children = (
 				BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */,
 				BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */,
+				BEAB491F2321EB6F005FF256 /* Drawboard View Controller.swift */,
 			);
 			path = "New Game";
 			sourceTree = "<group>";
@@ -921,6 +927,7 @@
 				BEDC7A01230E046200ADECD5 /* Settings Apperance View Controller.swift in Sources */,
 				BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */,
 				BE2AC7D023196F8600D1A93C /* Main Add Team Page Controller View.swift in Sources */,
+				BEAB49202321EB6F005FF256 /* Drawboard View Controller.swift in Sources */,
 				BED5478F22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift in Sources */,
 				BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */,
 				BECD070922EF9200004A808D /* customTeamStatsCell.swift in Sources */,
@@ -949,6 +956,7 @@
 				BEBCC1C023105DF600AEAE71 /* Penalty Table.swift in Sources */,
 				BED5479422E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift in Sources */,
 				BEAD9B20230B59380040AFE2 /* Player Stats View Controller.swift in Sources */,
+				BE1C03622324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift in Sources */,
 				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
 				BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */,
 				BE8F88B6227747260087ED88 /* varReference.swift in Sources */,

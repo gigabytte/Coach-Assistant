@@ -33,7 +33,7 @@ class Initial_Setup_More_Info_View_Controller: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        if (imageView.isAnimatingGIF == false){
+        if (imageView.isAnimatingGIF == true){
             imageView.stopAnimating()
         }
     }

@@ -70,13 +70,6 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         
         pageControl.addTarget(self, action: Selector(("didChangePageControlValue")), for: .valueChanged)
         
-        let singleLogoGesture = UITapGestureRecognizer(target: self, action: #selector(normalTapLogo(_:)))
-        singleLogoGesture.numberOfTapsRequired = 1
-        coachAssitantLogoBtn?.addGestureRecognizer(singleLogoGesture)
-        
-        let longLogoGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapLogo(_:)))
-        coachAssitantLogoBtn?.addGestureRecognizer(longLogoGesture)
-        
         bannerViewInitialize()
         
         teamNameInitialize()
@@ -246,6 +239,34 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         }
     }
     
+    func presentAnalyticalView(){
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "Analytical_View_Controller") as! Current_Stats_Ananlytical_View
+        popupVC.modalPresentationStyle = .overCurrentContext
+        popupVC.modalTransitionStyle = .crossDissolve
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self
+        
+        present(popupVC, animated: true, completion: nil)
+        print("Analytical_View_Controller Presented!")
+        
+    }
+    
+    func presentDrawboard(){
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "Old_Stats_Drawboard_Gallery_View_Controller") as! Old_Stats_Drawboard_Gallery_View_Controller
+        popupVC.modalPresentationStyle = .overCurrentContext
+        popupVC.modalTransitionStyle = .crossDissolve
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self
+        
+        present(popupVC, animated: true, completion: nil)
+        print("Old_Stats_Drawboard_Gallery_View_Controller Presented!")
+        
+    }
+    
     @IBAction func statsViewButton(_ sender: Any) {
         self.performSegue(withIdentifier: "Old_Stats_Main_Stats", sender: nil);
         
@@ -257,34 +278,50 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         self.performSegue(withIdentifier: "Back_To_Old_Stats_Ice", sender: nil);
     }
     
-    @objc func normalTapLogo(_ sender: UIGestureRecognizer){
-        // segue to golaie picker poage from new game on single press
-       self.performSegue(withIdentifier: "goalieSelectionPopUp", sender: nil);
-    }
-    
-    @objc func longTapLogo(_ sender: UIGestureRecognizer){
-        // segue to ananlytics page on long press
-        if sender.state == .began {
-            //self.performSegue(withIdentifier: "oldStatsAnalyticsPopUp", sender: nil);
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let popupVC = storyboard.instantiateViewController(withIdentifier: "Analytical_View_Controller") as! Current_Stats_Ananlytical_View
-            popupVC.modalPresentationStyle = .overCurrentContext
-            popupVC.modalTransitionStyle = .crossDissolve
-            let pVC = popupVC.popoverPresentationController
-            pVC?.permittedArrowDirections = .any
-            pVC?.delegate = self
-            
-            present(popupVC, animated: true, completion: nil)
-            print("Analytical_View_Controller Presented!")
-            
-        }
-    }
     
     @objc func singleShotMarkerTapped(sender: UITapGestureRecognizer?) {
         print("Shot Marker Tapped")
         let newView = sender?.view
         tappedMarker(markerType: 0, markerTag: newView!.tag)
        
+    }
+    
+    @IBAction func logoButton(_ sender: UIButton) {
+        
+        let actionSheet = UIAlertController(title: localizedString().localized(value:"Game Options"), message: localizedString().localized(value:"Get a deeper dive into this game"), preferredStyle: .actionSheet)
+        
+        // Create your actions - take a look at different style attributes
+        //saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        let goalieChangeActionButton = UIAlertAction(title: localizedString().localized(value:"Goalie Change"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "goalieSelectionPopUp", sender: nil);
+        })
+        // on save buttton press save newgame datas to realm
+        let analyticalViewAction = UIAlertAction(title: localizedString().localized(value:"Analytical View"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.presentAnalyticalView()
+        })
+        let drawboardAction = UIAlertAction(title: localizedString().localized(value:"Saved Drawboard Sketchs"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.presentDrawboard()
+        })
+        // tapp anywhere outside of popup alert controller
+        let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
+            print("didPress Cancel")
+        })
+        // Add the actions to your actionSheet
+        actionSheet.addAction(goalieChangeActionButton)
+        actionSheet.addAction(analyticalViewAction)
+        actionSheet.addAction(drawboardAction)
+        actionSheet.addAction(cancelAction)
+        if let popoverController = actionSheet.popoverPresentationController {
+            
+            popoverController.sourceView = sender
+            popoverController.sourceRect = sender.bounds
+            
+        }
+        
+        // Present the controller
+        self.present(actionSheet, animated: true, completion: nil)
+        
+        
     }
     
     @objc func singleGoalMarkerTapped(sender: UITapGestureRecognizer?) {

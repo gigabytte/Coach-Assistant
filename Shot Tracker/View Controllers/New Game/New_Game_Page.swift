@@ -57,6 +57,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     var fixedGoalieID: Int!
     var currentGameID: Int!
     var tagCounter: Int = 100
+    var tagCounterArray: [Int] = [Int]()
     
     var homeTeam: Int!
     var awayTeam: Int!
@@ -90,7 +91,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     // get location cords on user interaction with ice surface
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
-        let location = touch.location(in: self.view)
+        let location = touch.location(in: self.iceSufaceImageView)
         
         // link x and y cords data to vars for universal use
         yLocationCords = Int(location.y)
@@ -483,16 +484,18 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                     let imageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
                     imageView.image = homeTeamShotMakerImage;
-                    view.addSubview(imageView);
+                    iceSufaceImageView.addSubview(imageView);
                     imageView.tag = tagCounter
+                    tagCounterArray.append(tagCounter)
                     tagCounter += 1
                 }
                 for i in 0..<away_xCordsArray.count{
                     let imageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
                     imageView.image = awayTeamShotMarkerImage;
-                    view.addSubview(imageView);
+                    iceSufaceImageView.addSubview(imageView);
                     imageView.tag = tagCounter
+                    tagCounterArray.append(tagCounter)
                     tagCounter += 1
                 }
             }else{
@@ -523,16 +526,18 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                     let imageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
                     imageView.image = homeTeamGoalMakerImage;
-                    view.addSubview(imageView);
+                    iceSufaceImageView.addSubview(imageView);
                     imageView.tag = tagCounter
+                    tagCounterArray.append(tagCounter)
                     tagCounter += 1
                 }
                 for i in 0..<away_xCordsArray.count{
                     let imageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
                     imageView.image = awayTeamGoalMarkerImage;
-                    view.addSubview(imageView);
+                    iceSufaceImageView.addSubview(imageView);
                     imageView.tag = tagCounter
+                    tagCounterArray.append(tagCounter)
                     tagCounter += 1
                 }
             }else{
@@ -563,16 +568,18 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
                     let imageView = UIImageView(frame: CGRect(x: Int(home_xCordsArray[i])! - universalValue().markerCenterX, y: Int(home_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
                     imageView.image = homeTeamPenaltyMarkerImage;
-                    view.addSubview(imageView);
+                    iceSufaceImageView.addSubview(imageView);
                     imageView.tag = tagCounter
+                    tagCounterArray.append(tagCounter)
                     tagCounter += 1
                 }
                 for i in 0..<away_xCordsArray.count{
                     let imageView = UIImageView(frame: CGRect(x: Int(away_xCordsArray[i])! - universalValue().markerCenterX, y: Int(away_yCordsArray[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
                     imageView.image = awayTeamPenaltyMarkerImage;
-                    view.addSubview(imageView);
+                    iceSufaceImageView.addSubview(imageView);
                     imageView.tag = tagCounter
+                    tagCounterArray.append(tagCounter)
                     tagCounter += 1
                 }
             }else{
@@ -627,85 +634,143 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         awayTeamNumShots.textAlignment = .center        
     }
     
+    func playerStatsUpdate(){
+        try! self.realm.write{
+            
+            
+            for home_playerID in homePlayerIDs{
+                
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.goalCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,home_playerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first!
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.assitsCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", currentGameID ,home_playerID)).value(forKeyPath: "assistCount") as! [Int]).compactMap({Int($0)})).first!
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.plusMinus += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,home_playerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
+                
+            }
+            
+            let awayPlayerIDs = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(self.awayTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
+            
+            for away_playerID in awayPlayerIDs{
+                
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.goalCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first!
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.assitsCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "assistCount") as! [Int]).compactMap({Int($0)})).first!
+                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.plusMinus += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
+                
+            }
+        }
+    }
+    
+    func saveStateOfIceImage() -> UIImage{
+        
+        let bottomImageRefrence = iceRinkImage
+        let bottomImage = bottomImageRefrence!.image
+        
+        let finalImageSize = CGSize(width: bottomImageRefrence!.frame.width, height: bottomImageRefrence!.frame.height)
+        
+        UIGraphicsBeginImageContextWithOptions(finalImageSize, false, 0.0)
+        
+        bottomImage?.draw(in: CGRect(origin: CGPoint.zero, size: finalImageSize))
+        
+        for tag in tagCounterArray{
+            let currentImageRefrence = (self.view.viewWithTag(tag) as? UIImageView)
+            let curentImage = currentImageRefrence?.image
+            
+            curentImage?.draw(in: CGRect(x: ((currentImageRefrence?.frame.origin.x)!) - CGFloat(universalValue().markerCenterX), y: ((currentImageRefrence?.frame.origin.y)!) - CGFloat(universalValue().markerCenterY), width: CGFloat(universalValue().markerWidth), height: CGFloat(universalValue().markerHeight)))
+        }
+        
+        let finishedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finishedImage!
+    }
+    
+    func presentGameSettings(){
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "In Game Settings ViewController") as! In_Game_Settings_ViewController
+        popupVC.modalPresentationStyle = .overCurrentContext
+        popupVC.modalTransitionStyle = .crossDissolve
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self
+        
+        self.present(popupVC, animated: true, completion: nil)
+        print("In Game Settings ViewController Presented!")
+    }
+    
+    func presentDrawboard(){
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "Drawboard_View_Controller") as! Drawboard_View_Controller
+        popupVC.modalPresentationStyle = .overCurrentContext
+        popupVC.modalTransitionStyle = .crossDissolve
+        
+        popupVC.iceRinkImage = saveStateOfIceImage()
+        
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self
+        
+        self.present(popupVC, animated: true, completion: nil)
+        print("Drawboard_View_Controller Presented!")
+    }
+    
+    // ----------------------------------------------------- ice gesture listeners --------------------------------------------------------------------------
     // single tap function applies black x to ice surface when gesture returns correct
     @objc func singleTapped() {
-        print("Single Tap Detected")
         markerType = true;
-       
         // display custom view controller alert alert
         // segue to maker info page goes here
-        popUpSegue()
+        self.performSegue(withIdentifier: "popUpSegueView", sender: nil)
         
     }
     // long tap function applies red x to ice surface when gesture returns correct
     @objc func longTapped() {
-        print("Long Tap Detected")
+    
         markerType = false;
-
         // display custom view controller alert alert
-        popUpSegue()
+        self.performSegue(withIdentifier: "popUpSegueView", sender: nil)
     }
     // long tap function applies red x to ice surface when gesture returns correct
     @objc func twoFingerTapped() {
         print("Double Finger Tap Detected")
         // display custom view controller alert alert
-        print(xLocationCords)
-        print(yLocationCords)
-        popUpPenaltySegue()
+        self.performSegue(withIdentifier: "popUpPenaltyView", sender: nil)
         
     }
-    
+    // --------------------------------------------------------------------------------------------------------------------------------------------------
+    // --------------------------------------------- button press listeners ---------------------------------------------------------------------------
     @IBAction func logoButton(_ sender: UIButton) {
         
         let actionSheet = UIAlertController(title: localizedString().localized(value:"Game Options"), message: localizedString().localized(value:"Change the way your Ice Surface is dispalyed."), preferredStyle: .actionSheet)
         
         // Create your actions - take a look at different style attributes
         //saveButtonAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-        let keepActiveAction = UIAlertAction(title: localizedString().localized(value:"Goalie / Period Change"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let gameActionButton = UIAlertAction(title: localizedString().localized(value:"Goalie / Period Change"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.performSegue(withIdentifier: "newGameBasicInfoSegue", sender: nil)
         })
         // on save buttton press save newgame datas to realm
-        let saveAction = UIAlertAction(title: localizedString().localized(value:"Game Options"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let popupVC = storyboard.instantiateViewController(withIdentifier: "In Game Settings ViewController") as! In_Game_Settings_ViewController
-            popupVC.modalPresentationStyle = .overCurrentContext
-            popupVC.modalTransitionStyle = .crossDissolve
-            let pVC = popupVC.popoverPresentationController
-            pVC?.permittedArrowDirections = .any
-            pVC?.delegate = self
-            
-            self.present(popupVC, animated: true, completion: nil)
-            print("In Game Settings ViewController Presented!")
+        let gameOptionsAction = UIAlertAction(title: localizedString().localized(value:"Game Options"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+           self.presentGameSettings()
+        })
+        let drawboardAction = UIAlertAction(title: localizedString().localized(value:"Drawboard"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            self.presentDrawboard()
         })
         // tapp anywhere outside of popup alert controller
         let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
             print("didPress Cancel")
         })
         // Add the actions to your actionSheet
-        actionSheet.addAction(keepActiveAction)
-        actionSheet.addAction(saveAction)
+        actionSheet.addAction(gameOptionsAction)
+        actionSheet.addAction(gameActionButton)
+        actionSheet.addAction(drawboardAction)
         actionSheet.addAction(cancelAction)
         if let popoverController = actionSheet.popoverPresentationController {
             
-            popoverController.sourceRect = CGRect(x: 50, y: logoButton.frame.minY, width: 0, height: logoButton.frame.minY)
-            popoverController.sourceView = logoButton
+            popoverController.sourceView = sender
+            popoverController.sourceRect = sender.bounds
+            
         }
         
         // Present the controller
         self.present(actionSheet, animated: true, completion: nil)
         
-        
-    }
-    
-    // segue to shot location popup
-    func popUpSegue(){
-        performSegue(withIdentifier: "popUpSegueView", sender: nil)
-        
-    }
-    
-    func popUpPenaltySegue(){
-        
-       performSegue(withIdentifier: "popUpPenaltyView", sender: nil)
         
     }
     
@@ -792,29 +857,6 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     
     }
     
-    func playerStatsUpdate(){
-         try! self.realm.write{
-            
-        
-            for home_playerID in homePlayerIDs{
-                
-                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.goalCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,home_playerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first!
-                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.assitsCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", currentGameID ,home_playerID)).value(forKeyPath: "assistCount") as! [Int]).compactMap({Int($0)})).first!
-                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: home_playerID)?.plusMinus += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,home_playerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
-                
-            }
-        
-            let awayPlayerIDs = ((self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(self.awayTeam))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}))
-        
-            for away_playerID in awayPlayerIDs{
-                
-                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.goalCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "goalCount") as! [Int]).compactMap({Int($0)})).first!
-                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.assitsCount += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "assistCount") as! [Int]).compactMap({Int($0)})).first!
-                self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: away_playerID)?.plusMinus += ((self.realm.objects(overallStatsTable.self).filter(NSPredicate(format: "gameID == %i AND playerID == %i AND activeState == true", self.currentGameID ,away_playerID)).value(forKeyPath: "plusMinus") as! [Int]).compactMap({Int($0)})).first!
-                
-            }
-        }
-    }
     // x iconto close tutorial button
     @IBAction func closeTutorialBtn(_ sender: UIButton) {
         UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -831,7 +873,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closeGif"), object: nil, userInfo: ["key":"value"])
         //dismiss(animated: true, completion: nil)
     }
-    
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil

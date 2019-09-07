@@ -13,6 +13,8 @@ target 'Shot Tracker' do
   pod 'SwiftyStoreKit'
   pod 'Fabric', '~> 1.10.2'
   pod 'Crashlytics', '~> 3.13.4'
+  pod 'Zip', '~> 1.1'
+  pod 'MaLiang'
   target 'Shot TrackerTests' do
     inherit! :search_paths
     # Pods for testing
