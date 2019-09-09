@@ -14,12 +14,14 @@ class Drawboard_View_Controller: UIViewController {
     @IBOutlet weak var skatesBrushButton: UIButton!
     @IBOutlet weak var skatingWithPuckBrush: UIButton!
     @IBOutlet weak var backwardSkatingBrush: UIButton!
+    @IBOutlet weak var eraserBrushButton: UIButton!
     
     @IBOutlet weak var shotModelSelectionButton: UIButton!
     @IBOutlet weak var playerModelSelectionButton: UIButton!
     @IBOutlet weak var iceRInkImageView: UIImageView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var clipboardImageView: UIImageView!
+    @IBOutlet weak var playerModelSelectionView: UIView!
     @IBOutlet var popUpView: UIView!
     @IBOutlet weak var canvas: Canvas!
     
@@ -38,6 +40,12 @@ class Drawboard_View_Controller: UIViewController {
     var orginalPlayerModelBtnCon: NSLayoutConstraint!
     var enlargedPlayerModelBtnCon: NSLayoutConstraint!
     
+    var orginalEraserBrushCon: NSLayoutConstraint!
+    var enlargedEraserBrushCon: NSLayoutConstraint!
+    
+    var orginalPlayerModelViewCon: NSLayoutConstraint!
+    var enlargedPlayerModelViewCon: NSLayoutConstraint!
+    
     var dirFolderName: String!
     
     var iceRinkImage: UIImage!
@@ -46,7 +54,7 @@ class Drawboard_View_Controller: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-       
+      
         onLoad()
     }
     
@@ -87,10 +95,21 @@ class Drawboard_View_Controller: UIViewController {
         enlargedShotSelectionBtnCon = shotModelSelectionButton.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.15, constant: 0)
         enlargedShotSelectionBtnCon.isActive = false
         
-        orginalPlayerModelBtnCon = playerModelSelectionButton.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.1, constant: 0)
+        orginalPlayerModelBtnCon = playerModelSelectionButton.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier:0.1, constant: 0)
         orginalPlayerModelBtnCon.isActive = true
         enlargedPlayerModelBtnCon = playerModelSelectionButton.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.15, constant: 0)
         enlargedPlayerModelBtnCon.isActive = false
+        
+        orginalEraserBrushCon = eraserBrushButton.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.1, constant: 0)
+        orginalEraserBrushCon.isActive = true
+        enlargedEraserBrushCon = eraserBrushButton.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.15, constant: 0)
+        enlargedEraserBrushCon.isActive = false
+        
+        
+        orginalPlayerModelViewCon = playerModelSelectionView.widthAnchor.constraint(equalTo: playerModelSelectionButton.widthAnchor, multiplier: 0.0, constant: 0)
+        orginalPlayerModelViewCon.isActive = true
+        enlargedPlayerModelViewCon = playerModelSelectionView.widthAnchor.constraint(equalTo: playerModelSelectionButton.widthAnchor, multiplier: 5.5, constant: 0)
+        enlargedPlayerModelViewCon.isActive = false
     }
     
     func loadBrushs(brushType: Int){
@@ -99,7 +118,7 @@ class Drawboard_View_Controller: UIViewController {
        
         switch brushType {
         case 0:
-            brushName = "pencil"
+            brushName = "skating_brush"
             break
         case 1:
             brushName = "claw"
@@ -113,15 +132,30 @@ class Drawboard_View_Controller: UIViewController {
         case 4:
             brushName = "pencil"
             break
+        case 5:
+            brushName = "Eraser"
+            break
         default:
+            brushName = "pencil"
             break
         }
-        
-        let data = UIImage(named: brushName)!.pngData()
-        let pencil = try! canvas.registerBrush(name: brushName, from: data!)
-        pencil.pointSize = 10.0
-        pencil.pointStep = 10
-        pencil.use()
+        if brushName != "Eraser"{
+            let data = UIImage(named: "skating_brush")
+            let texture = try! canvas.makeTexture(with: data!.pngData()!)
+            let pencil: Brush = try! canvas.registerBrush(name: "skating_brush", textureID: texture.id)
+            
+            //pencil.opacity = 0.05
+            //pencil.coreProportion = 0.2
+            pencil.pointSize = 20
+            pencil.pointStep = data!.size.height + 5
+            pencil.rotation = .ahead
+            
+            pencil.use()
+       }else{
+            let eraser = try! canvas.registerBrush(name: "Eraser") as Eraser
+            eraser.pointSize = 30.0
+            eraser.use()
+        }
     }
     
     func viewColour(){
@@ -134,6 +168,8 @@ class Drawboard_View_Controller: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
+        
+        playerModelSelectionView.layer.cornerRadius = playerModelSelectionView.frame.height / 2
     }
     
     func enlargeButtons(buttonType: Int){
@@ -153,6 +189,9 @@ class Drawboard_View_Controller: UIViewController {
             
             orginalPlayerModelBtnCon.isActive = true
             enlargedPlayerModelBtnCon.isActive = false
+            
+            orginalEraserBrushCon.isActive = true
+            enlargedEraserBrushCon.isActive = false
             break
         case 1:
             orginalSkatesBrushCon.isActive = true
@@ -169,6 +208,9 @@ class Drawboard_View_Controller: UIViewController {
             
             orginalPlayerModelBtnCon.isActive = true
             enlargedPlayerModelBtnCon.isActive = false
+            
+            orginalEraserBrushCon.isActive = true
+            enlargedEraserBrushCon.isActive = false
             break
         case 2:
             orginalSkatesBrushCon.isActive = true
@@ -185,6 +227,9 @@ class Drawboard_View_Controller: UIViewController {
             
             orginalPlayerModelBtnCon.isActive = true
             enlargedPlayerModelBtnCon.isActive = false
+            
+            orginalEraserBrushCon.isActive = true
+            enlargedEraserBrushCon.isActive = false
             break
         case 3:
             orginalSkatesBrushCon.isActive = true
@@ -201,6 +246,9 @@ class Drawboard_View_Controller: UIViewController {
             
             orginalPlayerModelBtnCon.isActive = true
             enlargedPlayerModelBtnCon.isActive = false
+            
+            orginalEraserBrushCon.isActive = true
+            enlargedEraserBrushCon.isActive = false
             break
         case 4:
             orginalSkatesBrushCon.isActive = true
@@ -217,6 +265,28 @@ class Drawboard_View_Controller: UIViewController {
             
             orginalPlayerModelBtnCon.isActive = false
             enlargedPlayerModelBtnCon.isActive = true
+            
+            orginalEraserBrushCon.isActive = true
+            enlargedEraserBrushCon.isActive = false
+            break
+        case 5:
+            orginalSkatesBrushCon.isActive = true
+            enlargedSkatesBrushCon.isActive = false
+            
+            orginalSkatingPuckBrushCon.isActive = true
+            enlargedSkatingPuckBrushCon.isActive = false
+            
+            orginalBackwardSkatesBrushCon.isActive = true
+            enlargedBackwardSkatesBrushCon.isActive = false
+            
+            orginalShotSelectionBtnCon.isActive = true
+            enlargedShotSelectionBtnCon.isActive = false
+            
+            orginalPlayerModelBtnCon.isActive = true
+            enlargedPlayerModelBtnCon.isActive = false
+            
+            orginalEraserBrushCon.isActive = false
+            enlargedEraserBrushCon.isActive = true
             break
         default:
             orginalSkatesBrushCon.isActive = false
@@ -233,11 +303,45 @@ class Drawboard_View_Controller: UIViewController {
             
             orginalPlayerModelBtnCon.isActive = true
             enlargedPlayerModelBtnCon.isActive = false
+            
+            orginalEraserBrushCon.isActive = true
+            enlargedEraserBrushCon.isActive = false
             break
         }
         
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
+        }
+    }
+    
+    func playerModelViewFade(isVisable: Bool){
+        if isVisable == true && orginalPlayerModelViewCon.isActive == true{
+            orginalPlayerModelViewCon.isActive = false
+            enlargedPlayerModelViewCon.isActive = true
+            
+            self.playerModelSelectionView.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                
+                self.playerModelSelectionView.alpha = 1.0
+                self.view.layoutIfNeeded()
+                
+            }, completion: { _ in
+                print("Player Model View Shown")
+            })
+        }else if isVisable == false && enlargedPlayerModelViewCon.isActive == true {
+            
+            orginalPlayerModelViewCon.isActive = true
+            enlargedPlayerModelViewCon.isActive = false
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                
+                self.playerModelSelectionView.alpha = 0.0
+                self.view.layoutIfNeeded()
+                
+            }, completion: { _ in
+                print("Player Model View Had disappeared")
+                self.playerModelSelectionView.isHidden = true
+            })
         }
     }
     
@@ -292,18 +396,20 @@ class Drawboard_View_Controller: UIViewController {
                 if progress == 1.0{
                     self.saveBackgroundImage()
                 }
-            }, result: { (results: Result) -> () in
-                print(results)
-                
+            }, result: { (results: Result<Void, Error>) -> () in
+               
+               print(results)
+            
+               
             })
+            
         }
         
     }
     
     func saveBackgroundImage() -> Bool{
         
-        let imageData = iceRinkImage.jpegData(compressionQuality: 0.75)
-        
+        let imageData = iceRInkImageView.image!.jpegData(compressionQuality: 0.50)
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
@@ -385,29 +491,58 @@ class Drawboard_View_Controller: UIViewController {
         loadBrushs(brushType: 0)
         enlargeButtons(buttonType: 0)
         
+        playerModelViewFade(isVisable:  false)
+    
+        
     }
     @IBAction func skatingWithPuckBrush(_ sender: UIButton) {
         
         loadBrushs(brushType: 1)
         enlargeButtons(buttonType: 1)
         
+        playerModelViewFade(isVisable:  false)
+        
+       
     }
     @IBAction func backwardSkating(_ sender: UIButton) {
         
         loadBrushs(brushType: 2)
         enlargeButtons(buttonType: 2)
-    }
-    
-    @IBAction func playerTypeSelectionButton(_ sender: UIButton) {
         
-        loadBrushs(brushType: 4)
-        enlargeButtons(buttonType: 4)
-        
+        playerModelViewFade(isVisable:  false)
+       
     }
     @IBAction func shotSelectionButton(_ sender: UIButton) {
         
         loadBrushs(brushType: 3)
         enlargeButtons(buttonType: 3)
         
+        playerModelViewFade(isVisable:  false)
+        
     }
+    @IBAction func playerTypeSelectionButton(_ sender: UIButton) {
+        
+        loadBrushs(brushType: 4)
+        enlargeButtons(buttonType: 4)
+    
+        playerModelViewFade(isVisable:  true)
+       
+    }
+    
+    @IBAction func eraserBrushButton(_ sender: UIButton) {
+        loadBrushs(brushType: 5)
+        enlargeButtons(buttonType: 5)
+        
+        playerModelViewFade(isVisable:  false)
+       
+    }
+    
+    @IBAction func goalieBrushButton(_ sender: UIButton) {
+    }
+    
+    @IBAction func forwardBrushButton(_ sender: Any) {
+    }
+    @IBAction func defenseBrushButton(_ sender: Any) {
+    }
+    
 }

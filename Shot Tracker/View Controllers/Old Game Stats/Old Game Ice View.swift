@@ -18,7 +18,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     @IBOutlet weak var tutorialContainer: UIView!
     @IBOutlet weak var closeButton: UIButton!
     
-    let realm = try! Realm()
+   
     
     let homeTeamGoalMakerImage = UIImage(named: "home_team_goal.png");
     let homeTeamShotMakerImage = UIImage(named: "home_team_shot.png");
@@ -27,6 +27,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     let awayTeamPenaltyMarkerImage = UIImage(named: "away_penalty.png")
     let homeTeamPenaltyMarkerImage = UIImage(named: "home_penalty.png")
     
+    @IBOutlet weak var iceRinkImageView: UIImageView!
     @IBOutlet weak var adView: GADBannerView!
     @IBOutlet weak var homeTeamNameLabel: UILabel!
     @IBOutlet weak var homeTeamNumGoals: UILabel!
@@ -75,6 +76,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         teamNameInitialize()
         teamIDProcessing()
         navBarProcessing()
+        
+         let realm = try! Realm()
         
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
             
@@ -299,9 +302,9 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         let analyticalViewAction = UIAlertAction(title: localizedString().localized(value:"Analytical View"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.presentAnalyticalView()
         })
-        let drawboardAction = UIAlertAction(title: localizedString().localized(value:"Saved Drawboard Sketchs"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        /*let drawboardAction = UIAlertAction(title: localizedString().localized(value:"Saved Drawboard Sketchs"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.presentDrawboard()
-        })
+        })*/
         // tapp anywhere outside of popup alert controller
         let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
             print("didPress Cancel")
@@ -309,7 +312,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         // Add the actions to your actionSheet
         actionSheet.addAction(goalieChangeActionButton)
         actionSheet.addAction(analyticalViewAction)
-        actionSheet.addAction(drawboardAction)
+        //actionSheet.addAction(drawboardAction)
         actionSheet.addAction(cancelAction)
         if let popoverController = actionSheet.popoverPresentationController {
             
@@ -357,13 +360,15 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     func teamIDProcessing(){
+        let realm = try! Realm()
         // get home team and away team id from the most recent new gamne entry
-        let newGameFilter = self.realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame);
+        let newGameFilter = realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame);
         homeTeam = (newGameFilter?.homeTeamID)!
         awayTeam = (newGameFilter?.opposingTeamID)!
     }
 
     func scoreInitialize(){
+    let realm = try! Realm()
     
     // query realm for goal count based on newest gam
     let homeScoreFilter = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", SeletedGame, homeTeam)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
@@ -377,6 +382,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     func navBarProcessing() {
+        let realm = try! Realm()
         if (String(homeTeam) != "" && String(awayTeam) != ""){
             let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
             let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
@@ -389,7 +395,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
 
     func shot_markerProcessing() -> (home_xCordsForPlacementShot: [String], home_yCordsForPlacementShot: [String], away_xCordsForPlacementShot: [String], away_yCordsForPlacementShot: [String]){
-        
+         let realm = try! Realm()
 
         let home_xCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", SeletedGame, homeTeam)).value(forKeyPath: "xCordShot") as! [Int]).compactMap({String($0)})
         let home_yCordsArray = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", SeletedGame, homeTeam)).value(forKeyPath: "yCordShot") as! [Int]).compactMap({String($0)})
@@ -407,7 +413,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     // func used to process shot X and Y cord info from realm based on team selection on new game page load
     func goal_markerProcessing() -> (home_xCordsForPlacementGoal: [String], home_yCordsForPlacementGoal: [String], away_xCordsForPlacementGoal: [String], away_yCordsForPlacementGoal: [String]){
         
-        let newGameFilter = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.gameID)
+         let realm = try! Realm()
+        let newGameFilter = (realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.gameID)
         
         let home_xCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!,homeTeam)).value(forKeyPath: "xCordGoal") as! [Int]).compactMap({String($0)})
         let home_yCordsArray = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i", newGameFilter!,homeTeam)).value(forKeyPath: "yCordGoal") as! [Int]).compactMap({String($0)})
@@ -428,8 +435,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     // func used to process shot X and Y cord info from realm based on team selection on new game page load
     func peanlty_markerProcessing() -> (home_xCordsForPlacementPenalty: [String], home_yCordsForPlacementPenalty: [String], away_xCordsForPlacementPenalty: [String], away_yCordsForPlacementPenalty: [String]){
-        
-        let newGameFilter = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.gameID)
+         let realm = try! Realm()
+        let newGameFilter = (realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame)?.gameID)
         
         let home_xCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "xCord") as! [Int]).compactMap({String($0)})
         let home_yCordsArray = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "gameID == %i AND teamID == %i", newGameFilter!, homeTeam)).value(forKeyPath: "yCord") as! [Int]).compactMap({String($0)})
@@ -467,6 +474,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     func tappedMarker(markerType: Int, markerTag: Int){
+         let realm = try! Realm()
         if(markerType == 0){
             let selectedShotMarker = view.viewWithTag(markerTag)
             let markerCords: CGPoint = selectedShotMarker!.frame.origin
@@ -474,12 +482,12 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             let yMarkerCord = Int(markerCords.y + CGFloat(universalValue().markerCenterY))
             print("Cords for shot image are: \(xMarkerCord) and \(yMarkerCord)")
             
-            let shotLocation = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
-            let goalieID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
-            let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID.first)?.playerName;
+            let shotLocation = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
+            let goalieID = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
+            let goalieName = realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID.first)?.playerName;
             
-            let teamID = (self.realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
-            let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
+            let teamID = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
+            let teamName = realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
             
             let actionSheet = UIAlertController(title: localizedString().localized(value:"Shot Details"), message: "Shot Location: \(shotLocationConversion(shotLocationInt: shotLocation[0])) \n Goalie Shot on: \(goalieName!) \n Shot by team: \(teamName!)", preferredStyle: .actionSheet)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
@@ -501,15 +509,15 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             let yMarkerCord = Int(markerCords.y + CGFloat(universalValue().markerCenterY))
             print("Cords for goal image are: \(xMarkerCord) and \(yMarkerCord)")
             
-            let shotLocation = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, self.SeletedGame)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
-            let goalieID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
+            let shotLocation = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, self.SeletedGame)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
+            let goalieID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
            
-            let goalieName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID.first)?.playerName;
+            let goalieName = realm.object(ofType: playerInfoTable.self, forPrimaryKey: goalieID.first)?.playerName;
             
-            let teamID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
-            let teamName = self.realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
-            let scoringPlayerID = (self.realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})
-            let scoringPlayerName = self.realm.object(ofType: playerInfoTable.self, forPrimaryKey: scoringPlayerID[0])?.playerName;
+            let teamID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "TeamID") as! [Int]).compactMap({Int($0)})
+            let teamName = realm.object(ofType: teamInfoTable.self, forPrimaryKey: teamID[0])?.nameOfTeam;
+            let scoringPlayerID = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "xCordGoal == %i AND yCordGoal == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalPlayerID") as! [Int]).compactMap({Int($0)})
+            let scoringPlayerName = realm.object(ofType: playerInfoTable.self, forPrimaryKey: scoringPlayerID[0])?.playerName;
             
             let actionSheet = UIAlertController(title: localizedString().localized(value:"Goal Details"), message: "Goal Location: \(shotLocationConversion(shotLocationInt: shotLocation[0])) \n Goalie Shot on: \(goalieName!) \n Scored by team: \(teamName!) \n Player Scored: \(scoringPlayerName!)", preferredStyle: .actionSheet)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
@@ -531,11 +539,11 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             let yMarkerCord = Int(markerCords.y  + CGFloat(universalValue().markerCenterY))
             print("Cords for Penalty image are: \(xMarkerCord) and \(yMarkerCord)")
             
-            let playerID = (self.realm.objects(penaltyTable.self).filter(NSPredicate(format: "xCord == %i AND yCord == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, self.SeletedGame)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}).first
-            let playerOffenderName = (self.realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", playerID!)).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)}).first
-            let timeOfPenalty = (self.realm.objects(penaltyTable.self).filter(NSPredicate(format: "xCord == %i AND yCord == %i AND gameID == %i AND activeState == true", xMarkerCord,yMarkerCord ,self.SeletedGame)).value(forKeyPath: "timeOfOffense") as! [Date]).first
+            let playerID = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "xCord == %i AND yCord == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, self.SeletedGame)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}).first
+            let playerOffenderName = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", playerID!)).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)}).first
+            let timeOfPenalty = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "xCord == %i AND yCord == %i AND gameID == %i AND activeState == true", xMarkerCord,yMarkerCord ,self.SeletedGame)).value(forKeyPath: "timeOfOffense") as! [Date]).first
             let convertedTime = dateToString.dateToStringFormatter(unformattedDate: timeOfPenalty!)
-            let typeOfOffense = (self.realm.objects(penaltyTable.self).filter(NSPredicate(format: "xCord == %i AND yCord == %i AND gameID == %i AND activeState == true", xMarkerCord,yMarkerCord ,self.SeletedGame)).value(forKeyPath: "penaltyType") as! [String]).compactMap({String($0)}).first
+            let typeOfOffense = (realm.objects(penaltyTable.self).filter(NSPredicate(format: "xCord == %i AND yCord == %i AND gameID == %i AND activeState == true", xMarkerCord,yMarkerCord ,self.SeletedGame)).value(forKeyPath: "penaltyType") as! [String]).compactMap({String($0)}).first
             
             let actionSheet = UIAlertController(title: localizedString().localized(value:"Penalty Details"), message: "Offense Made By: \(playerOffenderName!)\n Time of Offense: \(convertedTime)\n Offense Type: \(typeOfOffense!)\n ", preferredStyle: .actionSheet)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
@@ -560,7 +568,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         let imageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().home_xCordsForPlacementShot[i])! - universalValue().markerCenterX, y: Int(shot_markerProcessing().home_yCordsForPlacementShot[i])! - universalValue().markerCenterY, width: universalValue().markerWidth, height: universalValue().markerHeight));
                         imageView.contentMode = .scaleAspectFill;
                         imageView.image = markerType;
-                        view.addSubview(imageView);
+                        iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
                         imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
@@ -584,7 +592,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         let imageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().home_xCordsForPlacementGoal[i])! - universalValue().markerCenterX, y: Int(goal_markerProcessing().home_yCordsForPlacementGoal[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
                         imageView.contentMode = .scaleAspectFill;
                         imageView.image = markerType;
-                        view.addSubview(imageView);
+                        iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
                         imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
@@ -607,7 +615,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                     let imageView = UIImageView(frame: CGRect(x: Int(peanlty_markerProcessing().home_xCordsForPlacementPenalty[i])! - universalValue().markerCenterX, y: Int(peanlty_markerProcessing().home_yCordsForPlacementPenalty[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
                     imageView.contentMode = .scaleAspectFill;
                     imageView.image = markerType;
-                    view.addSubview(imageView);
+                    iceRinkImageView.addSubview(imageView);
                     imageView.tag = tagCounter
                     imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                     // check Tap gestuires for a single tap
@@ -635,7 +643,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         let imageView = UIImageView(frame: CGRect(x: Int(shot_markerProcessing().away_xCordsForPlacementShot[i])! - universalValue().markerCenterX, y: Int(shot_markerProcessing().away_yCordsForPlacementShot[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
                         imageView.contentMode = .scaleAspectFill;
                         imageView.image = markerType;
-                        view.addSubview(imageView);
+                        iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
                         imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
@@ -655,7 +663,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         let imageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().away_xCordsForPlacementGoal[i])! - universalValue().markerCenterX, y: Int(goal_markerProcessing().away_yCordsForPlacementGoal[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
                         imageView.contentMode = .scaleAspectFill;
                         imageView.image = markerType;
-                        view.addSubview(imageView);
+                        iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
                         imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
@@ -677,7 +685,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         let imageView = UIImageView(frame: CGRect(x: Int(peanlty_markerProcessing().away_xCordsForPlacementPenalty[i])! - universalValue().markerCenterX, y: Int(peanlty_markerProcessing().away_yCordsForPlacementPenalty[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
                         imageView.contentMode = .scaleAspectFill;
                         imageView.image = markerType;
-                        view.addSubview(imageView);
+                        iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
                         imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
@@ -698,7 +706,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     
     
     func teamNameInitialize(){
-        
+        let realm = try! Realm()
         // query realm for team naames based on newest game
         // align text in text field as well assign text value to text field to team name
         homeTeamNameLabel?.text = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam))?.nameOfTeam
@@ -708,8 +716,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     func numShotInitialize(){
-        
-        let newGameFilter = (self.realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame))
+        let realm = try! Realm()
+        let newGameFilter = (realm.object(ofType: newGameTable.self, forPrimaryKey: SeletedGame))
         // get homeTeam and away team ID's fom said lastest new game entry
         homeTeam = (newGameFilter?.homeTeamID)!
         awayTeam = (newGameFilter?.opposingTeamID)!
