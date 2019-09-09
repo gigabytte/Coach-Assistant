@@ -25,7 +25,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
     var successImport: Bool!
     var productID: String!
     var runOnceBool: Bool = false
-    var importPlayersBool: Bool!
+    var importPlayersBool: Int!
     
     var csvText_newGameTable: String!
     var csvText_faceoffTable: String!
@@ -36,14 +36,6 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
     var csvText_shotMarkerTable: String!
     var csvText_teamInfoTable: String!
     
-    var teamInfoTableFileName: String = "Realm_Team_Info_Table.csv"
-    var playerInfoTableFileName: String = "Realm_Player_Info_Table.csv"
-    var newGameTableFileName: String = "Realm_New_Game_Info_Table.csv"
-    var goalMarkerTableFileName: String = "Realm_Goal_Marker_Table.csv"
-    var shotMarkerTableFileName: String = "Realm_Shot_Marker_Table.csv"
-    var penaltyInfoTableFileName: String = "Realm_Penalty_Table.csv"
-    var overallStatsTableFileName: String = "Realm_Overall_Stats_Table.csv"
-    var faceoffInfoTableFileName: String = "Realm_Faceoff_Stats_Table.csv"
     
     var pathURLs: [URL] = [URL]()
     
@@ -163,26 +155,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         }
     }
     
-    // on buttoin press delete all of relam data
-    @IBAction func wipeDataButton(_ sender: Any) {
-        deleteDataPrompt()
-    }
     
-    // on button press perform CVS export functions
-    @IBAction func exportCVSButtonAction(_ sender: UIButton) {
-        // run confirmation alert
-        if (icloudToggleSwitch.isOn == true){
-            confirmationiCloudAlert()
-            
-        }else{
-            confirmationLocalAlert()
-        }
-        
-    }
-    // on button press perform CVS import functions
-    @IBAction func importCVSButtonAction(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "importPopUpSegue", sender: nil);
-    }
     
     func backupUpDateCheck(){
         
@@ -228,12 +201,12 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             let newLine = teamNameVar + "," + seaonYearVar + "," + teamLogoURLVar + "," + activeStateVar + "\n"
             csvText_teamInfoTable.append(newLine)
         }
-        if (icloudToggleSwitch.isOn == true){
+        /*if (icloudToggleSwitch.isOn == true){
             localDocumentWriter(fileName: teamInfoTableFileName, csvText: csvText_teamInfoTable)
             iCloudDocumentWriter(fileName: teamInfoTableFileName)
         }else{
             localDocumentWriter(fileName: teamInfoTableFileName, csvText: csvText_teamInfoTable)
-        }
+        }*/
         
        
     }
@@ -300,13 +273,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             let newLine =  playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerLogoURLVar + "," + playerActiveStateVar + "\n"
             csvText_playerInfoTable.append(newLine)
         }
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentWriter(fileName: playerInfoTableFileName, csvText: csvText_playerInfoTable)
-            iCloudDocumentWriter(fileName: playerInfoTableFileName)
-        }else{
-            localDocumentWriter(fileName: playerInfoTableFileName, csvText: csvText_playerInfoTable)
-        }
-       
+        
     }
     // creats csv file for new game table
     func createCSVNewGameInfo(){
@@ -378,12 +345,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
  
             csvText_newGameTable.append(newLine)
         }
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentWriter(fileName: newGameTableFileName, csvText: csvText_newGameTable)
-            iCloudDocumentWriter(fileName: newGameTableFileName)
-        }else{
-            localDocumentWriter(fileName: newGameTableFileName, csvText: csvText_newGameTable)
-        }
+       
        
     }
     // creats csv file for goal marker table
@@ -464,12 +426,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
  
             csvText_goalMarkerTable.append(newLine)
         }
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentWriter(fileName: goalMarkerTableFileName, csvText: csvText_goalMarkerTable)
-            iCloudDocumentWriter(fileName: goalMarkerTableFileName)
-        }else{
-            localDocumentWriter(fileName: goalMarkerTableFileName, csvText: csvText_goalMarkerTable)
-        }
+   
         
        
     }
@@ -526,13 +483,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
       
             csvText_shotMarkerTable.append(newLine)
         }
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentWriter(fileName: shotMarkerTableFileName, csvText: csvText_shotMarkerTable)
-            iCloudDocumentWriter(fileName: shotMarkerTableFileName)
-        }else{
-            localDocumentWriter(fileName: shotMarkerTableFileName, csvText: csvText_shotMarkerTable)
-        }
-       
+ 
     }
     
     // creats csv file for penalty table
@@ -584,13 +535,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
 
             csvText_penaltyInfoTable.append(newLine)
         }
-        
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentWriter(fileName: penaltyInfoTableFileName, csvText: csvText_penaltyInfoTable)
-            iCloudDocumentWriter(fileName: penaltyInfoTableFileName)
-        }else{
-            localDocumentWriter(fileName: penaltyInfoTableFileName, csvText: csvText_penaltyInfoTable)
-        }
+
         
     }
     
@@ -644,13 +589,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
  
             csvText_overallStatsTable.append(newLine)
         }
-        
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentWriter(fileName: overallStatsTableFileName, csvText: csvText_overallStatsTable)
-            iCloudDocumentWriter(fileName: overallStatsTableFileName)
-        }else{
-            localDocumentWriter(fileName: overallStatsTableFileName, csvText: csvText_overallStatsTable)
-        }
+ 
         
     }
     
@@ -700,12 +639,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             csvText_faceoffTable.append(newLine)
         }
         
-        if (icloudToggleSwitch.isOn == true){
-            localDocumentWriter(fileName: faceoffInfoTableFileName, csvText: csvText_faceoffTable)
-            iCloudDocumentWriter(fileName: faceoffInfoTableFileName)
-        }else{
-            localDocumentWriter(fileName: faceoffInfoTableFileName, csvText: csvText_faceoffTable)
-        }
+     
         
     }
     
@@ -955,86 +889,136 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         
     }
     
-    func deleteRealmBackupFiles(urlArray: [URL]){
-        
-        print(urlArray)
-        
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        let documentsPath = documentsUrl.path
-        
-        for url in urlArray{
-            
-            let fileManager = FileManager.default
-            
-            do {
-                // remove file at file path provided
-                try fileManager.removeItem(atPath: "\(url)")
-                
-            } catch {
-                print("Unable to to delete realm export files")
-                
-            }
-        }
-    }
-    
-    func localDocumentWriter(fileName: String, csvText: String){
-       
+    func localBackupWriter() -> URL{
+        var filesToShare = [Any]()
+        var finalZipRestingPlace: URL!
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
-            let tempUrl = dir.appendingPathComponent("GameSaves")
-            let fileURL = tempUrl.appendingPathComponent(fileName)
+            let realmFileSearch = dir.appendingPathComponent("default.realm")
             
-            do {
-                try csvText.write(to: fileURL, atomically: false, encoding: .utf8)
-                pathURLs.append(fileURL)
-                //print("Penalty Table CSV File URL: ", fileURL)
-            } catch {
-                print("\(error)")
-                purchaseErrorAlert(alertMsg: "Error in writing game save files to local directory, please contact support")
+            if FileManager.default.fileExists(atPath: realmFileSearch.path) {
+                
+                let tempUrl = dir.appendingPathComponent("Backups")
+                finalZipRestingPlace = tempUrl.appendingPathComponent("coachAssistantBackup.zip")
+                do {
+                    try Zip.zipFiles(paths: [realmFileSearch], zipFilePath: finalZipRestingPlace, password: nil, progress: { (progress) -> () in
+                        print(progress)
+                        if progress == 1.0{
+                            // Make the activityViewContoller which shows the share-view
+                            // Add the path of the file to the Array
+                            filesToShare.append(finalZipRestingPlace!)
+                            
+                            let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+                            activityViewController.excludedActivityTypes = [UIActivity.ActivityType.print, UIActivity.ActivityType.assignToContact]
+                            // Show the share-view
+                            activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+                                if completed {
+                                    let date = "\(getDate().getYear()).\(getDate().getMonth()).\(getDate().getDay())"
+                                    
+                                    UserDefaults.standard.set(date, forKey: "lastBackup")
+                                    self.backupUpDateCheck()
+                                }
+                                // User completed activity
+                            }
+                            
+                            self.present(activityViewController, animated: true, completion: nil)
+                            if let popOver = activityViewController.popoverPresentationController {
+                                popOver.permittedArrowDirections = UIPopoverArrowDirection(rawValue:0)
+                                popOver.sourceView = self.backupTableView
+                                
+                            }
+                            
+                        }
+                    })
+                    
+                }catch{
+                    print("Failed to Zip Files")
+                    self.fatalErrorAlert("Failed to Zip Files")
+                }
+                
+            }else{
+                print("cant find realm file")
             }
         }
-        
+        return finalZipRestingPlace
     }
     
-    func iCloudDocumentWriter(fileName: String){
-        
-        
-        
-        guard let dir = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: .userDomainMask).last else { return }
-        
-        let tempUrl = dir.appendingPathComponent("GameSaves")
-        let fileURL = tempUrl.appendingPathComponent(fileName)
-        
-        guard let iCloudDocumentsURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").appendingPathComponent(fileName) else { return }
+    
+    func iCloudDocumentWriter(fileURL: URL){
         
         var isDir:ObjCBool = false
         
-        if FileManager.default.fileExists(atPath: iCloudDocumentsURL.path, isDirectory: &isDir) {
+        if FileManager.default.fileExists(atPath: fileURL.path, isDirectory: &isDir) {
             do {
-                try FileManager.default.removeItem(at: iCloudDocumentsURL)
+                try FileManager.default.removeItem(at: fileURL)
             }
             catch {
                 //Error handling
                 print("Error in removing item from icloud container")
-                purchaseErrorAlert(alertMsg: "Error in removing old files from iCloud container, please contact support")
+                fatalErrorAlert("Error in removing old files from iCloud container, please contact support")
             }
         }
         
         do {
-            try FileManager.default.copyItem(at: fileURL, to: iCloudDocumentsURL)
+            try FileManager.default.copyItem(at: fileURL, to: fileURL)
+            let date = "\(getDate().getYear()).\(getDate().getMonth()).\(getDate().getDay())"
+            
+            UserDefaults.standard.set(date, forKey: "lastBackup")
+            self.backupUpDateCheck()
         }
         catch {
             //Error handling
             print("Error in coping item from local directory to icloud container")
-            purchaseErrorAlert(alertMsg: "Error in coping item from local directory to icloud container, please contact support")
+            fatalErrorAlert("Error in coping item from local directory to icloud container, please contact support")
         }
         
     }
     
+    func unZipBackup(documentURL: URL){
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let realmFileSearch = dir.appendingPathComponent("default.realm")
+            
+            if FileManager.default.fileExists(atPath: realmFileSearch.path) {
+                do{
+                    try FileManager.default.removeItem(at: realmFileSearch)
+                }catch let error as NSError{
+                    print(error)
+                }
+            }
+            
+            try! Zip.unzipFile(documentURL, destination: dir, overwrite: true, password: nil, progress: { (progress) in
+                print(progress)
+                if progress == 1.0{
+                    if !FileManager.default.fileExists(atPath: realmFileSearch.path){
+                        let pathExt = realmFileSearch.pathExtension
+                        print("path ext is: \(pathExt)")
+                        if pathExt != "realm"{
+                            self.fatalErrorAlert("File failed inspection test. Make sure the file being imported is of type 'default.realm'. Import aborted")
+                            do{
+                                try FileManager.default.removeItem(at: realmFileSearch)
+                            }catch let error as NSError{
+                                print(error)
+                            }
+                        }else{
+                            self.reloadAppAlert()
+                        }
+                       
+                    }
+                }
+            }, fileOutputHandler: { (result) in
+                if !result.isFileURL == true{
+                    print("Unable to locate unzipped file, Whoops!")
+                }
+            })
+            
+        }
+    }
+    
     func showUIDocumentController(){
         
-        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText)], in: .import)
+        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText), String(kUTTypeZipArchive)], in: .import)
         importMenu.delegate = self
         importMenu.modalPresentationStyle = .formSheet
         self.present(importMenu, animated: true, completion: nil)
@@ -1139,26 +1123,8 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             
            
             
-            self.oldCSVFileFinder()
-            self.createCSVTeamInfo()
-            self.createCSVPlayerInfo()
-            self.createCSVNewGameInfo()
-            self.createCSVGoalMarkerTable()
-            self.createCSVShotMarkerTable()
-            self.createCSVPenaltyTable()
-            self.createCSVOverallStatsTable()
-            self.createCSVFaceoffStatsTable()
-            // save last know backup to user defaults
-            let currentDateTime = Date()
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy HH:mm"
-            let dateString = formatter.string(from: currentDateTime)
-            UserDefaults.standard.set(dateString, forKey: "lastBackup")
-            self.backupUpDateCheck()
-            
-            // compress realm files and delete realm files after compression
-            self.zipGameSaves(fileURL: self.pathURLs)
-            self.deleteRealmBackupFiles(urlArray: self.pathURLs)
+            self.localBackupWriter()
+     
             
         }))
         // show the alert
@@ -1174,29 +1140,9 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         exportAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Cancel"), style: UIAlertAction.Style.default, handler: nil))
         exportAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Continue"), style: UIAlertAction.Style.default, handler: { action in
             
-            // decompres gamesaves zip
-            self.decompressZipGameSaves()
+         
             
-            self.oldCSVFileFinder()
-            self.createCSVTeamInfo()
-            self.createCSVPlayerInfo()
-            self.createCSVNewGameInfo()
-            self.createCSVGoalMarkerTable()
-            self.createCSVShotMarkerTable()
-            self.createCSVPenaltyTable()
-            self.createCSVOverallStatsTable()
-            self.createCSVFaceoffStatsTable()
-            // save last know backup to user defaults
-            let currentDateTime = Date()
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy HH:mm"
-            let dateString = formatter.string(from: currentDateTime)
-            UserDefaults.standard.set(dateString, forKey: "lastBackup")
-            self.backupUpDateCheck()
-            
-            // compress realm files and delete realm files after compression
-            self.zipGameSaves(fileURL: self.pathURLs)
-            self.deleteRealmBackupFiles(urlArray: self.pathURLs)
+            self.iCloudDocumentWriter(fileURL: self.localBackupWriter())
             
         }))
         // show the alert
@@ -1301,7 +1247,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
     func reloadAppAlert(){
         
         // create the alert
-        let reloadAppAlert = UIAlertController(title: localizedString().localized(value:"Restart App"), message: localizedString().localized(value:"Please Exit and Close app In order to gain full pro feature set."), preferredStyle: UIAlertController.Style.alert)
+        let reloadAppAlert = UIAlertController(title: localizedString().localized(value: "App Restart Needed!"), message: localizedString().localized(value:"Please reload app for chnages to take full effect."), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         reloadAppAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
             self.reloadView()
@@ -1326,12 +1272,12 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         let errorAlert = UIAlertController(title: localizedString().localized(value:"Import File Type"), message: localizedString().localized(value: "Would you like to Import Players or Teams"), preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         errorAlert.addAction(UIAlertAction(title: "Import Players", style: UIAlertAction.Style.default, handler: { action in
-            self.importPlayersBool = true
+            self.importPlayersBool = 0
             self.showUIDocumentController()
         }))
         // add an action (button)
         errorAlert.addAction(UIAlertAction(title: "Import Teams", style: UIAlertAction.Style.default, handler: { action in
-            self.importPlayersBool = false
+            self.importPlayersBool = 1
             self.showUIDocumentController()
         }))
         // add an action (button)
@@ -1366,7 +1312,10 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         case 2:
             switch indexPath.row{
             case 0:
-                self.performSegue(withIdentifier: "importPopUpSegue", sender: nil);
+                
+                self.importPlayersBool = 2
+                self.showUIDocumentController()
+                
                 break
             case 1:
                 importPlayersTeamTypeAlert()
@@ -1425,7 +1374,9 @@ extension Settings_Backup_View_Controller: UIDocumentPickerDelegate,UINavigation
     }
     
     func documentPicker(_ documentPicker: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        if  importPlayersBool == true {
+        
+        switch importPlayersBool{
+        case 0:
             if  urls.count > 1 {
                 fatalErrorAlert("No more than one file can be selected please select a player CSV file.")
             }else {
@@ -1440,8 +1391,8 @@ extension Settings_Backup_View_Controller: UIDocumentPickerDelegate,UINavigation
                 return
                 
             }
-            
-        }else{
+            break
+        case 1:
             if  urls.count > 1 {
                 fatalErrorAlert("No more than one file can be selected please select a team CSV file.")
             }else {
@@ -1449,7 +1400,7 @@ extension Settings_Backup_View_Controller: UIDocumentPickerDelegate,UINavigation
                 if csvStringToRealmTeamTable(fileName: urls.first!) == true{
                     
                     let realm = try! Realm()
-                   
+                    
                     print(teamNameFromCSV)
                     
                     for x in 0..<teamNameFromCSV.count{
@@ -1470,10 +1421,22 @@ extension Settings_Backup_View_Controller: UIDocumentPickerDelegate,UINavigation
                 return
                 
             }
+            break
+        case 2:
+            if  urls.count > 1 {
+                fatalErrorAlert("Please import your 'coachAssistantBackup.zip file. THe file selected does not meet this criteria.'")
+            }else {
+                unZipBackup(documentURL: urls.first!)
+                return
+            }
+            break
+        default:
+            fatalErrorAlert("Unable to determine course of action based on file imported. Please try again.")
+            break
         }
+        
 
     }
-    
     
     func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
         
@@ -1486,7 +1449,5 @@ extension Settings_Backup_View_Controller: UIDocumentPickerDelegate,UINavigation
         print("document Picker Was Cancelled")
         controller.dismiss(animated: true, completion: nil)
     }
-        
-    
     
 }

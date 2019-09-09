@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    
-  
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         UserDefaults.standard.set(false, forKey: "newUser")
@@ -111,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let docURL = URL(string: documentsDirectory)!
         let teamlogo_dataPath = docURL.appendingPathComponent("TeamLogo")
         let playerlogo_dataPath = docURL.appendingPathComponent("PlayerImages")
-        let gamesaves_dataPath = docURL.appendingPathComponent("GameSaves")
+        let gamesaves_dataPath = docURL.appendingPathComponent("Backups")
         let drawboardsaves_dataPath = docURL.appendingPathComponent("DrawboardSaves")
         // check and creat apporate directories for team logo images
         if !FileManager.default.fileExists(atPath: teamlogo_dataPath.absoluteString) {

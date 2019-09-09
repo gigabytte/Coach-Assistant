@@ -658,7 +658,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         }
     }
     
-    func saveStateOfIceImage() -> UIImage{
+    func saveStateOfIceImage() -> UIImage {
         
         let bottomImageRefrence = iceRinkImage
         let bottomImage = bottomImageRefrence!.image
@@ -749,9 +749,9 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         let gameOptionsAction = UIAlertAction(title: localizedString().localized(value:"Game Options"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
            self.presentGameSettings()
         })
-        let drawboardAction = UIAlertAction(title: localizedString().localized(value:"Drawboard"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        /*let drawboardAction = UIAlertAction(title: localizedString().localized(value:"Drawboard"), style: .default, handler: { (alert: UIAlertAction!) -> Void in
             self.presentDrawboard()
-        })
+        })*/
         // tapp anywhere outside of popup alert controller
         let cancelAction = UIAlertAction(title: localizedString().localized(value:"Cancel"), style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
             print("didPress Cancel")
@@ -759,7 +759,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         // Add the actions to your actionSheet
         actionSheet.addAction(gameOptionsAction)
         actionSheet.addAction(gameActionButton)
-        actionSheet.addAction(drawboardAction)
+        //actionSheet.addAction(drawboardAction)
         actionSheet.addAction(cancelAction)
         if let popoverController = actionSheet.popoverPresentationController {
             
