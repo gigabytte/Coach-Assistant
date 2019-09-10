@@ -82,16 +82,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         self.tableView.backgroundColor = systemColour().tableViewColor()
     }
     
-    @objc func myColorMethod(notification: NSNotification){
-        viewColour()
-    }
-    
-    @objc func myResetMethod(notification: NSNotification){
-        playerLineNumFromCSV.removeAll()
-        playerLineTypeFromCSV.removeAll()
-        playerNamesFromCSV.removeAll()
-        playerJerseyNumFromCSV.removeAll()
-    }
+   
     
     func reloadView(){
         
@@ -125,7 +116,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
           
         }
     }
-    
+    // ------------------------- listener functions ---------------------------------
     @objc func myMethod(notification: NSNotification){
      
         delayClass().delay(0.5){
@@ -133,8 +124,18 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         }
     }
     
+    @objc func myColorMethod(notification: NSNotification){
+        viewColour()
+    }
     
+    @objc func myResetMethod(notification: NSNotification){
+        playerLineNumFromCSV.removeAll()
+        playerLineTypeFromCSV.removeAll()
+        playerNamesFromCSV.removeAll()
+        playerJerseyNumFromCSV.removeAll()
+    }
     
+    // -----------------------------------------------------------------------------------
     @IBAction func icouldToggleSwitch(_ sender: Any) {
         
         if (icloudToggleSwitch.isOn == true && icloudAccountCheck().isICloudContainerAvailable() == true){
@@ -166,482 +167,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         }
         
     }
-  
-    // creats csv file for  team info table
-    func createCSVTeamInfo(){
-        
-        let realm = try! Realm()
-        
-        let TeamIDCount =  realm.objects(teamInfoTable.self).filter("teamID >= 0").count
-        var tempTeamNameArray: [String] = [String]()
-        var tempSeasonYearArray: [String] = [String]()
-        var tempTeamLogoURLArray: [String] = [String]()
-        var tempActiveStateArray: [String] = [String]()
-        // print(TeamIDCount)
-        for i in 0..<TeamIDCount{
-            
-            let teamNameValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.nameOfTeam;
-            let seasonYearValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.seasonYear;
-            let teamLogoURL = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.teamLogoURL;
-            let activeStateValue = realm.object(ofType: teamInfoTable.self, forPrimaryKey:i)!.activeState;
-            tempTeamNameArray.append(teamNameValue)
-            tempSeasonYearArray.append(String(seasonYearValue))
-            tempTeamLogoURLArray.append(String(teamLogoURL))
-            tempActiveStateArray.append(String(activeStateValue))
-        }
-        
-        csvText_teamInfoTable = "nameOfTeam,seasonYear,teamLogoURL,activeState\n"
-        for x in 0..<tempTeamNameArray.count {
-            
-            let teamNameVar = tempTeamNameArray[x]
-            let seaonYearVar = tempSeasonYearArray[x]
-            let teamLogoURLVar = tempTeamLogoURLArray[x]
-            let activeStateVar = tempActiveStateArray[x]
-            
-            let newLine = teamNameVar + "," + seaonYearVar + "," + teamLogoURLVar + "," + activeStateVar + "\n"
-            csvText_teamInfoTable.append(newLine)
-        }
-        /*if (icloudToggleSwitch.isOn == true){
-            localDocumentWriter(fileName: teamInfoTableFileName, csvText: csvText_teamInfoTable)
-            iCloudDocumentWriter(fileName: teamInfoTableFileName)
-        }else{
-            localDocumentWriter(fileName: teamInfoTableFileName, csvText: csvText_teamInfoTable)
-        }*/
-        
-       
-    }
-    // creats csv file for player info table
-    func createCSVPlayerInfo(){
-        
-         let realm = try! Realm()
-        
-        let playerIDCount =  realm.objects(playerInfoTable.self).filter("playerID >= 0").count
-        var tempPlayerNameArray: [String] = [String]()
-        var tempjerseyNum: [String] = [String]()
-        var tempPositionType: [String] = [String]()
-        var tempTeamID: [String] = [String]()
-        var tempLineNum: [String] = [String]()
-        var tempGoalCount: [String] = [String]()
-        var tempAssitsCount: [String] = [String]()
-        var tempShotCount: [String] = [String]()
-        var tempPlusMinus: [String] = [String]()
-        var tempPlayerLogoURL: [String] = [String]()
-        var tempActiveState: [String] = [String]()
-        
-        for i in 0..<playerIDCount{
-            
-            let playerNameValue = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.playerName;
-            let jerseyNum = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.jerseyNum;
-            let positionType = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.positionType;
-            let TeamID = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.TeamID;
-            let lineNum = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.lineNum;
-            let goalCount = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.goalCount;
-            let assitsCount = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.assitsCount;
-            let shotCount = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.shotCount;
-            let plusMinus = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.plusMinus;
-            let playerLogoURL = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.playerLogoURL
-            let activeState = realm.object(ofType: playerInfoTable.self, forPrimaryKey:i)!.activeState;
-            tempPlayerNameArray.append(playerNameValue)
-            tempjerseyNum.append(String(jerseyNum))
-            tempPositionType.append(positionType)
-            tempTeamID.append(TeamID)
-            tempLineNum.append(String(lineNum))
-            tempGoalCount.append(String(goalCount))
-            tempAssitsCount.append(String(assitsCount))
-            tempShotCount.append(String(shotCount))
-            tempPlusMinus.append(String(plusMinus))
-            tempPlayerLogoURL.append(String(playerLogoURL))
-            tempActiveState.append(String(activeState))
-            
-        }
-        
-        csvText_playerInfoTable = "playerName,jerseyNum,positionType,TeamID,lineNum,goalCount,assitsCount,shotCount,plusMinus,playerLogoURL,activeState\n"
-        for x in 0..<tempPlayerNameArray.count {
-            
-            let playerNameVar = tempPlayerNameArray[x]
-            let playerJerseyNum = tempjerseyNum[x]
-            let playerPositionTypeVar = tempPositionType[x]
-            let playerTeamIDVar = tempTeamID[x]
-            let playerLineNumVar = tempLineNum[x]
-            let playerGoalCountVar = tempGoalCount[x]
-            let playerAssitsCountVar = tempAssitsCount[x]
-            let playerShotCountVar = tempShotCount[x]
-            let playerPlusMinusVar = tempPlusMinus[x]
-            let playerLogoURLVar = tempPlayerLogoURL[x]
-            let playerActiveStateVar = tempActiveState[x]
-            
-            let newLine =  playerNameVar + "," + playerJerseyNum + "," + playerPositionTypeVar + "," + playerTeamIDVar + "," + playerLineNumVar + "," + playerGoalCountVar + "," + playerAssitsCountVar + "," + playerShotCountVar + "," + playerPlusMinusVar + "," + playerLogoURLVar + "," + playerActiveStateVar + "\n"
-            csvText_playerInfoTable.append(newLine)
-        }
-        
-    }
-    // creats csv file for new game table
-    func createCSVNewGameInfo(){
-        
-         let realm = try! Realm()
-        
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        _ = formatter.string(from: date)
-        
-        let newGameIDCount =  realm.objects(newGameTable.self).filter("gameID >= 0").count
-        var tempDateGamePlayed: [String] = [String]()
-        var tempOpposingTeamID: [String] = [String]()
-        var tempHomeTeamID: [String] = [String]()
-        var tempGameType: [String] = [String]()
-        var tempLocation: [String] = [String]()
-        var tempWiningTeam: [String] = [String]()
-        var tempLosingTeam: [String] = [String]()
-        var tempSeasonYear: [String] = [String]()
-        var tempTieBool: [String] = [String]()
-        var tempActiveGameStatus: [String] = [String]()
-        var tempActiveState: [String] = [String]()
-        
-        for i in 0..<newGameIDCount{
-            
-            let dateGamePlayedValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.dateGamePlayed;
-            let opposingTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.opposingTeamID;
-            let homeTeamIDValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.homeTeamID;
-            let gameTypeValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameType;
-            let locationValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.gameLocation;
-            let winingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.winingTeamID;
-            let losingTeamValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.losingTeamID;
-            let seasonYearValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.seasonYear;
-            let tieBoolValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.tieGameBool;
-            let activeGameStatusValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeGameStatus;
-            let activeStateValue = realm.object(ofType: newGameTable.self, forPrimaryKey:i)!.activeState;
-            let dateString = formatter.string(from: dateGamePlayedValue!)
-            tempDateGamePlayed.append(dateString)
-            tempOpposingTeamID.append(String(opposingTeamIDValue))
-            tempHomeTeamID.append(String(homeTeamIDValue))
-            tempGameType.append(gameTypeValue)
-            tempLocation.append(locationValue)
-            tempWiningTeam.append(String(winingTeamValue))
-            tempLosingTeam.append(String(losingTeamValue))
-            tempSeasonYear.append(String(seasonYearValue))
-            tempTieBool.append(String(tieBoolValue))
-            tempActiveGameStatus.append(String(activeGameStatusValue))
-            tempActiveState.append(String(activeStateValue))
-            
-        }
-        
-        csvText_newGameTable = "dateGamePlayed,opposingTeamID,homeTeamID,gameType,gameLocation,winingTeamID,losingTeamID,seasonYear,tieBool,activeGameStatus,activeState\n"
-        for x in 0..<newGameIDCount {
-            
-            let dateGamePlayerVar = tempDateGamePlayed[x]
-            let opposingTeamIDVar = tempOpposingTeamID[x]
-            let homeTeamIDVar = tempHomeTeamID[x]
-            let gameTypeVar = tempGameType[x]
-            let locationVar = tempLocation[x]
-            let winingTeamVar = tempWiningTeam[x]
-            let losingTeamVar = tempLosingTeam[x]
-            let seasonYearVar = tempSeasonYear[x]
-            let tieBoolVar = tempTieBool[x]
-            let activeGameStatusVar = tempActiveGameStatus[x]
-            let activeStateVar = tempActiveState[x]
-            
-            let newLine =  dateGamePlayerVar + "," + opposingTeamIDVar + "," + homeTeamIDVar + "," + gameTypeVar + "," + locationVar + "," + winingTeamVar + "," + losingTeamVar + "," + seasonYearVar + "," + tieBoolVar + "," + activeGameStatusVar + "," + activeStateVar + "\n"
- 
-            csvText_newGameTable.append(newLine)
-        }
-       
-       
-    }
-    // creats csv file for goal marker table
-    func createCSVGoalMarkerTable(){
-        
-         let realm = try! Realm()
-        
-        let goalMarkerIDCount =  realm.objects(goalMarkersTable.self).filter("cordSetID >= 0").count
-        var tempgameID: [String] = [String]()
-        var tempgoalType: [String] = [String]()
-        var temppowerPlay: [String] = [String]()
-        var temppowerPlayID: [String] = [String]()
-        var tempTeamID: [String] = [String]()
-        var tempgoalieID: [String] = [String]()
-        var tempgoalPlayerID: [String] = [String]()
-        var tempassitantPlayerID: [String] = [String]()
-        var tempsec_assitantPlayerID: [String] = [String]()
-        var tempperiodNumSet: [String] = [String]()
-        var tempxCordGoal: [String] = [String]()
-        var tempyCordGoal: [String] = [String]()
-        var tempshotLocation: [String] = [String]()
-        var tempactiveState: [String] = [String]()
-        
-        
-        for i in 0..<goalMarkerIDCount{
-            
-            let gameID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.gameID
-            let goalType = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalType
-            let powerPlay = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.powerPlay
-            let powerPlayID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.powerPlayID
-            let TeamID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.TeamID
-            let goalieID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalieID
-            let goalPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.goalPlayerID
-            let assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.assitantPlayerID
-            let sec_assitantPlayerID = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.sec_assitantPlayerID
-            let periodNumSet = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.periodNum
-            let xCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.xCordGoal
-            let yCordGoal = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.yCordGoal
-            let shotLocation = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.shotLocation
-            let activeState = realm.object(ofType: goalMarkersTable.self, forPrimaryKey:i)!.activeState
-            tempgameID.append(String(gameID))
-            tempgoalType.append(goalType)
-            temppowerPlay.append(String(powerPlay))
-            temppowerPlayID.append(String(powerPlayID))
-            tempTeamID.append(String(TeamID))
-            tempgoalieID.append(String(goalieID))
-            tempgoalPlayerID.append(String(goalPlayerID))
-            tempassitantPlayerID.append(String(assitantPlayerID))
-            tempsec_assitantPlayerID.append(String(sec_assitantPlayerID))
-            tempperiodNumSet.append(String(periodNumSet))
-            tempxCordGoal.append(String(xCordGoal))
-            tempyCordGoal.append(String(yCordGoal))
-            tempshotLocation.append(String(shotLocation))
-            tempactiveState.append(String(activeState))
-            
-        }
-        
-        csvText_goalMarkerTable = "gameID,goalType,powerPlay,powerPlayID,TeamID,goalieID,goalPlayerID,assitantPlayerID,sec_assitantPlayerID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
-        for x in 0..<goalMarkerIDCount{
-            
-            let gameIDVar = tempgameID[x]
-            let goalTypeVar = tempgoalType[x]
-            let powerPlayVar = temppowerPlay[x]
-            let powerPlayIDVar = temppowerPlayID[x]
-            let teamIDVar = tempTeamID[x]
-            let goalieIDVar = tempgoalieID[x]
-            let goalPlayerIDVar = tempgoalPlayerID[x]
-            let assitIDVar = tempassitantPlayerID[x]
-            let sec_assitIDVar = tempsec_assitantPlayerID[x]
-            let periodNumVar = tempperiodNumSet[x]
-            let xCordVar = tempxCordGoal[x]
-            let yCordVar = tempyCordGoal[x]
-            let shotLocationVar = tempshotLocation[x]
-            let activeStateVar = tempactiveState[x]
-            
-            let newLine =  gameIDVar + "," + goalTypeVar + "," + powerPlayVar + "," + powerPlayIDVar + "," + teamIDVar + "," + goalieIDVar + "," + goalPlayerIDVar + "," + assitIDVar + "," + sec_assitIDVar +
-                "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
- 
-            csvText_goalMarkerTable.append(newLine)
-        }
-   
-        
-       
-    }
-    // creats csv file for shot marker table
-    func createCSVShotMarkerTable(){
-        
-        let realm = try! Realm()
-        
-        let shotMarkerIDCount =  realm.objects(shotMarkerTable.self).filter("cordSetID >= 0").count
-        var tempgameID: [String] = [String]()
-        var tempTeamID: [String] = [String]()
-        var tempgoalieID: [String] = [String]()
-        var tempperiodNumSet: [String] = [String]()
-        var tempxCordGoal: [String] = [String]()
-        var tempyCordGoal: [String] = [String]()
-        var tempshotLocation: [String] = [String]()
-        var tempactiveState: [String] = [String]()
-        
-        
-        for i in 0..<shotMarkerIDCount{
-            
-            let gameID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.gameID
-            let TeamID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.TeamID
-            let goalieID = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.goalieID
-            let periodNumSet = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.periodNum
-            let xCordGoal = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.xCordShot
-            let yCordGoal = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.yCordShot
-            let shotLocation = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.shotLocation
-            let activeState = realm.object(ofType: shotMarkerTable.self, forPrimaryKey:i)!.activeState
-            tempgameID.append(String(gameID))
-            tempTeamID.append(String(TeamID))
-            tempgoalieID.append(String(goalieID))
-            tempperiodNumSet.append(String(periodNumSet))
-            tempxCordGoal.append(String(xCordGoal))
-            tempyCordGoal.append(String(yCordGoal))
-            tempshotLocation.append(String(shotLocation))
-            tempactiveState.append(String(activeState))
-            
-        }
-        
-        csvText_shotMarkerTable = "gameID,TeamID,goalieID,periodNumSet,xCordGoal,yCordGoal,shotLocation,activeState\n"
-        for x in 0..<shotMarkerIDCount{
-            
-            let gameIDVar = tempgameID[x]
-            let teamIDVar = tempTeamID[x]
-            let goalieIDVar = tempgoalieID[x]
-            let periodNumVar = tempperiodNumSet[x]
-            let xCordVar = tempxCordGoal[x]
-            let yCordVar = tempyCordGoal[x]
-            let shotLocationVar = tempshotLocation[x]
-            let activeStateVar = tempactiveState[x]
-            
-            let newLine =  gameIDVar + "," + teamIDVar + "," + goalieIDVar + "," + periodNumVar + "," + xCordVar + "," + yCordVar + "," + shotLocationVar + "," + activeStateVar + "\n"
-      
-            csvText_shotMarkerTable.append(newLine)
-        }
- 
-    }
-    
-    // creats csv file for penalty table
-    func createCSVPenaltyTable(){
-        
-        let realm = try! Realm()
-        
-        let shotMarkerIDCount =  realm.objects(penaltyTable.self).filter("penaltyID >= 0").count
-        var tempGameID: [String] = [String]()
-        var tempPlayerID: [String] = [String]()
-        var tempPenaltyType: [String] = [String]()
-        var tempTimeOfOffense: [String] = [String]()
-        var tempxCord: [String] = [String]()
-        var tempyCord: [String] = [String]()
-        var tempactiveState: [String] = [String]()
-        
-        
-        for i in 0..<shotMarkerIDCount{
-            
-            let gameID = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.gameID
-            let playerID = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.playerID
-            let penaltyType = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.penaltyType
-            let timeOfOffense = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.timeOfOffense
-            let xCord = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.xCord
-            let yCord = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.yCord
-            let activeState = realm.object(ofType: penaltyTable.self, forPrimaryKey:i)!.activeState
-            tempGameID.append(String(gameID))
-            tempPlayerID.append(String(playerID))
-            tempPenaltyType.append(String(penaltyType))
-            tempTimeOfOffense.append(dateToString.dateToStringFormatter(unformattedDate: timeOfOffense!))
-            tempxCord.append(String(xCord))
-            tempyCord.append(String(yCord))
-            tempactiveState.append(String(activeState))
-            
-        }
-        
-        csvText_penaltyInfoTable = "gameID,playerID,penaltyType,timeOfOffense,xCord,yCord,activeState\n"
-        for x in 0..<shotMarkerIDCount{
-            
-            let gameIDVar = tempGameID[x]
-            let playerIDVar = tempPlayerID[x]
-            let penaltyTypeVar = tempPenaltyType[x]
-            let timeOfOffenseVar = tempTimeOfOffense[x]
-            let xCordVar = tempxCord[x]
-            let yCordVar = tempyCord[x]
-            let activeStateVar = tempactiveState[x]
-            
-            let newLine =  gameIDVar + "," + playerIDVar + "," + penaltyTypeVar + "," + timeOfOffenseVar + "," + xCordVar + "," + yCordVar + "," + activeStateVar + "\n"
 
-            csvText_penaltyInfoTable.append(newLine)
-        }
-
-        
-    }
-    
-    
-    // creats csv file for Overall stats table
-    func createCSVOverallStatsTable(){
-        
-        let realm = try! Realm()
-        
-        let overallIDCount =  realm.objects(overallStatsTable.self).filter("overallStatsID >= 0").count
-        var tempGameID: [String] = [String]()
-        var tempPlayerID: [String] = [String]()
-        var tempLineNum: [String] = [String]()
-        var tempGoalCount: [String] = [String]()
-        var tempAssistCount: [String] = [String]()
-        var tempPlusMinus: [String] = [String]()
-        var tempactiveState: [String] = [String]()
-        
-        
-        for i in 0..<overallIDCount{
-            
-            let gameID = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.gameID
-            let playerID = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.playerID
-            let lineNum = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.lineNum
-            let goalCount = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.goalCount
-            let assistCount = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.assistCount
-            let plusMinus = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.plusMinus
-            let activeState = realm.object(ofType: overallStatsTable.self, forPrimaryKey:i)!.activeState
-            tempGameID.append(String(gameID))
-            tempPlayerID.append(String(playerID))
-            tempLineNum.append(String(lineNum))
-            tempGoalCount.append(String(goalCount))
-            tempAssistCount.append(String(assistCount))
-            tempPlusMinus.append(String(plusMinus))
-            tempactiveState.append(String(activeState))
-            
-        }
-        
-        csvText_overallStatsTable = "gameID,playerID,lineNum,goalCount,assistCount,plusMinus,activeState\n"
-        for x in 0..<overallIDCount{
-            
-            let gameIDVar = tempGameID[x]
-            let playerIDVar = tempPlayerID[x]
-            let lineNumVar = tempLineNum[x]
-            let goalCountVar = tempGoalCount[x]
-            let assistCountVar = tempAssistCount[x]
-            let plusMinusVar = tempPlusMinus[x]
-            let activeStateVar = tempactiveState[x]
-            
-            let newLine =  gameIDVar + "," + playerIDVar + "," + lineNumVar + "," + goalCountVar + "," + assistCountVar + "," + plusMinusVar + "," + activeStateVar + "\n"
- 
-            csvText_overallStatsTable.append(newLine)
-        }
- 
-        
-    }
-    
-    // creats csv file for Overall stats table
-    func createCSVFaceoffStatsTable(){
-        
-        let realm = try! Realm()
-        
-        let overallIDCount =  realm.objects(faceOffInfoTable.self).filter("faceoffID >= 0").count
-        var tempGameID: [String] = [String]()
-        var tempWiningPlayerID: [String] = [String]()
-        var tempLoosingPlayerID: [String] = [String]()
-        var tempPeriodNum: [String] = [String]()
-        var tempFaceoffLocationCode: [String] = [String]()
-        var tempactiveState: [String] = [String]()
-        
-        
-        for i in 0..<overallIDCount{
-            
-            let gameID = realm.object(ofType: faceOffInfoTable.self, forPrimaryKey:i)!.gameID
-            let winingPlayerID = realm.object(ofType: faceOffInfoTable.self, forPrimaryKey:i)!.winingPlayerID
-            let losingPlayerID = realm.object(ofType: faceOffInfoTable.self, forPrimaryKey:i)!.losingPlayerID
-            let periodNum = realm.object(ofType: faceOffInfoTable.self, forPrimaryKey:i)!.periodNum
-            let faceoffLocationCode = realm.object(ofType: faceOffInfoTable.self, forPrimaryKey:i)!.faceoffLocationCode
-            let activeState = realm.object(ofType: faceOffInfoTable.self, forPrimaryKey:i)!.activeState
-            tempGameID.append(String(gameID))
-            tempWiningPlayerID.append(String(winingPlayerID))
-            tempLoosingPlayerID.append(String(losingPlayerID))
-            tempPeriodNum.append(String(periodNum))
-            tempFaceoffLocationCode.append(String(faceoffLocationCode))
-            tempactiveState.append(String(activeState))
-            
-        }
-        
-        csvText_faceoffTable = "gameID,winingPlayerID,losingPlayerID,periodNum,faceoffLocationCode,activeState\n"
-        for x in 0..<overallIDCount{
-            
-            let gameIDVar = tempGameID[x]
-            let winingPlayerIDVar = tempWiningPlayerID[x]
-            let losingPlayerIDVar = tempLoosingPlayerID[x]
-            let periodNumVar = tempPeriodNum[x]
-            let faceoffLocationCodeVar = tempFaceoffLocationCode[x]
-            let activeStateVar = tempactiveState[x]
-            
-            let newLine =  gameIDVar + "," + winingPlayerIDVar + "," + losingPlayerIDVar + "," + periodNumVar + "," + faceoffLocationCodeVar + "," + activeStateVar + "\n"
-    
-            csvText_faceoffTable.append(newLine)
-        }
-        
-     
-        
-    }
     
     func lineTypeFormatChecker(lineType: String) -> Bool{
         switch lineType.trimmingCharacters(in: .whitespacesAndNewlines) {
@@ -825,35 +351,6 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
     }
 
     
-    // func used to delete old CSV files stored in file manager app
-    func oldCSVFileFinder(){
-        let fileManager = FileManager.default
-        let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as NSURL
-        let documentsPath = documentsUrl.path
-        
-        do {
-            if let documentPath = documentsPath
-            {
-                let fileNames = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
-                print("all files in cache: \(fileNames)")
-                for fileName in fileNames {
-                    
-                    if (fileName.hasSuffix(".csv"))
-                    {
-                        let filePathName = "\(documentPath)/\(fileName)"
-                        try fileManager.removeItem(atPath: filePathName)
-                    }
-                }
-                
-                let files = try fileManager.contentsOfDirectory(atPath: "\(documentPath)")
-                print("all files in cache after deleting images: \(files)")
-            }
-            
-        } catch {
-            print("Could not clear temp folder: \(error)")
-        }
-    }
-    
     func zipGameSaves(fileURL: [URL]){
         do {
             if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -944,10 +441,43 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         return finalZipRestingPlace
     }
     
+    func iCloudDocumentReader(){
+        
+        if let icloudFolderURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents"),
+            let urls = try? FileManager.default.contentsOfDirectory(at: icloudFolderURL, includingPropertiesForKeys: nil, options: []) {
+            unZipBackup(documentURL: urls.first!)
+        }else{
+            fatalErrorAlert("Failed to locate documents in iCloud container, please make sure you have a backup in iCloud before proceeding.")
+        }
+    }
+    
+    func moveFileToLocal(){
+         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let realmDefaultPath = dir.appendingPathComponent("Backups").appendingPathComponent("default.realm")
+            if FileManager.default.fileExists(atPath: realmDefaultPath.path){
+                do {
+                    try FileManager.default.copyItem(at: realmDefaultPath, to: dir)
+                    let date = "\(getDate().getYear()).\(getDate().getMonth()).\(getDate().getDay())"
+                    
+                    UserDefaults.standard.set(date, forKey: "lastBackup")
+                    self.backupUpDateCheck()
+                }
+                catch {
+                    //Error handling
+                    print("Error in coping item from local directory to icloud container")
+                    fatalErrorAlert("Error Copying file from temp directory to workling directory. Operation aborted, please try again before contacting support")
+                }
+            }else{
+                fatalErrorAlert("Error Copying file from temp directory to workling directory. Operation aborted, please try again before contacting support")
+            }
+        }
+    }
     
     func iCloudDocumentWriter(fileURL: URL){
         
         var isDir:ObjCBool = false
+        
+        guard let iCloudDocumentsURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").appendingPathComponent("coachAssistantBackup") else { return }
         
         if FileManager.default.fileExists(atPath: fileURL.path, isDirectory: &isDir) {
             do {
@@ -956,12 +486,12 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             catch {
                 //Error handling
                 print("Error in removing item from icloud container")
-                fatalErrorAlert("Error in removing old files from iCloud container, please contact support")
+                fatalErrorAlert("Error in removing old file from iCloud container, please contact support")
             }
         }
         
         do {
-            try FileManager.default.copyItem(at: fileURL, to: fileURL)
+            try FileManager.default.copyItem(at: fileURL, to: iCloudDocumentsURL)
             let date = "\(getDate().getYear()).\(getDate().getMonth()).\(getDate().getDay())"
             
             UserDefaults.standard.set(date, forKey: "lastBackup")
@@ -976,35 +506,31 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
     }
     
     func unZipBackup(documentURL: URL){
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let realmFileSearch = dir.appendingPathComponent("default.realm")
-            
-            if FileManager.default.fileExists(atPath: realmFileSearch.path) {
-                do{
-                    try FileManager.default.removeItem(at: realmFileSearch)
-                }catch let error as NSError{
-                    print(error)
-                }
-            }
-            
-            try! Zip.unzipFile(documentURL, destination: dir, overwrite: true, password: nil, progress: { (progress) in
+        
+       if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let destinationURL = dir.appendingPathComponent("Backups")
+        
+            try! Zip.unzipFile(documentURL, destination: destinationURL, overwrite: true, password: nil, progress: { (progress) in
                 print(progress)
                 if progress == 1.0{
-                    if !FileManager.default.fileExists(atPath: realmFileSearch.path){
-                        let pathExt = realmFileSearch.pathExtension
-                        print("path ext is: \(pathExt)")
-                        if pathExt != "realm"{
+                    let realmDefaultPath = destinationURL.appendingPathComponent("default.realm")
+                    if FileManager.default.fileExists(atPath: realmDefaultPath.path){
+
+                        print("path ext is: \(realmDefaultPath.pathExtension)")
+                        if realmDefaultPath.pathExtension != "realm"{
                             self.fatalErrorAlert("File failed inspection test. Make sure the file being imported is of type 'default.realm'. Import aborted")
                             do{
-                                try FileManager.default.removeItem(at: realmFileSearch)
+                                try FileManager.default.removeItem(at: realmDefaultPath)
                             }catch let error as NSError{
                                 print(error)
                             }
                         }else{
                             self.reloadAppAlert()
+                            
                         }
                        
+                    }else{
+                        self.fatalErrorAlert("Failed to remove current working database file. Please make sure pp is not configuting any teams or players in the background. Import aborted, contact support if problem persists")
                     }
                 }
             }, fileOutputHandler: { (result) in
@@ -1012,7 +538,6 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
                     print("Unable to locate unzipped file, Whoops!")
                 }
             })
-            
         }
     }
     
@@ -1312,9 +837,13 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         case 2:
             switch indexPath.row{
             case 0:
-                
-                self.importPlayersBool = 2
-                self.showUIDocumentController()
+                if (icloudToggleSwitch.isOn == true){
+                    iCloudDocumentReader()
+                    moveFileToLocal()
+                }else{
+                    self.importPlayersBool = 2
+                    self.showUIDocumentController()
+                }
                 
                 break
             case 1:
@@ -1426,7 +955,21 @@ extension Settings_Backup_View_Controller: UIDocumentPickerDelegate,UINavigation
             if  urls.count > 1 {
                 fatalErrorAlert("Please import your 'coachAssistantBackup.zip file. THe file selected does not meet this criteria.'")
             }else {
-                unZipBackup(documentURL: urls.first!)
+                if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    
+                    let realmFileSearch = dir.appendingPathComponent("default.realm")
+                    
+                    if FileManager.default.fileExists(atPath: realmFileSearch.path) {
+                        do{
+                            try FileManager.default.removeItem(at: realmFileSearch)
+                            unZipBackup(documentURL: urls.first!)
+                            moveFileToLocal()
+                        }catch let error as NSError{
+                            print(error)
+                        }
+                    }
+                }
+                
                 return
             }
             break

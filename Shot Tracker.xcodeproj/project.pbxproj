@@ -114,6 +114,8 @@
 		BEE5D49C2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5D49B2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift */; };
 		BEE5D49E231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5D49D231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift */; };
 		BEECF489231826AA0098659D /* Add New Team Popup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECF488231826AA0098659D /* Add New Team Popup View Controller.swift */; };
+		BEFF5D2A2327E4F000DD282F /* LockerRoom Add View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF5D292327E4F000DD282F /* LockerRoom Add View Controller.swift */; };
+		BEFF5D2D2327E56E00DD282F /* Add Page Controller View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF5D2C2327E56E00DD282F /* Add Page Controller View Controller.swift */; };
 		CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -271,6 +273,8 @@
 		BEE5D49B2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Tutorial_Shot_View_Controller.swift; sourceTree = "<group>"; };
 		BEE5D49D231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_New_Game_Tutorial_ViewController.swift; sourceTree = "<group>"; };
 		BEECF488231826AA0098659D /* Add New Team Popup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add New Team Popup View Controller.swift"; sourceTree = "<group>"; };
+		BEFF5D292327E4F000DD282F /* LockerRoom Add View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LockerRoom Add View Controller.swift"; sourceTree = "<group>"; };
+		BEFF5D2C2327E56E00DD282F /* Add Page Controller View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add Page Controller View Controller.swift"; sourceTree = "<group>"; };
 		C8567FABF079141DA35EAF50 /* Pods-Shot Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -380,7 +384,6 @@
 				BE089F5422BFE42200FAED6F /* Old Game Stats */,
 				BED5479022E89FB4002AA13B /* Old Stats Ice Setup VC */,
 				BE089F5322BFE40000FAED6F /* Game Stats VC */,
-				BE089F5222BFE3BD00FAED6F /* Team Player Editing Adding */,
 				BE089F4C22BFE30200FAED6F /* Initial Setup */,
 				BE089F4A22BFE2D600FAED6F /* Settings Page */,
 				BE089F4922BFE2C000FAED6F /* PopUp's */,
@@ -415,14 +418,6 @@
 				BEBCC1C523105E4400AEAE71 /* Team Info Table.swift */,
 			);
 			path = "Realm Objc";
-			sourceTree = "<group>";
-		};
-		BE089F5222BFE3BD00FAED6F /* Team Player Editing Adding */ = {
-			isa = PBXGroup;
-			children = (
-				BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */,
-			);
-			path = "Team Player Editing Adding";
 			sourceTree = "<group>";
 		};
 		BE089F5322BFE40000FAED6F /* Game Stats VC */ = {
@@ -568,12 +563,12 @@
 		BEAD9B1C230B41680040AFE2 /* LockerRoom */ = {
 			isa = PBXGroup;
 			children = (
+				BEFF5D2B2327E51700DD282F /* Add View Controller */,
 				BEAD9B1D230B41810040AFE2 /* LockerRoom View Controller.swift */,
 				BEAD9B25230B59A20040AFE2 /* Locker Room UIPageController.swift */,
 				BEAD9B1F230B59380040AFE2 /* Player Stats View Controller.swift */,
 				BEAD9B21230B59540040AFE2 /* Locker Room Old Stats View Controller.swift */,
 				BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */,
-				BEA08C962215F05200B6D73B /* Add_Player_Page.swift */,
 				BEE5D495231039C70011FE70 /* Team About Popup View Controller.swift */,
 				BEE5D497231039E30011FE70 /* Player About Popup View Controller.swift */,
 			);
@@ -589,6 +584,17 @@
 				BED5479722E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift */,
 			);
 			path = "Old Stats Ice Setup VC";
+			sourceTree = "<group>";
+		};
+		BEFF5D2B2327E51700DD282F /* Add View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */,
+				BEA08C962215F05200B6D73B /* Add_Player_Page.swift */,
+				BEFF5D292327E4F000DD282F /* LockerRoom Add View Controller.swift */,
+				BEFF5D2C2327E56E00DD282F /* Add Page Controller View Controller.swift */,
+			);
+			path = "Add View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -948,6 +954,7 @@
 				BECB85A2231D5F9900BAAB0D /* Initial_Setup_Welcome_Page_View_Controller.swift in Sources */,
 				BEB3E53D22B4746F00AC7035 /* In Game Settings ViewController.swift in Sources */,
 				BEE5D49C2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift in Sources */,
+				BEFF5D2D2327E56E00DD282F /* Add Page Controller View Controller.swift in Sources */,
 				BEE5D498231039E30011FE70 /* Player About Popup View Controller.swift in Sources */,
 				BEE5D496231039C70011FE70 /* Team About Popup View Controller.swift in Sources */,
 				BEE1898F230F5EEF009EC263 /* Settings Defaults Penalty Defaults.swift in Sources */,
@@ -956,6 +963,7 @@
 				BEBCC1C023105DF600AEAE71 /* Penalty Table.swift in Sources */,
 				BED5479422E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift in Sources */,
 				BEAD9B20230B59380040AFE2 /* Player Stats View Controller.swift in Sources */,
+				BEFF5D2A2327E4F000DD282F /* LockerRoom Add View Controller.swift in Sources */,
 				BE1C03622324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift in Sources */,
 				BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */,
 				BE52370C226A5BB8009D9254 /* Main Settings Page View Controller.swift in Sources */,

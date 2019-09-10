@@ -166,7 +166,7 @@ class Add_New_Team_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             print("Accesing Camera")
             if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
                 self.imagePickerController = UIImagePickerController()
-                self.imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+                self.imagePickerController.delegate = self
                 self.imagePickerController.sourceType = .camera
                 self.imagePickerController.allowsEditing = true
                 self.present(self.imagePickerController, animated: true, completion: nil)
@@ -178,7 +178,7 @@ class Add_New_Team_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             print("Accesing Libary")
             
             self.imagePickerController = UIImagePickerController()
-            self.imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            self.imagePickerController.delegate = self
             self.imagePickerController.sourceType = .photoLibrary
             self.imagePickerController.allowsEditing = true
             self.present(self.imagePickerController, animated: true, completion: nil)
@@ -295,9 +295,7 @@ extension Add_New_Team_Popup_View_Controller:  UIImagePickerControllerDelegate, 
     
     func imageWriter(fileName: String, imageName: UIImage){
         
-        let realm = try! Realm()
-        
-        
+    
         let imageData = imageName.jpegData(compressionQuality: 0.25)
         
         
