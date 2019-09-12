@@ -88,6 +88,8 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
     
     
     func navBarProcessing() {
+        navBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.semibold)]
+        
         // change nav bar dynamically based on game type
         if (UserDefaults.standard.bool(forKey: "oldStatsBool") != true){
             navBar.topItem!.title = "Live Game Stats"

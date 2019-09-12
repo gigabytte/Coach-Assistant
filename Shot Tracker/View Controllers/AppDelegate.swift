@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        UserDefaults.standard.set(false, forKey: "newUser")
-        
         // Use Firebase library to configure APIs.
         FirebaseApp.configure()
         // Initialize the Google Mobile Ads SDK.
@@ -80,18 +78,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         // check if user is new before redirecting to pefic page
-        if ((UserDefaults.standard.object(forKey: "newUser")) != nil){
-            deleteNewGameUserDefaults.deleteUserDefaults()
-          
-             createImportantDirectories()
-            
-            self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main")
-            
-            
-            
-            return true
+        if checkUserDefaults().isKeyPresentInUserDefaults(key: "newUser") == true{
+            if UserDefaults.standard.bool(forKey: "newUser") != true{
+                deleteNewGameUserDefaults.deleteUserDefaults()
+                
+                createImportantDirectories()
+                
+                self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main")
+                
+                return true
+            }else{
+             
+                createImportantDirectories()
+                // redicrt to setup process if user is new
+                deleteNewGameUserDefaults.deleteUserDefaults()
+                UserDefaults.standard.set(false, forKey: "userPurchaseConf")
+                self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setup")
+                
+                return true
+            }
+           
         }else{
-            
             createImportantDirectories()
             // redicrt to setup process if user is new
             deleteNewGameUserDefaults.deleteUserDefaults()
@@ -100,6 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             return true
         }
+        
     }
     
     func createImportantDirectories(){

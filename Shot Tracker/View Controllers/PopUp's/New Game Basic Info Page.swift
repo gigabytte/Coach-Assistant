@@ -22,6 +22,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var leftScrollArrowImage: UIImageView!
     @IBOutlet weak var rightScrollArrowImage: UIImageView!
     
+    
     let basicHockeyNet = UIImage(named: "hockey_net_period_basic.PNG")
     let hockeyNetPeriodOne = UIImage(named: "hockey_net_period_one.PNG")
     let hockeyNetPeriodTwo = UIImage(named: "hockey_net_period_two.PNG")
@@ -68,7 +69,7 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(goalieNumberLabel)
     
         periodSelectionErrorLabel.isHidden = true
-        popUpView.layer.cornerRadius = 10
+        
         // Do any additional setup after loading the view.
         tempgoalieSelectedID = fixedGoalieID
         newGameStartedViewRender()
@@ -77,6 +78,17 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         // set in game user defaults
         inGmaeUserDefaultGen().enable_userDefaults()
         
+        viewColour()
+    }
+    
+    func viewColour(){
+        
+        popUpView.layer.cornerRadius = 10
+        //popUpView.backgroundColor = systemColour().viewColor()
+        continueButton.backgroundColor = systemColour().uiButton()
+        cancelButton.backgroundColor = systemColour().uiButton()
+        roundedCorners().buttonBottomLeft(bottonViewType: continueButton)
+        //roundedCorners().imageViewTopLeftRight(labelViewType: hockeyNetImageView)
     }
     // change constrints based on when the view appears
     func newGameStartedViewRender(){

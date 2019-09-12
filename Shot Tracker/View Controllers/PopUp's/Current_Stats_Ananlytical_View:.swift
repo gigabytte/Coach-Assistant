@@ -54,9 +54,8 @@ class Current_Stats_Ananlytical_View: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
-        if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
-            
-        }
+        
+        viewColour()
         
         // if accessed from old stats
             homeTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})[0]
@@ -103,6 +102,12 @@ class Current_Stats_Ananlytical_View: UIViewController {
             shotLocationPieChartView.isHidden = true
         }
     }
+    
+    func viewColour(){
+        popUpView.backgroundColor = systemColour().viewColor()
+        closeButton.backgroundColor = systemColour().uiButton()
+    }
+    
     // is values cannot come to 100% set warning
     func dataUnavailableWarning(){
         // display place holder message if data missing for pie charts

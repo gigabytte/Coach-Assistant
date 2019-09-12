@@ -34,9 +34,6 @@
 		BE27918522E6790D00CE40EC /* penalty_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918422E6790D00CE40EC /* penalty_gif.gif */; };
 		BE27918722E6791200CE40EC /* faceoff_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE27918622E6791200CE40EC /* faceoff_gif.gif */; };
 		BE2AC7CD23196EC100D1A93C /* Copy Players Table View Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AC7CC23196EC100D1A93C /* Copy Players Table View Cell.swift */; };
-		BE2AC7D023196F8600D1A93C /* Main Add Team Page Controller View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AC7CF23196F8600D1A93C /* Main Add Team Page Controller View.swift */; };
-		BE2AC7D22319700000D1A93C /* Add Team Copy Players View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AC7D12319700000D1A93C /* Add Team Copy Players View Controller.swift */; };
-		BE2AC7D42319739400D1A93C /* Add Team View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AC7D32319739400D1A93C /* Add Team View Controller.swift */; };
 		BE2AC7D6231B0C2B00D1A93C /* Initial_Setup_Away_Team_Add_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2AC7D5231B0C2B00D1A93C /* Initial_Setup_Away_Team_Add_View_Controller.swift */; };
 		BE341F2322BB16D200F8D2A3 /* Faceoff View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */; };
 		BE3A3028231ECFE700FF851A /* Settings Assign Players View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3A3027231ECFE700FF851A /* Settings Assign Players View Controller.swift */; };
@@ -60,7 +57,6 @@
 		BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */; };
 		BE7A69502307411600905F4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE7A694F2307411600905F4C /* Main.storyboard */; };
 		BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D697721E3D74300C1745C /* AppDelegate.swift */; };
-		BE7D697A21E3D74300C1745C /* Home_Page_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D697921E3D74300C1745C /* Home_Page_View_Controller.swift */; };
 		BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE7D697E21E3D74500C1745C /* Assets.xcassets */; };
 		BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */; };
 		BE7D698D21E3D74500C1745C /* Shot_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D698C21E3D74500C1745C /* Shot_TrackerTests.swift */; };
@@ -69,10 +65,8 @@
 		BE8F88B6227747260087ED88 /* varReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8F88B5227747260087ED88 /* varReference.swift */; };
 		BE8FB54422037BF8008BD343 /* Old_Stats_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */; };
 		BE9016B622469E45006ECE5B /* Default Team Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9016B522469E45006ECE5B /* Default Team Selection View.swift */; };
-		BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */; };
 		BE913A482233740500080081 /* Old Game Ice View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE913A472233740500080081 /* Old Game Ice View.swift */; };
 		BE92E0212274E1AB00B95209 /* Penalty_Popup_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE92E0202274E1AB00B95209 /* Penalty_Popup_View_Controller.swift */; };
-		BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */; };
 		BEA08C952215F00A00B6D73B /* Add_Team_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */; };
 		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
 		BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */; };
@@ -113,7 +107,6 @@
 		BEE5D498231039E30011FE70 /* Player About Popup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5D497231039E30011FE70 /* Player About Popup View Controller.swift */; };
 		BEE5D49C2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5D49B2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift */; };
 		BEE5D49E231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5D49D231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift */; };
-		BEECF489231826AA0098659D /* Add New Team Popup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECF488231826AA0098659D /* Add New Team Popup View Controller.swift */; };
 		BEFF5D2A2327E4F000DD282F /* LockerRoom Add View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF5D292327E4F000DD282F /* LockerRoom Add View Controller.swift */; };
 		BEFF5D2D2327E56E00DD282F /* Add Page Controller View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF5D2C2327E56E00DD282F /* Add Page Controller View Controller.swift */; };
 		CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */; };
@@ -185,9 +178,6 @@
 		BE27918422E6790D00CE40EC /* penalty_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = penalty_gif.gif; sourceTree = "<group>"; };
 		BE27918622E6791200CE40EC /* faceoff_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = faceoff_gif.gif; sourceTree = "<group>"; };
 		BE2AC7CC23196EC100D1A93C /* Copy Players Table View Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Copy Players Table View Cell.swift"; sourceTree = "<group>"; };
-		BE2AC7CF23196F8600D1A93C /* Main Add Team Page Controller View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main Add Team Page Controller View.swift"; sourceTree = "<group>"; };
-		BE2AC7D12319700000D1A93C /* Add Team Copy Players View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add Team Copy Players View Controller.swift"; sourceTree = "<group>"; };
-		BE2AC7D32319739400D1A93C /* Add Team View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add Team View Controller.swift"; sourceTree = "<group>"; };
 		BE2AC7D5231B0C2B00D1A93C /* Initial_Setup_Away_Team_Add_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Away_Team_Add_View_Controller.swift; sourceTree = "<group>"; };
 		BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Faceoff View Controller.swift"; sourceTree = "<group>"; };
 		BE3A3027231ECFE700FF851A /* Settings Assign Players View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Assign Players View Controller.swift"; sourceTree = "<group>"; };
@@ -214,7 +204,6 @@
 		BE7A694F2307411600905F4C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BE7D697421E3D74300C1745C /* Shot Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shot Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE7D697721E3D74300C1745C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BE7D697921E3D74300C1745C /* Home_Page_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home_Page_View_Controller.swift; sourceTree = "<group>"; };
 		BE7D697E21E3D74500C1745C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE7D698121E3D74500C1745C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE7D698321E3D74500C1745C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -228,10 +217,8 @@
 		BE8F88B5227747260087ED88 /* varReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = varReference.swift; sourceTree = "<group>"; };
 		BE8FB54322037BF8008BD343 /* Old_Stats_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old_Stats_View.swift; sourceTree = "<group>"; };
 		BE9016B522469E45006ECE5B /* Default Team Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Default Team Selection View.swift"; sourceTree = "<group>"; };
-		BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Type Pop Up.swift"; sourceTree = "<group>"; };
 		BE913A472233740500080081 /* Old Game Ice View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Game Ice View.swift"; sourceTree = "<group>"; };
 		BE92E0202274E1AB00B95209 /* Penalty_Popup_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Penalty_Popup_View_Controller.swift; sourceTree = "<group>"; };
-		BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Import Pop Up View.swift"; sourceTree = "<group>"; };
 		BEA08C942215F00A00B6D73B /* Add_Team_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Team_Page.swift; sourceTree = "<group>"; };
 		BEA08C962215F05200B6D73B /* Add_Player_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add_Player_Page.swift; sourceTree = "<group>"; };
 		BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Goalie Selection View.swift"; sourceTree = "<group>"; };
@@ -272,7 +259,6 @@
 		BEE5D497231039E30011FE70 /* Player About Popup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player About Popup View Controller.swift"; sourceTree = "<group>"; };
 		BEE5D49B2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Tutorial_Shot_View_Controller.swift; sourceTree = "<group>"; };
 		BEE5D49D231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_New_Game_Tutorial_ViewController.swift; sourceTree = "<group>"; };
-		BEECF488231826AA0098659D /* Add New Team Popup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add New Team Popup View Controller.swift"; sourceTree = "<group>"; };
 		BEFF5D292327E4F000DD282F /* LockerRoom Add View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LockerRoom Add View Controller.swift"; sourceTree = "<group>"; };
 		BEFF5D2C2327E56E00DD282F /* Add Page Controller View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add Page Controller View Controller.swift"; sourceTree = "<group>"; };
 		C8567FABF079141DA35EAF50 /* Pods-Shot Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -348,9 +334,7 @@
 				BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */,
 				BE92E0202274E1AB00B95209 /* Penalty_Popup_View_Controller.swift */,
 				BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */,
-				BE96E4BA2232E1D9000C0684 /* Import Pop Up View.swift */,
 				BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */,
-				BE90D25B223C2FEA00228621 /* Old Stats Type Pop Up.swift */,
 			);
 			path = "PopUp's";
 			sourceTree = "<group>";
@@ -377,8 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				BE7D697721E3D74300C1745C /* AppDelegate.swift */,
-				BE7D697921E3D74300C1745C /* Home_Page_View_Controller.swift */,
-				BE2AC7CE23196F1F00D1A93C /* Add New Team */,
+				BE8F88B5227747260087ED88 /* varReference.swift */,
 				BEAD9B1C230B41680040AFE2 /* LockerRoom */,
 				BE089F5522BFE46000FAED6F /* New Game */,
 				BE089F5422BFE42200FAED6F /* Old Game Stats */,
@@ -478,17 +461,6 @@
 			path = "New Game Setup VC";
 			sourceTree = "<group>";
 		};
-		BE2AC7CE23196F1F00D1A93C /* Add New Team */ = {
-			isa = PBXGroup;
-			children = (
-				BE2AC7CF23196F8600D1A93C /* Main Add Team Page Controller View.swift */,
-				BE2AC7D32319739400D1A93C /* Add Team View Controller.swift */,
-				BEECF488231826AA0098659D /* Add New Team Popup View Controller.swift */,
-				BE2AC7D12319700000D1A93C /* Add Team Copy Players View Controller.swift */,
-			);
-			path = "Add New Team";
-			sourceTree = "<group>";
-		};
 		BE7D696B21E3D74300C1745C = {
 			isa = PBXGroup;
 			children = (
@@ -524,7 +496,6 @@
 				BE7D697E21E3D74500C1745C /* Assets.xcassets */,
 				BE7A694F2307411600905F4C /* Main.storyboard */,
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
-				BE8F88B5227747260087ED88 /* varReference.swift */,
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
 				BE059DBD22EF453000AEC3C4 /* old_stats_marker_details_gif.gif */,
@@ -901,13 +872,11 @@
 				BEAD9B26230B59A20040AFE2 /* Locker Room UIPageController.swift in Sources */,
 				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
 				BE2AC7D6231B0C2B00D1A93C /* Initial_Setup_Away_Team_Add_View_Controller.swift in Sources */,
-				BEECF489231826AA0098659D /* Add New Team Popup View Controller.swift in Sources */,
 				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
 				BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */,
 				BEAD9B22230B59540040AFE2 /* Locker Room Old Stats View Controller.swift in Sources */,
 				BEBCC1B823105D8800AEAE71 /* Faceoff Info Table.swift in Sources */,
 				BE7DED9A2320061E007F58A4 /* customPlayerImportCell.swift in Sources */,
-				BE90D25C223C2FEA00228621 /* Old Stats Type Pop Up.swift in Sources */,
 				BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */,
 				BECF547C2288F08400710519 /* Help_Guide_View_Controller.swift in Sources */,
 				BE1F4D322278E42300D8B4F3 /* Detailed_Current_Stats_View_Controller.swift in Sources */,
@@ -918,7 +887,6 @@
 				BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */,
 				BEDFCDF723102CCE00FA21AC /* Settings Navigation Controller.swift in Sources */,
 				BEBCC1C423105E2D00AEAE71 /* Shot Marker Table.swift in Sources */,
-				BE2AC7D42319739400D1A93C /* Add Team View Controller.swift in Sources */,
 				BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */,
 				BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */,
 				BEE1898D230F5EDA009EC263 /* Settings Defaults Team Defaults.swift in Sources */,
@@ -932,18 +900,14 @@
 				BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */,
 				BEDC7A01230E046200ADECD5 /* Settings Apperance View Controller.swift in Sources */,
 				BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */,
-				BE2AC7D023196F8600D1A93C /* Main Add Team Page Controller View.swift in Sources */,
 				BEAB49202321EB6F005FF256 /* Drawboard View Controller.swift in Sources */,
 				BED5478F22E89C8B002AA13B /* New Game Tutorial Menu Options View Controller.swift in Sources */,
 				BE235BDE22E3799C002BFDC2 /* New Game Tutorial Penalty View Controller.swift in Sources */,
 				BECD070922EF9200004A808D /* customTeamStatsCell.swift in Sources */,
-				BE96E4BB2232E1D9000C0684 /* Import Pop Up View.swift in Sources */,
 				BE92E0212274E1AB00B95209 /* Penalty_Popup_View_Controller.swift in Sources */,
 				BE4E8E70226CEDC20046D710 /* Settings_Legal_View Controller.swift in Sources */,
 				BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */,
-				BE7D697A21E3D74300C1745C /* Home_Page_View_Controller.swift in Sources */,
 				BEE5D49E231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift in Sources */,
-				BE2AC7D22319700000D1A93C /* Add Team Copy Players View Controller.swift in Sources */,
 				BE12DE62228744B80071BC17 /* customSettingCell.swift in Sources */,
 				BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */,
 				BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */,

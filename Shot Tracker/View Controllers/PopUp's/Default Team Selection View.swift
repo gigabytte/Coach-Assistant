@@ -48,8 +48,7 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         // default home team and away team selection
         selectedHomeTeam = homeTeamPickerData[0]
         selectedHomeTeamKey = homeTeamPickerDataID[0]
-        //round corners with a radius of 10 for popup view so my eyes dont bleed!
-        popUpView.layer.cornerRadius = 10
+        
         
         viewColour()
     }
@@ -57,6 +56,10 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
     func viewColour(){
         
         self.popUpView.backgroundColor = systemColour().viewColor()
+        continueButton.backgroundColor = systemColour().uiButton()
+        
+        //round corners with a radius of 10 for popup view so my eyes dont bleed!
+        popUpView.layer.cornerRadius = 10
     
     }
     
@@ -68,19 +71,6 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         buttonName.layer.mask = maskLayer
         
     }
-    
-    func openNewTeamAdd(){
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let popupVC = storyboard.instantiateViewController(withIdentifier: "Add_New_Team_Popup_View_Controller") as! Add_New_Team_Popup_View_Controller
-        popupVC.modalPresentationStyle = .overCurrentContext
-        popupVC.modalTransitionStyle = .crossDissolve
-        let pVC = popupVC.popoverPresentationController
-        pVC?.permittedArrowDirections = .any
-        pVC?.delegate = self
-        
-        present(popupVC, animated: true, completion: nil)
-        print("Add New Team  Presented!")
-    }
 
     @IBAction func continueButton(_ sender: UIButton) {
       
@@ -91,7 +81,9 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func addNewTeamName(_ sender: UIButton) {
-        openNewTeamAdd()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "menuBtnPress"), object: nil, userInfo: ["btnNumber":2])
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addVC_menuBtnPress"), object: nil, userInfo: ["btnNumber":1])
+        self.dismiss(animated: true, completion: nil)
         
     }
     //-------------------------------------------------------------------------------
