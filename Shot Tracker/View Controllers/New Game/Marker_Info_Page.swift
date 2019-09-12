@@ -113,14 +113,17 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     func navBarProcessing() -> String {
+        
+        navBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.semibold)]
+        
         if (String(homeTeam) != "" && String(awayTeam) != ""){
             let home_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: homeTeam)?.nameOfTeam
             let away_teamNameFilter = realm.object(ofType: teamInfoTable.self, forPrimaryKey: awayTeam)?.nameOfTeam
             if (scoringPassedTeamID == homeTeam){
-                navBar.topItem!.title = home_teamNameFilter! + " Goal"
+                navBar.topItem!.title = home_teamNameFilter! + " Goal Info"
                 return (home_teamNameFilter!)
             }else if (scoringPassedTeamID == awayTeam){
-                navBar.topItem!.title = away_teamNameFilter! + " Goal"
+                navBar.topItem!.title = away_teamNameFilter! + " Goal Info"
                 return (away_teamNameFilter!)
             }
         }else{
@@ -128,6 +131,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             
         }
         return("Default Team")
+        
     }
     
     func lowDataWarning(){

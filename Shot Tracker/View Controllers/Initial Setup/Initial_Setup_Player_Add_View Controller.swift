@@ -13,6 +13,9 @@ import RealmSwift
 class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
     
+    @IBOutlet weak var addPlayerProfileLabel: UILabel!
+    @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var playerProfileImageView: UIImageView!
     @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var proceedArrow: UIImageView!
@@ -104,17 +107,21 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         
         selectPosition = positionCodeData[0]
         selectPlayerLine = 1
-        
-        queryTeamID = ((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).first
-        
-        // set View COntroller title based on users previous team add
-        if queryTeamID != nil {
-            let queryTeamName = realm.object(ofType: teamInfoTable.self, forPrimaryKey: queryTeamID)?.nameOfTeam
-            viewControllerTitle.text = "Add Players to \((queryTeamName!).capitalized)"
+        if ((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).count  <= 2{
+            queryTeamID = ((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).first
+            
+            // set View COntroller title based on users previous team add
+            if queryTeamID != nil {
+                teamNameSetter()
+            }
+            blurEffectView.isHidden = true
+            warningLabel.isHidden = true
+            proceedArrow.isHidden = true
         }
         
-        proceedArrow.isHidden = true
         
+        
+
     }
     
     func profileImageSetter(){
@@ -131,14 +138,84 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     func teamNameSetter(){
         
         let realm = try! Realm()
+        let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: queryTeamID)
         
-        queryTeamID = ((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last
+        if (((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == %@", String(queryTeamID), NSNumber(value: true))).value(forKeyPath: "TeamID") as! [String]).compactMap({Int($0)})).count < 2){
+           // keep title label the dsame as long as the first team has less than 2 players
+            viewControllerTitle.text = "Add Players to \((teamObjc?.nameOfTeam)!.capitalized)"
         
-        // set View COntroller title based on users previous team add
-        let queryTeamName = realm.object(ofType: teamInfoTable.self, forPrimaryKey: queryTeamID)?.nameOfTeam
-        viewControllerTitle.text = "Add Players to \((queryTeamName!).capitalized)"
+        }else{
+            
+            // if first team has more than 2 players then change tiotle and universal teamID
+            queryTeamID = ((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).last
+            if queryTeamID != nil{
+                viewControllerTitle.text = "Add Players to \((realm.object(ofType: teamInfoTable.self, forPrimaryKey: queryTeamID)?.nameOfTeam)!.capitalized)"
+                viewControllerTitle.tag = 20
+            }else{
+                queryTeamID = ((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).first
+                viewControllerTitle.text = "Add Players to Away Team"
+            }
+        }
        
         
+    }
+    
+    func fadeOut(fadeInImageView: Bool){
+        switch fadeInImageView {
+        case true:
+            playerProfileImageView.isHidden = false
+            restartButton.isHidden = false
+            addPlayerProfileLabel.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                self.playerNameTextField.alpha = 0.0
+                self.playerNumberTextField.alpha = 0.0
+                self.playerLinePicker.alpha = 0.0
+                self.playerPositionPicker.alpha = 0.0
+                
+                self.restartButton.alpha = 1.0
+                self.playerProfileImageView.alpha = 1.0
+                self.addPlayerProfileLabel.alpha = 1.0
+                
+                self.view.layoutIfNeeded()
+                
+            }, completion: { _ in
+                
+                self.playerNameTextField.isHidden = true
+                self.playerNumberTextField.isHidden = true
+                self.playerLinePicker.isHidden = true
+                self.playerPositionPicker.isHidden = true
+
+                
+            })
+            break
+        case false:
+            self.playerNameTextField.isHidden = false
+            self.playerNumberTextField.isHidden = false
+            self.playerLinePicker.isHidden = false
+            self.playerPositionPicker.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                self.playerNameTextField.alpha = 1.0
+                self.playerNumberTextField.alpha = 1.0
+                self.playerLinePicker.alpha = 1.0
+                self.playerPositionPicker.alpha = 1.0
+                
+                self.restartButton.alpha = 0.0
+                self.playerProfileImageView.alpha = 0.0
+                self.addPlayerProfileLabel.alpha = 0.0
+                
+                self.view.layoutIfNeeded()
+                
+            }, completion: { _ in
+                
+                self.playerProfileImageView.isHidden = true
+                self.restartButton.isHidden = true
+                self.addPlayerProfileLabel.isHidden = true
+            })
+            break
+        default:
+            fatalErrorAlert("FATAL ERROR: ERROR CODE 111")
+            break
+        }
     }
     
     func awayTeamAddedChecker(){
@@ -332,50 +409,62 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             }
         }
     }
+    @IBAction func restartButton(_ sender: UIButton) {
+        
+        if restartButton.tag == 20{
+            fadeOut(fadeInImageView: true)
+            actionButton.tag = 10
+            restartButton.tag = 10
+        }
+    }
     
-    // on add player button click
     @IBAction func savePlayer(_ sender: UIButton) {
         
         let realm = try! Realm()
         var fileLogoName: String = ""
         
-        if (fieldErrorChecker() == true){
+        if actionButton.tag == 20{
+            if (fieldErrorChecker() == true){
+            
+            if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
+                
+                primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
+                doneHomePlayers = true
+            }else{
+                primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
+                
+            }
+            let newPlayer = playerInfoTable()
+                
+            if userSelectedProfileImage != nil{
+                // set file name for profile picture
+                fileLogoName = "\((primaryPlayerID)!)_ID_\((playerNameTextField.text)!)_player_logo"
+                imageWriter(fileName: fileLogoName, imageName: userSelectedProfileImage)
+            }
         
-        if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
+            try! realm.write{
+                newPlayer.playerID = primaryPlayerID
+                newPlayer.TeamID = String(queryTeamID)
+                newPlayer.playerName = playerNameTextField.text!
+                newPlayer.jerseyNum = Int(playerNumberTextField.text!)!
+                newPlayer.lineNum = selectPlayerLine
+                newPlayer.positionType = selectPosition
+                newPlayer.activeState = true
+                newPlayer.playerLogoURL = fileLogoName
+                realm.add(newPlayer, update:true)
+            }
             
-            primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
-            doneHomePlayers = true
+            succesfulPlayerAdd(playerName: playerNameTextField.text!)
+            
+            }else{
+                print("User is missing a field, player cannot be saved properly")
+            }
+            
         }else{
-            primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
-            
-        }
-        let newPlayer = playerInfoTable()
-            
-        if userSelectedProfileImage != nil{
-            // set file name for profile picture
-            fileLogoName = "\((primaryPlayerID)!)_ID_\((playerNameTextField.text)!)_player_logo"
-            imageWriter(fileName: fileLogoName, imageName: userSelectedProfileImage)
-        }
-    
-        try! realm.write{
-            newPlayer.playerID = primaryPlayerID
-            newPlayer.TeamID = String(queryTeamID)
-            newPlayer.playerName = playerNameTextField.text!
-            newPlayer.jerseyNum = Int(playerNumberTextField.text!)!
-            newPlayer.lineNum = selectPlayerLine
-            newPlayer.positionType = selectPosition
-            newPlayer.activeState = true
-            newPlayer.playerLogoURL = fileLogoName
-            realm.add(newPlayer, update:true)
-        }
-        proceedArrow.isHidden = false
-        // reset textfields
-        playerNameTextField.text = ""
-        playerNumberTextField.text = ""
-        userSelectedProfileImage = nil
-        succesfulPlayerAdd(playerName: playerNameTextField.text!)
-        }else{
-            print("User is missing a field, player cannot be saved properly")
+            actionButton.tag = 20
+            restartButton.tag = 20
+            actionButton.setTitle("Save Player", for: .normal)
+            fadeOut(fadeInImageView: true)
         }
      
     }
@@ -459,14 +548,24 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
            
             let realm = try! Realm()
             
-            if ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", 1)).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})).count == 2 && self.doneHomePlayers == true{
-                
+            let awayTeamCount = (((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND activeState == true", String(self.queryTeamID))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})).count)
+            print("number of awaybplayers \(awayTeamCount)")
+            if (awayTeamCount >= 2 && self.viewControllerTitle.tag == 20) {
+                self.proceedArrow.isHidden = false
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "initialSetupPageMover"), object: nil, userInfo: ["sideNumber":4])
                 
-            }
-            if self.primaryPlayerID >= 1 {
+            }else{
+                self.actionButton.tag = 10
+                self.actionButton.setTitle("Next Step ...", for: .normal)
+                // reset textfields
+                self.playerNameTextField.text = ""
+                self.playerNumberTextField.text = ""
+                self.userSelectedProfileImage = nil
+                self.playerProfileImageView.image = UIImage(named: "temp_profile_pic_icon")
                 self.teamNameSetter()
+                self.fadeOut(fadeInImageView: false)
             }
+            
             
         }))
         // show the alert
@@ -515,7 +614,7 @@ extension Initial_Setup_Player_Add_View_Controller:  UIImagePickerControllerDele
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
-            let tempUrl = dir.appendingPathComponent("TeamLogo")
+            let tempUrl = dir.appendingPathComponent("PlayerImages")
             let fileURL = tempUrl.appendingPathComponent(fileName)
             
             print(fileURL)

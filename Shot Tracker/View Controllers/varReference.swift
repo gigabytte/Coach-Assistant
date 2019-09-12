@@ -146,6 +146,13 @@ class roundedCorners{
         labelViewType.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
     }
+    
+    func imageViewTopLeftRight(labelViewType: UIImageView){
+        labelViewType.clipsToBounds = true
+        labelViewType.layer.cornerRadius = 10
+        labelViewType.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+    }
 
     func buttonBottomLeft(bottonViewType: UIButton){
         bottonViewType.clipsToBounds = true
@@ -294,7 +301,7 @@ class universalValue{
     var nightTimeNavBarColour: UIColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
     
     var dayTimeTableViewColour: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    var nightTimeTableViewColour: UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    var nightTimeTableViewColour: UIColor = #colorLiteral(red: 0.3573177315, green: 0.3868757163, blue: 0.429816126, alpha: 1)
     
     var dayTimeNavBarButtonColour: UIColor = #colorLiteral(red: 0.01488990802, green: 0.4462006688, blue: 0.6317400932, alpha: 1)
     var nightTimeNavBarButtonColour: UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -302,7 +309,7 @@ class universalValue{
     var dayTimeTextViewColour: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     var nightTimeTextViewColour: UIColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     
-    var dayTimeButtonColour: UIColor = #colorLiteral(red: 0.01488990802, green: 0.4462006688, blue: 0.6317400932, alpha: 1)
+    var dayTimeButtonColour: UIColor = #colorLiteral(red: 0.8936389594, green: 0.8936389594, blue: 0.8936389594, alpha: 1)
     var nightTimeButtonColour: UIColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     
 }
@@ -356,6 +363,16 @@ class systemColour{
             return universalValue().dayTimeTextViewColour
         }else{
             return universalValue().nightTimeTextViewColour
+        }
+        
+    }
+    
+    func uiButton() -> UIColor{
+        // return colour of tableview based ion system func
+        if (UserDefaults.standard.bool(forKey: "darkModeBool") != true){
+            return universalValue().dayTimeButtonColour
+        }else{
+            return universalValue().nightTimeButtonColour
         }
         
     }
@@ -476,5 +493,10 @@ class getDate{
         let components = calendar.dateComponents([.year, .month, .day], from: date)
         
         return components.day!
+    }
+}
+class checkUserDefaults{
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
     }
 }

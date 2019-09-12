@@ -34,9 +34,7 @@ class In_Game_Settings_ViewController: UIViewController, UIPickerViewDelegate, U
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
         
-        popUpView.layer.cornerRadius = 10
-        roundedCorners().labelViewTopLeftRight(labelViewType: inGameLabel)
-        roundedCorners().buttonBottomDouble(bottonViewType: saveButton)
+        viewColour()
         
         self.penaltyLengthPicker.dataSource = self
         self.penaltyLengthPicker.delegate = self
@@ -52,6 +50,15 @@ class In_Game_Settings_ViewController: UIViewController, UIPickerViewDelegate, U
     }
     
 
+    func viewColour(){
+        popUpView.backgroundColor = systemColour().viewColor()
+        saveButton.backgroundColor = systemColour().uiButton()
+        
+        popUpView.layer.cornerRadius = 10
+        roundedCorners().labelViewTopLeftRight(labelViewType: inGameLabel)
+        roundedCorners().buttonBottomDouble(bottonViewType: saveButton)
+    }
+    
     @IBAction func saveButton(_ sender: UIButton) {
         // set user defaults based on selection in view
         UserDefaults.standard.set(goalSwitch.isOn, forKey: "displayGoalBool")

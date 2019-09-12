@@ -36,7 +36,7 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        
+        viewColour()
         newGameDataProcessing()
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -87,6 +87,9 @@ class Old_Stats_View: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.performSegue(withIdentifier: "Back_To_Home", sender: self)
     }
     
+    func viewColour(){
+        tableView.backgroundColor = systemColour().tableViewColor()
+    }
     
     func newGameDataProcessing() {
         

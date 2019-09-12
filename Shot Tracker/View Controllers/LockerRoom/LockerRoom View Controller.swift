@@ -34,7 +34,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder()
-    
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
 
         onLoad()
         
@@ -265,7 +265,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     }
     
     @objc func myMethod(notification: NSNotification){
-        onLoad()
+        onGoingGame()
     }
     
     @IBAction func newGameButton(_ sender: UIBarButtonItem) {

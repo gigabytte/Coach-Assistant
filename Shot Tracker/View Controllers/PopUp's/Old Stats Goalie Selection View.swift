@@ -55,12 +55,19 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
         view.addSubview(blurEffectView)
         view.addSubview(popUpView)
         
-        popUpView.layer.cornerRadius = 10
+        viewColour()
+        
         // Do any additional setup after loading the view.
         goalieSelectionGesture()
         
     }
     
+    func viewColour(){
+        popUpView.layer.cornerRadius = 10
+        popUpView.backgroundColor = systemColour().viewColor()
+        continueButton.backgroundColor = systemColour().uiButton()
+        roundedCorners().imageViewTopLeftRight(labelViewType: hockeyNetImageView)
+    }
     
     func goalieSelectionGesture() {
         

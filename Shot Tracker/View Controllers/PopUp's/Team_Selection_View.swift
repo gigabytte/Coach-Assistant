@@ -62,10 +62,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
         selectedHomeTeamKey = (UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int)
         
-        // riund corners of buttons and view
-        roundedCorners().buttonBottomRight(bottonViewType: continueButton)
-        roundedCorners().buttonBottomLeft(bottonViewType: cancelButton)
-        teamSelectionPopUpView.layer.cornerRadius = 10
+       
         
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -125,6 +122,14 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func viewColour(){
         
         self.popUpView.backgroundColor = systemColour().viewColor()
+        gameLocationTextField.backgroundColor = systemColour().uiTextField()
+        cancelButton.backgroundColor = systemColour().uiButton()
+        continueButton.backgroundColor = systemColour().uiButton()
+        
+        // riund corners of buttons and view
+        roundedCorners().buttonBottomRight(bottonViewType: continueButton)
+        roundedCorners().buttonBottomLeft(bottonViewType: cancelButton)
+        teamSelectionPopUpView.layer.cornerRadius = 10
     }
     
     func gameTypeProcessing(){

@@ -35,6 +35,10 @@ class Add_Team_Page: UIViewController {
        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
+        
+        onLoad()
 
     }
     
@@ -68,6 +72,9 @@ class Add_Team_Page: UIViewController {
     func viewColour(){
         teamLogoImageView.heightAnchor.constraint(equalToConstant: teamLogoImageView.frame.height).isActive = true
         teamLogoImageView.setRounded()
+       
+        teamName.backgroundColor = systemColour().uiTextField()
+        
     }
     
     func realmTeamIDGen() -> Int{
@@ -194,6 +201,10 @@ class Add_Team_Page: UIViewController {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
+    }
+    
+    @objc func myMethod(notification: NSNotification){
+        onLoad()
     }
    
     func mediaTypeSlectionAlert(){

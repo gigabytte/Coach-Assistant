@@ -290,6 +290,8 @@ class Initial_Setup_Home_Team_Add_View_Controller: UIViewController, UIPickerVie
         let successfulQuery = UIAlertController(title: "Success!", message: "Team \(teamName) was Added Successfully", preferredStyle: UIAlertController.Style.alert)
         //adds action button to alert
         successfulQuery.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in
+            // set default team as this team
+            UserDefaults.standard.set(self.teamID!, forKey: "defaultHomeTeamID")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "initialSetupPageMover"), object: nil, userInfo: ["sideNumber":2])
         }))
         

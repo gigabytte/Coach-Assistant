@@ -77,7 +77,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         let teamNameObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)?.nameOfTeam
         if teamNameObjc != ""{
-            addingToTeamNameLabel.text = "Note you are adding a player to \(teamNameObjc!)"
+            addingToTeamNameLabel.text = "Note you are adding a player to \(teamNameObjc!.capitalized)"
         }else{
             addingToTeamNameLabel.text = "Note you are adding a player to the default team selected"
         }
@@ -92,6 +92,13 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         selectLine = 1
         selectPosition = positionCodeData.first
         
+        viewColour()
+        
+    }
+    
+    func viewColour(){
+        playerNumber.backgroundColor = systemColour().uiTextField()
+        playerName.backgroundColor = systemColour().uiTextField()
     }
     
     func savePlayerMethod(){
