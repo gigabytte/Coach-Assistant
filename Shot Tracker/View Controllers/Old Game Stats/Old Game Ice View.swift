@@ -65,7 +65,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         closeButton.isHidden = true
         pageControl.isHidden = true
         
-        //UserDefaults.standard.set(false, forKey: "firstOldStatsBool")
+        UserDefaults.standard.set(false, forKey: "firstOldStatsBool")
         
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "passDataInView"), object: nil)
         
@@ -180,7 +180,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         self.away_markerPlacement(markerType: self.awayTeamPenaltyMarkerImage!)
         
         if (UserDefaults.standard.bool(forKey: "firstOldStatsBool") == false && isKeyPresentInUserDefaults(key: "selectedGoalieID") == true){
-            print("tuorial")
+            
             tutorialContainer.layer.cornerRadius = 10
             tutorialContainer.isHidden = false
             closeButton.isHidden = false
@@ -392,6 +392,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             print("Error Unable to Gather Team Name, Nav Bar Has Defaulted")
             
         }
+        
+        navBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.semibold)]
     }
 
     func shot_markerProcessing() -> (home_xCordsForPlacementShot: [String], home_yCordsForPlacementShot: [String], away_xCordsForPlacementShot: [String], away_yCordsForPlacementShot: [String]){

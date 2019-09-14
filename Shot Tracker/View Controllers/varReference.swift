@@ -252,8 +252,14 @@ class universalValue{
     // Help Guide PDF file name
     var helpGuidePDFName:String = "help_guide_iPad"
     
+    // Help Guide gif file name
+    var helpGuideGIF:String = "help_guide.gif"
+    
     // legal info pdf file name refrence
     var appLegalPDF: String = "Coach_Assistant_Legal"
+    
+    // new ui update gif
+    var uiUpdateGif: String = "ui_update.gif"
     
     // goal tutorial string
     var goalGif: String = "goal_gif.gif"
@@ -268,13 +274,13 @@ class universalValue{
     var penaltyGif: String = "penalty_gif.gif"
     
     // goal tutorial string
-    var oldStatsChangeGoalieGif: String = "old_stats_change_goalie_gif.gif"
+    var oldStatsChangeGoalieGif: String = "old_stats_goalie_selection.gif"
     
     // goal tutorial string
     var oldStatsMarkerDetailsGif: String = "old_stats_marker_details_gif.gif"
     
     // goal tutorial string
-    var oldStatsAnalyticalViewGif: String = "old_stats_analytical_view_gif.gif"
+    var oldStatsAnalyticalViewGif: String = "old_stats_analytical_view.gif"
     
     // goal tutorial string
     var newGameSettingsGif: String = "new_game_settings_gif.gif"

@@ -13,11 +13,12 @@ import Realm
 class Add_Team_Page: UIViewController {
 
     //Creates variables for coneceting to the realm database and for the team's ID Number
-    var noTeamsBool: Bool!
+    var noTeamsBool: Bool = false
     
     var imagePickerController : UIImagePickerController!
     
     //Connections to the page
+    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var teamName: UITextField!
     @IBOutlet weak var inActiveTeamToggle: UISwitch!
     @IBOutlet weak var visitWebsiteButton: UIButton!
@@ -64,6 +65,12 @@ class Add_Team_Page: UIViewController {
                 // show the alert
                 self.present(noTeams, animated: true, completion: nil)
             }
+        }
+        if noTeamsBool == true{
+            closeButton.isHidden = false
+            visitWebsiteButton.isHidden = true
+            view.backgroundColor = systemColour().viewColor()
+            
         }
         
         viewColour()
@@ -129,6 +136,10 @@ class Add_Team_Page: UIViewController {
         self.present(actionSheet, animated: true, completion: nil)
         
     }
+    @IBAction func closeButton(_ sender: UIButton) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+        self.dismiss(animated: true, completion: nil)
+    }
     //Func for when the add button is clicked
     @IBAction func saveteamName(_ sender: UIButton){
         
@@ -154,6 +165,9 @@ class Add_Team_Page: UIViewController {
                 realm.add(newTeam, update:true)
                 teamName.text = ""
                 teamLogoImageView.image = UIImage(named: "temp_profile_pic_icon")
+                if noTeamsBool == true{
+                    UserDefaults.standard.set(primaryTeamID, forKey: "defaultHomeTeamID")
+                }
                 succesfulTeamAdd(teamName: userInputTeam)
             }
         //Checks to see if the text box object is not blank and if the toggle switch is
@@ -174,6 +188,9 @@ class Add_Team_Page: UIViewController {
                 realm.add(newTeam, update:true)
                 teamName.text = ""
                 teamLogoImageView.image = UIImage(named: "temp_profile_pic_icon")
+                if noTeamsBool == true{
+                    UserDefaults.standard.set(primaryTeamID, forKey: "defaultHomeTeamID")
+                }
                 succesfulTeamAdd(teamName: userInputTeam)
             }
         }else{
@@ -243,11 +260,25 @@ class Add_Team_Page: UIViewController {
     
     //func for succesful team add alert
     func succesfulTeamAdd(teamName: String){
+        let message: String!
+        
+        if noTeamsBool != true{
+            message = String(format: localizedString().localized(value:"Team %@ was Added Successfully. To view your newly created team swap the default team in the upper right corner."), teamName)
+            
+        }else{
+            message = String(format: localizedString().localized(value:"Team %@ was Added Successfully."), teamName)
+        }
         
         // creating a variable to hold alert controller with attached message and also the style of the alert controller
-        let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Team %@ was Added Successfully. To view your newly created team swap the default team in the upper right corner."), teamName), message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: message, message: "", preferredStyle: UIAlertController.Style.alert)
         //adds action button to alert
-        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+            if self.noTeamsBool == true{
+                self.noTeamsBool = false
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+                self.dismiss(animated: true, completion: nil)
+            }
+        }))
         
         //show the alert
         self.present(successfulQuery, animated: true, completion: nil)

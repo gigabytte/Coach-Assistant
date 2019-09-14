@@ -74,7 +74,7 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
     }
     
     func onLoad(){
-        
+    
         newGameDataProcessing()
         
         tableView.rowHeight = 75
@@ -130,6 +130,13 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
     }
     
     @objc func myMethod(notification: NSNotification){
+        newGameIDs.removeAll()
+        homeTeamID.removeAll()
+        awayTeamID.removeAll()
+        newGameDates.removeAll()
+        homeTeamName.removeAll()
+        awayTeamName.removeAll()
+        gameType.removeAll()
         onLoad()
     }
     

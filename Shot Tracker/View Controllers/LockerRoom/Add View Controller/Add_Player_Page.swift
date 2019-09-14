@@ -430,6 +430,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             self.actionButton.tag = 10
             self.actionButton.setTitle("Next Step ...", for: .normal)
             self.isFadeOut(showProfileImageView: false)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
         }))
         // show the alert
         self.present(successfulQuery, animated: true, completion: nil)

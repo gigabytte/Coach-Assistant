@@ -77,6 +77,11 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         playerLinePicker.isUserInteractionEnabled = false
         playerLinePicker.alpha = CGFloat(alphaStartValue)
         
+        blurEffectView.isHidden = true
+        warningLabel.isHidden = true
+        proceedArrow.isHidden = true
+        
+        
         onLoad()
       
     }
@@ -88,15 +93,13 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if queryTeamID != nil{
-            awayTeamAddedChecker()
-        }
-        
+        teamChecker()
+       
     }
     
     func onLoad(){
         
-         let realm = try! Realm()
+        
         
         // Do any additional setup after loading the view.
         pickerData = ["Forward 1", "Forward 2","Forward 3","Defense 1","Defense 2","Defense 3","Goalie"]
@@ -107,29 +110,60 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         
         selectPosition = positionCodeData[0]
         selectPlayerLine = 1
-        if ((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).count  <= 2{
+
+        teamChecker()
+        
+    }
+        
+    func teamChecker(){
+         let realm = try! Realm()
+        
+        if ((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).count >= 2{
             queryTeamID = ((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})).first
             
             // set View COntroller title based on users previous team add
             if queryTeamID != nil {
                 teamNameSetter()
             }
-            blurEffectView.isHidden = true
-            warningLabel.isHidden = true
-            proceedArrow.isHidden = true
+            
+        }else{
+            blurEffectView.isHidden = false
+            warningLabel.isHidden = false
+            proceedArrow.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                self.blurEffectView.alpha = 1.0
+                self.warningLabel.alpha = 1.0
+                self.proceedArrow.alpha = 1.0
+                
+                self.view.layoutIfNeeded()
+                
+            }, completion: { _ in
+                
+                // animate arrow spining to the back position
+                let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                rotationAnimation.fromValue = 0.0
+                rotationAnimation.toValue = Double.pi
+                rotationAnimation.duration = 1.0
+                self.proceedArrow.layer.add(rotationAnimation, forKey: nil)
+                // stick uiikmage in 108 position
+                let angle = CGFloat(Double.pi)
+                let tr = CGAffineTransform.identity.rotated(by: angle)
+                self.proceedArrow.transform = tr
+                
+            })
+            
         }
-        
-        
-        
-
     }
     
     func profileImageSetter(){
         if userSelectedProfileImage != nil{
             playerProfileImageView.image = userSelectedProfileImage
+            playerProfileImageView.widthAnchor.constraint(equalToConstant: playerProfileImageView.frame.width).isActive = true
             playerProfileImageView.setRounded()
         }else{
+            print("temp pic")
             playerProfileImageView.image = UIImage(named: "temp_profile_pic_icon")
+            playerProfileImageView.widthAnchor.constraint(equalToConstant: playerProfileImageView.frame.width).isActive = true
             playerProfileImageView.setRounded()
         }
         
