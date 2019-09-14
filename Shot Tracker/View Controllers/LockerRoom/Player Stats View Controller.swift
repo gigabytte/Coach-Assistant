@@ -475,11 +475,14 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
     //Assign values for tableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var count: Int = 0
         
         let cell:customLockerRoomStatsCell = self.playerInfoTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! customLockerRoomStatsCell
         
        if (tableView == playerInfoTableView){
+        
+            let realm = try! Realm()
+        
+            let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: homePlayerIDs[indexPath.row])
         
             cell.playerNameLabel!.text = homePlayerNames[indexPath.row]
             cell.playerPositionLabel?.text = homePlayerPosition[indexPath.row]
@@ -489,7 +492,7 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
                 cell.deletedPlayerIcon.isHidden = false
             }
            //cell.playerProfileImage.layer.masksToBounds = true
-            let readerResult = playerImageReader(fileName: ("\(homePlayerIDs[indexPath.row])_ID_\(homePlayerNames[indexPath.row])_player_logo"))
+            let readerResult = playerImageReader(fileName: (playerObjc?.playerLogoURL)!)
             if readerResult != nil{
                 cell.playerProfileImage.image = readerResult
                

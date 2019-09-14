@@ -12,6 +12,7 @@ import Charts
 
 class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var dataWarningTeamPieChart: UILabel!
     @IBOutlet weak var teamToggleSwitch: UISwitch!
     @IBOutlet weak var teamIsActiveLabel: UILabel!
     @IBOutlet weak var seasonEditTextField: UITextField!
@@ -22,7 +23,8 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
     @IBOutlet weak var seasonNumberLabel: UILabel!
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var teamBarChartView: BarChartView!
+   // @IBOutlet weak var teamBarChartView: BarChartView!
+    @IBOutlet weak var teamPieChartView: PieChartView!
     
     @IBOutlet weak var teamStatsTableView: UITableView!
     
@@ -36,6 +38,16 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
     var gameIDArray: [Int] = [Int]()
     var teamStatsAvgArray: [[Int]] = [[], [], [], [], [],[]]
     var teamStatsCalc: [String] = [String]()
+    
+    var teamWinsDataEntry = PieChartDataEntry(value: 0)
+    var teamLosesDataEntry = PieChartDataEntry(value: 0)
+    var teamTiesDataEntry = PieChartDataEntry(value: 0)
+    
+    var homeTeamWinCount: Int!
+    var homeTeamTieCount: Int!
+    var homeTeamLooseCount: Int!
+    
+    var pieChartBlurView: UIVisualEffectView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,12 +78,17 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         let realm = try! Realm()
         let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)
         
+        viewColour()
         
         if let teamName = teamObjc?.nameOfTeam{
             if teamName != ""{
                 teamNameLabel.text = teamName
+                let width = teamNameLabel.intrinsicContentSize.width + 10
+                teamNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
             }else{
                 teamNameLabel.text = "Unknow Team Name"
+                let width = teamNameLabel.intrinsicContentSize.width + 10
+                teamNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
             }
         }
         
@@ -98,7 +115,9 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         switchState()
         recordLabelProcessing()
         teamStatsProcessing()
-        viewColour()
+        chartsBlur()
+        teamPieChartValues()
+        
     }
     
     func viewColour(){
@@ -113,6 +132,62 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         
         teamStatsTableView.backgroundColor = systemColour().tableViewColor()
         self.popUpView.backgroundColor = systemColour().viewColor()
+    }
+    
+    func chartsBlur(){
+        // give background blur effect
+        // add blur effect to chart views
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        
+        pieChartBlurView = UIVisualEffectView(effect: blurEffect)
+        pieChartBlurView.frame = teamPieChartView.bounds
+        pieChartBlurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        teamPieChartView.addSubview(pieChartBlurView)
+        pieChartBlurView.isHidden = true
+
+        
+    }
+    
+    func teamPieChartSettings(){
+        
+        let teamRecordCriteria = [teamWinsDataEntry, teamLosesDataEntry, teamTiesDataEntry]
+        let chartDataSet = PieChartDataSet(entries: teamRecordCriteria, label: nil)
+        let chartData = PieChartData(dataSet: chartDataSet)
+        chartDataSet.drawValuesEnabled = false
+        // set visual aspect of pie chart iuncluding colours and animations
+        let colours = [UIColor.green, UIColor.red, UIColor.blue]
+        chartDataSet.colors = colours
+        teamPieChartView.data = chartData
+        teamPieChartView.animate(xAxisDuration: 2.0, yAxisDuration:2.0)
+        teamPieChartView.drawEntryLabelsEnabled = false
+        teamPieChartView.holeColor = NSUIColor.init(cgColor: UIColor.clear.cgColor)
+        
+    }
+    
+    func teamPieChartValues(){
+        
+        teamPieChartSettings()
+        
+        teamWinsDataEntry.label = "# of Wins"
+        teamLosesDataEntry.label = "# of Loses"
+        teamTiesDataEntry.label = "# of Ties"
+        
+        let totalGames = homeTeamWinCount + homeTeamLooseCount + homeTeamTieCount
+        if totalGames != 0{
+            teamWinsDataEntry.value = Double(homeTeamWinCount) / Double(totalGames)
+            teamLosesDataEntry.value = Double(homeTeamLooseCount) / Double(totalGames)
+            teamTiesDataEntry.value = Double(homeTeamTieCount) / Double(totalGames)
+            
+            
+        }else{
+            // if total games will be divisable by 0 then default is even desperment error
+            teamWinsDataEntry.value = 33.3
+            teamLosesDataEntry.value = 33.3
+            teamTiesDataEntry.value = 33.3
+            // shaw data warning
+            dataWarningTeamPieChart.isHidden = false
+            pieChartBlurView.isHidden = false
+        }
     }
     
     func switchState(){
@@ -137,9 +212,9 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         
         let realm = try! Realm()
         
-        let homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
-        let homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
-        let homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        homeTeamWinCount = (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND winingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        homeTeamTieCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == true AND homeTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
+        homeTeamLooseCount =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "tieGameBool == false AND losingTeamID == %i AND activeState == true AND activeGameStatus == false", selectedTeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)}).count
         
         recordLabel.text = "W:\(String(homeTeamWinCount))-L:\(String(homeTeamLooseCount))-T:\(String(homeTeamTieCount))"
     }
@@ -520,7 +595,7 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         
-        imageWriter(fileName: "\((teamObjc?.nameOfTeam)!)_ID_\((teamObjc?.teamID)!)_team_logo", imageName: selectedImage)
+        imageWriter(fileName: "\((teamObjc?.teamID)!)_ID_\((teamObjc?.nameOfTeam)!)_team_logo", imageName: selectedImage)
         onLoad()
         
         
@@ -551,7 +626,7 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
             do {
                 try imageData!.write(to: fileURL, options: .atomicWrite)
                 // send realm the location of the logo in DD
-                realmLogoRefrence(fileURL: "\((teamObjc?.nameOfTeam)!)_ID_\((teamObjc?.teamID)!)_team_logo")
+                realmLogoRefrence(fileURL: fileName)
                 
             } catch {
                 print("Team logo write error")

@@ -224,16 +224,26 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         if let playerName = playerObjc?.playerName{
             if playerName != ""{
                 playerNameLabel.text = playerName
+                let width = playerNameLabel.intrinsicContentSize.width + 10
+                playerNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+               
             }else{
-                playerNameLabel.text = "Unknow Team Name"
+                playerNameLabel.text = "Unknow Player Name"
+                let width = playerNameLabel.intrinsicContentSize.width + 10
+                playerNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+                
             }
         }
         
         if let playerNumber = playerObjc?.jerseyNum{
             if playerNumber != 0{
                 playerNumberLabel.text? = "#\(playerNumber)"
+                let width = playerNumberLabel.intrinsicContentSize.width + 10
+                playerNumberLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
             }else{
                 playerNumberLabel.text? = "#00"
+                let width = playerNumberLabel.intrinsicContentSize.width + 10
+                playerNumberLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
             }
         }
         
@@ -251,15 +261,19 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                 playerPositionLabel.text = "Unknown"
             }
         }
-        
+        print(playerObjc?.playerLogoURL)
         if let URL = playerObjc?.playerLogoURL{
             if URL != ""{
+                
                 let readerResult = imageReader(fileName: playerObjc!.playerLogoURL)
                 playerProfileImageView.image = readerResult
             }else{
                 // default image goes here
                 playerProfileImageView.image = UIImage(named: "temp_profile_pic_icon")
             }
+            
+            playerProfileImageView.heightAnchor.constraint(equalToConstant: playerProfileImageView.frame.height).isActive = true
+            playerProfileImageView.setRounded()
         }
         
         pickerData = ["Forward 1", "Forward 2","Forward 3","Defense 1","Defense 2","Defense 3","Goalie"]
@@ -287,9 +301,6 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         
         popUpView.layer.cornerRadius = 10
         
-        playerProfileImageView.heightAnchor.constraint(equalToConstant: playerProfileImageView.frame.height).isActive = true
-        playerProfileImageView.setRounded()
-        
         roundedCorners().tableViewTopLeftRight(tableviewType: playerStatsTableView)
         playerStatsTableView.tableFooterView = UIView()
         
@@ -310,9 +321,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         case false:
             playerIsActiveLabel.text = "\((playerObjc?.playerName)!) is Disabled"
             break
-        default:
-            playerIsActiveLabel.text = "\((playerObjc?.playerName)!) is Enabled"
-            break
+        
         }
         
     }
@@ -358,42 +367,6 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             
             break
         case false:
-            
-            playerEditNameTextField.isHidden = false
-            playerEditNumberTextField.isHidden = false
-            lineNumberPicker.isHidden = false
-            positionTypePicker.isHidden = false
-            self.playerIsActiveLabel.isHidden = false
-            self.playerActiveSwitch.isHidden = false
-            
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
-                
-                self.playerEditNameTextField.alpha = 1.0
-                self.playerEditNumberTextField.alpha = 1.0
-                self.lineNumberPicker.alpha = 1.0
-                self.positionTypePicker.alpha = 1.0
-                self.playerIsActiveLabel.alpha = 1.0
-                self.playerActiveSwitch.alpha = 1.0
-                
-                self.playerNameLabel.alpha = 0.0
-                self.playerPositionLabel.alpha = 0.0
-                self.playerLineNumberLabel.alpha = 0.0
-                self.playerNumberLabel.alpha = 0.0
-                self.playerInfoTableView.alpha = 0.0
-                self.playerInfoPieChartView.alpha = 0.0
-                
-                self.view.layoutIfNeeded()
-            }, completion: { _ in
-                
-                self.playerNameLabel.isHidden = true
-                self.playerPositionLabel.isHidden = true
-                self.playerLineNumberLabel.isHidden = true
-                self.playerNumberLabel.isHidden = true
-                self.playerInfoTableView.isHidden = true
-                self.playerInfoPieChartView.isHidden = true
-            })
-            break
-        default:
             
             playerEditNameTextField.isHidden = false
             playerEditNumberTextField.isHidden = false
@@ -542,7 +515,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             }
             editFieldsButton.tag = 20
         }else if(playerName == "" && playerEditNumberTextField.text! == ""){
-            print("player postion",playerPosition)
+           
             try! realm.write {
                 editedPlayer!.lineNum = playerLine!
                 editedPlayer!.positionType = playerPosition!
@@ -749,8 +722,14 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         let numberOfAwayGames = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "opposingTeamID == %i AND activeState == true", playerObjc!.TeamID)).value(forKeyPath: "gameID") as! [Int]).compactMap({Int($0)})).count
         let numberOfGoalsAgainst = ((realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", passedPlayerID, playerObjc!.TeamID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
         
-        let GAA:Double = Double(numberOfGoalsAgainst) / Double(numberOfHomeGames + numberOfAwayGames)
-        goalieStatsArray.append("Goals Against Average: \(String(format: "%.2f", GAA))")
+        let dividend: Double = Double(numberOfHomeGames + numberOfAwayGames)
+        if dividend != 0.0{
+            let GAA:Double = Double(numberOfGoalsAgainst) / dividend
+            goalieStatsArray.append("Goals Against Average: \(String(format: "%.2f", GAA))")
+        }else{
+            goalieStatsArray.append("Goals Against Average: N/A")
+        }
+        
         
         //-------------- save % overall ------------------
         let homeGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND activeState == true", passedPlayerID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count
@@ -769,8 +748,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         bottomRight = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 4)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
         center = ((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "goalieID == %i AND shotLocation == %i AND activeState == true", passedPlayerID, 5)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)})).count
         
-        var totalShotArray: [Int] = [topLeft, topRight, bottomLeft, bottomRight, center]
-        let totalShot = Double(totalShotArray.reduce(0, +))
+        let totalShot = Double([topLeft, topRight, bottomLeft, bottomRight, center].reduce(0, +))
         
         if (totalShot != 0.0){
             goalieStatsArray.append("Top Left Save %: \(String(format: "%.2f",(Double(topLeft)/totalShot)))")
@@ -945,7 +923,7 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         
-        imageWriter(fileName: "\((playerObjc?.playerName)!)_ID_\((playerObjc?.playerID)!)_player_logo", imageName: selectedImage)
+        imageWriter(fileName: "\((playerObjc?.playerID)!)_ID_\((playerObjc?.playerName)!)_player_logo", imageName: selectedImage)
         onLoad()
         
         
@@ -960,9 +938,6 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
     
     func imageWriter(fileName: String, imageName: UIImage){
         
-        let realm = try! Realm()
-        let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
-        
         let imageData = imageName.jpegData(compressionQuality: 0.25)
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -975,7 +950,7 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
             do {
                 try imageData!.write(to: fileURL, options: .atomicWrite)
                 // send realm the location of the logo in DD
-                realmLogoRefrence(fileURL: "\((playerObjc?.playerName)!)_ID_\((playerObjc?.playerID)!)_player_logo")
+                realmLogoRefrence(fileURL: fileName)
                 
             } catch {
                 print("Player logo write error")

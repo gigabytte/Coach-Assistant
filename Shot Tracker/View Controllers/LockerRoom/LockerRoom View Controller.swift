@@ -12,6 +12,7 @@ import StoreKit
 
 class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
 
+    @IBOutlet weak var updatedUIContainerView: UIView!
     @IBOutlet weak var newGameBarButton: UIBarButtonItem!
     @IBOutlet weak var addPlayerButton: UIButton!
     @IBOutlet weak var oldStatsButton: UIButton!
@@ -25,6 +26,8 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     // active status bool used to check if a game is ongoing
     var activeStatus: Bool!
     
+    var blurEffectView: UIVisualEffectView!
+    
     var tutorialPageViewController: Locker_Room_UIPageController? {
         didSet {
             tutorialPageViewController?.tutorialDelegate = self
@@ -35,10 +38,57 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         super.viewDidLoad()
         self.becomeFirstResponder()
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myUIUpdateMethod(notification:)), name: NSNotification.Name(rawValue: "dismissedUIUpdate"), object: nil)
 
+        if checkUserDefaults().isKeyPresentInUserDefaults(key: "uiUpdateBool") == true{
+            if UserDefaults.standard.bool(forKey: "uiUpdateBool") != true{
+                
+                delay(0.2){
+                    self.presentNewUIHelpBlur()
+                    self.updatedUIContainerView.isHidden = false
+                }
+                
+            }else{
+                updatedUIContainerView.removeFromSuperview()
+            }
+        }else{
+            
+            delay(0.2){
+                self.presentNewUIHelpBlur()
+                self.updatedUIContainerView.isHidden = false
+            }
+        }
+        
         onLoad()
         
         // Do any additional setup after loading the view.
+    }
+    
+    func presentNewUIHelpBlur(){
+        // give background blur effect
+        // add blur effect to view along with popUpView
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(blurEffectView)
+        view.addSubview(updatedUIContainerView)
+    }
+    
+    func shpwAddTeamVC(){
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let popupVC = storyboard.instantiateViewController(withIdentifier: "addTeamVC") as! Add_Team_Page
+        popupVC.modalPresentationStyle = .overCurrentContext
+        popupVC.modalTransitionStyle = .crossDissolve
+    
+        popupVC.noTeamsBool = true
+        
+        let pVC = popupVC.popoverPresentationController
+        pVC?.permittedArrowDirections = .any
+        pVC?.delegate = self
+        
+        self.present(popupVC, animated: true, completion: nil)
+        print("Add_Team_Page Presented!")
     }
     
     func checkDefaultTeam(){
@@ -55,51 +105,17 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
                 self.present(popupVC, animated: true, completion: nil)
                 print("Default team selection Presented!")
             }
-        }else{
-            print("Default Team already selected \(UserDefaults.standard.object(forKey: "defaultHomeTeamID"))")
         }
     }
     
     func onLoad(){
-        
-        let realm = try! Realm()
         
         navBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "AvenirNext-Heavy", size: 35)!]
         // get Realm Databse file location
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
         // Do any additional setup after loading the view, typically from a nib.
-        // check is usr has selected a a deafult team yet
-        if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
-            // check if deafult team has been selected on load
-            if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
-                delay(0.3){
-                    self.defaultTeamSelection()
-                }
-            }else{
-                
-            }
-        }else{
-            // if no default team has been selected on load and no teams present
-            // redirect to team add team page VC
-            delay(0.5){
-                print("No Teams Found on Start")
-                self.performSegue(withIdentifier: "addTeamSegueFromMain", sender: nil);
-            }
-        }
-        // run on going game funtion to dynamically chnage new game button text based on
-        // game status
-        delay(0.3){
-            self.onGoingGame()
-        }
-        
-        // check the number of games the user has createrd and ask for a review
-        if(((realm.objects(newGameTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)})).count >= 3 && UserDefaults.standard.bool(forKey: "userReviewBool") != true) {
-            
-            UserDefaults.standard.set(true, forKey: "userReviewBool")
-            SKStoreReviewController.requestReview()
-            
-        }
+        noTeamsChecker()
         
         viewColour()
     }
@@ -113,6 +129,43 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         let barView = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))
         barView.backgroundColor = navBar.barTintColor
         view.addSubview(barView)
+    }
+    
+    func noTeamsChecker(){
+        
+        let realm = try! Realm()
+        
+        // check is usr has selected a a deafult team yet
+        if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
+            // check if deafult team has been selected on load
+            if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
+                print("no teams id")
+                delay(0.3){
+                    self.defaultTeamSelection()
+                }
+            }
+        }else{
+            // if no default team has been selected on load and no teams present
+            // redirect to team add team page VC
+            delay(0.5){
+                print("No Teams Found on Start")
+                self.shpwAddTeamVC()
+            }
+        }
+        // run on going game funtion to dynamically chnage new game button text based on
+        // game status
+        delay(0.3){
+            self.onGoingGame()
+        }
+        
+        // check the number of games the user has createrd and ask for a review
+        let numberOfGamePlayed = ((realm.objects(newGameTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "gameID") as! [Int]).compactMap({String($0)})).count
+        if( numberOfGamePlayed >= 2 && UserDefaults.standard.bool(forKey: "userReviewBool") != true) {
+            
+            UserDefaults.standard.set(true, forKey: "userReviewBool")
+            SKStoreReviewController.requestReview()
+            
+        }
     }
     
     // cherck is game if currently running function
@@ -265,7 +318,16 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     }
     
     @objc func myMethod(notification: NSNotification){
+        noTeamsChecker()
         onGoingGame()
+       // newGameRequirmentsChecker()
+    }
+    
+    @objc func myUIUpdateMethod(notification: NSNotification){
+        delay(0.3){
+            self.blurEffectView.removeFromSuperview()
+            self.updatedUIContainerView.removeFromSuperview()
+        }
     }
     
     @IBAction func newGameButton(_ sender: UIBarButtonItem) {
@@ -314,7 +376,9 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let tutorialPageViewController = segue.destination as? Locker_Room_UIPageController {
             self.tutorialPageViewController = tutorialPageViewController
+
         }
+        
     }
 }
 extension LockerRoom_View_Controller: LockerRoomPageViewControllerDelegate {

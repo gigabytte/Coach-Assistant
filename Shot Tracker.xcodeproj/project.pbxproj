@@ -10,8 +10,6 @@
 		6A41063EAC8E5809883AFEAF /* Pods_Shot_TrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8766E54477EFA0FD39529B59 /* Pods_Shot_TrackerTests.framework */; };
 		94591E74093479D23B50C5C9 /* Pods_Shot_TrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */; };
 		BE059DB822EF451B00AEC3C4 /* new_game_settings_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE059DB722EF451B00AEC3C4 /* new_game_settings_gif.gif */; };
-		BE059DBA22EF452400AEC3C4 /* old_stats_analytical_view_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE059DB922EF452400AEC3C4 /* old_stats_analytical_view_gif.gif */; };
-		BE059DBC22EF452B00AEC3C4 /* old_stats_change_goalie_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE059DBB22EF452A00AEC3C4 /* old_stats_change_goalie_gif.gif */; };
 		BE059DBE22EF453000AEC3C4 /* old_stats_marker_details_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE059DBD22EF453000AEC3C4 /* old_stats_marker_details_gif.gif */; };
 		BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */; };
 		BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */; };
@@ -43,19 +41,21 @@
 		BE52370E226A5CFB009D9254 /* Settings_Backup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */; };
 		BE523710226A75DF009D9254 /* Settings_Defaults View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */; };
 		BE5584BE21E7AB8700C44D42 /* New_Game_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */; };
+		BE55C315232C2A9200233BEB /* old_stats_analytical_view.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE55C314232C2A9200233BEB /* old_stats_analytical_view.gif */; };
+		BE55C317232C2A9600233BEB /* old_stats_goalie_selection.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE55C316232C2A9600233BEB /* old_stats_goalie_selection.gif */; };
+		BE55C319232C2A9A00233BEB /* help_guide.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE55C318232C2A9A00233BEB /* help_guide.gif */; };
+		BE55C31B232C2A9F00233BEB /* ui_update.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE55C31A232C2A9E00233BEB /* ui_update.gif */; };
+		BE55C31F232C2E6300233BEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE55C321232C2E6300233BEB /* Main.storyboard */; };
 		BE57ACDB228756F800AD2054 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE57ACDA228756F800AD2054 /* StoreKit.framework */; };
-		BE57F26822DB7281001A81F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE57F26A22DB7281001A81F9 /* Localizable.strings */; };
 		BE6163F422EB3EAD00C61BA8 /* Penalty Info View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6163F322EB3EAD00C61BA8 /* Penalty Info View Controller.swift */; };
 		BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */; };
 		BE669DC7226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */; };
 		BE669DC9226E6B3F00E2C5E7 /* Initial_Setup_Home_Team_Add_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Home_Team_Add_View_Controller.swift */; };
 		BE669DCB226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DCA226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift */; };
 		BE6AD1E522FA4F470052D053 /* Coach_Assistant_Legal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BE6AD1E422FA4F460052D053 /* Coach_Assistant_Legal.pdf */; };
-		BE6AD1E722FA4F560052D053 /* help_guide_iPad.gif in Resources */ = {isa = PBXBuildFile; fileRef = BE6AD1E622FA4F560052D053 /* help_guide_iPad.gif */; };
 		BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6F1E132274B44000673062 /* Settings_About_View_Controller.swift */; };
 		BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */; };
 		BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */; };
-		BE7A69502307411600905F4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE7A694F2307411600905F4C /* Main.storyboard */; };
 		BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D697721E3D74300C1745C /* AppDelegate.swift */; };
 		BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE7D697E21E3D74500C1745C /* Assets.xcassets */; };
 		BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */; };
@@ -98,6 +98,7 @@
 		BED5479422E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5479322E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift */; };
 		BED5479622E8A0E3002AA13B /* Old Stats Ice Turoial View Analytical View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5479522E8A0E3002AA13B /* Old Stats Ice Turoial View Analytical View Controller.swift */; };
 		BED5479822E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5479722E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift */; };
+		BEDA0E51232A9ECD00A9F97F /* New UI Update View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA0E50232A9ECD00A9F97F /* New UI Update View Controller.swift */; };
 		BEDA530E21F14023002FAC32 /* Marker_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */; };
 		BEDC7A01230E046200ADECD5 /* Settings Apperance View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A00230E046200ADECD5 /* Settings Apperance View Controller.swift */; };
 		BEDFCDF723102CCE00FA21AC /* Settings Navigation Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFCDF623102CCE00FA21AC /* Settings Navigation Controller.swift */; };
@@ -154,14 +155,10 @@
 		90E65C000D84B683037F3F78 /* Pods_Shot_TrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shot_TrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66ACACA2323B38B3C25CBEE /* Pods-Shot TrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerUITests.release.xcconfig"; path = "Target Support Files/Pods-Shot TrackerUITests/Pods-Shot TrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BE059DB722EF451B00AEC3C4 /* new_game_settings_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = new_game_settings_gif.gif; sourceTree = "<group>"; };
-		BE059DB922EF452400AEC3C4 /* old_stats_analytical_view_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = old_stats_analytical_view_gif.gif; sourceTree = "<group>"; };
-		BE059DBB22EF452A00AEC3C4 /* old_stats_change_goalie_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = old_stats_change_goalie_gif.gif; sourceTree = "<group>"; };
 		BE059DBD22EF453000AEC3C4 /* old_stats_marker_details_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = old_stats_marker_details_gif.gif; sourceTree = "<group>"; };
 		BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_Subscriptions_View_Controller.swift; sourceTree = "<group>"; };
 		BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_Team_Info_Page.swift; sourceTree = "<group>"; };
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
-		BE0FE5FB22F1DAAE006F4B39 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		BE0FE5FC22F1DAAF006F4B39 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BE12DE5B228740BE0071BC17 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		BE12DE5E228740C10071BC17 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		BE12DE61228744B80071BC17 /* customSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSettingCell.swift; sourceTree = "<group>"; };
@@ -187,9 +184,14 @@
 		BE52370D226A5CFB009D9254 /* Settings_Backup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Backup View Controller.swift"; sourceTree = "<group>"; };
 		BE52370F226A75DF009D9254 /* Settings_Defaults View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings_Defaults View Controller.swift"; sourceTree = "<group>"; };
 		BE5584BD21E7AB8700C44D42 /* New_Game_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Page.swift; sourceTree = "<group>"; };
+		BE55C314232C2A9200233BEB /* old_stats_analytical_view.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = old_stats_analytical_view.gif; sourceTree = "<group>"; };
+		BE55C316232C2A9600233BEB /* old_stats_goalie_selection.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = old_stats_goalie_selection.gif; sourceTree = "<group>"; };
+		BE55C318232C2A9A00233BEB /* help_guide.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = help_guide.gif; sourceTree = "<group>"; };
+		BE55C31A232C2A9E00233BEB /* ui_update.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ui_update.gif; sourceTree = "<group>"; };
+		BE55C31C232C2E0E00233BEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		BE55C320232C2E6300233BEB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE55C326232C2E7C00233BEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE57ACDA228756F800AD2054 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		BE57F26222DB721B001A81F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		BE57F26922DB7281001A81F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE6163F322EB3EAD00C61BA8 /* Penalty Info View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Penalty Info View Controller.swift"; sourceTree = "<group>"; };
 		BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Shot Tracker.entitlements"; sourceTree = "<group>"; };
 		BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Page_Controller.swift; sourceTree = "<group>"; };
@@ -197,11 +199,9 @@
 		BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Home_Team_Add_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Home_Team_Add_View_Controller.swift; sourceTree = "<group>"; };
 		BE669DCA226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Initial_Setup_Player_Add_View Controller.swift"; sourceTree = "<group>"; };
 		BE6AD1E422FA4F460052D053 /* Coach_Assistant_Legal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Coach_Assistant_Legal.pdf; path = "../../../Documents/Coach Assistant Icons/Coach_Assistant_Legal.pdf"; sourceTree = "<group>"; };
-		BE6AD1E622FA4F560052D053 /* help_guide_iPad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = help_guide_iPad.gif; path = "../../../Documents/Coach Assistant Icons/tutorial_vids/help_guide_iPad.gif"; sourceTree = "<group>"; };
 		BE6F1E132274B44000673062 /* Settings_About_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_About_View_Controller.swift; sourceTree = "<group>"; };
 		BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_Location_View.swift; sourceTree = "<group>"; };
 		BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current_Stats_Ananlytical_View:.swift"; sourceTree = "<group>"; };
-		BE7A694F2307411600905F4C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BE7D697421E3D74300C1745C /* Shot Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shot Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE7D697721E3D74300C1745C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE7D697E21E3D74500C1745C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -250,6 +250,7 @@
 		BED5479322E8A0BF002AA13B /* Old Stats Ice Turoial Change Golaie View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Ice Turoial Change Golaie View Controller.swift"; sourceTree = "<group>"; };
 		BED5479522E8A0E3002AA13B /* Old Stats Ice Turoial View Analytical View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Ice Turoial View Analytical View Controller.swift"; sourceTree = "<group>"; };
 		BED5479722E8A0FC002AA13B /* Old Stats Ice Turoial Marker Stats View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Ice Turoial Marker Stats View Controller.swift"; sourceTree = "<group>"; };
+		BEDA0E50232A9ECD00A9F97F /* New UI Update View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New UI Update View Controller.swift"; sourceTree = "<group>"; };
 		BEDA530D21F14023002FAC32 /* Marker_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker_Info_Page.swift; sourceTree = "<group>"; };
 		BEDC7A00230E046200ADECD5 /* Settings Apperance View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Apperance View Controller.swift"; sourceTree = "<group>"; };
 		BEDFCDF623102CCE00FA21AC /* Settings Navigation Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Navigation Controller.swift"; sourceTree = "<group>"; };
@@ -335,6 +336,7 @@
 				BE92E0202274E1AB00B95209 /* Penalty_Popup_View_Controller.swift */,
 				BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */,
 				BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */,
+				BEDA0E50232A9ECD00A9F97F /* New UI Update View Controller.swift */,
 			);
 			path = "PopUp's";
 			sourceTree = "<group>";
@@ -492,18 +494,18 @@
 				BE089F4D22BFE35900FAED6F /* Realm Objc */,
 				BE089F4B22BFE2E900FAED6F /* View Controllers */,
 				BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */,
-				BE57F26A22DB7281001A81F9 /* Localizable.strings */,
 				BE7D697E21E3D74500C1745C /* Assets.xcassets */,
-				BE7A694F2307411600905F4C /* Main.storyboard */,
+				BE55C321232C2E6300233BEB /* Main.storyboard */,
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
 				BE7D698321E3D74500C1745C /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
 				BE059DBD22EF453000AEC3C4 /* old_stats_marker_details_gif.gif */,
-				BE059DBB22EF452A00AEC3C4 /* old_stats_change_goalie_gif.gif */,
-				BE059DB922EF452400AEC3C4 /* old_stats_analytical_view_gif.gif */,
+				BE55C316232C2A9600233BEB /* old_stats_goalie_selection.gif */,
+				BE55C31A232C2A9E00233BEB /* ui_update.gif */,
+				BE55C318232C2A9A00233BEB /* help_guide.gif */,
+				BE55C314232C2A9200233BEB /* old_stats_analytical_view.gif */,
 				BE059DB722EF451B00AEC3C4 /* new_game_settings_gif.gif */,
 				BE6AD1E422FA4F460052D053 /* Coach_Assistant_Legal.pdf */,
-				BE6AD1E622FA4F560052D053 /* help_guide_iPad.gif */,
 				BEA611142301B9C300161FC2 /* help_guide_iPad.pdf */,
 				BE27918622E6791200CE40EC /* faceoff_gif.gif */,
 				BE27918422E6790D00CE40EC /* penalty_gif.gif */,
@@ -678,7 +680,6 @@
 			knownRegions = (
 				Base,
 				en,
-				"fr-CA",
 			);
 			mainGroup = BE7D696B21E3D74300C1745C;
 			productRefGroup = BE7D697521E3D74300C1745C /* Products */;
@@ -699,20 +700,20 @@
 			files = (
 				BE27918122E6790300CE40EC /* goal_gif.gif in Resources */,
 				BE059DBE22EF453000AEC3C4 /* old_stats_marker_details_gif.gif in Resources */,
+				BE55C317232C2A9600233BEB /* old_stats_goalie_selection.gif in Resources */,
 				BE27918722E6791200CE40EC /* faceoff_gif.gif in Resources */,
-				BE059DBA22EF452400AEC3C4 /* old_stats_analytical_view_gif.gif in Resources */,
+				BE55C31B232C2A9F00233BEB /* ui_update.gif in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
-				BE57F26822DB7281001A81F9 /* Localizable.strings in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
+				BE55C319232C2A9A00233BEB /* help_guide.gif in Resources */,
 				BE27918522E6790D00CE40EC /* penalty_gif.gif in Resources */,
 				BE059DB822EF451B00AEC3C4 /* new_game_settings_gif.gif in Resources */,
 				BE6AD1E522FA4F470052D053 /* Coach_Assistant_Legal.pdf in Resources */,
-				BE7A69502307411600905F4C /* Main.storyboard in Resources */,
-				BE059DBC22EF452B00AEC3C4 /* old_stats_change_goalie_gif.gif in Resources */,
+				BE55C31F232C2E6300233BEB /* Main.storyboard in Resources */,
+				BE55C315232C2A9200233BEB /* old_stats_analytical_view.gif in Resources */,
 				BE27918322E6790800CE40EC /* shot_gif.gif in Resources */,
 				BEA611152301B9C300161FC2 /* help_guide_iPad.pdf in Resources */,
-				BE6AD1E722FA4F560052D053 /* help_guide_iPad.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +875,7 @@
 				BE2AC7D6231B0C2B00D1A93C /* Initial_Setup_Away_Team_Add_View_Controller.swift in Sources */,
 				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
 				BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */,
+				BEDA0E51232A9ECD00A9F97F /* New UI Update View Controller.swift in Sources */,
 				BEAD9B22230B59540040AFE2 /* Locker Room Old Stats View Controller.swift in Sources */,
 				BEBCC1B823105D8800AEAE71 /* Faceoff Info Table.swift in Sources */,
 				BE7DED9A2320061E007F58A4 /* customPlayerImportCell.swift in Sources */,
@@ -968,21 +970,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BE57F26A22DB7281001A81F9 /* Localizable.strings */ = {
+		BE55C321232C2E6300233BEB /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BE57F26922DB7281001A81F9 /* en */,
-				BE0FE5FC22F1DAAF006F4B39 /* fr-CA */,
+				BE55C320232C2E6300233BEB /* en */,
+				BE55C326232C2E7C00233BEB /* Base */,
 			);
-			name = Localizable.strings;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BE7D698121E3D74500C1745C /* Base */,
-				BE57F26222DB721B001A81F9 /* en */,
-				BE0FE5FB22F1DAAE006F4B39 /* fr-CA */,
+				BE55C31C232C2E0E00233BEB /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

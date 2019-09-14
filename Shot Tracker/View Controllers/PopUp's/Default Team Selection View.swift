@@ -49,6 +49,14 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         selectedHomeTeam = homeTeamPickerData[0]
         selectedHomeTeamKey = homeTeamPickerDataID[0]
         
+        if checkUserDefaults().isKeyPresentInUserDefaults(key: "defaultHomeTeamID") == true{
+            if (String(UserDefaults.standard.integer(forKey: "defaultHomeTeamID")) != ""){
+                let index = homeTeamPickerDataID.firstIndex(of: UserDefaults.standard.integer(forKey: "defaultHomeTeamID"))!
+                homeTeamPicker.selectRow(index, inComponent: 0, animated: true)
+            }
+        }
+        
+        
         
         viewColour()
     }

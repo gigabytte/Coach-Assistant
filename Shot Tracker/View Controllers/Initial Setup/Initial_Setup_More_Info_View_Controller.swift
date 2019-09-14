@@ -45,7 +45,7 @@ class Initial_Setup_More_Info_View_Controller: UIViewController {
         
         imageView = GIFImageView(frame: CGRect(x: 0, y: 0, width: self.addTeamPlayerView.frame.width, height: self.addTeamPlayerView.frame.height))
         imageView.layer.cornerRadius = 10
-        imageView.animate(withGIFNamed: universalValue().helpGuidePDFName) {
+        imageView.animate(withGIFNamed: universalValue().helpGuideGIF) {
         }
         
         addTeamPlayerView.addSubview(imageView)

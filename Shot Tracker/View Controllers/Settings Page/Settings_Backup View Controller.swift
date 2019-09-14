@@ -349,125 +349,221 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             return true
     }
 
-    
-    func zipGameSaves(fileURL: [URL]){
-        do {
-            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                
-                let tempUrl = dir.appendingPathComponent("GameSaves")
-                let fileURLSaveLocation = tempUrl.appendingPathComponent("gameSavesBackup.zip")
-                
-                try Zip.zipFiles(paths: fileURL, zipFilePath: fileURLSaveLocation, password: nil, progress: { (progress) -> () in
-                    print(progress)
-                }) //Zip
-            }
-        }catch{
-            print("Failed to Zip Files")
-        }
+    func deleteAllTempFiles(){
+        let tempFileURLSDIR =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!).appendingPathComponent("Backups")
         
+        do {
+        
+            let tempFileURLs = try FileManager.default.contentsOfDirectory(at: tempFileURLSDIR,
+                                                                            includingPropertiesForKeys: nil,
+                                                                            options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+            
+            for fileURL in tempFileURLs {
+                
+                try FileManager.default.removeItem(at: fileURL)
+                
+            }
+            
+        } catch  {
+            print(error)
+            
+        }
     }
     
-    func decompressZipGameSaves(){
+    
+    func deleteAllProfilePics(){
+        let playerImagesDir =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!).appendingPathComponent("PlayerImages")
+        let teamLogosDir =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!).appendingPathComponent("TeamLogo")
+        
         do {
-            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let player_fileURLs = try FileManager.default.contentsOfDirectory(at: playerImagesDir,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+            let team_fileURLs = try FileManager.default.contentsOfDirectory(at: teamLogosDir,
+                                                                              includingPropertiesForKeys: nil,
+                                                                              options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+            let allURLS = player_fileURLs + team_fileURLs
+            
+            for fileURL in allURLS {
                 
-                let tempUrl = dir.appendingPathComponent("GameSaves")
-                let fileURL = tempUrl.appendingPathComponent("gameSavesBackup.zip")
-                try Zip.quickUnzipFile(fileURL, progress: { (progress) in
-                    print(progress)
-                    
+                try FileManager.default.removeItem(at: fileURL)
+                
+            }
+        
+        } catch  {
+            print(error)
+            fatalErrorAlert("Unable to delete all profile and or team logos from App Directory. Please try again.")
+            
+        }
+    }
+    
+    func zipProfileImages(){
+        
+         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let playerImagesDir =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!).appendingPathComponent("PlayerImages")
+            let teamLogosDir =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!).appendingPathComponent("TeamLogo")
+        
+            do {
+                let player_fileURLs = try FileManager.default.contentsOfDirectory(at: playerImagesDir,
+                                                                                  includingPropertiesForKeys: nil,
+                                                                                  options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+                let team_fileURLs = try FileManager.default.contentsOfDirectory(at: teamLogosDir,
+                                                                                includingPropertiesForKeys: nil,
+                                                                                options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+                let backupURL = dir.appendingPathComponent("Backups")
+
+                try Zip.zipFiles(paths: player_fileURLs, zipFilePath: backupURL.appendingPathComponent("PlayerImageBackup.zip"), password: nil, progress: { (progress) in
+                    if progress == 1.0{
+                        
+                    }
                 })
-            }
-        }catch{
-            print("Unable to unzip gamesaves file")
+                try Zip.zipFiles(paths: team_fileURLs, zipFilePath: backupURL.appendingPathComponent("TeamImageBackup.zip"), password: nil, progress: { (progress) in
+                    if progress == 1.0{
+                        
+                    }
+                })
                 
+            } catch  {
+                print(error)
+                fatalErrorAlert("Unable to collect profile image for either teams and or players, please contact support.")
+            }
         }
-        
     }
     
-    func localBackupWriter() -> URL{
+    func localBackupWriter(showActivity: Bool) -> (URL, Bool){
         var filesToShare = [Any]()
         var finalZipRestingPlace: URL!
         
+        var isDir:ObjCBool = false
+
+        
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
-            let realmFileSearch = dir.appendingPathComponent("default.realm")
             
-            if FileManager.default.fileExists(atPath: realmFileSearch.path) {
-                
-                let tempUrl = dir.appendingPathComponent("Backups")
-                finalZipRestingPlace = tempUrl.appendingPathComponent("coachAssistantBackup.zip")
-                do {
-                    try Zip.zipFiles(paths: [realmFileSearch], zipFilePath: finalZipRestingPlace, password: nil, progress: { (progress) -> () in
-                        print(progress)
-                        if progress == 1.0{
-                            // Make the activityViewContoller which shows the share-view
-                            // Add the path of the file to the Array
-                            filesToShare.append(finalZipRestingPlace!)
-                            
-                            let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
-                            activityViewController.excludedActivityTypes = [UIActivity.ActivityType.print, UIActivity.ActivityType.assignToContact]
-                            // Show the share-view
-                            activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-                                if completed {
-                                    let date = "\(getDate().getYear()).\(getDate().getMonth()).\(getDate().getDay())"
+            let realmFileSearch = dir.appendingPathComponent("default.realm")
+            if FileManager.default.fileExists(atPath: realmFileSearch.path, isDirectory: &isDir){
+    
+                let playerImagesDir =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!).appendingPathComponent("PlayerImages")
+                let teamLogosDir =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!).appendingPathComponent("TeamLogo")
+           
+  
+                    let tempUrl = dir.appendingPathComponent("Backups")
+                    finalZipRestingPlace = tempUrl.appendingPathComponent("coachAssistantBackup.zip")
+    
+
+                    do {
+                        try Zip.zipFiles(paths: Array([playerImagesDir, teamLogosDir, realmFileSearch]), zipFilePath: finalZipRestingPlace, password: nil, progress: { (progress) -> () in
+                            print(progress)
+                            if progress == 1.0{
+                                // Make the activityViewContoller which shows the share-view
+                                // Add the path of the file to the Array
+                                if showActivity == true {
+                                    filesToShare.append(finalZipRestingPlace!)
                                     
-                                    UserDefaults.standard.set(date, forKey: "lastBackup")
-                                    self.backupUpDateCheck()
+                                    let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+                                    activityViewController.excludedActivityTypes = [UIActivity.ActivityType.print, UIActivity.ActivityType.assignToContact]
+                                    // Show the share-view
+                                    activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+                                        if completed {
+                                            let date = "\(getDate().getYear()).\(getDate().getMonth()).\(getDate().getDay())"
+                                            
+                                            UserDefaults.standard.set(date, forKey: "lastBackup")
+                                            self.backupUpDateCheck()
+                                        }
+                                        // User completed activity
+                                    }
+                                    // present UIactivtyController aka share document popup
+                                    self.present(activityViewController, animated: true, completion: nil)
+                                    if let popOver = activityViewController.popoverPresentationController {
+                                        popOver.permittedArrowDirections = UIPopoverArrowDirection(rawValue:0)
+                                        popOver.sourceView = self.backupTableView
+                                        
+                                    }
                                 }
-                                // User completed activity
-                            }
-                            // present UIactivtyController aka share document popup
-                            self.present(activityViewController, animated: true, completion: nil)
-                            if let popOver = activityViewController.popoverPresentationController {
-                                popOver.permittedArrowDirections = UIPopoverArrowDirection(rawValue:0)
-                                popOver.sourceView = self.backupTableView
                                 
                             }
-                            
-                        }
-                    })
+                        })
+                        
+                    }catch{
+                        print("Failed to Zip Files")
+                        fatalErrorAlert("Failed to Zip Files")
+                    }
                     
-                }catch{
-                    print("Failed to Zip Files")
-                    self.fatalErrorAlert("Failed to Zip Files")
-                }
-                
+                   
+                 return (finalZipRestingPlace, true)
             }else{
                 print("cant find realm file")
+                fatalErrorAlert("Cannot locate databse file, backup aborted, please contact support.")
+                return (URL(string: "")!, false)
             }
+           
+        }else{
+             return (URL(string: "")!, false)
         }
-        return finalZipRestingPlace
+    
     }
+
     
     func iCloudDocumentReader(){
         
-        if let icloudFolderURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents"),
-            let urls = try? FileManager.default.contentsOfDirectory(at: icloudFolderURL, includingPropertiesForKeys: nil, options: []) {
-            unZipBackup(documentURL: urls.first!)
+        var urlConvert = NSURL()
+        
+        if let urls = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").appendingPathComponent("coachAssistantBackup.zip"){
+            urlConvert = urls as NSURL
+            if urlConvert.absoluteString != "" {
+                unZipBackup(documentURL: urls)
+            }else{
+                fatalErrorAlert("Failed to locate documents in iCloud container, please make sure you have a backup in iCloud before proceeding.")
+            }
         }else{
             fatalErrorAlert("Failed to locate documents in iCloud container, please make sure you have a backup in iCloud before proceeding.")
         }
     }
     
+    
     func moveFileToLocal(){
+        
+        var isDir:ObjCBool = false
+        
          if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let realmDefaultPath = dir.appendingPathComponent("Backups").appendingPathComponent("default.realm")
-            if FileManager.default.fileExists(atPath: realmDefaultPath.path){
+            let path = dir.appendingPathComponent("Backups")//.appendingPathComponent("default.realm")
+            let realmDefaultPath = path.appendingPathComponent("default.realm")
+            
+            if FileManager.default.fileExists(atPath: realmDefaultPath.path, isDirectory: &isDir) {
+                
+                   
                 do {
-                    try FileManager.default.copyItem(at: realmDefaultPath, to: dir)
-                    let date = "\(getDate().getYear()).\(getDate().getMonth()).\(getDate().getDay())"
+                    // replace realm.default with backup
+                    print(realmDefaultPath)
+                    try! FileManager.default.replaceItemAt(dir.appendingPathComponent("default.realm"), withItemAt: realmDefaultPath)
                     
-                    UserDefaults.standard.set(date, forKey: "lastBackup")
-                    self.backupUpDateCheck()
-                }
-                catch {
-                    //Error handling
-                    print("Error in coping item from local directory to icloud container")
-                    fatalErrorAlert("Error Copying file from temp directory to workling directory. Operation aborted, please try again before contacting support")
-                }
+                    do{
+                        let playerImagesBckupDIR = dir.appendingPathComponent("Backups").appendingPathComponent("PlayerImages")
+                        try FileManager.default.replaceItemAt(dir.appendingPathComponent("PlayerImages"), withItemAt: playerImagesBckupDIR)
+                        
+                        
+                            do{
+                                let teamImagesBckupDIR = dir.appendingPathComponent("Backups").appendingPathComponent("TeamLogo")
+                                try FileManager.default.replaceItemAt(dir.appendingPathComponent("TeamLogo"), withItemAt: teamImagesBckupDIR)
+                                
+                                self.importAlert(message: "Successfully Import Backup of Backup. Restart app in inorder for changes to take full effect")
+                            }catch{
+                                print(error)
+                                fatalErrorAlert("Error attempting to replace team logo's file from backup to home directory, please contact support")
+                                //cannot copy player images backup to home dir
+                            }
+                        
+                    }catch{
+                        fatalErrorAlert("Error attempting to replace player profile images file from backup to home directory, please contact support")
+                    }
+                    }catch{
+                        // no playrimages dir in home dir to remove
+                        print(error)
+                        fatalErrorAlert("Error attempting to replace database file to home directory, please contact support")
+                    }
+              
             }else{
-                fatalErrorAlert("Error Copying file from temp directory to workling directory. Operation aborted, please try again before contacting support")
+                fatalErrorAlert("Error finding backup databse file, please try again before contacting support")
             }
         }
     }
@@ -476,11 +572,11 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         
         var isDir:ObjCBool = false
         
-        guard let iCloudDocumentsURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").appendingPathComponent("coachAssistantBackup") else { return }
+        guard let iCloudDocumentsURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents").appendingPathComponent("coachAssistantBackup.zip") else { return }
         
-        if FileManager.default.fileExists(atPath: fileURL.path, isDirectory: &isDir) {
+        if FileManager.default.fileExists(atPath: iCloudDocumentsURL.path, isDirectory: &isDir) {
             do {
-                try FileManager.default.removeItem(at: fileURL)
+                try FileManager.default.removeItem(at: iCloudDocumentsURL)
             }
             catch {
                 //Error handling
@@ -495,6 +591,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             
             UserDefaults.standard.set(date, forKey: "lastBackup")
             self.backupUpDateCheck()
+            //self.deleteAllTempFiles()
         }
         catch {
             //Error handling
@@ -508,35 +605,16 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         
        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let destinationURL = dir.appendingPathComponent("Backups")
-        
-            try! Zip.unzipFile(documentURL, destination: destinationURL, overwrite: true, password: nil, progress: { (progress) in
-                print(progress)
-                if progress == 1.0{
-                    let realmDefaultPath = destinationURL.appendingPathComponent("default.realm")
-                    if FileManager.default.fileExists(atPath: realmDefaultPath.path){
-
-                        print("path ext is: \(realmDefaultPath.pathExtension)")
-                        if realmDefaultPath.pathExtension != "realm"{
-                            self.fatalErrorAlert("File failed inspection test. Make sure the file being imported is of type 'default.realm'. Import aborted")
-                            do{
-                                try FileManager.default.removeItem(at: realmDefaultPath)
-                            }catch let error as NSError{
-                                print(error)
-                            }
-                        }else{
-                            self.reloadAppAlert()
-                            
-                        }
-                       
-                    }else{
-                        self.fatalErrorAlert("Failed to remove current working database file. Please make sure pp is not configuting any teams or players in the background. Import aborted, contact support if problem persists")
+            if FileManager.default.fileExists(atPath: destinationURL.path){
+                try! Zip.unzipFile(documentURL, destination: destinationURL, overwrite: true, password: nil, progress: { (progress) in
+                    print(progress)
+                    if progress == 1.0{
+                        self.moveFileToLocal()
                     }
-                }
-            }, fileOutputHandler: { (result) in
-                if !result.isFileURL == true{
-                    print("Unable to locate unzipped file, Whoops!")
-                }
-            })
+                })
+            }
+       }else{
+        print("cannot find backups dir")
         }
     }
     
@@ -1219,8 +1297,8 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         exportAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Continue"), style: UIAlertAction.Style.default, handler: { action in
             
            
-            
-            self.localBackupWriter()
+            self.zipProfileImages()
+            self.localBackupWriter(showActivity: true)
      
             
         }))
@@ -1238,8 +1316,11 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         exportAlert.addAction(UIAlertAction(title: localizedString().localized(value:"Continue"), style: UIAlertAction.Style.default, handler: { action in
             
          
+            let localBackupResult = self.localBackupWriter(showActivity: false)
+            if localBackupResult.1 == true{
+                self.iCloudDocumentWriter(fileURL: localBackupResult.0)
+            }
             
-            self.iCloudDocumentWriter(fileURL: self.localBackupWriter())
             
         }))
         // show the alert
@@ -1280,7 +1361,11 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
                 //delete contents of DB
                 realm.deleteAll()
             })
+            //remove defauklt home team user default
             UserDefaults.standard.removeObject(forKey: "defaultHomeTeamID")
+            //delete all profile images
+            self.deleteAllProfilePics()
+            
         }))
         
         // show the alert
@@ -1403,6 +1488,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
                 break
 
             default:
+                fatalErrorAlert("Failure to indentify selection. Error code 111")
                 print("FATAL CELL SELECTION ERROR")
                 break
             }
@@ -1411,10 +1497,15 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             case 0:
                 if (icloudToggleSwitch.isOn == true){
                     iCloudDocumentReader()
-                    moveFileToLocal()
+                    deleteAllTempFiles()
+                    //remove defauklt home team user default
+                    UserDefaults.standard.removeObject(forKey: "defaultHomeTeamID")
                 }else{
                     self.importPlayersBool = 2
                     self.showUIDocumentController()
+                    deleteAllTempFiles()
+                    //remove defauklt home team user default
+                    UserDefaults.standard.removeObject(forKey: "defaultHomeTeamID")
                 }
                 
                 break
@@ -1423,6 +1514,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
                 
                 break
             default:
+                fatalErrorAlert("Failure to indentify selection. Error code 111")
                 print("FATAL CELL SELECTION ERROR")
                 break
             }
@@ -1431,11 +1523,11 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
             writeZipRealmFiles()
             break
         case 4:
-            print("Asking User to delete app data")
             deleteDataPrompt()
             break
         default:
             print("FATAL CELL SELECTION ERROR")
+            fatalErrorAlert("Failure to indentify selection. Error code 111")
             break
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -1515,20 +1607,7 @@ extension Settings_Backup_View_Controller: UIDocumentPickerDelegate,UINavigation
             if  urls.count > 1 {
                 fatalErrorAlert("Please import your 'coachAssistantBackup.zip file. THe file selected does not meet this criteria.'")
             }else {
-                if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    
-                    let realmFileSearch = dir.appendingPathComponent("default.realm")
-                    
-                    if FileManager.default.fileExists(atPath: realmFileSearch.path) {
-                        do{
-                            try FileManager.default.removeItem(at: realmFileSearch)
-                            unZipBackup(documentURL: urls.first!)
-                            moveFileToLocal()
-                        }catch let error as NSError{
-                            print(error)
-                        }
-                    }
-                }
+                unZipBackup(documentURL: urls.first!)
                 
                 return
             }
