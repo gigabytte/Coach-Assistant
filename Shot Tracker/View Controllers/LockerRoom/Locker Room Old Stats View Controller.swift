@@ -21,9 +21,6 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
     var homeTeamID: [Int] = [Int]()
     var awayTeamID: [Int] = [Int]()
     var newGameDates: [String] = [String]()
-    var homeTeamName: [String] = [String]()
-    var awayTeamName: [String] = [String]()
-    var gameType: [String] = [String]()
     var passedGameID: Int!
     
     // cell reuse id (cells that scroll out of view can be reused)
@@ -83,7 +80,7 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
         tableView.dataSource = self
         
         if newGameDates.isEmpty == true{
-            print("No Game Found on Load")
+            
             noGameFoundLabel.isHidden = false
         }else{
             noGameFoundLabel.isHidden = true
@@ -110,7 +107,6 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
         // get new gametable ID's based on anything 0 and larger
         let newGameTableDateData = newGameTableData.value(forKeyPath: "dateGamePlayed") as! [Date]
         homeTeamID =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeGameStatus == false AND activeState == true", 0)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})
-        print(homeTeamID)
         awayTeamID =  (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID >= %i AND activeGameStatus == false AND activeState == true", 0)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})
         // convert dates array type to string array type
         for date in newGameTableDateData{
@@ -121,7 +117,7 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
         }
         newGameDates.reverse()
         newGameIDs.reverse()
-        print(newGameDates)
+       
     }
     
     // number of rows in table view
@@ -134,28 +130,47 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
         homeTeamID.removeAll()
         awayTeamID.removeAll()
         newGameDates.removeAll()
-        homeTeamName.removeAll()
-        awayTeamName.removeAll()
-        gameType.removeAll()
         onLoad()
     }
     
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        var homeTeamName: String = ""
+        var awayTeamName: String = ""
+        var gameType: String = ""
+        
         // create a new cell if needed or reuse an old one
         let cell:UITableViewCell = (self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell?)!
         // get new gametable objects with filktered by gameID where >=0
-        homeTeamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", homeTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}).reversed()
-        awayTeamName = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i AND activeState == true", awayTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}).reversed()
-        gameType = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", Int(newGameIDs[indexPath.row])!)).value(forKeyPath: "gameType") as! [String]).compactMap({String($0)}).reversed()
+        if let homeTeamNameQuery = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i", homeTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}).first{
+            if homeTeamNameQuery != ""{
+                homeTeamName = homeTeamNameQuery
+            }else{
+                homeTeamName = "Unknow"
+            }
+        }
+        if let awayTeamNameQuery = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID == %i", awayTeamID[indexPath.row])).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)}).first{
+            if awayTeamNameQuery != ""{
+                 awayTeamName = awayTeamNameQuery
+            }else{
+                awayTeamName = "Unknown"
+            }
+        }
+        if let gameTypeQuery = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", Int(newGameIDs[indexPath.row])!)).value(forKeyPath: "gameType") as! [String]).compactMap({String($0)}).first{
+            if gameTypeQuery != ""{
+                gameType = gameTypeQuery
+            }else{
+                gameType = "Unknown"
+            }
+        }
         
         let homeTeamScore = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", Int(newGameIDs[indexPath.row])!, homeTeamID[indexPath.row])).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
         let awayTeamScore = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND TeamID == %i AND activeState == true", Int(newGameIDs[indexPath.row])!, awayTeamID[indexPath.row])).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         
         // set the text from the data model
-        cell.textLabel?.text = "\n\(gameType[0]) Game, \(homeTeamName[0]) vs \(awayTeamName[0]) on date \(String(self.newGameDates[indexPath.row])), \(homeTeamScore) - \(awayTeamScore)\n"
+        cell.textLabel?.text = "\n\(gameType) Game, \(homeTeamName) vs \(awayTeamName) on date \(String(self.newGameDates[indexPath.row])), \(homeTeamScore) - \(awayTeamScore)\n"
         cell.textLabel!.numberOfLines = 0;
         cell.textLabel?.textAlignment = .center
         cell.backgroundColor = UIColor.clear
@@ -165,7 +180,7 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
     
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You tapped cell number \(indexPath.row).")
+
         UserDefaults.standard.set(Int(newGameIDs[indexPath.row]), forKey: "gameID")
         UserDefaults.standard.set(Int(homeTeamID[indexPath.row]), forKey: "homeTeam")
         UserDefaults.standard.set(Int(awayTeamID[indexPath.row]), forKey: "awayTeam")

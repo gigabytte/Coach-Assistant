@@ -178,9 +178,7 @@ class Initial_Setup_Home_Team_Add_View_Controller: UIViewController, UIPickerVie
         
     }
     
-    @IBAction func importGameSavesButton(_ sender: UIButton) {
-        print("Importing Game Saves")
-    }
+    
     
     @objc func teamLogoTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         print("Opening Photo Selection Method")
@@ -353,7 +351,7 @@ extension Initial_Setup_Home_Team_Add_View_Controller:  UIImagePickerControllerD
     func imageWriter(fileName: String, imageName: UIImage){
         
         
-        let imageData = imageName.jpegData(compressionQuality: 0.25)
+        let imageData = imageName.jpegData(compressionQuality: 0.10)
         
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {

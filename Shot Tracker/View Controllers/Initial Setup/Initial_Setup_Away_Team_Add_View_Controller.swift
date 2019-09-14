@@ -420,7 +420,7 @@ extension Initial_Setup_Away_Team_Add_View_Controller:  UIImagePickerControllerD
     func imageWriter(fileName: String, imageName: UIImage){
         
         
-        let imageData = imageName.jpegData(compressionQuality: 0.25)
+        let imageData = imageName.jpegData(compressionQuality: 0.10)
         
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {

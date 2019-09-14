@@ -65,7 +65,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         closeButton.isHidden = true
         pageControl.isHidden = true
         
-        UserDefaults.standard.set(false, forKey: "firstOldStatsBool")
+        //UserDefaults.standard.set(false, forKey: "firstOldStatsBool")
         
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "passDataInView"), object: nil)
         

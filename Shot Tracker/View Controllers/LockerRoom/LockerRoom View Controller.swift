@@ -136,7 +136,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         let realm = try! Realm()
         
         // check is usr has selected a a deafult team yet
-        if(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
+        if(((realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({String($0)})).count != 0){
             // check if deafult team has been selected on load
             if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
                 print("no teams id")
@@ -200,12 +200,17 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
                 
             }else{
                 // if teams or players are not avaiable top be pulled alert error appears
-                dataReturnNilAlert()
+                dataReturnNilAlert(activeGame: false)
             }
         }else{
             // check if user has chnaged the default team while a game is ongoing or if this a new game all together
-            if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int) == (realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID))?.teamID || (realm.object(ofType: newGameTable.self, forPrimaryKey: (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus) == false){
+            let currentHomeTeamID = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID))?.teamID
+            let currentGameState = (realm.object(ofType: newGameTable.self, forPrimaryKey: (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus)
+            
+            if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int) == currentHomeTeamID && currentGameState == true){
+                
                 if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+                    
                     let tempHomeTeamID  = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID)!
                     let tempAwayTeamID  = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID)!
                     UserDefaults.standard.set(tempHomeTeamID, forKey: "homeTeam")
@@ -214,7 +219,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
                     self.performSegue(withIdentifier: "skipTeamSelectionSegue", sender: nil);
                 }else{
                     // if teams or players are not avaiable top be pulled alert error appears
-                    dataReturnNilAlert()
+                    dataReturnNilAlert(activeGame: true)
                 }
             }else{
                 // present a alert controller if default team has been chnaged while a game is ongoing
@@ -274,15 +279,26 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     // func checks if there is atleast two teams prevent new game errors; returns bool
     func teamChecker() -> Bool{
         let realm = try! Realm()
-        // get first an last team entered in DB
-        let teamOne = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
-        let teamTwo = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
-        if (teamOne.first != nil && teamOne.first != teamTwo.last){
-            
+        
+         let currentGameObjc = (realm.object(ofType: newGameTable.self, forPrimaryKey: (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)))
+        let home_teamObjc = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: (currentGameObjc?.homeTeamID)!))
+        let away_teamObjc = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: (currentGameObjc?.opposingTeamID)!))
+        
+        if home_teamObjc?.activeState == true && away_teamObjc?.activeState == true{
             return true
         }else{
             return false
         }
+        
+        /* get first an last team entered in DB
+        let teamOne = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)}).first
+        let teamTwo = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)}).first
+        if (teamOne != nil && teamOne != teamTwo){
+            
+            return true
+        }else{
+            return false
+        }*/
     }
     
     // popup default team selection view
@@ -354,12 +370,26 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     }
     
     // if teams or players are not avaiable top be pulled alert error appears
-    func dataReturnNilAlert(){
+    func dataReturnNilAlert(activeGame: Bool){
         
         // create the alert
-        let nilAlert = UIAlertController(title: localizedString().localized(value:"Data Error"), message: localizedString().localized(value:"Please add atleast two teams, one player and one goalie for each corresponding team."), preferredStyle: UIAlertController.Style.alert)
+        let nilAlert = UIAlertController(title: localizedString().localized(value:"Data Error"), message: localizedString().localized(value:"Please have atleast two 'active' teams, one player and one goalie for each corresponding team that are 'active' as well in order to jump into a game."), preferredStyle: UIAlertController.Style.alert)
+        if activeGame == true{
+            // add an action (button)
+            nilAlert.addAction(UIAlertAction(title: "Close Current Game", style: UIAlertAction.Style.destructive, handler: { action in
+                
+                let realm = try! Realm()
+                
+                try! realm.write{
+                    realm.object(ofType: newGameTable.self, forPrimaryKey: (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?))?.activeGameStatus = false
+                }
+                // change defaults based on user selection to close game
+                self.newGameBarButton.tintColor = UIColor.black
+                self.activeStatus = false
+            }))
+        }
         // add an action (button)
-        nilAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        nilAlert.addAction(UIAlertAction(title: "Go Back", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
         self.present(nilAlert, animated: true, completion: nil)
         

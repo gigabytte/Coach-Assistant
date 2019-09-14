@@ -8,7 +8,8 @@
 
 import UIKit
 import RealmSwift
-import Realm
+import MobileCoreServices
+import Zip
 
 class Add_Team_Page: UIViewController {
 
@@ -18,6 +19,7 @@ class Add_Team_Page: UIViewController {
     var imagePickerController : UIImagePickerController!
     
     //Connections to the page
+    @IBOutlet weak var importBackupButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var teamName: UITextField!
     @IBOutlet weak var inActiveTeamToggle: UISwitch!
@@ -55,7 +57,7 @@ class Add_Team_Page: UIViewController {
             delay(0.5){
                 
                 // create the alert
-                let noTeams = UIAlertController(title: localizedString().localized(value:"New to the App?"), message: localizedString().localized(value:"Please add at least one team before adding a default team or import a team from settings."), preferredStyle: UIAlertController.Style.alert)
+                let noTeams = UIAlertController(title: localizedString().localized(value:"Let's Start you Off"), message: localizedString().localized(value:"Import your game data from backup or start fresh with a new team. If you need more options please open 'Settings'."), preferredStyle: UIAlertController.Style.alert)
                 // add an action (button)
                 noTeams.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                 // add an action (button)
@@ -69,6 +71,7 @@ class Add_Team_Page: UIViewController {
         if noTeamsBool == true{
             closeButton.isHidden = false
             visitWebsiteButton.isHidden = true
+            importBackupButton.isHidden = false
             view.backgroundColor = systemColour().viewColor()
             
         }
@@ -110,8 +113,12 @@ class Add_Team_Page: UIViewController {
         
     }
 
-
-    @IBAction func visitWebsiteButton(_ sender: Any) {
+    @IBAction func importBackupButton(_ sender: UIButton) {
+        
+        showUIDocumentController()
+    }
+    
+    @IBAction func visitWebsiteButton(_ sender: UIButton) {
         
         let actionSheet = UIAlertController(title: localizedString().localized(value:"Did you Know?"), message: localizedString().localized(value:"Tired of adding your players one by one? Coach Assistant allows you to add multiple users with our handy import / backup funciton. We have an easy to follow and quick tutorial online so you can get started!"), preferredStyle: .actionSheet)
         
@@ -223,6 +230,14 @@ class Add_Team_Page: UIViewController {
     @objc func myMethod(notification: NSNotification){
         onLoad()
     }
+    
+    func showUIDocumentController(){
+        
+        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText), String(kUTTypeZipArchive)], in: .import)
+        importMenu.delegate = self
+        importMenu.modalPresentationStyle = .formSheet
+        self.present(importMenu, animated: true, completion: nil)
+    }
    
     func mediaTypeSlectionAlert(){
         
@@ -303,6 +318,22 @@ class Add_Team_Page: UIViewController {
         // show the alert
         self.present(noTeamAlert, animated: true, completion: nil)
     }
+    
+    func importAlert(message: String){
+        
+        // create the alert
+        let importAlert = UIAlertController(title: localizedString().localized(value: message), message: "", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        importAlert.addAction(UIAlertAction(title: localizedString().localized(value: "OK"), style: UIAlertAction.Style.default, handler: { action in
+            
+            self.closeButton.isUserInteractionEnabled = false
+            self.closeButton.alpha = 0.3
+      
+        }))
+        
+        // show the alert
+        self.present(importAlert, animated: true, completion: nil)
+    }
 
     // delay loop
     func delay(_ delay:Double, closure:@escaping ()->()) {
@@ -336,7 +367,7 @@ extension Add_Team_Page:  UIImagePickerControllerDelegate, UINavigationControlle
     
     func imageWriter(fileName: String, imageName: UIImage){
         
-        let imageData = imageName.jpegData(compressionQuality: 0.25)
+        let imageData = imageName.jpegData(compressionQuality: 0.10)
         
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -357,5 +388,120 @@ extension Add_Team_Page:  UIImagePickerControllerDelegate, UINavigationControlle
             }
         }
     }
+    
+}
+extension Add_Team_Page: UIDocumentPickerDelegate{
+    
+    
+    func documentPicker(_ documentPicker: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        
+        
+        if  urls.count > 1 {
+            fatalError("Please import your 'coachAssistantBackup.zip file. THe file selected does not meet this criteria.'")
+        }else {
+            unZipBackup(documentURL: urls.first!)
+            
+            return
+        }
+    }
+    
+    func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
+        
+        documentPicker.delegate = self
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        print("document Picker Was Cancelled")
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func moveFileToLocal(){
+        
+        var isDir:ObjCBool = false
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let path = dir.appendingPathComponent("Backups")//.appendingPathComponent("default.realm")
+            let realmDefaultPath = path.appendingPathComponent("default.realm")
+            
+            if FileManager.default.fileExists(atPath: realmDefaultPath.path, isDirectory: &isDir) {
+                
+                
+                do {
+                    // replace realm.default with backup
+                    print(realmDefaultPath)
+                    try! FileManager.default.replaceItemAt(dir.appendingPathComponent("default.realm"), withItemAt: realmDefaultPath)
+                    
+                    do{
+                        let playerImagesBckupDIR = dir.appendingPathComponent("Backups").appendingPathComponent("PlayerImages")
+                        try FileManager.default.replaceItemAt(dir.appendingPathComponent("PlayerImages"), withItemAt: playerImagesBckupDIR)
+                        
+                        
+                        do{
+                            let teamImagesBckupDIR = dir.appendingPathComponent("Backups").appendingPathComponent("TeamLogo")
+                            try FileManager.default.replaceItemAt(dir.appendingPathComponent("TeamLogo"), withItemAt: teamImagesBckupDIR)
+                            
+                            self.importAlert(message: "Successfully Import Backup of Backup. Restart app in inorder for changes to take full effect")
+                        }catch{
+                            print(error)
+                            fatalError("Error attempting to replace team logo's file from backup to home directory, please contact support")
+                            //cannot copy player images backup to home dir
+                        }
+                        
+                    }catch{
+                        fatalError("Error attempting to replace player profile images file from backup to home directory, please contact support")
+                    }
+                }catch{
+                    // no playrimages dir in home dir to remove
+                    print(error)
+                    fatalError("Error attempting to replace database file to home directory, please contact support")
+                }
+                
+            }else{
+                fatalError("Error finding backup databse file, please try again before contacting support")
+            }
+        }
+    }
+    
+    func unZipBackup(documentURL: URL){
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let destinationURL = dir.appendingPathComponent("Backups")
+            if FileManager.default.fileExists(atPath: destinationURL.path){
+                try! Zip.unzipFile(documentURL, destination: destinationURL, overwrite: true, password: nil, progress: { (progress) in
+                    print(progress)
+                    if progress == 1.0{
+                        self.moveFileToLocal()
+                    }
+                })
+            }
+        }else{
+            print("cannot find backups dir")
+        }
+    }
+    
+    func deleteAllTempFiles(){
+        let tempFileURLSDIR =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!).appendingPathComponent("Backups")
+        
+        do {
+            
+            let tempFileURLs = try FileManager.default.contentsOfDirectory(at: tempFileURLSDIR,
+                                                                           includingPropertiesForKeys: nil,
+                                                                           options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+            
+            for fileURL in tempFileURLs {
+                
+                try FileManager.default.removeItem(at: fileURL)
+                
+            }
+            
+        } catch  {
+            print(error)
+            
+        }
+    }
+    
+   
     
 }
