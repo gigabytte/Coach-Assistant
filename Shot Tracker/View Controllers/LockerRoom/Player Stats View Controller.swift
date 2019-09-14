@@ -12,6 +12,7 @@ import RealmSwift
 
 class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var teamActiveStateLabel: UILabel!
     @IBOutlet weak var needProWarningImage: UIImageView!
     @IBOutlet weak var dataWarningTeamLineChart: UILabel!
     @IBOutlet weak var dataWarningTeamPieChart: UILabel!
@@ -66,6 +67,8 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
     
     
     func onLoad(){
+        
+        playerInfoTableView.rowHeight = 125
         
         UserDefaults.standard.set(true, forKey: "userPurchaseConf")
         
@@ -292,7 +295,13 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
             }
         }
         
-        
+        if let teamActiveState = teamObjc?.activeState{
+            if teamActiveState != true{
+                teamActiveStateLabel.isHidden = false
+            }else{
+                teamActiveStateLabel.isHidden = true
+            }
+        }
         
     }
     
@@ -432,6 +441,7 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         homePlayerIDs.removeAll()
         homePlayerNumber.removeAll()
         homePlayerPosition.removeAll()
+        homePlayerBool.removeAll()
         
         selectedTeamID =  UserDefaults.standard.integer(forKey: "defaultHomeTeamID")
         
@@ -490,15 +500,19 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
             
             if homePlayerBool[indexPath.row] == false{
                 cell.deletedPlayerIcon.isHidden = false
+            }else{
+                cell.deletedPlayerIcon.isHidden = true
             }
            //cell.playerProfileImage.layer.masksToBounds = true
             let readerResult = playerImageReader(fileName: (playerObjc?.playerLogoURL)!)
-            if readerResult != nil{
+            if readerResult.images?.first != UIImage(named: "temp_profile_pic_icon"){
                 cell.playerProfileImage.image = readerResult
                
+            }else{
+                cell.playerProfileImage.image = UIImage(named: "temp_profile_pic_icon")
             }
         
-            
+        
         }
         return cell
     }

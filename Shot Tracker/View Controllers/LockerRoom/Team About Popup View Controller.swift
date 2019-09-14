@@ -374,6 +374,24 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         self.present(successfulQuery, animated: true, completion: nil)
     }
     
+    func reNameProfileImageFile(logoURL: String, newName: String){
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let tempUrl = dir.appendingPathComponent("TeamLogo")
+            let fileURL = tempUrl.appendingPathComponent(logoURL)
+            
+            let new_fileURL = tempUrl.appendingPathComponent(newName)
+            
+            do {
+                try FileManager.default.moveItem(at: fileURL, to: new_fileURL)
+            }catch{
+                fatalErrorAlert("Unable to rename Team logo image, please contact support.")
+                print("\(error)")
+            }
+            
+            
+        }
+    }
+    
     func saveTeamInfo(){
         
         let realm = try! Realm()
@@ -383,11 +401,18 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID);
         
         if (newName != "" && seasonNumber != ""){
+            // rename logo file name is name is chnaged
+            if let oldLogoURL = teamObjc?.teamLogoURL{
+                if oldLogoURL != ""{
+                    reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo")
+                }
+            }
             
             try! realm.write{
                 teamObjc!.activeState = teamToggleSwitch.isOn
                 teamObjc!.nameOfTeam = newName
                 teamObjc?.seasonYear = Int(seasonNumber)!
+                teamObjc?.teamLogoURL = "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo"
                 
             }
             succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
@@ -406,11 +431,30 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
                 teamObjc!.activeState = teamToggleSwitch.isOn
             }
             succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
+        }else if (newName != "" && seasonNumber == ""){
+            // rename logo file name is name is chnaged
+            if let oldLogoURL = teamObjc?.teamLogoURL{
+                if oldLogoURL != ""{
+                    reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo")
+                }
+            }
+            
+            try! realm.write{
+                teamObjc!.activeState = teamToggleSwitch.isOn
+                teamObjc!.nameOfTeam = newName
+                teamObjc?.teamLogoURL = "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo"
+            }
+            succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
+        }else{
+            try! realm.write{
+                teamObjc!.activeState = teamToggleSwitch.isOn
+                teamObjc!.nameOfTeam = newName
+                teamObjc?.seasonYear = Int(seasonNumber)!
+                
+            }
+            succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
         }
-        if (teamToggleSwitch.isOn == false){
-            UserDefaults.standard.set(nil, forKey: "defaultHomeTeamID")
-            print("Default Team Reset")
-        }
+        
 
     }
     
@@ -613,7 +657,7 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
         let realm = try! Realm()
         let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)
         
-        let imageData = imageName.jpegData(compressionQuality: 0.25)
+        let imageData = imageName.jpegData(compressionQuality: 0.10)
         
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -621,17 +665,36 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
             let tempUrl = dir.appendingPathComponent("TeamLogo")
             let fileURL = tempUrl.appendingPathComponent(fileName)
             
-            print(fileURL)
-            
-            do {
-                try imageData!.write(to: fileURL, options: .atomicWrite)
-                // send realm the location of the logo in DD
-                realmLogoRefrence(fileURL: fileName)
-                
-            } catch {
-                print("Team logo write error")
-                fatalErrorAlert("An error has occured while attempting to save your team logo. Please contact support!")
+            if let oldLogoURL = teamObjc?.teamLogoURL{
+                if oldLogoURL != ""{
+                    do{
+                        try FileManager.default.removeItem(atPath: (tempUrl.appendingPathComponent(oldLogoURL)).path)
+                        do {
+                            try imageData!.write(to: fileURL, options: .atomicWrite)
+                            // send realm the location of the logo in DD
+                            realmLogoRefrence(fileURL: fileName)
+                            
+                        } catch {
+                            print("Player logo write error")
+                            fatalErrorAlert("An error has occured while attempting to save your team logo image. Please contact support!")
+                        }
+                    }catch{
+                        print("\(error)")
+                        fatalErrorAlert("Unable to remove old team logo image, please try again.")
+                    }
+                }else{
+                    do {
+                        try imageData!.write(to: fileURL, options: .atomicWrite)
+                        // send realm the location of the logo in DD
+                        realmLogoRefrence(fileURL: fileName)
+                        
+                    } catch {
+                        print("Player logo write error")
+                        fatalErrorAlert("An error has occured while attempting to save your team logo image. Please contact support!")
+                    }
+                }
             }
+            
         }
     }
     

@@ -109,6 +109,8 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         let line = selectLine
         let position = selectPosition
         
+        print("line \(line) postion \(position)")
+        
         let newPlayer = playerInfoTable()
         
         if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
@@ -509,7 +511,7 @@ extension Add_Player_Page:  UIImagePickerControllerDelegate, UINavigationControl
     
     func imageWriter(fileName: String, imageName: UIImage){
         
-        let imageData = imageName.jpegData(compressionQuality: 0.25)
+        let imageData = imageName.jpegData(compressionQuality: 0.10)
         
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {

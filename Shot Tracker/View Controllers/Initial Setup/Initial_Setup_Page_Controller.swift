@@ -70,7 +70,7 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             case 5:
                 print("Turned to FInish Page")
                 self.setViewControllers([orderedViewControllers[5]], direction: .forward, animated: true, completion: nil)
-                pageControl.currentPage = 1
+                pageControl.currentPage = 5
                 break
             default:
                 print("Page turning error retudred to start")
@@ -89,6 +89,7 @@ class Initial_Setup_Page_Controller: UIPageViewController, UIPageViewControllerD
             self.pageControl.tintColor = UIColor.black
             self.pageControl.pageIndicatorTintColor = UIColor.lightGray
             self.pageControl.currentPageIndicatorTintColor = UIColor.black
+            self.pageControl.isUserInteractionEnabled = false
             self.view.addSubview(pageControl)
         }
         

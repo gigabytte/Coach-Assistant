@@ -1476,6 +1476,8 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.row)!")
         switch indexPath.section {
+        case 0:
+            break
         case 1:
             switch indexPath.row{
             case 0:

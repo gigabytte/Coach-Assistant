@@ -427,28 +427,28 @@ class playerLinePositionConverter{
        
         case 1:
             return "F Line 1"
-            break
+            
         case 2:
             return "F Line 2"
-            break
+            
         case 3:
-            return "D Line 3"
-            break
+            return "F Line 3"
+            
         case 4:
             return "D Line 1"
-            break
+            
         case 5:
             return "D Line 2"
-            break
+            
         case 6:
             return "D Line 3"
-            break
+            
         case 0:
             return "G Line 1"
-            break
+            
         default:
-            return "F Line 1"
-            break
+            return "Line N/A"
+            
         }
         
     }

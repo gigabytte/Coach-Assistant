@@ -102,7 +102,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        UserDefaults.standard.set(false, forKey: "firstGameBool")
+        //UserDefaults.standard.set(false, forKey: "firstGameBool")
         
         pageControl.addTarget(self, action: Selector(("didChangePageControlValue")), for: .valueChanged)
         

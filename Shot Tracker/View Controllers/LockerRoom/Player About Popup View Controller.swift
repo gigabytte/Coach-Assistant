@@ -256,12 +256,13 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         
         if let positionType = playerObjc?.positionType{
             if positionType != "" {
+                print(positionType)
                 playerPositionLabel.text = playerPositionConverter().realmInpuToString(rawInput: positionType)
             }else{
                 playerPositionLabel.text = "Unknown"
             }
         }
-        print(playerObjc?.playerLogoURL)
+
         if let URL = playerObjc?.playerLogoURL{
             if URL != ""{
                 
@@ -475,6 +476,24 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         self.present(successfulQuery, animated: true, completion: nil)
     }
     
+    func reNameProfileImageFile(logoURL: String, newName: String){
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let tempUrl = dir.appendingPathComponent("PlayerImages")
+            let fileURL = tempUrl.appendingPathComponent(logoURL)
+            
+            let new_fileURL = tempUrl.appendingPathComponent(newName)
+            
+            do {
+                try FileManager.default.moveItem(at: fileURL, to: new_fileURL)
+            }catch{
+                fatalErrorAlert("Unable to rename Player Profile image, please contact support.")
+                print("\(error)")
+            }
+            
+            
+        }
+    }
+    
     func savePlayerInfo(){
         
         let realm = try! Realm()
@@ -487,21 +506,35 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
        
     // check to see if fields are filled out properly
         if(playerName != "" && playerEditNumberTextField.text! != ""){
-            
+            // rename logo file name is name is chnaged
+            if let oldLogoURL = editedPlayer?.playerLogoURL{
+                if oldLogoURL != ""{
+                    reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo")
+                }
+            }
+   
             try! realm.write {
                 editedPlayer!.jerseyNum = playerNumber!
                 editedPlayer!.playerName = playerName
                 editedPlayer!.lineNum = playerLine!
                 editedPlayer!.positionType = playerPosition!
+                editedPlayer!.playerLogoURL = "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo"
                 editedPlayer!.activeState = playerActiveSwitch.isOn
             }
             editFieldsButton.tag = 20
         }else if(playerName != "" && playerEditNumberTextField.text! == ""){
+            // rename logo file name is name is chnaged
+            if let oldLogoURL = editedPlayer?.playerLogoURL{
+                if oldLogoURL != ""{
+                    reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo")
+                }
+            }
             
             try! realm.write {
                 editedPlayer!.playerName = playerName
                 editedPlayer!.lineNum = playerLine!
                 editedPlayer!.positionType = playerPosition!
+                editedPlayer!.playerLogoURL = "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo"
                 editedPlayer!.activeState = playerActiveSwitch.isOn
             }
             editFieldsButton.tag = 20
@@ -785,8 +818,38 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             playerInfoTableView.reloadData()
             playerInfoPieChartView.reloadInputViews()
         }else{
-           
+    
             isEditingFields(boolType: false)
+            if let lineType = (editedPlayer?.lineNum) {
+                if String(lineType) != ""{
+                    selectLine = lineType
+                    if lineType == 0 {
+                        lineNumberPicker.selectRow(6, inComponent: 0, animated: true)
+                    }else{
+                        lineNumberPicker.selectRow(lineType - 1, inComponent: 0, animated: true)
+                    }
+                }
+                positionTypePicker.reloadAllComponents()
+            }
+            if let positionCode = editedPlayer?.positionType{
+                if positionCode != ""{
+                    let positionCodeIndex = positionCodeData.firstIndex(of: positionCode)
+                    if positionCodeIndex != nil{
+                        if positionCodeIndex! >= 0 && positionCodeIndex! <= 2{
+                            // forward
+                            selectPosition = positionCodeData[positionCodeIndex!]
+                            
+                            positionTypePicker.selectRow(positionCodeIndex!, inComponent: 0, animated: true)
+                        }else if positionCodeIndex! == 3 || positionCodeIndex! == 4{
+                            // defense
+                             positionTypePicker.selectRow((positionCodeIndex! - 3), inComponent: 0, animated: true)
+                        }else{
+                            // goalie
+                            positionTypePicker.selectRow(0, inComponent: 0, animated: true)
+                        }
+                    }
+                }
+            }
         }
         dataWarningLabel.isHidden = true
     }
@@ -938,24 +1001,47 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
     
     func imageWriter(fileName: String, imageName: UIImage){
         
-        let imageData = imageName.jpegData(compressionQuality: 0.25)
+        let realm = try! Realm()
+        let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
+        
+        let imageData = imageName.jpegData(compressionQuality: 0.10)
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
             let tempUrl = dir.appendingPathComponent("PlayerImages")
             let fileURL = tempUrl.appendingPathComponent(fileName)
             
-            print(fileURL)
-            
-            do {
-                try imageData!.write(to: fileURL, options: .atomicWrite)
-                // send realm the location of the logo in DD
-                realmLogoRefrence(fileURL: fileName)
-                
-            } catch {
-                print("Player logo write error")
-                fatalErrorAlert("An error has occured while attempting to save your player profile image. Please contact support!")
+            if let oldLogoURL = playerObjc?.playerLogoURL{
+                if oldLogoURL != ""{
+                    do{
+                        try FileManager.default.removeItem(atPath: (tempUrl.appendingPathComponent(oldLogoURL)).path)
+                        do {
+                            try imageData!.write(to: fileURL, options: .atomicWrite)
+                            // send realm the location of the logo in DD
+                            realmLogoRefrence(fileURL: fileName)
+                            
+                        } catch {
+                            print("Player logo write error")
+                            fatalErrorAlert("An error has occured while attempting to save your player profile image. Please contact support!")
+                        }
+                    }catch{
+                        print("\(error)")
+                        fatalErrorAlert("Unable to remove old profile image, please try again.")
+                    }
+                }else{
+                    do {
+                        try imageData!.write(to: fileURL, options: .atomicWrite)
+                        // send realm the location of the logo in DD
+                        realmLogoRefrence(fileURL: fileName)
+                        
+                    } catch {
+                        print("Player logo write error")
+                        fatalErrorAlert("An error has occured while attempting to save your player profile image. Please contact support!")
+                    }
+                }
             }
+            
+            
         }
     }
     
