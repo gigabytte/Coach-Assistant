@@ -194,7 +194,8 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         // check if team one returns nil and that team one isnt team two
         // check for only one team entered and or no team entered
         if (activeStatus != true){
-            if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+            print("i ran")
+            if(goalieChecker() == true && playerChecker() == true && teamChecker(isCurrentGame: false) == true){
                 UserDefaults.standard.set(true, forKey: "newGameStarted")
                 self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
                 
@@ -209,7 +210,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
             
             if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int) == currentHomeTeamID && currentGameState == true){
                 
-                if(goalieChecker() == true && playerChecker() == true && teamChecker() == true){
+                if(goalieChecker() == true && playerChecker() == true && teamChecker(isCurrentGame: true) == true){
                     
                     let tempHomeTeamID  = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID)!
                     let tempAwayTeamID  = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID)!
@@ -277,28 +278,30 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     }
     
     // func checks if there is atleast two teams prevent new game errors; returns bool
-    func teamChecker() -> Bool{
+    func teamChecker(isCurrentGame: Bool) -> Bool{
         let realm = try! Realm()
-        
-         let currentGameObjc = (realm.object(ofType: newGameTable.self, forPrimaryKey: (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)))
-        let home_teamObjc = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: (currentGameObjc?.homeTeamID)!))
-        let away_teamObjc = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: (currentGameObjc?.opposingTeamID)!))
-        
-        if home_teamObjc?.activeState == true && away_teamObjc?.activeState == true{
-            return true
-        }else{
-            return false
-        }
-        
-        /* get first an last team entered in DB
-        let teamOne = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)}).first
-        let teamTwo = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "teamID >= %i AND activeState == %@", 0, NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)}).first
-        if (teamOne != nil && teamOne != teamTwo){
+        if isCurrentGame == true{
+            let currentGameObjc = (realm.object(ofType: newGameTable.self, forPrimaryKey: (realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)))
+            if currentGameObjc != nil{
+                let home_teamObjc = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: (currentGameObjc?.homeTeamID)!))
+                let away_teamObjc = (realm.object(ofType: teamInfoTable.self, forPrimaryKey: (currentGameObjc?.opposingTeamID)!))
             
-            return true
+                if home_teamObjc?.activeState == true && away_teamObjc?.activeState == true{
+                    return true
+                }else{
+                    return false
+                }
+            }else{
+                return false
+            }
         }else{
-            return false
-        }*/
+            let teamIDCount = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)}).count
+            if teamIDCount >= 2{
+                return true
+            }else{
+                return false
+            }
+        }
     }
     
     // popup default team selection view

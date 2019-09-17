@@ -6,6 +6,7 @@ target 'Shot Tracker' do
   use_frameworks!
 
   # Pods for Shot Tracker
+  pod 'RealmSwift'
   pod 'Charts'
   pod 'Firebase/Core'
   pod 'Firebase/AdMob'

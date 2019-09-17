@@ -5,8 +5,8 @@
 //  Copyright © 2019 Greg Brooks. All rights reserved.
 //
 import Foundation
+//import RealmSwift
 import RealmSwift
-import Realm
 
 class penaltyTable: Object {
     

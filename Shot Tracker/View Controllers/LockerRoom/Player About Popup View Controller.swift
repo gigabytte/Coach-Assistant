@@ -31,6 +31,9 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     @IBOutlet weak var playerInfoPieChartView: PieChartView!
     @IBOutlet weak var popUpView: UIView!
     
+    @IBOutlet weak var playerNumberWidthNSCon: NSLayoutConstraint!
+    @IBOutlet weak var playerNameWidthNSCon: NSLayoutConstraint!
+    
     var playerGoalDataEntry = PieChartDataEntry(value: 0)
     var playerAssistDataEntry = PieChartDataEntry(value: 0)
     var playerPowerPlayGoalDataEntry = PieChartDataEntry(value: 0)
@@ -64,6 +67,9 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     var bottomLeft: Int!
     var bottomRight: Int!
     var center: Int!
+    
+    var editButtonTaggedToLabel: NSLayoutConstraint!
+    var editButtonTaggedToTextField: NSLayoutConstraint!
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -224,13 +230,23 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         if let playerName = playerObjc?.playerName{
             if playerName != ""{
                 playerNameLabel.text = playerName
-                let width = playerNameLabel.intrinsicContentSize.width + 10
-                playerNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+                DispatchQueue.main.async {
+                    var rect: CGRect = self.playerNameLabel.frame //get frame of label
+                    rect.size = (self.playerNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNameLabel.font.fontName , size: self.playerNameLabel.font.pointSize)!]))! //Calculate as per label
+                    self.playerNameWidthNSCon.constant = rect.width + 15
+                    
+                    self.popUpView.layoutIfNeeded()
+                }
                
             }else{
                 playerNameLabel.text = "Unknow Player Name"
-                let width = playerNameLabel.intrinsicContentSize.width + 10
-                playerNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+                DispatchQueue.main.async {
+                    var rect: CGRect = self.playerNameLabel.frame //get frame of label
+                    rect.size = (self.playerNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNameLabel.font.fontName , size: self.playerNameLabel.font.pointSize)!]))! //Calculate as per label
+                    self.playerNameWidthNSCon.constant = rect.width + 15
+                    
+                    self.popUpView.layoutIfNeeded()
+                }
                 
             }
         }
@@ -238,12 +254,34 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         if let playerNumber = playerObjc?.jerseyNum{
             if playerNumber != 0{
                 playerNumberLabel.text? = "#\(playerNumber)"
-                let width = playerNumberLabel.intrinsicContentSize.width + 10
-                playerNumberLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+                DispatchQueue.main.async {
+                    var rect: CGRect = self.playerNumberLabel.frame //get frame of label
+                    rect.size = (self.playerNumberLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNumberLabel.font.fontName , size: self.playerNumberLabel.font.pointSize)!]))! //Calculate as per label
+                    self.playerNumberWidthNSCon.constant = rect.width + 15
+                    
+                    self.editButtonTaggedToLabel = self.editFieldsButton.leadingAnchor.constraint(equalTo: self.playerNumberLabel.trailingAnchor, constant: 5)
+                    self.editButtonTaggedToLabel.isActive = true
+                    
+                    self.editButtonTaggedToTextField = self.editFieldsButton.leadingAnchor.constraint(equalTo: self.playerEditNameTextField.trailingAnchor, constant: 5)
+                    self.editButtonTaggedToTextField.isActive = false
+                    
+                    self.popUpView.layoutIfNeeded()
+                }
             }else{
                 playerNumberLabel.text? = "#00"
-                let width = playerNumberLabel.intrinsicContentSize.width + 10
-                playerNumberLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+                DispatchQueue.main.async {
+                    var rect: CGRect = self.playerNumberLabel.frame //get frame of label
+                    rect.size = (self.playerNumberLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNumberLabel.font.fontName , size: self.playerNumberLabel.font.pointSize)!]))! //Calculate as per label
+                    self.playerNumberWidthNSCon.constant = rect.width + 15
+                    
+                    self.editButtonTaggedToLabel = self.editFieldsButton.leadingAnchor.constraint(equalTo: self.playerNumberLabel.trailingAnchor, constant: 5)
+                    self.editButtonTaggedToLabel.isActive = true
+                    
+                    self.editButtonTaggedToTextField = self.editFieldsButton.leadingAnchor.constraint(equalTo: self.playerEditNameTextField.trailingAnchor, constant: 5)
+                    self.editButtonTaggedToTextField.isActive = false
+                    
+                    self.popUpView.layoutIfNeeded()
+                }
             }
         }
         
@@ -339,6 +377,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             playerInfoTableView.isHidden = false
             playerInfoPieChartView.isHidden = false
             
+            editButtonTaggedToTextField.isActive = false
             
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
                 self.playerNameLabel.alpha = 1.0
@@ -354,6 +393,8 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                 self.positionTypePicker.alpha = 0.0
                 self.playerIsActiveLabel.alpha = 0.0
                 self.playerActiveSwitch.alpha = 0.0
+                
+                self.editButtonTaggedToLabel.isActive = true
                 
                 self.view.layoutIfNeeded()
             
@@ -376,6 +417,8 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             playerIsActiveLabel.isHidden = false
             playerActiveSwitch.isHidden = false
             
+            editButtonTaggedToLabel.isActive = false
+            
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
                 
                 self.playerEditNameTextField.alpha = 1.0
@@ -391,6 +434,8 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                 self.playerNumberLabel.alpha = 0.0
                 self.playerInfoTableView.alpha = 0.0
                 self.playerInfoPieChartView.alpha = 0.0
+                
+                self.editButtonTaggedToTextField.isActive = true
                 
                 self.view.layoutIfNeeded()
             }, completion: { _ in
@@ -521,6 +566,20 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                 editedPlayer!.playerLogoURL = "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo"
                 editedPlayer!.activeState = playerActiveSwitch.isOn
             }
+            // change width of playername label based on size of new text
+            DispatchQueue.main.async {
+                var playerNameRect: CGRect = self.playerNameLabel.frame //get frame of label
+                playerNameRect.size = (self.playerNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNameLabel.font.fontName , size: self.playerNameLabel.font.pointSize)!]))! //Calculate as per label
+                self.playerNameWidthNSCon.constant = playerNameRect.width + 15
+                
+                var playerNumberRect: CGRect = self.playerNumberLabel.frame //get frame of label
+                playerNumberRect.size = (self.playerNumberLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNumberLabel.font.fontName , size: self.playerNumberLabel.font.pointSize)!]))! //Calculate as per label
+                self.playerNumberWidthNSCon.constant = playerNumberRect.width + 15
+                
+                self.popUpView.layoutIfNeeded()
+            }
+            
+            
             editFieldsButton.tag = 20
         }else if(playerName != "" && playerEditNumberTextField.text! == ""){
             // rename logo file name is name is chnaged
@@ -537,6 +596,15 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                 editedPlayer!.playerLogoURL = "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo"
                 editedPlayer!.activeState = playerActiveSwitch.isOn
             }
+            // change width of playername label based on size of new text
+            DispatchQueue.main.async {
+                var playerNameRect: CGRect = self.playerNameLabel.frame //get frame of label
+                playerNameRect.size = (self.playerNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNameLabel.font.fontName , size: self.playerNameLabel.font.pointSize)!]))! //Calculate as per label
+                self.playerNameWidthNSCon.constant = playerNameRect.width + 15
+                
+                self.popUpView.layoutIfNeeded()
+            }
+            
             editFieldsButton.tag = 20
         }else if(playerName == "" && playerEditNumberTextField.text! != ""){
             
@@ -545,6 +613,14 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                 editedPlayer!.lineNum = playerLine!
                 editedPlayer!.positionType = playerPosition!
                 editedPlayer!.activeState = playerActiveSwitch.isOn
+            }
+            // change width of player number label based on size of new text
+            DispatchQueue.main.async {
+                var playerNumberRect: CGRect = self.playerNumberLabel.frame //get frame of label
+                playerNumberRect.size = (self.playerNumberLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNumberLabel.font.fontName , size: self.playerNumberLabel.font.pointSize)!]))! //Calculate as per label
+                self.playerNumberWidthNSCon.constant = playerNumberRect.width + 15
+                
+                self.popUpView.layoutIfNeeded()
             }
             editFieldsButton.tag = 20
         }else if(playerName == "" && playerEditNumberTextField.text! == ""){

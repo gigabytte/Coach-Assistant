@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import  Realm
 
 class Settings_Assign_Players_View_Controller: UIViewController, UITableViewDelegate, UITableViewDataSource,  UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -89,6 +90,17 @@ class Settings_Assign_Players_View_Controller: UIViewController, UITableViewDele
     }
     
     
+    func fatalErroMSG(_ msg: String){
+        
+        let errorAlert = UIAlertController(title: localizedString().localized(value:"Whoops!"), message: localizedString().localized(value:"\(msg)"), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(errorAlert, animated: true, completion: nil)
+        
+    }
+    
+    
     @IBAction func closeButton(_ sender: UIButton) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "deleteOldValues"), object: nil, userInfo: ["state":"any"])
         self.dismiss(animated: true, completion: nil)
@@ -97,35 +109,57 @@ class Settings_Assign_Players_View_Controller: UIViewController, UITableViewDele
     @IBAction func assignPlayersButton(_ sender: UIButton) {
         
         let realm = try! Realm()
-        var indexPath = IndexPath()
+        if assignPlayersToTeamButton.alpha == 1.0{
         
-        for tableViewIndex in selecteTableViewIndexArray.reversed(){
-            
-            let newPlayer = playerInfoTable()
-            
-            newPlayer.playerID = genRealmPrimaryID()
-            
-            try! realm.write{
+            for tableViewIndex in selecteTableViewIndexArray.reversed(){
                 
-                newPlayer.playerName = playerNameArray[tableViewIndex]
-                newPlayer.jerseyNum = playerJerseyNumArray[tableViewIndex]
-                newPlayer.lineNum = playerLineNumArray[tableViewIndex]
-                newPlayer.positionType = playerLineTypeArray[tableViewIndex]
-                newPlayer.TeamID = String(selectedTeamID)
-                realm.add(newPlayer, update: true)
+                let newPlayer = playerInfoTable()
+                
+                newPlayer.playerID = genRealmPrimaryID()
+                
+                try! realm.write{
+                    
+                    newPlayer.playerName = playerNameArray[tableViewIndex]
+                    newPlayer.jerseyNum = playerJerseyNumArray[tableViewIndex]
+                    newPlayer.lineNum = playerLineNumArray[tableViewIndex]
+                    newPlayer.positionType = playerLineTypeArray[tableViewIndex]
+                    newPlayer.TeamID = String(selectedTeamID)
+                    realm.add(newPlayer, update: true)
+                }
+               
+                
             }
-            let index = tableViewIndex
-            indexPath.append(IndexPath(row: index, section: 0))
-            playerNameArray.remove(at: index)
-            playerJerseyNumArray.remove(at: index)
-            playerLineNumArray.remove(at: index)
-            playerLineTypeArray.remove(at: index)
+            // delete all effected values from arrays
+            playerNameArray = playerNameArray
+                .enumerated()
+                .filter { !selecteTableViewIndexArray.contains($0.offset) }
+                .map { $0.element }
+            playerJerseyNumArray = playerJerseyNumArray
+                .enumerated()
+                .filter { !selecteTableViewIndexArray.contains($0.offset) }
+                .map { $0.element }
+            playerLineNumArray = playerLineNumArray
+                .enumerated()
+                .filter { !selecteTableViewIndexArray.contains($0.offset) }
+                .map { $0.element }
+            playerLineTypeArray = playerLineTypeArray
+                .enumerated()
+                .filter { !selecteTableViewIndexArray.contains($0.offset) }
+                .map { $0.element }
+            
+            // remove all effected cells from tableview
+            DispatchQueue.main.async {
+                self.playersTableView.reloadData()
+            }
+            selecteTableViewIndexArray.removeAll()
+            
+            if playerNameArray.isEmpty == true{
+                assignPlayersToTeamButton.alpha = 0.3
+                
+            }
+        }else{
+            fatalErroMSG("All players have been sorted please close popup")
         }
-        // remove all effected cells from tableview
-        DispatchQueue.main.async {
-            self.playersTableView.deleteRows(at: [indexPath], with: .left)
-        }
-        selecteTableViewIndexArray.removeAll()
         
         print("Assigning Players")
     }

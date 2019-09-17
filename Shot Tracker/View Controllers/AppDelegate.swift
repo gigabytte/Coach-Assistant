@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+        //UserDefaults.standard.set(true, forKey: "userPurchaseConf")
         //UserDefaults.standard.set(false, forKey: "uiUpdateBool")
         // Use Firebase library to configure APIs.
         FirebaseApp.configure()
