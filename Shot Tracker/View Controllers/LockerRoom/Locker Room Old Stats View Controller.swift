@@ -131,6 +131,8 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
         awayTeamID.removeAll()
         newGameDates.removeAll()
         onLoad()
+        
+        tableView.reloadData()
     }
     
     // create a cell for each table view row

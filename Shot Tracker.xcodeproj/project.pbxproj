@@ -14,10 +14,6 @@
 		BE0C1F9A22886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */; };
 		BE0C7B74220156530018E434 /* Edit_Team_Info_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */; };
 		BE0C7B762201576B0018E434 /* Team_Selection_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0C7B752201576B0018E434 /* Team_Selection_View.swift */; };
-		BE12DE5C228740BE0071BC17 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5B228740BE0071BC17 /* Realm.framework */; };
-		BE12DE5D228740BE0071BC17 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5B228740BE0071BC17 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BE12DE5F228740C10071BC17 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5E228740C10071BC17 /* RealmSwift.framework */; };
-		BE12DE60228740C10071BC17 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE12DE5E228740C10071BC17 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE12DE62228744B80071BC17 /* customSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE12DE61228744B80071BC17 /* customSettingCell.swift */; };
 		BE13E29022737E41005782A5 /* customOverallStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */; };
 		BE1C03622324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1C03612324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift */; };
@@ -130,21 +126,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		BE83904121F64F1900D02C0B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				BE12DE60228740C10071BC17 /* RealmSwift.framework in Embed Frameworks */,
-				BE12DE5D228740BE0071BC17 /* Realm.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		04CB533F1790B105A354C9FD /* Pods-Shot TrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerTests.release.xcconfig"; path = "Target Support Files/Pods-Shot TrackerTests/Pods-Shot TrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 		1E7E60591E00F4DC7D342863 /* Pods-Shot TrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot TrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-Shot TrackerTests/Pods-Shot TrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -159,8 +140,6 @@
 		BE0C1F9922886DFD000C2177 /* Settings_Subscriptions_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_Subscriptions_View_Controller.swift; sourceTree = "<group>"; };
 		BE0C7B73220156520018E434 /* Edit_Team_Info_Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_Team_Info_Page.swift; sourceTree = "<group>"; };
 		BE0C7B752201576B0018E434 /* Team_Selection_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team_Selection_View.swift; sourceTree = "<group>"; };
-		BE12DE5B228740BE0071BC17 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		BE12DE5E228740C10071BC17 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		BE12DE61228744B80071BC17 /* customSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSettingCell.swift; sourceTree = "<group>"; };
 		BE13E28F22737E41005782A5 /* customOverallStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customOverallStatsCell.swift; sourceTree = "<group>"; };
 		BE1C03612324125200A78390 /* Old Stats Drawboard Gallery View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Old Stats Drawboard Gallery View Controller.swift"; sourceTree = "<group>"; };
@@ -174,6 +153,8 @@
 		BE27918222E6790800CE40EC /* shot_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = shot_gif.gif; sourceTree = "<group>"; };
 		BE27918422E6790D00CE40EC /* penalty_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = penalty_gif.gif; sourceTree = "<group>"; };
 		BE27918622E6791200CE40EC /* faceoff_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = faceoff_gif.gif; sourceTree = "<group>"; };
+		BE2A1D9E23301F9A002174E8 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-3.18.0/ios/swift-11.0/RealmSwift.framework"; sourceTree = "<group>"; };
+		BE2A1DA223301F9E002174E8 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../Downloads/realm-swift-3.18.0/ios/swift-11.0/Realm.framework"; sourceTree = "<group>"; };
 		BE2AC7CC23196EC100D1A93C /* Copy Players Table View Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Copy Players Table View Cell.swift"; sourceTree = "<group>"; };
 		BE2AC7D5231B0C2B00D1A93C /* Initial_Setup_Away_Team_Add_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Away_Team_Add_View_Controller.swift; sourceTree = "<group>"; };
 		BE341F2222BB16D200F8D2A3 /* Faceoff View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Faceoff View Controller.swift"; sourceTree = "<group>"; };
@@ -191,9 +172,13 @@
 		BE55C31C232C2E0E00233BEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BE55C320232C2E6300233BEB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE55C326232C2E7C00233BEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE57340E233023C000C7F7E8 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-3.18.0/ios/swift-10.3/RealmSwift.framework"; sourceTree = "<group>"; };
+		BE573410233023C500C7F7E8 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../Downloads/realm-swift-3.18.0/ios/swift-10.3/Realm.framework"; sourceTree = "<group>"; };
 		BE57ACDA228756F800AD2054 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BE6163F322EB3EAD00C61BA8 /* Penalty Info View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Penalty Info View Controller.swift"; sourceTree = "<group>"; };
 		BE64093222962FF1005B48C3 /* Shot Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Shot Tracker.entitlements"; sourceTree = "<group>"; };
+		BE652C302330274800F08021 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		BE652C342330275300F08021 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		BE669DC4226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Page_Controller.swift; sourceTree = "<group>"; };
 		BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_FInish_Page_ViewController.swift; sourceTree = "<group>"; };
 		BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Home_Team_Add_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Home_Team_Add_View_Controller.swift; sourceTree = "<group>"; };
@@ -271,9 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE3EF902229A45EF00CCBB2A /* CloudKit.framework in Frameworks */,
-				BE12DE5C228740BE0071BC17 /* Realm.framework in Frameworks */,
 				CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */,
-				BE12DE5F228740C10071BC17 /* RealmSwift.framework in Frameworks */,
 				BE57ACDB228756F800AD2054 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +296,10 @@
 		38E61347044FA77C74753438 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE573410233023C500C7F7E8 /* Realm.framework */,
+				BE57340E233023C000C7F7E8 /* RealmSwift.framework */,
+				BE2A1DA223301F9E002174E8 /* Realm.framework */,
+				BE2A1D9E23301F9A002174E8 /* RealmSwift.framework */,
 				BE3EF901229A45EF00CCBB2A /* CloudKit.framework */,
 				BE57ACDA228756F800AD2054 /* StoreKit.framework */,
 				6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */,
@@ -466,8 +453,8 @@
 		BE7D696B21E3D74300C1745C = {
 			isa = PBXGroup;
 			children = (
-				BE12DE5E228740C10071BC17 /* RealmSwift.framework */,
-				BE12DE5B228740BE0071BC17 /* Realm.framework */,
+				BE652C342330275300F08021 /* Realm.framework */,
+				BE652C302330274800F08021 /* RealmSwift.framework */,
 				BE7D697621E3D74300C1745C /* Shot Tracker */,
 				BE7D698B21E3D74500C1745C /* Shot TrackerTests */,
 				BE7D699621E3D74500C1745C /* Shot TrackerUITests */,
@@ -581,8 +568,6 @@
 				BE7D697021E3D74300C1745C /* Sources */,
 				BE7D697121E3D74300C1745C /* Frameworks */,
 				BE7D697221E3D74300C1745C /* Resources */,
-				BE83904121F64F1900D02C0B /* Embed Frameworks */,
-				BE83904221F650E900D02C0B /* ShellScript */,
 				66FFDB66CC3F3CED93501689 /* [CP] Embed Pods Frameworks */,
 				BEAD9B19230B37400040AFE2 /* ShellScript */,
 			);
@@ -772,23 +757,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		BE83904221F650E900D02C0B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
 		};
 		BEAD9B19230B37400040AFE2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1175,6 +1143,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GCRT29DPHF;
 				INFOPLIST_FILE = "Shot TrackerTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1196,6 +1165,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GCRT29DPHF;
 				INFOPLIST_FILE = "Shot TrackerTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1216,6 +1186,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GCRT29DPHF;
 				INFOPLIST_FILE = "Shot TrackerUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1236,6 +1207,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GCRT29DPHF;
 				INFOPLIST_FILE = "Shot TrackerUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -12,6 +12,7 @@ import Charts
 
 class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var editBUtton: UIButton!
     @IBOutlet weak var dataWarningTeamPieChart: UILabel!
     @IBOutlet weak var teamToggleSwitch: UISwitch!
     @IBOutlet weak var teamIsActiveLabel: UILabel!
@@ -49,6 +50,11 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
     
     var pieChartBlurView: UIVisualEffectView!
     
+    @IBOutlet weak var teamNameLabelNCCon: NSLayoutConstraint!
+    
+    var editButtonTaggedToLabel: NSLayoutConstraint!
+    var editButtonTaggedToTextField: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,14 +89,41 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         if let teamName = teamObjc?.nameOfTeam{
             if teamName != ""{
                 teamNameLabel.text = teamName
-                let width = teamNameLabel.intrinsicContentSize.width + 10
-                teamNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+                DispatchQueue.main.async {
+                    var rect: CGRect = self.teamNameLabel.frame //get frame of label
+                    rect.size = (self.teamNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.teamNameLabel.font.fontName , size: self.teamNameLabel.font.pointSize)!]))! //Calculate as per label
+                    self.teamNameLabelNCCon.constant = rect.width + 15
+                    
+                    self.editButtonTaggedToLabel = self.editBUtton.leadingAnchor.constraint(equalTo: self.teamNameLabel.trailingAnchor, constant: 5)
+                    self.editButtonTaggedToLabel.isActive = true
+                    
+                    self.editButtonTaggedToTextField = self.editBUtton.leadingAnchor.constraint(equalTo: self.teamNameEditTextField.trailingAnchor, constant: 5)
+                    self.editButtonTaggedToTextField.isActive = false
+                    
+                    self.popUpView.layoutIfNeeded()
+                }
+                
             }else{
                 teamNameLabel.text = "Unknow Team Name"
-                let width = teamNameLabel.intrinsicContentSize.width + 10
-                teamNameLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+                DispatchQueue.main.async {
+                    var rect: CGRect = self.teamNameLabel.frame //get frame of label
+                    rect.size = (self.teamNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.teamNameLabel.font.fontName , size: self.teamNameLabel.font.pointSize)!]))! //Calculate as per label
+                    self.teamNameLabelNCCon.constant = rect.width + 15
+                    
+                    self.editButtonTaggedToLabel = self.editBUtton.leadingAnchor.constraint(equalTo: self.teamNameLabel.trailingAnchor, constant: 5)
+                    self.editButtonTaggedToLabel.isActive = true
+                    
+                    self.editButtonTaggedToTextField = self.editBUtton.leadingAnchor.constraint(equalTo: self.teamNameEditTextField.trailingAnchor, constant: 5)
+                    self.editButtonTaggedToTextField.isActive = false
+                    
+                    self.popUpView.layoutIfNeeded()
+                }
             }
+            
+           
         }
+        
+        
         
         if let teamSeason = teamObjc?.seasonYear{
             if teamSeason != 0{
@@ -375,17 +408,25 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
     }
     
     func reNameProfileImageFile(logoURL: String, newName: String){
+        
+        let realm = try! Realm()
+        let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)
+        
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let tempUrl = dir.appendingPathComponent("TeamLogo")
             let fileURL = tempUrl.appendingPathComponent(logoURL)
             
             let new_fileURL = tempUrl.appendingPathComponent(newName)
-            
-            do {
-                try FileManager.default.moveItem(at: fileURL, to: new_fileURL)
-            }catch{
-                fatalErrorAlert("Unable to rename Team logo image, please contact support.")
-                print("\(error)")
+            if let oldLogoURL = teamObjc?.teamLogoURL{
+                print("team logo url: \(teamObjc?.teamLogoURL)")
+                if oldLogoURL != ""{
+                    do {
+                        try FileManager.default.moveItem(at: fileURL, to: new_fileURL)
+                    }catch{
+                        fatalErrorAlert("Unable to rename Team logo image, please contact support.")
+                        print("\(error)")
+                    }
+                }
             }
             
             
@@ -401,19 +442,24 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID);
         
         if (newName != "" && seasonNumber != ""){
-            // rename logo file name is name is chnaged
-            if let oldLogoURL = teamObjc?.teamLogoURL{
-                if oldLogoURL != ""{
-                    reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo")
-                }
-            }
             
             try! realm.write{
                 teamObjc!.activeState = teamToggleSwitch.isOn
                 teamObjc!.nameOfTeam = newName
                 teamObjc?.seasonYear = Int(seasonNumber)!
-                teamObjc?.teamLogoURL = "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo"
-                
+                if let oldLogoURL = teamObjc?.teamLogoURL{
+                    // rename logo file name is name is chnaged
+                    if oldLogoURL != ""{
+                        reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo")
+                        teamObjc?.teamLogoURL = "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo"
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                var rect: CGRect = self.teamNameLabel.frame //get frame of label
+                rect.size = (self.teamNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.teamNameLabel.font.fontName , size: self.teamNameLabel.font.pointSize)!]))! //Calculate as per label
+                self.teamNameLabelNCCon.constant = rect.width + 15
+                self.popUpView.layoutIfNeeded()
             }
             succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
         }else if (newName == "" && seasonNumber != ""){
@@ -433,16 +479,24 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
             succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
         }else if (newName != "" && seasonNumber == ""){
             // rename logo file name is name is chnaged
-            if let oldLogoURL = teamObjc?.teamLogoURL{
-                if oldLogoURL != ""{
-                    reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo")
-                }
-            }
+           
             
             try! realm.write{
                 teamObjc!.activeState = teamToggleSwitch.isOn
                 teamObjc!.nameOfTeam = newName
-                teamObjc?.teamLogoURL = "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo"
+                if let oldLogoURL = teamObjc?.teamLogoURL{
+                    if oldLogoURL != ""{
+                        reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo")
+                        teamObjc?.teamLogoURL = "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo"
+                    }
+                }
+                
+            }
+            DispatchQueue.main.async {
+                var rect: CGRect = self.teamNameLabel.frame //get frame of label
+                rect.size = (self.teamNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.teamNameLabel.font.fontName , size: self.teamNameLabel.font.pointSize)!]))! //Calculate as per label
+                self.teamNameLabelNCCon.constant = rect.width + 15
+                self.popUpView.layoutIfNeeded()
             }
             succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
         }else{
@@ -452,7 +506,11 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
                 teamObjc?.seasonYear = Int(seasonNumber)!
                 
             }
+            let width = teamNameLabel.intrinsicContentSize.width + 10
+            teamNameLabelNCCon.constant = width
+            self.popUpView.layoutIfNeeded()
             succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
+           
         }
         
 
@@ -466,6 +524,7 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
             teamNameLabel.isHidden = false
             seasonNumberLabel.isHidden = false
             recordLabel.isHidden = false
+            editButtonTaggedToTextField.isActive = false
             
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
                 self.teamNameLabel.alpha = 1.0
@@ -476,6 +535,8 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
                 self.seasonEditTextField.alpha = 0.0
                 self.teamToggleSwitch.alpha = 0.0
                 self.teamIsActiveLabel.alpha = 0.0
+                
+                self.editButtonTaggedToLabel.isActive = true
                 
                 self.view.layoutIfNeeded()
                 
@@ -494,6 +555,8 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
             self.teamToggleSwitch.isHidden = false
             self.teamIsActiveLabel.isHidden = false
             
+            editButtonTaggedToLabel.isActive = false
+            
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
                 
                 self.teamNameLabel.alpha = 0.0
@@ -504,6 +567,8 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
                 self.seasonEditTextField.alpha = 1.0
                 self.teamToggleSwitch.alpha = 1.0
                 self.teamIsActiveLabel.alpha = 1.0
+                
+                 self.editButtonTaggedToTextField.isActive = true
                 
                 self.view.layoutIfNeeded()
             }, completion: { _ in
@@ -666,6 +731,7 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
             let fileURL = tempUrl.appendingPathComponent(fileName)
             
             if let oldLogoURL = teamObjc?.teamLogoURL{
+                print("team logo url: \(teamObjc?.teamLogoURL)")
                 if oldLogoURL != ""{
                     do{
                         try FileManager.default.removeItem(atPath: (tempUrl.appendingPathComponent(oldLogoURL)).path)
@@ -680,7 +746,9 @@ extension Team_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UI
                         }
                     }catch{
                         print("\(error)")
-                        fatalErrorAlert("Unable to remove old team logo image, please try again.")
+                        //if teamLogoImageView.image != UIImage(named: ""){
+                            fatalErrorAlert("Unable to remove old team logo image, please try again.")
+                        //}
                     }
                 }else{
                     do {
