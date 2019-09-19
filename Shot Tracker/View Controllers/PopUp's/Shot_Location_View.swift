@@ -78,17 +78,14 @@ class Shot_Location_View: UIViewController {
         tapLocationSelectionErrorLabel.isHidden = true
         roundedCorners().buttonBottomLeft(bottonViewType: cancelButton)
         roundedCorners().buttonBottomRight(bottonViewType: saveButton)
+        roundedCorners().imageViewTopLeftRight(labelViewType: hockeyNetImageView)
         
         if (tempMarkerType != true){
             print("You are placing a goal, passed bool is: ", tempMarkerType!)
         }else{
             print("You are placing a shot, passed bool is: ", tempMarkerType!)
         }
-        
-        // Do any additional setup after loading the view.
-        
-        
-        print("goalie id: ", fixedGoalieID)
+    
         // if true its a shot
         if(tempMarkerType != false){
             netImageViewBoundaries()
@@ -103,6 +100,10 @@ class Shot_Location_View: UIViewController {
         }
     }
     
+    func viewColour(){
+        cancelButton.backgroundColor = systemColour().uiButton()
+        saveButton.backgroundColor = systemColour().uiButton()
+    }
    
     func missingSelectionError(){
         //produce shake animation on error of double home team

@@ -10,7 +10,7 @@ import UIKit
 import MaLiang
 import RealmSwift
 
-class Old_Stats_Drawboard_Gallery_View_Controller: UIViewController, UIScrollViewDelegate {
+class Old_Stats_Drawboard_Gallery_View_Controller: UIViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var canvas: Canvas!
     @IBOutlet weak var popUpView: UIView!
@@ -47,6 +47,22 @@ class Old_Stats_Drawboard_Gallery_View_Controller: UIViewController, UIScrollVie
         scrollViewProperties()
         viewColour()
     }
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+            
+            present(popupVC, animated: true, completion: nil)
+            print("Help Guide Presented!")
+        }
+    }
     
     func viewColour(){
         // give background blur effect
@@ -68,7 +84,7 @@ class Old_Stats_Drawboard_Gallery_View_Controller: UIViewController, UIScrollVie
                 
                 let currentDIR = (dir.appendingPathComponent("DrawboardSaves")).appendingPathComponent(URLs)
                 
-                do {
+             
                     
                     DataImporter.importData(from: currentDIR, to: canvas, progress: { (progress) in
                         print(progress)
@@ -80,10 +96,7 @@ class Old_Stats_Drawboard_Gallery_View_Controller: UIViewController, UIScrollVie
                     })
     
                     
-                }catch{
-                    print("Sketch read error 2")
-                    fatalErrorAlert("Unable to locate files specfied by User, please try again. If problem persits please conatct support")
-                }
+                
            
                 
             }

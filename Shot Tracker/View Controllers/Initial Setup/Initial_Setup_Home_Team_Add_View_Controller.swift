@@ -208,7 +208,7 @@ class Initial_Setup_Home_Team_Add_View_Controller: UIViewController, UIPickerVie
                 newHomeTeam.teamID = teamID!
                 
                 try! realm.write {
-                    realm.add(newHomeTeam, update: true)
+                    realm.add(newHomeTeam, update: .modified)
                     newHomeTeam.nameOfTeam = teamNameTextField.text!
                     newHomeTeam.seasonYear = selectedSeasonNumber
                     newHomeTeam.teamLogoURL = fileLogoName
@@ -350,9 +350,9 @@ extension Initial_Setup_Home_Team_Add_View_Controller:  UIImagePickerControllerD
     
     func imageWriter(fileName: String, imageName: UIImage){
         
+        let reSizedImage = imageResizeClass().resizeImage(image: imageName, targetSize: CGSize(width: 300, height: 300))
         
-        let imageData = imageName.jpegData(compressionQuality: 0.10)
-        
+        let imageData = reSizedImage.jpegData(compressionQuality: 0.50)
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             

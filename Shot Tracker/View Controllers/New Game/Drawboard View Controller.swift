@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import MaLiang
 
-class Drawboard_View_Controller: UIViewController {
+class Drawboard_View_Controller: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var skatesBrushButton: UIButton!
     @IBOutlet weak var skatingWithPuckBrush: UIButton!
     @IBOutlet weak var backwardSkatingBrush: UIButton!
@@ -170,6 +170,23 @@ class Drawboard_View_Controller: UIViewController {
         view.addSubview(popUpView)
         
         playerModelSelectionView.layer.cornerRadius = playerModelSelectionView.frame.height / 2
+    }
+    
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+            
+            present(popupVC, animated: true, completion: nil)
+            print("Help Guide Presented!")
+        }
     }
     
     func enlargeButtons(buttonType: Int){

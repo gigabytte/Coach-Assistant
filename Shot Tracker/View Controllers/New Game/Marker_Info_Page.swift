@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Realm
 
-class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverPresentationControllerDelegate {
     
     @IBAction func unwindToMarkerInfo(segue: UIStoryboardSegue) {}
     
@@ -110,6 +110,22 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
         // set listener for notification after goalie is selected
         NotificationCenter.default.addObserver(self, selector: #selector(myCancelMethod(notification:)), name: NSNotification.Name(rawValue: "noPenaltyToggle"), object: nil)
         
+    }
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+            
+            present(popupVC, animated: true, completion: nil)
+            print("Help Guide Presented!")
+        }
     }
     
     func navBarProcessing() -> String {
@@ -364,7 +380,7 @@ class Marker_Info_Page: UIViewController, UIPickerViewDelegate, UIPickerViewData
             popupVC.modalTransitionStyle = .crossDissolve
             let pVC = popupVC.popoverPresentationController
             pVC?.permittedArrowDirections = .any
-            pVC?.delegate = self as! UIPopoverPresentationControllerDelegate
+            pVC?.delegate = self as UIPopoverPresentationControllerDelegate
             
              popupVC.againstTeamID = opposingTeamID
             

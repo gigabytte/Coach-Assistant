@@ -221,7 +221,7 @@ Check to see if icloud account logged in
 class icloudAccountCheck{
     
     func isICloudContainerAvailable()->Bool {
-        if let currentToken = FileManager.default.ubiquityIdentityToken {
+        if FileManager.default.ubiquityIdentityToken != nil {
             return true
         }
         else {
@@ -304,7 +304,7 @@ class universalValue{
     var nightTimeViewColour: UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     
     var dayTimeNavBarColour: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    var nightTimeNavBarColour: UIColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+    var nightTimeNavBarColour: UIColor = #colorLiteral(red: 0.344136338, green: 0.3538037693, blue: 0.3728801521, alpha: 1)
     
     var dayTimeTableViewColour: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     var nightTimeTableViewColour: UIColor = #colorLiteral(red: 0.3573177315, green: 0.3868757163, blue: 0.429816126, alpha: 1)
@@ -316,7 +316,7 @@ class universalValue{
     var nightTimeTextViewColour: UIColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     
     var dayTimeButtonColour: UIColor = #colorLiteral(red: 0.8936389594, green: 0.8936389594, blue: 0.8936389594, alpha: 1)
-    var nightTimeButtonColour: UIColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+    var nightTimeButtonColour: UIColor = #colorLiteral(red: 0.6054555309, green: 0.6054555309, blue: 0.6054555309, alpha: 1)
     
 }
 
@@ -506,3 +506,30 @@ class checkUserDefaults{
         return UserDefaults.standard.object(forKey: key) != nil
     }
 }
+
+class imageResizeClass{
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }}

@@ -62,8 +62,6 @@ class Penalty_Info_View_Controller: UIViewController, UIPickerViewDelegate, UIPi
         // Data Connections for picker views:
         self.penaltyPicker.delegate = self
         self.penaltyPicker.dataSource = self
-        
-        print("selected penalty \(selectedPenaltyID)")
     }
     
 

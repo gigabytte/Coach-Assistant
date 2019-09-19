@@ -355,7 +355,7 @@ class Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func continueTeamSelection(){
         
         try! realm.write() {
-            realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType, "gameLocation": gameLocationTextField.text!, "activeGameStatus": true, "activeState": true]);
+            realm.create(newGameTable.self, value: ["gameID": self.primaryNewGameKey, "dateGamePlayed": Date(), "opposingTeamID": self.selectedAwayTeamKey, "homeTeamID": self.selectedHomeTeamKey, "gameType": selectedGameType!, "gameLocation": gameLocationTextField.text!, "activeGameStatus": true, "activeState": true]);
             
             let primaryHomePlayerID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ && activeState == %@", String(selectedHomeTeamKey),NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
             let primaryAwayPlayerID = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ && activeState == %@", String(selectedAwayTeamKey),NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})

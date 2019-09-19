@@ -55,8 +55,15 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
     var periodTwo: CGRect?
     var periodThree: CGRect?
     
+    var standardContinueButtonCon: NSLayoutConstraint!
+    var extendedContinueButtonCon: NSLayoutConstraint!
+    
+    var standardCancelButtonCon: NSLayoutConstraint!
+    var shrunkCancelButtonCon: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("test")
         UserDefaults.standard.set(false, forKey: "oldStatsBool")
         // add blur effect to view along with popUpView
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -81,38 +88,73 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         viewColour()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+         print("hi")
+    }
+    
     func viewColour(){
         
         popUpView.layer.cornerRadius = 10
         //popUpView.backgroundColor = systemColour().viewColor()
         continueButton.backgroundColor = systemColour().uiButton()
         cancelButton.backgroundColor = systemColour().uiButton()
-        roundedCorners().buttonBottomLeft(bottonViewType: continueButton)
+        roundedCorners().imageViewTopLeftRight(labelViewType: hockeyNetImageView)
+        
+        continueButton.backgroundColor = systemColour().uiButton()
+        cancelButton.backgroundColor = systemColour().uiButton()
+        
+        self.popUpView.layoutIfNeeded()
         //roundedCorners().imageViewTopLeftRight(labelViewType: hockeyNetImageView)
     }
     // change constrints based on when the view appears
     func newGameStartedViewRender(){
+        print("hi")
+        print("new agme bool \(newGameStarted)")
         
-        if(newGameStarted != false){
+        extendedContinueButtonCon = continueButton.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor)
+        shrunkCancelButtonCon = cancelButton.trailingAnchor.constraint(equalTo: popUpView.leadingAnchor)
+        
+        standardContinueButtonCon =  continueButton.leadingAnchor.constraint(equalTo: popUpView.centerXAnchor)
+        standardCancelButtonCon = cancelButton.trailingAnchor.constraint(equalTo: popUpView.centerXAnchor)
+        
+        if(newGameStarted == true){
             // dynamically change button layour based on users first new game attempt
             newGameLabel.isHidden = false
             cancelButton.isHidden = true
-            cancelButton.isEnabled = false
-            continueButton.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor)
-            continueButton.widthAnchor.constraint(equalToConstant: 484).isActive = true
+            
+            standardCancelButtonCon.isActive = false
+            standardContinueButtonCon.isActive = false
+            
+            extendedContinueButtonCon.isActive = true
+            shrunkCancelButtonCon.isActive = true
+            
+            roundedCorners().buttonBottomDouble(bottonViewType: continueButton)
+            
+            self.popUpView.layoutIfNeeded()
+            
             continueButton.titleLabel?.textAlignment = .center
-            hockeyNetImageView.bottomAnchor.constraint(equalTo: continueButton.topAnchor)
+            //hockeyNetImageView.bottomAnchor.constraint(equalTo: continueButton.topAnchor).isActive = true
             netImageViewBoundaries()
 
         }else{
            // dynamically change button layour based on user inaction in game
-            netImageViewBoundaries()
+           
             newGameLabel.isHidden = true
-            cancelButton.isEnabled = true
-            continueButton.leadingAnchor.constraint(equalTo: cancelButton.leadingAnchor)
-            continueButton.widthAnchor.constraint(equalToConstant: 230).isActive = true
+            cancelButton.isHidden = false
+            
+            standardCancelButtonCon.isActive = true
+            standardContinueButtonCon.isActive = true
+            
+            extendedContinueButtonCon.isActive = false
+            shrunkCancelButtonCon.isActive = false
+            
+            roundedCorners().buttonBottomLeft(bottonViewType: cancelButton)
+            roundedCorners().buttonBottomRight(bottonViewType: continueButton)
+            
+            self.popUpView.layoutIfNeeded()
             continueButton.titleLabel?.textAlignment = .center
-            hockeyNetImageView.bottomAnchor.constraint(equalTo: continueButton.topAnchor)
+            //hockeyNetImageView.bottomAnchor.constraint(equalTo: continueButton.topAnchor).isActive = true
+             netImageViewBoundaries()
         }
     }
     // shake animation when called on error
@@ -136,13 +178,12 @@ class New_Game_Basic_Info_Page: UIViewController, UIGestureRecognizerDelegate {
         hockeyNetImageView.isUserInteractionEnabled = true
         
         let screenWidth = hockeyNetImageView.frame.width
-        print(screenWidth)
         let screenHeight = hockeyNetImageView.frame.height
-        print(screenHeight)
+        let bottomThird = (screenHeight / 3) * 2
         
-        periodOne = CGRect(x: screenWidth / 6, y: 230,  width: 80,  height: 80)
-        periodTwo = CGRect(x: (screenWidth / 2) - 40 , y: 230,  width: 80,  height: 80)
-        periodThree = CGRect(x: (screenWidth / 2) + 80, y: 230,  width: 80,  height:80)
+        periodOne = CGRect(x: 0, y: bottomThird,  width: screenWidth / 3,  height: bottomThird)
+        periodTwo = CGRect(x: (screenWidth / 3) , y: bottomThird,  width: screenWidth / 3,  height: bottomThird)
+        periodThree = CGRect(x: (screenWidth / 3) * 2, y: bottomThird,  width: screenWidth / 3,  height:bottomThird)
         // check Tap gestuires for a single tap
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(netLocationSelectionTap));
         // number of taps require 1

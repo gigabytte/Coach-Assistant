@@ -46,25 +46,6 @@ class Locker_Room_Old_Stats_View_Controller: UIViewController, UITableViewDelega
         }
     }
     
-    // Enable detection of shake motion
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            /* let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-             let newViewController = storyBoard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
-             self.present(newViewController, animated: true, completion: nil)*/
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
-            popupVC.modalPresentationStyle = .overCurrentContext
-            popupVC.modalTransitionStyle = .crossDissolve
-            let pVC = popupVC.popoverPresentationController
-            pVC?.permittedArrowDirections = .any
-            pVC?.delegate = self
-            
-            present(popupVC, animated: true, completion: nil)
-            print("Help Guide Presented!")
-        }
-    }
-    
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         //presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         self.performSegue(withIdentifier: "Back_To_Home", sender: self)

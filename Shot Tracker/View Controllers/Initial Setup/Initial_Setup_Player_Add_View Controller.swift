@@ -246,9 +246,6 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 self.addPlayerProfileLabel.isHidden = true
             })
             break
-        default:
-            fatalErrorAlert("FATAL ERROR: ERROR CODE 111")
-            break
         }
     }
     
@@ -456,49 +453,53 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         
         let realm = try! Realm()
         var fileLogoName: String = ""
-        
-        if actionButton.tag == 20{
-            if (fieldErrorChecker() == true){
-            
-            if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
+        if Int(playerNumberTextField.text!)! >= 0 && Int(playerNumberTextField.text!)! <= 199{
+          
+            if actionButton.tag == 20{
+                if (fieldErrorChecker() == true){
                 
-                primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
-                doneHomePlayers = true
+                if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
+                    
+                    primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0) + 1
+                    doneHomePlayers = true
+                }else{
+                    primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
+                    
+                }
+                let newPlayer = playerInfoTable()
+                    
+                if userSelectedProfileImage != nil{
+                    // set file name for profile picture
+                    fileLogoName = "\((primaryPlayerID)!)_ID_\((playerNameTextField.text)!)_player_logo"
+                    imageWriter(fileName: fileLogoName, imageName: userSelectedProfileImage)
+                }
+            
+                try! realm.write{
+                    newPlayer.playerID = primaryPlayerID
+                    newPlayer.TeamID = String(queryTeamID)
+                    newPlayer.playerName = playerNameTextField.text!
+                    newPlayer.jerseyNum = Int(playerNumberTextField.text!)!
+                    newPlayer.lineNum = selectPlayerLine
+                    newPlayer.positionType = selectPosition
+                    newPlayer.activeState = true
+                    newPlayer.playerLogoURL = fileLogoName
+                    realm.add(newPlayer, update: .modified)
+                }
+                
+                succesfulPlayerAdd(playerName: playerNameTextField.text!)
+                
+                }else{
+                    print("User is missing a field, player cannot be saved properly")
+                }
+                
             }else{
-                primaryPlayerID = (realm.objects(playerInfoTable.self).max(ofProperty: "playerID")as Int? ?? 0)
-                
+                actionButton.tag = 20
+                restartButton.tag = 20
+                actionButton.setTitle("Save Player", for: .normal)
+                fadeOut(fadeInImageView: true)
             }
-            let newPlayer = playerInfoTable()
-                
-            if userSelectedProfileImage != nil{
-                // set file name for profile picture
-                fileLogoName = "\((primaryPlayerID)!)_ID_\((playerNameTextField.text)!)_player_logo"
-                imageWriter(fileName: fileLogoName, imageName: userSelectedProfileImage)
-            }
-        
-            try! realm.write{
-                newPlayer.playerID = primaryPlayerID
-                newPlayer.TeamID = String(queryTeamID)
-                newPlayer.playerName = playerNameTextField.text!
-                newPlayer.jerseyNum = Int(playerNumberTextField.text!)!
-                newPlayer.lineNum = selectPlayerLine
-                newPlayer.positionType = selectPosition
-                newPlayer.activeState = true
-                newPlayer.playerLogoURL = fileLogoName
-                realm.add(newPlayer, update:true)
-            }
-            
-            succesfulPlayerAdd(playerName: playerNameTextField.text!)
-            
-            }else{
-                print("User is missing a field, player cannot be saved properly")
-            }
-            
         }else{
-            actionButton.tag = 20
-            restartButton.tag = 20
-            actionButton.setTitle("Save Player", for: .normal)
-            fadeOut(fadeInImageView: true)
+            fatalErrorAlert("The jersey number must be between 0 and 199, you entered \(playerNumberTextField.text!)")
         }
      
     }
@@ -615,7 +616,6 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         self.present(errorAlert, animated: true, completion: nil)
         
     }
-    
    
 }
 extension Initial_Setup_Player_Add_View_Controller:  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -643,7 +643,9 @@ extension Initial_Setup_Player_Add_View_Controller:  UIImagePickerControllerDele
     func imageWriter(fileName: String, imageName: UIImage){
         
         
-        let imageData = imageName.jpegData(compressionQuality: 0.10)
+        let reSizedImage = imageResizeClass().resizeImage(image: imageName, targetSize: CGSize(width: 300, height: 300))
+        
+        let imageData = reSizedImage.jpegData(compressionQuality: 0.50)
         
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -667,5 +669,3 @@ extension Initial_Setup_Player_Add_View_Controller:  UIImagePickerControllerDele
     }
     
 }
-
-

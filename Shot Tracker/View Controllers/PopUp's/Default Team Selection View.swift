@@ -12,12 +12,11 @@ import Realm
 
 class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverPresentationControllerDelegate {
    
-    let realm = try! Realm()
+    
     
     var homeTeamPickerData: [String] = [String]()
     var homeTeamPickerDataID: [Int] = [Int]()
     var homeTeamValueSelected: Int!
-    var selectedHomeTeam: String = ""
     var selectedHomeTeamKey:Int = 0;
     var newGameLoad: Bool!
     
@@ -42,11 +41,18 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         self.homeTeamPicker.delegate = self
         self.homeTeamPicker.dataSource = self
         
+       
+        onLoad()
+        
+    }
+    
+    func onLoad(){
+        let realm = try! Realm()
+        
         homeTeamPickerData = (realm.objects(teamInfoTable.self).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})
         homeTeamPickerDataID = (realm.objects(teamInfoTable.self).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)})
         
-        // default home team and away team selection
-        selectedHomeTeam = homeTeamPickerData[0]
+        // default home team selection
         selectedHomeTeamKey = homeTeamPickerDataID[0]
         
         if checkUserDefaults().isKeyPresentInUserDefaults(key: "defaultHomeTeamID") == true{
@@ -56,9 +62,8 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
             }
         }
         
-        
-        
         viewColour()
+        
     }
     
     func viewColour(){
@@ -81,9 +86,11 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
     }
 
     @IBAction func continueButton(_ sender: UIButton) {
-      
-        UserDefaults.standard.set(selectedHomeTeamKey, forKey: "defaultHomeTeamID")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+        
+        if selectedHomeTeamKey != UserDefaults.standard.integer(forKey: "defaultHomeTeamID"){
+            UserDefaults.standard.set(selectedHomeTeamKey, forKey: "defaultHomeTeamID")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+        }
         self.dismiss(animated: true, completion: nil)
       
     }
@@ -124,7 +131,6 @@ class Default_Team_Selection_View: UIViewController, UIPickerViewDelegate, UIPic
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
       
-        selectedHomeTeam = homeTeamPickerData[row];
         selectedHomeTeamKey = homeTeamPickerDataID[row];
        
         

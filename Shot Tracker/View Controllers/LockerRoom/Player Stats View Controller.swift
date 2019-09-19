@@ -70,8 +70,6 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         
         playerInfoTableView.rowHeight = 125
         
-        UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-        
         selectedTeamID =  UserDefaults.standard.integer(forKey: "defaultHomeTeamID")
         
         // add tap gesture to team logo
