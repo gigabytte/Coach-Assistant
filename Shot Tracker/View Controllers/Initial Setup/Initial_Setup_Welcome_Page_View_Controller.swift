@@ -143,7 +143,7 @@ extension Initial_Setup_Welcome_Page_View_Controller: UIDocumentPickerDelegate,U
                 do {
                     // replace realm.default with backup
                     print(realmDefaultPath)
-                    try! FileManager.default.replaceItemAt(dir.appendingPathComponent("default.realm"), withItemAt: realmDefaultPath)
+                    try FileManager.default.replaceItemAt(dir.appendingPathComponent("default.realm"), withItemAt: realmDefaultPath)
                     
                     do{
                         let playerImagesBckupDIR = dir.appendingPathComponent("Backups").appendingPathComponent("PlayerImages")

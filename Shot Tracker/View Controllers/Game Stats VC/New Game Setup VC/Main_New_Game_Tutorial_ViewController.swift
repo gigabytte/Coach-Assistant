@@ -111,7 +111,7 @@ extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDataSource 
         // User is on the first view controller and swiped left to loop to
         // the last view controller.
         guard previousIndex >= 0 else {
-            let previousIndex = previousIndex - 1
+            _ = previousIndex - 1
             return nil
         }
         
@@ -135,7 +135,7 @@ extension Main_New_Game_Tutorial_ViewController: UIPageViewControllerDataSource 
         // User is on the last view controller and swiped right to loop to
         // the first view controller.
         guard orderedViewControllersCount != nextIndex else {
-            let nextIndex = nextIndex - 1
+            _ = nextIndex - 1
             return nil
         }
         

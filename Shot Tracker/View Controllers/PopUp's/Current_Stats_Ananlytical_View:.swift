@@ -114,6 +114,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
         // ran on page load
         if (tlShotValue.value == 0.0 && trShotValue.value == 0.0 && blShotValue.value == 0.0 && brShotValue.value == 0.0 && cShotValue.value == 0.0){
             savePerShotDataMissingLabel.isHidden = false
+            //shotLocationPieChartView.isHidden = true
             
         }else{
             savePerShotDataMissingLabel.isHidden = true
@@ -254,6 +255,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
             // if not enough data avalaiblke display warning
             homeTeamGoalie.value = 0.0
             savePerDataMissingLabel.isHidden = false
+            pieChartView.isHidden = true
             oneHundredPerNote.isHidden = true
         }
        

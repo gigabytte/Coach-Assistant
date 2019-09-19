@@ -53,6 +53,7 @@ class In_Game_Settings_ViewController: UIViewController, UIPickerViewDelegate, U
     func viewColour(){
         popUpView.backgroundColor = systemColour().viewColor()
         saveButton.backgroundColor = systemColour().uiButton()
+        inGameLabel.backgroundColor = systemColour().navBarColor()
         
         popUpView.layer.cornerRadius = 10
         roundedCorners().labelViewTopLeftRight(labelViewType: inGameLabel)

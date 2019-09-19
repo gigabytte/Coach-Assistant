@@ -27,6 +27,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     let awayTeamPenaltyMarkerImage = UIImage(named: "away_penalty.png")
     let homeTeamPenaltyMarkerImage = UIImage(named: "home_penalty.png")
     
+    @IBOutlet weak var quickStatsNavBar: UIView!
     @IBOutlet weak var iceRinkImageView: UIImageView!
     @IBOutlet weak var adView: GADBannerView!
     @IBOutlet weak var homeTeamNameLabel: UILabel!
@@ -59,7 +60,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        // set listener for notification after goalie is selected
+        
+        viewColour()
         
         tutorialContainer.isHidden = true
         closeButton.isHidden = true
@@ -169,6 +171,9 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     func onLoad(){
+        
+        
+        
         goalieID = UserDefaults.standard.integer(forKey: "selectedGoalieID")
         
         self.home_markerPlacement(markerType: self.homeTeamShotMakerImage!)
@@ -211,7 +216,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             }
         }
         
-        viewColour()
+       
         
     }
     
@@ -221,6 +226,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         navBar.barTintColor = systemColour().navBarColor()
         backButton.tintColor = systemColour().navBarButton()
         gameStatsButton.tintColor = systemColour().navBarButton()
+        quickStatsNavBar.backgroundColor = systemColour().navBarColor()
         
         // set nav bar propeeties based on prameters layout
         let barView = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))

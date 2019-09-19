@@ -66,6 +66,7 @@ class Old_Stats_Goalie_Selection_View: UIViewController {
         popUpView.layer.cornerRadius = 10
         popUpView.backgroundColor = systemColour().viewColor()
         continueButton.backgroundColor = systemColour().uiButton()
+        roundedCorners().buttonBottomDouble(bottonViewType: continueButton)
         roundedCorners().imageViewTopLeftRight(labelViewType: hockeyNetImageView)
     }
     

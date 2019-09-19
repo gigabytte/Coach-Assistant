@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Charts
 
-class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
+class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var playerStatsTableView: UITableView!
     @IBOutlet weak var playerActiveSwitch: UISwitch!
@@ -47,6 +47,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     var passedPlayerID: Int!
     var selectPosition: String!
     var selectLine: Int!
+    var didEditPickerView: Bool = false
     
     var imagePickerController : UIImagePickerController!
     
@@ -70,6 +71,8 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     
     var editButtonTaggedToLabel: NSLayoutConstraint!
     var editButtonTaggedToTextField: NSLayoutConstraint!
+    
+    var pieChartBlurView: UIVisualEffectView!
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
@@ -100,6 +103,11 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         playerInfoTableView.dataSource = self
         playerInfoTableView.delegate = self
         
+        playerEditNumberTextField.delegate = self
+        
+        // set view colour attributes
+        viewColour()
+        
         onLoad()
     }
     
@@ -108,9 +116,40 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         statsProcessing()
         playerPieChartValues()
         playerPieChartSettings()
+
+    }
+    
+   
+    
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let popupVC = storyboard.instantiateViewController(withIdentifier: "Help_View_Controller") as! Help_Guide_View_Controller
+            popupVC.modalPresentationStyle = .overCurrentContext
+            popupVC.modalTransitionStyle = .crossDissolve
+            let pVC = popupVC.popoverPresentationController
+            pVC?.permittedArrowDirections = .any
+            pVC?.delegate = self
+            
+            present(popupVC, animated: true, completion: nil)
+            print("Help Guide Presented!")
+        }
+    }
+    
+    func chartsBlur(){
+        // give background blur effect
+        // add blur effect to chart views
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         
-        // set view colour attributes
-        viewColour()
+        pieChartBlurView = UIVisualEffectView(effect: blurEffect)
+        pieChartBlurView.frame = playerInfoPieChartView.bounds
+        pieChartBlurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playerInfoPieChartView.addSubview(pieChartBlurView)
+        pieChartBlurView.isHidden = true
+        
+        
     }
     
     func playerPieChartSettings(){
@@ -157,15 +196,18 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                 playerAssistDataEntry.value = Double(playerAssitCount) / Double(totalPoints)
                 playerPowerPlayGoalDataEntry.value = Double(powerPlayGoalCount) / Double(totalPoints)
                 
+                dataWarningLabel.isHidden = true
+                pieChartBlurView.isHidden = true
+                
             }else{
                 // if total games will be divisable by 0 then default is even desperment error
-                playerGoalDataEntry.value = 0.0
-                playerAssistDataEntry.value = 0.0
-                playerPowerPlayGoalDataEntry.value = 0.0
+                playerGoalDataEntry.value = 33.0
+                playerAssistDataEntry.value = 33.0
+                playerPowerPlayGoalDataEntry.value = 33.0
                
                 // shaw data warning
-                playerInfoPieChartView.isHidden = true
-                //dataWarningTeamPieChart.isHidden = true
+                dataWarningLabel.isHidden = false
+                pieChartBlurView.isHidden = false
             }
         }else{
             
@@ -177,7 +219,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             
             let overalShotTotalArray: [Int] = [topLeft, topRight, bottomRight, bottomLeft, center]
             let overalShotTotal = Double(overalShotTotalArray.reduce(0, +))
-            print("shots \(overalShotTotal)")
+            
             // set shot location pie chart values based on % calc above;  total number of shot type / total number of shots
             if (overalShotTotal != 0){
                 tlShotValue.value = (Double(topLeft)/overalShotTotal) * 1.00
@@ -204,23 +246,25 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             }else{
                 cShotValue.value = 0.0
             }
-            dataUnavailableWarning()
+            if (tlShotValue.value == 0.0 && trShotValue.value == 0.0 && blShotValue.value == 0.0 && brShotValue.value == 0.0 && cShotValue.value == 0.0){
+                dataWarningLabel.isHidden = false
+                pieChartBlurView.isHidden = false
+                
+                tlShotValue.value = 20.0
+                trShotValue.value = 20.0
+                blShotValue.value = 20.0
+                brShotValue.value = 20.0
+                cShotValue.value = 20.0
+                
+            }else{
+                dataWarningLabel.isHidden = true
+                pieChartBlurView.isHidden = true
+            }
         }
         
     }
     
-    func dataUnavailableWarning(){
-        // display place holder message if data missing for pie charts
-        // ran on page load
-        if (tlShotValue.value == 0.0 && trShotValue.value == 0.0 && blShotValue.value == 0.0 && brShotValue.value == 0.0 && cShotValue.value == 0.0){
-            dataWarningLabel.isHidden = false
-            
-        }else{
-            dataWarningLabel.isHidden = true
-        }
-        
-    }
-   
+    
     
     func statsProcessing(){
         let realm = try! Realm()
@@ -345,6 +389,8 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         
         playerStatsTableView.backgroundColor = systemColour().tableViewColor()
         self.popUpView.backgroundColor = systemColour().viewColor()
+        
+        chartsBlur()
         
     }
     
@@ -545,96 +591,117 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         
         let playerLine = selectLine
         let playerPosition = selectPosition
-        let playerName = playerEditNameTextField.text!
-        let playerNumber = Int(playerEditNumberTextField.text!)
+        let playerName = (playerEditNameTextField.text!).trimmingCharacters(in: .whitespacesAndNewlines)
+        let playerNumber = (playerEditNumberTextField!.text! as NSString).integerValue
         let editedPlayer = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID);
        
     // check to see if fields are filled out properly
-        if(playerName != "" && playerEditNumberTextField.text! != ""){
-            // rename logo file name is name is chnaged
-            if let oldLogoURL = editedPlayer?.playerLogoURL{
-                if oldLogoURL != ""{
-                    reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo")
+       print(didEditPickerView)
+            if(playerName != "" && playerEditNumberTextField.text! != ""){
+                // rename logo file name is name is chnaged
+                if playerNumber <= 0 && playerNumber >= 199{
+                    if let oldLogoURL = editedPlayer?.playerLogoURL{
+                        if oldLogoURL != ""{
+                            reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo")
+                        }
+                    }
+                    
+                    try! realm.write {
+                        editedPlayer!.jerseyNum = playerNumber
+                        editedPlayer!.playerName = playerName
+                        if didEditPickerView == true{
+                            editedPlayer!.lineNum = playerLine!
+                            editedPlayer!.positionType = playerPosition!
+                        }
+                        editedPlayer!.playerLogoURL = "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo"
+                        editedPlayer!.activeState = playerActiveSwitch.isOn
+                    }
+                    // change width of playername label based on size of new text
+                    DispatchQueue.main.async {
+                        var playerNameRect: CGRect = self.playerNameLabel.frame //get frame of label
+                        playerNameRect.size = (self.playerNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNameLabel.font.fontName , size: self.playerNameLabel.font.pointSize)!]))! //Calculate as per label
+                        self.playerNameWidthNSCon.constant = playerNameRect.width + 15
+                        
+                        var playerNumberRect: CGRect = self.playerNumberLabel.frame //get frame of label
+                        playerNumberRect.size = (self.playerNumberLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNumberLabel.font.fontName , size: self.playerNumberLabel.font.pointSize)!]))! //Calculate as per label
+                        self.playerNumberWidthNSCon.constant = playerNumberRect.width + 15
+                        
+                        self.popUpView.layoutIfNeeded()
+                    }
+                    
+                }else{
+                    fatalErrorAlert("The jersey number must be between 0 and 199, you entered \(playerNumber)")
                 }
-            }
-   
-            try! realm.write {
-                editedPlayer!.jerseyNum = playerNumber!
-                editedPlayer!.playerName = playerName
-                editedPlayer!.lineNum = playerLine!
-                editedPlayer!.positionType = playerPosition!
-                editedPlayer!.playerLogoURL = "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo"
-                editedPlayer!.activeState = playerActiveSwitch.isOn
-            }
-            // change width of playername label based on size of new text
-            DispatchQueue.main.async {
-                var playerNameRect: CGRect = self.playerNameLabel.frame //get frame of label
-                playerNameRect.size = (self.playerNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNameLabel.font.fontName , size: self.playerNameLabel.font.pointSize)!]))! //Calculate as per label
-                self.playerNameWidthNSCon.constant = playerNameRect.width + 15
                 
-                var playerNumberRect: CGRect = self.playerNumberLabel.frame //get frame of label
-                playerNumberRect.size = (self.playerNumberLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNumberLabel.font.fontName , size: self.playerNumberLabel.font.pointSize)!]))! //Calculate as per label
-                self.playerNumberWidthNSCon.constant = playerNumberRect.width + 15
-                
-                self.popUpView.layoutIfNeeded()
-            }
-            
-            
-            editFieldsButton.tag = 20
-        }else if(playerName != "" && playerEditNumberTextField.text! == ""){
-            // rename logo file name is name is chnaged
-            if let oldLogoURL = editedPlayer?.playerLogoURL{
-                if oldLogoURL != ""{
-                    reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo")
+            }else if(playerName != "" && playerEditNumberTextField.text! == ""){
+                // rename logo file name is name is chnaged
+                if let oldLogoURL = editedPlayer?.playerLogoURL{
+                    if oldLogoURL != ""{
+                        reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo")
+                    }
                 }
-            }
-            
-            try! realm.write {
-                editedPlayer!.playerName = playerName
-                editedPlayer!.lineNum = playerLine!
-                editedPlayer!.positionType = playerPosition!
-                editedPlayer!.playerLogoURL = "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo"
-                editedPlayer!.activeState = playerActiveSwitch.isOn
-            }
-            // change width of playername label based on size of new text
-            DispatchQueue.main.async {
-                var playerNameRect: CGRect = self.playerNameLabel.frame //get frame of label
-                playerNameRect.size = (self.playerNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNameLabel.font.fontName , size: self.playerNameLabel.font.pointSize)!]))! //Calculate as per label
-                self.playerNameWidthNSCon.constant = playerNameRect.width + 15
                 
-                self.popUpView.layoutIfNeeded()
-            }
-            
-            editFieldsButton.tag = 20
-        }else if(playerName == "" && playerEditNumberTextField.text! != ""){
-            
-            try! realm.write {
-                editedPlayer!.jerseyNum = playerNumber!
-                editedPlayer!.lineNum = playerLine!
-                editedPlayer!.positionType = playerPosition!
-                editedPlayer!.activeState = playerActiveSwitch.isOn
-            }
-            // change width of player number label based on size of new text
-            DispatchQueue.main.async {
-                var playerNumberRect: CGRect = self.playerNumberLabel.frame //get frame of label
-                playerNumberRect.size = (self.playerNumberLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNumberLabel.font.fontName , size: self.playerNumberLabel.font.pointSize)!]))! //Calculate as per label
-                self.playerNumberWidthNSCon.constant = playerNumberRect.width + 15
+                try! realm.write {
+                    editedPlayer!.playerName = playerName
+                    if didEditPickerView == true{
+                        editedPlayer!.lineNum = playerLine!
+                        editedPlayer!.positionType = playerPosition!
+                    }
+                    editedPlayer!.playerLogoURL = "\((editedPlayer?.playerID)!)_ID_\(playerName)_player_logo"
+                    editedPlayer!.activeState = playerActiveSwitch.isOn
+                }
+                // change width of playername label based on size of new text
+                DispatchQueue.main.async {
+                    var playerNameRect: CGRect = self.playerNameLabel.frame //get frame of label
+                    playerNameRect.size = (self.playerNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNameLabel.font.fontName , size: self.playerNameLabel.font.pointSize)!]))! //Calculate as per label
+                    self.playerNameWidthNSCon.constant = playerNameRect.width + 15
+                    
+                    self.popUpView.layoutIfNeeded()
+                }
                 
-                self.popUpView.layoutIfNeeded()
+                
+            }else if(playerName == "" && playerEditNumberTextField.text! != ""){
+                if playerNumber <= 0 && playerNumber >= 199{
+                    
+                    print(playerPosition!)
+                    
+                    try! realm.write {
+                        editedPlayer!.jerseyNum = playerNumber
+                        if didEditPickerView == true{
+                            editedPlayer!.lineNum = playerLine!
+                            editedPlayer!.positionType = playerPosition!
+                        }
+                        editedPlayer!.activeState = playerActiveSwitch.isOn
+                    }
+                    // change width of player number label based on size of new text
+                    DispatchQueue.main.async {
+                        var playerNumberRect: CGRect = self.playerNumberLabel.frame //get frame of label
+                        playerNumberRect.size = (self.playerNumberLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.playerNumberLabel.font.fontName , size: self.playerNumberLabel.font.pointSize)!]))! //Calculate as per label
+                        self.playerNumberWidthNSCon.constant = playerNumberRect.width + 15
+                        
+                        self.popUpView.layoutIfNeeded()
+                    }
+                    
+                }else{
+                    fatalErrorAlert("The jersey number must be between 0 and 199, you entered \(playerNumber)")
+                }
+                
+                }else if(playerName == "" && playerEditNumberTextField.text! == ""){
+                    
+                    try! realm.write {
+                        if didEditPickerView == true{
+                            print("chnaged")
+                            editedPlayer!.lineNum = playerLine!
+                            editedPlayer!.positionType = playerPosition!
+                        }
+                        editedPlayer!.activeState = playerActiveSwitch.isOn
+                    }
+                
+                
+            }else{
+                fatalErrorAlert("Unable to determine fields that have been changed, please conatct support!")
             }
-            editFieldsButton.tag = 20
-        }else if(playerName == "" && playerEditNumberTextField.text! == ""){
-           
-            try! realm.write {
-                editedPlayer!.lineNum = playerLine!
-                editedPlayer!.positionType = playerPosition!
-                editedPlayer!.activeState = playerActiveSwitch.isOn
-            }
-            editFieldsButton.tag = 20
-        }else{
-              editFieldsButton.tag = 10
-        }
-        
+      
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -645,7 +712,9 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         switch pickerView {
         case lineNumberPicker:
             return pickerData.count
+            
         default:
+            
             switch selectLine{
             case  1,2,3:
                 return forwardPositionData.count
@@ -656,7 +725,6 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             }
         }
     }
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if(pickerView == positionTypePicker){
             switch selectLine{
@@ -672,8 +740,8 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             
         }
     }
-    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
         if(pickerView == lineNumberPicker){
             if(pickerData[row] == "Forward 1"){
                 selectLine = 1
@@ -705,18 +773,22 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                 positionTypePicker.reloadAllComponents()
                 selectPosition = "G"
             }
-        }else {
+            print("ffff")
+            didEditPickerView = true
+        }else{
+            
             switch selectLine{
             case  1,2,3:
                 selectPosition = positionCodeData[row]
+                
             case 4,5,6:
                 selectPosition = positionCodeData[row + 3]
             default :
                 selectPosition = positionCodeData[positionCodeData.count - 1]
             }
+            didEditPickerView = true
         }
         
-    
     }
     
     func playerStatsProcessing(){
@@ -876,8 +948,12 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     }
     
     @IBAction func closeButton(_ sender: UIButton) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
-        self.dismiss(animated: true, completion: nil)
+        if editFieldsButton.tag == 10 {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homePageRefresh"), object: nil, userInfo: ["key":"value"])
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func editFieldsButton(_ sender: UIButton) {
@@ -885,6 +961,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         let editedPlayer = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID);
         // is player label is already hidden reverse the process
         if playerNameLabel.isHidden == true{
+           
             // write new player inffo to realm
             // update UI
             savePlayerInfo()
@@ -894,40 +971,12 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
             playerInfoTableView.reloadData()
             playerInfoPieChartView.reloadInputViews()
         }else{
-    
+            
             isEditingFields(boolType: false)
-            if let lineType = (editedPlayer?.lineNum) {
-                if String(lineType) != ""{
-                    selectLine = lineType
-                    if lineType == 0 {
-                        lineNumberPicker.selectRow(6, inComponent: 0, animated: true)
-                    }else{
-                        lineNumberPicker.selectRow(lineType - 1, inComponent: 0, animated: true)
-                    }
-                }
-                positionTypePicker.reloadAllComponents()
-            }
-            if let positionCode = editedPlayer?.positionType{
-                if positionCode != ""{
-                    let positionCodeIndex = positionCodeData.firstIndex(of: positionCode)
-                    if positionCodeIndex != nil{
-                        if positionCodeIndex! >= 0 && positionCodeIndex! <= 2{
-                            // forward
-                            selectPosition = positionCodeData[positionCodeIndex!]
-                            
-                            positionTypePicker.selectRow(positionCodeIndex!, inComponent: 0, animated: true)
-                        }else if positionCodeIndex! == 3 || positionCodeIndex! == 4{
-                            // defense
-                             positionTypePicker.selectRow((positionCodeIndex! - 3), inComponent: 0, animated: true)
-                        }else{
-                            // goalie
-                            positionTypePicker.selectRow(0, inComponent: 0, animated: true)
-                        }
-                    }
-                }
-            }
+          
         }
         dataWarningLabel.isHidden = true
+        editFieldsButton.tag = 10
     }
     
     @objc func playerProfileImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -1048,7 +1097,8 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         return cell
     }
     
-
+   
+    
 }
 
 extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -1080,7 +1130,9 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
         let realm = try! Realm()
         let playerObjc = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID)
         
-        let imageData = imageName.jpegData(compressionQuality: 0.10)
+        let reSizedImage = imageResizeClass().resizeImage(image: imageName, targetSize: CGSize(width: 300, height: 300))
+        
+        let imageData = reSizedImage.jpegData(compressionQuality: 0.50)
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
@@ -1149,4 +1201,14 @@ extension Player_About_Popup_View_Controller:  UIImagePickerControllerDelegate, 
         
     }
 }
-
+extension Player_About_Popup_View_Controller: UITextFieldDelegate{
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField == playerEditNumberTextField){
+            guard NSCharacterSet(charactersIn: "0123456789").isSuperset(of: NSCharacterSet(charactersIn: string) as CharacterSet) else {
+                return false
+            }
+        }
+        return true
+    }
+}

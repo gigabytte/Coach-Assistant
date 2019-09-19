@@ -11,7 +11,7 @@ import RealmSwift
 import MobileCoreServices
 import Zip
 
-class Add_Team_Page: UIViewController {
+class Add_Team_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     //Creates variables for coneceting to the realm database and for the team's ID Number
     var noTeamsBool: Bool = false
@@ -19,6 +19,7 @@ class Add_Team_Page: UIViewController {
     var imagePickerController : UIImagePickerController!
     
     //Connections to the page
+    @IBOutlet weak var seasonNumberPickerView: UIPickerView!
     @IBOutlet weak var importBackupButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var teamName: UITextField!
@@ -28,9 +29,15 @@ class Add_Team_Page: UIViewController {
     
     @IBAction func unwindToAddTeam(segue: UIStoryboardSegue) {}
     
+    var seasonYearValueArray: [Int] = [Int]()
+    var selectedSeasonNumber: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
+        
+        self.seasonNumberPickerView.delegate = self
+        self.seasonNumberPickerView.dataSource = self
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(teamLogoTapped(tapGestureRecognizer:)))
         teamLogoImageView.isUserInteractionEnabled = true
@@ -53,6 +60,10 @@ class Add_Team_Page: UIViewController {
     }
     
     func onLoad(){
+        
+        seasonYearValueArray = Array(2019...2030)
+        selectedSeasonNumber = seasonYearValueArray.first
+        
         if((UserDefaults.standard.object(forKey: "defaultHomeTeamID")) == nil){
             delay(0.5){
                 
@@ -160,6 +171,7 @@ class Add_Team_Page: UIViewController {
         //not on then adds the primary team ID and the team name to the new team entry.
         if (userInputTeam != "" && inActiveTeamToggle.isOn != true){
             newTeam.teamID = primaryTeamID
+            newTeam.seasonYear = selectedSeasonNumber
             newTeam.nameOfTeam = userInputTeam
             if teamLogoImageView.tag == 20{
                 let fileURL = "\((primaryTeamID))_ID_\((teamName.text)!)_team_logo"
@@ -169,7 +181,7 @@ class Add_Team_Page: UIViewController {
             //writes new team information to database, resets the textbox view and outputs
             //a notification of success
             try! realm.write{
-                realm.add(newTeam, update:true)
+                realm.add(newTeam, update: .modified)
                 teamName.text = ""
                 teamLogoImageView.image = UIImage(named: "temp_profile_pic_icon")
                 if noTeamsBool == true{
@@ -182,6 +194,7 @@ class Add_Team_Page: UIViewController {
         }else if(userInputTeam != "" && inActiveTeamToggle.isOn == true){
                 newTeam.teamID = primaryTeamID
                 newTeam.nameOfTeam = userInputTeam
+                newTeam.seasonYear = selectedSeasonNumber
                 newTeam.activeState = false
             
             if teamLogoImageView.tag == 20{
@@ -192,7 +205,7 @@ class Add_Team_Page: UIViewController {
             //writes new team information to database, resets the textbox view and outputs
             //a notification of success
             try! realm.write{
-                realm.add(newTeam, update:true)
+                realm.add(newTeam, update: .modified)
                 teamName.text = ""
                 teamLogoImageView.image = UIImage(named: "temp_profile_pic_icon")
                 if noTeamsBool == true{
@@ -216,7 +229,7 @@ class Add_Team_Page: UIViewController {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= (keyboardSize.height / 2)
+                self.view.frame.origin.y -= (keyboardSize.height / 1.5)
             }
         }
     }
@@ -352,6 +365,7 @@ extension Add_Team_Page:  UIImagePickerControllerDelegate, UINavigationControlle
             teamLogoImageView.tag = 10
         }
         teamLogoImageView.image = selectedImage
+        teamLogoImageView.contentMode = .scaleAspectFill
         teamLogoImageView.heightAnchor.constraint(equalToConstant: teamLogoImageView.frame.height).isActive = true
         teamLogoImageView.setRounded()
         teamLogoImageView.tag = 20
@@ -367,7 +381,9 @@ extension Add_Team_Page:  UIImagePickerControllerDelegate, UINavigationControlle
     
     func imageWriter(fileName: String, imageName: UIImage){
         
-        let imageData = imageName.jpegData(compressionQuality: 0.10)
+        let reSizedImage = imageResizeClass().resizeImage(image: imageName, targetSize: CGSize(width: 300, height: 300))
+        
+        let imageData = reSizedImage.jpegData(compressionQuality: 0.50)
         
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -388,6 +404,24 @@ extension Add_Team_Page:  UIImagePickerControllerDelegate, UINavigationControlle
             }
         }
     }
+    
+    // ----------------------------- pickerview delegate methods -------------------------------
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return seasonYearValueArray.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(seasonYearValueArray[row]) - \(seasonYearValueArray[row] + 1)"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedSeasonNumber = seasonYearValueArray[row]
+    }
+    // -----------------------------------------------------------------------------------------------
     
 }
 extension Add_Team_Page: UIDocumentPickerDelegate{
@@ -431,7 +465,7 @@ extension Add_Team_Page: UIDocumentPickerDelegate{
                 do {
                     // replace realm.default with backup
                     print(realmDefaultPath)
-                    try! FileManager.default.replaceItemAt(dir.appendingPathComponent("default.realm"), withItemAt: realmDefaultPath)
+                    try FileManager.default.replaceItemAt(dir.appendingPathComponent("default.realm"), withItemAt: realmDefaultPath)
                     
                     do{
                         let playerImagesBckupDIR = dir.appendingPathComponent("Backups").appendingPathComponent("PlayerImages")

@@ -75,9 +75,12 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         selectedTeamID = UserDefaults.standard.integer(forKey: "defaultHomeTeamID")
         
-        let teamNameObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID)?.nameOfTeam
-        if teamNameObjc != ""{
-            addingToTeamNameLabel.text = "Note you are adding a player to \(teamNameObjc!.capitalized)"
+        if let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID) {
+            if teamObjc.nameOfTeam != "" {
+                addingToTeamNameLabel.text = "Note you are adding a player to \((teamObjc.nameOfTeam).capitalized)"
+            }else{
+                addingToTeamNameLabel.text = "Note you are adding a player to the default team selected"
+            }
         }else{
             addingToTeamNameLabel.text = "Note you are adding a player to the default team selected"
         }
@@ -108,9 +111,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         let number = Int(playerNumber.text!)
         let line = selectLine
         let position = selectPosition
-        
-        print("line \(line) postion \(position)")
-        
+       
         let newPlayer = playerInfoTable()
         
         if (realm.objects(playerInfoTable.self).max(ofProperty: "playerID") as Int? != nil){
@@ -123,41 +124,45 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
         // check to see if fields are filled out properly
         // write info to realm and reset all fields
-        if (number != nil && nameOfPlayer != ""){
-            if (doubleJerseyNumCheck(selectedTeamID: selectedTeamID) == false){
-                newPlayer.playerID = primaryPlayerID
-                newPlayer.playerName = nameOfPlayer
-                newPlayer.jerseyNum = number!
-                newPlayer.lineNum = line!
-                newPlayer.positionType = position!
-                newPlayer.TeamID = String(selectedTeamID)
-                if playerProfileImageView.tag == 20{
-                    let fileURL = "\((primaryPlayerID!))_ID_\((nameOfPlayer))_team_logo"
-                    imageWriter(fileName: fileURL, imageName: playerProfileImageView.image!)
-                    newPlayer.playerLogoURL = fileURL
-                }
-                
-                try! realm.write{
-                    realm.add(newPlayer, update: true)
+        if number! >= 0 && number! <= 199{
+            if (number != nil && nameOfPlayer != ""){
+                if (doubleJerseyNumCheck(selectedTeamID: selectedTeamID) == false){
+                    newPlayer.playerID = primaryPlayerID
+                    newPlayer.playerName = nameOfPlayer
+                    newPlayer.jerseyNum = number!
+                    newPlayer.lineNum = line!
+                    newPlayer.positionType = position!
+                    newPlayer.TeamID = String(selectedTeamID)
+                    if playerProfileImageView.tag == 20{
+                        let fileURL = "\((primaryPlayerID!))_ID_\((nameOfPlayer))_team_logo"
+                        imageWriter(fileName: fileURL, imageName: playerProfileImageView.image!)
+                        newPlayer.playerLogoURL = fileURL
+                    }
                     
-                    playerName.text = ""
-                    playerNumber.text = ""
-                    self.linePicker.reloadAllComponents()
-                    playerProfileImageView.image = UIImage(named: "temp_profile_pic_icon")
-                    succesfulPlayerAdd(playerName: nameOfPlayer)
+                    try! realm.write{
+                        realm.add(newPlayer, update: .modified)
+                        
+                        playerName.text = ""
+                        playerNumber.text = ""
+                        self.linePicker.reloadAllComponents()
+                        playerProfileImageView.image = UIImage(named: "temp_profile_pic_icon")
+                        succesfulPlayerAdd(playerName: nameOfPlayer)
+                    }
+                }else{
+                    // double jersey number alrt
+                    let doubleJersey = UIAlertController(title: localizedString().localized(value:"Double Up!"), message: localizedString().localized(value:"Please make sure each memeber of your team as a unique jersey number"), preferredStyle: UIAlertController.Style.alert)
+                    // add an action (button)
+                    doubleJersey.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    // show the alert
+                    self.present(doubleJersey, animated: true, completion: nil)
+                    
                 }
-            }else{
-                // double jersey number alrt
-                let doubleJersey = UIAlertController(title: localizedString().localized(value:"Double Up!"), message: localizedString().localized(value:"Please make sure each memeber of your team as a unique jersey number"), preferredStyle: UIAlertController.Style.alert)
-                // add an action (button)
-                doubleJersey.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                // show the alert
-                self.present(doubleJersey, animated: true, completion: nil)
                 
+            }else{
+                missingFieldAlert()
             }
-            
         }else{
-            missingFieldAlert()
+            fatalErrorAlert("The jersey number must be between 0 and 199, you entered \(number!)")
         }
        
     }
@@ -298,11 +303,7 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
         case linePicker:
@@ -452,6 +453,16 @@ class Add_Player_Page: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         
     }
     
+    func fatalErrorAlert(_ msg: String){
+        
+        let errorAlert = UIAlertController(title: localizedString().localized(value:"Whoops!"), message: localizedString().localized(value:"\(msg)"), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(errorAlert, animated: true, completion: nil)
+        
+    }
+    
     func mediaTypeSlectionAlert(){
         
         // create the alert
@@ -496,6 +507,7 @@ extension Add_Player_Page:  UIImagePickerControllerDelegate, UINavigationControl
             playerProfileImageView.tag = 10
         }
         playerProfileImageView.image = selectedImage
+        playerProfileImageView.contentMode = .scaleAspectFill
         playerProfileImageView.heightAnchor.constraint(equalToConstant: playerProfileImageView.frame.height).isActive = true
         playerProfileImageView.setRounded()
         playerProfileImageView.tag = 20
@@ -511,7 +523,9 @@ extension Add_Player_Page:  UIImagePickerControllerDelegate, UINavigationControl
     
     func imageWriter(fileName: String, imageName: UIImage){
         
-        let imageData = imageName.jpegData(compressionQuality: 0.10)
+        let reSizedImage = imageResizeClass().resizeImage(image: imageName, targetSize: CGSize(width: 300, height: 300))
+        
+        let imageData = reSizedImage.jpegData(compressionQuality: 0.50)
         
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {

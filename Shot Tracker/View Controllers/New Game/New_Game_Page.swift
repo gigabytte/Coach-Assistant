@@ -28,6 +28,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     let homeTeamPenaltyMarkerImage = UIImage(named: "home_penalty.png")
     
    
+    @IBOutlet weak var quickStatsNavBar: UIView!
     @IBOutlet weak var adView: GADBannerView!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var logoButton: UIButton!
@@ -102,7 +103,6 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder() // To get shake gesture
-        //UserDefaults.standard.set(false, forKey: "firstGameBool")
         
         pageControl.addTarget(self, action: Selector(("didChangePageControlValue")), for: .valueChanged)
         
@@ -284,6 +284,7 @@ class New_Game_Page: UIViewController, UIPopoverPresentationControllerDelegate {
         navBar.barTintColor = systemColour().navBarColor()
         doneButton.tintColor = systemColour().navBarButton()
         statsButton.tintColor = systemColour().navBarButton()
+        quickStatsNavBar.backgroundColor = systemColour().navBarColor()
         
         // set nav bar propeeties based on prameters layout
         let barView = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))

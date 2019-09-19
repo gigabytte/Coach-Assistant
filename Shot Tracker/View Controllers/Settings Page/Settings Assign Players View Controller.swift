@@ -124,7 +124,7 @@ class Settings_Assign_Players_View_Controller: UIViewController, UITableViewDele
                     newPlayer.lineNum = playerLineNumArray[tableViewIndex]
                     newPlayer.positionType = playerLineTypeArray[tableViewIndex]
                     newPlayer.TeamID = String(selectedTeamID)
-                    realm.add(newPlayer, update: true)
+                    realm.add(newPlayer, update: .modified)
                 }
                
                 

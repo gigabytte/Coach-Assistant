@@ -16,7 +16,7 @@ class LockerRoom_Add_View_Controller: UIViewController, UIPopoverPresentationCon
     
     var tutorialPageViewController: Add_Page_Controller_View_Controller? {
         didSet {
-            tutorialPageViewController?.tutorialDelegate = self as? addVCPageViewControllerDelegate
+            tutorialPageViewController?.tutorialDelegate = self 
         }
     }
     
