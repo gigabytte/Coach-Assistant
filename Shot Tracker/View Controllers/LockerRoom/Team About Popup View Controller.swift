@@ -140,8 +140,8 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
                 let readerResult = imageReader(fileName: teamObjc!.teamLogoURL)
                 teamLogoImageView.image = readerResult
             }else{
-                // default image goes here
                 teamLogoImageView.image = UIImage(named: "temp_profile_pic_icon")
+               
             }
         }
         
@@ -196,6 +196,7 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         pieChartBlurView.frame = teamPieChartView.bounds
         pieChartBlurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         teamPieChartView.addSubview(pieChartBlurView)
+        teamPieChartView.addSubview(dataWarningTeamPieChart)
         pieChartBlurView.isHidden = true
 
         
@@ -221,9 +222,9 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         
         teamPieChartSettings()
         
-        teamWinsDataEntry.label = "# of Wins"
-        teamLosesDataEntry.label = "# of Loses"
-        teamTiesDataEntry.label = "# of Ties"
+        teamWinsDataEntry.label = "% # of Wins"
+        teamLosesDataEntry.label = "% # of Loses"
+        teamTiesDataEntry.label = "% # of Ties"
         
         let totalGames = homeTeamWinCount + homeTeamLooseCount + homeTeamTieCount
         if totalGames != 0{
@@ -234,6 +235,7 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
             
         }else{
             // if total games will be divisable by 0 then default is even desperment error
+            print("low data")
             teamWinsDataEntry.value = 33.3
             teamLosesDataEntry.value = 33.3
             teamTiesDataEntry.value = 33.3
@@ -631,6 +633,7 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
     
     @objc func teamLogoTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         print("Opening Photo Selection Method")
+        editBUtton.tag = 10
         mediaTypeSlectionAlert()
         
     }

@@ -11,8 +11,6 @@ import Realm
 import RealmSwift
 
 class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
-    let realm = try! Realm()
     
     let leftArrowImage = UIImage(named: "left_scroll_arrow")
     let rightArrowImage = UIImage(named: "right_scroll_arrow")
@@ -82,6 +80,8 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
 
         let secondsArray = Array(0...59).compactMap({String($0)})
         
+            let realm = try! Realm()
+        
         // values are broken down into a 2D matrix with corresponding values ranging from minutes to seconds
         timePickerValues = [/*FIrst Row Minute values*/["0", "1", "2", "3", "4", "5"], /*Sec Row Minute values*/["0", "1", "2", "3", "4", "5"]]
         timePickerValues.append(secondsArray)
@@ -105,6 +105,8 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func swipeGestureInitializer() {
+        
+            let realm = try! Realm()
         
         // get names of teams from current game
         teamNameArray.append(((realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@ AND teamID == %i", NSNumber(value: true), homeTeamID)).value(forKeyPath: "nameOfTeam") as! [String]).compactMap({String($0)})).first!)
@@ -147,6 +149,9 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func scrollArrowProccessing(){
+        
+            let realm = try! Realm()
+        
         if (self.teamNameArray[self.currentArrayIndex] == self.teamNameArray.last){
             self.teamNameLabel.text = self.teamNameArray[self.currentArrayIndex]
             self.rightScrollImageView.image = rightArrowImage
@@ -228,6 +233,8 @@ class Penalty_Popup_View_Controller: UIViewController, UIPickerViewDelegate, UIP
     }
     
     @IBAction func addPenaltyButton(_ sender: UIButton) {
+        
+            let realm = try! Realm()
         
             try! realm.write{
                 if (realm.objects(penaltyTable.self).max(ofProperty: "penaltyID") as Int? != nil){

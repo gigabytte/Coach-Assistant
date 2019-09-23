@@ -144,9 +144,9 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
     
     func teamPieChartValues(){
         
-        teamWinsDataEntry.label = "# of Wins"
-        teamLosesDataEntry.label = "# of Loses"
-        teamTiesDataEntry.label = "# of Ties"
+        teamWinsDataEntry.label = "% # of Wins"
+        teamLosesDataEntry.label = "% # of Loses"
+        teamTiesDataEntry.label = "% # of Ties"
         
         let totalGames = homeTeamWinCount + homeTeamLooseCount + homeTeamTieCount
         if totalGames != 0{
@@ -443,6 +443,7 @@ class Locker_Room_Player_Stats_View_Controller: UIViewController, UIPopoverPrese
         
         selectedTeamID =  UserDefaults.standard.integer(forKey: "defaultHomeTeamID")
         
+        recordLabelProcessing()
         playerNameInfo()
         teamInfoGrabber()
         teamPieChartSettings()

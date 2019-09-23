@@ -50,7 +50,6 @@
 		BE669DCB226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE669DCA226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift */; };
 		BE6F1E142274B44000673062 /* Settings_About_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6F1E132274B44000673062 /* Settings_About_View_Controller.swift */; };
 		BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */; };
-		BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */; };
 		BE7D697821E3D74300C1745C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7D697721E3D74300C1745C /* AppDelegate.swift */; };
 		BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE7D697E21E3D74500C1745C /* Assets.xcassets */; };
 		BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */; };
@@ -66,6 +65,7 @@
 		BEA08C972215F05200B6D73B /* Add_Player_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA08C962215F05200B6D73B /* Add_Player_Page.swift */; };
 		BEA1CE3D2243F46200DA8EEE /* Old Stats Goalie Selection View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1CE3C2243F46200DA8EEE /* Old Stats Goalie Selection View.swift */; };
 		BEAB49202321EB6F005FF256 /* Drawboard View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAB491F2321EB6F005FF256 /* Drawboard View Controller.swift */; };
+		BEAC415223380D9700133B65 /* Current_Stats_Ananlytical_View:.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */; };
 		BEAD9B1E230B41810040AFE2 /* LockerRoom View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD9B1D230B41810040AFE2 /* LockerRoom View Controller.swift */; };
 		BEAD9B20230B59380040AFE2 /* Player Stats View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD9B1F230B59380040AFE2 /* Player Stats View Controller.swift */; };
 		BEAD9B22230B59540040AFE2 /* Locker Room Old Stats View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD9B21230B59540040AFE2 /* Locker Room Old Stats View Controller.swift */; };
@@ -75,7 +75,6 @@
 		BEB7CBD4221F1F60001D5A81 /* New Game Basic Info Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */; };
 		BEB84DCB23118696002CBF54 /* customLockerRoomStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB84DCA23118696002CBF54 /* customLockerRoomStatsCell.swift */; };
 		BEBB0676227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */; };
-		BEBB285F23318D29008C0BED /* help_guide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEBB285E23318D29008C0BED /* help_guide.pdf */; };
 		BEBCC1B623105D5E00AEAE71 /* New Game Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBCC1B523105D5E00AEAE71 /* New Game Table.swift */; };
 		BEBCC1B823105D8800AEAE71 /* Faceoff Info Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBCC1B723105D8800AEAE71 /* Faceoff Info Table.swift */; };
 		BEBCC1BA23105D9E00AEAE71 /* Goal Marker Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBCC1B923105D9E00AEAE71 /* Goal Marker Table.swift */; };
@@ -103,6 +102,7 @@
 		BEE5D498231039E30011FE70 /* Player About Popup View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5D497231039E30011FE70 /* Player About Popup View Controller.swift */; };
 		BEE5D49C2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5D49B2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift */; };
 		BEE5D49E231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5D49D231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift */; };
+		BEE8D70C2337EBDA00CECC50 /* help_guide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BEE8D70B2337EBDA00CECC50 /* help_guide.pdf */; };
 		BEFF5D2A2327E4F000DD282F /* LockerRoom Add View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF5D292327E4F000DD282F /* LockerRoom Add View Controller.swift */; };
 		BEFF5D2D2327E56E00DD282F /* Add Page Controller View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF5D2C2327E56E00DD282F /* Add Page Controller View Controller.swift */; };
 		CF66C1806FEAA58FCC52AAAF /* Pods_Shot_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6034E259A54CD51D774D4C91 /* Pods_Shot_Tracker.framework */; };
@@ -182,14 +182,14 @@
 		BE669DC6226E5AC100E2C5E7 /* Initial_Setup_FInish_Page_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_FInish_Page_ViewController.swift; sourceTree = "<group>"; };
 		BE669DC8226E6B3F00E2C5E7 /* Initial_Setup_Home_Team_Add_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_Home_Team_Add_View_Controller.swift; sourceTree = "<group>"; };
 		BE669DCA226F842A00E2C5E7 /* Initial_Setup_Player_Add_View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Initial_Setup_Player_Add_View Controller.swift"; sourceTree = "<group>"; };
+		BE6B89772338032400922B73 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE6F1E132274B44000673062 /* Settings_About_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_About_View_Controller.swift; sourceTree = "<group>"; };
 		BE73191021FA8B81004A3BC5 /* Shot_Location_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_Location_View.swift; sourceTree = "<group>"; };
 		BE78E82922375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current_Stats_Ananlytical_View:.swift"; sourceTree = "<group>"; };
-		BE7D697421E3D74300C1745C /* Shot Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shot Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE7D697421E3D74300C1745C /* Coach Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coach Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE7D697721E3D74300C1745C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE7D697E21E3D74500C1745C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE7D698121E3D74500C1745C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BE7D698321E3D74500C1745C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE7D698821E3D74500C1745C /* Shot TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Shot TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE7D698C21E3D74500C1745C /* Shot_TrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot_TrackerTests.swift; sourceTree = "<group>"; };
 		BE7D698E21E3D74500C1745C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -215,7 +215,6 @@
 		BEB7CBD3221F1F60001D5A81 /* New Game Basic Info Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Basic Info Page.swift"; sourceTree = "<group>"; };
 		BEB84DCA23118696002CBF54 /* customLockerRoomStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customLockerRoomStatsCell.swift; sourceTree = "<group>"; };
 		BEBB0675227215BD001DDD61 /* Initial_Setup_More_Info_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initial_Setup_More_Info_View_Controller.swift; sourceTree = "<group>"; };
-		BEBB285E23318D29008C0BED /* help_guide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = help_guide.pdf; sourceTree = "<group>"; };
 		BEBCC1B523105D5E00AEAE71 /* New Game Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "New Game Table.swift"; sourceTree = "<group>"; };
 		BEBCC1B723105D8800AEAE71 /* Faceoff Info Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Faceoff Info Table.swift"; sourceTree = "<group>"; };
 		BEBCC1B923105D9E00AEAE71 /* Goal Marker Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal Marker Table.swift"; sourceTree = "<group>"; };
@@ -243,6 +242,7 @@
 		BEE5D497231039E30011FE70 /* Player About Popup View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player About Popup View Controller.swift"; sourceTree = "<group>"; };
 		BEE5D49B2310410C0011FE70 /* New_Game_Tutorial_Shot_View_Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_Game_Tutorial_Shot_View_Controller.swift; sourceTree = "<group>"; };
 		BEE5D49D231041390011FE70 /* Main_New_Game_Tutorial_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main_New_Game_Tutorial_ViewController.swift; sourceTree = "<group>"; };
+		BEE8D70B2337EBDA00CECC50 /* help_guide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = help_guide.pdf; sourceTree = "<group>"; };
 		BEFF5D292327E4F000DD282F /* LockerRoom Add View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LockerRoom Add View Controller.swift"; sourceTree = "<group>"; };
 		BEFF5D2C2327E56E00DD282F /* Add Page Controller View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add Page Controller View Controller.swift"; sourceTree = "<group>"; };
 		C8567FABF079141DA35EAF50 /* Pods-Shot Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shot Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Shot Tracker/Pods-Shot Tracker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 		BE7D697521E3D74300C1745C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE7D697421E3D74300C1745C /* Shot Tracker.app */,
+				BE7D697421E3D74300C1745C /* Coach Assistant.app */,
 				BE7D698821E3D74500C1745C /* Shot TrackerTests.xctest */,
 				BE7D699321E3D74500C1745C /* Shot TrackerUITests.xctest */,
 			);
@@ -482,9 +482,9 @@
 				BE7D697E21E3D74500C1745C /* Assets.xcassets */,
 				BE55C321232C2E6300233BEB /* Main.storyboard */,
 				BE7D698021E3D74500C1745C /* LaunchScreen.storyboard */,
-				BE7D698321E3D74500C1745C /* Info.plist */,
-				BEBB285E23318D29008C0BED /* help_guide.pdf */,
+				BE6B89772338032400922B73 /* Info.plist */,
 				BED34AE7228863B200791B95 /* GoogleService-Info.plist */,
+				BEE8D70B2337EBDA00CECC50 /* help_guide.pdf */,
 				BE059DBD22EF453000AEC3C4 /* old_stats_marker_details_gif.gif */,
 				BE55C316232C2A9600233BEB /* old_stats_goalie_selection.gif */,
 				BE55C31A232C2A9E00233BEB /* ui_update.gif */,
@@ -574,7 +574,7 @@
 			);
 			name = "Shot Tracker";
 			productName = "Shot Tracker";
-			productReference = BE7D697421E3D74300C1745C /* Shot Tracker.app */;
+			productReference = BE7D697421E3D74300C1745C /* Coach Assistant.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BE7D698721E3D74500C1745C /* Shot TrackerTests */ = {
@@ -622,7 +622,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Greg Brooks";
 				TargetAttributes = {
 					BE7D697321E3D74300C1745C = {
@@ -685,7 +685,7 @@
 				BE55C317232C2A9600233BEB /* old_stats_goalie_selection.gif in Resources */,
 				BE27918722E6791200CE40EC /* faceoff_gif.gif in Resources */,
 				BE55C31B232C2A9F00233BEB /* ui_update.gif in Resources */,
-				BEBB285F23318D29008C0BED /* help_guide.pdf in Resources */,
+				BEE8D70C2337EBDA00CECC50 /* help_guide.pdf in Resources */,
 				BE7D698221E3D74500C1745C /* LaunchScreen.storyboard in Resources */,
 				BED34AE8228863B200791B95 /* GoogleService-Info.plist in Resources */,
 				BE7D697F21E3D74500C1745C /* Assets.xcassets in Resources */,
@@ -822,6 +822,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEAC415223380D9700133B65 /* Current_Stats_Ananlytical_View:.swift in Sources */,
 				BE1F4D302278E26C00D8B4F3 /* Main_Game_Stats_View_Controller.swift in Sources */,
 				BE235BDC22E3798C002BFDC2 /* New Game Tutorial Goal View Controller.swift in Sources */,
 				BE6163F422EB3EAD00C61BA8 /* Penalty Info View Controller.swift in Sources */,
@@ -837,7 +838,6 @@
 				BEAD9B26230B59A20040AFE2 /* Locker Room UIPageController.swift in Sources */,
 				BE73191121FA8B81004A3BC5 /* Shot_Location_View.swift in Sources */,
 				BE2AC7D6231B0C2B00D1A93C /* Initial_Setup_Away_Team_Add_View_Controller.swift in Sources */,
-				BE78E82A22375CEA00B339AE /* Current_Stats_Ananlytical_View:.swift in Sources */,
 				BE669DC5226E53EA00E2C5E7 /* Initial_Setup_Page_Controller.swift in Sources */,
 				BEDA0E51232A9ECD00A9F97F /* New UI Update View Controller.swift in Sources */,
 				BEAD9B22230B59540040AFE2 /* Locker Room Old Stats View Controller.swift in Sources */,
@@ -1014,6 +1014,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -1069,7 +1070,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Release;
 		};
@@ -1094,7 +1095,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Shot-Marker-Pro";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Coach Assistant";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Shot Tracker/Shot Tracker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1124,7 +1125,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Shot-Marker-Pro";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Coach Assistant";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Shot Tracker/Shot Tracker-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

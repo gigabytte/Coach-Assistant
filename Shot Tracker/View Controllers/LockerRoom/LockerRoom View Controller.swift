@@ -43,7 +43,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         if checkUserDefaults().isKeyPresentInUserDefaults(key: "uiUpdateBool") == true{
             if UserDefaults.standard.bool(forKey: "uiUpdateBool") != true{
                 
-                delay(0.2){
+                delay(0.5){
                     self.presentNewUIHelpBlur()
                     self.updatedUIContainerView.isHidden = false
                 }
@@ -53,7 +53,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
             }
         }else{
             
-            delay(0.2){
+            delay(0.5){
                 self.presentNewUIHelpBlur()
                 self.updatedUIContainerView.isHidden = false
             }
@@ -193,9 +193,13 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         let realm = try! Realm()
         // check if team one returns nil and that team one isnt team two
         // check for only one team entered and or no team entered
+        
+        let firstTeamID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)}).first
+        let secTeamID = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == %@", NSNumber(value: true))).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)}).last
+        
         if (activeStatus != true){
-            print("i ran")
-            if(goalieChecker() == true && playerChecker() == true && teamChecker(isCurrentGame: false) == true){
+            print("no game")
+            if(goalieChecker(firstTeamID: firstTeamID!, secTeamID: secTeamID!) == true && playerChecker(firstTeamID: firstTeamID!, secTeamID: secTeamID!) == true && teamChecker(isCurrentGame: false) == true){
                 UserDefaults.standard.set(true, forKey: "newGameStarted")
                 self.performSegue(withIdentifier: "newGameButtonSegue", sender: nil);
                 
@@ -210,7 +214,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
             
             if ((UserDefaults.standard.object(forKey: "defaultHomeTeamID") as! Int) == currentHomeTeamID && currentGameState == true){
                 
-                if(goalieChecker() == true && playerChecker() == true && teamChecker(isCurrentGame: true) == true){
+                if(goalieChecker(firstTeamID: firstTeamID!, secTeamID: secTeamID!) == true && playerChecker(firstTeamID: firstTeamID!, secTeamID: secTeamID!) == true && teamChecker(isCurrentGame: true) == true){
                     
                     let tempHomeTeamID  = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.homeTeamID)!
                     let tempAwayTeamID  = (realm.object(ofType: newGameTable.self, forPrimaryKey: realm.objects(newGameTable.self).max(ofProperty: "gameID") as Int?)?.opposingTeamID)!
@@ -248,13 +252,13 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     }
 
     // func checks if there is atleast one goalie from each team to prevent new game errors; returns bool
-    func goalieChecker() -> Bool{
+    func goalieChecker(firstTeamID: Int, secTeamID: Int) -> Bool{
         let realm = try! Realm()
         
-        let goalieOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType == %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        let goalieTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType == %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
+        let goalieOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == %@", String(firstTeamID), "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}).count
+        let goalieTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType == %@ AND activeState == %@", String(secTeamID), "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}).count
         
-        if (goalieOne.first != nil && goalieOne.first != goalieTwo.last){
+        if (goalieOne >= 1 && goalieTwo >= 1){
             
             return true
         }else{
@@ -263,12 +267,12 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     }
     
     // func checks if there is atleast one player from each team to prevent new game errors; returns bool
-    func playerChecker() -> Bool{
+    func playerChecker(firstTeamID: Int, secTeamID: Int) -> Bool{
         let realm = try! Realm()
         
-        let playerOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType != %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        let playerTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID >= %i AND positionType != %@ AND activeState == %@", 0, "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)})
-        if (playerOne.first != nil && playerOne.first != playerTwo.last){
+        let playerOne = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == %@", String(firstTeamID), "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}).count
+        let playerTwo = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "TeamID == %@ AND positionType != %@ AND activeState == %@", String(secTeamID), "G" , NSNumber(value: true))).value(forKeyPath: "playerID") as! [Int]).compactMap({Int($0)}).count
+        if (playerOne >= 1 && playerTwo >= 1){
             
             return true
         }else{
@@ -297,6 +301,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
         }else{
             let teamIDCount = (realm.objects(teamInfoTable.self).filter(NSPredicate(format: "activeState == true")).value(forKeyPath: "teamID") as! [Int]).compactMap({Int($0)}).count
             if teamIDCount >= 2{
+                print("more than 2")
                 return true
             }else{
                 return false

@@ -28,6 +28,11 @@ class Help_Guide_View_Controller: UIViewController {
         
         popUpView.layer.cornerRadius = 10
         roundedCorners().buttonBottomDouble(bottonViewType: closeButton)
+        
+        popUpView.backgroundColor = systemColour().viewColor()
+        pdfView.backgroundColor = systemColour().viewColor()
+        closeButton.backgroundColor = systemColour().uiButton()
+        
         // Do any additional setup after loading the view.
     }
     

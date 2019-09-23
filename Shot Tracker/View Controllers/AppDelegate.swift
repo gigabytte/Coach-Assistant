@@ -25,8 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-        // Initialize the Fabric Crashlytics SDK.
-        Fabric.sharedSDK().debug = true
+        
         
         let config = Realm.Configuration(
             // Set the new schema version. This must be greater than the previously used
@@ -90,6 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Main")
                 
+                // Initialize the Fabric Crashlytics SDK.
+                Fabric.sharedSDK().debug = true
+                
                 return true
             }else{
              
@@ -98,6 +100,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 deleteNewGameUserDefaults.deleteUserDefaults()
                 UserDefaults.standard.set(false, forKey: "userPurchaseConf")
                 self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setup")
+                
+                // Initialize the Fabric Crashlytics SDK.
+                Fabric.sharedSDK().debug = true
                 
                 return true
             }
@@ -108,6 +113,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             deleteNewGameUserDefaults.deleteUserDefaults()
             UserDefaults.standard.set(false, forKey: "userPurchaseConf")
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Setup")
+            
+            // Initialize the Fabric Crashlytics SDK.
+            Fabric.sharedSDK().debug = true
             
             return true
         }

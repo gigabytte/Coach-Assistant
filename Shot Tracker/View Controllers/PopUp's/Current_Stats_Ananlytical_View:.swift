@@ -42,8 +42,6 @@ class Current_Stats_Ananlytical_View: UIViewController {
     var brShotValue = PieChartDataEntry(value: 0)
     var cShotValue = PieChartDataEntry(value: 0)
     
-    let realm = try! Realm()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,7 +54,7 @@ class Current_Stats_Ananlytical_View: UIViewController {
         view.addSubview(popUpView)
         
         viewColour()
-        
+            let realm = try! Realm()
         // if accessed from old stats
             homeTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "homeTeamID") as! [Int]).compactMap({Int($0)})[0]
             awayTeam = (realm.objects(newGameTable.self).filter(NSPredicate(format: "gameID == %i AND activeState == true", gameID)).value(forKeyPath: "opposingTeamID") as! [Int]).compactMap({Int($0)})[0]
@@ -183,6 +181,8 @@ class Current_Stats_Ananlytical_View: UIViewController {
     }
     // calc save % based on shot location on net
     func goalieSavePercent() {
+        
+            let realm = try! Realm()
         // ----------- save % by shot location --------------------
         // query realm for number of specified shots on said location
         let tl_homeGoalieShotLocation = Double((realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND shotLocation == %i AND activeState == true", gameID, 1)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({Int($0)}).count)
@@ -222,6 +222,8 @@ class Current_Stats_Ananlytical_View: UIViewController {
     }
     // calc save overall % percenatge
     func homeAwayGoalieProcessing(){
+        
+            let realm = try! Realm()
         // ---------------- save % overall ------------------
         let homeGoalieShots = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",gameID, homeGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
         let homeGoalieGoals = (realm.objects(goalMarkersTable.self).filter(NSPredicate(format: "gameID == %i AND goalieID == %i AND activeState == true",gameID, homeGoalieID)).value(forKeyPath: "cordSetID") as! [Int]).compactMap({String($0)}).count
@@ -263,6 +265,8 @@ class Current_Stats_Ananlytical_View: UIViewController {
     
     // get names of golaies based on user selection
     func goalieNameInitialize(){
+        
+            let realm = try! Realm()
       
         let homeGoalieNameString = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", homeGoalieID)).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)}))[0]
         let awayGoalieNameString = ((realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i AND activeState == true", awayGoalieID)).value(forKeyPath: "playerName") as! [String]).compactMap({String($0)}))[0]

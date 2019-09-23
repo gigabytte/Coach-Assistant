@@ -15,13 +15,13 @@ class Initial_Setup_Welcome_Page_View_Controller: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("qwdwqdqqwd")
         // Do any additional setup after loading the view.
     }
     
     func showUIDocumentController(){
-        
-        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText), String(kUTTypeZipArchive)], in: .import)
+        //kUTTypeZipArchive
+        let importMenu = UIDocumentPickerViewController(documentTypes: [kUTTypeZipArchive as String], in: .import)
         importMenu.delegate = self
         importMenu.modalPresentationStyle = .formSheet
         self.present(importMenu, animated: true, completion: nil)
@@ -61,7 +61,7 @@ class Initial_Setup_Welcome_Page_View_Controller: UIViewController {
   
     @IBAction func importGameBackup(_ sender: UIButton) {
         self.showUIDocumentController()
-        deleteAllTempFiles()
+        
     }
 }
 extension Initial_Setup_Welcome_Page_View_Controller: UIDocumentPickerDelegate,UINavigationControllerDelegate{
@@ -69,14 +69,18 @@ extension Initial_Setup_Welcome_Page_View_Controller: UIDocumentPickerDelegate,U
     
     func documentPicker(_ documentPicker: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
-       
+        if urls.first?.pathExtension == "zip"{
+           
             if  urls.count > 1 {
-                fatalErrorAlert("Please import your 'coachAssistantBackup.zip file. THe file selected does not meet this criteria.'")
+                fatalErrorAlert("Please import your 'coachAssistantBackup.zip file. The file selected does not meet this criteria.'")
             }else {
                 unZipBackup(documentURL: urls.first!)
                 
                 return
             }
+        }else{
+            fatalErrorAlert("Please import your 'coachAssistantBackup.zip file. The file selected does not meet this criteria.'")
+        }
     }
     
     func documentMenu(_ documentMenu: UIDocumentPickerViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
@@ -87,7 +91,7 @@ extension Initial_Setup_Welcome_Page_View_Controller: UIDocumentPickerDelegate,U
     
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        print("document Picker Was Cancelled")
+        print("document Picker Was ")
         controller.dismiss(animated: true, completion: nil)
     }
    
@@ -117,14 +121,19 @@ extension Initial_Setup_Welcome_Page_View_Controller: UIDocumentPickerDelegate,U
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let destinationURL = dir.appendingPathComponent("Backups")
             if FileManager.default.fileExists(atPath: destinationURL.path){
-                try! Zip.unzipFile(documentURL, destination: destinationURL, overwrite: true, password: nil, progress: { (progress) in
-                    print(progress)
-                    if progress == 1.0{
-                        self.moveFileToLocal()
-                    }
-                })
+                do{
+                    try Zip.unzipFile(documentURL, destination: destinationURL, overwrite: true, password: nil, progress: { (progress) in
+                        print(progress)
+                        if progress == 1.0{
+                            self.moveFileToLocal()
+                        }
+                    })
+                }catch{
+                    fatalErrorAlert("Cannot unzip backup, please contact support")
+                }
             }
         }else{
+            fatalErrorAlert("Cannot find backups directory, please contact support")
             print("cannot find backups dir")
         }
     }
@@ -153,7 +162,7 @@ extension Initial_Setup_Welcome_Page_View_Controller: UIDocumentPickerDelegate,U
                         do{
                             let teamImagesBckupDIR = dir.appendingPathComponent("Backups").appendingPathComponent("TeamLogo")
                             try FileManager.default.replaceItemAt(dir.appendingPathComponent("TeamLogo"), withItemAt: teamImagesBckupDIR)
-                            
+                            deleteAllTempFiles()
                             self.importAlert(message: "Successfully Import Backup of Backup. Restart app in inorder for changes to take full effect")
                         }catch{
                             print(error)

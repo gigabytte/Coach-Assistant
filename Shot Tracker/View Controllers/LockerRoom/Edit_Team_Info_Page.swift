@@ -24,8 +24,6 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var activeStatePLayerLabel: UILabel!
     @IBOutlet weak var visitWebsiteButton: UIButton!
     
-
-    
     //variables for player data retrival from realm
     var mainPlayerPickerData: [String] = [String]()
     var mainPlayerPickerDataID: [Int] = [Int]()
@@ -410,7 +408,6 @@ class Edit_Team_Info_Page: UIViewController,UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func saveEditedPlayer(_ sender: UIButton) {
-        print("hi")
         let playerLine = selectLine
         let playerPosition = selectPosition
         let playerName = newPlayerName.text!

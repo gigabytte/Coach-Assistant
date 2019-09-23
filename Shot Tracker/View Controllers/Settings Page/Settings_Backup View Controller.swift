@@ -671,9 +671,17 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         }
     }
     
-    func showUIDocumentController(){
+    func showUIDocumentController(isPickingBackup: Bool){
         
-        let importMenu = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText), String(kUTTypeZipArchive)], in: .import)
+        var types: String = ""
+        
+        if isPickingBackup == true{
+            types = (kUTTypeZipArchive as String)
+        }else{
+            types = (kUTTypeCommaSeparatedText as String)
+        }
+        
+        let importMenu = UIDocumentPickerViewController(documentTypes: [types], in: .import)
         importMenu.delegate = self
         importMenu.modalPresentationStyle = .formSheet
         self.present(importMenu, animated: true, completion: nil)
@@ -1521,12 +1529,12 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         // add an action (button)
         errorAlert.addAction(UIAlertAction(title: "Import Players", style: UIAlertAction.Style.default, handler: { action in
             self.importPlayersBool = 0
-            self.showUIDocumentController()
+            self.showUIDocumentController(isPickingBackup: false)
         }))
         // add an action (button)
         errorAlert.addAction(UIAlertAction(title: "Import Teams", style: UIAlertAction.Style.default, handler: { action in
             self.importPlayersBool = 1
-            self.showUIDocumentController()
+            self.showUIDocumentController(isPickingBackup: false)
         }))
         // add an action (button)
         errorAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
@@ -1570,7 +1578,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
                     UserDefaults.standard.removeObject(forKey: "defaultHomeTeamID")
                 }else{
                     self.importPlayersBool = 2
-                    self.showUIDocumentController()
+                    self.showUIDocumentController(isPickingBackup: true)
                     deleteAllTempFiles()
                     //remove defauklt home team user default
                     UserDefaults.standard.removeObject(forKey: "defaultHomeTeamID")
