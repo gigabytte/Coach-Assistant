@@ -54,6 +54,10 @@ class Settings_Assign_Players_View_Controller: UIViewController, UITableViewDele
      
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        selecteTableViewIndexArray.removeAll()
+    }
+    
     func onLoad(){
         
         let realm = try! Realm()
@@ -195,6 +199,7 @@ class Settings_Assign_Players_View_Controller: UIViewController, UITableViewDele
         
         cell.playerNameLabel.text = playerNameArray[indexPath.row]
         cell.playerJerseyNumLabel.text = "#\(playerJerseyNumArray[indexPath.row])"
+        cell.tintColor = UIColor.blue
         
         return cell
     }
@@ -202,15 +207,30 @@ class Settings_Assign_Players_View_Controller: UIViewController, UITableViewDele
     // Select item from tableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if playersTableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.checkmark{
-             playersTableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
-            playersTableView.deselectRow(at: indexPath, animated: true)
+        if playersTableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.none{
+            playersTableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.checkmark
            
+            selecteTableViewIndexArray.append(indexPath.row)
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        if playersTableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.checkmark{
+            playersTableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
+            playersTableView.deselectRow(at: indexPath, animated: true)
+            
             selecteTableViewIndexArray.removeAll{$0 == indexPath.row}
             
-        }else{
-            playersTableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.checkmark
-            selecteTableViewIndexArray.append(indexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if cell.isSelected {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
         }
     }
     

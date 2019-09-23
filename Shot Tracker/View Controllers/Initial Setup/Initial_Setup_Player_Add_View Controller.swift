@@ -15,7 +15,6 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
     
     @IBOutlet weak var addPlayerProfileLabel: UILabel!
     @IBOutlet weak var actionButton: UIButton!
-    @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var playerProfileImageView: UIImageView!
     @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var proceedArrow: UIImageView!
@@ -198,7 +197,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         switch fadeInImageView {
         case true:
             playerProfileImageView.isHidden = false
-            restartButton.isHidden = false
+            //restartButton.isHidden = false
             addPlayerProfileLabel.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
                 self.playerNameTextField.alpha = 0.0
@@ -206,7 +205,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 self.playerLinePicker.alpha = 0.0
                 self.playerPositionPicker.alpha = 0.0
                 
-                self.restartButton.alpha = 1.0
+               // self.restartButton.alpha = 1.0
                 self.playerProfileImageView.alpha = 1.0
                 self.addPlayerProfileLabel.alpha = 1.0
                 
@@ -233,7 +232,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 self.playerLinePicker.alpha = 1.0
                 self.playerPositionPicker.alpha = 1.0
                 
-                self.restartButton.alpha = 0.0
+                //self.restartButton.alpha = 0.0
                 self.playerProfileImageView.alpha = 0.0
                 self.addPlayerProfileLabel.alpha = 0.0
                 
@@ -242,7 +241,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             }, completion: { _ in
                 
                 self.playerProfileImageView.isHidden = true
-                self.restartButton.isHidden = true
+               // self.restartButton.isHidden = true
                 self.addPlayerProfileLabel.isHidden = true
             })
             break
@@ -343,7 +342,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
         if(pickerView == playerLinePicker){
             if(pickerData[row] == "Forward 1"){
                 selectPlayerLine = 1
-                selectPosition = positionCodeData[1]
+                selectPosition = positionCodeData[0]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -352,7 +351,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 
             }else if(pickerData[row] == "Forward 2"){
                 selectPlayerLine = 2
-                selectPosition = positionCodeData[1]
+                selectPosition = positionCodeData[0]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -360,7 +359,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 }, completion: nil)
             }else if(pickerData[row] == "Forward 3"){
                 selectPlayerLine = 3
-                selectPosition = positionCodeData[1]
+                selectPosition = positionCodeData[0]
                 playerPositionPicker.reloadAllComponents()
                 playerPositionPicker.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -440,14 +439,14 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
             }
         }
     }
-    @IBAction func restartButton(_ sender: UIButton) {
+   /* @IBAction func restartButton(_ sender: UIButton) {
         
         if restartButton.tag == 20{
             fadeOut(fadeInImageView: true)
             actionButton.tag = 10
             restartButton.tag = 10
         }
-    }
+    }*/
     
     @IBAction func savePlayer(_ sender: UIButton) {
         
@@ -494,7 +493,7 @@ class Initial_Setup_Player_Add_View_Controller: UIViewController, UIPickerViewDe
                 
             }else{
                 actionButton.tag = 20
-                restartButton.tag = 20
+               // restartButton.tag = 20
                 actionButton.setTitle("Save Player", for: .normal)
                 fadeOut(fadeInImageView: true)
             }

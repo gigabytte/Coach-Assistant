@@ -79,6 +79,8 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         teamIDProcessing()
         navBarProcessing()
         
+        iceRinkImageView.isUserInteractionEnabled = true
+        
          let realm = try! Realm()
         
         if (realm.objects(newGameTable.self).filter("gameID >= 0").last != nil) {
@@ -434,10 +436,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         let away_xCordsForPlacementGoal = away_xCordsArray
         let away_yCordsForPlacementGoal = away_yCordsArray
         // log data grabbed from realm
-        print("Home team goal X cords to be used; ", home_xCordsForPlacementGoal)
-        print("Home team goal Y cords to be used; ", home_yCordsForPlacementGoal)
-        print("Away team goal X cords to be used; ", away_xCordsForPlacementGoal)
-        print("Away team goal Y cords to be used; ", away_yCordsForPlacementGoal)
+      
         // return rresult of marker processing
         return(home_xCordsForPlacementGoal, home_yCordsForPlacementGoal, away_xCordsForPlacementGoal, away_yCordsForPlacementGoal)
     }
@@ -456,10 +455,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
         let away_xCordsForPlacementPenalty = away_xCordsArray
         let away_yCordsForPlacementPenalty = away_yCordsArray
         // log data grabbed from realm
-        print("Home team penalty X cords to be used; ", home_xCordsForPlacementPenalty)
-        print("Home team penalty Y cords to be used; ", home_yCordsForPlacementPenalty)
-        print("Away team penalty X cords to be used; ", away_xCordsForPlacementPenalty)
-        print("Away team penalty Y cords to be used; ", away_yCordsForPlacementPenalty)
+       
         // return rresult of marker processing
         return(home_xCordsForPlacementPenalty, home_yCordsForPlacementPenalty, away_xCordsForPlacementPenalty, away_yCordsForPlacementPenalty)
     }
@@ -484,11 +480,11 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
     func tappedMarker(markerType: Int, markerTag: Int){
          let realm = try! Realm()
         if(markerType == 0){
-            let selectedShotMarker = view.viewWithTag(markerTag)
+            let selectedShotMarker = iceRinkImageView.viewWithTag(markerTag)
             let markerCords: CGPoint = selectedShotMarker!.frame.origin
             let xMarkerCord = Int(markerCords.x + CGFloat(universalValue().markerCenterX))
             let yMarkerCord = Int(markerCords.y + CGFloat(universalValue().markerCenterY))
-            print("Cords for shot image are: \(xMarkerCord) and \(yMarkerCord)")
+         
             
             let shotLocation = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "shotLocation") as! [Int]).compactMap({Int($0)})
             let goalieID = (realm.objects(shotMarkerTable.self).filter(NSPredicate(format: "xCordShot == %i AND yCordShot == %i AND gameID == %i AND activeState == true", xMarkerCord, yMarkerCord, SeletedGame)).value(forKeyPath: "goalieID") as! [Int]).compactMap({Int($0)})
@@ -506,12 +502,12 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             actionSheet.addAction(okAction)
             if let popoverController = actionSheet.popoverPresentationController {
                 popoverController.sourceRect = CGRect(x: (selectedShotMarker?.frame.origin.x)!, y: selectedShotMarker!.frame.origin.y, width: (selectedShotMarker?.frame.width)! / 2, height: (selectedShotMarker?.frame.height)! / 2)
-                popoverController.sourceView = self.view
+                popoverController.sourceView = self.iceRinkImageView
             }
             // Present the controller
             self.present(actionSheet, animated: true, completion: nil)
         }else if(markerType == 1){
-            let selectedGoalMarker = view.viewWithTag(markerTag)
+            let selectedGoalMarker = iceRinkImageView.viewWithTag(markerTag)
             let markerCords: CGPoint = selectedGoalMarker!.frame.origin
             let xMarkerCord = Int(markerCords.x + CGFloat(universalValue().markerCenterX))
             let yMarkerCord = Int(markerCords.y + CGFloat(universalValue().markerCenterY))
@@ -535,13 +531,13 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             actionSheet.addAction(okAction)
             if let popoverController = actionSheet.popoverPresentationController {
                 popoverController.sourceRect = CGRect(x: (selectedGoalMarker?.frame.origin.x)!, y: selectedGoalMarker!.frame.origin.y, width: (selectedGoalMarker?.frame.width)! / 2, height: (selectedGoalMarker?.frame.height)! / 2)
-                popoverController.sourceView = self.view
+                popoverController.sourceView = self.iceRinkImageView
             }
             // Present the controller
             self.present(actionSheet, animated: true, completion: nil)
         }else{
             // placement of bto for peanlty marker
-            let selectedPeanltyMarker = view.viewWithTag(markerTag)
+            let selectedPeanltyMarker = iceRinkImageView.viewWithTag(markerTag)
             let markerCords: CGPoint = selectedPeanltyMarker!.frame.origin
             let xMarkerCord = Int(markerCords.x + CGFloat(universalValue().markerCenterX))
             let yMarkerCord = Int(markerCords.y  + CGFloat(universalValue().markerCenterY))
@@ -561,7 +557,7 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
             actionSheet.addAction(okAction)
             if let popoverController = actionSheet.popoverPresentationController {
                 popoverController.sourceRect = CGRect(x: (selectedPeanltyMarker?.frame.origin.x)!, y: selectedPeanltyMarker!.frame.origin.y, width: (selectedPeanltyMarker?.frame.width)! / 2, height: (selectedPeanltyMarker?.frame.height)! / 2)
-                popoverController.sourceView = self.view
+                popoverController.sourceView = self.iceRinkImageView
             }
             // Present the controller
             self.present(actionSheet, animated: true, completion: nil)
@@ -578,12 +574,12 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         imageView.image = markerType;
                         iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
-                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        view.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
                         let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped(sender:)));
                         // number of taps require 1
                         singleShotTap.numberOfTapsRequired = 1
-                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleShotTap)
+                        view.viewWithTag(imageView.tag)!.addGestureRecognizer(singleShotTap)
                         tagCounter += 1
                         
                     }
@@ -600,14 +596,16 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         let imageView = UIImageView(frame: CGRect(x: Int(goal_markerProcessing().home_xCordsForPlacementGoal[i])! - universalValue().markerCenterX, y: Int(goal_markerProcessing().home_yCordsForPlacementGoal[i])! - universalValue().markerCenterY, width:  universalValue().markerWidth, height: universalValue().markerHeight));
                         imageView.contentMode = .scaleAspectFill;
                         imageView.image = markerType;
-                        iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
-                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        iceRinkImageView.addSubview(imageView);
+                        view.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        
                         // check Tap gestuires for a single tap
                         let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped(sender:)));
                         // number of taps require 1
                         singleGoalTap.numberOfTapsRequired = 1
-                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleGoalTap)
+                        view.viewWithTag(imageView.tag)!.addGestureRecognizer(singleGoalTap)
+                        
                         tagCounter += 1
                     }
                 }
@@ -625,12 +623,12 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                     imageView.image = markerType;
                     iceRinkImageView.addSubview(imageView);
                     imageView.tag = tagCounter
-                    imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                    view.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                     // check Tap gestuires for a single tap
                     let singlePeanltyTap = UITapGestureRecognizer(target: self, action: #selector(singlePenaltyMarkerTapped(sender:)));
                     // number of taps require 1
                     singlePeanltyTap.numberOfTapsRequired = 1
-                    imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singlePeanltyTap)
+                    view.viewWithTag(imageView.tag)!.addGestureRecognizer(singlePeanltyTap)
                     tagCounter += 1
                 }
             }
@@ -653,12 +651,12 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         imageView.image = markerType;
                         iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
-                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        view.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
                         let singleShotTap = UITapGestureRecognizer(target: self, action: #selector(singleShotMarkerTapped(sender:)));
                         // number of taps require 1
                         singleShotTap.numberOfTapsRequired = 1
-                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleShotTap)
+                        view.viewWithTag(imageView.tag)!.addGestureRecognizer(singleShotTap)
                         tagCounter += 1
                     }
                 }
@@ -673,12 +671,12 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         imageView.image = markerType;
                         iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
-                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        view.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
                         let singleGoalTap = UITapGestureRecognizer(target: self, action: #selector(singleGoalMarkerTapped(sender:)));
                         // number of taps require 1
                         singleGoalTap.numberOfTapsRequired = 1
-                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singleGoalTap)
+                        view.viewWithTag(imageView.tag)!.addGestureRecognizer(singleGoalTap)
                         tagCounter += 1
                     }
                 }
@@ -695,12 +693,12 @@ class Old_Game_Ice_View: UIViewController, UIPopoverPresentationControllerDelega
                         imageView.image = markerType;
                         iceRinkImageView.addSubview(imageView);
                         imageView.tag = tagCounter
-                        imageView.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
+                        view.viewWithTag(imageView.tag)!.isUserInteractionEnabled = true
                         // check Tap gestuires for a single tap
                         let singlePeanltyTap = UITapGestureRecognizer(target: self, action: #selector(singlePenaltyMarkerTapped(sender:)));
                         // number of taps require 1
                         singlePeanltyTap.numberOfTapsRequired = 1
-                        imageView.viewWithTag(imageView.tag)!.addGestureRecognizer(singlePeanltyTap)
+                        view.viewWithTag(imageView.tag)!.addGestureRecognizer(singlePeanltyTap)
                         tagCounter += 1
                     }
                 }

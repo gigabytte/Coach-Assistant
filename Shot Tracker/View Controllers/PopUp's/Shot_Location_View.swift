@@ -60,8 +60,6 @@ class Shot_Location_View: UIViewController {
     
     var shot_primaryID: Int!
     
-    var realm = try! Realm()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,6 +86,9 @@ class Shot_Location_View: UIViewController {
     
         // if true its a shot
         if(tempMarkerType != false){
+            
+            let realm = try! Realm()
+            
             netImageViewBoundaries()
             goalieSelectionGesture()
             let selectedGoalieJerseyNum = (realm.objects(playerInfoTable.self).filter(NSPredicate(format: "playerID == %i", fixedGoalieID)).value(forKeyPath: "jerseyNum") as! [Int]).compactMap({Int($0)})
@@ -320,6 +321,9 @@ class Shot_Location_View: UIViewController {
         }
     }
     func realmStatsAddShot(){
+        
+        let realm = try! Realm()
+        
          try! realm.write{
             if (realm.objects(shotMarkerTable.self).max(ofProperty: "cordSetID") as Int? != nil){
                 shot_primaryID = (realm.objects(shotMarkerTable.self).max(ofProperty: "cordSetID") as Int? ?? 0) + 1;

@@ -147,6 +147,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         pieChartBlurView.frame = playerInfoPieChartView.bounds
         pieChartBlurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         playerInfoPieChartView.addSubview(pieChartBlurView)
+        playerInfoPieChartView.addSubview(dataWarningLabel)
         pieChartBlurView.isHidden = true
         
         
@@ -554,9 +555,9 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
         
     }
     
-    func succesfulPlayerAdd(playerName: String){
+    func succesfulPlayerAdd(playerName: String, msg: String){
         
-        let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Player %@ has been updated."), playerName), message: "", preferredStyle: UIAlertController.Style.alert)
+        let successfulQuery = UIAlertController(title: String(format: localizedString().localized(value:"Player %@ has been updated."), playerName), message: "The folowing fields were chanaged: \(msg)", preferredStyle: UIAlertController.Style.alert)
         successfulQuery.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
             
             self.playerEditNameTextField.text = ""
@@ -628,7 +629,11 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                         
                         self.popUpView.layoutIfNeeded()
                     }
-                    
+                     if didEditPickerView == true{
+                        succesfulPlayerAdd(playerName: editedPlayer!.playerName, msg: "\nPlayer Name\nJersery Number\nLine Number\nPosition Type")
+                     }else{
+                        succesfulPlayerAdd(playerName: editedPlayer!.playerName, msg: "\nPlayer Name\nJersery Number")
+                    }
                 }else{
                     fatalErrorAlert("The jersey number must be between 0 and 199, you entered \(playerNumber)")
                 }
@@ -659,7 +664,11 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                     self.popUpView.layoutIfNeeded()
                 }
                 
-                
+                if didEditPickerView == true{
+                    succesfulPlayerAdd(playerName: editedPlayer!.playerName, msg: "\nPlayer Name\nLine Number\nPosition Type")
+                 }else{
+                    succesfulPlayerAdd(playerName: editedPlayer!.playerName, msg: "\nPlayer Name")
+                }
             }else if(playerName == "" && playerEditNumberTextField.text! != ""){
                 if playerNumber <= 0 && playerNumber >= 199{
                     
@@ -681,7 +690,11 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                         
                         self.popUpView.layoutIfNeeded()
                     }
-                    
+                    if didEditPickerView == true{
+                        succesfulPlayerAdd(playerName: editedPlayer!.playerName, msg: "\nJersey Number\nLine Number\nPosition Type")
+                     }else{
+                        succesfulPlayerAdd(playerName: editedPlayer!.playerName, msg: "\nJersey Number")
+                    }
                 }else{
                     fatalErrorAlert("The jersey number must be between 0 and 199, you entered \(playerNumber)")
                 }
@@ -697,7 +710,9 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
                         editedPlayer!.activeState = playerActiveSwitch.isOn
                     }
                 
-                
+                if didEditPickerView == true{
+                    succesfulPlayerAdd(playerName: editedPlayer!.playerName, msg: "\nLine Number\nPosition Type")
+                 }
             }else{
                 fatalErrorAlert("Unable to determine fields that have been changed, please conatct support!")
             }
@@ -957,15 +972,13 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     }
     
     @IBAction func editFieldsButton(_ sender: UIButton) {
-        let realm = try! Realm()
-        let editedPlayer = realm.object(ofType: playerInfoTable.self, forPrimaryKey: passedPlayerID);
+      
         // is player label is already hidden reverse the process
         if playerNameLabel.isHidden == true{
            
             // write new player inffo to realm
             // update UI
             savePlayerInfo()
-            succesfulPlayerAdd(playerName: editedPlayer!.playerName)
             isEditingFields(boolType: true)
             onLoad()
             playerInfoTableView.reloadData()
@@ -981,6 +994,7 @@ class Player_About_Popup_View_Controller: UIViewController, UIPickerViewDelegate
     
     @objc func playerProfileImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         print("Opening Photo Selection Method")
+        editFieldsButton.tag = 10
         mediaTypeSlectionAlert()
         
     }

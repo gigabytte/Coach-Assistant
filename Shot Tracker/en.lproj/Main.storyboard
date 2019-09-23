@@ -13,7 +13,7 @@
         <!--Team Selection View-->
         <scene sceneID="k6d-44-wsf">
             <objects>
-                <viewController storyboardIdentifier="newGameContainerView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IZU-xv-7nc" customClass="Team_Selection_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newGameContainerView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IZU-xv-7nc" customClass="Team_Selection_View" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zeG-XA-PQ6">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -182,7 +182,7 @@
         <!--Old Game Ice View-->
         <scene sceneID="wEi-Ht-ZW2">
             <objects>
-                <viewController restorationIdentifier="Old_Stats_Ice_View_Controller" storyboardIdentifier="Old_Stats_Ice_View_Controller" id="zHg-Yo-d0f" customClass="Old_Game_Ice_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Old_Stats_Ice_View_Controller" storyboardIdentifier="Old_Stats_Ice_View_Controller" id="zHg-Yo-d0f" customClass="Old_Game_Ice_View" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L10-OJ-NML">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -437,7 +437,7 @@
         <!--Old Stats Goalie Selection View-->
         <scene sceneID="hkf-2k-HKK">
             <objects>
-                <viewController restorationIdentifier="Old_Stats_Goalie_Selection_View" storyboardIdentifier="Old_Stats_Goalie_Selection_View" id="tO8-VR-M4z" customClass="Old_Stats_Goalie_Selection_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Old_Stats_Goalie_Selection_View" storyboardIdentifier="Old_Stats_Goalie_Selection_View" id="tO8-VR-M4z" customClass="Old_Stats_Goalie_Selection_View" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yXe-FU-cey">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -541,7 +541,7 @@
         <!--Team About Popup View Controller-->
         <scene sceneID="EwX-FR-YNS">
             <objects>
-                <viewController storyboardIdentifier="Team_About_Popup_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tdt-gr-W6R" customClass="Team_About_Popup_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Team_About_Popup_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tdt-gr-W6R" customClass="Team_About_Popup_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="krZ-7j-Cft">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -646,7 +646,7 @@
                                         <rect key="frame" x="0.0" y="203" width="409" height="309"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="t6Q-3t-lNI" customClass="customTeamStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="t6Q-3t-lNI" customClass="customTeamStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="409" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t6Q-3t-lNI" id="3VO-OF-fwo">
@@ -660,7 +660,11 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premium_image" translatesAutoresizingMaskIntoConstraints="NO" id="u76-rg-nRq">
-                                                            <rect key="frame" x="378" y="14" width="16" height="16"/>
+                                                            <rect key="frame" x="359" y="4.5" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="35" id="FXd-Va-e8u"/>
+                                                                <constraint firstAttribute="width" secondItem="u76-rg-nRq" secondAttribute="height" multiplier="1:1" id="rn5-8k-pOU"/>
+                                                            </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -681,7 +685,7 @@
                                         </prototypes>
                                         <sections/>
                                     </tableView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compose_icon" translatesAutoresizingMaskIntoConstraints="NO" id="HlH-Ui-UVu">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compose_icon_grey" translatesAutoresizingMaskIntoConstraints="NO" id="HlH-Ui-UVu">
                                         <rect key="frame" x="116.5" y="5" width="37" height="37"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
@@ -772,7 +776,7 @@
         <!--Player About Popup View Controller-->
         <scene sceneID="K9j-FF-Amz">
             <objects>
-                <viewController storyboardIdentifier="Player_About_Popup_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aXo-g7-CZr" customClass="Player_About_Popup_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Player_About_Popup_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aXo-g7-CZr" customClass="Player_About_Popup_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LbU-4I-sN7">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -826,7 +830,7 @@
                                         <rect key="frame" x="0.0" y="178.5" width="409" height="333.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="427-jA-w76" customClass="customTeamStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="427-jA-w76" customClass="customTeamStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="409" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="427-jA-w76" id="CuZ-vx-QFa">
@@ -834,7 +838,11 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premium_image" translatesAutoresizingMaskIntoConstraints="NO" id="xND-Jh-DEi">
-                                                            <rect key="frame" x="378" y="14" width="16" height="16"/>
+                                                            <rect key="frame" x="359" y="4.5" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="xND-Jh-DEi" secondAttribute="height" multiplier="1:1" id="4rh-gj-hqj"/>
+                                                                <constraint firstAttribute="height" constant="35" id="kqh-nD-BXG"/>
+                                                            </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PlayerStats:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTy-dN-0fA">
                                                             <rect key="frame" x="15" y="10" width="111" height="23.5"/>
@@ -916,7 +924,7 @@
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compose_icon" translatesAutoresizingMaskIntoConstraints="NO" id="IB9-AP-SMU">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compose_icon_grey" translatesAutoresizingMaskIntoConstraints="NO" id="IB9-AP-SMU">
                                         <rect key="frame" x="120" y="5" width="38.5" height="38.5"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
@@ -1022,7 +1030,7 @@
         <!--Locker Room Player Stats View Controller-->
         <scene sceneID="bFM-pb-0J5">
             <objects>
-                <viewController storyboardIdentifier="lockerroom_stats_VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Lam-Jd-Kwv" customClass="Locker_Room_Player_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="lockerroom_stats_VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Lam-Jd-Kwv" customClass="Locker_Room_Player_Stats_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dcU-nD-sMw">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1064,7 +1072,7 @@
                                     <constraint firstAttribute="width" secondItem="6zc-BQ-mn4" secondAttribute="height" multiplier="0.65:1" id="b8J-Ge-a0F"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="125" id="Njv-7t-U0o" customClass="customLockerRoomStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="125" id="Njv-7t-U0o" customClass="customLockerRoomStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="499" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Njv-7t-U0o" id="Day-eg-hw5">
@@ -1158,7 +1166,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premium_image" translatesAutoresizingMaskIntoConstraints="NO" id="Zhj-T1-knw">
-                                        <rect key="frame" x="317" y="461" width="16" height="16"/>
+                                        <rect key="frame" x="317" y="451.5" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="50r-DP-8Og"/>
+                                            <constraint firstAttribute="width" secondItem="Zhj-T1-knw" secondAttribute="height" multiplier="1:1" id="zEG-Io-cUm"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1232,7 +1244,7 @@
         <!--Locker Room Old Stats View Controller-->
         <scene sceneID="RHe-pj-mld">
             <objects>
-                <viewController storyboardIdentifier="lockerroom_old_stats_VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZGC-hA-DLq" customClass="Locker_Room_Old_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="lockerroom_old_stats_VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZGC-hA-DLq" customClass="Locker_Room_Old_Stats_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IbI-ZZ-wkd">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1274,7 +1286,7 @@
         <!--Locker RoomUI Page Controller-->
         <scene sceneID="vlx-Vi-AFp">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="mvO-jn-1Wh" customClass="Locker_Room_UIPageController" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="mvO-jn-1Wh" customClass="Locker_Room_UIPageController" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pvQ-ZI-2K5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-894" y="60"/>
@@ -1282,7 +1294,7 @@
         <!--Settings Navigation Controller-->
         <scene sceneID="vbF-Tt-mYp">
             <objects>
-                <navigationController id="F6c-gQ-duf" customClass="Settings_Navigation_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="F6c-gQ-duf" customClass="Settings_Navigation_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="vgQ-NQ-Tl7">
                         <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1299,7 +1311,7 @@
         <!--Locker Room View Controller-->
         <scene sceneID="y9s-GM-KTd">
             <objects>
-                <viewController storyboardIdentifier="Main" title="Locker Room View Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vwl-YU-w4e" customClass="LockerRoom_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main" title="Locker Room View Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vwl-YU-w4e" customClass="LockerRoom_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lGf-lD-uVC">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1392,10 +1404,18 @@
                                     <segue destination="gJA-3P-6Cq" kind="embed" id="lhE-lL-7sJ"/>
                                 </connections>
                             </containerView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beta Build" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86C-7M-Kre">
+                                <rect key="frame" x="15" y="95" width="102" height="27"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="86C-7M-Kre" firstAttribute="leading" secondItem="lGf-lD-uVC" secondAttribute="leading" constant="15" id="61T-4t-aK8"/>
                             <constraint firstItem="g1f-Ee-642" firstAttribute="centerX" secondItem="lGf-lD-uVC" secondAttribute="centerX" id="7eq-mv-lMj"/>
+                            <constraint firstItem="86C-7M-Kre" firstAttribute="top" secondItem="Qpu-I4-gfH" secondAttribute="bottom" constant="25" id="BFe-Qb-jnu"/>
                             <constraint firstItem="b8Y-WT-FDe" firstAttribute="top" secondItem="Qpu-I4-gfH" secondAttribute="bottom" constant="20" id="BLf-FO-cHU"/>
                             <constraint firstItem="6lg-Hd-mB1" firstAttribute="centerY" secondItem="lGf-lD-uVC" secondAttribute="centerY" id="BVY-NA-O3L"/>
                             <constraint firstItem="IYe-UZ-dn5" firstAttribute="trailing" secondItem="lGf-lD-uVC" secondAttribute="trailing" id="E41-sL-cOh"/>
@@ -1438,7 +1458,7 @@
         <!--Add Player Page-->
         <scene sceneID="1t2-UV-n9f">
             <objects>
-                <viewController storyboardIdentifier="addPlayerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="laf-Ow-yCr" customClass="Add_Player_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addPlayerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="laf-Ow-yCr" customClass="Add_Player_Page" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Aj-OW-QHa">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1619,7 +1639,7 @@
         <!--Locker Room Add View Controller-->
         <scene sceneID="Hl6-R0-WI3">
             <objects>
-                <viewController storyboardIdentifier="lockerroom_add_VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="O7f-wT-svc" customClass="LockerRoom_Add_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="lockerroom_add_VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="O7f-wT-svc" customClass="LockerRoom_Add_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G9i-0a-77d">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1678,7 +1698,7 @@
         <!--Add Page Controller View Controller-->
         <scene sceneID="LVG-ei-Qva">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oUm-ZC-eZS" customClass="Add_Page_Controller_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="oUm-ZC-eZS" customClass="Add_Page_Controller_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WgG-GG-MSx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="285" y="-4903"/>
@@ -1686,7 +1706,7 @@
         <!--Settings Assign Players View Controller-->
         <scene sceneID="zfl-1f-sLU">
             <objects>
-                <viewController storyboardIdentifier="Settings_Assign_Players_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="05O-ex-4gz" customClass="Settings_Assign_Players_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Settings_Assign_Players_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="05O-ex-4gz" customClass="Settings_Assign_Players_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vR7-n1-7GB">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1709,11 +1729,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hdM-QG-ayl">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hdM-QG-ayl">
                                         <rect key="frame" x="184.5" y="265" width="553" height="307"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="cell" id="vDd-qS-QkC" customClass="customPlayerImportCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="cell" id="vDd-qS-QkC" customClass="customPlayerImportCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="553" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vDd-qS-QkC" id="zqJ-hV-M1Z">
@@ -1721,7 +1741,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYE-Ea-jKm">
-                                                            <rect key="frame" x="25" y="6" width="148.5" height="31.5"/>
+                                                            <rect key="frame" x="25" y="10" width="148.5" height="23.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1734,7 +1754,8 @@
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="xYE-Ea-jKm" firstAttribute="centerY" secondItem="zqJ-hV-M1Z" secondAttribute="centerY" id="7Wr-Yy-N81"/>
+                                                        <constraint firstItem="xYE-Ea-jKm" firstAttribute="bottom" secondItem="zqJ-hV-M1Z" secondAttribute="bottom" constant="-10" id="4nU-1k-Bur"/>
+                                                        <constraint firstItem="xYE-Ea-jKm" firstAttribute="top" secondItem="zqJ-hV-M1Z" secondAttribute="top" constant="10" id="7Wr-Yy-N81"/>
                                                         <constraint firstItem="xYE-Ea-jKm" firstAttribute="leading" secondItem="zqJ-hV-M1Z" secondAttribute="leading" constant="25" id="Hg0-cI-2Aj"/>
                                                         <constraint firstItem="H08-Tl-mYT" firstAttribute="centerY" secondItem="zqJ-hV-M1Z" secondAttribute="centerY" id="WqD-u3-nSh"/>
                                                         <constraint firstItem="H08-Tl-mYT" firstAttribute="trailing" secondItem="zqJ-hV-M1Z" secondAttribute="trailing" constant="-25" id="rRX-lf-Nna"/>
@@ -1820,7 +1841,7 @@
         <!--Settings-->
         <scene sceneID="wEP-oY-DDc">
             <objects>
-                <viewController restorationIdentifier="Setting_View_Controller" storyboardIdentifier="Setting_View_Controller" id="BYV-5S-q4x" customClass="Main_Settings_Page_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Setting_View_Controller" storyboardIdentifier="Setting_View_Controller" id="BYV-5S-q4x" customClass="Main_Settings_Page_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fPg-bQ-rN6">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1865,7 +1886,7 @@
                                 <rect key="frame" x="0.0" y="20" width="256" height="748"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="customSettingCellIdentifier" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="FqQ-da-nAY" customClass="customSettingCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="customSettingCellIdentifier" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="FqQ-da-nAY" customClass="customSettingCell" customModule="Coach_Assistant" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="256" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FqQ-da-nAY" id="DxJ-pa-ia1">
@@ -1967,7 +1988,7 @@
         <!--Settings Backup View Controller-->
         <scene sceneID="4M5-Ps-oYY">
             <objects>
-                <tableViewController storyboardIdentifier="Settings_Backup_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Es5-25-HuY" customClass="Settings_Backup_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Settings_Backup_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Es5-25-HuY" customClass="Settings_Backup_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TdI-kw-MZS">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2180,7 +2201,7 @@
         <!--Settings Subscriptions View Controller-->
         <scene sceneID="JG9-I5-TtI">
             <objects>
-                <tableViewController storyboardIdentifier="Settings_Subscriptions_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0pC-D0-z7D" customClass="Settings_Subscriptions_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Settings_Subscriptions_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0pC-D0-z7D" customClass="Settings_Subscriptions_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="SQQ-8s-BP7">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2253,7 +2274,7 @@
         <!--Default Team Settings-->
         <scene sceneID="fgk-Uw-vfK">
             <objects>
-                <viewController storyboardIdentifier="Settings_Default_Team" title="Default Team Settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="El1-Ap-yih" customClass="Settings_Defaults_Team_Defaults" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Settings_Default_Team" title="Default Team Settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="El1-Ap-yih" customClass="Settings_Defaults_Team_Defaults" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NtC-3o-8sF">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2294,7 +2315,7 @@
         <!--Settings Defaults View Controller-->
         <scene sceneID="Qf8-nt-IFg">
             <objects>
-                <tableViewController storyboardIdentifier="Settings_Default_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uSj-jN-Adc" customClass="Settings_Defaults_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Settings_Default_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uSj-jN-Adc" customClass="Settings_Defaults_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="EB7-OY-lDn">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2373,7 +2394,7 @@
         <!--Default Team Selection View-->
         <scene sceneID="Fvf-hg-hNn">
             <objects>
-                <viewController storyboardIdentifier="Default_Team_Selection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bPx-PN-8g4" customClass="Default_Team_Selection_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Default_Team_Selection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bPx-PN-8g4" customClass="Default_Team_Selection_View" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bva-aw-U34">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2473,7 +2494,7 @@
         <!--Add Team Page-->
         <scene sceneID="Mka-Sj-9D5">
             <objects>
-                <viewController storyboardIdentifier="addTeamVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xfg-Tt-WO4" customClass="Add_Team_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addTeamVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xfg-Tt-WO4" customClass="Add_Team_Page" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XbA-WL-kWG">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2598,7 +2619,7 @@
         <!--Penalty Info View Controller-->
         <scene sceneID="lGn-Yd-6TQ">
             <objects>
-                <viewController restorationIdentifier="Penalty_Popup_Info_VC" storyboardIdentifier="Penalty_Popup_Info_VC" id="3r3-yI-bC0" customClass="Penalty_Info_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Penalty_Popup_Info_VC" storyboardIdentifier="Penalty_Popup_Info_VC" id="3r3-yI-bC0" customClass="Penalty_Info_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q1g-h1-nwN">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2701,7 +2722,7 @@
         <!--Marker Info Page-->
         <scene sceneID="PRo-az-7TP">
             <objects>
-                <viewController restorationIdentifier="Marker_Info_Page_VC" storyboardIdentifier="Marker_Info_Page_VC" id="nMQ-Yn-Osb" customClass="Marker_Info_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Marker_Info_Page_VC" storyboardIdentifier="Marker_Info_Page_VC" id="nMQ-Yn-Osb" customClass="Marker_Info_Page" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DNz-M4-no2">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2861,7 +2882,7 @@
         <!--Shot Location View-->
         <scene sceneID="rc0-lA-XJQ">
             <objects>
-                <viewController restorationIdentifier="Shot_Location_VC" storyboardIdentifier="Shot_Location_VC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="JOK-ut-mRn" customClass="Shot_Location_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Shot_Location_VC" storyboardIdentifier="Shot_Location_VC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="JOK-ut-mRn" customClass="Shot_Location_View" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="HbE-yC-3JJ">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2988,7 +3009,7 @@
         <!--New Game Basic Info Page-->
         <scene sceneID="UCc-wQ-IfD">
             <objects>
-                <viewController restorationIdentifier="New_Game_Basic_Info_VC" storyboardIdentifier="New_Game_Basic_Info_VC" id="gVv-Rk-J4I" customClass="New_Game_Basic_Info_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="New_Game_Basic_Info_VC" storyboardIdentifier="New_Game_Basic_Info_VC" id="gVv-Rk-J4I" customClass="New_Game_Basic_Info_Page" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gR5-wK-Y8i">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3117,7 +3138,7 @@
         <!--New Game Page-->
         <scene sceneID="4DF-eV-4kO">
             <objects>
-                <viewController restorationIdentifier="New_Game_Page_VC" storyboardIdentifier="New_Game_Page_VC" modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" id="n6v-6v-um8" customClass="New_Game_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="New_Game_Page_VC" storyboardIdentifier="New_Game_Page_VC" modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" id="n6v-6v-um8" customClass="New_Game_Page" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9gi-KV-32I">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3382,7 +3403,7 @@
         <!--Current Stats Ananlytical View-->
         <scene sceneID="aLZ-9B-EiJ">
             <objects>
-                <viewController restorationIdentifier="Analytical_View_Controller" storyboardIdentifier="Analytical_View_Controller" id="H6E-KX-Ner" customClass="Current_Stats_Ananlytical_View" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Analytical_View_Controller" storyboardIdentifier="Analytical_View_Controller" id="H6E-KX-Ner" customClass="Current_Stats_Ananlytical_View" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zVy-Sy-AmM">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3460,7 +3481,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premium_image" translatesAutoresizingMaskIntoConstraints="NO" id="H9a-Ix-MHf">
-                                        <rect key="frame" x="793" y="315" width="65" height="28"/>
+                                        <rect key="frame" x="793" y="311.5" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="AoQ-w4-Hf5"/>
+                                            <constraint firstAttribute="width" secondItem="H9a-Ix-MHf" secondAttribute="height" multiplier="1:1" id="hl9-Gj-NIi"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3513,7 +3538,7 @@
         <!--In Game Settings View Controller-->
         <scene sceneID="XdB-kQ-7qk">
             <objects>
-                <viewController restorationIdentifier="In Game Settings ViewController" storyboardIdentifier="In Game Settings ViewController" id="EMa-ZZ-m4d" customClass="In_Game_Settings_ViewController" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="In Game Settings ViewController" storyboardIdentifier="In Game Settings ViewController" id="EMa-ZZ-m4d" customClass="In_Game_Settings_ViewController" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qV8-8A-qae">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3677,7 +3702,7 @@
         <!--Penalty Popup View Controller-->
         <scene sceneID="nua-JN-SEb">
             <objects>
-                <viewController restorationIdentifier="Peanlty_Popup_VC" storyboardIdentifier="Peanlty_Popup_VC" id="msY-p6-04Y" customClass="Penalty_Popup_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Peanlty_Popup_VC" storyboardIdentifier="Peanlty_Popup_VC" id="msY-p6-04Y" customClass="Penalty_Popup_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P1x-Om-Z2R">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3872,7 +3897,7 @@
         <!--Main New Game Tutorial View Controller-->
         <scene sceneID="ZDJ-eb-fzm">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="YB5-DH-aB7" customClass="Main_New_Game_Tutorial_ViewController" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="YB5-DH-aB7" customClass="Main_New_Game_Tutorial_ViewController" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N9e-cK-rFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2855" y="2313"/>
@@ -3880,7 +3905,7 @@
         <!--New Game Tutorial Shot View Controller-->
         <scene sceneID="mV0-V3-aAq">
             <objects>
-                <viewController storyboardIdentifier="first_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mnj-f8-cty" customClass="New_Game_Tutorial_Shot_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="first_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mnj-f8-cty" customClass="New_Game_Tutorial_Shot_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6PD-9K-3j7">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3938,7 +3963,7 @@
         <!--New Game Tutorial Goal View Controller-->
         <scene sceneID="tPT-BE-gCN">
             <objects>
-                <viewController storyboardIdentifier="second_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ty7-iw-psk" customClass="New_Game_Tutorial_Goal_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="second_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ty7-iw-psk" customClass="New_Game_Tutorial_Goal_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZbP-4g-d25">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3986,7 +4011,7 @@
         <!--New Game Tutorial Penalty View Controller-->
         <scene sceneID="6if-UR-B1B">
             <objects>
-                <viewController storyboardIdentifier="third_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6zq-4x-w8V" customClass="New_Game_Tutorial_Penalty_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="third_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6zq-4x-w8V" customClass="New_Game_Tutorial_Penalty_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qyt-H8-V1p">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4034,7 +4059,7 @@
         <!--New Game Tutorial Faceoff View Controller-->
         <scene sceneID="s0a-zC-ZV9">
             <objects>
-                <viewController storyboardIdentifier="fourth_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7cr-4z-Rsd" customClass="New_Game_Tutorial_Faceoff_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="fourth_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7cr-4z-Rsd" customClass="New_Game_Tutorial_Faceoff_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OjU-Yt-D9t">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4082,7 +4107,7 @@
         <!--New Game Tutorial Menu Options View Controller-->
         <scene sceneID="xOs-T6-KD8">
             <objects>
-                <viewController storyboardIdentifier="fifth_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RxB-aj-m1n" customClass="New_Game_Tutorial_Menu_Options_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="fifth_newgame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RxB-aj-m1n" customClass="New_Game_Tutorial_Menu_Options_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gif-d9-UGk">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4131,7 +4156,7 @@
         <!--Faceoff View Controller-->
         <scene sceneID="1NV-cw-Jin">
             <objects>
-                <viewController id="vBf-VT-2QT" customClass="Faceoff_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vBf-VT-2QT" customClass="Faceoff_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a1a-cL-Oib">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4290,7 +4315,7 @@
         <!--Main Game Stats View Controller-->
         <scene sceneID="8zs-HM-eh5">
             <objects>
-                <viewController restorationIdentifier="gameStatsVC" storyboardIdentifier="gameStatsVC" id="YiU-MJ-9Xs" customClass="Main_Game_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="gameStatsVC" storyboardIdentifier="gameStatsVC" id="YiU-MJ-9Xs" customClass="Main_Game_Stats_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RQL-cI-ugr">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4421,7 +4446,7 @@
         <!--Settings Apperance View Controller-->
         <scene sceneID="IA9-9N-ATz">
             <objects>
-                <tableViewController storyboardIdentifier="Settings_Apperance_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D5U-YX-zOP" customClass="Settings_Apperance_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Settings_Apperance_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D5U-YX-zOP" customClass="Settings_Apperance_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="18D-1X-SEn">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4495,7 +4520,7 @@
         <!--Settings Legal View Controller-->
         <scene sceneID="SIJ-qP-j39">
             <objects>
-                <tableViewController storyboardIdentifier="Settings_Legal_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tce-LD-VMH" customClass="Settings_Legal_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Settings_Legal_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tce-LD-VMH" customClass="Settings_Legal_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pcM-ek-QAT">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4568,7 +4593,7 @@
         <!--Initial Setup Page Controller-->
         <scene sceneID="dbv-D2-cc0">
             <objects>
-                <pageViewController storyboardIdentifier="Setup" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="sbU-vj-OV2" customClass="Initial_Setup_Page_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="Setup" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="sbU-vj-OV2" customClass="Initial_Setup_Page_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nlW-XN-2eO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-838" y="3227"/>
@@ -4576,7 +4601,7 @@
         <!--Initial Setup Home Team Add View Controller-->
         <scene sceneID="B3a-Zm-yvX">
             <objects>
-                <viewController storyboardIdentifier="addHomeTeam_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="e1a-Ji-2CN" customClass="Initial_Setup_Home_Team_Add_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addHomeTeam_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="e1a-Ji-2CN" customClass="Initial_Setup_Home_Team_Add_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JHM-03-GQz">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4631,7 +4656,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ns5-g6-ass">
-                                <rect key="frame" x="0.0" y="368" width="1024" height="153.5"/>
+                                <rect key="frame" x="128" y="368" width="768" height="153.5"/>
                             </pickerView>
                             <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SKu-3k-vsF">
                                 <rect key="frame" x="25" y="688" width="92" height="55"/>
@@ -4676,7 +4701,7 @@
                             <constraint firstItem="Ns5-g6-ass" firstAttribute="top" secondItem="eMb-5l-Ado" secondAttribute="bottom" constant="25" id="aQq-fY-FTm"/>
                             <constraint firstItem="yKR-o2-RQ6" firstAttribute="bottom" secondItem="JHM-03-GQz" secondAttribute="bottom" constant="-75" id="b1O-O6-d3G"/>
                             <constraint firstItem="kNR-OS-xD5" firstAttribute="centerX" secondItem="JHM-03-GQz" secondAttribute="centerX" id="bwu-cm-WX4"/>
-                            <constraint firstItem="Ns5-g6-ass" firstAttribute="width" secondItem="JHM-03-GQz" secondAttribute="width" id="d5S-FP-fwo"/>
+                            <constraint firstItem="Ns5-g6-ass" firstAttribute="width" secondItem="JHM-03-GQz" secondAttribute="width" multiplier="0.75" id="d5S-FP-fwo"/>
                             <constraint firstItem="Ns5-g6-ass" firstAttribute="height" secondItem="JHM-03-GQz" secondAttribute="height" multiplier="0.2" id="dJC-Mj-0Sl"/>
                             <constraint firstItem="tIW-sU-Lkc" firstAttribute="centerX" secondItem="JHM-03-GQz" secondAttribute="centerX" id="gZo-xv-h4j"/>
                             <constraint firstItem="eMb-5l-Ado" firstAttribute="centerX" secondItem="JHM-03-GQz" secondAttribute="centerX" id="gbX-fs-ufc"/>
@@ -4708,7 +4733,7 @@
         <!--Initial Setup Player Add View Controller-->
         <scene sceneID="LDC-8S-hTp">
             <objects>
-                <viewController storyboardIdentifier="addPlayers_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rvQ-Z4-IWW" customClass="Initial_Setup_Player_Add_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addPlayers_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rvQ-Z4-IWW" customClass="Initial_Setup_Player_Add_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dyB-pe-Pd3">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4736,10 +4761,10 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYC-ut-6rn">
-                                <rect key="frame" x="0.0" y="517.5" width="1024" height="134.5"/>
+                                <rect key="frame" x="128" y="517.5" width="768" height="134.5"/>
                             </pickerView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGe-y8-b3d">
-                                <rect key="frame" x="0.0" y="363" width="1024" height="134.5"/>
+                                <rect key="frame" x="128" y="363" width="768" height="134.5"/>
                             </pickerView>
                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eM-MW-8Fp">
                                 <rect key="frame" x="444" y="676" width="136" height="42"/>
@@ -4782,32 +4807,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" alpha="0.0" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lj5-QC-FCb">
-                                <rect key="frame" x="25" y="629" width="73" height="39"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                <state key="normal" title="Restart">
-                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="restartButton:" destination="rvQ-Z4-IWW" eventType="touchUpInside" id="V9e-vb-qFn"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8ts-rC-XuX" firstAttribute="leading" secondItem="zA9-sD-T8t" secondAttribute="leading" constant="10" id="1ef-wP-idy"/>
-                            <constraint firstItem="Lj5-QC-FCb" firstAttribute="bottom" secondItem="fmE-or-EKg" secondAttribute="bottom" constant="-100" id="4pE-Im-wZJ"/>
                             <constraint firstItem="90h-iM-PXQ" firstAttribute="centerX" secondItem="dyB-pe-Pd3" secondAttribute="centerX" id="5Uh-nF-2XG"/>
                             <constraint firstItem="YYC-ut-6rn" firstAttribute="top" secondItem="wGe-y8-b3d" secondAttribute="bottom" constant="20" id="7y5-Yx-Xlu"/>
-                            <constraint firstItem="wGe-y8-b3d" firstAttribute="width" secondItem="dyB-pe-Pd3" secondAttribute="width" id="Apf-Ng-g3a"/>
+                            <constraint firstItem="wGe-y8-b3d" firstAttribute="width" secondItem="dyB-pe-Pd3" secondAttribute="width" multiplier="0.75" id="Apf-Ng-g3a"/>
                             <constraint firstItem="tR8-mk-DiY" firstAttribute="centerX" secondItem="dyB-pe-Pd3" secondAttribute="centerX" id="F9O-EM-rL4"/>
                             <constraint firstItem="wGe-y8-b3d" firstAttribute="height" secondItem="dyB-pe-Pd3" secondAttribute="height" multiplier="0.175" id="Lm2-5z-geq"/>
                             <constraint firstItem="zA9-sD-T8t" firstAttribute="top" secondItem="fmE-or-EKg" secondAttribute="top" constant="25" id="OPr-x7-es8"/>
                             <constraint firstItem="YYC-ut-6rn" firstAttribute="height" secondItem="dyB-pe-Pd3" secondAttribute="height" multiplier="0.175" id="ORV-xU-HrB"/>
                             <constraint firstItem="zA9-sD-T8t" firstAttribute="leading" secondItem="dyB-pe-Pd3" secondAttribute="leading" constant="25" id="QmW-et-2gN"/>
-                            <constraint firstItem="Pb3-1f-kmY" firstAttribute="width" secondItem="dyB-pe-Pd3" secondAttribute="width" multiplier="0.3" placeholder="YES" id="Tj1-9V-CYd"/>
+                            <constraint firstItem="Pb3-1f-kmY" firstAttribute="width" secondItem="dyB-pe-Pd3" secondAttribute="width" multiplier="0.3" id="Tj1-9V-CYd"/>
                             <constraint firstItem="6eM-MW-8Fp" firstAttribute="bottom" secondItem="fmE-or-EKg" secondAttribute="bottom" constant="-50" id="V97-zg-KI1"/>
-                            <constraint firstItem="YYC-ut-6rn" firstAttribute="width" secondItem="dyB-pe-Pd3" secondAttribute="width" id="VZ9-aU-WYT"/>
+                            <constraint firstItem="YYC-ut-6rn" firstAttribute="width" secondItem="dyB-pe-Pd3" secondAttribute="width" multiplier="0.75" id="VZ9-aU-WYT"/>
                             <constraint firstItem="1eD-RC-yDw" firstAttribute="bottom" secondItem="dyB-pe-Pd3" secondAttribute="bottom" constant="-150" id="WRU-Fn-wJG"/>
                             <constraint firstItem="C6F-I0-XMV" firstAttribute="top" secondItem="fmE-or-EKg" secondAttribute="top" constant="15" id="XM1-af-9Zp"/>
                             <constraint firstItem="6eM-MW-8Fp" firstAttribute="centerX" secondItem="dyB-pe-Pd3" secondAttribute="centerX" id="Yfl-s3-SiM"/>
@@ -4822,7 +4836,6 @@
                             <constraint firstItem="90h-iM-PXQ" firstAttribute="top" secondItem="tR8-mk-DiY" secondAttribute="bottom" constant="40" id="nVY-Re-ZcH"/>
                             <constraint firstItem="YYC-ut-6rn" firstAttribute="centerX" secondItem="dyB-pe-Pd3" secondAttribute="centerX" id="oH2-bf-a1w"/>
                             <constraint firstItem="C6F-I0-XMV" firstAttribute="trailing" secondItem="dyB-pe-Pd3" secondAttribute="trailing" constant="-15" id="pNe-53-uFW"/>
-                            <constraint firstItem="Lj5-QC-FCb" firstAttribute="leading" secondItem="dyB-pe-Pd3" secondAttribute="leading" constant="25" id="rbI-4p-Nma"/>
                             <constraint firstItem="MZw-Zx-w0M" firstAttribute="bottom" secondItem="Pb3-1f-kmY" secondAttribute="top" constant="-35" id="wNA-Yx-74s"/>
                             <constraint firstItem="tR8-mk-DiY" firstAttribute="width" secondItem="dyB-pe-Pd3" secondAttribute="width" multiplier="0.3" id="wuf-Cd-ckb"/>
                         </constraints>
@@ -4837,7 +4850,6 @@
                         <outlet property="playerPositionPicker" destination="YYC-ut-6rn" id="63C-B4-B2q"/>
                         <outlet property="playerProfileImageView" destination="Pb3-1f-kmY" id="bQN-ci-dCg"/>
                         <outlet property="proceedArrow" destination="C6F-I0-XMV" id="EST-vi-1tN"/>
-                        <outlet property="restartButton" destination="Lj5-QC-FCb" id="r6a-sk-4Eb"/>
                         <outlet property="viewControllerTitle" destination="zA9-sD-T8t" id="9zQ-Yr-y1x"/>
                         <outlet property="warningLabel" destination="1eD-RC-yDw" id="VFr-4M-4h3"/>
                     </connections>
@@ -4849,7 +4861,7 @@
         <!--Drawboard View Controller-->
         <scene sceneID="i50-LE-z1H">
             <objects>
-                <viewController storyboardIdentifier="Drawboard_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7Kf-TX-fsY" customClass="Drawboard_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Drawboard_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7Kf-TX-fsY" customClass="Drawboard_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V90-tK-83h">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5071,7 +5083,7 @@
         <!--Old Stats Drawboard Gallery View Controller-->
         <scene sceneID="hb9-B9-U1E">
             <objects>
-                <viewController storyboardIdentifier="Old_Stats_Drawboard_Gallery_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C2t-lh-Dhf" customClass="Old_Stats_Drawboard_Gallery_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Old_Stats_Drawboard_Gallery_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C2t-lh-Dhf" customClass="Old_Stats_Drawboard_Gallery_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xA0-id-uqq">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5192,7 +5204,7 @@
         <!--Initial Setup More Info View Controller-->
         <scene sceneID="UXQ-a7-ndF">
             <objects>
-                <viewController storyboardIdentifier="helpGuide_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FuO-qg-JYb" customClass="Initial_Setup_More_Info_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="helpGuide_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FuO-qg-JYb" customClass="Initial_Setup_More_Info_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kjq-K4-ndY">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5232,7 +5244,7 @@
         <!--Initial SetupF Inish Page View Controller-->
         <scene sceneID="DOZ-Cs-t0V">
             <objects>
-                <viewController storyboardIdentifier="finishSetup_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8iu-rp-BmU" customClass="Initial_Setup_FInish_Page_ViewController" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="finishSetup_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8iu-rp-BmU" customClass="Initial_Setup_FInish_Page_ViewController" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5s6-XA-goL">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5241,7 +5253,7 @@
                                 <rect key="frame" x="384" y="351" width="256" height="66"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="45"/>
                                 <state key="normal" title="Finish Setup">
-                                    <color key="titleColor" red="0.0049068285150000003" green="0.4474061728" blue="0.63255959750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="finishButton:" destination="8iu-rp-BmU" eventType="touchUpInside" id="Ftb-hI-adf"/>
@@ -5274,7 +5286,7 @@
         <!--Help Guide View Controller-->
         <scene sceneID="1QY-fs-SAT">
             <objects>
-                <viewController restorationIdentifier="Help_View_Controller" storyboardIdentifier="Help_View_Controller" id="zyv-zH-zpF" customClass="Help_Guide_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Help_View_Controller" storyboardIdentifier="Help_View_Controller" id="zyv-zH-zpF" customClass="Help_Guide_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gdh-Eb-Ee7">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5345,7 +5357,7 @@
         <!--Main Old Stats Ice Tutorial-->
         <scene sceneID="W8h-Rw-r9o">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="27G-C3-Aq5" customClass="Main_Old_Stats_Ice_Tutorial" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="27G-C3-Aq5" customClass="Main_Old_Stats_Ice_Tutorial" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B6I-jD-twQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2118" y="4817"/>
@@ -5353,7 +5365,7 @@
         <!--Old Stats Ice Turoial Change Golaie View Controller-->
         <scene sceneID="Kxd-8f-dLi">
             <objects>
-                <viewController storyboardIdentifier="first_oldstatsice" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QgA-sa-fjw" customClass="Old_Stats_Ice_Turoial_Change_Golaie_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="first_oldstatsice" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QgA-sa-fjw" customClass="Old_Stats_Ice_Turoial_Change_Golaie_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8RA-UU-jlj">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5401,7 +5413,7 @@
         <!--Old Stats Ice Turoial View Analytical View Controller-->
         <scene sceneID="Hys-V7-bRk">
             <objects>
-                <viewController storyboardIdentifier="second_oldstatsice" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sC9-Zy-xG4" customClass="Old_Stats_Ice_Turoial_View_Analytical_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="second_oldstatsice" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sC9-Zy-xG4" customClass="Old_Stats_Ice_Turoial_View_Analytical_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ULd-lz-y01">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5449,7 +5461,7 @@
         <!--Old Stats Ice Turoial Marker Stats View Controller-->
         <scene sceneID="c0X-Bo-s8O">
             <objects>
-                <viewController storyboardIdentifier="third_oldstatsice" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Elz-7D-9VW" customClass="Old_Stats_Ice_Turoial_Marker_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="third_oldstatsice" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Elz-7D-9VW" customClass="Old_Stats_Ice_Turoial_Marker_Stats_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qwO-tl-KG4">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5497,7 +5509,7 @@
         <!--Initial Setup Welcome Page View Controller-->
         <scene sceneID="JBW-bT-AQL">
             <objects>
-                <viewController storyboardIdentifier="welcomePage_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="npm-zg-yPU" customClass="Initial_Setup_Welcome_Page_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welcomePage_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="npm-zg-yPU" customClass="Initial_Setup_Welcome_Page_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4k7-15-cTi">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5522,7 +5534,7 @@
                                     <constraint firstAttribute="width" secondItem="cf3-dZ-hrz" secondAttribute="height" multiplier="2:1.5" id="QiG-Rw-hwf"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beta Build" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wum-1F-afJ">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beta Build" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wum-1F-afJ">
                                 <rect key="frame" x="908" y="25" width="96" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5594,7 +5606,7 @@
         <!--Settings About View Controller-->
         <scene sceneID="EaW-Id-9HB">
             <objects>
-                <tableViewController storyboardIdentifier="Settings_About_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xtC-dr-sYX" customClass="Settings_About_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Settings_About_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xtC-dr-sYX" customClass="Settings_About_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="YOq-N8-wRT">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5646,7 +5658,7 @@
         <!--Basic Current Stats Page-->
         <scene sceneID="Lc5-Mk-TsW">
             <objects>
-                <viewController id="1An-mi-BGF" customClass="Basic_Current_Stats_Page" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1An-mi-BGF" customClass="Basic_Current_Stats_Page" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ayx-nO-BBX">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="635"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5726,7 +5738,7 @@
                                         <rect key="frame" x="70" y="320" width="442" height="315"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="gcQ-jk-QJS" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="gcQ-jk-QJS" customClass="customCurrentStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="442" height="75"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gcQ-jk-QJS" id="YBd-oA-KVc">
@@ -5771,7 +5783,7 @@
                                         <rect key="frame" x="512" y="320" width="442" height="315"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="OHW-mw-1X2" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="OHW-mw-1X2" customClass="customCurrentStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="442" height="75"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OHW-mw-1X2" id="4q0-OL-K3J">
@@ -5869,7 +5881,7 @@
         <!--Detailed Current Stats View Controller-->
         <scene sceneID="8jp-fy-qJ0">
             <objects>
-                <viewController id="FZq-I2-05c" customClass="Detailed_Current_Stats_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FZq-I2-05c" customClass="Detailed_Current_Stats_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FQN-wO-YOU">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="635"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5881,7 +5893,7 @@
                                         <rect key="frame" x="637" y="45" width="352" height="247.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="Wr2-sJ-MHA" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="Wr2-sJ-MHA" customClass="customCurrentStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="352" height="75"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wr2-sJ-MHA" id="PU1-l2-Osb">
@@ -5925,7 +5937,7 @@
                                         <rect key="frame" x="35" y="45" width="287" height="590"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="amE-pp-rSH" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="amE-pp-rSH" customClass="customCurrentStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="287" height="75"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="amE-pp-rSH" id="jKm-7e-bnb">
@@ -5969,7 +5981,7 @@
                                         <rect key="frame" x="637" y="317.5" width="352" height="317.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="50" id="19M-Pc-Oxh" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="50" id="19M-Pc-Oxh" customClass="customCurrentStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="352" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="19M-Pc-Oxh" id="OMv-Ur-WRg">
@@ -6013,7 +6025,7 @@
                                         <rect key="frame" x="322" y="45" width="290" height="590"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="42X-A6-Fmn" customClass="customCurrentStatsCell" customModule="Shot_Tracker" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="75" id="42X-A6-Fmn" customClass="customCurrentStatsCell" customModule="Coach_Assistant" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="290" height="75"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="42X-A6-Fmn" id="vJD-Ws-qi4">
@@ -6099,7 +6111,7 @@
         <!--Default Penalty Settings-->
         <scene sceneID="74W-eo-buz">
             <objects>
-                <viewController storyboardIdentifier="Settings_Default_Penalty" title="Default Penalty Settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LgI-tk-qiz" customClass="Settings_Defaults_Penalty_Defaults" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Settings_Default_Penalty" title="Default Penalty Settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LgI-tk-qiz" customClass="Settings_Defaults_Penalty_Defaults" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mJr-hg-49q">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6153,7 +6165,7 @@
         <!--Initial Setup Away Team Add View Controller-->
         <scene sceneID="njP-Km-RkY">
             <objects>
-                <viewController storyboardIdentifier="addAwayTeam_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4iV-tc-AEC" customClass="Initial_Setup_Away_Team_Add_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addAwayTeam_InitialSetupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4iV-tc-AEC" customClass="Initial_Setup_Away_Team_Add_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b46-v6-9S0">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6208,7 +6220,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ocn-lX-B4p">
-                                <rect key="frame" x="0.0" y="368" width="1024" height="153.5"/>
+                                <rect key="frame" x="128" y="368" width="768" height="153.5"/>
                             </pickerView>
                             <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6Y-Zl-Wt0">
                                 <rect key="frame" x="25" y="688" width="92" height="55"/>
@@ -6254,7 +6266,7 @@
                             <constraint firstItem="qis-Bl-LZV" firstAttribute="centerX" secondItem="b46-v6-9S0" secondAttribute="centerX" id="9lb-Xe-3fS"/>
                             <constraint firstItem="eTO-X0-9MH" firstAttribute="centerX" secondItem="b46-v6-9S0" secondAttribute="centerX" id="9pe-GL-RIp"/>
                             <constraint firstItem="eTO-X0-9MH" firstAttribute="width" secondItem="EMp-q5-yIo" secondAttribute="width" multiplier="1.75" id="FD0-li-hTB"/>
-                            <constraint firstItem="Ocn-lX-B4p" firstAttribute="width" secondItem="b46-v6-9S0" secondAttribute="width" id="HKN-Ta-Baq"/>
+                            <constraint firstItem="Ocn-lX-B4p" firstAttribute="width" secondItem="b46-v6-9S0" secondAttribute="width" multiplier="0.75" id="HKN-Ta-Baq"/>
                             <constraint firstItem="EMp-q5-yIo" firstAttribute="top" secondItem="K9U-af-csn" secondAttribute="bottom" constant="50" id="Ldi-at-WbQ"/>
                             <constraint firstItem="qis-Bl-LZV" firstAttribute="top" secondItem="EMp-q5-yIo" secondAttribute="bottom" constant="50" id="O99-ho-kgz"/>
                             <constraint firstItem="ndj-ZE-hj7" firstAttribute="bottom" secondItem="dGb-Oo-53x" secondAttribute="bottom" constant="-75" id="PcP-eo-vtX"/>
@@ -6294,7 +6306,7 @@
         <!--NewUI Update View Controller-->
         <scene sceneID="Toi-Em-k2J">
             <objects>
-                <viewController storyboardIdentifier="New_UI_Update_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gJA-3P-6Cq" customClass="New_UI_Update_View_Controller" customModule="Shot_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="New_UI_Update_View_Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gJA-3P-6Cq" customClass="New_UI_Update_View_Controller" customModule="Coach_Assistant" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zDJ-Vc-Ug7">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="576"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6353,13 +6365,14 @@
         <image name="coach_assitant_full_trans" width="235.5" height="171.5"/>
         <image name="coach_assitant_icon_trans" width="453" height="466"/>
         <image name="compose_icon" width="46" height="46"/>
+        <image name="compose_icon_grey" width="46" height="46"/>
         <image name="gear" width="36" height="36"/>
         <image name="hockey_net_basic_shot" width="902" height="531"/>
         <image name="hockey_net_period_basic" width="892" height="523"/>
         <image name="ice" width="1300" height="967"/>
         <image name="ice_rink" width="1946" height="1093"/>
         <image name="left_scroll_arrow" width="128" height="128"/>
-        <image name="premium_image" width="65" height="28"/>
+        <image name="premium_image" width="75" height="75"/>
         <image name="right_scroll_arrow" width="128" height="128"/>
         <image name="rink_icon" width="36" height="34.5"/>
         <image name="sad_face_icon" width="128" height="129"/>
@@ -6375,7 +6388,7 @@
         <segue reference="pOz-SY-0TH"/>
         <segue reference="djc-Z0-gWf"/>
         <segue reference="RLO-IA-6Z6"/>
-        <segue reference="pU4-Mo-IQe"/>
+        <segue reference="1Qt-D7-Gpw"/>
         <segue reference="B9O-nl-JB9"/>
     </inferredMetricsTieBreakers>
 </document>

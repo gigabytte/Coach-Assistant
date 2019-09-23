@@ -250,7 +250,7 @@ class universalValue{
     var newGameAdUnitID = /*"ca-app-pub-1292859049443143/2410528114"*/"ca-app-pub-3940256099942544/2934735716"
     
     // Help Guide PDF file name
-    var helpGuidePDFName:String = "help_guide_iPad"
+    var helpGuidePDFName:String = "help_guide"
     
     // Help Guide gif file name
     var helpGuideGIF:String = "help_guide.gif"
