@@ -15,7 +15,6 @@ class Initial_Setup_Welcome_Page_View_Controller: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("qwdwqdqqwd")
         // Do any additional setup after loading the view.
     }
     

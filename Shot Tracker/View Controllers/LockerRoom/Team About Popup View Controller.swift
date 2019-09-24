@@ -460,36 +460,42 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
         let newName = (teamNameEditTextField.text!).trimmingCharacters(in: .whitespacesAndNewlines)
         let seasonNumber = seasonEditTextField.text!
         let teamObjc = realm.object(ofType: teamInfoTable.self, forPrimaryKey: selectedTeamID);
-        if Int(seasonNumber)! <= 2017 && Int(seasonNumber)! >= 2999{
+        
             if (newName != "" && seasonNumber != ""){
-                
-                try! realm.write{
-                    teamObjc!.activeState = teamToggleSwitch.isOn
-                    teamObjc!.nameOfTeam = newName
-                    teamObjc?.seasonYear = Int(seasonNumber)!
-                    if let oldLogoURL = teamObjc?.teamLogoURL{
-                        // rename logo file name is name is chnaged
-                        if oldLogoURL != ""{
-                            reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo")
-                            teamObjc?.teamLogoURL = "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo"
+                if Int(seasonNumber)! <= 2017 && Int(seasonNumber)! >= 2999{
+                    try! realm.write{
+                        teamObjc!.activeState = teamToggleSwitch.isOn
+                        teamObjc!.nameOfTeam = newName
+                        teamObjc?.seasonYear = Int(seasonNumber)!
+                        if let oldLogoURL = teamObjc?.teamLogoURL{
+                            // rename logo file name is name is chnaged
+                            if oldLogoURL != ""{
+                                reNameProfileImageFile(logoURL: oldLogoURL, newName: "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo")
+                                teamObjc?.teamLogoURL = "\((teamObjc?.teamID)!)_ID_\(newName)_team_logo"
+                            }
                         }
                     }
+                    DispatchQueue.main.async {
+                        var rect: CGRect = self.teamNameLabel.frame //get frame of label
+                        rect.size = (self.teamNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.teamNameLabel.font.fontName , size: self.teamNameLabel.font.pointSize)!]))! //Calculate as per label
+                        self.teamNameLabelNCCon.constant = rect.width + 15
+                        self.popUpView.layoutIfNeeded()
+                    }
+                    succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
+                }else{
+                    fatalErrorAlert("The season number must be between 2017 and 2999. You entered \(seasonNumber)")
                 }
-                DispatchQueue.main.async {
-                    var rect: CGRect = self.teamNameLabel.frame //get frame of label
-                    rect.size = (self.teamNameLabel.text?.size(withAttributes: [NSAttributedString.Key.font: UIFont(name: self.teamNameLabel.font.fontName , size: self.teamNameLabel.font.pointSize)!]))! //Calculate as per label
-                    self.teamNameLabelNCCon.constant = rect.width + 15
-                    self.popUpView.layoutIfNeeded()
-                }
-                succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
             }else if (newName == "" && seasonNumber != ""){
-                
-                try! realm.write{
-                    teamObjc!.activeState = teamToggleSwitch.isOn
-                    teamObjc?.seasonYear = Int(seasonNumber)!
-                    
+                if Int(seasonNumber)! <= 2017 && Int(seasonNumber)! >= 2999{
+                    try! realm.write{
+                        teamObjc!.activeState = teamToggleSwitch.isOn
+                        teamObjc?.seasonYear = Int(seasonNumber)!
+                        
+                    }
+                    succesfulTeamEdit(teamName: newName)
+                }else{
+                    fatalErrorAlert("The season number must be between 2017 and 2999. You entered \(seasonNumber)")
                 }
-                succesfulTeamEdit(teamName: newName)
                 
             }else if (newName == "" && seasonNumber == ""){
                 
@@ -520,23 +526,24 @@ class Team_About_Popup_View_Controller: UIViewController, UITableViewDelegate, U
                 }
                 succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
             }else{
-                try! realm.write{
-                    teamObjc!.activeState = teamToggleSwitch.isOn
-                    teamObjc!.nameOfTeam = newName
-                    teamObjc?.seasonYear = Int(seasonNumber)!
-                    
+                if Int(seasonNumber)! <= 2017 && Int(seasonNumber)! >= 2999{
+                    try! realm.write{
+                        teamObjc!.activeState = teamToggleSwitch.isOn
+                        teamObjc!.nameOfTeam = newName
+                        teamObjc?.seasonYear = Int(seasonNumber)!
+                        
+                    }
+                    let width = teamNameLabel.intrinsicContentSize.width + 10
+                    teamNameLabelNCCon.constant = width
+                    self.popUpView.layoutIfNeeded()
+                    succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
+                }else{
+                    fatalErrorAlert("The season number must be between 2017 and 2999. You entered \(seasonNumber)")
                 }
-                let width = teamNameLabel.intrinsicContentSize.width + 10
-                teamNameLabelNCCon.constant = width
-                self.popUpView.layoutIfNeeded()
-                succesfulTeamEdit(teamName: teamObjc!.nameOfTeam)
                 
-            }
-        }else{
-            fatalErrorAlert("The season number must be between 2017 and 2999. You entered \(seasonNumber)")
         }
-        
     }
+    
     
     func isEditingFields(boolType: Bool){
         

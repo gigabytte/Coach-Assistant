@@ -96,9 +96,7 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
         self.teamStatsTableView.rowHeight = 50.0
         
         
-        // rounding of corners for tableview
-        goalieStatsTableView.layer.cornerRadius = 10
-        teamStatsTableView.layer.cornerRadius = 10
+        
         
         viewColour()
     }
@@ -113,6 +111,8 @@ class Detailed_Current_Stats_View_Controller: UIViewController, UITableViewDeleg
         // round corner of table views
         roundedCorners().tableViewTopLeft(tableviewType: homePlayerStatsTableView)
         roundedCorners().tableViewTopRight(tableviewType: awayPlayerStatsTableView)
+        goalieStatsTableView.layer.cornerRadius = 10
+        roundedCorners().tableViewTopLeftRight(tableviewType: teamStatsTableView)
         
         homePlayerStatsTableView.tableFooterView = UIView()
         awayPlayerStatsTableView.tableFooterView = UIView()

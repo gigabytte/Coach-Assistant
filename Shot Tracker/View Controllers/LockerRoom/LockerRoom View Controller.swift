@@ -381,7 +381,7 @@ class LockerRoom_View_Controller: UIViewController, UIPopoverPresentationControl
     func dataReturnNilAlert(activeGame: Bool){
         
         // create the alert
-        let nilAlert = UIAlertController(title: localizedString().localized(value:"Data Error"), message: localizedString().localized(value:"Please have atleast two 'active' teams, one player and one goalie for each corresponding team that are 'active' as well in order to jump into a game."), preferredStyle: UIAlertController.Style.alert)
+        let nilAlert = UIAlertController(title: localizedString().localized(value:"Data Error"), message: localizedString().localized(value:"Please have atleast two 'active' teams, one 'active' player and one 'active' goalie for each corresponding team, in order to jump into a game."), preferredStyle: UIAlertController.Style.alert)
         if activeGame == true{
             // add an action (button)
             nilAlert.addAction(UIAlertAction(title: "Close Current Game", style: UIAlertAction.Style.destructive, handler: { action in
