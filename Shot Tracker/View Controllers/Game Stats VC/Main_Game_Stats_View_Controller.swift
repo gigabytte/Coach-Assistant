@@ -36,7 +36,7 @@ class Main_Game_Stats_View_Controller: UIViewController, UIPopoverPresentationCo
         UserDefaults.standard.removeObject(forKey: "userTrialPeriod")
         */
         
-        UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+        //UserDefaults.standard.set(true, forKey: "userPurchaseConf")
         productID = universalValue().coachAssistantProID
       
         basic_containerView.isHidden = false
