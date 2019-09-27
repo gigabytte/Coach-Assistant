@@ -11,7 +11,7 @@ target 'Shot Tracker' do
   pod 'Firebase/Core'
   pod 'Firebase/AdMob'
   pod 'Gifu'
-  pod 'SwiftyStoreKit'
+  #pod 'SwiftyStoreKit'
   pod 'Fabric', '~> 1.10.2'
   pod 'Crashlytics', '~> 3.13.4'
   pod 'Zip', '~> 1.1'

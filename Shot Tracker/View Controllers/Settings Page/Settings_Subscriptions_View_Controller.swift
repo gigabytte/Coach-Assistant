@@ -8,10 +8,10 @@
 
 import UIKit
 import RealmSwift
+import StoreKit
 import Realm
-import SwiftyStoreKit
 
-class Settings_Subscriptions_View_Controller: UITableViewController {
+class Settings_Subscriptions_View_Controller: UITableViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
 
     
     @IBOutlet var subTableView: UITableView!
@@ -23,10 +23,12 @@ class Settings_Subscriptions_View_Controller: UITableViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(myMethod(notification:)), name: NSNotification.Name(rawValue: "darModeToggle"), object: nil)
-        productID = universalValue().coachAssistantProID
       
         tableView.tableFooterView = UIView()
         viewColour()
+        
+        productID = universalValue().coachAssistantProID
+        SKPaymentQueue.default().add(self)
         // Do any additional setup after loading the view.
     }
     
@@ -39,76 +41,84 @@ class Settings_Subscriptions_View_Controller: UITableViewController {
         viewColour()
     }
     
-    func productRetrieve(){
-        
-        SwiftyStoreKit.retrieveProductsInfo([productID]) { result in
-            if let product = result.retrievedProducts.first {
-                let priceString = product.localizedPrice!
-                print("Product: \(product.localizedDescription), price: \(priceString)")
+   
+    
+    // MARK: - SKProductRequest Delegate
+    
+    func buyProduct(product: SKProduct) {
+        print("Sending the Payment Request to Apple");
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.default().add(payment);
+    }
+
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+
+        print(response.products)
+        let count : Int = response.products.count
+        if (count>0) {
+
+            let validProduct: SKProduct = response.products[0] as SKProduct
+            if (validProduct.productIdentifier == self.productID! as String) {
+                print(validProduct.localizedTitle)
+                print(validProduct.localizedDescription)
+                print(validProduct.price)
+                self.buyProduct(product: validProduct)
+            } else {
+                print(validProduct.productIdentifier)
             }
-            else if let invalidProductId = result.invalidProductIDs.first {
-                print("Invalid product identifier: \(invalidProductId)")
-            }
-            else {
-                self.purchaseErrorAlert(localizedString().localized(value: "An upgrade cannot be found an unknown error occured. Please contact support."))
-            }
+        } else {
+            purchaseErrorAlert("Could not locate products, please contact support")
+            print("nothing")
         }
     }
-    
-  
-    func productPurchase(){
-        
-        SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
-            switch result {
-            case .success(let purchase):
-                print("Purchase Success: \(purchase.productId)")
-                self.view.viewWithTag(100)?.removeFromSuperview()
-                self.view.viewWithTag(200)?.removeFromSuperview()
-                UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-                
-            case .error(let error):
-                switch error.code {
-                case .unknown:
-                    print("Unknown error. Please contact support")
-                    self.purchaseErrorAlert("Unknown error. Please contact support")
+
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction:AnyObject in transactions {
+            if let trans:SKPaymentTransaction = transaction as? SKPaymentTransaction{
+
+
+                switch trans.transactionState {
+                case .purchased:
+                    print("Product Purchased")
+                    //Do unlocking etc stuff here in case of new purchase
+                    UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
                     self.view.viewWithTag(100)?.removeFromSuperview()
                     self.view.viewWithTag(200)?.removeFromSuperview()
-                case .clientInvalid:
+                    break;
+                case .failed:
+                    print("Purchased Failed");
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
                     self.view.viewWithTag(100)?.removeFromSuperview()
                     self.view.viewWithTag(200)?.removeFromSuperview()
-                    print("Not allowed to make the payment")
-                case .paymentCancelled:
+                    purchaseErrorAlert("Failed to request product from Apple, please contact support")
+                    break;
+                case .restored:
+                    print("Already Purchased")
+                    UserDefaults.standard.set(true, forKey: "userPurchaseConf")
                     self.view.viewWithTag(100)?.removeFromSuperview()
                     self.view.viewWithTag(200)?.removeFromSuperview()
-                    break
-                case .paymentInvalid:
-                    self.view.viewWithTag(100)?.removeFromSuperview()
-                    self.view.viewWithTag(200)?.removeFromSuperview()
-                    print("The purchase identifier was invalid")
-                case .paymentNotAllowed:
-                    print("The device is not allowed to make the payment")
-                    self.purchaseErrorAlert("The device is not allowed to make the payment")
-                case .storeProductNotAvailable:
-                    print("The product is not available in the current storefront")
-                    self.purchaseErrorAlert("The product is not available in the current storefront")
-                case .cloudServicePermissionDenied:
-                    print("Access to cloud service information is not allowed")
-                case .cloudServiceNetworkConnectionFailed:
-                    print("Could not connect to the network")
-                    self.purchaseErrorAlert("Could not connect to the network, please make sure your are connected to the internet")
-                case .cloudServiceRevoked:
-                    print("User has revoked permission to use this cloud service")
-                    self.purchaseErrorAlert("Please update your account premisions or call Apple for furthur assitance regarding your cloud premissions")
+                    restoreConfAlert()
+                    //Do unlocking etc stuff here in case of restor
+
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
                 default:
-                    self.view.viewWithTag(100)?.removeFromSuperview()
-                    self.view.viewWithTag(200)?.removeFromSuperview()
-                    print((error as NSError).localizedDescription)
+                   
+                    break;
                 }
             }
         }
-        
     }
+
+
+    //If an error occurs, the code will go to this function
+        func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+            // Show some alert
+            print("Fata storkit error: \(error)")
+            purchaseErrorAlert("Failed to restore product from Apple, please contact support")
+        }
     
+  
     func loadingView(addOrRemoveBool: Bool){
         if addOrRemoveBool == true{
             let loadingView = UIView()
@@ -132,27 +142,6 @@ class Settings_Subscriptions_View_Controller: UITableViewController {
             }
             if self.view.viewWithTag(200) != nil{
                 self.view.viewWithTag(200)?.removeFromSuperview()
-            }
-        }
-    }
-    
-    
-    func productRestore(){
-        
-        SwiftyStoreKit.restorePurchases(atomically: true) { results in
-            if results.restoreFailedPurchases.count > 0 {
-                print("Restore Failed: \(results.restoreFailedPurchases)")
-                self.loadingView(addOrRemoveBool: false)
-            }
-            else if results.restoredPurchases.count > 0 {
-                print("Restore Success: \(results.restoredPurchases)")
-                self.loadingView(addOrRemoveBool: false)
-                UserDefaults.standard.set(true, forKey: "proUser")
-                
-            }
-            else {
-                print("Nothing to Restore")
-                self.loadingView(addOrRemoveBool: false)
             }
         }
     }
@@ -184,8 +173,18 @@ class Settings_Subscriptions_View_Controller: UITableViewController {
             if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
                 print("Upgrading Now!")
                 loadingView(addOrRemoveBool: true)
-                productRetrieve()
-                productPurchase()
+                if (SKPaymentQueue.canMakePayments()) {
+                    let productID:NSSet = NSSet(array: [self.productID! as NSString]);
+                    let productsRequest:SKProductsRequest = SKProductsRequest(productIdentifiers: productID as! Set<String>);
+                    productsRequest.delegate = self;
+                    productsRequest.start();
+                    print("Fetching Products");
+                } else {
+                    print("can't make purchases");
+                    purchaseErrorAlert("Failed to make purchase, please make sure you can make purchases in the App Store before continuing. If problem persits please contact support")
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
+                }
             }else{
                 restoreConfAlert()
             }
@@ -195,8 +194,15 @@ class Settings_Subscriptions_View_Controller: UITableViewController {
             if (UserDefaults.standard.bool(forKey: "userPurchaseConf") != true){
                 // create the alert
                 loadingView(addOrRemoveBool: true)
-                productRetrieve()
-                productRestore()
+                if (SKPaymentQueue.canMakePayments()) {
+                    SKPaymentQueue.default().add(self)
+                    SKPaymentQueue.default().restoreCompletedTransactions()
+                } else {
+                    purchaseErrorAlert("You cannot make payments to the app store, please setup a payment method with the App Store before continuing. If problem persits please contact support")
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
+                    // show error
+                }
             }else{
                 restoreConfAlert()
             }
