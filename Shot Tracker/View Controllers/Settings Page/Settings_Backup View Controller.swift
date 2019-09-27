@@ -9,11 +9,11 @@
 import UIKit
 import Realm
 import RealmSwift
-import SwiftyStoreKit
+import StoreKit
 import MobileCoreServices
 import Zip
 
-final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPresentationControllerDelegate{
+final class Settings_Backup_View_Controller: UITableViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver, UIPopoverPresentationControllerDelegate{
     
     @IBOutlet weak var backToiClkoudLabel: UILabel!
     @IBOutlet var backupTableView: UITableView!
@@ -55,6 +55,7 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         NotificationCenter.default.addObserver(self, selector: #selector(myResetMethod(notification:)), name: NSNotification.Name(rawValue: "deleteOldValues"), object: nil)
         
         productID = universalValue().coachAssistantProID
+        SKPaymentQueue.default().add(self)
         // check is icloud conatiner exsiss on user icloud account
 
         backupUpDateCheck()
@@ -689,64 +690,79 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
     
    
     
-    // -------------------------------------------------------- swifty store kit stuffss ------------------------------------------------------
-    func productRetrieve(){
+    // MARK: - SKProductRequest Delegate
+    
+    func buyProduct(product: SKProduct) {
+        print("Sending the Payment Request to Apple");
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.default().add(payment);
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         
-        SwiftyStoreKit.retrieveProductsInfo([productID]) { result in
-            if let product = result.retrievedProducts.first {
-                let priceString = product.localizedPrice!
-                print("Product: \(product.localizedDescription), price: \(priceString)")
+        print(response.products)
+        let count : Int = response.products.count
+        if (count>0) {
+            
+            let validProduct: SKProduct = response.products[0] as SKProduct
+            if (validProduct.productIdentifier == self.productID! as String) {
+                print(validProduct.localizedTitle)
+                print(validProduct.localizedDescription)
+                print(validProduct.price)
+                self.buyProduct(product: validProduct)
+            } else {
+                print(validProduct.productIdentifier)
             }
-            else if let invalidProductId = result.invalidProductIDs.first {
-                print("Invalid product identifier: \(invalidProductId)")
-            }
-            else {
-                print("Error: \(String(describing: result.error))")
-                self.purchaseErrorAlert(alertMsg: "An upgrade cannot be found an unknown error occured. Please contact support.")
+        } else {
+            fatalErrorAlert("Could not locate products, please contact support")
+            print("nothing")
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction:AnyObject in transactions {
+            if let trans:SKPaymentTransaction = transaction as? SKPaymentTransaction{
+                
+                
+                switch trans.transactionState {
+                case .purchased:
+                    print("Product Purchased")
+                    //Do unlocking etc stuff here in case of new purchase
+                    UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
+                    break;
+                case .failed:
+                    print("Purchased Failed");
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
+                    fatalErrorAlert("Failed to request product from Apple, please contact support")
+                    break;
+                case .restored:
+                    print("Already Purchased")
+                    UserDefaults.standard.set(true, forKey: "userPurchaseConf")
+                    self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.view.viewWithTag(200)?.removeFromSuperview()
+                    restoreConfAlert()
+                    //Do unlocking etc stuff here in case of restor
+                    
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                default:
+                    
+                    break;
+                }
             }
         }
     }
     
-    func productPurchase(){
-        
-        SwiftyStoreKit.purchaseProduct(productID, quantity: 1, atomically: true) { result in
-            switch result {
-            case .success(let purchase):
-                print("Purchase Success: \(purchase.productId)")
-                UserDefaults.standard.set(true, forKey: "userPurchaseConf")
-                self.reloadAppAlert()
-                
-            case .error(let error):
-                switch error.code {
-                case .unknown:
-                    print("Unknown error. Please contact support")
-                    self.purchaseErrorAlert(alertMsg: "Unknown error. Please contact support")
-                case .clientInvalid:
-                    print("Not allowed to make the payment")
-                case .paymentCancelled:
-                    break
-                case .paymentInvalid:
-                    print("The purchase identifier was invalid")
-                case .paymentNotAllowed:
-                    print("The device is not allowed to make the payment")
-                    self.purchaseErrorAlert(alertMsg: "The device is not allowed to make the payment")
-                case .storeProductNotAvailable:
-                    print("The product is not available in the current storefront")
-                    self.purchaseErrorAlert(alertMsg: "The product is not available in the current storefront")
-                case .cloudServicePermissionDenied:
-                    print("Access to cloud service information is not allowed")
-                case .cloudServiceNetworkConnectionFailed:
-                    print("Could not connect to the network")
-                    self.purchaseErrorAlert(alertMsg: "Could not connect to the network, please make sure your are connected to the internet")
-                case .cloudServiceRevoked:
-                    print("User has revoked permission to use this cloud service")
-                    self.purchaseErrorAlert(alertMsg: "Please update your account premisions or call Apple for furthur assitance regarding your cloud premissions")
-                default:
-                    print((error as NSError).localizedDescription)
-                }
-            }
-        }
-        
+    
+    //If an error occurs, the code will go to this function
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        // Show some alert
+        print("Fata storkit error: \(error)")
+        fatalErrorAlert("Failed to restore product from Apple, please contact support")
     }
     // -------------------- convert realm to csv --------------------------------
     // creats csv file for  team info table
@@ -1347,7 +1363,15 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
     
     // --------------------------------------------------------------------------------------------------------------------------------
     // ----------------------------------------------- popup alerts -------------------------------------------------------------------
-   
+    func restoreConfAlert(){
+        // create the alert
+        let alreadyProAlert = UIAlertController(title: localizedString().localized(value:"Already a Pro!"), message: localizedString().localized(value:"We have restored your Coach Assistant: Ice Hockey 'Pro' Membership, thank you again for your previous purchase :)"), preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        alreadyProAlert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(alreadyProAlert, animated: true, completion: nil)
+        
+    }
     
     func confirmationLocalAlert(){
         
@@ -1469,8 +1493,18 @@ final class Settings_Backup_View_Controller: UITableViewController, UIPopoverPre
         notPro.addAction(UIAlertAction(title: localizedString().localized(value:"No Thanks"), style: UIAlertAction.Style.default, handler: nil))
         // add an action (button)
         notPro.addAction(UIAlertAction(title: localizedString().localized(value:"Upgrade Now!"), style: UIAlertAction.Style.destructive, handler: { action in
-            self.productRetrieve()
-            self.productPurchase()
+            if (SKPaymentQueue.canMakePayments()) {
+                let productID:NSSet = NSSet(array: [self.productID! as NSString]);
+                let productsRequest:SKProductsRequest = SKProductsRequest(productIdentifiers: productID as! Set<String>);
+                productsRequest.delegate = self;
+                productsRequest.start();
+                print("Fetching Products");
+            } else {
+                print("can't make purchases");
+                self.fatalErrorAlert("Failed to make purchase, please make sure you can make purchases in the App Store before continuing. If problem persits please contact support")
+                self.view.viewWithTag(100)?.removeFromSuperview()
+                self.view.viewWithTag(200)?.removeFromSuperview()
+            }
         }))
         // show the alert
         self.present(notPro, animated: true, completion: nil)
